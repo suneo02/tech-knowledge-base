@@ -19,7 +19,7 @@ Performance & Visualization
 - Visualization: `./visualization/README.md`
 
 Tooling
-- Bundlers & Modules: `./tooling/modules-and-bundling/README.md`
+- Bundlers & Modules: `./tooling/bundlers-and-modules.md`
 - Testing: `./tooling/testing/README.md`
 
 Scenarios & Resources
