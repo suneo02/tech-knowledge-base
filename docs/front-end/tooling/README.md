@@ -8,7 +8,6 @@
 
 - **[Webpack 详解](./webpack.md)** - 配置、构建流程、性能优化
 - **[Vite 核心概念](./vite.md)** - 为什么快、核心特性、配置示例
-- **[构建工具对比](./bundlers-and-modules.md)** - Webpack vs Vite vs Rollup
 
 ### 包管理器（Package Managers）
 
@@ -26,18 +25,22 @@
 
 ### 模块化与打包（Modules & Bundling）
 
-- **[模块化概览](./modules-and-bundling/README.md)** - 模块规范、打包工具入口
-- **[模块系统](./modules-and-bundling/module-systems.md)** - CommonJS、ES Modules
-- **[Webpack 基础](./modules-and-bundling/webpack/README.md)** - Webpack 核心概念
-- **[Webpack 插件](./modules-and-bundling/webpack/plugins.md)** - 常用插件实践
+- **[模块化与打包概览](./modules-and-bundling/README.md)** - 模块规范与 Webpack 核心概念
+  - [模块系统](./modules-and-bundling/module-systems.md) - CommonJS、ES Modules、循环引用
+  - [Webpack 基础](./modules-and-bundling/webpack/README.md) - 核心概念、打包流程
+  - [Webpack 插件](./modules-and-bundling/webpack/plugins.md) - 常用插件配置实践
 
 ### 测试工具（Testing）
 
-- **[测试工具](./testing/README.md)** - 单元测试、集成测试、E2E 测试
+- **[前端测试工具](./testing/README.md)** - 测试框架、工具链、最佳实践
+  - Jest、Vitest、Mocha 等单元测试框架
+  - React Testing Library、Vue Test Utils 组件测试
+  - Cypress、Playwright、Puppeteer E2E 测试
+  - 测试最佳实践与 CI/CD 集成
 
-### 资源与工具（Resources）
+### 外部资源（Resources）
 
-- **[工具链资源](./resources.md)** - 工具链相关资源汇总
+- **[工具链资源汇总](./resources.md)** - 官方文档、学习教程、工具插件
 
 ## 学习路径
 
@@ -202,20 +205,21 @@
 
 ## 延伸阅读
 
-### 相关文档
+### 相关内部文档
 
-- [前端架构总览](../architecture.md)
-- [性能优化](../performance/README.md)
-- [测试工具](./testing/README.md)
-- [框架对比](../frameworks/comparisons.md)
+- [前端架构总览](../architecture.md) - 前端技术架构设计
+- [性能优化](../performance/README.md) - 前端性能优化策略
+- [框架对比](../frameworks/comparisons.md) - React、Vue、Angular 对比
+- [前端安全](../foundations/security/) - XSS、CSRF、CSP 等安全主题
 
 ### 外部资源
 
-- [Webpack 官方文档](https://webpack.js.org/)
-- [Vite 官方文档](https://vitejs.dev/)
-- [Babel 官方文档](https://babeljs.io/)
-- [ESLint 官方文档](https://eslint.org/)
-- [PostCSS 官方文档](https://postcss.org/)
+更多学习资源请查看 **[工具链资源汇总](./resources.md)**，包含：
+
+- 官方文档（Webpack、Vite、Babel、ESLint 等）
+- 学习教程与博客文章
+- 工具与插件推荐
+- 开源项目参考
 
 ---
 
