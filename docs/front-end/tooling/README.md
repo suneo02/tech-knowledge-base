@@ -9,6 +9,10 @@
 - **[Webpack 详解](./webpack.md)** - 配置、构建流程、性能优化
 - **[Vite 核心概念](./vite.md)** - 为什么快、核心特性、配置示例
 
+### 模块系统（Module Systems）
+
+- **[模块规范与系统](./module-systems.md)** - CommonJS、ES Modules、循环引用、动态导入
+
 ### 包管理器（Package Managers）
 
 - **[包管理器对比](./package-managers.md)** - npm、yarn、pnpm 的原理与使用
@@ -22,12 +26,6 @@
 ### 样式工程化（CSS Engineering）
 
 - **[CSS 工程化](./css-engineering.md)** - 预处理器、PostCSS、CSS Modules、CSS-in-JS
-
-### 模块化与打包（Modules & Bundling）
-
-- **[模块化与打包概览](./modules-and-bundling/README.md)** - 模块规范与 Webpack 核心概念
-  - [模块系统](./modules-and-bundling/module-systems.md) - CommonJS、ES Modules、循环引用
-  - [Webpack 详解](./webpack.md) - 核心概念、配置、打包流程、常用插件与性能优化
 
 ### 测试工具（Testing）
 
@@ -47,7 +45,7 @@
 
 1. **基础概念**
    - 了解前端工程化的必要性
-   - 学习模块化规范（CommonJS、ES Modules）
+   - 学习[模块化规范](./module-systems.md)（CommonJS、ES Modules）
    - 理解包管理器的作用
 
 2. **包管理器**
@@ -122,6 +120,15 @@
 | 工具选型 | [monorepo.md](./monorepo.md#monorepo-工具对比) | Lerna、Turborepo、Nx、Rush |
 | 最佳实践 | [monorepo.md](./monorepo.md#monorepo-最佳实践) | 目录结构、依赖管理等 |
 
+### 模块系统相关
+
+| 主题 | 文档 | 说明 |
+|------|------|------|
+| CommonJS 规范 | [module-systems.md](./module-systems.md#commonjs-规范) | module.exports、require |
+| ES Modules | [module-systems.md](./module-systems.md#es6-module-与-commonjs-的区别) | import/export、差异对比 |
+| 循环引用 | [module-systems.md](./module-systems.md#循环引用commonjs-vs-esm) | CommonJS vs ESM 处理方式 |
+| 动态导入 | [module-systems.md](./module-systems.md#动态-import) | 动态 import 语法 |
+
 ### 包管理器相关
 
 | 主题 | 文档 | 说明 |
@@ -177,6 +184,12 @@
 ### Vite
 
 - [Vite 比 Webpack 快在哪里？](./vite.md#vite-比-webpack-快的原因)
+
+### 模块系统
+
+- [CommonJS 和 ES Module 的区别？](./module-systems.md#es6-module-与-commonjs-的区别)
+- [循环依赖如何处理？](./module-systems.md#循环引用commonjs-vs-esm)
+- [为什么 ES Module 可以做 Tree Shaking？](./module-systems.md#es6-module-与-commonjs-的区别)
 
 ### Monorepo
 

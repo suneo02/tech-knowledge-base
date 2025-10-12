@@ -294,7 +294,7 @@ export default defineConfig({
 ## 延伸阅读
 
 - [Webpack 详解](./webpack.md)
-- [构建工具对比](./bundlers-and-modules.md)
+- [模块规范与系统](./module-systems.md)
 - [Vite 官方文档](https://vitejs.dev/)
-- [Rollup 配置](./resources.md)
+- [构建工具资源](./resources.md)
 

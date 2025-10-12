@@ -676,6 +676,6 @@ module.exports = {
 ## 延伸阅读
 
 - [Vite vs Webpack](./vite.md)
-- [模块化与打包概览](./modules-and-bundling/README.md)
+- [模块规范与系统](./module-systems.md)
 - [构建工具资源](./resources.md)
 
