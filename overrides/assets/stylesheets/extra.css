@@ -1,4 +1,18 @@
-/* External link preview card styles */
+/* ========================================
+   自定义样式优化
+   ======================================== */
+
+/* 侧边导航宽度优化 - 仅在必要时调整 */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary {
+    width: 15rem; /* 从默认 12.1rem 适度增加 */
+  }
+}
+
+/* ========================================
+   原有样式：External link preview card
+   ======================================== */
+
 .link-preview-card {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
