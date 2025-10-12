@@ -10,8 +10,7 @@
 
 ### Webpack
 
-- **[Webpack 基础](./webpack/README.md)** - 核心概念、打包流程
-- **[Webpack 常见插件](./webpack/plugins.md)** - 常用插件配置与实践
+- **[Webpack 详解](../webpack.md)** - 核心概念、配置、打包流程、常用插件与性能优化
 
 ### 延伸阅读
 
@@ -75,9 +74,9 @@
 
 | 主题 | 文档 | 说明 |
 |------|------|------|
-| 基础概念 | [webpack/README.md](./webpack/README.md#module--chunk--bundle-的区别) | module、chunk、bundle |
-| 打包流程 | [webpack/README.md](./webpack/README.md#打包流程概览) | 初始化、编译、输出 |
-| 常用插件 | [webpack/plugins.md](./webpack/plugins.md) | 8 个常用插件配置 |
+| 基础概念 | [../webpack.md](../webpack.md#module--chunk--bundle-的区别) | module、chunk、bundle |
+| 打包流程 | [../webpack.md](../webpack.md#webpack-构建流程) | 初始化、编译、输出 |
+| 常用插件 | [../webpack.md](../webpack.md#常见插件详细配置) | 8 个常用插件配置 |
 
 ### 完整配置参考
 
@@ -96,9 +95,9 @@
 
 ### Webpack
 
-- [module、chunk、bundle 的区别？](./webpack/README.md#module--chunk--bundle-的区别)
-- [Webpack 的构建流程是什么？](./webpack/README.md#打包流程概览)
-- [常见的 Webpack 插件有哪些？](./webpack/plugins.md)
+- [module、chunk、bundle 的区别？](../webpack.md#module--chunk--bundle-的区别)
+- [Webpack 的构建流程是什么？](../webpack.md#webpack-构建流程)
+- [常见的 Webpack 插件有哪些？](../webpack.md#常见插件详细配置)
 
 更多面试题请查看 [Webpack 详解](../webpack.md) 中的完整问答。
 

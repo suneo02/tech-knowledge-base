@@ -173,6 +173,235 @@ Plugin 是一个插件，用于增强 webpack 功能。webpack 在运行的生�
 - **UglifyJsWebpackPlugin**：压缩 JavaScript 代码
 - **HotModuleReplacementPlugin**：热模块替换，用于在开发环境下实现热更新
 - **BundleAnalyzerPlugin**：分析打包后的文件大小和依赖关系
+- **ImageminPlugin**：构建时批量压缩图片
+- **ProvidePlugin**：自动为模块注入变量，无需手动 import
+- **CopyPlugin**：复制文件/目录到输出路径
+- **PurifyCSSPlugin**：分析模板引用，去除未使用的 CSS
+
+#### 常见插件详细配置
+
+##### 1. HtmlWebpackPlugin - HTML 文件生成
+
+背景：多入口场景下，产物文件名含 `[hash]`，手动维护 HTML 引用困难。
+
+安装：
+
+```bash
+npm install --save-dev html-webpack-plugin
+```
+
+配置示例：
+
+```javascript
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Hello Webpack',
+      template: './src/index.html',
+      filename: 'index.html',
+      favicon: './src/favicon.ico',
+      hash: true,
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true,
+        removeAttributeQuotes: true,
+        removeComments: true,
+      },
+      cache: true,
+      showErrors: true,
+      chunks: ['index'],
+    }),
+  ],
+};
+```
+
+##### 2. ImageminPlugin - 图片压缩
+
+背景：图片体积过大影响加载与存储。
+
+安装：
+
+```bash
+npm install --save-dev imagemin-webpack-plugin
+```
+
+配置示例：
+
+```javascript
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+
+module.exports = {
+  plugins: [
+    new ImageminPlugin({
+      disable: process.env.NODE_ENV !== 'production',
+      pngquant: { quality: '95-100' },
+    }),
+  ],
+};
+```
+
+##### 3. CleanWebpackPlugin - 清理产物目录
+
+背景：每次打包前需要清空输出目录。
+
+安装：
+
+```bash
+npm install --save-dev clean-webpack-plugin
+```
+
+配置示例：
+
+```javascript
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+module.exports = {
+  plugins: [new CleanWebpackPlugin()],
+};
+```
+
+##### 4. ProvidePlugin - 全局变量提供（内置）
+
+背景：在多个模块中重复 import 全局库麻烦。
+
+配置示例：
+
+```javascript
+const webpack = require('webpack');
+
+module.exports = {
+  plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      React: 'react',
+      ReactDOM: 'react-dom',
+      Component: ['react', 'Component'],
+    }),
+  ],
+};
+```
+
+##### 5. SplitChunksPlugin - 公共代码抽取（内置）
+
+背景：第三方库与公共模块在多入口/多页面场景重复打包。
+
+配置示例：
+
+```javascript
+module.exports = {
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          chunks: 'all',
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          minChunks: 1,
+          maxInitialRequests: 5,
+          minSize: 0,
+          priority: 100,
+        },
+        common: {
+          chunks: 'all',
+          test: /[\\/]src[\\/]js[\\/]/,
+          name: 'common',
+          minChunks: 2,
+          maxInitialRequests: 5,
+          minSize: 0,
+          priority: 1,
+        },
+      },
+    },
+    // 提取 runtime，提升长效缓存
+    runtimeChunk: { name: 'manifest' },
+  },
+};
+```
+
+##### 6. MiniCssExtractPlugin - 提取 CSS（生产推荐）
+
+背景：将 CSS 打包进 JS 不利于缓存与首屏。
+
+安装：
+
+```bash
+npm install --save-dev mini-css-extract-plugin
+```
+
+配置示例：
+
+```javascript
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+    ],
+  },
+  plugins: [new MiniCssExtractPlugin()],
+};
+```
+
+注意：开发模式下不建议使用（不支持 HMR）。
+
+##### 7. PurifyCSSPlugin - CSS 摇树/去冗余
+
+背景：样式冗余。
+
+安装：
+
+```bash
+npm install --save-dev purifycss-webpack glob
+```
+
+配置示例：
+
+```javascript
+const PurifyCSS = require('purifycss-webpack');
+const glob = require('glob');
+const path = require('path');
+
+module.exports = {
+  plugins: [
+    new PurifyCSS({ paths: glob.sync(path.resolve('./src/*.html')) }),
+  ],
+};
+```
+
+提示：通常按顺序处理「HTML 生成 → CSS 提取 → CSS 摇树」。
+
+##### 8. CopyPlugin - 复制静态资源
+
+背景：将图片/字体等静态资源拷贝到产物目录。
+
+安装：
+
+```bash
+npm install --save-dev copy-webpack-plugin
+```
+
+配置示例：
+
+```javascript
+const CopyPlugin = require('copy-webpack-plugin');
+
+module.exports = {
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: 'public', to: 'dist' },
+        { from: 'other/xx.js', to: 'dist' },
+      ],
+    }),
+  ],
+};
+```
 
 ### Loader 和 Plugin 的区别
 
@@ -186,39 +415,72 @@ Plugin 是一个插件，用于增强 webpack 功能。webpack 在运行的生�
 - Loader 的配置是在 `module.rules` 下进行。类型为数组，每一项都是一个 Object，里面描述了对于什么类型的文件（test），使用什么加载（loader）和使用的参数（options）
 - Plugin 的配置在 `plugins` 下。类型为数组，每一项是一个 Plugin 的实例，参数都通过构造函数传入
 
+## Module / Chunk / Bundle 的区别
+
+参考：
+
+- https://www.cnblogs.com/skychx/p/webpack-module-chunk-bundle.html
+- https://blog.csdn.net/Jasonslw/article/details/124028176
+
+简述：同一份逻辑代码在不同阶段的称谓不同：
+
+- 我们直接编写的是 module
+- Webpack 处理过程中形成 chunk
+- 最终生成浏览器可直接运行的 bundle
+
+![](../assets/web-module-untitled.png)
+
 ## Webpack 构建流程
 
-Webpack 的构建流程主要包括以下几个步骤：
+Webpack 的运行流程呈串行执行：
 
-### 1. 初始化参数
+### 概览
+
+1. **初始化**：读取与合并配置参数，加载 Plugin，实例化 Compiler
+2. **编译**：从 Entry 出发，按 Loader 翻译每个 Module，解析依赖并递归处理
+3. **输出**：把编译后的 Module 组合成 Chunk，转换为文件输出到文件系统
+
+监听模式下的流程：
+
+![](../assets/web-module-9B823AC99AF889118D34D0CB72E7A28E.png)
+
+### 详细步骤
+
+#### 1. 初始化参数
 
 解析 Webpack 配置参数，合并 Shell 传入和 webpack.config.js 文件配置的参数，形成最终的配置结果。
 
-### 2. 开始编译
+#### 2. 开始编译
 
 使用上一次得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 Webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。
 
-### 3. 确定入口
+#### 3. 确定入口
 
 从配置的 entry 入口，开始解析文件构建 AST 语法树，找出依赖，递归下去。
 
-### 4. 编译模块
+#### 4. 编译模块
 
 递归中根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理。
 
-### 5. 完成模块编译
+#### 5. 完成模块编译
 
 在经过第四步使用 Loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系。
 
-### 6. 输出资源
+#### 6. 输出资源
 
 根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个 Chunk 转换成单独的文件加入到输出列表，这步是可以修改输出内容的最后机会。
 
-### 7. 输出完成
+#### 7. 输出完成
 
 在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。
 
-**特点：**
+### 关键阶段要点
+
+- **初始化**：合并 CLI/配置参数 → 实例化 Compiler → 加载插件 → 处理入口
+- **编译期常见钩子**：`before-run`、`run`、`watch-run`、`compile`、`compilation`、`make`、`after-compile`、`invalid`
+- **Compilation 过程**：使用 Loader 转换模块、生成 AST、收集依赖、优化、封装为 Chunk、生成产物文件
+
+### 特点
 
 这个流程是一个串行的过程，Webpack 的运行流程是一个串行的过程，它的工作流程就是将各个插件串联起来。在运行过程中会广播事件，插件只需要监听它所关心的事件，就能加入到这条 Webpack 机制中，去改变 Webpack 的运作，使得整个系统扩展性良好。
 
@@ -414,7 +676,6 @@ module.exports = {
 ## 延伸阅读
 
 - [Vite vs Webpack](./vite.md)
-- [Webpack 插件开发](./webpack/plugins.md)
-- [模块化与打包概览](./bundlers-and-modules.md)
+- [模块化与打包概览](./modules-and-bundling/README.md)
 - [构建工具资源](./resources.md)
 

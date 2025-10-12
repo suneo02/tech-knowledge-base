@@ -27,8 +27,7 @@
 
 - **[模块化与打包概览](./modules-and-bundling/README.md)** - 模块规范与 Webpack 核心概念
   - [模块系统](./modules-and-bundling/module-systems.md) - CommonJS、ES Modules、循环引用
-  - [Webpack 基础](./modules-and-bundling/webpack/README.md) - 核心概念、打包流程
-  - [Webpack 插件](./modules-and-bundling/webpack/plugins.md) - 常用插件配置实践
+  - [Webpack 详解](./webpack.md) - 核心概念、配置、打包流程、常用插件与性能优化
 
 ### 测试工具（Testing）
 
