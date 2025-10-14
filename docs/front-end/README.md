@@ -54,7 +54,7 @@ graph TD
 
 主流前端框架的深入理解和实践经验。
 
-- **[React](frameworks/react/)** - React 生态系统完整指南（Hooks、状态管理、性能优化）
+- **[React](frameworks/react.md)** - React 完整学习指南（特性、Hooks、Fiber 架构、状态管理、性能优化）
 - **[Vue](frameworks/vue/)** - Vue.js 深入理解（响应式原理、组合式 API、Vue 3）
 - **[Vitest](frameworks/vitest/)** - 现代化测试框架
 - **[框架对比](frameworks/comparisons.md)** - React vs Vue vs Angular 技术选型参考
@@ -88,20 +88,27 @@ graph TD
 
 ### 业务场景 (Scenarios)
 
-常见前端业务场景的解决方案和最佳实践。
+前端面试高频场景题，按场景分类组织，注重思路和原理。
 
-- **[认证与加载](scenarios/auth-and-loading.md)** - 用户认证、登录态管理、页面加载优化
-- **[页面导航](scenarios/page-navigation.md)** - 路由管理、页面跳转、导航守卫
-- **[输入监听](scenarios/input-change-listening.md)** - 表单处理、防抖节流、实时校验
-- **[下拉刷新与无限滚动](scenarios/pull-to-refresh-and-infinite-scroll.md)** - 移动端交互模式
-- **[二维码登录](scenarios/qr-code-login.md)** - 扫码登录实现方案
-- **[资源预加载](scenarios/resource-preloading.md)** - 预加载、预连接、懒加载策略
+- **[场景题完整索引](scenarios/README.md)** - 导航、题目列表、使用指南、学习建议
+
+**核心场景**：
+- **[认证与会话](scenarios/auth-and-session.md)** - Cookie/Session、Token、JWT、SSO、OAuth、扫码登录
+- **[页面交互](scenarios/page-interaction.md)** - 路由导航、下拉刷新、无限滚动、输入监听、适配、换肤
+- **[性能优化](scenarios/performance-optimization.md)** - QPS处理、并发控制、资源预加载、代码分割、虚拟列表
+
+**专题场景**：
+- **[网络与通信](scenarios/network-communication.md)** - DNS、SSE、WebSocket、通信协议选型
+- **[系统设计](scenarios/system-design.md)** - 前端截图、弹窗组件、前端水印、大文件上传
+- **[工程化与调试](scenarios/engineering-and-debugging.md)** - 前后端联调、线上调试、移动端适配
+- **[AI 相关](scenarios/ai-related.md)** - Agent 服务、通信方式、上下文管理
+- **[手撕代码](scenarios/coding-challenges.md)** - 算法题、编程题
+
+**补充场景**：
+- **[用户体验优化](scenarios/user-experience-optimization.md)** - 感知性能、交互反馈、无障碍设计
 - **[国际化](scenarios/internationalization-language-switching.md)** - i18n 多语言切换方案
-- **[数据展示优化](scenarios/data-display-optimization.md)** - 大数据量渲染、虚拟滚动
-- **[用户体验优化](scenarios/user-experience-optimization.md)** - 交互反馈、加载状态、错误处理
-- **[代码扫描设计](scenarios/static-code-scanning-design.md)** - 静态代码分析、规范检查
-- **[样式规范化](scenarios/style-guidelines-standardization.md)** - 样式编写规范与最佳实践
-- **[面试题集锦](scenarios/interview-questions.md)** - 前端面试高频场景题汇总
+- **[样式规范化](scenarios/style-guidelines-standardization.md)** - BEM 命名、CSS 架构、主题管理
+- **[代码扫描设计](scenarios/static-code-scanning-design.md)** - ESLint、Prettier、CI 门禁
 
 ### 学习资源 (Resources)
 
@@ -132,7 +139,7 @@ graph LR
 3. [安全实践](foundations/security/) - 了解常见安全问题和防护
 
 **阶段 2：框架选择（二选一）**
-- 选择 [React](frameworks/react/) 或 [Vue](frameworks/vue/)（根据项目需求）
+- 选择 [React](frameworks/react.md) 或 [Vue](frameworks/vue/)（根据项目需求）
 - 学习相应的状态管理和路由方案
 
 **阶段 3：工程化实践（进阶）**
@@ -165,7 +172,7 @@ docs/front-end/
     network.md                 # 网络基础
     security/                  # 安全实践
   frameworks/                  # 框架与库
-    react/                     # React 生态
+    react.md                   # React 完整学习指南
     vue/                       # Vue 生态
     vitest/                    # 测试框架
     comparisons.md             # 框架对比
@@ -202,7 +209,7 @@ docs/front-end/
 - **浏览器相关**：[浏览器原理](foundations/browser.md) | [性能优化](performance/)
 - **网络相关**：[网络基础](foundations/network.md) | [深入网络协议](../network/)
 - **安全相关**：[Web 安全](foundations/security/)
-- **React 相关**：[React 指南](frameworks/react/)
+- **React 相关**：[React 指南](frameworks/react.md)
 - **Vue 相关**：[Vue 指南](frameworks/vue/)
 - **构建工具**：[Webpack](tooling/webpack.md) | [Vite](tooling/vite.md)
 - **测试相关**：[测试实践](tooling/testing/)
@@ -210,7 +217,7 @@ docs/front-end/
 
 ### 按技术栈查找
 
-- **React 技术栈**：[React](frameworks/react/) → [Webpack](tooling/webpack.md)/[Vite](tooling/vite.md) → [测试](tooling/testing/)
+- **React 技术栈**：[React](frameworks/react.md) → [Webpack](tooling/webpack.md)/[Vite](tooling/vite.md) → [测试](tooling/testing/)
 - **Vue 技术栈**：[Vue](frameworks/vue/) → [Vite](tooling/vite.md) → [测试](tooling/testing/)
 
 ---
