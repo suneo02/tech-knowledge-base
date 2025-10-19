@@ -1,6 +1,6 @@
 # Monorepo 架构与实践
 
-## 概述
+## 概述 {#概述}
 
 Monorepo（单一仓库）是一种项目代码管理方式，指在单个仓库中管理多个项目，有助于简化代码共享、版本控制、构建和部署等方面的复杂性，并提供更好的可重用性和协作性。Monorepo 提倡了开放、透明、共享的组织文化，这种方法已经被很多大型公司广泛使用，如 Google、Facebook 和 Microsoft 等。
 
@@ -17,7 +17,7 @@ Monorepo（单一仓库）是一种项目代码管理方式，指在单个仓库
 | **工程配置** | ❌ 各项目构建、打包、代码校验都各自维护，不一致时会导致代码差异或构建差异 | ✅ 多项目在一个仓库，工程配置一致，代码质量标准及风格也很容易一致 |
 | **构建部署** | ❌ 多个项目间存在依赖，部署时需要手动到不同的仓库根据先后顺序去修改版本及进行部署，操作繁琐效率低 | ✅ 构建性 Monorepo 工具可以配置依赖项目的构建优先级，可以实现一次命令完成所有的部署 |
 
-## Monorepo 工具对比
+## Monorepo 工具对比 {#monorepo-工具对比}
 
 ### 主流工具特性对比
 
@@ -241,7 +241,7 @@ nx affected:test
 - 需要严格的版本策略
 - 需要完善的权限控制
 
-## Monorepo 最佳实践
+## Monorepo 最佳实践 {#monorepo-最佳实践}
 
 ### 1. 目录结构
 
@@ -421,4 +421,3 @@ shamefully-hoist=true
 - [Nx 和 Turborepo 对比](https://nx.dev/more-concepts/turbo-and-nx)
 - [Lerna vs Turbopack vs Rush](https://byteofdev.com/posts/lerna-vs-turbopack-rush)
 - [Monorepo 工具比较](https://monorepo.tools/)
-

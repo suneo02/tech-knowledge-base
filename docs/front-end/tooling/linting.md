@@ -19,7 +19,7 @@ ESLint 是一个开源的 JavaScript 代码检查工具，由 Nicholas C. Zakas 
 - 插件化架构
 - 自动修复能力
 
-## ESLint 工作原理
+## ESLint 工作原理 {#eslint-工作原理}
 
 ### 基本架构
 
@@ -282,7 +282,7 @@ var x = 1;
 
 不过这样的循环最多修复 10 次，如果还有 linting problems 没修复就不修了。
 
-## ESLint 配置
+## ESLint 配置 {#eslint-配置}
 
 ### 配置文件
 
@@ -527,7 +527,7 @@ const b = 1; // eslint-disable-line no-unused-vars
 }
 ```
 
-## ESLint 与 Prettier 集成
+## ESLint 与 Prettier 集成 {#eslint-与-prettier-集成}
 
 ### 安装依赖
 
@@ -640,7 +640,7 @@ npm install -D husky lint-staged
 }
 ```
 
-## 自定义规则
+## 自定义规则 {#自定义规则}
 
 ### 创建自定义规则
 
@@ -743,4 +743,3 @@ npm update eslint eslint-plugin-vue
 - [ESLint 官方文档](https://eslint.org/)
 - [TypeScript ESLint](https://typescript-eslint.io/)
 - [Vue ESLint Plugin](https://eslint.vuejs.org/)
-

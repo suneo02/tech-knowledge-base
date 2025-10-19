@@ -23,7 +23,7 @@
 
 ---
 
-## React 特性概览
+## React 特性概览 {#react-特性概览}
 
 ### 核心特性表格
 
@@ -54,7 +54,7 @@ graph TD
 
 ---
 
-## 虚拟 DOM 与 Diff 算法
+## 虚拟 DOM 与 Diff 算法 {#虚拟-dom-与-diff-算法}
 
 ### 真实 DOM 与虚拟 DOM 对比
 
@@ -126,7 +126,7 @@ const vDom = React.createElement(
 
 ---
 
-## 组件基础
+## 组件基础 {#组件基础}
 
 ### 组件类型对比
 
@@ -179,7 +179,7 @@ graph TD
 
 ---
 
-## React Hooks
+## React Hooks {#react-hooks}
 
 ### Hooks 概览
 
@@ -319,7 +319,7 @@ sequenceDiagram
 
 ---
 
-## 组件生命周期
+## 组件生命周期 {#组件生命周期}
 
 ### 生命周期阶段概览
 
@@ -368,7 +368,7 @@ graph LR
 
 ---
 
-## 事件系统
+## 事件系统 {#事件系统}
 
 ### 事件架构
 
@@ -427,7 +427,7 @@ graph TD
 
 ---
 
-## React 内部架构
+## React 内部架构 {#react-内部架构}
 
 ### React 渲染管道
 
@@ -454,7 +454,7 @@ graph TD
 
 ---
 
-## Fiber 架构
+## Fiber 架构 {#fiber-架构}
 
 ### 什么是 Fiber?
 
@@ -523,7 +523,7 @@ sequenceDiagram
 
 ---
 
-## 高级组件模式
+## 高级组件模式 {#高级组件模式}
 
 ### 高阶组件 (HOC)
 
@@ -606,7 +606,7 @@ Tabs.Tab = function Tab({ label, children, activeTab, setActiveTab }) {
 
 ---
 
-## 性能优化
+## 性能优化 {#性能优化}
 
 ### 性能优化技术
 
@@ -677,7 +677,7 @@ graph TD
 
 ---
 
-## 错误处理与边界
+## 错误处理与边界 {#错误处理与边界}
 
 ### 错误边界能力
 
@@ -754,7 +754,7 @@ class ErrorBoundary extends React.Component {
 
 ---
 
-## 动画与过渡
+## 动画与过渡 {#动画与过渡}
 
 ### 动画库对比
 
@@ -804,7 +804,7 @@ stateDiagram-v2
 
 ---
 
-## 组件通信
+## 组件通信 {#组件通信}
 
 ### 通信模式概览
 
@@ -840,7 +840,7 @@ graph TD
 
 ---
 
-## 状态管理
+## 状态管理 {#状态管理}
 
 ### Context API
 
@@ -929,7 +929,7 @@ flowchart TD
 
 ---
 
-## React Router
+## React Router {#react-router}
 
 ### 路由类型对比
 
@@ -980,7 +980,7 @@ graph TD
 
 ---
 
-## 参考资源
+## 参考资源 {#参考资源}
 
 ### 官方文档
 
@@ -1016,4 +1016,3 @@ graph TD
 **最后更新**: 2024-10
 
 *本文档遵循"大型、结构良好的文档"原则,提供更好的学习体验并减少碎片化。*
-

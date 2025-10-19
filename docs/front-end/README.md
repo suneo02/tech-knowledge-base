@@ -4,15 +4,15 @@
 
 ## 目录
 
-- [知识体系架构](#知识体系架构)
-- [内容导航](#内容导航)
-- [推荐学习路径](#推荐学习路径)
-- [文档结构说明](#文档结构说明)
-- [快速链接](#快速链接)
+- [知识体系架构](#knowledge-architecture)
+- [内容导航](#content-navigation)
+- [推荐学习路径](#recommended-learning-path)
+- [文档结构说明](#documentation-structure)
+- [快速链接](#quick-links)
 
 ---
 
-## 知识体系架构
+## 知识体系架构 {#knowledge-architecture}
 
 前端知识体系采用分层模型组织，从底层浏览器运行时到上层业务场景，形成完整的技术栈：
 
@@ -38,7 +38,7 @@ graph TD
 
 ---
 
-## 📚 内容导航
+## 📚 内容导航 {#content-navigation}
 
 ### 基础知识 (Foundations)
 
@@ -46,24 +46,24 @@ graph TD
 
 - **[浏览器原理](foundations/browser.md)** - 浏览器渲染、事件循环、存储机制、性能优化
 - **[网络基础](foundations/network.md)** - HTTP/HTTPS、WebSocket、CORS 跨域、浏览器并发限制
-- **[安全实践](foundations/security/)** - XSS、CSRF、CSP 等前端安全主题
+- **[安全实践](foundations/security/README.md)** - XSS、CSRF、CSP 等前端安全主题
 
-> **延伸阅读**：深入网络协议层请参考 [计算机网络](../network/computer-networking-a-top-down-approach/)
+> **延伸阅读**：深入网络协议层请参考 [计算机网络](../network/computer-networking-a-top-down-approach/README.md)
 
 ### 框架与库 (Frameworks)
 
 主流前端框架的深入理解和实践经验。
 
 - **[React](frameworks/react.md)** - React 完整学习指南（特性、Hooks、Fiber 架构、状态管理、性能优化）
-- **[Vue](frameworks/vue/)** - Vue.js 深入理解（响应式原理、组合式 API、Vue 3）
-- **[Vitest](frameworks/vitest/)** - 现代化测试框架
+- **[Vue](frameworks/vue/README.md)** - Vue.js 深入理解（响应式原理、组合式 API、Vue 3）
+- **[Vitest](frameworks/vitest/README.md)** - 现代化测试框架
 - **[框架对比](frameworks/comparisons.md)** - React vs Vue vs Angular 技术选型参考
 
 ### 性能优化 (Performance)
 
 前端性能优化策略和最佳实践。
 
-- **[性能优化](performance/)** - 渲染优化、资源加载、缓存策略、性能监控
+- **[性能优化](performance/README.md)** - 渲染优化、资源加载、缓存策略、性能监控
 
 ### 工程化 (Tooling)
 
@@ -75,7 +75,7 @@ graph TD
 - **[模块系统](tooling/module-systems.md)** - CommonJS、ES Modules、模块化最佳实践
 - **[Monorepo](tooling/monorepo.md)** - 多包管理、工作区配置
 - **[包管理器](tooling/package-managers.md)** - npm、yarn、pnpm 对比与选择
-- **[测试](tooling/testing/)** - 单元测试、集成测试、E2E 测试
+- **[测试](tooling/testing/README.md)** - 单元测试、集成测试、E2E 测试
 - **[Vite](tooling/vite.md)** - 下一代前端构建工具
 - **[Webpack](tooling/webpack.md)** - 模块打包器配置与优化
 - **[工具资源](tooling/resources.md)** - 工程化工具汇总
@@ -84,7 +84,7 @@ graph TD
 
 数据可视化和图表库的使用。
 
-- **[可视化](visualization/)** - ECharts、Canvas、SVG、WebGL 等可视化技术
+- **[可视化](visualization/README.md)** - ECharts、Canvas、SVG、WebGL 等可视化技术
 
 ### 业务场景 (Scenarios)
 
@@ -114,11 +114,11 @@ graph TD
 
 外部学习资源和参考文档汇总。
 
-- **[资源清单](resources/)** - 前端学习资源、工具推荐、社区链接
+- **[资源清单](resources/README.md)** - 前端学习资源、工具推荐、社区链接
 
 ---
 
-## 📖 推荐学习路径
+## 📖 推荐学习路径 {#recommended-learning-path}
 
 根据技术栈的依赖关系和学习难度，建议按以下顺序学习：
 
@@ -136,29 +136,29 @@ graph LR
 **阶段 1：基础知识（必修）**
 1. [浏览器原理](foundations/browser.md) - 理解浏览器工作机制
 2. [网络基础](foundations/network.md) - 掌握 HTTP、CORS 等网络知识
-3. [安全实践](foundations/security/) - 了解常见安全问题和防护
+3. [安全实践](foundations/security/README.md) - 了解常见安全问题和防护
 
 **阶段 2：框架选择（二选一）**
-- 选择 [React](frameworks/react.md) 或 [Vue](frameworks/vue/)（根据项目需求）
+- 选择 [React](frameworks/react.md) 或 [Vue](frameworks/vue/README.md)（根据项目需求）
 - 学习相应的状态管理和路由方案
 
 **阶段 3：工程化实践（进阶）**
 1. [模块系统](tooling/module-systems.md) - 理解模块化
 2. [Webpack](tooling/webpack.md) 或 [Vite](tooling/vite.md) - 构建工具
 3. [包管理器](tooling/package-managers.md) - 依赖管理
-4. [测试](tooling/testing/) - 测试驱动开发
+4. [测试](tooling/testing/README.md) - 测试驱动开发
 
 **阶段 4：性能与优化（提升）**
-1. [性能优化](performance/) - 性能分析和优化技巧
-2. [业务场景](scenarios/) - 实际场景解决方案
+1. [性能优化](performance/README.md) - 性能分析和优化技巧
+2. [业务场景](scenarios/README.md) - 实际场景解决方案
 
 **阶段 5：专项技能（可选）**
-- [可视化](visualization/) - 数据可视化需求
+- [可视化](visualization/README.md) - 数据可视化需求
 - 更多业务场景实践
 
 ---
 
-## 文档结构说明
+## 文档结构说明 {#documentation-structure}
 
 本文档集采用以下组织原则：
 
@@ -202,23 +202,23 @@ docs/front-end/
 
 ---
 
-## 快速链接
+## 快速链接 {#quick-links}
 
 ### 按主题查找
 
-- **浏览器相关**：[浏览器原理](foundations/browser.md) | [性能优化](performance/)
-- **网络相关**：[网络基础](foundations/network.md) | [深入网络协议](../network/)
-- **安全相关**：[Web 安全](foundations/security/)
+- **浏览器相关**：[浏览器原理](foundations/browser.md) | [性能优化](performance/README.md)
+- **网络相关**：[网络基础](foundations/network.md) | [深入网络协议](../network/README.md)
+- **安全相关**：[Web 安全](foundations/security/README.md)
 - **React 相关**：[React 指南](frameworks/react.md)
-- **Vue 相关**：[Vue 指南](frameworks/vue/)
+- **Vue 相关**：[Vue 指南](frameworks/vue/README.md)
 - **构建工具**：[Webpack](tooling/webpack.md) | [Vite](tooling/vite.md)
-- **测试相关**：[测试实践](tooling/testing/)
-- **业务场景**：[场景方案](scenarios/)
+- **测试相关**：[测试实践](tooling/testing/README.md)
+- **业务场景**：[场景方案](scenarios/README.md)
 
 ### 按技术栈查找
 
-- **React 技术栈**：[React](frameworks/react.md) → [Webpack](tooling/webpack.md)/[Vite](tooling/vite.md) → [测试](tooling/testing/)
-- **Vue 技术栈**：[Vue](frameworks/vue/) → [Vite](tooling/vite.md) → [测试](tooling/testing/)
+- **React 技术栈**：[React](frameworks/react.md) → [Webpack](tooling/webpack.md)/[Vite](tooling/vite.md) → [测试](tooling/testing/README.md)
+- **Vue 技术栈**：[Vue](frameworks/vue/README.md) → [Vite](tooling/vite.md) → [测试](tooling/testing/README.md)
 
 ---
 
@@ -228,7 +228,7 @@ docs/front-end/
 
 1. 确定合适的目录位置
 2. 使用 kebab-case 命名
-3. 遵循[文档编写规范](../../WRITING_GUIDELINES.md)
+3. 遵循[文档编写规范](../writing-guidelines.md)
 4. 更新本 README 的导航链接
 
 ### 更新现有文档

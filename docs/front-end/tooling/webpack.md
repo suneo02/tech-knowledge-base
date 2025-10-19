@@ -4,7 +4,7 @@
 
 Webpack 是一个现代 JavaScript 应用程序的静态模块打包器。当 webpack 处理应用程序时，它会在内部构建一个依赖关系图，此图会映射项目所需的每个模块，并生成一个或多个 bundle。
 
-## 核心配置项
+## 核心配置项 {#核心配置项}
 
 Webpack 的配置主要包括以下几个部分：
 
@@ -141,7 +141,7 @@ module.exports = {
 - **noParse**：不用解析和处理的模块
 - **stats**：控制台输出日志控制
 
-## 常见的 Loader 和 Plugin
+## 常见的 Loader 和 Plugin {#常见的-loader-和-plugin}
 
 ### Loader
 
@@ -403,7 +403,7 @@ module.exports = {
 };
 ```
 
-### Loader 和 Plugin 的区别
+### Loader 和 Plugin 的区别 {#loader-和-plugin-的区别}
 
 **功能不同：**
 
@@ -430,7 +430,7 @@ module.exports = {
 
 ![](../assets/web-module-untitled.png)
 
-## Webpack 构建流程
+## Webpack 构建流程 {#webpack-构建流程}
 
 Webpack 的运行流程呈串行执行：
 
@@ -484,7 +484,7 @@ Webpack 的运行流程呈串行执行：
 
 这个流程是一个串行的过程，Webpack 的运行流程是一个串行的过程，它的工作流程就是将各个插件串联起来。在运行过程中会广播事件，插件只需要监听它所关心的事件，就能加入到这条 Webpack 机制中，去改变 Webpack 的运作，使得整个系统扩展性良好。
 
-## 热更新（Hot Module Replacement）
+## 热更新（Hot Module Replacement） {#热更新hot-module-replacement}
 
 ### 概念
 
@@ -509,7 +509,7 @@ module.exports = {
 };
 ```
 
-## Code Splitting（代码分割）
+## Code Splitting（代码分割） {#code-splitting代码分割}
 
 ### 概念
 
@@ -546,7 +546,7 @@ module.exports = {
 };
 ```
 
-## Source Map
+## Source Map {#source-map}
 
 ### 概念
 
@@ -571,7 +571,7 @@ module.exports = {
 - `cheap-source-map`：不包含列信息的 source map
 - `inline-source-map`：将 source map 嵌入到 bundle 中
 
-## Tree Shaking
+## Tree Shaking {#tree-shaking}
 
 ### 概念
 
@@ -600,9 +600,9 @@ module.exports = {
 
 **注意：** 确保你使用的是 ES6 模块语法（即 import 和 export），因为只有这样才能让 Tree Shaking 发挥作用。
 
-## 性能优化
+## 性能优化 {#性能优化}
 
-### 提高打包速度
+### 提高打包速度 {#提高打包速度}
 
 1. **利用缓存**：利用 Webpack 的持久缓存功能，避免重复构建没有变化的代码
 
@@ -638,7 +638,7 @@ module.exports = {
 
 5. **移除不必要的插件**：移除不必要的插件和配置，避免不必要的复杂性和性能开销
 
-### 减少打包后的代码体积
+### 减少打包后的代码体积 {#减少打包后的代码体积}
 
 1. **代码分割（Code Splitting）**：将应用程序的代码划分为多个代码块，按需加载
 
@@ -678,4 +678,3 @@ module.exports = {
 - [Vite vs Webpack](./vite.md)
 - [模块规范与系统](./module-systems.md)
 - [构建工具资源](./resources.md)
-

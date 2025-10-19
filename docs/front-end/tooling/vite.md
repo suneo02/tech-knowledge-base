@@ -4,7 +4,7 @@
 
 Vite 是新一代前端构建工具，由 Vue.js 作者尤雨溪开发。它在开发环境中利用浏览器原生 ES Modules 支持，实现了极速的冷启动和热更新。
 
-## Vite 比 Webpack 快的原因
+## Vite 比 Webpack 快的原因 {#vite-比-webpack-快的原因}
 
 ### 1. 开发模式的差异
 
@@ -35,7 +35,7 @@ Vite 是新一代前端构建工具，由 Vue.js 作者尤雨溪开发。它在�
 - 几乎瞬间启动
 - 仅在浏览器请求时编译对应模块
 
-### 2. 对 ES Modules 的支持
+### 2. 对 ES Modules 的支持 {#2-对-es-modules-的支持}
 
 现代浏览器本身就支持 **ES Modules**，会**主动发起**请求去获取所需文件。Vite 充分利用了这一点，将开发环境下的模块文件直接作为浏览器要执行的文件，而不是像 Webpack 那样**先打包**，再交给浏览器执行。这种方式减少了中间环节，提高了效率。
 
@@ -56,7 +56,7 @@ Vite 是新一代前端构建工具，由 Vue.js 作者尤雨溪开发。它在�
 </script>
 ```
 
-### 3. 底层语言的差异
+### 3. 底层语言的差异 {#3-底层语言的差异}
 
 - **Webpack** 是基于 **Node.js** 构建的
 - **Vite** 则是基于 **esbuild** 进行预构建依赖
@@ -136,7 +136,7 @@ if (import.meta.hot) {
 
 灵活的 API 和完整的 TypeScript 类型
 
-## Vite 配置示例
+## Vite 配置示例 {#vite-配置示例}
 
 ### 基本配置
 
@@ -231,7 +231,7 @@ console.log(import.meta.env.VITE_APP_TITLE)
 - 需要高度定制化的构建流程
 - 团队对 Webpack 已有深入积累
 
-## 从 Webpack 迁移到 Vite
+## 从 Webpack 迁移到 Vite {#从-webpack-迁移到-vite}
 
 ### 1. 安装 Vite 相关依赖
 
@@ -297,4 +297,3 @@ export default defineConfig({
 - [模块规范与系统](./module-systems.md)
 - [Vite 官方文档](https://vitejs.dev/)
 - [构建工具资源](./resources.md)
-

@@ -2,7 +2,7 @@
 
 > 综合性编程知识库，涵盖程序语言、数据库、网络、前端开发等多个技术领域的学习笔记和资源汇总。
 
-## 📚 知识领域导航
+## 📚 知识领域导航 {#knowledge-domains}
 
 ### 🖥️ Program Language
 - **入口**: [./program-language/README.md](./program-language/README.md)
@@ -122,24 +122,24 @@ graph TD
 
 ### 浏览文档
 
-通过上方的[知识领域导航](#-知识领域导航)选择感兴趣的主题，点击入口链接开始学习。
+通过上方的[知识领域导航](#knowledge-domains)选择感兴趣的主题，点击入口链接开始学习。
 
 **推荐学习路径：**
 
 1. **前端开发者**：
-   - 基础 → [Browser](./front-end/foundations/browser.md) + [Network](./front-end/foundations/network.md)
-   - 框架 → [React](./front-end/frameworks/react/) 或 [Vue](./front-end/frameworks/vue/)
-   - 工程化 → [Tooling](./front-end/tooling/)
+  - 基础 → [Browser](./front-end/foundations/browser.md) + [Network](./front-end/foundations/network.md)
+  - 框架 → [React](./front-end/frameworks/react.md) 或 [Vue](./front-end/frameworks/vue/README.md)
+  - 工程化 → [Tooling](./front-end/tooling/README.md)
 
 2. **全栈开发者**：
-   - 语言基础 → [JavaScript](./program-language/js/) + [TypeScript](./program-language/ts/)
-   - 网络知识 → [Network](./network/)
-   - 数据库 → [Database Systems](./database-systems/)
+  - 语言基础 → [JavaScript](./program-language/js/index.md) + [TypeScript](./program-language/ts/README.md)
+  - 网络知识 → [Network](./network/README.md)
+  - 数据库 → [Database Systems](./database-systems/README.md)
 
 3. **系统工程师**：
-   - 网络协议 → [Network Layers](./network/)
-   - 操作系统 → [OS](./OS/)
-   - 数据库原理 → [Database Concepts](./database-systems/)
+  - 网络协议 → [Network Layers](./network/README.md)
+  - 操作系统 → [OS](./OS/README.md)
+  - 数据库原理 → [Database Concepts](./database-systems/README.md)
 
 ### 搜索功能
 
@@ -149,7 +149,7 @@ graph TD
 
 ## 📖 文档编写指南
 
-本知识库遵循统一的文档编写规范，详见 [WRITING_GUIDELINES.md](../WRITING_GUIDELINES.md)
+本知识库遵循统一的文档编写规范，详见 [文档编写规范](./writing-guidelines.md)
 
 ### 核心原则
 
@@ -191,7 +191,7 @@ graph TD
 
 ### 已完成
 - ✅ 前端领域完成结构规范化（foundations/frameworks/performance/scenarios/tooling）
-- ✅ 建立统一的文档编写规范（WRITING_GUIDELINES.md）
+- ✅ 建立统一的文档编写规范（见 [文档编写规范](./writing-guidelines.md)）
 - ✅ 统一命名约定（kebab-case）
 
 ### 进行中
@@ -230,7 +230,7 @@ graph TD
 | 计算机网络 | [network/README.md](./network/README.md) | 建议新增 |
 | 数据库系统 | [database-systems/README.md](./database-systems/README.md) | 建议新增 |
 | 全局资源 | [resources/README.md](./resources/README.md) | 建议新增 |
-| 编写规范 | [WRITING_GUIDELINES.md](../WRITING_GUIDELINES.md) | 文档标准 |
+| 编写规范 | [文档编写规范](./writing-guidelines.md) | 文档标准 |
 
 ---
 
@@ -240,7 +240,7 @@ graph TD
 
 1. **选择合适的领域**：确定内容归属的领域目录
 2. **遵循命名规范**：使用 kebab-case 命名文件
-3. **使用文档模板**：参考 WRITING_GUIDELINES.md 中的模板
+3. **使用文档模板**：参考 [文档编写规范](./writing-guidelines.md) 中的模板
 4. **更新导航**：在对应领域的 README.md 中添加链接
 5. **本地测试**：运行 `mkdocs serve` 检查效果
 

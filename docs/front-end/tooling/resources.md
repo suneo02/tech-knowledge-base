@@ -137,7 +137,7 @@
 
 ## 相关内部文档
 
-- [前端架构总览](../architecture.md)
+- [前端架构总览](../README.md)
 - [性能优化](../performance/README.md)
 - [框架对比](../frameworks/comparisons.md)
 

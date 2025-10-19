@@ -219,10 +219,10 @@
 
 ### 相关内部文档
 
-- [前端架构总览](../architecture.md) - 前端技术架构设计
+- [前端架构总览](../README.md) - 前端技术架构设计
 - [性能优化](../performance/README.md) - 前端性能优化策略
 - [框架对比](../frameworks/comparisons.md) - React、Vue、Angular 对比
-- [前端安全](../foundations/security/) - XSS、CSRF、CSP 等安全主题
+- [前端安全](../foundations/security/README.md) - XSS、CSRF、CSP 等安全主题
 
 ### 外部资源
 
@@ -236,4 +236,3 @@
 ---
 
 **维护说明：** 本文档作为前端工程化的索引页，应随着内容的增减及时更新导航链接。
-

@@ -15,7 +15,7 @@
 
 ---
 
-## Cookie + Session 登录
+## Cookie + Session 登录 {#cookie--session-登录}
 
 ### 问题背景
 
@@ -99,7 +99,7 @@ A:
 
 ---
 
-## Token 登录
+## Token 登录 {#token-登录}
 
 ### 问题背景
 
@@ -204,7 +204,7 @@ A:
 
 ---
 
-## JWT 认证
+## JWT 认证 {#jwt-认证}
 
 ### 问题背景
 
@@ -306,7 +306,7 @@ A:
 
 ---
 
-## 单点登录 SSO
+## 单点登录 SSO {#单点登录-sso}
 
 ### 问题背景
 
@@ -391,7 +391,7 @@ A:
 
 ---
 
-## OAuth 2.0
+## OAuth 2.0 {#oauth-20}
 
 ### 问题背景
 
@@ -486,7 +486,7 @@ A:
 
 ---
 
-## 扫码登录
+## 扫码登录 {#扫码登录}
 
 ### 问题背景
 
@@ -608,7 +608,7 @@ A:
 
 ---
 
-## Cookie 构成部分
+## Cookie 构成部分 {#cookie-构成部分}
 
 ### 问题背景
 
@@ -628,17 +628,17 @@ A:
 
 ---
 
-## 相关知识点
+## 相关知识点 {#相关知识点}
 
 ### 安全相关
-- [Web 安全](../foundations/security/) - XSS、CSRF、点击劫持
+- [Web 安全](../foundations/security/README.md) - XSS、CSRF、点击劫持
 - [网络基础](../foundations/network.md) - HTTPS、CORS
 
 ### 存储方案
 - [浏览器基础](../foundations/browser.md) - Cookie、localStorage、sessionStorage
 
 ### 框架实现
-- [React 状态管理](../frameworks/react/state-and-communication.md) - 认证状态管理
+- [React 状态管理](../frameworks/react.md#状态管理) - 认证状态管理
 - [Vue 状态管理](../frameworks/vue/state-management.md) - 登录态管理
 
 ---
@@ -646,4 +646,3 @@ A:
 **最后更新**：2024-10  
 **维护者**：Hidetoshi Dekisugi  
 **说明**：面试回答时注意结合实际项目经验，说明技术选型的考虑因素
-

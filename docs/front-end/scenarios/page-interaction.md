@@ -15,7 +15,7 @@
 
 ---
 
-## 路由导航方式
+## 路由导航方式 {#路由导航方式}
 
 ### 问题背景
 
@@ -54,7 +54,7 @@ router.replace('/page');
 
 ---
 
-## Hash 路由与 History 路由
+## Hash 路由与 History 路由 {#hash-路由与-history-路由}
 
 ### 实现原理对比
 
@@ -144,7 +144,7 @@ A:
 
 ---
 
-## 下拉刷新实现
+## 下拉刷新实现 {#下拉刷新实现}
 
 ### 问题背景
 
@@ -262,7 +262,7 @@ A:
 
 ---
 
-## 无限滚动实现
+## 无限滚动实现 {#无限滚动实现}
 
 ### 问题背景
 
@@ -400,7 +400,7 @@ A:
 
 ---
 
-## 输入事件监听
+## 输入事件监听 {#输入事件监听}
 
 ### 问题背景
 
@@ -542,7 +542,7 @@ observer.observe(editor, {
 
 ---
 
-## PC/H5 同链接适配
+## PC/H5 同链接适配 {#pch5-同链接适配}
 
 ### 问题背景
 
@@ -562,7 +562,7 @@ observer.observe(editor, {
 
 ---
 
-## 一键换肤实现
+## 一键换肤实现 {#一键换肤实现}
 
 ### 问题背景
 
@@ -582,23 +582,22 @@ observer.observe(editor, {
 
 ---
 
-## 相关知识点
+## 相关知识点 {#相关知识点}
 
 ### 浏览器 API
 - [浏览器基础](../foundations/browser.md) - DOM 事件、API
 - [Performance API](../foundations/browser.md#performance) - 性能监控
 
 ### 框架实现
-- [React Router](../frameworks/react/README.md) - React 路由
-- [Vue Router](../frameworks/vue/router.md) - Vue 路由
+- [React Router](../frameworks/react.md#react-router) - React 路由
+- [Vue Router](../frameworks/vue/README.md) - Vue 路由
 
 ### 性能优化
 - [性能优化](../performance/README.md) - 渲染优化
-- [数据展示优化](data-display-optimization.md) - 列表优化
+- [数据展示优化](user-experience-optimization.md) - 列表优化
 
 ---
 
 **最后更新**：2024-10  
 **维护者**：Hidetoshi Dekisugi  
 **说明**：面试时注意说明技术选型的权衡，以及实际项目中遇到的坑
-

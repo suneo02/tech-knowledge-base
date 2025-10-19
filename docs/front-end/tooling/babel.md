@@ -56,7 +56,7 @@ const element = <h1>Hello, world!</h1>;
 const element = React.createElement("h1", null, "Hello, world!");
 ```
 
-## Babel 工作原理
+## Babel 工作原理 {#babel-工作原理}
 
 Babel 的工作原理可以分为三个主要阶段：**解析（Parse）**、**转换（Transform）**、**生成（Generate）**。
 
@@ -185,7 +185,7 @@ var add = function add(a, b) {
 };
 ```
 
-## Babel 配置
+## Babel 配置 {#babel-配置}
 
 ### 配置文件
 
@@ -478,7 +478,7 @@ npx babel src --out-dir dist --watch
 npx babel src --out-dir dist --source-maps
 ```
 
-## Polyfill 策略
+## Polyfill 策略 {#polyfill-策略}
 
 ### 1. 使用 @babel/polyfill（已废弃）
 
@@ -534,7 +534,7 @@ npm install @babel/runtime-corejs3
 | core-js + useBuiltIns | 按需引入，体积小 | 污染全局 | 应用开发 |
 | transform-runtime | 不污染全局 | 不支持实例方法 | 库开发 |
 
-## 最佳实践
+## 最佳实践 {#最佳实践}
 
 ### 1. 针对不同环境使用不同配置
 
@@ -704,4 +704,3 @@ Babel 的原理就是将 JavaScript 源代码转换为抽象语法树（AST）�
 - [AST Explorer](https://astexplorer.net/)
 - [Babel 官方文档](https://babeljs.io/)
 - [Babel 插件手册](https://github.com/jamiebuilds/babel-handbook)
-

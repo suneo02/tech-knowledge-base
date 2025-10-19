@@ -1,10 +1,10 @@
 # 静态代码扫描方案设计
 
-## 目标与范围
+## 目标与范围 {#目标与范围}
 - 统一代码风格与最佳实践，提前发现缺陷与安全风险。
 - PR 阶段自动化把关；本地提交前快速反馈；可持续度量与追踪。
 
-## 工具矩阵（建议组合）
+## 工具矩阵（建议组合） {#工具矩阵}
 - 语法与风格：ESLint（含 TypeScript 插件）、Prettier、Stylelint。
 - 类型与质量：TypeScript 严格模式、(可选) type-coverage。
 - 提交规范：Commitlint（Conventional Commits）、lint-staged + Husky。
@@ -12,7 +12,7 @@
 - 测试与覆盖率：Jest/Vitest + 门禁阈值（lines/branches/statements/functions）。
 - 报告与平台：JUnit/LCOV、SARIF（GitHub Code Scanning）、(可选) SonarQube/CodeQL。
 
-## 基础配置片段
+## 基础配置片段 {#基础配置片段}
 
 package.json（脚本与 lint-staged）
 ```json
@@ -85,19 +85,19 @@ tsconfig.json（关键严格项）
 }
 ```
 
-## CI 门禁建议
+## CI 门禁建议 {#ci-门禁建议}
 - 触发：pull_request / merge_request。
 - 步骤：install → typecheck → lint/stylelint/format → test --coverage → audit。
 - 产物：覆盖率报告（LCOV）、测试结果（JUnit，可选）、静态扫描（SARIF，可选）。
 - 门禁：Lint 零错误、覆盖率阈值、阻断高危安全告警。
 
-## 渐进式落地
+## 渐进式落地 {#渐进式落地}
 1) 本地先行（Husky + lint-staged），再接入 CI；
 2) 设置遗留基线与例外（.eslintignore），模块化推进；
 3) autofix/codemod 批量修复；
 4) 逐步收紧规则与阈值，透明化指标。
 
-## 延伸阅读
+## 延伸阅读 {#延伸阅读}
 - ../tooling/testing/README.md
 - ../frameworks/comparisons.md
 - ../performance/README.md

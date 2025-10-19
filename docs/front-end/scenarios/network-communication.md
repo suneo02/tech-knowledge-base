@@ -11,7 +11,7 @@
 
 ---
 
-## DNS 协议
+## DNS 协议 {#dns-协议}
 
 ### 问题背景
 
@@ -31,7 +31,7 @@
 
 ---
 
-## SSE vs HTTP vs WebSocket
+## SSE vs HTTP vs WebSocket {#sse-vs-http-vs-websocket}
 
 ### 问题背景
 
@@ -51,7 +51,7 @@
 
 ---
 
-## Chat 对话为何不用 WebSocket
+## Chat 对话为何不用 WebSocket {#chat-对话为何不用-websocket}
 
 ### 问题背景
 
@@ -71,7 +71,7 @@
 
 ---
 
-## 相关知识点
+## 相关知识点 {#相关知识点}
 
 ### 延伸阅读
 - [网络基础](../foundations/network.md) - HTTP、WebSocket 等网络协议
@@ -82,5 +82,4 @@
 **最后更新**：2024-10  
 **维护者**：Hidetoshi Dekisugi  
 **说明**：本文档题目待补充详细答案
-
 

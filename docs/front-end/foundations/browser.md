@@ -378,3 +378,14 @@ flowchart TD
 ```
 
 关键点：一次事件循环中，微任务总是先于下一次宏任务执行；避免在微任务中无限入队，造成渲染饥饿。
+
+## Performance API {#performance}
+
+Performance API 提供高精度时间戳与性能条目采集能力，是前端性能监控的基础工具。
+
+- **核心接口**：`performance.now()` 获取毫秒级时间戳；`performance.mark()` / `performance.measure()` 标记自定义指标。
+- **资源计时**：`performance.getEntriesByType('resource')` 分析脚本、样式、图片等资源加载耗时。
+- **导航计时**：通过 Navigation Timing v2 获取 DNS、TCP、SSL、TTFB 等阶段耗时。
+- **Web Vitals**：使用 `PerformanceObserver` 监听 `largest-contentful-paint`、`first-input` 等指标。
+
+延伸阅读：详见 [性能优化索引](../performance/README.md)。

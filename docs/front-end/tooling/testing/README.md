@@ -438,7 +438,7 @@ jobs:
 ### 相关内部文档
 
 - [前端工具链总览](../README.md)
-- [Vitest 框架](../../frameworks/vitest/)
+- [Vitest 框架](../../frameworks/vitest/README.md)
 - [工具链资源](../resources.md)
 
 ---

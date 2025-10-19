@@ -6,7 +6,7 @@
 
 ## Pnpm vs Npm
 
-### 为什么 Pnpm 比 Npm 快
+### 为什么 Pnpm 比 Npm 快 {#为什么-pnpm-比-npm-快}
 
 **Pnpm 比 npm 快的原因在于其优化的文件存储方式、依赖管理方式以及并行下载能力。**
 
@@ -169,7 +169,7 @@ public-hoist-pattern[]=*prettier*
 
 ## Npm 工作原理
 
-### npm install 的执行过程
+### npm install 的执行过程 {#npm-install-的执行过程}
 
 1. **读取 package.json 文件**
    - 该文件列出了项目所需要的依赖
@@ -189,7 +189,7 @@ public-hoist-pattern[]=*prettier*
    - 如果模块包含子模块（package.json 中 dependencies 或 devDependencies 中的模块）
    - 则递归执行上述步骤安装这些子模块
 
-### npm run start 的整个过程
+### npm run start 的整个过程 {#npm-run-start-的整个过程}
 
 `npm run start` 是一个常见的命令，用于启动基于 Node.js 的应用程序。这个命令实际上是一个快捷方式，它告诉 npm 运行在 package.json 文件中定义的 "start" 脚本。
 
@@ -244,7 +244,7 @@ public-hoist-pattern[]=*prettier*
 2. start
 3. poststart
 
-## 版本管理
+## 版本管理 {#版本管理}
 
 ### 语义化版本（Semver）
 
@@ -418,4 +418,3 @@ npm config set registry https://registry.npmmirror.com
 - [Pnpm 官方文档](https://pnpm.io/)
 - [Npm 官方文档](https://docs.npmjs.com/)
 - [Yarn 官方文档](https://yarnpkg.com/)
-

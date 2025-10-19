@@ -2,7 +2,7 @@
 
 本页汇总 CommonJS、ES Modules 的核心差异、循环引用与动态导入等主题。
 
-## CommonJS 规范
+## CommonJS 规范 {#commonjs-规范}
 
 CommonJS 规范加载模块是同步的，只有加载完成，才能执行后面的操作。
 
@@ -40,7 +40,7 @@ exports = function (x) {
 
 如果一个模块的对外接口是单一值，只能使用 `module.exports` 输出。
 
-## ES6 Module 与 CommonJS 的区别
+## ES6 Module 与 CommonJS 的区别 {#es6-module-与-commonjs-的区别}
 
 - CommonJS 的 `require` 是同步的，ESM 在浏览器与服务端均可用（Node 需遵循特定规则）。
 - CommonJS 输出的是值的拷贝，ESM 输出的是值的引用。
@@ -49,7 +49,7 @@ exports = function (x) {
 - 顶层 `this`：CommonJS 指向当前模块；ESM 为 `undefined`。
 - 互相引用：ESM 可加载 CommonJS；CommonJS 在 Node 中不能直接 `require` ESM（两套系统分开处理）。
 
-## 循环引用（CommonJS vs ESM）
+## 循环引用（CommonJS vs ESM） {#循环引用commonjs-vs-esm}
 
 循环加载：a 依赖 b，b 依赖 a。
 
@@ -104,7 +104,7 @@ console.log(m.even(4));
 
 将上述改为 CommonJS 会报错，因为 `even.js` 在 `odd.js` `require` 时尚未导出完整函数。
 
-## 动态 import
+## 动态 import {#动态-import}
 
 - 语法与用法参考：
   - [webpack | 动态导入语法 import](https://juejin.cn/post/6899640414446780430?from=search-suggest)
@@ -118,4 +118,3 @@ console.log(m.even(4));
 
 - Babel：<https://juejin.cn/post/6844904065223098381>
 - CSS Modules：<https://rynxiao.com/%E6%8A%80%E6%9C%AF/2018/08/26/css-modules-tutorial.html>
-

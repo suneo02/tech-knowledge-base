@@ -10,7 +10,7 @@
 
 ---
 
-## 路由 (Vue Router)
+## 路由 (Vue Router) {#路由-vue-router}
 
 ### 导航守卫
 
@@ -90,7 +90,7 @@ const router = new VueRouter({
 
 ---
 
-## 工具与测试
+## 工具与测试 {#工具与测试}
 
 ### Vitest 概览
 
@@ -123,7 +123,7 @@ describe('sum', () => {
 
 ---
 
-## 实践技巧
+## 实践技巧 {#实践技巧}
 
 ### computed vs watch
 
@@ -154,7 +154,7 @@ watch: {
 }
 ```
 
-### Vue 性能优化
+### Vue 性能优化 {#vue-性能优化}
 
 1. **v-if vs v-show**：频繁切换用 `v-show`，条件少变用 `v-if`
 2. **v-for 的 key**：使用唯一 ID，避免用 index
@@ -204,4 +204,3 @@ export default {
 - [组件通信](./components-communication.md) - 7 种组件通信方式
 - [状态管理](./state-management.md) - Vuex 详解
 - [React vs Vue 对比](../comparisons.md) - 框架对比
-
