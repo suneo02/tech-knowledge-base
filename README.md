@@ -4,7 +4,7 @@ This is a personal knowledge base for programming, networking, databases, and ot
 
 ## 📚 文档编写规范
 
-本项目遵循统一的文档编写规范，确保文档的一致性、可读性和可维护性。详细规范请参考：[文档编写规范](WRITING_GUIDELINES.md)
+本项目遵循统一的文档编写规范，确保文档的一致性、可读性和可维护性。详细规范请参考：[文档编写规范](docs/meta/writing-guidelines.md)
 
 ### 核心原则：
 - **内容优先**：避免过度拆分，保持主题完整性（单文档可达 1000 行）
