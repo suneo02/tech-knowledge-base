@@ -20,9 +20,9 @@ This is a personal knowledge base for programming, networking, databases, and ot
 
 ## View the Knowledge Base
 
-The knowledge base is automatically deployed to GitHub Pages and can be viewed at:
+The knowledge base is automatically deployed to Cloudflare Pages. After the first successful deployment, you can access it at your assigned Pages domain, for example:
 
-[https://hidetoshidekisugi.github.io/Hidetoshi-Program-Knowledge-Database/](https://hidetoshidekisugi.github.io/Hidetoshi-Program-Knowledge-Database/)
+`https://hidetoshi-program-knowledge-database.pages.dev`
 
 ## Development
 
@@ -42,4 +42,12 @@ This will start a local server at `http://127.0.0.1:8000` that will automaticall
 
 ## Deployment
 
-Deployment is handled automatically by a GitHub Actions workflow. When changes are pushed to the `main` branch, the workflow will build the site and deploy it to the `gh-pages` branch.
+Deployment is handled automatically by a GitHub Actions workflow that builds the site and publishes it to Cloudflare Pages whenever changes are pushed to the `main` branch (or the workflow is manually triggered).
+
+Before the workflow can publish successfully, configure the following repository secrets in **Settings → Secrets and variables → Actions**:
+
+- `CLOUDFLARE_API_TOKEN` – a token with the `Cloudflare Pages - Edit` permission.
+- `CLOUDFLARE_ACCOUNT_ID` – your Cloudflare account ID.
+- `CLOUDFLARE_PAGES_PROJECT` – the Cloudflare Pages project name (defaults to `hidetoshi-program-knowledge-database`).
+
+The workflow installs dependencies, runs `mkdocs build --strict`, and uploads the generated `site/` directory to Cloudflare Pages. Documentation warnings will cause the build to fail, keeping broken links from slipping into production.

@@ -1,13 +1,12 @@
-# 知识库 GitHub Pages 部署方案
+# 知识库 Cloudflare Pages 部署方案
 
-本文档将指导您如何使用 **MkDocs** 和 **Material for MkDocs** 主题，将您的 Markdown 知识库部署为一个美观、功能丰富的静态网站，并托管在 GitHub Pages 上。
+本文档指导你如何使用 **MkDocs** 和 **Material for MkDocs** 将知识库构建为静态网站，并通过 **Cloudflare Pages** 自动化部署。
 
-## 方案优势
+## 方案亮点
 
-- **自动化导航**：根据您的文件夹结构自动生成网站的顶部和侧边导航栏。
-- **功能丰富**：开箱即用，支持全文搜索、代码高亮、明暗模式、标签页等。
-- **部署简单**：仅需一条命令即可完成网站的构建和部署。
-- **高度可定制**：主题提供了丰富的配置选项，可以轻松打造个性化外观。
+- **自动化构建与部署**：GitHub Actions + Cloudflare Pages，全流程无人工干预。
+- **全球加速**：Cloudflare CDN 自动为站点提供边缘加速与缓存。
+- **现代化特性**：Material for MkDocs 提供搜索、暗色模式、标签页等特性。
 
 ---
 
@@ -15,192 +14,83 @@
 
 ### 第 1 步：准备本地环境
 
-您需要在本地计算机上安装 Python 和 pip（Python 的包管理器）。macOS 通常已预装。
+确保已经安装 Python 与 pip。
 
-1.  **打开终端，检查环境**：
-    ```bash
-    python3 --version
-    pip3 --version
-    ```
-    如果命令成功执行并返回版本号，则说明环境已就绪。
+```bash
+python3 --version
+pip3 --version
+```
 
-2.  **安装 MkDocs 和 Material 主题**：
-    在终端中运行以下命令来安装所有必要的工具。
-    ```bash
-    pip3 install mkdocs mkdocs-material
-    ```
+安装依赖：
 
-### 第 2 步：配置 MkDocs
+```bash
+pip3 install -r requirements.txt
+```
 
-1.  **在项目根目录创建一个配置文件**：
-    创建一个名为 `mkdocs.yml` 的文件，这是 MkDocs 的核心配置文件。
+### 第 2 步：本地预览与构建
 
-2.  **将以下内容复制到 `mkdocs.yml` 文件中**：
-    这是根据您当前项目结构定制的基础配置。
+本地开发：
 
-    ```yaml
-    # 站点信息
-    site_name: 个人编程知识库
-    site_url: https://hidetoshidekisugi.github.io/Hidetoshi-Program-Knowledge-Database/ # (请替换为您的 GitHub Pages 地址)
-    site_author: Hidetoshi Dekisugi # (请替换为您的名字)
-    site_description: "一个关于编程、网络、数据库等主题的个人知识库。"
+```bash
+mkdocs serve
+```
 
-    # 仓库信息
-    repo_url: https://github.com/hidetoshidekisugi/Hidetoshi-Program-Knowledge-Database # (请替换为您的 GitHub 仓库地址)
-    repo_name: Hidetoshi-Program-Knowledge-Database # (请替换为您的仓库名称)
-    edit_uri: "" # 隐藏 "编辑此页" 的链接
+生成静态文件：
 
-    # 版权信息
-    copyright: "Copyright &copy; 2024 Hidetoshi Dekisugi" # (可以自定义)
+```bash
+mkdocs build
+```
 
-    # 主题配置
-    theme:
-      name: material
-      language: zh # 设置语言为中文
-      palette:
-        # 支持日间/夜间模式切换
-        - media: "(prefers-color-scheme: light)"
-          scheme: default
-          toggle:
-            icon: material/brightness-7
-            name: 切换到夜间模式
-        - media: "(prefers-color-scheme: dark)"
-          scheme: slate
-          toggle:
-            icon: material/brightness-4
-            name: 切换到日间模式
-      features:
-        - navigation.tabs # 使用顶部标签页作为一级导航
-        - navigation.sections # 在侧边栏中将内容分组
-        - navigation.expand # 自动展开当前页面的导航
-        - navigation.top # "返回顶部" 按钮
-        - search.suggest # 搜索建议
-        - search.highlight # 高亮搜索结果
-        - content.code.annotate # 代码块注释功能
-        - content.tabs.link # 可链接到具体标签页
+构建产物会输出到 `site/` 目录，这也是 Cloudflare Pages 将要发布的内容。
 
-    # Markdown 扩展
-    markdown_extensions:
-      - pymdownx.highlight:
-          anchor_linenums: true
-      - pymdownx.inlinehilite
-      - pymdownx.snippets
-      - pymdownx.superfences
-      - admonition
-      - toc:
-          permalink: true
+### 第 3 步：Cloudflare Pages 配置
 
-    # 导航菜单 (MkDocs 会根据此结构生成网站导航)
-    # 注意：这里的路径是相对于项目根目录的
-    nav:
-      - '首页': 'README.md'
-      - '编程语言':
-        - '总览': 'Program Language/Program Language.md'
-        - 'JavaScript': 'Program Language/JS/'
-        - 'TypeScript': 'Program Language/TS/'
-        - 'CSS': 'Program Language/CSS/'
-        - 'HTML': 'Program Language/Html/'
-      - '数据库系统':
-        - '总览': 'Database Systems/Database.md'
-        - '设计、实现与管理': 'Database Systems/Database Systems Design Implementation & Management/'
-      - '网络':
-        - '总览': 'network_md/network.md'
-        - '计算机网络自顶向下': 'network_md/Computer Networking A Top-Down Approach/'
-        - '运营商网络': 'network_md/network carrier/'
-      - 'Node.js':
-        - '总览': 'Node.js/Node.md'
-        - 'Learning Node': 'Node.js/Learning Node/'
-        - 'Learning Node (服务器端)': 'Node.js/Learning Node Moving The Server Side/'
-      - 'Web 前端':
-        - '总览': 'Web Front End_md/Web Front End.md'
-        - '浏览器': 'Web Front End_md/Browser/'
-        - 'Web 框架': 'Web Front End_md/Web Framework/'
-        - 'Web 安全': 'Web Front End_md/Web Security/'
-        - '其他':
-          - '模块化': 'Web Front End_md/Web Module/'
-          - '性能': 'Web Front End_md/Web Performance.md'
-          - '场景': 'Web Front End_md/Web Scenario/'
-          - '测试': 'Web Front End_md/Web Test.md'
-      - '操作系统':
-        - '总览': 'carrier OS_md/Os.md'
-        - 'Carrier OS': 'carrier OS_md/OS/'
-      - 'Web 3':
-        - '待探索领域': 'Web 3_md/Areas to be explored.md'
-        - '探索内容': 'Web 3_md/Areas to be explored/'
+1. 在 Cloudflare 控制台创建一个 **Pages** 项目，并连接到当前 Git 仓库。
+2. 在项目的 **Build settings** 页面设置：
+   - Build command: `pip install -r requirements.txt && mkdocs build`
+   - Build output directory: `site`
+   - Environment variables: `PYTHON_VERSION=3.11`
+3. 在仓库 `Settings → Secrets and variables → Actions` 中新增以下密钥：
+   - `CLOUDFLARE_API_TOKEN`：拥有 `Cloudflare Pages - Edit` 权限的 API Token。
+   - `CLOUDFLARE_ACCOUNT_ID`：Cloudflare 账户 ID。
+   - `CLOUDFLARE_PAGES_PROJECT`：Cloudflare Pages 项目名（默认使用 `hidetoshi-program-knowledge-database`）。
 
-    # 由于您的 Markdown 文件在根目录，需要指定 docs_dir
-    docs_dir: '.'
-    ```
+### 第 4 步：GitHub Actions 自动部署
 
-### 第 3 步：本地预览网站
+项目根目录包含 `.github/workflows/main.yml`，其核心流程如下：
 
-在部署到线上之前，您可以在本地预览效果，并进行调整。
+1. 检出仓库代码。
+2. 安装 Python 3.11 并安装依赖。
+3. 执行 `mkdocs build --strict` 生成 `site/`，若存在断链或未定义锚点会直接失败，便于及时修复。
+4. 调用 `cloudflare/pages-action@v1` 将产物推送到 Cloudflare Pages。
 
-1.  **启动本地服务器**：
-    在终端中运行以下命令。
-    ```bash
-    mkdocs serve
-    ```
+成功推送到 `main` 分支后，工作流会自动触发。如果需要，你也可以通过 GitHub Actions 页面手动运行该流程。
 
-2.  **在浏览器中打开**：
-    命令执行后，您会看到类似 `Serving on http://127.0.0.1:8000` 的输出。在浏览器中访问这个地址，即可看到您的知识库网站。当您修改并保存 Markdown 文件或 `mkdocs.yml` 配置后，网站会自动刷新。
+### 第 5 步：wrangler 配置
 
-### 第 4 步：通过 GitHub Actions 自动部署
+根目录的 `wrangler.toml` 供本地或 CI 构建工具识别 Cloudflare Pages 项目：
 
-我们已经配置了一个 GitHub Actions 工作流，它会在您每次推送到 `main` 分支时自动构建和部署您的知识库。
+```toml
+name = "hidetoshi-program-knowledge-database"
+compatibility_date = "2024-05-01"
 
-1.  **创建工作流文件**：
-    在您的项目根目录下创建一个名为 `.github/workflows/main.yml` 的文件，并填入以下内容：
-    ```yaml
-    name: Deploy Knowledge Base
+pages_build_output_dir = "site"
 
-    on:
-      push:
-        branches:
-          - main # 或者您的默认分支
+[build]
+command = "pip install -r requirements.txt && mkdocs build"
 
-    jobs:
-      deploy:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout repository
-            uses: actions/checkout@v3
+[env.development]
+pages_build_output_dir = "site"
+```
 
-          - name: Set up Python
-            uses: actions/setup-python@v4
-            with:
-              python-version: 3.x
-
-          - name: Install dependencies
-            run: pip install mkdocs mkdocs-material
-
-          - name: Deploy to GitHub Pages
-            run: mkdocs gh-deploy --force --clean --remote-name origin
-    ```
-
-2.  **推送代码**：
-    将您的代码（包括新的 `.github/workflows/main.yml` 文件）推送到 GitHub 仓库的 `main` 分支。
-    ```bash
-    git add .
-    git commit -m "Add GitHub Actions workflow for deployment"
-    git push origin main
-    ```
-
-### 第 5 步：配置 GitHub 仓库
-
-最后一步是告诉 GitHub 从 `gh-pages` 分支来展示您的网站。
-
-1.  进入您在 GitHub 上的仓库页面。
-2.  点击 **Settings** (设置)。
-3.  在左侧菜单中选择 **Pages**。
-4.  在 **Build and deployment** 部分，将 **Source** (源) 设置为 **Deploy from a branch**。
-5.  在 **Branch** (分支) 部分，选择 `gh-pages` 分支和 `/(root)` 目录，然后点击 **Save**。
-
-等待几分钟后，GitHub Actions 会自动完成构建和部署。您的知识库网站应该就可以通过您在 `mkdocs.yml` 中配置的 `site_url` 地址公开访问了。
+本地执行 `npx wrangler pages dev` 可使用 Cloudflare 提供的本地开发预览。
 
 ---
 
-部署完成后，您未来的更新流程将非常简单：
-1.  在本地修改您的 Markdown 笔记。
-2.  将更改推送到 `main` 分支。
-3.  GitHub Actions 会自动为您更新网站。
+## 常见问题
+
+- **部署失败**：确认 GitHub 仓库中 Secrets 是否正确配置，API Token 是否拥有 `Cloudflare Pages - Edit` 权限。
+- **构建失败**：在本地执行 `mkdocs build --strict` 检查文档格式是否存在错误。
+- **域名绑定**：在 Cloudflare Pages 控制台中添加自定义域名，并完成 DNS 解析验证。
+
+配置完成后，站点将通过 `https://<project>.pages.dev` 域名自动发布，并享受 Cloudflare 的全局加速能力。
