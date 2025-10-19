@@ -300,59 +300,6 @@ console.log(result.output);
 5. **密钥轮换**：定期更换 API Key，降低泄露风险
 
 即使是开发环境，也应该使用 .env 文件并加入 .gitignore，避免提交到代码仓库。
-}
-
-    this.processing++;
-    const task = this.queue.shift()!;
-
-    try {
-      await task.execute();
-    } finally {
-      this.processing--;
-      this.process(); // 处理下一个任务
-    }
-
-}
-}
-
-````
-
-**Q2: 如何实现 Agent 的可观测性？**
-
-```typescript
-class AgentMonitor {
-  trackExecution(agentId: string, task: string) {
-    // 记录执行日志
-    console.log(`[${agentId}] Starting task: ${task}`);
-
-    // 发送到监控系统
-    this.sendMetrics({
-      agentId,
-      task,
-      timestamp: Date.now(),
-      type: "execution_start",
-    });
-  }
-
-  trackError(agentId: string, error: Error) {
-    // 错误追踪
-    this.sendMetrics({
-      agentId,
-      error: error.message,
-      stack: error.stack,
-      type: "error",
-    });
-  }
-}
-````
-
-**Q3: 如何优化 Agent 的响应速度？**
-
-- 使用流式响应（SSE/WebSocket）
-- 实现智能缓存策略
-- 预加载常用工具和模型
-- 使用 CDN 加速静态资源
-- 实现请求合并和批处理
 
 ---
 
