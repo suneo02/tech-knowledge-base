@@ -1,53 +1,46 @@
 # Hidetoshi Program Knowledge Database
 
-This is a personal knowledge base for programming, networking, databases, and other related topics. It is built using MkDocs and the Material for MkDocs theme.
+A structured personal knowledge base covering programming, networking, databases, and related topics. Built with MkDocs + Material theme, deployed to Cloudflare Pages.
 
-## 📚 文档编写规范
+## 📚 Writing Guidelines
 
-本项目遵循统一的文档编写规范，确保文档的一致性、可读性和可维护性。详细规范请参考：[文档编写规范](docs/meta/writing-guidelines.md)
+本项目使用统一的文档规范以确保一致性、可读性和可维护性。详情见：[docs/meta/writing-guidelines.md](docs/meta/writing-guidelines.md)
 
-### 核心原则：
-- **内容优先**：避免过度拆分，保持主题完整性（单文档可达 1000 行）
-- **可读性**：清晰的层级结构，使用目录导航，合理的视觉分组
-- **可维护性**：统一的 kebab-case 命名，相对路径链接，定期检查更新
-- **渐进式**：从概述到细节，先核心后进阶
+### 核心原则
+- 内容优先：避免过度拆分，保持主题完整性（必要时单文档可达 1000 行）
+- 可读性：清晰层级、目录导航、合理视觉分组
+- 可维护性：统一 kebab-case 命名、相对路径链接、定期更新
+- 渐进式：从概述到细节，先核心后进阶
 
-### 主要规范要点：
-- **文件命名**：使用 kebab-case（短横线分隔），例如 `react-hooks.md`
-- **文档组织**：相关内容保持在同一文档，避免过度拆分影响阅读连贯性
-- **内容格式**：标准 Markdown 语法，代码块指定语言，使用图表辅助说明
-- **质量保证**：发布前检查清单，定期维护和更新机制
+### 规范要点
+- 文件命名：kebab-case，例如 `react-hooks.md`
+- 文档组织：相关内容尽量保持在同一文档内，避免碎片化
+- 内容格式：标准 Markdown，代码块标注语言，必要时使用图表
+- 质量保证：发布前检查清单，定期巡检 broken links/过时内容
 
-## View the Knowledge Base
+## 🔎 View the Knowledge Base
 
-The knowledge base is automatically deployed to Cloudflare Pages. After the first successful deployment, you can access it at your assigned Pages domain, for example:
+Cloudflare Pages 自动部署，首版成功后可通过分配的 Pages 域名访问，例如：
 
 `https://hidetoshi-program-knowledge-database.pages.dev`
 
-## Development
+如果你使用自定义域名，请在 Cloudflare 中完成 CNAME 关联。
 
-To run the knowledge base locally, you will need to have Python and pip installed. Then, you can install the required dependencies:
+## 🧭 Setup & Deployment
 
-```bash
-pip install mkdocs mkdocs-material
-```
+为保持 README 聚焦内容本身，开发、构建与部署细节已迁移至独立文档：
+- 参见部署与本地开发指南：docs/meta/deployment.md
 
-Once the dependencies are installed, you can start the local development server:
+## 🧭 Repository Layout
 
-```bash
-mkdocs serve
-```
+- `docs/`：知识文档主体内容
+- `mkdocs.yml`：站点与导航配置
+- `overrides/`：Material 主题模板覆盖
+- `site/`：构建产物（CI/CD 生成）
+- `.github/workflows/`：CI 配置（若存在）
 
-This will start a local server at `http://127.0.0.1:8000` that will automatically reload when you make changes to the documentation.
+## 📝 Contribution (个人协作约定)
 
-## Deployment
-
-Deployment is handled automatically by a GitHub Actions workflow that builds the site and publishes it to Cloudflare Pages whenever changes are pushed to the `main` branch (or the workflow is manually triggered).
-
-Before the workflow can publish successfully, configure the following repository secrets in **Settings → Secrets and variables → Actions**:
-
-- `CLOUDFLARE_API_TOKEN` – a token with the `Cloudflare Pages - Edit` permission.
-- `CLOUDFLARE_ACCOUNT_ID` – your Cloudflare account ID.
-- `CLOUDFLARE_PAGES_PROJECT` – the Cloudflare Pages project name (defaults to `hidetoshi-program-knowledge-database`).
-
-The workflow installs dependencies, runs `mkdocs build --strict`, and uploads the generated `site/` directory to Cloudflare Pages. Documentation warnings will cause the build to fail, keeping broken links from slipping into production.
+- 新增或重构内容前先规划文档结构与导航位置
+- 每次提交说明变更动机与影响范围，避免仅“更新文档”
+- 对大规模调整采用分支与 PR 审阅流程

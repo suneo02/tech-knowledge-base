@@ -5,7 +5,7 @@ compatibility_date = "2024-05-01"
 pages_build_output_dir = "site"
 
 [build]
-command = "pip install -r requirements.txt && mkdocs build"
+command = "uv sync && uv run mkdocs build"
 
 [env.development]
 pages_build_output_dir = "site"
