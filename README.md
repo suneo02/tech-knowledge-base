@@ -1,6 +1,6 @@
-# Hidetoshi Program Knowledge Database
+# Hidetoshi Tech Knowledge Base
 
-A structured personal knowledge base covering programming, networking, databases, and related topics. Built with MkDocs + Material theme, deployed to Cloudflare Pages.
+A structured personal tech knowledge base covering programming, networking, databases, front-end development, and related technologies. Built with MkDocs + Material theme, deployed to Cloudflare Pages.
 
 ## 📚 Writing Guidelines
 
@@ -22,7 +22,7 @@ A structured personal knowledge base covering programming, networking, databases
 
 Cloudflare Pages 自动部署，首版成功后可通过分配的 Pages 域名访问，例如：
 
-`https://hidetoshi-program-knowledge-database.pages.dev`
+`https://hidetoshi-tech-knowledge-base.pages.dev`
 
 如果你使用自定义域名，请在 Cloudflare 中完成 CNAME 关联。
 

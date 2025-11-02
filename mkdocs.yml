@@ -1,12 +1,12 @@
 # Site Information
-site_name: Self Program Knowledge Database
-site_url: https://hidetoshi20.github.io/Program-Knowledge-Database/
+site_name: Hidetoshi Tech Knowledge Base
+site_url: https://hidetoshi20.github.io/hidetoshi-tech-knowledge-base/
 site_author: Hidetoshi Dekisugi
-site_description: "A comprehensive knowledge database for programming languages, databases, networks, Node.js, web front-end, operating systems, and Web 3.0."
+site_description: "Hidetoshi's comprehensive tech knowledge base covering programming languages, databases, networks, front-end development, and related technologies."
 
 # Repository Information
-repo_url: https://github.com/Hidetoshi20/Program-Knowledge-Database
-repo_name: Hidetoshi-Program-Knowledge-Database
+repo_url: https://github.com/Hidetoshi20/hidetoshi-tech-knowledge-base
+repo_name: hidetoshi-tech-knowledge-base
 edit_uri: ""
 
 # Copyright

@@ -1,6 +1,6 @@
-# Self Program Knowledge Database
+# Hidetoshi Tech Knowledge Base
 
-> 综合性编程知识库，涵盖程序语言、数据库、网络、前端开发等多个技术领域的学习笔记和资源汇总。
+> Hidetoshi's comprehensive tech knowledge base covering programming languages, databases, networks, front-end development, and related technologies.
 
 ## 📚 知识领域导航 {#knowledge-domains}
 
