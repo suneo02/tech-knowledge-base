@@ -34,7 +34,7 @@ The project follows a set of conventions to ensure consistency and maintainabili
 
 ### Writing Guidelines
 
-Detailed writing guidelines are available in `docs/meta/writing-guidelines.md`. These guidelines are important for maintaining the quality and consistency of the knowledge base. Key principles include:
+Detailed writing guidelines are available in `meta/writing-guidelines.md`. These guidelines are important for maintaining the quality and consistency of the knowledge base. Key principles include:
 
 *   **Content-First:** Focus on writing comprehensive content for a single topic before splitting it into multiple files.
 *   **Readability:** Use clear headings, lists, and other Markdown features to structure content for easy reading.
