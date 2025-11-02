@@ -1,11 +1,3 @@
 name = "hidetoshi-program-knowledge-database"
 compatibility_date = "2024-05-01"
-
-# Directory that Cloudflare Pages will serve
-pages_build_output_dir = "site"
-
-[build]
-command = "uv sync && uv run mkdocs build"
-
-[env.development]
 pages_build_output_dir = "site"

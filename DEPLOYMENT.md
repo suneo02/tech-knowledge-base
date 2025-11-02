@@ -63,22 +63,15 @@ uv run mkdocs build --strict
 
 ### 第 5 步：wrangler 配置
 
-根目录的 `wrangler.toml` 供本地或 CI 构建工具识别 Cloudflare Pages 项目：
+根目录的 `wrangler.toml` 用于识别 Cloudflare Pages 项目：
 
 ```toml
 name = "hidetoshi-program-knowledge-database"
 compatibility_date = "2024-05-01"
-
-pages_build_output_dir = "site"
-
-[build]
-command = "uv sync && uv run mkdocs build"
-
-[env.development]
 pages_build_output_dir = "site"
 ```
 
-本地执行 `npx wrangler pages dev` 可使用 Cloudflare 提供的本地开发预览。
+**注意**：Cloudflare Pages 会从控制台的 Build settings 读取构建命令，而不是从 `wrangler.toml`。
 
 ---
 
