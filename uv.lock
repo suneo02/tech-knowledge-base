@@ -118,9 +118,9 @@ wheels = [
 ]
 
 [[package]]
-name = "hidetoshi-program-knowledge-database"
+name = "hidetoshi-tech-knowledge-base"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "mkdocs" },
     { name = "mkdocs-awesome-pages-plugin" },
