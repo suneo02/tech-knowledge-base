@@ -1,0 +1,47 @@
+@import '@/styles/variables.less';
+
+.logo-container {
+  // height: 24px;
+  // height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 12px;
+}
+
+.logo-clickable {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 22px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.logo {
+  &-text {
+    line-height: 24px;
+    background: linear-gradient(45deg, #3862ed 0%, #274cda 29%, #00aec7 62%, #12cbbe 76%, #9d9ae3 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 500;
+    display: flex;
+  }
+  &-icon {
+    margin-inline-end: 12px;
+    animation: logoRotate 1s ease-in-out forwards;
+    transform-origin: center;
+  }
+}
+
+@keyframes logoRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg); /* 2圈 */
+  }
+}

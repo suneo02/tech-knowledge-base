@@ -1,0 +1,56 @@
+{
+  "api": "/detail/company/getsharechange",
+  "countKey": "share_change_num",
+  "downDocTypeName": "不存在导出",
+  "key": "EquityChangeInformation",
+  "title": "股权变更信息",
+  "titleIntl": "142482",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "shareholdingName",
+      "title": "股东名称",
+      "titleIntl": "138783",
+      "width": "34%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "equityRatioBefore",
+      "renderType": "number",
+      "title": "变更前股权比例",
+      "titleIntl": "142479",
+      "width": "18%",
+      "renderConfig": {
+        "useThousandSeparator": true
+      }
+    },
+    {
+      "align": "right",
+      "dataIndex": "equityRatioAfter",
+      "renderType": "number",
+      "title": "变更后股权比例",
+      "titleIntl": "142480",
+      "width": "18%",
+      "renderConfig": {
+        "useThousandSeparator": true
+      }
+    },
+    {
+      "align": "left",
+      "dataIndex": "equityChangeDate",
+      "renderType": "date",
+      "title": "股权变更日期",
+      "titleIntl": "142481",
+      "width": "16%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "publicDate",
+      "renderType": "date",
+      "title": "公示日期",
+      "titleIntl": "138143",
+      "width": "15%"
+    }
+  ]
+}

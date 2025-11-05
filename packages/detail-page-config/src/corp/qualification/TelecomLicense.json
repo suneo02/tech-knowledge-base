@@ -1,0 +1,33 @@
+{
+  "api": "detail/company/teleLicenseList",
+  "countKey": "telelic_num",
+  "downDocTypeName": "不存在导出",
+  "key": "TelecomLicense",
+  "title": "电信许可",
+  "titleIntl": "205397",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "licNo",
+      "title": "许可证号",
+      "titleIntl": "205398",
+      "width": "25%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "licCat",
+      "title": "业务及其覆盖范围",
+      "titleIntl": "205399",
+      "width": "50%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "annualYear",
+      "renderType": "date",
+      "title": "年报年份",
+      "titleIntl": "364209",
+      "width": "25%"
+    }
+  ]
+}

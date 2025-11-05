@@ -1,0 +1,38 @@
+{
+  "api": "/detail/company/getcoreteam",
+  "countKey": "coreteam_num",
+  "downDocTypeName": "不存在导出",
+  "key": "CoreTeam",
+  "title": "核心团队",
+  "titleIntl": "204943",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "personName",
+      "title": "姓名 ",
+      "titleIntl": "34979",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "jobTitle",
+      "title": "职位",
+      "titleIntl": "35650",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "remark",
+      "title": "简介",
+      "titleIntl": "138847",
+      "width": "56%"
+    }
+  ]
+}

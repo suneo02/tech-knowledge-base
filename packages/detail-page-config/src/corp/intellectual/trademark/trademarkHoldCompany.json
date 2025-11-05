@@ -1,0 +1,75 @@
+{
+  "api": "detail/company/getintellectual_trademark_holdCompany",
+  "countKey": "trademark_num_kgqy",
+  "downDocType": "download/createtempfile/getintellectual_trademark_holdCompany",
+  "downDocTypeName": "新的导出",
+  "key": "TrademarkHoldCompany",
+  "title": "控股企业",
+  "titleIntl": "138589",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "trademarkImage",
+      "renderType": "image",
+      "title": "商标",
+      "titleIntl": "138799",
+      "width": "10%",
+      "renderConfig": {
+        "imageRenderType": "brand",
+        "imageTableId": "6710"
+      }
+    },
+    {
+      "align": "left",
+      "dataIndex": "trademarkName",
+      "title": "商标名",
+      "titleIntl": "138560",
+      "width": "17%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "applicationNumber",
+      "title": "注册号",
+      "titleIntl": "138476",
+      "width": "9%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "internationalClassification",
+      "title": "国际分类",
+      "titleIntl": "138348",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "trademarkStatus",
+      "title": "状态",
+      "titleIntl": "32098",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "applicationDate",
+      "renderType": "date",
+      "title": "申请时间",
+      "titleIntl": "138156",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "corpName",
+      "title": "申请人",
+      "titleIntl": "58656",
+      "width": "19%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "relativeType",
+      "renderType": "relativeType",
+      "title": "关联关系类型",
+      "titleIntl": "332353",
+      "width": "10%"
+    }
+  ]
+}

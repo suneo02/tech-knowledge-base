@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="6px" height="9px" viewBox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>详情-点击进入 （蓝色）@1x</title>
+    <g id="PC-Web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02--通知中心展开" transform="translate(-1407.000000, -124.000000)">
+            <g id="详情-点击进入-（蓝色）" transform="translate(1407.000000, 124.883114)">
+                <polyline id="详情-点击进入" stroke="#3355FF" stroke-linecap="round" stroke-linejoin="round" transform="translate(3.000000, 4.000000) scale(1, -1) rotate(-180.000000) translate(-3.000000, -4.000000) " points="5 1 1 4.07287812 5 7"></polyline>
+                <rect id="矩形" x="0" y="0" width="6" height="8"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

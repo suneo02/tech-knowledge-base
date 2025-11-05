@@ -1,0 +1,46 @@
+{
+  "api": "detail/company/getguarantee/",
+  "countKey": "guaranteedetailCount",
+  "downDocType": "download/createtempfile/getguarantee",
+  "downDocTypeName": "新的导出",
+  "key": "WarrantyInformation",
+  "title": "担保信息",
+  "titleIntl": "138320",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "guaranteedParty",
+      "title": "被担保方",
+      "titleIntl": "1927",
+      "width": "32%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "guaranteeAmount",
+      "renderType": "number",
+      "title": "担保金额(万元)",
+      "titleIntl": "4596",
+      "width": "24%",
+      "renderConfig": {
+        "useThousandSeparator": true
+      }
+    },
+    {
+      "align": "left",
+      "dataIndex": "deadlineDate",
+      "renderType": "date",
+      "title": "截止日期",
+      "titleIntl": "24411",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "announcementDate",
+      "renderType": "date",
+      "title": "公告日期",
+      "titleIntl": "32903",
+      "width": "20%"
+    }
+  ]
+}

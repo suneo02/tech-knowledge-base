@@ -1,0 +1,118 @@
+{
+  "api": "detail/company/getcorpbasicinfo_basic",
+  "key": "BussInfo",
+  "title": "基本信息",
+  "titleIntl": "205468",
+  "tooltipTitle": "数据来源：国家企业信用信息公示系统，部分信息根据大数据衍生计算生成",
+  "tooltipTitleIntl": "411313",
+  "type": "horizontalTable",
+  "columns": [
+    [
+      {
+        "dataIndex": "biz_reg_no",
+        "title": "公司编号",
+        "titleIntl": "6228"
+      },
+      {
+        "dataIndex": "legal_person_name",
+        "title": "代表人",
+        "titleIntl": "416873"
+      },
+      {
+        "dataIndex": "corp_type",
+        "title": "公司类别",
+        "titleIntl": "448308"
+      }
+    ],
+    [
+      {
+        "dataIndex": "reg_capital",
+        "renderType": "currency",
+        "title": "注册资金",
+        "titleIntl": "448309",
+        "renderConfig": {
+          "unitField": "reg_unit",
+          "unitPrefix": "万",
+          "unitPrefixIntl": "20116"
+        }
+      },
+      {
+        "dataIndex": "paid_in_capital",
+        "renderType": "currency",
+        "title": "实缴资本",
+        "titleIntl": "145876",
+        "renderConfig": {
+          "unitField": "paid_in_capital_currency",
+          "unitPrefix": "万",
+          "unitPrefixIntl": "20116"
+        }
+      },
+      {
+        "dataIndex": "state",
+        "renderType": "custom",
+        "title": "公司现状",
+        "titleIntl": "448310",
+        "renderConfig": {
+          "customRenderName": "bussStatus"
+        }
+      }
+    ],
+    [
+      {
+        "dataIndex": "reg_date",
+        "renderType": "date",
+        "title": "核准设立日期",
+        "titleIntl": "448311"
+      },
+      {
+        "dataIndex": "issue_date",
+        "renderType": "date",
+        "title": "最后核准变更日期",
+        "titleIntl": "448327"
+      },
+      {
+        "dataIndex": "entity_type",
+        "title": "股权状态",
+        "titleIntl": "448328"
+      }
+    ],
+    [
+      {
+        "colSpan": 5,
+        "dataIndex": "reg_authority",
+        "title": "登记机关",
+        "titleIntl": "138477"
+      }
+    ],
+    [
+      {
+        "colSpan": 5,
+        "dataIndex": "simplified_chinese",
+        "title": "简体中文名称",
+        "titleIntl": "448312"
+      }
+    ],
+    [
+      {
+        "colSpan": 5,
+        "dataIndex": "eng_name",
+        "title": "公司英文名",
+        "titleIntl": "448329"
+      }
+    ],
+    [
+      {
+        "dataIndex": "reg_address",
+        "title": "办公地址",
+        "titleIntl": "1588"
+      }
+    ],
+    [
+      {
+        "dataIndex": "business_scope",
+        "title": "经营范围",
+        "titleIntl": "9177"
+      }
+    ]
+  ]
+}

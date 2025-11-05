@@ -1,0 +1,18 @@
+.list-container {
+  display: flex;
+  justify-content: space-between;
+  a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+
+  .delete-btn {
+    visibility: hidden;
+  }
+  &:hover {
+    .delete-btn {
+      visibility: visible;
+    }
+  }
+}

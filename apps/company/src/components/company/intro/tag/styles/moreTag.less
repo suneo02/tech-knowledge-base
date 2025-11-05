@@ -1,0 +1,58 @@
+.company-more-tags-modal {
+  &--body {
+    display: flex;
+    flex-direction: column;
+    > * {
+      margin-bottom: 6px;
+    }
+    > :last-child {
+      margin: 0;
+    }
+  }
+  &--group {
+    display: flex;
+    flex-direction: column;
+    > * {
+      margin-bottom: 6px;
+    }
+    > :last-child {
+      margin: 0;
+    }
+  }
+
+  &--tags {
+    display: flex;
+    flex-wrap: wrap;
+    > * {
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    > :last-child {
+      margin: 0;
+    }
+  }
+  &--footer {
+    text-align: left;
+    font-size: 12px;
+    color: #666;
+  }
+
+  // TODO 待优化 ，risk tag 里 有一个 dangerouslySetInnerHTML 千万不能删！！！
+  .risk-tag {
+    height: 24px;
+    line-height: 24px;
+    background: rgba(246, 135, 23, 0.16);
+    border-radius: 2px;
+    display: inline-block;
+    margin-right: 6px;
+    padding: 0 6px;
+    margin-bottom: 6px;
+    color: #e75a5e !important;
+    background-color: rgba(231, 90, 94, 0.14) !important;
+    cursor: pointer;
+    max-width: 300px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}

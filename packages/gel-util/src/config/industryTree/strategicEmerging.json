@@ -1,0 +1,3832 @@
+[
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "海洋生物制品制造指利用海洋生物资源进行生产和制造的过程。包括海洋生物活性物质、海洋生物制剂等，旨在开发和利用海洋生物资源的潜力。",
+            "level": 3,
+            "nameEn": "Manufacturing of marine biological products",
+            "code": "142614618",
+            "name": "海洋生物制品制造",
+            "parentId": "142614616"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物化工制品制造指生产和制造以生物资源为原料的化工产品的过程。包括生物基化学品、生物降解塑料等，旨在推动绿色化学和可持续发展。",
+            "level": 3,
+            "nameEn": "Biochemical products manufacturing",
+            "code": "142614617",
+            "name": "生物化工制品制造",
+            "parentId": "142614616"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他生物工程相关设备制造指生产和制造其他与生物工程相关的设备的过程。包括生物发酵设备、生物分离设备等，旨在满足生物工程和生物产业的设备需求。",
+            "level": 3,
+            "nameEn": "Other bioengineering-related equipment manufacturing",
+            "code": "142614861",
+            "name": "其他生物工程相关设备制造",
+            "parentId": "142614616"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物酶等发酵制品制造指生产和制造生物酶等通过发酵工艺获得的制品的过程。包括酶制剂、生物活性物质等，旨在满足工业和生物医药领域的需求。",
+            "level": 3,
+            "nameEn": "Manufacture of fermented products such as biological enzymes",
+            "code": "142614860",
+            "name": "生物酶等发酵制品制造",
+            "parentId": "142614616"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物基材料制造指生产和制造以生物资源为原料的材料的过程。包括生物基塑料、生物基纤维、生物基复合材料等，旨在推动可持续发展和替代传统材料。",
+            "level": 3,
+            "nameEn": "Manufacture of bio-based materials",
+            "code": "142614859",
+            "name": "生物基材料制造",
+            "parentId": "142614616"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他生物业相关服务指为其他生物产业提供的相关服务。包括生物技术咨询、生物资源管理、生物产品质量检测等，旨在支持其他生物产业的发展和运营。",
+            "level": 3,
+            "nameEn": "Other health related services",
+            "code": "142614619",
+            "name": "其他生物业相关服务",
+            "parentId": "142614616"
+          }
+        ],
+        "description": "其他生物业指与生物技术、生物资源和生物应用相关的其他产业。涵盖了广泛的领域，包括生物化学、生物工程、生物制药等。",
+        "level": 2,
+        "nameEn": "Other sanitary properties",
+        "code": "142614616",
+        "name": "其他生物业",
+        "parentId": "142614604"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "生物兽药、兽用生物制品及疫苗制造指生产和制造用于动物的生物兽药、生物制品和疫苗的过程。包括动物疫苗、免疫诊断试剂等，旨在预防和控制动物疾病的传播和爆发。",
+            "level": 3,
+            "nameEn": "Manufacturing of biological veterinary drugs, veterinary biological products and vaccines",
+            "code": "142614613",
+            "name": "生物兽药、兽用生物制品及疫苗制造",
+            "parentId": "142614853"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物育种指利用生物技术和遗传学原理改良和培育农作物、养殖动物的过程。包括杂交育种、基因编辑和遗传改良等技术手段，旨在提高作物品质、抗病虫害能力和产量。",
+            "level": 3,
+            "nameEn": "Biological breeding",
+            "code": "142614611",
+            "name": "生物育种",
+            "parentId": "142614853"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物肥料制造指生产和制造生物肥料的过程。包括有机肥料、微生物菌肥等以生物资源为原料的肥料制剂，旨在提供营养和改良土壤的作用。",
+            "level": 3,
+            "nameEn": "Biofertilizer manufacturing",
+            "code": "142614612",
+            "name": "生物肥料制造",
+            "parentId": "142614853"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物饲料制造指生产和制造以生物资源为主要原料的饲料的过程。包括发酵饲料、生物蛋白饲料等，旨在提供动物的营养需求和促进养殖业的可持续发展。",
+            "level": 3,
+            "nameEn": "Biological feed manufacturing",
+            "code": "142614855",
+            "name": "生物饲料制造",
+            "parentId": "142614853"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物农业相关服务指为生物农业领域提供的其他相关服务。包括农业技术咨询、种植技术培训、农业项目管理等，旨在支持生物农业产业链的发展和推广。",
+            "level": 3,
+            "nameEn": "Bio-agriculture related services",
+            "code": "142614856",
+            "name": "生物农业相关服务",
+            "parentId": "142614853"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物农药制造指生产和制造生物农药的过程。包括微生物农药、植物提取物农药等天然或经过改良的农药制剂，旨在控制农作物病虫害和提高农业产量。",
+            "level": 3,
+            "nameEn": "Biopesticide manufacturing",
+            "code": "142614854",
+            "name": "生物农药制造",
+            "parentId": "142614853"
+          }
+        ],
+        "description": "生物农业及相关产业指以生物技术和生物资源为核心的农业产业。包括生物育种、生物农药、生物肥料、生物饲料等领域，旨在提高农业生产效益和环境友好性。",
+        "level": 2,
+        "nameEn": "Bio-agriculture and related industries",
+        "code": "142614853",
+        "name": "生物农业及相关产业",
+        "parentId": "142614604"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "生物质燃料加工指对生物质进行加工处理以获得可用于能源生产的燃料。包括生物质颗粒燃料、生物质液体燃料等的加工制备，旨在提供可再生能源和替代传统燃料。",
+            "level": 3,
+            "nameEn": "Biomass fuel processing",
+            "code": "142614615",
+            "name": "生物质燃料加工",
+            "parentId": "142614614"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物相关原料供应体系活动指提供生物相关原料的供应链管理和活动。包括生物原料采集、收购、储存和供应等环节，旨在满足生物产业的原料需求。",
+            "level": 3,
+            "nameEn": "Bio-related raw material supply system activities",
+            "code": "142614857",
+            "name": "生物相关原料供应体系活动",
+            "parentId": "142614614"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物质能相关服务指为生物质能产业提供的其他相关服务。包括能源咨询、生物质能源技术开发、生物质能源设备维护等，旨在支持生物质能产业的发展和应用。",
+            "level": 3,
+            "nameEn": "Biomass energy related services",
+            "code": "142614858",
+            "name": "生物质能相关服务",
+            "parentId": "142614614"
+          }
+        ],
+        "description": "生物质能产业指利用生物质作为能源来源的产业。包括生物质能源生产、生物质燃料制造、生物质能源开发等，旨在实现可再生能源的利用和替代传统能源。",
+        "level": 2,
+        "nameEn": "Biomass energy industry",
+        "code": "142614614",
+        "name": "生物质能产业",
+        "parentId": "142614604"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "现代中药与民族药制造指生产和制造现代中药和民族药的过程。包括中草药的提取、加工和制剂制备，旨在传承和发展传统中药和民族药。",
+            "level": 3,
+            "nameEn": "Modern Traditional Chinese Medicine and National Medicine Manufacture",
+            "code": "142614606",
+            "name": "现代中药与民族药制造",
+            "parentId": "142614847"
+          },
+          {
+            "childFlag": 1,
+            "description": "化学药品与原料药制造指生产和制造化学药品和原料药的过程。包括化学合成药物、天然药物提取和化学合成等工艺，旨在提供药物治疗和预防疾病。",
+            "level": 3,
+            "nameEn": "Manufacturing of chemicals and bulk drugs",
+            "code": "142614848",
+            "name": "化学药品与原料药制造",
+            "parentId": "142614847"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物药品制品制造指生产和制造生物制品和生物药品的过程。包括基因工程药物、蛋白质药物、细胞疗法等生物药品的制备和生产。",
+            "level": 3,
+            "nameEn": "Biopharmaceutical product manufacturing",
+            "code": "142614605",
+            "name": "生物药品制品制造",
+            "parentId": "142614847"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物医药相关服务指为生物医药产业提供的各类支持和服务。包括技术咨询、临床试验、注册申报等服务，旨在推动生物医药产品的研发、上市和应用。",
+            "level": 3,
+            "nameEn": "Biomedical related services",
+            "code": "142614607",
+            "name": "生物医药相关服务",
+            "parentId": "142614847"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物医药关键装备与原辅料制造指生产和制造生物医药产业关键设备和原辅料的过程。包括生物反应器、分离纯化设备、生物传感器等设备的制造和供应。",
+            "level": 3,
+            "nameEn": "Manufacturing of key biomedical equipment and raw and auxiliary materials",
+            "code": "142614849",
+            "name": "生物医药关键装备与原辅料制造",
+            "parentId": "142614847"
+          }
+        ],
+        "description": "生物医药产业指以生物医药为核心的产业。包括药物研发、制药、生物制品、医疗器械等领域，旨在提供人类健康服务和解决疾病问题。",
+        "level": 2,
+        "nameEn": "Biomedical Industry",
+        "code": "142614847",
+        "name": "生物医药产业",
+        "parentId": "142614604"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "其他生物医用材料及用品制造指制造与生物医学相关的其他材料和用品的过程。包括医用敷料、医用胶带、手术器械辅助材料等，旨在支持医疗和治疗过程中的需求。",
+            "level": 3,
+            "nameEn": "Manufacturing of other biomedical materials and supplies",
+            "code": "142614609",
+            "name": "其他生物医用材料及用品制造",
+            "parentId": "142614850"
+          },
+          {
+            "childFlag": 1,
+            "description": "先进医疗设备及器械制造指生产和制造高端、先进的医疗设备和器械的过程。包括医学影像设备、手术器械、医疗诊断设备等，旨在提高医疗诊断和治疗水平。",
+            "level": 3,
+            "nameEn": "Advanced medical equipment and instrument manufacturing",
+            "code": "142614608",
+            "name": "先进医疗设备及器械制造",
+            "parentId": "142614850"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物医学工程相关服务指为生物医学工程领域提供的其他相关服务。包括技术咨询、医学设备维护与修理、医学工程设计等，旨在支持生物医学工程的发展和应用。",
+            "level": 3,
+            "nameEn": "Biomedical Engineering Related Services",
+            "code": "142614610",
+            "name": "生物医学工程相关服务",
+            "parentId": "142614850"
+          },
+          {
+            "childFlag": 1,
+            "description": "植介入生物医用材料及设备制造指生产和制造用于植入式医疗器械和材料的过程。包括人工关节、心脏支架、植入式药物传递系统等，旨在支持植入式医疗治疗。",
+            "level": 3,
+            "nameEn": "Manufacturing of biomedical materials and equipment for implant intervention",
+            "code": "142614851",
+            "name": "植介入生物医用材料及设备制造",
+            "parentId": "142614850"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物医学工程信息技术服务指为生物医学工程领域提供信息技术支持和服务的活动。包括医学影像分析软件、医疗信息管理系统、医学数据分析等，旨在提高医疗技术和信息管理的效率和精确性。",
+            "level": 3,
+            "nameEn": "Biomedical Engineering Information Technology Services",
+            "code": "142614852",
+            "name": "生物医学工程信息技术服务",
+            "parentId": "142614850"
+          }
+        ],
+        "description": "生物医学工程产业指以生物医学工程为核心的产业。包括医学影像、医疗器械、生物材料等领域，旨在应用工程技术解决医学问题。",
+        "level": 2,
+        "nameEn": "Biomedical Engineering Industry",
+        "code": "142614850",
+        "name": "生物医学工程产业",
+        "parentId": "142614604"
+      }
+    ],
+    "description": "生物产业指以生物技术和生物资源为核心的产业。包括生物医药、生物农业、生物制造等领域，涉及生物学、医学、农学等多个学科。",
+    "level": 1,
+    "nameEn": "Biological Industry",
+    "code": "142614604",
+    "name": "生物产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "现代金融服务指基于现代技术和金融创新的各种金融服务。这包括互联网金融、移动支付、金融科技等，旨在提供高效、便捷和创新的金融服务。",
+            "level": 3,
+            "nameEn": "Modern financial services",
+            "code": "142614667",
+            "name": "现代金融服务",
+            "parentId": "142614666"
+          },
+          {
+            "childFlag": 1,
+            "description": "航空运营及支持服务指为航空公司和航空运输行业提供的各种运营和支持服务。这包括航空运输管理、机场地面服务、航空维修保养等，旨在支持航空运输业的运营和发展。",
+            "level": 3,
+            "nameEn": "Aviation Operations and Support Services",
+            "code": "142614910",
+            "name": "航空运营及支持服务",
+            "parentId": "142614666"
+          }
+        ],
+        "description": "其他相关服务指与特定行业或领域相关的各种服务，但未在上述分类中涵盖的服务。具体内容可能因不同行业而异。",
+        "level": 2,
+        "nameEn": "Other related services",
+        "code": "142614666",
+        "name": "其他相关服务",
+        "parentId": "142614662"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "研发服务指为企业或组织提供研发（Research and Development）方面的支持和服务。这包括技术研发、产品研发、创新研发等，旨在促进科技进步和产品创新。",
+            "level": 3,
+            "nameEn": "R & D services",
+            "code": "142614663",
+            "name": "研发服务",
+            "parentId": "142614905"
+          },
+          {
+            "childFlag": 1,
+            "description": "检验检测认证服务指为产品、设备或系统进行检验、检测和认证的服务。这包括质量检验、安全检测、环境认证等，旨在确保产品和服务符合相关标准和规定。",
+            "level": 3,
+            "nameEn": "Inspection, testing and certification services",
+            "code": "142614906",
+            "name": "检验检测认证服务",
+            "parentId": "142614905"
+          },
+          {
+            "childFlag": 1,
+            "description": "知识产权及相关服务指与知识产权（如专利、商标、版权等）保护和管理相关的各种服务。这包括知识产权申请、侵权调查、知识产权交易等，旨在保护和管理知识产权。",
+            "level": 3,
+            "nameEn": "Intellectual Property and Related Services",
+            "code": "142614665",
+            "name": "知识产权及相关服务",
+            "parentId": "142614905"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他技术推广服务指各种与技术推广相关的服务，但未在上述分类中涵盖的服务。这可能涉及技术培训、技术咨询、技术交流等。",
+            "level": 3,
+            "nameEn": "Other technical extension services",
+            "code": "142614909",
+            "name": "其他技术推广服务",
+            "parentId": "142614905"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他专业技术服务指各种与专业技术相关的服务，但未在上述分类中涵盖的服务。这可能涉及特定行业的专业咨询、技术支持等。",
+            "level": 3,
+            "nameEn": "Other professional technical services",
+            "code": "142614907",
+            "name": "其他专业技术服务",
+            "parentId": "142614905"
+          },
+          {
+            "childFlag": 1,
+            "description": "创新创业服务指为创新创业者提供支持和服务的行业。这包括创业培训、创业孵化、创投服务等，旨在促进创新创业活动的发展。",
+            "level": 3,
+            "nameEn": "Innovation and entrepreneurship services",
+            "code": "142614908",
+            "name": "创新创业服务",
+            "parentId": "142614905"
+          },
+          {
+            "childFlag": 1,
+            "description": "标准化服务指为企业或组织提供标准制定、标准解读和标准应用的服务。这包括标准制定、标准培训、标准咨询等，旨在提高产品质量、促进贸易便利化和提升竞争力。",
+            "level": 3,
+            "nameEn": "Standardized services",
+            "code": "142614664",
+            "name": "标准化服务",
+            "parentId": "142614905"
+          }
+        ],
+        "description": "新技术与创新创业服务指为创新企业和创业者提供技术支持、咨询和创业孵化等服务。这包括技术转移、创业培训、投资和融资服务等，旨在推动新技术应用和创新创业的发展。",
+        "level": 2,
+        "nameEn": "New technology and innovation and entrepreneurship services",
+        "code": "142614905",
+        "name": "新技术与创新创业服务",
+        "parentId": "142614662"
+      }
+    ],
+    "description": "相关服务业指与特定行业或领域相关的各种服务业。这包括与制造业、建筑业、金融业等相关的服务业，旨在支持和促进相关行业的发展和运营。",
+    "level": 1,
+    "nameEn": "Related services",
+    "code": "142614662",
+    "name": "相关服务业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "其他海洋相关设备与产品制造指制造与海洋领域相关的其他设备和产品，例如海洋能源设备、海洋环境监测设备等的制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of other marine related equipment and products",
+            "code": "142609978",
+            "name": "其他海洋相关设备与产品制造",
+            "parentId": "142614475"
+          },
+          {
+            "childFlag": 1,
+            "description": "深海石油钻探设备制造指制造用于深海石油钻探的设备，如深水钻井平台、水下钻机等的制造。",
+            "level": 3,
+            "nameEn": "Deep-sea oil drilling equipment manufacturing",
+            "code": "142614476",
+            "name": "深海石油钻探设备制造",
+            "parentId": "142614475"
+          },
+          {
+            "childFlag": 1,
+            "description": "海洋工程建筑及相关服务指从事海洋工程建筑以及与之相关的服务，如海洋平台建设、海底管线铺设等。",
+            "level": 3,
+            "nameEn": "Offshore Engineering Construction and Related Services",
+            "code": "142609979",
+            "name": "海洋工程建筑及相关服务",
+            "parentId": "142614475"
+          },
+          {
+            "childFlag": 1,
+            "description": "海洋环境监测与探测装备制造指制造用于海洋环境监测和探测的设备，如海洋气象观测设备、海洋生物探测设备等的制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of marine environment monitoring and detection equipment",
+            "code": "142614477",
+            "name": "海洋环境监测与探测装备制造",
+            "parentId": "142614475"
+          },
+          {
+            "childFlag": 1,
+            "description": "海洋工程装备制造指制造用于海洋工程的各种装备，例如海洋平台的制造、海底机器人的制造等。",
+            "level": 3,
+            "nameEn": "Marine engineering equipment manufacturing",
+            "code": "142609977",
+            "name": "海洋工程装备制造",
+            "parentId": "142614475"
+          }
+        ],
+        "description": "海洋工程装备产业指用于海洋工程领域的各种装备制造和相关产业。",
+        "level": 2,
+        "nameEn": "Marine engineering equipment industry",
+        "code": "142614475",
+        "name": "海洋工程装备产业",
+        "parentId": "142609966"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "智能测控装备制造指制造具有智能化测量和控制功能的设备，如智能传感器、自动化控制系统等。",
+            "level": 3,
+            "nameEn": "Intelligent measurement and control equipment manufacturing",
+            "code": "142609968",
+            "name": "智能测控装备制造",
+            "parentId": "142614465"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他智能设备制造指制造其他类型的智能设备，如智能交通设备、智能医疗设备等。",
+            "level": 3,
+            "nameEn": "Other smart device manufacturing",
+            "code": "142614467",
+            "name": "其他智能设备制造",
+            "parentId": "142614465"
+          },
+          {
+            "childFlag": 1,
+            "description": "机器人与增材设备制造指制造各类机器人和增材制造设备，如工业机器人、3D打印机等。",
+            "level": 3,
+            "nameEn": "Manufacturing of robots and additive equipment",
+            "code": "142609967",
+            "name": "机器人与增材设备制造",
+            "parentId": "142614465"
+          },
+          {
+            "childFlag": 1,
+            "description": "重大成套设备制造指制造重要的成套设备，如大型工业设备、发电设备等。",
+            "level": 3,
+            "nameEn": "Manufacturing of major complete sets of equipment",
+            "code": "142614466",
+            "name": "重大成套设备制造",
+            "parentId": "142614465"
+          },
+          {
+            "childFlag": 1,
+            "description": "智能制造相关服务指为智能制造提供的相关服务，如智能工厂规划咨询、智能化改造服务等。",
+            "level": 3,
+            "nameEn": "Intelligent manufacturing related services",
+            "code": "142614468",
+            "name": "智能制造相关服务",
+            "parentId": "142614465"
+          },
+          {
+            "childFlag": 1,
+            "description": "智能关键基础零部件制造指制造智能装备中的关键基础零部件，如智能传感器、智能控制器等。",
+            "level": 3,
+            "nameEn": "Intelligent key basic parts manufacturing",
+            "code": "142609969",
+            "name": "智能关键基础零部件制造",
+            "parentId": "142614465"
+          }
+        ],
+        "description": "智能制造装备产业指用于实现智能制造的装备制造产业，如智能工厂设备、自动化生产线等。",
+        "level": 2,
+        "nameEn": "Intelligent manufacturing equipment industry",
+        "code": "142614465",
+        "name": "智能制造装备产业",
+        "parentId": "142609966"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "其他航空装备制造及相关服务是指与航空装备制造相关的其他活动。可能包括航空用机电设备，航空用通信系统设备制造，航空航天器修理等",
+            "level": 3,
+            "nameEn": "Other aviation equipment manufacturing and related services",
+            "code": "142609971",
+            "name": "其他航空装备制造及相关服务",
+            "parentId": "142609970"
+          },
+          {
+            "childFlag": 1,
+            "description": "航空器装备制造指制造航空器上使用的各种装备和零部件，如航空电子设备、航空通信设备等。",
+            "level": 3,
+            "nameEn": "Aircraft equipment manufacturing",
+            "code": "142614469",
+            "name": "航空器装备制造",
+            "parentId": "142609970"
+          }
+        ],
+        "description": "航空装备产业指航空器和航空相关设备的制造产业，如飞机制造、航空发动机制造等。",
+        "level": 2,
+        "nameEn": "Aviation equipment industry",
+        "code": "142609970",
+        "name": "航空装备产业",
+        "parentId": "142609966"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "其他航天器及运载火箭制造包括制造除卫星以外的其他航天器，如载人飞船、探测器等，以及用于将卫星送入轨道的运载火箭的制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of other spacecraft and launch vehicles",
+            "code": "142614472",
+            "name": "其他航天器及运载火箭制造",
+            "parentId": "142614470"
+          },
+          {
+            "childFlag": 1,
+            "description": "卫星装备制造指制造卫星的各种设备和零部件，如卫星平台、卫星通信设备等。",
+            "level": 3,
+            "nameEn": "Satellite equipment manufacturing",
+            "code": "142609972",
+            "name": "卫星装备制造",
+            "parentId": "142614470"
+          },
+          {
+            "childFlag": 1,
+            "description": "卫星应用技术设备制造指制造用于卫星通信、导航、遥感等领域的技术设备，如卫星通信设备、导航设备和遥感设备的制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of satellite application technology equipment",
+            "code": "142614471",
+            "name": "卫星应用技术设备制造",
+            "parentId": "142614470"
+          },
+          {
+            "childFlag": 1,
+            "description": "卫星应用服务指基于卫星技术提供的各种应用服务，例如卫星通信服务、卫星导航服务和卫星遥感服务。",
+            "level": 3,
+            "nameEn": "Satellite application services",
+            "code": "142609973",
+            "name": "卫星应用服务",
+            "parentId": "142614470"
+          }
+        ],
+        "description": "卫星及应用产业指卫星的研制、制造、发射和卫星应用的产业，包括遥感卫星、通信卫星等。",
+        "level": 2,
+        "nameEn": "Satellite and application industry",
+        "code": "142614470",
+        "name": "卫星及应用产业",
+        "parentId": "142609966"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "轨道交通相关服务指为轨道交通系统提供的各种相关服务，包括运营管理、维护保养、安全监控等。",
+            "level": 3,
+            "nameEn": "Rail transit related services",
+            "code": "142609976",
+            "name": "轨道交通相关服务",
+            "parentId": "142609974"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他轨道交通装备制造指制造与轨道交通系统相关的其他装备，如有轨电车、轻轨列车等的制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of other rail transit equipment",
+            "code": "142614474",
+            "name": "其他轨道交通装备制造",
+            "parentId": "142609974"
+          },
+          {
+            "childFlag": 1,
+            "description": "城市轨道装备制造指制造用于城市轨道交通系统的各种装备，如地铁列车、信号设备、电气设备等的制造。",
+            "level": 3,
+            "nameEn": "Urban rail equipment manufacturing",
+            "code": "142609975",
+            "name": "城市轨道装备制造",
+            "parentId": "142609974"
+          },
+          {
+            "childFlag": 1,
+            "description": "铁路高端装备制造指制造用于铁路系统的高级装备，包括高速列车、先进信号系统、先进控制系统等的制造。",
+            "level": 3,
+            "nameEn": "High-end railway equipment manufacturing",
+            "code": "142614473",
+            "name": "铁路高端装备制造",
+            "parentId": "142609974"
+          }
+        ],
+        "description": "轨道交通装备产业指与轨道交通系统相关的各种装备的产业，包括列车、信号设备、通信设备、电气设备等的制造。",
+        "level": 2,
+        "nameEn": "Rail transit equipment industry",
+        "code": "142609974",
+        "name": "轨道交通装备产业",
+        "parentId": "142609966"
+      }
+    ],
+    "description": "高端装备制造产业指制造高技术含量、高附加值的装备产品，如高端数控机床、半导体设备等。",
+    "level": 1,
+    "nameEn": "High-end equipment manufacturing industry",
+    "code": "142609966",
+    "name": "高端装备制造产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "数字文化创意广播电视服务指以数字技术为基础，提供广播电视节目制作和传播的服务。包括数字电视节目制作、网络直播等，旨在推动广播电视业的数字化转型和创新发展。",
+            "level": 3,
+            "nameEn": "Digital cultural and creative radio and television services",
+            "code": "142614659",
+            "name": "数字文化创意广播电视服务",
+            "parentId": "142614657"
+          },
+          {
+            "childFlag": 1,
+            "description": "数字文化创意内容制作服务指为数字文化创意产业提供的内容制作和创作服务。包括数字影视制作、游戏开发等，旨在满足数字文化创意产业的内容需求和市场需求。",
+            "level": 3,
+            "nameEn": "Digital cultural creative content production services",
+            "code": "142614658",
+            "name": "数字文化创意内容制作服务",
+            "parentId": "142614657"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他数字文化创意活动指与数字文化和创意相关的其他活动。这可能包括数字娱乐、数字艺术和数字创意产业等领域的活动。",
+            "level": 3,
+            "nameEn": "Other digital cultural and creative activities",
+            "code": "142614902",
+            "name": "其他数字文化创意活动",
+            "parentId": "142614657"
+          },
+          {
+            "childFlag": 1,
+            "description": "数字文化创意软件开发指开发和制作与数字文化创意相关的软件和应用程序的过程。旨在提供数字化创意工具和平台，促进数字文化创意产业的发展。",
+            "level": 3,
+            "nameEn": "Digital Cultural Creative Software Development",
+            "code": "142614900",
+            "name": "数字文化创意软件开发",
+            "parentId": "142614657"
+          },
+          {
+            "childFlag": 1,
+            "description": "新型媒体服务指基于互联网和数字技术的新兴媒体形式和服务。包括在线新闻、社交媒体等，旨在满足人们对信息获取和娱乐消费的需求。",
+            "level": 3,
+            "nameEn": "New media services",
+            "code": "142614901",
+            "name": "新型媒体服务",
+            "parentId": "142614657"
+          }
+        ],
+        "description": "数字文化创意活动指以数字技术为媒介进行的文化创意活动。包括数字艺术展览、数字文化节等，旨在推动文化创意与数字技术的结合和创新。",
+        "level": 2,
+        "nameEn": "Digital cultural and creative activities",
+        "code": "142614657",
+        "name": "数字文化创意活动",
+        "parentId": "142614898"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "数字创意与融合服务指将数字技术与创意内容相结合，为客户提供创意产业的综合服务。这包括数字创意策划、数字营销、数字娱乐等，旨在推动数字技术与创意产业的融合发展。",
+            "level": 3,
+            "nameEn": "Digital Creativity and Convergence Services",
+            "code": "142614904",
+            "name": "数字创意与融合服务",
+            "parentId": "142614661"
+          }
+        ],
+        "description": "数字创意与融合服务指将数字技术与创意内容相结合，为客户提供创意产业的综合服务。这包括数字创意策划、数字营销、数字娱乐等，旨在推动数字技术与创意产业的融合发展。",
+        "level": 2,
+        "nameEn": "Digital Creativity and Convergence Services",
+        "code": "142614661",
+        "name": "数字创意与融合服务",
+        "parentId": "142614898"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "数字设计服务指基于数字技术进行设计的服务。这包括计算机辅助设计（CAD）、三维建模、虚拟现实（VR）等数字化设计工具和技术，旨在提高设计效率和质量。",
+            "level": 3,
+            "nameEn": "Digital design services",
+            "code": "142614903",
+            "name": "数字设计服务",
+            "parentId": "142614660"
+          }
+        ],
+        "description": "设计服务指为客户提供设计方案、图纸和相关咨询的服务。这包括工业设计、建筑设计、平面设计等各种设计领域，旨在满足客户的设计需求，并提供创新和实用的解决方案。",
+        "level": 2,
+        "nameEn": "Design services",
+        "code": "142614660",
+        "name": "设计服务",
+        "parentId": "142614898"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "数字创意技术设备制造指生产和制造数字创意产业所需的技术设备的过程。包括数字媒体设备、创意软件开发工具等，旨在支持数字创意产业的技术创新和设备供应。",
+            "level": 3,
+            "nameEn": "Digital creative technology equipment manufacturing",
+            "code": "142614899",
+            "name": "数字创意技术设备制造",
+            "parentId": "142614656"
+          }
+        ],
+        "description": "数字创意技术设备制造指生产和制造数字创意产业所需的技术设备的过程。包括数字媒体设备、创意软件开发工具等，旨在支持数字创意产业的技术创新和设备供应。",
+        "level": 2,
+        "nameEn": "Digital creative technology equipment manufacturing",
+        "code": "142614656",
+        "name": "数字创意技术设备制造",
+        "parentId": "142614898"
+      }
+    ],
+    "description": "数字创意产业指以数字技术为基础，涉及创意内容、创意产品和创意服务的产业。包括数字媒体、数字艺术、数字娱乐等领域，旨在推动数字化创新和文化创意产业的发展。",
+    "level": 1,
+    "nameEn": "Digital creative industry",
+    "code": "142614898",
+    "name": "数字创意产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "电池膜制造指生产和制造用于电池领域的膜材料。这些膜材料具有良好的电化学性能和隔离性能，常用于锂离子电池、燃料电池等电池系统中。",
+                "level": 4,
+                "nameEn": "Battery membrane manufacturing",
+                "code": "142614801",
+                "name": "电池膜制造",
+                "parentId": "142614799"
+              },
+              {
+                "childFlag": 1,
+                "description": "离子交换膜产品制造指生产和制造具有离子交换功能的膜产品。这些膜产品能够选择性地吸附和释放离子，常用于电解、电池等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of ion exchange membrane products",
+                "code": "142614800",
+                "name": "离子交换膜产品制造",
+                "parentId": "142614799"
+              },
+              {
+                "childFlag": 1,
+                "description": "光伏用膜制造指生产和制造用于光伏领域的膜材料。这些膜材料具有良好的光透过性和耐候性，常用于太阳能电池板的保护和增光。",
+                "level": 4,
+                "nameEn": "Photovoltaic film manufacturing",
+                "code": "142614802",
+                "name": "光伏用膜制造",
+                "parentId": "142614799"
+              },
+              {
+                "childFlag": 1,
+                "description": "水处理用膜制造指生产和制造用于水处理领域的膜材料。这些膜材料具有过滤、除盐、脱色等功能，可应用于海水淡化、废水处理等环境中。",
+                "level": 4,
+                "nameEn": "Manufacture of membrane for water treatment",
+                "code": "142614558",
+                "name": "水处理用膜制造",
+                "parentId": "142614799"
+              },
+              {
+                "childFlag": 1,
+                "description": "其他新型膜材料制造指生产和制造其他具有新颖特性和应用的膜材料，如纳米膜、功能膜等。",
+                "level": 4,
+                "nameEn": "Manufacturing of other new membrane materials",
+                "code": "142614561",
+                "name": "其他新型膜材料制造",
+                "parentId": "142614799"
+              },
+              {
+                "childFlag": 1,
+                "description": "特种分离膜制造指生产和制造用于特殊分离过程的膜材料。这些膜材料具有高分离效率和选择性，广泛应用于气体分离、液体分离等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of special separation membrane",
+                "code": "142614559",
+                "name": "特种分离膜制造",
+                "parentId": "142614799"
+              },
+              {
+                "childFlag": 1,
+                "description": "光学膜制造指生产和制造用于光学器件的薄膜材料。这些膜材料具有优异的光学性能，可用于镀膜、滤光、反射等光学应用。",
+                "level": 4,
+                "nameEn": "Optical film manufacturing",
+                "code": "142614560",
+                "name": "光学膜制造",
+                "parentId": "142614799"
+              }
+            ],
+            "description": "高性能膜材料制造指生产和制造具有特殊功能和优异性能的薄膜材料。这些膜材料具有高渗透性、高选择性和优良的物理化学性能，被广泛应用于分离、过滤、防腐等领域。",
+            "level": 3,
+            "nameEn": "Manufacture of high performance membrane material",
+            "code": "142614799",
+            "name": "高性能膜材料制造",
+            "parentId": "142614790"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "专用化学品及材料制造指生产和制造特定用途的化学品和材料。这些化学品和材料常用于特定行业或特定工艺，如医药、电子、冶金等。",
+                "level": 4,
+                "nameEn": "Manufacturing of special chemicals and materials",
+                "code": "142614562",
+                "name": "专用化学品及材料制造",
+                "parentId": "142614803"
+              }
+            ],
+            "description": "专用化学品及材料制造指生产和制造特定用途的化学品和材料。这些化学品和材料常用于特定行业或特定工艺，如医药、电子、冶金等。",
+            "level": 3,
+            "nameEn": "Manufacturing of special chemicals and materials",
+            "code": "142614803",
+            "name": "专用化学品及材料制造",
+            "parentId": "142614790"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "氟制冷剂制造指生产和制造用于制冷和空调系统的氟制冷剂。这些制冷剂具有低毒性、低腐蚀性和良好的热性能，被广泛应用于家用和商用制冷设备。",
+                "level": 4,
+                "nameEn": "Fluorine refrigerant manufacturing",
+                "code": "142614795",
+                "name": "氟制冷剂制造",
+                "parentId": "142614794"
+              },
+              {
+                "childFlag": 1,
+                "description": "其他含氟烷烃制造指生产和制造其他含氟烷烃类化合物。这些化合物具有低毒性、低温性能和化学惰性，常用于医药、冶金、电子等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of other fluoroalkanes",
+                "code": "142614554",
+                "name": "其他含氟烷烃制造",
+                "parentId": "142614794"
+              },
+              {
+                "childFlag": 1,
+                "description": "有机硅环体制造指通过合成和加工等工艺，制造有机硅环体材料。有机硅环体具有优异的耐热性、耐磨性和绝缘性能，广泛应用于电子、建筑等领域。",
+                "level": 4,
+                "nameEn": "Preparation of silicone cyclic body",
+                "code": "142614796",
+                "name": "有机硅环体制造",
+                "parentId": "142614794"
+              },
+              {
+                "childFlag": 1,
+                "description": "合成硅材料制造指通过化学合成方法，制造硅材料。硅材料具有良好的热稳定性、化学稳定性和光学特性，被广泛应用于光电子、太阳能等领域。",
+                "level": 4,
+                "nameEn": "Made of synthetic silicon material",
+                "code": "142614555",
+                "name": "合成硅材料制造",
+                "parentId": "142614794"
+              },
+              {
+                "childFlag": 1,
+                "description": "合成氟树脂制造指通过化学合成方法，生产和制造氟树脂。氟树脂具有优异的耐高温性、耐化学腐蚀性和绝缘性能，广泛应用于涂料、密封材料、润滑剂等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of synthetic fluororesin",
+                "code": "142614553",
+                "name": "合成氟树脂制造",
+                "parentId": "142614794"
+              }
+            ],
+            "description": "氟硅合成材料制造指通过合成和加工等工艺，制造含氟和硅元素的材料。这些材料具有耐高温、耐腐蚀和绝缘性能，常用于高温工艺、化工设备等领域。",
+            "level": 3,
+            "nameEn": "Manufacture of fluorosilicone synthetic material",
+            "code": "142614794",
+            "name": "氟硅合成材料制造",
+            "parentId": "142614790"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "氟硅合成橡胶制造指通过合成和加工等工艺，制造含氟和硅元素的橡胶材料。这些橡胶材料具有耐高温、耐腐蚀和耐老化等特点，常用于密封、防腐等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of fluorosilicone synthetic rubber",
+                "code": "142614798",
+                "name": "氟硅合成橡胶制造",
+                "parentId": "142614797"
+              },
+              {
+                "childFlag": 1,
+                "description": "弹性体制造指通过聚合、交联或混炼等工艺，制造具有优异弹性和拉伸性能的材料。弹性体广泛应用于橡胶制品、弹簧、密封件等领域。",
+                "level": 4,
+                "nameEn": "Elastomer manufacturing",
+                "code": "142614557",
+                "name": "弹性体制造",
+                "parentId": "142614797"
+              },
+              {
+                "childFlag": 1,
+                "description": "特种橡胶制造指生产和制造具有特殊用途的橡胶材料，如丁腈橡胶、氟橡胶等。特种橡胶具有耐油、耐腐蚀和耐高温等特性，适用于化工、航空航天等领域。",
+                "level": 4,
+                "nameEn": "Manufacturing of special rubber",
+                "code": "142614556",
+                "name": "特种橡胶制造",
+                "parentId": "142614797"
+              }
+            ],
+            "description": "高性能橡胶及弹性体制造指生产和制造具有优异弹性和耐磨性的橡胶和弹性体材料。这些材料具有良好的机械性能和耐候性能，广泛应用于汽车、工程、医疗等领域。",
+            "level": 3,
+            "nameEn": "Manufacturing of high performance rubber and elastomer",
+            "code": "142614797",
+            "name": "高性能橡胶及弹性体制造",
+            "parentId": "142614790"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "聚氨酯材料及原料制造指生产和制造聚氨酯材料及其原料。聚氨酯材料具有优良的强度、耐磨性和耐化学腐蚀性，广泛应用于建筑、家具、汽车座椅等领域。",
+                "level": 4,
+                "nameEn": "Polyurethane material and raw material manufacturing",
+                "code": "142614552",
+                "name": "聚氨酯材料及原料制造",
+                "parentId": "142614793"
+              }
+            ],
+            "description": "聚氨酯材料及原料制造指生产和制造聚氨酯材料及其原料。聚氨酯材料具有优良的强度、耐磨性和耐化学腐蚀性，广泛应用于建筑、家具、汽车座椅等领域。",
+            "level": 3,
+            "nameEn": "Polyurethane material and raw material manufacturing",
+            "code": "142614793",
+            "name": "聚氨酯材料及原料制造",
+            "parentId": "142614790"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "颜料制造指生产和制造用于着色和染色的颜料产品。颜料具有高度稳定性和良好的染色性能，广泛应用于油漆、塑料、纺织等领域。",
+                "level": 4,
+                "nameEn": "Pigment manufacturing",
+                "code": "142614564",
+                "name": "颜料制造",
+                "parentId": "142614804"
+              },
+              {
+                "childFlag": 1,
+                "description": "染料制造指生产和制造用于织物、纸张等物体染色的染料产品。染料具有良好的渗透性和着色性能，常用于纺织、印刷等领域。",
+                "level": 4,
+                "nameEn": "Dye manufacturing",
+                "code": "142614806",
+                "name": "染料制造",
+                "parentId": "142614804"
+              },
+              {
+                "childFlag": 1,
+                "description": "涂料制造指生产和制造用于涂装和装饰的涂料产品。涂料具有覆盖性、保护性和装饰性，常用于建筑、家具、汽车等领域。",
+                "level": 4,
+                "nameEn": "Paint manufacturing",
+                "code": "142614563",
+                "name": "涂料制造",
+                "parentId": "142614804"
+              },
+              {
+                "childFlag": 1,
+                "description": "油墨制造指生产和制造用于印刷和涂装的油墨产品。油墨具有色彩鲜艳、附着力强等特点，常用于印刷、包装等领域。",
+                "level": 4,
+                "nameEn": "Ink manufacturing",
+                "code": "142614805",
+                "name": "油墨制造",
+                "parentId": "142614804"
+              }
+            ],
+            "description": "新型功能涂层材料制造指生产和制造具有特殊功能和性能的涂层材料。这些涂层材料可以提供防腐、耐磨、防刮等特性，广泛应用于汽车、建筑、航空等领域。",
+            "level": 3,
+            "nameEn": "Manufacture of new functional coating material",
+            "code": "142614804",
+            "name": "新型功能涂层材料制造",
+            "parentId": "142614790"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "二次电池材料制造指生产和制造用于二次电池（可充电电池）的电极材料和电解质材料。这些材料具有良好的电化学性能，可用于锂离子电池、镍氢电池等二次电池系统。",
+                "level": 4,
+                "nameEn": "Production of secondary battery material",
+                "code": "142614568",
+                "name": "二次电池材料制造",
+                "parentId": "142614810"
+              },
+              {
+                "childFlag": 1,
+                "description": "新型催化材料及助剂制造指生产和制造具有优异催化性能的材料和助剂。这些材料和助剂常用于化学反应中，提高反应速率、选择性和产率。",
+                "level": 4,
+                "nameEn": "Manufacture of New Catalytic Materials and Additives",
+                "code": "142614569",
+                "name": "新型催化材料及助剂制造",
+                "parentId": "142614810"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能有机密封材料制造指生产和制造具有出色密封性能和耐化学性的有机材料。这些材料常用于汽车、航空航天、工业设备等领域，用于密封件、垫片等部件。",
+                "level": 4,
+                "nameEn": "Manufacture of high performance organic sealing material",
+                "code": "142614811",
+                "name": "高性能有机密封材料制造",
+                "parentId": "142614810"
+              }
+            ],
+            "description": "其他化工新材料制造指生产和制造其他具有创新性和新颖特性的化工材料。这些材料可以应用于各种领域，如功能性材料、环保材料等。",
+            "level": 3,
+            "nameEn": "Manufacturing of other new chemical materials",
+            "code": "142614810",
+            "name": "其他化工新材料制造",
+            "parentId": "142614790"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "单体材料制造指生产和制造用于聚合反应的单体材料。单体是聚合反应的基本成分，通过聚合反应可以形成聚合物材料，广泛应用于塑料、橡胶等领域。",
+                "level": 4,
+                "nameEn": "Monomer material manufacturing",
+                "code": "142614809",
+                "name": "单体材料制造",
+                "parentId": "142614808"
+              },
+              {
+                "childFlag": 1,
+                "description": "聚合物制造指通过化学反应将单体分子连接在一起形成高分子化合物的过程。聚合物广泛应用于塑料、橡胶、纤维等领域，具有良好的可塑性和物理性能。",
+                "level": 4,
+                "nameEn": "Polymer manufacturing",
+                "code": "142614567",
+                "name": "聚合物制造",
+                "parentId": "142614808"
+              }
+            ],
+            "description": "生命基高分子材料及功能化合物制造指生产和制造生物基高分子材料和功能化合物。这些材料和化合物可以应用于生物医学、生物传感等领域，具有重要的生命科学和生物技术应用价值。",
+            "level": 3,
+            "nameEn": "Manufacture of life-based polymer materials and functional compounds",
+            "code": "142614808",
+            "name": "生命基高分子材料及功能化合物制造",
+            "parentId": "142614790"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高端聚烯烃塑料制造指生产和制造高性能聚烯烃类塑料。这些塑料具有优异的物理性能和化学稳定性，广泛应用于管道、容器、薄膜等领域。",
+                "level": 4,
+                "nameEn": "High-end polyolefin plastic manufacturing",
+                "code": "142614550",
+                "name": "高端聚烯烃塑料制造",
+                "parentId": "142614549"
+              },
+              {
+                "childFlag": 1,
+                "description": "工程塑料制造指生产和制造用于工程领域的高性能塑料。工程塑料具有优异的机械性能、耐热性和耐腐蚀性，适用于各种工程应用，如汽车零部件、电器外壳等。",
+                "level": 4,
+                "nameEn": "Manufacturing of engineering plastics",
+                "code": "142614791",
+                "name": "工程塑料制造",
+                "parentId": "142614549"
+              },
+              {
+                "childFlag": 1,
+                "description": "其他高性能树脂制造指生产和制造其他具有高性能特点的树脂材料，如聚酰亚胺、聚醚醚酮等。这些材料具有优异的力学性能、耐温性和耐化学性，被广泛应用于航空航天、电子、化工等领域。",
+                "level": 4,
+                "nameEn": "Other high performance resin manufacturing",
+                "code": "142614792",
+                "name": "其他高性能树脂制造",
+                "parentId": "142614549"
+              },
+              {
+                "childFlag": 1,
+                "description": "高分子光、电、磁材料制造指生产和制造具有光学、电学、磁学特性的高分子材料。这些材料具有光学透明性、电导性和磁性等特点，广泛应用于光电子器件、传感器、数据存储等领域。",
+                "level": 4,
+                "nameEn": "Manufacturing of polymer optical, electric and magnetic materials",
+                "code": "142614551",
+                "name": "高分子光、电、磁材料制造",
+                "parentId": "142614549"
+              }
+            ],
+            "description": "高性能塑料及树脂制造指生产和制造具有优异性能的塑料和树脂材料。这些材料具有高强度、耐热、耐化学腐蚀等特性，广泛应用于汽车、航空航天、电子等领域。",
+            "level": 3,
+            "nameEn": "Manufacturing of high performance plastics and resins",
+            "code": "142614549",
+            "name": "高性能塑料及树脂制造",
+            "parentId": "142614790"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "生物基原料制造指生产和制造用于生物基材料的原始材料。这些原料通常来自可再生资源，如植物、木材等。",
+                "level": 4,
+                "nameEn": "Manufacturing of bio-based raw materials",
+                "code": "142614807",
+                "name": "生物基原料制造",
+                "parentId": "142614565"
+              },
+              {
+                "childFlag": 1,
+                "description": "生物基聚合物制造指生产和制造基于生物基原料的聚合物材料。生物基聚合物具有可降解性、生物相容性等特性，适用于医疗、包装等领域。",
+                "level": 4,
+                "nameEn": "Biobased polymer manufacturing",
+                "code": "142614566",
+                "name": "生物基聚合物制造",
+                "parentId": "142614565"
+              }
+            ],
+            "description": "生物基合成材料制造指利用生物基原料或生物发酵技术，生产和制造具有可持续性和环保性的合成材料。这些材料可以替代传统石化材料，应用于塑料、纤维等领域。",
+            "level": 3,
+            "nameEn": "Bio-based synthetic material manufacturing",
+            "code": "142614565",
+            "name": "生物基合成材料制造",
+            "parentId": "142614790"
+          }
+        ],
+        "description": "先进石化化工新材料指石化化工领域开发和生产的具有先进性能和功能的新型材料。这些材料在石化化工过程中扮演重要角色，如催化剂、吸附剂、分离膜等，以提高生产效率、节能减排和降低环境污染。",
+        "level": 2,
+        "nameEn": "Advanced Petrochemical New Material",
+        "code": "142614790",
+        "name": "先进石化化工新材料",
+        "parentId": "142614478"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "结构陶瓷制造指生产和制造用于承受力学载荷的陶瓷材料。这些陶瓷材料具有高硬度、高强度、耐磨损等特性，常用于陶瓷刀具、陶瓷轴承、陶瓷零件等。",
+                "level": 4,
+                "nameEn": "Manufacturing of structural ceramics",
+                "code": "142614572",
+                "name": "结构陶瓷制造",
+                "parentId": "142614814"
+              },
+              {
+                "childFlag": 1,
+                "description": "功能陶瓷制造指生产和制造具有特定功能和性能的陶瓷材料。这些陶瓷材料可以具有磁性、光学性能、电学性能等特点，应用于传感器、催化剂、电子器件等领域。",
+                "level": 4,
+                "nameEn": "Manufacturing of functional ceramics",
+                "code": "142614815",
+                "name": "功能陶瓷制造",
+                "parentId": "142614814"
+              }
+            ],
+            "description": "特种陶瓷制造指生产和制造具有特殊功能和性能的陶瓷材料。这些陶瓷材料具有高强度、耐高温、绝缘性能等，应用于电子、航空航天、医疗等领域。",
+            "level": 3,
+            "nameEn": "Manufacturing of special ceramics",
+            "code": "142614814",
+            "name": "特种陶瓷制造",
+            "parentId": "142614812"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "新能源材料制造指生产和制造用于新能源领域的材料。这些材料可以应用于太阳能、风能、储能等领域，具有良好的能量转换和储存性能。",
+                "level": 4,
+                "nameEn": "Manufacturing of new energy materials",
+                "code": "142614579",
+                "name": "新能源材料制造",
+                "parentId": "142614820"
+              },
+              {
+                "childFlag": 1,
+                "description": "环境处置功能材料制造指生产和制造用于环境治理和废物处理的功能材料。这些材料可以吸附、分解、稳定或转化废物和污染物，帮助改善环境质量和实现可持续发展。",
+                "level": 4,
+                "nameEn": "Manufacturing of functional materials for environmental disposal",
+                "code": "142614578",
+                "name": "环境处置功能材料制造",
+                "parentId": "142614820"
+              },
+              {
+                "childFlag": 1,
+                "description": "其他矿物功能材料制造指生产和制造除矿渣、矿石、矿砂之外的其他矿物材料，常用于建筑、材料科学等领域，具有特殊的功能和性能。",
+                "level": 4,
+                "nameEn": "Manufacture of other mineral functional materials",
+                "code": "142614580",
+                "name": "其他矿物功能材料制造",
+                "parentId": "142614820"
+              },
+              {
+                "childFlag": 1,
+                "description": "功能性填料制造指生产和制造具有特定功能和性能的填料材料。这些填料可以用于增强材料的力学性能、改善材料的导电性、吸附性等，广泛应用于橡胶、塑料、涂料等行业。",
+                "level": 4,
+                "nameEn": "Manufacturing of functional fillers",
+                "code": "142614822",
+                "name": "功能性填料制造",
+                "parentId": "142614820"
+              },
+              {
+                "childFlag": 1,
+                "description": "节能、密封、保温材料制造指生产和制造用于节能、密封和保温的材料。这些材料可以降低能源消耗，提高建筑的隔热性能和密封性能，减少能源浪费和环境污染。",
+                "level": 4,
+                "nameEn": "Manufacturing of energy-saving, sealing and thermal insulation materials",
+                "code": "142614821",
+                "name": "节能、密封、保温材料制造",
+                "parentId": "142614820"
+              },
+              {
+                "childFlag": 1,
+                "description": "新型耐火材料制造指生产和制造具有优异的耐高温和耐腐蚀性能的材料。这些材料可以应用于高温工艺和耐火结构，常见的新型耐火材料包括氧化铝、碳化硅等。",
+                "level": 4,
+                "nameEn": "Manufacture of new refractory materials",
+                "code": "142614823",
+                "name": "新型耐火材料制造",
+                "parentId": "142614820"
+              }
+            ],
+            "description": "矿物功能材料制造指生产和制造以矿物为主要成分的具有特殊功能和性能的材料。这些材料可以应用于建筑、工程、环保等领域，常见的矿物功能材料包括矿渣、矿石、矿砂等。",
+            "level": 3,
+            "nameEn": "Manufacture of mineral functional materials",
+            "code": "142614820",
+            "name": "矿物功能材料制造",
+            "parentId": "142614812"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "技术玻璃制品制造指生产和制造用于实验室、工业、医疗等领域的玻璃制品。这些制品具有高精度、高耐温、化学稳定性等特点，常用于实验仪器、化学反应器、医疗设备等。",
+                "level": 4,
+                "nameEn": "Technical glassware manufacturing",
+                "code": "142614571",
+                "name": "技术玻璃制品制造",
+                "parentId": "142614570"
+              },
+              {
+                "childFlag": 1,
+                "description": "特种玻璃制品制造指生产和制造基于特种玻璃材料的特殊用途产品。这些产品包括光学器件、玻璃纤维、触摸屏、太阳能板等，具有特定的功能和应用。",
+                "level": 4,
+                "nameEn": "Manufacturing of special glass products",
+                "code": "142614813",
+                "name": "特种玻璃制品制造",
+                "parentId": "142614570"
+              }
+            ],
+            "description": "特种玻璃制造指生产和制造具有特殊功能和性能的玻璃材料。这些玻璃材料具有高透明度、耐高温、耐腐蚀等特点，应用于光学、电子、光纤等领域。",
+            "level": 3,
+            "nameEn": "Special glass manufacturing",
+            "code": "142614570",
+            "name": "特种玻璃制造",
+            "parentId": "142614812"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "半导体晶体制造指生产和制造用于半导体器件的晶体材料。这些晶体材料常用于集成电路、光电器件等领域，具有良好的电学性能和导电特性。",
+                "level": 4,
+                "nameEn": "Semiconductor crystal manufacturing",
+                "code": "142614816",
+                "name": "半导体晶体制造",
+                "parentId": "142614573"
+              },
+              {
+                "childFlag": 1,
+                "description": "其他人工晶体制造指生产和制造除半导体晶体之外的其他人工合成晶体材料。这些晶体材料可以应用于光学、电子、照明等领域，具有特定的物理和化学性能。",
+                "level": 4,
+                "nameEn": "Other intraocular lens manufacturing",
+                "code": "142614574",
+                "name": "其他人工晶体制造",
+                "parentId": "142614573"
+              }
+            ],
+            "description": "人工晶体制造指生产和制造具有特定晶体结构和性能的人工合成晶体材料。这些人工晶体常用于光学、激光、电子等领域，具有优异的光学和电学性能。",
+            "level": 3,
+            "nameEn": "Intraocular lens manufacturing",
+            "code": "142614573",
+            "name": "人工晶体制造",
+            "parentId": "142614812"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "水泥基材料制造指生产和制造以水泥为主要成分的建筑材料。水泥基材料包括水泥、混凝土、砂浆等，广泛应用于建筑工程中。",
+                "level": 4,
+                "nameEn": "Manufacture of cement-based materials",
+                "code": "142614575",
+                "name": "水泥基材料制造",
+                "parentId": "142614817"
+              },
+              {
+                "childFlag": 1,
+                "description": "新型建筑防水材料制造指生产和制造具有优异防水性能的建筑材料。这些材料可以有效防止水的渗透和漏水现象，保护建筑结构和室内环境。",
+                "level": 4,
+                "nameEn": "Manufacture of new building waterproof material",
+                "code": "142614576",
+                "name": "新型建筑防水材料制造",
+                "parentId": "142614817"
+              },
+              {
+                "childFlag": 1,
+                "description": "新型墙体材料制造指生产和制造具有创新性和新颖特性的墙体材料。这些材料可以提供更好的隔热、隔音、防火等性能，用于建筑物的墙体构造。",
+                "level": 4,
+                "nameEn": "Manufacture of new wall material",
+                "code": "142614818",
+                "name": "新型墙体材料制造",
+                "parentId": "142614817"
+              },
+              {
+                "childFlag": 1,
+                "description": "隔热隔音材料制造指生产和制造具有隔热和隔音功能的建筑材料。这些材料可以减少热量传导和声音传播，提高建筑的节能性能和居住舒适度。",
+                "level": 4,
+                "nameEn": "Heat insulation and sound insulation material manufacturing",
+                "code": "142614819",
+                "name": "隔热隔音材料制造",
+                "parentId": "142614817"
+              },
+              {
+                "childFlag": 1,
+                "description": "轻质建筑材料制造指生产和制造具有轻质、高强度和隔热性能的建筑材料。这些材料可以减轻建筑物的自重，提高施工效率和节能性能，常用于轻型建筑和节能建筑领域。",
+                "level": 4,
+                "nameEn": "Manufacture of lightweight building materials",
+                "code": "142614577",
+                "name": "轻质建筑材料制造",
+                "parentId": "142614817"
+              }
+            ],
+            "description": "新型建筑材料制造指生产和制造具有创新性和新颖特性的建筑材料。这些材料可以提供更好的隔热、隔音、防水、耐候性等性能，用于建筑物的构造和装饰。",
+            "level": 3,
+            "nameEn": "Manufacture of new building materials",
+            "code": "142614817",
+            "name": "新型建筑材料制造",
+            "parentId": "142614812"
+          }
+        ],
+        "description": "先进无机非金属材料指具有先进性能和应用的无机非金属材料。这些材料包括陶瓷材料、玻璃材料、复合材料等，广泛应用于高温、高强度、耐腐蚀等领域。",
+        "level": 2,
+        "nameEn": "Advanced inorganic non-metallic material",
+        "code": "142614812",
+        "name": "先进无机非金属材料",
+        "parentId": "142614478"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "质检技术服务指为各类产品提供的质量检测和测试技术服务。包括质量监测、性能评估、合规认证等服务，旨在确保产品符合质量标准和法规要求。",
+                "level": 4,
+                "nameEn": "Quality inspection technical services",
+                "code": "142614845",
+                "name": "质检技术服务",
+                "parentId": "142614602"
+              }
+            ],
+            "description": "质检技术服务指为各类产品提供的质量检测和测试技术服务。包括质量监测、性能评估、合规认证等服务，旨在确保产品符合质量标准和法规要求。",
+            "level": 3,
+            "nameEn": "Quality inspection technical services",
+            "code": "142614602",
+            "name": "质检技术服务",
+            "parentId": "142614843"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "科技推广和应用服务指为科技成果推广和应用提供的支持和服务。包括技术转移、产业化推进、市场拓展等服务，旨在促进科技成果的应用和产业化。",
+                "level": 4,
+                "nameEn": "Science and technology promotion and application services",
+                "code": "142614846",
+                "name": "科技推广和应用服务",
+                "parentId": "142614603"
+              }
+            ],
+            "description": "科技推广和应用服务指为科技成果推广和应用提供的支持和服务。包括技术转移、产业化推进、市场拓展等服务，旨在促进科技成果的应用和产业化。",
+            "level": 3,
+            "nameEn": "Science and technology promotion and application services",
+            "code": "142614603",
+            "name": "科技推广和应用服务",
+            "parentId": "142614843"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "研发与设计服务指为各类产业的研发和设计过程提供的支持和服务。包括技术咨询、方案设计、原型制作等服务，旨在推动科技创新和产品开发。",
+                "level": 4,
+                "nameEn": "R & D and Design Services",
+                "code": "142614844",
+                "name": "研发与设计服务",
+                "parentId": "142614601"
+              }
+            ],
+            "description": "新材料研发与设计服务指为新材料研发过程中提供的技术支持和设计服务。包括材料设计、工艺优化、产品原型制作等服务，旨在加速新材料的研发和应用。",
+            "level": 3,
+            "nameEn": "New material R & D and design services",
+            "code": "142614601",
+            "name": "新材料研发与设计服务",
+            "parentId": "142614843"
+          }
+        ],
+        "description": "新材料相关服务指为新材料产业提供的各类支持和服务。包括技术咨询、检测分析、产业规划、市场推广等服务，旨在促进新材料的研发、生产和应用。",
+        "level": 2,
+        "nameEn": "New material related services",
+        "code": "142614843",
+        "name": "新材料相关服务",
+        "parentId": "142614478"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "碳基纳米材料制造制造以碳为基础的纳米材料。碳基纳米材料包括纳米碳管、石墨烯等，具有出色的导电性能和力学性能。",
+                "level": 4,
+                "nameEn": "Fabrication of carbon-based nanomaterials",
+                "code": "142614596",
+                "name": "碳基纳米材料制造",
+                "parentId": "142614838"
+              },
+              {
+                "childFlag": 1,
+                "description": "纳米催化剂材料制造指生产和制造具有纳米级尺寸的催化剂材料。这些材料能够在化学反应中提高反应速率和选择性，常用于化工、石化、环保等领域。",
+                "level": 4,
+                "nameEn": "Nanometer catalyst material manufacturing",
+                "code": "142614598",
+                "name": "纳米催化剂材料制造",
+                "parentId": "142614838"
+              },
+              {
+                "childFlag": 1,
+                "description": "高分子纳米复合材料制造指生产和制造由高分子材料和纳米颗粒组成的复合材料。这些材料结合了高分子材料和纳米材料的优点，具有优异的力学性能和功能性能，常用于塑料、橡胶、涂料等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of polymer nanocomposites",
+                "code": "142614840",
+                "name": "高分子纳米复合材料制造",
+                "parentId": "142614838"
+              },
+              {
+                "childFlag": 1,
+                "description": "无机纳米材料制造制造无机物质的纳米材料。无机纳米材料包括金属氧化物、金属纳米颗粒等，具有独特的光学、磁学和化学性质。",
+                "level": 4,
+                "nameEn": "Manufacture of inorganic nanomaterials",
+                "code": "142614839",
+                "name": "无机纳米材料制造",
+                "parentId": "142614838"
+              },
+              {
+                "childFlag": 1,
+                "description": "金属纳米材料制造指生产和制造金属的纳米级材料。这些材料具有特殊的物理和化学性质，常用于电子、能源、催化等领域。",
+                "level": 4,
+                "nameEn": "Manufacturing of metal nanomaterials",
+                "code": "142614597",
+                "name": "金属纳米材料制造",
+                "parentId": "142614838"
+              }
+            ],
+            "description": "纳米材料制造制造纳米级别的材料。纳米材料具有特殊的物理、化学和电子性质，广泛应用于各个领域。",
+            "level": 3,
+            "nameEn": "Nanomaterials manufacturing",
+            "code": "142614838",
+            "name": "纳米材料制造",
+            "parentId": "142614589"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "液态金属制造指生产和制造处于液态状态下的金属材料。这些材料具有特殊的流动性和可塑性，常用于3D打印、电子封装、合金制备等领域。",
+                "level": 4,
+                "nameEn": "Liquid metal manufacturing",
+                "code": "142614600",
+                "name": "液态金属制造",
+                "parentId": "142614842"
+              }
+            ],
+            "description": "液态金属制造指生产和制造处于液态状态下的金属材料。这些材料具有特殊的流动性和可塑性，常用于3D打印、电子封装、合金制备等领域。",
+            "level": 3,
+            "nameEn": "Liquid metal manufacturing",
+            "code": "142614842",
+            "name": "液态金属制造",
+            "parentId": "142614589"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "智能响应材料制造制造能够智能响应外部刺激的材料。这些材料可以根据环境变化自动调整其结构或性能。",
+                "level": 4,
+                "nameEn": "Smart Responsive Materials Manufacturing",
+                "code": "142614594",
+                "name": "智能响应材料制造",
+                "parentId": "142614836"
+              },
+              {
+                "childFlag": 1,
+                "description": "超材料制造制造超材料，即具有特殊性质和结构的材料。超材料通常通过设计微观结构来实现对光、声、电磁波等的特殊控制。",
+                "level": 4,
+                "nameEn": "Metamaterial manufacturing",
+                "code": "142614595",
+                "name": "超材料制造",
+                "parentId": "142614836"
+              },
+              {
+                "childFlag": 1,
+                "description": "仿生材料制造制造仿生材料，即模仿生物体的结构和功能的材料。仿生材料可以在工程和科学领域中找到广泛的应用。",
+                "level": 4,
+                "nameEn": "Biomimetic material manufacturing",
+                "code": "142614837",
+                "name": "仿生材料制造",
+                "parentId": "142614836"
+              }
+            ],
+            "description": "智能、仿生与超材料制造制造智能材料、仿生材料和超材料的过程。智能材料具有响应外部刺激的能力，仿生材料模仿生物体的结构和功能，超材料则具有特殊的光学、电磁或声学性质。",
+            "level": 3,
+            "nameEn": "Intelligence, Bionics and Metamaterial Manufacturing",
+            "code": "142614836",
+            "name": "智能、仿生与超材料制造",
+            "parentId": "142614589"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "超导电力及磁体材料制造制造用于超导电力系统和磁体的材料。该领域涉及制造超导电力设备和磁体所需的材料。",
+                "level": 4,
+                "nameEn": "Manufacturing of superconducting power and magnet materials",
+                "code": "142614593",
+                "name": "超导电力及磁体材料制造",
+                "parentId": "142614834"
+              },
+              {
+                "childFlag": 1,
+                "description": "高场超导磁体用材料制造制造用于高场超导磁体的材料。高场超导磁体是一种能够在高磁场下实现超导的装置，其制造需要特殊的材料。",
+                "level": 4,
+                "nameEn": "Manufacturing of materials for high-field superconducting magnet",
+                "code": "142614592",
+                "name": "高场超导磁体用材料制造",
+                "parentId": "142614834"
+              },
+              {
+                "childFlag": 1,
+                "description": "超导电力用材料制造制造用于超导电力系统的材料。超导电力系统是利用超导材料传输电力的技术，其制造需要特定的材料。",
+                "level": 4,
+                "nameEn": "Manufacturing of materials for superconducting electric power",
+                "code": "142614835",
+                "name": "超导电力用材料制造",
+                "parentId": "142614834"
+              }
+            ],
+            "description": "超导材料制造指制造超导材料的过程，超导材料在低温下具有极低的电阻，常用于磁共振成像、电力输配等领域。",
+            "level": 3,
+            "nameEn": "Fabrication of superconducting materials",
+            "code": "142614834",
+            "name": "超导材料制造",
+            "parentId": "142614589"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "生物医用材料制造指生产和制造用于生物医学领域的材料。这些材料具有生物相容性和生物活性，常用于医疗器械、组织工程、药物传递等领域。",
+                "level": 4,
+                "nameEn": "Biomedical material manufacturing",
+                "code": "142614599",
+                "name": "生物医用材料制造",
+                "parentId": "142614841"
+              }
+            ],
+            "description": "生物医用材料制造指生产和制造用于生物医学领域的材料。这些材料具有生物相容性和生物活性，常用于医疗器械、组织工程、药物传递等领域。",
+            "level": 3,
+            "nameEn": "Biomedical material manufacturing",
+            "code": "142614841",
+            "name": "生物医用材料制造",
+            "parentId": "142614589"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "金属增材制造专用材料制造指制造专门用于金属增材制造技术的材料，金属增材制造是一种以层叠堆积的方式制造金属零件的技术。",
+                "level": 4,
+                "nameEn": "Manufacturing of special materials for metal additive manufacturing",
+                "code": "142614590",
+                "name": "金属增材制造专用材料制造",
+                "parentId": "142614832"
+              },
+              {
+                "childFlag": 1,
+                "description": "非金属增材制造专用材料制造指制造专门用于非金属增材制造技术的材料，非金属增材制造是一种以层叠堆积的方式制造非金属零件的技术。",
+                "level": 4,
+                "nameEn": "Manufacturing of special materials for non-metallic additive manufacturing",
+                "code": "142614833",
+                "name": "非金属增材制造专用材料制造",
+                "parentId": "142614832"
+              },
+              {
+                "childFlag": 1,
+                "description": "医用增材制造专用材料制造指制造专门用于医疗领域增材制造技术的材料，医用增材制造常用于制造医疗器械和人体组织修复材料。",
+                "level": 4,
+                "nameEn": "Manufacturing of special materials for medical additive manufacturing",
+                "code": "142614591",
+                "name": "医用增材制造专用材料制造",
+                "parentId": "142614832"
+              }
+            ],
+            "description": "3D打印用材料制造指制造用于3D打印技术的材料，这些材料具有适合3D打印过程的特殊性能。",
+            "level": 3,
+            "nameEn": "Material manufacturing for 3D printing",
+            "code": "142614832",
+            "name": "3D打印用材料制造",
+            "parentId": "142614589"
+          }
+        ],
+        "description": "前沿新材料指具有先进技术和创新性的新型材料，常涉及到材料科学和工程的前沿领域。",
+        "level": 2,
+        "nameEn": "Frontier new materials",
+        "code": "142614589",
+        "name": "前沿新材料",
+        "parentId": "142614478"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "优质焊接材料制造指制造高质量、高性能的焊接材料，用于焊接工艺中的连接、修复或加固等操作。",
+                "level": 4,
+                "nameEn": "Manufacturing of high-quality welding materials",
+                "code": "142614518",
+                "name": "优质焊接材料制造",
+                "parentId": "142614501"
+              },
+              {
+                "childFlag": 1,
+                "description": "先进钢铁材料锻件制造指利用先进的技术和工艺制造钢铁材料锻件的过程，通过将加热的钢铁材料放置在锻造机械中，利用压力和力量对材料进行塑性变形，从而形成所需的锻件形状。",
+                "level": 4,
+                "nameEn": "Manufacturing of advanced steel material forgings",
+                "code": "142614502",
+                "name": "先进钢铁材料锻件制造",
+                "parentId": "142614501"
+              },
+              {
+                "childFlag": 1,
+                "description": "高品质不锈钢制品制造指制造高品质的不锈钢制品，具有耐腐蚀、耐高温、美观等特点，广泛应用于厨具、建筑、医疗设备等领域。",
+                "level": 4,
+                "nameEn": "High quality stainless steel products manufacturing",
+                "code": "142614504",
+                "name": "高品质不锈钢制品制造",
+                "parentId": "142614501"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能丝绳制品制造指利用高性能材料制造出具有高强度、耐磨损和抗腐蚀等特点的丝绳制品，常用于吊装、牵引、索道等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of high performance silk rope products",
+                "code": "142614503",
+                "name": "高性能丝绳制品制造",
+                "parentId": "142614501"
+              },
+              {
+                "childFlag": 1,
+                "description": "先进钢铁材料铸件制造指利用先进的技术和工艺制造钢铁材料铸件的过程，通过铸造方法将熔化的钢铁材料倒入模具中并进行冷却固化，形成所需的铸件形状。",
+                "level": 4,
+                "nameEn": "Manufacturing of Advanced Iron and Steel Castings",
+                "code": "142614517",
+                "name": "先进钢铁材料铸件制造",
+                "parentId": "142614501"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能金属密封材料制造指制造出具有高温、高压、高密封性能的金属密封材料，常用于航空航天、石化、核工业等领域的密封应用。",
+                "level": 4,
+                "nameEn": "Manufacturing of high performance metal sealing material",
+                "code": "142614519",
+                "name": "高性能金属密封材料制造",
+                "parentId": "142614501"
+              }
+            ],
+            "description": "先进钢铁材料制品制造指利用先进的技术和工艺制造各种钢铁材料制品的过程，包括板材、管材、型材、线材等。",
+            "level": 3,
+            "nameEn": "Manufacturing of advanced steel products",
+            "code": "142614501",
+            "name": "先进钢铁材料制品制造",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高强耐火耐候房屋建筑钢加工指对用于制造高强度、耐火、耐候的房屋建筑结构钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "High-strength fire-resistant weather-resistant building steel processing",
+                "code": "142614495",
+                "name": "高强耐火耐候房屋建筑钢加工",
+                "parentId": "142614510"
+              },
+              {
+                "childFlag": 1,
+                "description": "沿海建筑用钢加工指对用于沿海地区建筑结构的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Steel processing for coastal construction",
+                "code": "142614496",
+                "name": "沿海建筑用钢加工",
+                "parentId": "142614510"
+              },
+              {
+                "childFlag": 1,
+                "description": "桥梁用钢加工指对用于制造桥梁结构的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Steel processing for bridge",
+                "code": "142614511",
+                "name": "桥梁用钢加工",
+                "parentId": "142614510"
+              }
+            ],
+            "description": "新一代功能复合化建筑用钢加工指对用于新一代功能复合化建筑结构的钢材进行加工和处理的过程。",
+            "level": 3,
+            "nameEn": "New generation of functional composite construction steel processing",
+            "code": "142614510",
+            "name": "新一代功能复合化建筑用钢加工",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高性能油气钻采用钢加工指对用于高性能油气钻探和采集设备的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "High performance oil and gas drill machined in steel",
+                "code": "142614492",
+                "name": "高性能油气钻采用钢加工",
+                "parentId": "142614507"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能油气输送用钢加工指对用于高性能油气输送管道和设备的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of High Performance Oil and Gas Transmission Steel",
+                "code": "142614508",
+                "name": "高性能油气输送用钢加工",
+                "parentId": "142614507"
+              }
+            ],
+            "description": "能源油气钻采集储用钢加工指对用于能源领域油气钻探、采集和储存设备的钢材进行加工和处理的过程。",
+            "level": 3,
+            "nameEn": "Processing of steel for energy oil and gas drilling, gathering and storage",
+            "code": "142614507",
+            "name": "能源油气钻采集储用钢加工",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高温压力容器用钢加工指对用于制造高温下工作的压力容器的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of steel for high temperature pressure vessel",
+                "code": "142614509",
+                "name": "高温压力容器用钢加工",
+                "parentId": "142614493"
+              },
+              {
+                "childFlag": 1,
+                "description": "低温压力容器用钢加工指对用于制造低温下工作的压力容器的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of steel for low temperature pressure vessel",
+                "code": "142614494",
+                "name": "低温压力容器用钢加工",
+                "parentId": "142614493"
+              }
+            ],
+            "description": "石化压力容器用钢加工指对用于制造石化行业压力容器（如储罐、反应器等）的钢材进行加工和处理的过程。",
+            "level": 3,
+            "nameEn": "Processing of Steel for Petrochemical Pressure Vessel",
+            "code": "142614493",
+            "name": "石化压力容器用钢加工",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "先进超高强度板及其镀层板加工指对用于制造先进超高强度钢板及其镀层板进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of Advanced Ultra-high Strength Plate and Its Coated Plate",
+                "code": "142609990",
+                "name": "先进超高强度板及其镀层板加工",
+                "parentId": "142609989"
+              },
+              {
+                "childFlag": 1,
+                "description": "高强度汽车用冷轧板加工指对用于制造高强度汽车用冷轧钢板进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of High Strength Cold-Rolled Sheet for Automobile",
+                "code": "142614488",
+                "name": "高强度汽车用冷轧板加工",
+                "parentId": "142609989"
+              }
+            ],
+            "description": "新型高强塑汽车钢加工指对用于制造新型高强度塑性汽车钢材进行加工和处理的过程。",
+            "level": 3,
+            "nameEn": "Processing of new high strength plastic automobile steel",
+            "code": "142609989",
+            "name": "新型高强塑汽车钢加工",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高温合金制造指对用于高温工作环境下的合金材料进行制造的过程。",
+                "level": 4,
+                "nameEn": "High temperature alloy manufacturing",
+                "code": "142614500",
+                "name": "高温合金制造",
+                "parentId": "142614515"
+              },
+              {
+                "childFlag": 1,
+                "description": "超高强度钢加工指对超高强度钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Ultra-high strength steel processing",
+                "code": "142614516",
+                "name": "超高强度钢加工",
+                "parentId": "142614515"
+              }
+            ],
+            "description": "其他先进钢铁材料制造指对其他种类的先进钢铁材料进行制造和加工的过程。",
+            "level": 3,
+            "nameEn": "Manufacturing of other advanced steel materials",
+            "code": "142614515",
+            "name": "其他先进钢铁材料制造",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "海洋工程用钢加工指对用于制造海洋工程设备的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of steel for ocean engineering",
+                "code": "142614484",
+                "name": "海洋工程用钢加工",
+                "parentId": "142614483"
+              },
+              {
+                "childFlag": 1,
+                "description": "高技术船舶用钢加工指对用于制造高技术船舶的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Hi-tech ship steel processing",
+                "code": "142609985",
+                "name": "高技术船舶用钢加工",
+                "parentId": "142614483"
+              }
+            ],
+            "description": "高技术船舶及海洋工程用钢加工指对用于制造高技术船舶和海洋工程设备的钢材进行加工和处理的过程。",
+            "level": 3,
+            "nameEn": "Processing of steel for high-tech ship and ocean engineering",
+            "code": "142614483",
+            "name": "高技术船舶及海洋工程用钢加工",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "机床专用钢加工指对用于制造机床和相关设备的专用钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Machine tool special steel processing",
+                "code": "142614482",
+                "name": "机床专用钢加工",
+                "parentId": "142614479"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能齿轮用钢加工指加工制造用于高性能齿轮的钢材，以满足齿轮在高转速、高扭矩条件下的工作要求。",
+                "level": 4,
+                "nameEn": "Machining of High Performance Gear Steel",
+                "code": "142614480",
+                "name": "高性能齿轮用钢加工",
+                "parentId": "142614479"
+              },
+              {
+                "childFlag": 1,
+                "description": "高强度紧固件用钢加工指对用于制造高强度紧固件（如螺栓、螺母等）的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Steel for High Strength Fasteners Processing",
+                "code": "142614481",
+                "name": "高强度紧固件用钢加工",
+                "parentId": "142614479"
+              },
+              {
+                "childFlag": 1,
+                "description": "高应力弹簧钢加工指加工制造用于高应力弹簧的钢材，以满足弹簧在高载荷、高变形环境下的工作要求。",
+                "level": 4,
+                "nameEn": "High stress spring steel processing",
+                "code": "142609982",
+                "name": "高应力弹簧钢加工",
+                "parentId": "142614479"
+              },
+              {
+                "childFlag": 1,
+                "description": "线材制品用钢加工指对用于制造线材制品（如钢丝、钢绳等）的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Steel processing for wire products",
+                "code": "142609984",
+                "name": "线材制品用钢加工",
+                "parentId": "142614479"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能轴承用钢加工指加工制造用于高性能轴承的钢材，以满足轴承在高速、高负荷环境下的工作要求。",
+                "level": 4,
+                "nameEn": "Processing of high performance bearing steel",
+                "code": "142609981",
+                "name": "高性能轴承用钢加工",
+                "parentId": "142614479"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能工具模具钢加工指对用于制造高性能工具和模具的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Machining of high performance tool and die steel",
+                "code": "142609983",
+                "name": "高性能工具模具钢加工",
+                "parentId": "142614479"
+              }
+            ],
+            "description": "先进制造基础零部件用钢制造指用于制造先进制造领域基础零部件的钢材，如汽车零部件、机械设备零部件等的制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of Steel for Advanced Manufacturing Basic Parts",
+            "code": "142614479",
+            "name": "先进制造基础零部件用钢制造",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "超超临界火电用钢加工指对用于超超临界火力发电设备的制造所需的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Ultra-supercritical thermal power steel processing",
+                "code": "142614490",
+                "name": "超超临界火电用钢加工",
+                "parentId": "142614489"
+              },
+              {
+                "childFlag": 1,
+                "description": "电池壳用钢加工指对用于制造电池外壳的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of steel for battery case",
+                "code": "142614491",
+                "name": "电池壳用钢加工",
+                "parentId": "142614489"
+              },
+              {
+                "childFlag": 1,
+                "description": "核电用钢加工指对用于核电站建设和运营所需的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of steel for nuclear power",
+                "code": "142609991",
+                "name": "核电用钢加工",
+                "parentId": "142614489"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能电工钢加工指对用于制造高性能电工设备（如变压器、发电机等）的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "High performance electrical steel processing",
+                "code": "142614506",
+                "name": "高性能电工钢加工",
+                "parentId": "142614489"
+              }
+            ],
+            "description": "能源用钢加工指对用于能源行业（如石油、天然气等）的设备制造所需的钢材进行加工和处理的过程。",
+            "level": 3,
+            "nameEn": "Energy Steel Processing",
+            "code": "142614489",
+            "name": "能源用钢加工",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "耐蚀合金加工指对耐蚀合金钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Corrosion-resistant alloy processing",
+                "code": "142614499",
+                "name": "耐蚀合金加工",
+                "parentId": "142614498"
+              },
+              {
+                "childFlag": 1,
+                "description": "高品质不锈钢加工指对高品质不锈钢钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "High quality stainless steel processing",
+                "code": "142614514",
+                "name": "高品质不锈钢加工",
+                "parentId": "142614498"
+              }
+            ],
+            "description": "高品质不锈钢及耐蚀合金加工指对高品质不锈钢和耐蚀合金钢材进行加工和处理的过程。",
+            "level": 3,
+            "nameEn": "High quality stainless steel and corrosion-resistant alloy processing",
+            "code": "142614498",
+            "name": "高品质不锈钢及耐蚀合金加工",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "钢轨用钢加工指对用于制造铁路钢轨的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of steel for rail",
+                "code": "142609987",
+                "name": "钢轨用钢加工",
+                "parentId": "142609986"
+              },
+              {
+                "childFlag": 1,
+                "description": "转向架用钢加工指对用于制造车辆转向架的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Bogie Steel Processing",
+                "code": "142609988",
+                "name": "转向架用钢加工",
+                "parentId": "142609986"
+              },
+              {
+                "childFlag": 1,
+                "description": "车体用钢加工指对用于制造车辆车身的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Steel processing for car body",
+                "code": "142614487",
+                "name": "车体用钢加工",
+                "parentId": "142609986"
+              },
+              {
+                "childFlag": 1,
+                "description": "车轴用钢加工指对用于制造车辆轴承载物的车轴的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Processing of steel for axles",
+                "code": "142614486",
+                "name": "车轴用钢加工",
+                "parentId": "142609986"
+              },
+              {
+                "childFlag": 1,
+                "description": "车轮用钢加工指对用于制造车辆轮轴上的车轮的钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "Wheel steel processing",
+                "code": "142614485",
+                "name": "车轮用钢加工",
+                "parentId": "142609986"
+              }
+            ],
+            "description": "先进轨道交通用钢加工指对用于制造先进轨道交通（如高速铁路）设备的钢材进行加工和处理的过程。",
+            "level": 3,
+            "nameEn": "Advanced rail transit steel processing",
+            "code": "142609986",
+            "name": "先进轨道交通用钢加工",
+            "parentId": "142609980"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高强钢加工指对高强度钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "High strength steel processing",
+                "code": "142614497",
+                "name": "高强钢加工",
+                "parentId": "142614512"
+              },
+              {
+                "childFlag": 1,
+                "description": "高耐磨钢加工指对高耐磨性能钢材进行加工和处理的过程。",
+                "level": 4,
+                "nameEn": "High wear-resistant steel processing",
+                "code": "142614513",
+                "name": "高耐磨钢加工",
+                "parentId": "142614512"
+              }
+            ],
+            "description": "高性能工程、矿山及农业机械用钢加工指对用于高性能工程、矿山和农业机械设备的钢材进行加工和处理的过程。",
+            "level": 3,
+            "nameEn": "High performance steel processing for engineering, mining and agricultural machinery",
+            "code": "142614512",
+            "name": "高性能工程、矿山及农业机械用钢加工",
+            "parentId": "142609980"
+          }
+        ],
+        "description": "先进钢铁材料指具有优异性能和先进技术的钢铁材料，如高强度钢、耐腐蚀钢等。",
+        "level": 2,
+        "nameEn": "Advanced steel materials",
+        "code": "142609980",
+        "name": "先进钢铁材料",
+        "parentId": "142614478"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "电子浆料制造指制造用于电子器件制造中的浆料，浆料是由粉末和液体组成的悬浮液体，常用于印刷电路板和半导体制造。",
+                "level": 4,
+                "nameEn": "Electronic paste manufacturing",
+                "code": "142614775",
+                "name": "电子浆料制造",
+                "parentId": "142614532"
+              },
+              {
+                "childFlag": 1,
+                "description": "贵金属催化材料制造指制造贵金属催化材料的过程，这种材料可以作为催化剂用于化学反应中。",
+                "level": 4,
+                "nameEn": "Manufacturing of noble metal catalytic material",
+                "code": "142614774",
+                "name": "贵金属催化材料制造",
+                "parentId": "142614532"
+              },
+              {
+                "childFlag": 1,
+                "description": "高品质贵金属加工材料制造指制造高品质的贵金属加工材料的过程，这些材料常用于精密加工和制造领域。",
+                "level": 4,
+                "nameEn": "Manufacturing of high-quality precious metal processing materials",
+                "code": "142614534",
+                "name": "高品质贵金属加工材料制造",
+                "parentId": "142614532"
+              },
+              {
+                "childFlag": 1,
+                "description": "新型电接触贵金属材料制造指制造新型电接触贵金属材料的过程，这种材料常用于制造高精度电子接触器件。",
+                "level": 4,
+                "nameEn": "Fabrication of New Electrical Contact Noble Metal Material",
+                "code": "142614533",
+                "name": "新型电接触贵金属材料制造",
+                "parentId": "142614532"
+              }
+            ],
+            "description": "贵金属材料制造指制造贵金属材料的过程，贵金属具有较高的化学稳定性和价值，在珠宝、电子器件等领域有广泛应用。",
+            "level": 3,
+            "nameEn": "Made of precious metal materials",
+            "code": "142614532",
+            "name": "贵金属材料制造",
+            "parentId": "142614520"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "稀土陶瓷材料制造指利用稀土材料制造陶瓷制品，具有特殊的物理、化学性能和良好的耐热、耐腐蚀性能，广泛应用于陶瓷制品、电子器件等领域。",
+                "level": 4,
+                "nameEn": "Rare-earth ceramic material manufacturing",
+                "code": "142614779",
+                "name": "稀土陶瓷材料制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "稀土储氢材料制造指制造利用稀土材料进行氢气储存和释放的材料，用于氢能源领域的储氢装置和设备。",
+                "level": 4,
+                "nameEn": "Manufacture of rare earth hydrogen storage material",
+                "code": "142614778",
+                "name": "稀土储氢材料制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "稀土催化材料制造指制造稀土催化材料的过程，这种材料可以用于化学反应中的催化剂。",
+                "level": 4,
+                "nameEn": "Manufacture of rare earth catalytic material",
+                "code": "142614536",
+                "name": "稀土催化材料制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "稀土特种合金制造指利用稀土元素与其他金属元素组成的特种合金，具有特殊的物理、化学性能和工程性能，在航空航天、汽车、电子等领域有广泛应用。",
+                "level": 4,
+                "nameEn": "Manufacture of rare earth special alloy",
+                "code": "142614538",
+                "name": "稀土特种合金制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "特殊物性稀土化合物制造指制造具有特殊物性的稀土化合物，如磁性、发光性、导电性等特殊功能，用于电子、光电、材料科学等领域的应用。",
+                "level": 4,
+                "nameEn": "Manufacture of rare earth compounds with special physical properties",
+                "code": "142614780",
+                "name": "特殊物性稀土化合物制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "稀土磁性材料制造指制造稀土磁性材料的过程，这种材料具有较强的磁性能，常用于电机、传感器等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of rare earth magnetic material",
+                "code": "142614535",
+                "name": "稀土磁性材料制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "高纯稀土化合物制造指制造高纯度的稀土化合物，通过精细加工和提纯过程，获得高纯度的稀土材料，用于电子器件、光学器件等高科技领域。",
+                "level": 4,
+                "nameEn": "Manufacture of high purity rare earth compound",
+                "code": "142614539",
+                "name": "高纯稀土化合物制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "稀土抛光材料制造指制造利用稀土材料进行抛光和研磨的材料，常用于光学、电子、陶瓷等领域中对表面光洁度和精度要求较高的工艺。",
+                "level": 4,
+                "nameEn": "Manufacture of rare earth polishing material",
+                "code": "142614537",
+                "name": "稀土抛光材料制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "稀土助剂制造指制造利用稀土材料作为助剂的产品，常用于冶金、化工、玻璃等工艺中，起到改善和调节材料性能的作用。",
+                "level": 4,
+                "nameEn": "Manufacturing of rare earth additives",
+                "code": "142614540",
+                "name": "稀土助剂制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "稀土光功能材料制造指制造稀土光功能材料的过程，这种材料具有特殊的光学性能，常用于显示器、照明等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of rare earth optical functional material",
+                "code": "142614777",
+                "name": "稀土光功能材料制造",
+                "parentId": "142614776"
+              },
+              {
+                "childFlag": 1,
+                "description": "高纯稀土金属及制品制造指制造高纯度的稀土金属及其制品，通过冶炼和精炼过程，获得纯度较高的稀土金属材料，广泛应用于磁性材料、催化剂、光学材料等领域。",
+                "level": 4,
+                "nameEn": "Manufacturing of high-purity rare earth metals and products",
+                "code": "142614781",
+                "name": "高纯稀土金属及制品制造",
+                "parentId": "142614776"
+              }
+            ],
+            "description": "稀土新材料制造指制造稀土元素和稀土化合物的新型材料的过程，稀土新材料在电子、磁性等领域有重要应用。",
+            "level": 3,
+            "nameEn": "Manufacture of new rare earth materials",
+            "code": "142614776",
+            "name": "稀土新材料制造",
+            "parentId": "142614520"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "耐磨零件制造指制造具有耐磨性能的零件和部件，常用于工程机械、冶金设备、石油机械等高负荷和磨损环境下的应用。",
+                "level": 4,
+                "nameEn": "Wear-resistant parts manufacturing",
+                "code": "142614542",
+                "name": "耐磨零件制造",
+                "parentId": "142614782"
+              },
+              {
+                "childFlag": 1,
+                "description": "其他硬质合金制造指制造除以上提及的硬质合金之外的其他类型硬质合金材料及其制品，应用于不同的领域和工艺。",
+                "level": 4,
+                "nameEn": "Made of other hard alloys",
+                "code": "142614785",
+                "name": "其他硬质合金制造",
+                "parentId": "142614782"
+              },
+              {
+                "childFlag": 1,
+                "description": "硬质合金棒材制造指制造硬质合金棒材，通过冶炼、压制和烧结等工艺，获得具有高硬度和耐磨性能的棒状材料，常用于切削工具和磨料工具等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of cemented carbide bars",
+                "code": "142614784",
+                "name": "硬质合金棒材制造",
+                "parentId": "142614782"
+              },
+              {
+                "childFlag": 1,
+                "description": "超大晶粒硬质合金矿用合金制造指制造具有超大晶粒结构的硬质合金矿用合金，具有较高的耐磨性和抗冲击性能，适用于矿山工具和岩石钻探等领域。",
+                "level": 4,
+                "nameEn": "Manufacturing of super-large grain cemented carbide for mining",
+                "code": "142614783",
+                "name": "超大晶粒硬质合金矿用合金制造",
+                "parentId": "142614782"
+              },
+              {
+                "childFlag": 1,
+                "description": "超细晶硬质合金切削刀片类制造指制造具有超细晶结构的硬质合金切削刀片及类似产品，具有优异的切削性能和耐磨性，广泛应用于机械加工和金属切削领域。",
+                "level": 4,
+                "nameEn": "Manufacture of ultrafine cemented carbide cutting inserts",
+                "code": "142614541",
+                "name": "超细晶硬质合金切削刀片类制造",
+                "parentId": "142614782"
+              },
+              {
+                "childFlag": 1,
+                "description": "硬面合金与陶瓷粉料与丝材制造指制造硬面合金、陶瓷粉料和丝材等材料，用于焊接、喷涂和涂覆等工艺，以提高零件表面的硬度、耐磨性和耐腐蚀性能。",
+                "level": 4,
+                "nameEn": "Manufacture of hardfacing alloy and ceramic powders and wires",
+                "code": "142614543",
+                "name": "硬面合金与陶瓷粉料与丝材制造",
+                "parentId": "142614782"
+              }
+            ],
+            "description": "硬质合金及制品制造指制造硬质合金材料及其制品，硬质合金是由金属碳化物和金属结合相组成的高硬度材料，常用于切削工具、矿山工具、钻头等领域。",
+            "level": 3,
+            "nameEn": "Manufacture of hard alloy and its products",
+            "code": "142614782",
+            "name": "硬质合金及制品制造",
+            "parentId": "142614520"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高品质镁铸件制造指制造高品质的镁合金铸件，铸件是通过将熔融的金属注入到模具中凝固而成的零件。",
+                "level": 4,
+                "nameEn": "Manufacturing of high quality magnesium castings",
+                "code": "142614528",
+                "name": "高品质镁铸件制造",
+                "parentId": "142614769"
+              },
+              {
+                "childFlag": 1,
+                "description": "镁合金锻件产品制造指制造镁合金锻件产品的过程，锻件产品是通过将镁合金进行锻造而成的。",
+                "level": 4,
+                "nameEn": "Manufacturing of magnesium alloy forgings",
+                "code": "142614529",
+                "name": "镁合金锻件产品制造",
+                "parentId": "142614769"
+              },
+              {
+                "childFlag": 1,
+                "description": "高品质镁材制造指制造高品质的镁材料，可以用于制造各种工业零件和产品。",
+                "level": 4,
+                "nameEn": "High quality magnesium material manufacturing",
+                "code": "142614770",
+                "name": "高品质镁材制造",
+                "parentId": "142614769"
+              }
+            ],
+            "description": "镁及镁合金制造指镁和镁合金的制造过程，镁具有轻质、高强度等特点，在汽车、航空等领域有广泛的应用。",
+            "level": 3,
+            "nameEn": "Magnesium and magnesium alloy manufacturing",
+            "code": "142614769",
+            "name": "镁及镁合金制造",
+            "parentId": "142614520"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "钨钼材料制造指制造钨和钼等材料的过程，钨和钼具有高熔点、高密度等特点，常用于制造高温零件和电子元器件。",
+                "level": 4,
+                "nameEn": "Made of tungsten and molybdenum",
+                "code": "142614530",
+                "name": "钨钼材料制造",
+                "parentId": "142614771"
+              },
+              {
+                "childFlag": 1,
+                "description": "锆铪材料制造指制造锆和铪等材料的过程，锆和铪具有耐腐蚀性和高强度等特点，在航空航天、化工等领域有广泛的应用。",
+                "level": 4,
+                "nameEn": "Made of zirconium and hafnium",
+                "code": "142614531",
+                "name": "锆铪材料制造",
+                "parentId": "142614771"
+              },
+              {
+                "childFlag": 1,
+                "description": "钽铌材料制造指制造钽和铌等材料的过程，钽和铌具有耐腐蚀性和高温稳定性，常用于制造化工设备和电子元器件。",
+                "level": 4,
+                "nameEn": "Tantalum and niobium materials",
+                "code": "142614772",
+                "name": "钽铌材料制造",
+                "parentId": "142614771"
+              },
+              {
+                "childFlag": 1,
+                "description": "其他稀有金属材料制造指除了上述提到的稀有金属材料以外的其他稀有金属材料的制造。",
+                "level": 4,
+                "nameEn": "Manufacturing of other rare metal materials",
+                "code": "142614773",
+                "name": "其他稀有金属材料制造",
+                "parentId": "142614771"
+              }
+            ],
+            "description": "稀有金属材料制造指制造稀有金属材料的过程，稀有金属具有特殊的物理和化学性质，在高科技领域有广泛的应用。",
+            "level": 3,
+            "nameEn": "Made of rare metal materials",
+            "code": "142614771",
+            "name": "稀有金属材料制造",
+            "parentId": "142614520"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "锡材料制造指通过冶炼和加工等工艺，生产和制造以锡为主要成分的材料。锡材料具有良好的可加工性和耐腐蚀性，广泛应用于包装、电子、合金制备等领域。",
+                "level": 4,
+                "nameEn": "Made of tin material",
+                "code": "142614547",
+                "name": "锡材料制造",
+                "parentId": "142614544"
+              },
+              {
+                "childFlag": 1,
+                "description": "高纯金属制造指制造高纯度金属材料，通过精炼和提纯等工艺，获得金属材料中纯度较高的产品，常用于电子、光学、化工等高科技领域。",
+                "level": 4,
+                "nameEn": "High-purity metal manufacturing",
+                "code": "142614786",
+                "name": "高纯金属制造",
+                "parentId": "142614544"
+              },
+              {
+                "childFlag": 1,
+                "description": "粉末、泡沫及多孔材料制造指制造粉末冶金材料、泡沫材料和多孔材料，通过粉末冶金、发泡和多孔化等工艺，获得具有特殊性能和结构的材料，广泛应用于过滤、隔音、吸附等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of powders, foams and porous materials",
+                "code": "142614787",
+                "name": "粉末、泡沫及多孔材料制造",
+                "parentId": "142614544"
+              },
+              {
+                "childFlag": 1,
+                "description": "锌及锌合金材料制造指通过冶炼、铸造和加工等工艺，生产和制造以锌为主要成分的材料和合金。锌及锌合金材料具有良好的耐腐蚀性和可塑性，常用于建筑、汽车、电池等领域。",
+                "level": 4,
+                "nameEn": "Manufacturing of zinc and zinc alloy materials",
+                "code": "142614789",
+                "name": "锌及锌合金材料制造",
+                "parentId": "142614544"
+              },
+              {
+                "childFlag": 1,
+                "description": "锑系催化、阻燃材料制造指生产和制造以锑为主要成分的催化剂和阻燃材料。锑系催化剂常用于化学反应中的催化过程，具有高效、选择性和稳定性等特点。阻燃材料则具有阻止火焰蔓延和延缓燃烧的特性，在建筑、电子、航空等领域广泛应用。",
+                "level": 4,
+                "nameEn": "Manufacture of antimony series catalytic and flame retardant material",
+                "code": "142614788",
+                "name": "锑系催化、阻燃材料制造",
+                "parentId": "142614544"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能靶材制造指制造用于薄膜沉积、离子注入和材料表征等过程的高性能靶材，常用于半导体、光电和材料科学等领域的研究和应用。",
+                "level": 4,
+                "nameEn": "Manufacturing of high performance targets",
+                "code": "142614545",
+                "name": "高性能靶材制造",
+                "parentId": "142614544"
+              },
+              {
+                "childFlag": 1,
+                "description": "稀有金属涂层材料制造指制造稀有金属涂层材料，通过物理气相沉积、化学气相沉积等技术，将稀有金属或其化合物涂覆在基材上，以改善基材的性能和功能。",
+                "level": 4,
+                "nameEn": "Manufacturing of rare metal coating material",
+                "code": "142614546",
+                "name": "稀有金属涂层材料制造",
+                "parentId": "142614544"
+              },
+              {
+                "childFlag": 1,
+                "description": "薄膜材料（金属薄膜）制造指通过物理或化学方法，在基材上制备金属薄膜的过程。金属薄膜具有导电、导热和光学特性，广泛应用于电子器件、太阳能电池、显示器等领域。",
+                "level": 4,
+                "nameEn": "Film material (metal film) manufacturing",
+                "code": "142614548",
+                "name": "薄膜材料（金属薄膜）制造",
+                "parentId": "142614544"
+              }
+            ],
+            "description": "其他有色金属材料制造指制造除铝、铜和钛等有色金属之外的其他类型有色金属材料及其制品，包括镍、锌、锡、铅等材料的加工和制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of other non-ferrous metal materials",
+            "code": "142614544",
+            "name": "其他有色金属材料制造",
+            "parentId": "142614520"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高品质钛材制造指制造高品质钛金属材料的过程，钛材料具有高强度、轻量化等特点，广泛应用于航空航天、船舶制造、化工等领域。",
+                "level": 4,
+                "nameEn": "High quality titanium material manufacturing",
+                "code": "142614768",
+                "name": "高品质钛材制造",
+                "parentId": "142614767"
+              },
+              {
+                "childFlag": 1,
+                "description": "高品质钛铸件制造指制造高品质的钛铸件，通过铸造方法将熔化的钛材料倒入模具中并进行冷却固化，形成所需的铸件形状。",
+                "level": 4,
+                "nameEn": "Manufacturing of high quality titanium castings",
+                "code": "142614526",
+                "name": "高品质钛铸件制造",
+                "parentId": "142614767"
+              },
+              {
+                "childFlag": 1,
+                "description": "高品质钛锻件制造指制造高品质的钛金属锻件，锻件是通过将金属材料加热至一定温度后进行锤击或挤压而成形的零件。",
+                "level": 4,
+                "nameEn": "Manufacturing of high-quality titanium forgings",
+                "code": "142614527",
+                "name": "高品质钛锻件制造",
+                "parentId": "142614767"
+              }
+            ],
+            "description": "钛及钛合金制造指对钛及钛合金进行加工和制造，包括钛板、钛管、钛棒等产品的生产过程。",
+            "level": 3,
+            "nameEn": "Manufacture of titanium and titanium alloys",
+            "code": "142614767",
+            "name": "钛及钛合金制造",
+            "parentId": "142614520"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高品质铝材制造指制造高品质的铝材，包括铝板、铝型材、铝管等产品，具有高纯度、高韧性和良好的加工性能。",
+                "level": 4,
+                "nameEn": "High quality aluminum manufacturing",
+                "code": "142614522",
+                "name": "高品质铝材制造",
+                "parentId": "142614505"
+              },
+              {
+                "childFlag": 1,
+                "description": "高品质铝铸件制造指制造高品质的铝铸件，通过铸造方法将熔化的铝材料倒入模具中并进行冷却固化，形成所需的铸件形状。",
+                "level": 4,
+                "nameEn": "Manufacturing of high quality aluminum castings",
+                "code": "142614763",
+                "name": "高品质铝铸件制造",
+                "parentId": "142614505"
+              },
+              {
+                "childFlag": 1,
+                "description": "高品质铝锻件制造指利用高品质铝材进行锻造加工，通过塑性变形和冷却固化形成所需的铝锻件形状。",
+                "level": 4,
+                "nameEn": "Manufacturing of high quality aluminum forgings",
+                "code": "142614764",
+                "name": "高品质铝锻件制造",
+                "parentId": "142614505"
+              },
+              {
+                "childFlag": 1,
+                "description": "新型铝合金制造指对新型铝合金材料进行制造和加工，具有更优异的性能和特点，如轻量化、高强度等。",
+                "level": 4,
+                "nameEn": "Manufacturing of new aluminum alloy",
+                "code": "142614521",
+                "name": "新型铝合金制造",
+                "parentId": "142614505"
+              }
+            ],
+            "description": "铝及铝合金制造指对铝及铝合金进行加工和制造，包括铝板、铝型材、铝管等产品的生产过程。",
+            "level": 3,
+            "nameEn": "Aluminum and aluminum alloy manufacturing",
+            "code": "142614505",
+            "name": "铝及铝合金制造",
+            "parentId": "142614520"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高品质铜材制造指制造高品质的铜材，包括铜板、铜管、铜棒等产品，具有高纯度、良好的导电性和加工性能。",
+                "level": 4,
+                "nameEn": "High quality copper manufacturing",
+                "code": "142614766",
+                "name": "高品质铜材制造",
+                "parentId": "142614523"
+              },
+              {
+                "childFlag": 1,
+                "description": "新型铜及铜合金制造指对新型铜及铜合金材料进行制造和加工，具有改进的性能和特点，如耐腐蚀性、导电性等。",
+                "level": 4,
+                "nameEn": "Manufacture of new copper and copper alloy",
+                "code": "142614765",
+                "name": "新型铜及铜合金制造",
+                "parentId": "142614523"
+              },
+              {
+                "childFlag": 1,
+                "description": "铜合金锻件产品制造指利用铜合金材料进行锻造加工，通过塑性变形和冷却固化形成所需的铜合金锻件形状。",
+                "level": 4,
+                "nameEn": "Manufacturing of copper alloy forgings",
+                "code": "142614525",
+                "name": "铜合金锻件产品制造",
+                "parentId": "142614523"
+              },
+              {
+                "childFlag": 1,
+                "description": "高品质铜铸件制造指制造高品质的铜铸件，通过铸造方法将熔化的铜材料倒入模具中并进行冷却固化，形成所需的铸件形状。",
+                "level": 4,
+                "nameEn": "Manufacturing of high quality copper castings",
+                "code": "142614524",
+                "name": "高品质铜铸件制造",
+                "parentId": "142614523"
+              }
+            ],
+            "description": "铜及铜合金制造指对铜及铜合金进行加工和制造，包括铜板、铜管、铜棒等产品的生产过程。",
+            "level": 3,
+            "nameEn": "Manufacture of copper and copper alloys",
+            "code": "142614523",
+            "name": "铜及铜合金制造",
+            "parentId": "142614520"
+          }
+        ],
+        "description": "先进有色金属材料指具有先进性能和特点的各类有色金属材料，如铜、铝、钛等，在航空航天、汽车、电子等领域有广泛应用。",
+        "level": 2,
+        "nameEn": "Advanced non-ferrous metal materials",
+        "code": "142614520",
+        "name": "先进有色金属材料",
+        "parentId": "142614478"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "碳碳复合材料制造指制造碳碳复合材料的过程，碳碳复合材料具有优异的高温性能，常用于航空航天领域。",
+                "level": 4,
+                "nameEn": "Carbon-carbon composite material manufacturing",
+                "code": "142614588",
+                "name": "碳碳复合材料制造",
+                "parentId": "142614829"
+              },
+              {
+                "childFlag": 1,
+                "description": "金属基复合材料制造指制造金属基复合材料的过程，金属基复合材料是将金属基体与其他增强材料（如纤维）结合而成的材料。",
+                "level": 4,
+                "nameEn": "Manufacturing of metal matrix composites",
+                "code": "142614587",
+                "name": "金属基复合材料制造",
+                "parentId": "142614829"
+              },
+              {
+                "childFlag": 1,
+                "description": "其他结构复合材料制造指除了上述提到的金属基和陶瓷基复合材料以外的其他结构复合材料的制造。",
+                "level": 4,
+                "nameEn": "Manufacturing of other structural composite materials",
+                "code": "142614831",
+                "name": "其他结构复合材料制造",
+                "parentId": "142614829"
+              },
+              {
+                "childFlag": 1,
+                "description": "陶瓷基复合材料制造指制造陶瓷基复合材料的过程，陶瓷基复合材料是将陶瓷基体与其他增强材料结合而成的材料。",
+                "level": 4,
+                "nameEn": "Fabrication of ceramic matrix composites",
+                "code": "142614830",
+                "name": "陶瓷基复合材料制造",
+                "parentId": "142614829"
+              }
+            ],
+            "description": "其他高性能复合材料制造指生产和制造除以上所述材料之外的其他具有高性能和特殊功能的复合材料。这些复合材料常用于航空航天、能源、电子等领域，具有重要的应用价值。",
+            "level": 3,
+            "nameEn": "Manufacturing of other high performance composites",
+            "code": "142614829",
+            "name": "其他高性能复合材料制造",
+            "parentId": "142614581"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高性能碳纤维及制品制造指生产和制造以碳纤维为主要成分的高性能纤维材料及其制品。碳纤维具有优异的强度和刚度，常用于航空航天、运动器材等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of high performance carbon fiber and its products",
+                "code": "142614825",
+                "name": "高性能碳纤维及制品制造",
+                "parentId": "142614824"
+              },
+              {
+                "childFlag": 1,
+                "description": "玻璃纤维及制品制造指生产和制造以玻璃纤维为主要成分的纤维材料及其制品。玻璃纤维具有优良的耐高温、耐腐蚀和绝缘性能，常用于建筑、船舶、电子等领域。",
+                "level": 4,
+                "nameEn": "Glass fiber and products manufacturing",
+                "code": "142614582",
+                "name": "玻璃纤维及制品制造",
+                "parentId": "142614824"
+              },
+              {
+                "childFlag": 1,
+                "description": "有机纤维制造指生产和制造以有机化合物为主要成分的纤维材料。有机纤维具有良好的柔软性和可塑性，常用于纺织、服装等领域。",
+                "level": 4,
+                "nameEn": "Organic fiber manufacturing",
+                "code": "142614584",
+                "name": "有机纤维制造",
+                "parentId": "142614824"
+              },
+              {
+                "childFlag": 1,
+                "description": "陶瓷纤维及制品制造指生产和制造以陶瓷为主要成分的纤维材料及其制品。陶瓷纤维具有优异的耐高温和耐腐蚀性能，常用于高温绝缘、隔热等领域。",
+                "level": 4,
+                "nameEn": "Ceramic fiber and products manufacturing",
+                "code": "142614826",
+                "name": "陶瓷纤维及制品制造",
+                "parentId": "142614824"
+              },
+              {
+                "childFlag": 1,
+                "description": "石墨纤维制造指生产和制造以石墨为主要成分的纤维材料。石墨纤维具有高强度、高模量和耐高温性能，常用于航空航天、船舶、化工等领域。",
+                "level": 4,
+                "nameEn": "Graphite fiber manufacturing",
+                "code": "142614583",
+                "name": "石墨纤维制造",
+                "parentId": "142614824"
+              },
+              {
+                "childFlag": 1,
+                "description": "生物基化学纤维制造指生产和制造以生物基原料为主要成分的化学纤维。这些纤维具有可再生性和环境友好性，常用于纺织、包装等领域。",
+                "level": 4,
+                "nameEn": "Bio-based chemical fiber manufacturing",
+                "code": "142614827",
+                "name": "生物基化学纤维制造",
+                "parentId": "142614824"
+              }
+            ],
+            "description": "高性能纤维及制品制造指生产和制造具有高强度、高韧性和其他特殊性能的纤维材料及其制品。这些材料常用于增强材料、防护材料等领域。",
+            "level": 3,
+            "nameEn": "Manufacturing of high performance fibers and products",
+            "code": "142614824",
+            "name": "高性能纤维及制品制造",
+            "parentId": "142614581"
+          },
+          {
+            "childFlag": 0,
+            "node": [
+              {
+                "childFlag": 1,
+                "description": "高性能热塑性树脂基复合材料制造指生产和制造以高性能热塑性树脂为基体的复合材料。这些复合材料具有优良的可塑性和可加工性，常用于汽车、电子、包装等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of high performance thermoplastic resin matrix composites",
+                "code": "142614586",
+                "name": "高性能热塑性树脂基复合材料制造",
+                "parentId": "142614585"
+              },
+              {
+                "childFlag": 1,
+                "description": "高性能热固性树脂基复合材料制造指生产和制造以高性能热固性树脂为基体的复合材料。这些复合材料具有耐高温、耐腐蚀和优异的力学性能，常用于航空航天、船舶、汽车等领域。",
+                "level": 4,
+                "nameEn": "Manufacture of high performance thermosetting resin matrix composites",
+                "code": "142614828",
+                "name": "高性能热固性树脂基复合材料制造",
+                "parentId": "142614585"
+              }
+            ],
+            "description": "高性能纤维复合材料制造指生产和制造以高性能纤维为增强体的复合材料。这些复合材料具有高强度、高韧性和轻质化的特点，广泛应用于航空航天、汽车、体育器材等领域。",
+            "level": 3,
+            "nameEn": "Fabrication of high performance fiber composites",
+            "code": "142614585",
+            "name": "高性能纤维复合材料制造",
+            "parentId": "142614581"
+          }
+        ],
+        "description": "高性能纤维及制品和复合材料指生产和制造具有高强度、高韧性和其他特殊性能的纤维材料及其制品。这些",
+        "level": 2,
+        "nameEn": "High performance fibers and products and composites",
+        "code": "142614581",
+        "name": "高性能纤维及制品和复合材料",
+        "parentId": "142614478"
+      }
+    ],
+    "description": "新材料产业指以新材料为主导的产业领域，包括研发、生产和应用新型材料的全过程。",
+    "level": 1,
+    "nameEn": "New Material Industry",
+    "code": "142614478",
+    "name": "新材料产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "智能电网输送与配电指智能电网中的输送和配电过程。智能电网通过先进的传输和配电技术，实现电力的高效传输和分配。",
+            "level": 3,
+            "nameEn": "Smart Grid Transmission and Distribution",
+            "code": "142614884",
+            "name": "智能电网输送与配电",
+            "parentId": "142614640"
+          },
+          {
+            "childFlag": 1,
+            "description": "电力电子基础元器件制造制造用于电力电子设备的基础元器件。电力电子基础元器件包括变压器、电容器、开关器件等。",
+            "level": 3,
+            "nameEn": "Manufacturing of basic components for power electronics",
+            "code": "142614641",
+            "name": "电力电子基础元器件制造",
+            "parentId": "142614640"
+          },
+          {
+            "childFlag": 1,
+            "description": "智能电力控制设备及电缆制造制造用于智能电力系统的控制设备和电缆。这些设备和电缆用于实现智能电力系统的监测、控制和传输。",
+            "level": 3,
+            "nameEn": "Intelligent power control equipment and cable manufacturing",
+            "code": "142614883",
+            "name": "智能电力控制设备及电缆制造",
+            "parentId": "142614640"
+          }
+        ],
+        "description": "智能电网产业指与智能电网相关的产业。智能电网利用先进的通信和控制技术，实现电力系统的高效管理和优化。",
+        "level": 2,
+        "nameEn": "Smart Grid Industry",
+        "code": "142614640",
+        "name": "智能电网产业",
+        "parentId": "142614869"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "核电运营维护指核电站的运营和维护工作。包括设备检修、事故应急等，旨在确保核电站的安全和稳定运行。",
+            "level": 3,
+            "nameEn": "Nuclear power operation and maintenance",
+            "code": "142614871",
+            "name": "核电运营维护",
+            "parentId": "142614627"
+          },
+          {
+            "childFlag": 1,
+            "description": "核电工程施工指核电站建设的工程施工过程。包括土建、设备安装等，旨在完成核电站的建设任务。",
+            "level": 3,
+            "nameEn": "Construction of nuclear power project",
+            "code": "142614629",
+            "name": "核电工程施工",
+            "parentId": "142614627"
+          },
+          {
+            "childFlag": 1,
+            "description": "核电装备制造指生产和制造核电站所需的设备和部件的过程。包括反应堆压力容器、核燃料装料机械等，旨在支持核电站的建设和运行。",
+            "level": 3,
+            "nameEn": "Nuclear power equipment manufacturing",
+            "code": "142614628",
+            "name": "核电装备制造",
+            "parentId": "142614627"
+          },
+          {
+            "childFlag": 1,
+            "description": "核燃料加工及设备制造指生产和制造核燃料加工设备和相关设备的过程。包括浓缩、制粒等，旨在满足核燃料生产和利用的需求。",
+            "level": 3,
+            "nameEn": "Nuclear fuel processing and equipment manufacturing",
+            "code": "142614870",
+            "name": "核燃料加工及设备制造",
+            "parentId": "142614627"
+          },
+          {
+            "childFlag": 1,
+            "description": "核电工程技术服务指为核电工程提供的相关技术咨询和服务。包括工程设计、施工监理、设备检测等，旨在支持核电工程的规划、建设和运营。",
+            "level": 3,
+            "nameEn": "Nuclear Power Engineering Technical Services",
+            "code": "142614872",
+            "name": "核电工程技术服务",
+            "parentId": "142614627"
+          }
+        ],
+        "description": "核电产业指以核能为核心，涉及核电站建设、核燃料生产和核电技术研发的产业。旨在提供清洁、高效的电力供应。",
+        "level": 2,
+        "nameEn": "Nuclear Power Industry",
+        "code": "142614627",
+        "name": "核电产业",
+        "parentId": "142614869"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "太阳能材料制造指生产和制造太阳能发电所需的材料的过程。包括太阳能电池材料、太阳能光伏材料等，旨在提供太阳能发电的关键材料。",
+            "level": 3,
+            "nameEn": "Solar material manufacturing",
+            "code": "142614634",
+            "name": "太阳能材料制造",
+            "parentId": "142614633"
+          },
+          {
+            "childFlag": 1,
+            "description": "太阳能工程施工指太阳能发电项目的工程施工过程。包括光伏电站建设、设备安装等，旨在完成太阳能发电项目的建设任务。",
+            "level": 3,
+            "nameEn": "Solar energy engineering construction",
+            "code": "142614635",
+            "name": "太阳能工程施工",
+            "parentId": "142614633"
+          },
+          {
+            "childFlag": 1,
+            "description": "太阳能设备和生产装备制造指生产和制造太阳能发电设备和相关生产装备的过程。包括太阳能光伏组件、太阳能集热器等，旨在支持太阳能发电设备的制造和升级。",
+            "level": 3,
+            "nameEn": "Manufacturing of solar energy equipment and production equipment",
+            "code": "142614876",
+            "name": "太阳能设备和生产装备制造",
+            "parentId": "142614633"
+          },
+          {
+            "childFlag": 1,
+            "description": "太阳能工程技术服务指为太阳能发电项目提供的相关技术咨询和服务。包括工程设计、项目评估等，旨在支持太阳能发电项目的规划和实施。",
+            "level": 3,
+            "nameEn": "Solar Energy Engineering Technical Services",
+            "code": "142614878",
+            "name": "太阳能工程技术服务",
+            "parentId": "142614633"
+          },
+          {
+            "childFlag": 1,
+            "description": "太阳能发电运营维护指太阳能发电项目的运营和维护工作。包括设备检修、性能监测等，旨在确保太阳能发电设备的正常运行和性能优化。",
+            "level": 3,
+            "nameEn": "Solar Power Operation and Maintenance",
+            "code": "142614877",
+            "name": "太阳能发电运营维护",
+            "parentId": "142614633"
+          }
+        ],
+        "description": "太阳能产业指以太阳能为资源，涉及太阳能发电、太阳能利用技术和设备的产业。旨在通过利用太阳能来生产清洁能源。",
+        "level": 2,
+        "nameEn": "Solar Energy Industry",
+        "code": "142614633",
+        "name": "太阳能产业",
+        "parentId": "142614869"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "风能发电工程施工指风能发电项目的工程施工过程。包括风电场建设、设备安装等，旨在完成风能发电项目的建设任务。",
+            "level": 3,
+            "nameEn": "Wind power generation engineering construction",
+            "code": "142614632",
+            "name": "风能发电工程施工",
+            "parentId": "142614630"
+          },
+          {
+            "childFlag": 1,
+            "description": "风能发电机装备及零部件制造指生产和制造风力发电机及其相关零部件的过程。包括风力发电机组、叶片等，旨在支持风能发电设备的制造和升级。",
+            "level": 3,
+            "nameEn": "Wind power generator equipment and parts manufacturing",
+            "code": "142614873",
+            "name": "风能发电机装备及零部件制造",
+            "parentId": "142614630"
+          },
+          {
+            "childFlag": 1,
+            "description": "风能发电运营维护指风能发电项目的运营和维护工作。包括设备检修、故障排除等，旨在确保风能发电设备的正常运行和性能优化",
+            "level": 3,
+            "nameEn": "Operation and maintenance of wind power generation",
+            "code": "142614874",
+            "name": "风能发电运营维护",
+            "parentId": "142614630"
+          },
+          {
+            "childFlag": 1,
+            "description": "风能发电其他相关装备及材料制造指生产和制造风能发电领域其他相关装备和材料的过程。包括塔筒、基础设施等，旨在满足风能发电项目的需求",
+            "level": 3,
+            "nameEn": "Manufacturing of other equipment and materials related to wind power generation",
+            "code": "142614631",
+            "name": "风能发电其他相关装备及材料制造",
+            "parentId": "142614630"
+          },
+          {
+            "childFlag": 1,
+            "description": "风能发电工程技术服务指为风能发电项目提供的相关技术咨询和服务。包括工程设计、项目评估等，旨在支持风能发电项目的规划和实施。",
+            "level": 3,
+            "nameEn": "Wind Power Engineering Technical Services",
+            "code": "142614875",
+            "name": "风能发电工程技术服务",
+            "parentId": "142614630"
+          }
+        ],
+        "description": "风能产业指以风能为资源，涉及风力发电、风能利用技术和设备的产业。旨在通过利用风能来生产清洁能源。",
+        "level": 2,
+        "nameEn": "Wind energy industry",
+        "code": "142614630",
+        "name": "风能产业",
+        "parentId": "142614869"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "生物质供热指利用生物质能源进行供热的过程。包括生物质锅炉、生物质热电联供等，旨在利用可再生能源提供热能。",
+            "level": 3,
+            "nameEn": "Biomass heating",
+            "code": "142614880",
+            "name": "生物质供热",
+            "parentId": "142614636"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物质能工程技术服务指为生物质能发电和利用项目提供的相关技术咨询和服务。包括工程设计、项目评估等，旨在支持生物质能项目的规划和实施。",
+            "level": 3,
+            "nameEn": "Biomass Energy Engineering Technical Services",
+            "code": "142614639",
+            "name": "生物质能工程技术服务",
+            "parentId": "142614636"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物质能发电指利用生物质能源进行发电的过程。包括生物质发电厂的建设和运营，旨在利用可再生能源生产清洁能源。",
+            "level": 3,
+            "nameEn": "Biomass power generation",
+            "code": "142614637",
+            "name": "生物质能发电",
+            "parentId": "142614636"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物质燃气生产和供应指生产和供应生物质燃气的过程。包括生物质气化技术、燃气管网建设等，旨在利用生物质能源替代传统燃气。",
+            "level": 3,
+            "nameEn": "Production and supply of biomass fuel gas",
+            "code": "142614638",
+            "name": "生物质燃气生产和供应",
+            "parentId": "142614636"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他新能源运营服务指与新能源相关的其他运营服务。这可能包括新能源项目的规划、管理和维护等服务。",
+            "level": 3,
+            "nameEn": "Other new energy operation services",
+            "code": "142614882",
+            "name": "其他新能源运营服务",
+            "parentId": "142614636"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物质能及其他新能源设备制造指生产和制造生物质能发电设备和其他新能源设备的过程。包括生物质发电装置、新能源转换装置等，旨在支持生物质能和其他新能源的利用。",
+            "level": 3,
+            "nameEn": "Manufacturing of biomass energy and other new energy equipment",
+            "code": "142614879",
+            "name": "生物质能及其他新能源设备制造",
+            "parentId": "142614636"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物质能工程施工指生物质能发电和利用项目的工程施工过程。包括生物质能发电厂的建设、生物质供热系统的安装等，旨在完成生物质能项目的建设任务。",
+            "level": 3,
+            "nameEn": "Biomass energy engineering construction",
+            "code": "142614881",
+            "name": "生物质能工程施工",
+            "parentId": "142614636"
+          }
+        ],
+        "description": "生物质能及其他新能源产业指以生物质能和其他新能源资源为基础，涉及生物质能发电、新能源利用技术和设备的产业。旨在推动可再生能源的利用和发展。",
+        "level": 2,
+        "nameEn": "Biomass energy and other new energy industries",
+        "code": "142614636",
+        "name": "生物质能及其他新能源产业",
+        "parentId": "142614869"
+      }
+    ],
+    "description": "新能源产业指以可再生能源和清洁能源为核心，涉及能源生产、利用和相关技术的产业。包括太阳能、风能、水能等，旨在推动能源的可持续发展和减少对传统能源的依赖。",
+    "level": 1,
+    "nameEn": "New Energy Industry",
+    "code": "142614869",
+    "name": "新能源产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "高效节能电气机械器材制造制造用于高效节能电气设备的机械和器材。这些机械和器材用于提供电力传输、转换和控制等功能。",
+            "level": 3,
+            "nameEn": "Manufacturing of high-efficiency and energy-saving electrical machinery and equipment",
+            "code": "142614644",
+            "name": "高效节能电气机械器材制造",
+            "parentId": "142614885"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能研发与技术服务是能源技术服务的一个重要方面，目的在于减少能源消耗、提高能源使用效率、降低污染排放。",
+            "level": 3,
+            "nameEn": "Energy-saving R & D and technical services",
+            "code": "142614646",
+            "name": "节能研发与技术服务",
+            "parentId": "142614885"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色节能建筑材料制造制造用于绿色节能建筑的材料。这些材料具有低能耗、环保和可持续发展的特点，用于建筑节能和环境保护。",
+            "level": 3,
+            "nameEn": "Manufacturing of green energy-saving building materials",
+            "code": "142614645",
+            "name": "绿色节能建筑材料制造",
+            "parentId": "142614885"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能工程施工指节能工程的施工过程。节能工程旨在减少能源消耗，提高能源利用效率。",
+            "level": 3,
+            "nameEn": "Energy-saving engineering construction",
+            "code": "142614888",
+            "name": "节能工程施工",
+            "parentId": "142614885"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效节能通用设备制造制造用于高效节能的通用设备。这些设备具有节能和高效的特点，并可应用于不同领域。",
+            "level": 3,
+            "nameEn": "Manufacturing of general equipment with high efficiency and energy saving",
+            "code": "142614643",
+            "name": "高效节能通用设备制造",
+            "parentId": "142614885"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效节能专用设备制造制造用于高效节能的专用设备。这些设备被设计用于特定的领域或行业，以提高能源利用效率。",
+            "level": 3,
+            "nameEn": "Manufacturing of special equipment for high efficiency and energy saving",
+            "code": "142614886",
+            "name": "高效节能专用设备制造",
+            "parentId": "142614885"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效节能工业控制装置制造制造用于高效节能工业控制系统的装置。这些装置用于实现工业过程的自动化和优化，以提高能源利用效率。",
+            "level": 3,
+            "nameEn": "Manufacturing of high efficiency and energy saving industrial control device",
+            "code": "142614887",
+            "name": "高效节能工业控制装置制造",
+            "parentId": "142614885"
+          }
+        ],
+        "description": "高效节能产业指以高效节能为特点的产业。该产业致力于提高能源利用效率，减少能源浪费。",
+        "level": 2,
+        "nameEn": "High-efficiency and energy-saving industry",
+        "code": "142614885",
+        "name": "高效节能产业",
+        "parentId": "142614642"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "环境保护专用设备制造制造用于环境保护的专用设备。这些设备用于处理废水、废气等环境污染物。",
+            "level": 3,
+            "nameEn": "Manufacturing of special equipment for environmental protection",
+            "code": "142614647",
+            "name": "环境保护专用设备制造",
+            "parentId": "142614889"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境评估与监测服务提供环境评估和监测的相关服务。这些服务用于评估环境影响和监测环境质量。",
+            "level": 3,
+            "nameEn": "Environmental Assessment and Monitoring Services",
+            "code": "142614891",
+            "name": "环境评估与监测服务",
+            "parentId": "142614889"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境保护监测仪器及电子设备制造制造用于环境保护监测的仪器和电子设备。这些设备用于监测环境中的污染物浓度和质量。",
+            "level": 3,
+            "nameEn": "Manufacturing of environmental protection monitoring instruments and electronic equipment",
+            "code": "142614890",
+            "name": "环境保护监测仪器及电子设备制造",
+            "parentId": "142614889"
+          },
+          {
+            "childFlag": 1,
+            "description": "环保工程施工指进行环境保护项目的工程施工过程。包括污水处理厂建设、大气治理设施安装等，旨在改善和保护环境质量。",
+            "level": 3,
+            "nameEn": "Environmental protection engineering construction",
+            "code": "142614892",
+            "name": "环保工程施工",
+            "parentId": "142614889"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境保护及污染治理服务提供环境保护和污染治理的综合服务。这些服务涉及环境保护规划、治理方案和技术支持等。",
+            "level": 3,
+            "nameEn": "Environmental protection and pollution control services",
+            "code": "142614649",
+            "name": "环境保护及污染治理服务",
+            "parentId": "142614889"
+          },
+          {
+            "childFlag": 1,
+            "description": "环保研发与技术服务指为环境保护领域提供的研发和技术支持服务。包括环境监测技术研发、环境评估服务等，旨在提升环境保护技术水平和实施效果。",
+            "level": 3,
+            "nameEn": "Environmental R & D and technical services",
+            "code": "142614650",
+            "name": "环保研发与技术服务",
+            "parentId": "142614889"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境污染处理药剂材料制造制造用于环境污染处理的药剂和材料。这些药剂和材料用于去除或减少环境中的污染物。",
+            "level": 3,
+            "nameEn": "Manufacture of environmental pollution treatment agent material",
+            "code": "142614648",
+            "name": "环境污染处理药剂材料制造",
+            "parentId": "142614889"
+          }
+        ],
+        "description": "先进环保产业指与先进环保技术相关的产业。该领域涉及开发和应用先进的环保技术，以减少环境污染和资源浪费。",
+        "level": 2,
+        "nameEn": "Advanced environmental protection industry",
+        "code": "142614889",
+        "name": "先进环保产业",
+        "parentId": "142614642"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "城乡生活垃圾与农林废弃资源利用设备制造指生产和制造处理城乡生活垃圾和农林废弃资源的设备的过程。包括垃圾分类处理设备、农林废弃物资源化利用设备等，旨在促进垃圾和废弃物资源的有效利用。",
+            "level": 3,
+            "nameEn": "Manufacturing of equipment for utilization of urban and rural domestic garbage and agricultural and forestry waste resources",
+            "code": "142614895",
+            "name": "城乡生活垃圾与农林废弃资源利用设备制造",
+            "parentId": "142614893"
+          },
+          {
+            "childFlag": 1,
+            "description": "海水淡化活动指将海水转化为淡水的过程。包括海水淡化设施建设、海水淡化技术应用等，旨在解决水资源短缺问题和满足人们的用水需求。",
+            "level": 3,
+            "nameEn": "Desalination activities",
+            "code": "142614655",
+            "name": "海水淡化活动",
+            "parentId": "142614893"
+          },
+          {
+            "childFlag": 1,
+            "description": "矿产资源与工业废弃资源利用设备制造指生产和制造矿产资源和工业废弃资源利用的设备的过程。包括矿石破碎设备、废弃物处理设备等，旨在支持矿产资源和工业废弃资源的高效利用。",
+            "level": 3,
+            "nameEn": "Manufacturing of equipment for utilization of mineral resources and industrial waste resources",
+            "code": "142614651",
+            "name": "矿产资源与工业废弃资源利用设备制造",
+            "parentId": "142614893"
+          },
+          {
+            "childFlag": 1,
+            "description": "城乡生活垃圾综合利用指通过垃圾分类、资源化利用等手段对城乡生活垃圾进行综合利用的过程。旨在减少垃圾的产生和环境污染，实现资源的回收和循环利用。",
+            "level": 3,
+            "nameEn": "Comprehensive Utilization of Urban and Rural Domestic Waste",
+            "code": "142614653",
+            "name": "城乡生活垃圾综合利用",
+            "parentId": "142614893"
+          },
+          {
+            "childFlag": 1,
+            "description": "农林废弃物资源化利用指通过技术手段对农林废弃物进行资源化利用的过程。包括农作物秸秆综合利用、木材废料回收等，旨在提高农林废弃物的利用价值和资源化程度。",
+            "level": 3,
+            "nameEn": "Resource utilization of agricultural and forestry wastes",
+            "code": "142614896",
+            "name": "农林废弃物资源化利用",
+            "parentId": "142614893"
+          },
+          {
+            "childFlag": 1,
+            "description": "工业固体废物、废气、废液回收和资源化利用指对工业固体废物、废气和废液进行回收和资源化利用的过程。这有助于减少环境污染并促进资源循环利用。",
+            "level": 3,
+            "nameEn": "Recycling and resource utilization of industrial solid waste, waste gas and waste liquid",
+            "code": "142614652",
+            "name": "工业固体废物、废气、废液回收和资源化利用",
+            "parentId": "142614893"
+          },
+          {
+            "childFlag": 1,
+            "description": "矿产资源综合利用指通过技术手段对矿产资源进行多种途径的综合利用。包括资源回收、资源转化等，旨在最大限度地开发和利用矿产资源。",
+            "level": 3,
+            "nameEn": "Comprehensive Utilization of Mineral Resources",
+            "code": "142614894",
+            "name": "矿产资源综合利用",
+            "parentId": "142614893"
+          },
+          {
+            "childFlag": 1,
+            "description": "水及海水资源利用设备制造指生产和制造水资源和海水资源利用的设备的过程。包括水处理设备、海水淡化设备等，旨在支持水资源的有效利用和海水资源的开发利用。",
+            "level": 3,
+            "nameEn": "Manufacturing of equipment for utilization of water and seawater resources",
+            "code": "142614654",
+            "name": "水及海水资源利用设备制造",
+            "parentId": "142614893"
+          },
+          {
+            "childFlag": 1,
+            "description": "水资源循环利用与节水活动指通过技术手段和管理措施实现水资源的循环利用和节水的活动。包括水资源回收利用、水务管理等，旨在提高水资源利用效率和保护水环境。",
+            "level": 3,
+            "nameEn": "Water Resources Recycling and Water Saving Activities",
+            "code": "142614897",
+            "name": "水资源循环利用与节水活动",
+            "parentId": "142614893"
+          }
+        ],
+        "description": "资源循环利用产业指以资源的回收、再利用和循环利用为核心，涉及废物处理、资源回收等环节的产业。旨在实现资源的有效利用和循环经济的发展。",
+        "level": 2,
+        "nameEn": "Resource recycling industry",
+        "code": "142614893",
+        "name": "资源循环利用产业",
+        "parentId": "142614642"
+      }
+    ],
+    "description": "节能环保产业指与节能和环保相关的产业。该领域涉及开发和应用节能和环保技术，以减少能源消耗和环境污染。",
+    "level": 1,
+    "nameEn": "Energy-saving and environmental protection industry",
+    "code": "142614642",
+    "name": "节能环保产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "人工智能软件开发指开发和设计基于人工智能技术的软件应用，如智能语音助手、智能推荐系统等。",
+            "level": 3,
+            "nameEn": "Artificial intelligence software development",
+            "code": "142614463",
+            "name": "人工智能软件开发",
+            "parentId": "142609964"
+          },
+          {
+            "childFlag": 1,
+            "description": "人工智能系统服务指提供基于人工智能技术的系统解决方案和相关服务，如智能机器人服务、智能监控系统等。",
+            "level": 3,
+            "nameEn": "Artificial intelligence system services",
+            "code": "142614464",
+            "name": "人工智能系统服务",
+            "parentId": "142609964"
+          },
+          {
+            "childFlag": 1,
+            "description": "智能消费相关设备制造指制造与智能消费相关的设备，如智能家居设备、智能穿戴设备等。",
+            "level": 3,
+            "nameEn": "Intelligent consumption related equipment manufacturing",
+            "code": "142609965",
+            "name": "智能消费相关设备制造",
+            "parentId": "142609964"
+          }
+        ],
+        "description": "人工智能（Artificial Intelligence），英文缩写为AI。它是研究、开发用于模拟、延伸和扩展人的智能的理论、方法、技术及应用系统的一门新的技术科学",
+        "level": 2,
+        "nameEn": "Artificial Intelligence",
+        "code": "142609964",
+        "name": "人工智能",
+        "parentId": "142614451"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "新型电子元器件及设备制造指制造新型电子元器件和设备，如高性能集成电路、新型显示器件、传感器等。",
+            "level": 3,
+            "nameEn": "Manufacturing of new electronic components and equipment",
+            "code": "142609957",
+            "name": "新型电子元器件及设备制造",
+            "parentId": "142614455"
+          },
+          {
+            "childFlag": 1,
+            "description": "高储能和关键电子材料制造指制造具有高储能性能和关键应用价值的电子材料，如锂电池材料、光伏材料等。",
+            "level": 3,
+            "nameEn": "Manufacturing of high energy storage and key electronic materials",
+            "code": "142609958",
+            "name": "高储能和关键电子材料制造",
+            "parentId": "142614455"
+          },
+          {
+            "childFlag": 1,
+            "description": "集成电路制造指进行集成电路芯片设计、制造和封装等环节的产业活动。",
+            "level": 3,
+            "nameEn": "Integrated circuit manufacturing",
+            "code": "142614457",
+            "name": "集成电路制造",
+            "parentId": "142614455"
+          },
+          {
+            "childFlag": 1,
+            "description": "电子专用设备仪器制造指制造用于电子产业生产和测试的专用设备和仪器，如半导体制造设备、电子测试设备等。",
+            "level": 3,
+            "nameEn": "Manufacturing of special electronic equipment and instruments",
+            "code": "142614456",
+            "name": "电子专用设备仪器制造",
+            "parentId": "142614455"
+          }
+        ],
+        "description": "电子核心产业指电子行业的核心领域，包括集成电路、显示器件、电子材料等的研发、制造和应用。",
+        "level": 2,
+        "nameEn": "Electronic core industry",
+        "code": "142614455",
+        "name": "电子核心产业",
+        "parentId": "142614451"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "工业互联网及支持服务指在制造业领域应用互联网技术，实现生产流程数字化、智能化和网络化，并提供相应的支持服务。",
+            "level": 3,
+            "nameEn": "Industrial Internet and Support Services",
+            "code": "142609962",
+            "name": "工业互联网及支持服务",
+            "parentId": "142614460"
+          },
+          {
+            "childFlag": 1,
+            "description": "互联网平台服务（互联网+）指通过互联网技术搭建平台，并提供多种服务和功能，如电子商务平台、在线支付平台、共享经济平台等。",
+            "level": 3,
+            "nameEn": "Internet platform services (Internet +)",
+            "code": "142614461",
+            "name": "互联网平台服务（互联网+）",
+            "parentId": "142614460"
+          },
+          {
+            "childFlag": 1,
+            "description": "互联网相关信息服务指提供与互联网相关的信息内容和服务，如搜索引擎、新闻门户网站、在线广告等。",
+            "level": 3,
+            "nameEn": "Internet-related information services",
+            "code": "142614462",
+            "name": "互联网相关信息服务",
+            "parentId": "142614460"
+          },
+          {
+            "childFlag": 1,
+            "description": "云计算与大数据服务指基于云计算技术提供的计算资源和大数据处理服务，如云存储、云计算平台、大数据分析等。",
+            "level": 3,
+            "nameEn": "Cloud Computing and Big Data Services",
+            "code": "142609963",
+            "name": "云计算与大数据服务",
+            "parentId": "142614460"
+          }
+        ],
+        "description": "互联网与云计算、大数据服务指提供互联网、云计算和大数据相关的服务，如云存储、数据分析、人工智能算法等。",
+        "level": 2,
+        "nameEn": "Internet and cloud computing, big data services",
+        "code": "142614460",
+        "name": "互联网与云计算、大数据服务",
+        "parentId": "142614451"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "网络设备制造指制造各种网络通信设备，如路由器、交换机、光纤设备等，用于搭建和支持网络通信基础设施。",
+            "level": 3,
+            "nameEn": "Manufacturing of network equipment",
+            "code": "142614452",
+            "name": "网络设备制造",
+            "parentId": "142609953"
+          },
+          {
+            "childFlag": 1,
+            "description": "新型计算机及信息终端设备制造指制造新一代计算机和信息终端设备，如个人电脑、平板电脑、智能手机等，以满足不断增长的信息处理和通信需求。",
+            "level": 3,
+            "nameEn": "Manufacturing of new computer and information terminal equipment",
+            "code": "142609954",
+            "name": "新型计算机及信息终端设备制造",
+            "parentId": "142609953"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他网络运营服务包括除移动通信以外的其他网络运营服务，如固定宽带服务、互联网服务提供商等。",
+            "level": 3,
+            "nameEn": "Other network operation services",
+            "code": "142614454",
+            "name": "其他网络运营服务",
+            "parentId": "142609953"
+          },
+          {
+            "childFlag": 1,
+            "description": "信息安全设备制造指制造用于保护信息系统和数据安全的设备，如防火墙、入侵检测系统、加密设备等。",
+            "level": 3,
+            "nameEn": "Manufacturing of information security equipment",
+            "code": "142614453",
+            "name": "信息安全设备制造",
+            "parentId": "142609953"
+          },
+          {
+            "childFlag": 1,
+            "description": "计算机和辅助设备修理指提供计算机及其附属设备维修和维护服务，包括硬件故障修复、软件问题解决等。",
+            "level": 3,
+            "nameEn": "Computer and auxiliary equipment repair",
+            "code": "142609956",
+            "name": "计算机和辅助设备修理",
+            "parentId": "142609953"
+          },
+          {
+            "childFlag": 1,
+            "description": "新一代移动通信网络服务指提供基于新一代移动通信网络（如5G网络）的各类通信服务，如高速数据传输、视频通话、物联网连接等。",
+            "level": 3,
+            "nameEn": "New generation mobile communication network services",
+            "code": "142609955",
+            "name": "新一代移动通信网络服务",
+            "parentId": "142609953"
+          }
+        ],
+        "description": "下一代信息网络产业指构建和发展下一代信息网络基础设施和服务的产业，如5G网络、光纤网络、互联网基础设施等。",
+        "level": 2,
+        "nameEn": "Next Generation Information Network Industry",
+        "code": "142609953",
+        "name": "下一代信息网络产业",
+        "parentId": "142614451"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "新兴软件开发指开发和提供基于新技术的软件应用，如移动应用开发、大数据分析软件开发等。",
+            "level": 3,
+            "nameEn": "Emerging Software Development",
+            "code": "142614458",
+            "name": "新兴软件开发",
+            "parentId": "142609959"
+          },
+          {
+            "childFlag": 1,
+            "description": "网络与信息安全软件开发指开发和提供网络安全和信息安全相关的软件，如防病毒软件、网络安全监控软件等。",
+            "level": 3,
+            "nameEn": "Network and Information Security Software Development",
+            "code": "142609960",
+            "name": "网络与信息安全软件开发",
+            "parentId": "142609959"
+          },
+          {
+            "childFlag": 1,
+            "description": "互联网安全服务指提供互联网安全相关的服务，如网络安全咨询、漏洞扫描、网络安全事件响应等。",
+            "level": 3,
+            "nameEn": "Internet security services",
+            "code": "142614459",
+            "name": "互联网安全服务",
+            "parentId": "142609959"
+          },
+          {
+            "childFlag": 1,
+            "description": "新型信息技术服务指提供基于新技术的信息技术服务，如云计算服务、大数据分析服务等。",
+            "level": 3,
+            "nameEn": "New Information Technology Services",
+            "code": "142609961",
+            "name": "新型信息技术服务",
+            "parentId": "142609959"
+          }
+        ],
+        "description": "新兴软件和新型信息技术服务指提供新兴软件和新型信息技术相关的服务，如人工智能应用开发、区块链解决方案等。",
+        "level": 2,
+        "nameEn": "Emerging software and new information technology services",
+        "code": "142609959",
+        "name": "新兴软件和新型信息技术服务",
+        "parentId": "142614451"
+      }
+    ],
+    "description": "新一代信息技术产业指基于新兴的信息技术，如人工智能、物联网、区块链等，开展的一系列产业活动和创新，包括硬件、软件、应用等方面的发展。",
+    "level": 1,
+    "nameEn": "New Generation Information Technology Industry",
+    "code": "142614451",
+    "name": "新一代信息技术产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "新能源汽车零部件配件制造指生产和制造新能源汽车所需的零部件和配件的过程。包括车身零部件、底盘零部件等，旨在提供新能源汽车的组装和维修所需的配件。",
+            "level": 3,
+            "nameEn": "Manufacturing of new energy automobile parts and components",
+            "code": "142614865",
+            "name": "新能源汽车零部件配件制造",
+            "parentId": "142614621"
+          },
+          {
+            "childFlag": 1,
+            "description": "新能源汽车储能装置制造指生产和制造新能源汽车所使用的储能装置的过程。包括电池、超级电容器等，旨在提供新能源汽车的能量储存设备。",
+            "level": 3,
+            "nameEn": "Manufacturing of energy storage devices for new energy vehicles",
+            "code": "142614622",
+            "name": "新能源汽车储能装置制造",
+            "parentId": "142614621"
+          },
+          {
+            "childFlag": 1,
+            "description": "电机、发动机制造指生产和制造各种类型的电机和发动机的过程。包括电动机、燃油发动机等，旨在提供动力系统和驱动装置。",
+            "level": 3,
+            "nameEn": "Motor and engine manufacturing",
+            "code": "142614864",
+            "name": "电机、发动机制造",
+            "parentId": "142614621"
+          }
+        ],
+        "description": "新能源汽车装置、配件制造指生产和制造新能源汽车装置和配件的过程。包括电池组、电机、控制系统等，旨在提供新能源汽车所需的关键装置和配件。",
+        "level": 2,
+        "nameEn": "Manufacturing of new energy vehicle devices and accessories",
+        "code": "142614621",
+        "name": "新能源汽车装置、配件制造",
+        "parentId": "142614862"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "新能源汽车整车制造指生产和制造新能源汽车整车的过程。包括设计、生产组装和测试等环节，旨在提供高效、环保的交通工具。",
+            "level": 3,
+            "nameEn": "New energy vehicle manufacturing",
+            "code": "142614863",
+            "name": "新能源汽车整车制造",
+            "parentId": "142614620"
+          }
+        ],
+        "description": "新能源汽车整车制造指生产和制造新能源汽车整车的过程。包括设计、生产组装和测试等环节，旨在提供高效、环保的交通工具。",
+        "level": 2,
+        "nameEn": "New energy vehicle manufacturing",
+        "code": "142614620",
+        "name": "新能源汽车整车制造",
+        "parentId": "142614862"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "试验装置制造指生产和制造各种类型的试验装置的过程。包括车辆测试设备、电池测试设备等，旨在进行新能源汽车的性能和安全测试。",
+            "level": 3,
+            "nameEn": "Fabrication of test device",
+            "code": "142614624",
+            "name": "试验装置制造",
+            "parentId": "142614623"
+          },
+          {
+            "childFlag": 1,
+            "description": "供能装置制造指生产和制造各种类型的供能装置的过程。包括发电机组、电池组等，旨在提供能源供应和储存设备。",
+            "level": 3,
+            "nameEn": "Manufacturing of energy supply device",
+            "code": "142614866",
+            "name": "供能装置制造",
+            "parentId": "142614623"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他相关设施制造指生产和制造与新能源汽车产业相关的其他设施的过程。包括充电桩、充电站等，旨在支持新能源汽车的充电和服务网络建设。",
+            "level": 3,
+            "nameEn": "Manufacturing of other related facilities",
+            "code": "142614867",
+            "name": "其他相关设施制造",
+            "parentId": "142614623"
+          }
+        ],
+        "description": "新能源汽车相关设施制造指生产和制造与新能源汽车相关的设施的过程。包括充电设施、换电设施等，旨在支持新能源汽车的充电、维修和服务需求。",
+        "level": 2,
+        "nameEn": "Manufacturing of facilities related to new energy vehicles",
+        "code": "142614623",
+        "name": "新能源汽车相关设施制造",
+        "parentId": "142614862"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "新能源汽车其他相关服务指为新能源汽车提供的其他相关服务。包括保险服务、金融服务等，旨在满足新能源汽车用户的多样化需求。",
+            "level": 3,
+            "nameEn": "Other related services for new energy vehicles",
+            "code": "142614626",
+            "name": "新能源汽车其他相关服务",
+            "parentId": "142614625"
+          },
+          {
+            "childFlag": 1,
+            "description": "新能源汽车充电及维修服务指为新能源汽车提供的充电和维修服务。包括充电桩建设、充电设施运营、车辆维修保养等，旨在确保新能源汽车的正常运行和维护。",
+            "level": 3,
+            "nameEn": "New energy vehicle charging and maintenance services",
+            "code": "142614868",
+            "name": "新能源汽车充电及维修服务",
+            "parentId": "142614625"
+          }
+        ],
+        "description": "新能源汽车相关服务指为新能源汽车提供的相关服务。包括充电服务、维修保养、道路救援等，旨在提供全方位的支持和服务。",
+        "level": 2,
+        "nameEn": "New energy vehicle related services",
+        "code": "142614625",
+        "name": "新能源汽车相关服务",
+        "parentId": "142614862"
+      }
+    ],
+    "description": "新能源汽车产业指以新能源技术为核心，生产和销售新能源汽车的产业。包括电动汽车、混合动力汽车等，旨在推动可持续交通和减少对传统能源的依赖。",
+    "level": 1,
+    "nameEn": "New Energy Vehicle Industry",
+    "code": "142614862",
+    "name": "新能源汽车产业",
+    "parentId": ""
+  }
+]

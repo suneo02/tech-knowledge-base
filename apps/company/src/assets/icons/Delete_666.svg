@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/Delete_666@1x</title>
+    <g id="PC-Web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02--招投标查询" transform="translate(-1392.000000, -74.000000)">
+            <g id="Icon/Delete_666" transform="translate(1392.000000, 74.000000)">
+                <rect id="矩形" x="0" y="0" width="20" height="20"></rect>
+                <g id="ashbin" transform="translate(3.096585, 2.900000)" fill="#666660" fill-rule="nonzero">
+                    <path d="M10,0 C10.1104569,0 10.2,0.08954305 10.2,0.2 L10.2,2 L14,2 C14.1104569,2 14.2,2.08954305 14.2,2.2 L14.2,3 C14.2,3.11045695 14.1104569,3.2 14,3.2 L12.1221089,3.2 L11.2063824,14.014256 C11.1989034,14.1189143 11.1118163,14.2 11.0068911,14.2 L3.19310886,14.2 C3.08818365,14.2 3.00109663,14.1189143 2.99361759,14.014256 L2.07789114,3.2 L0.2,3.2 C0.08954305,3.2 0,3.11045695 0,3 L0,2.2 C0,2.08954305 0.08954305,2 0.2,2 L4,2 L4,0.2 C4,0.08954305 4.08954305,0 4.2,0 L10,0 Z M10.9186026,3.2 L3.28040635,3.2 L4.12422357,13 L10.0757687,13 L10.9186026,3.2 Z M9,1.2 L5.2,1.2 L5.2,2 L9,2 L9,1.2 Z" id="Delete"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

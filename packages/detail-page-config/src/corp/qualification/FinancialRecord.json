@@ -1,0 +1,43 @@
+{
+  "api": "detail/company/financialRecordList",
+  "countKey": "financialRecordNum",
+  "downDocTypeName": "不存在导出",
+  "id": "7-4",
+  "key": "7-4",
+  "level": 2,
+  "title": "金融信息服务备案",
+  "titleIntl": "448339",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "4%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "adminFilingNumber",
+      "title": "行政备案号",
+      "titleIntl": "417686"
+    },
+    {
+      "align": "left",
+      "dataIndex": "serviceRange",
+      "title": "服务渠道",
+      "titleIntl": "417687"
+    },
+    {
+      "align": "left",
+      "dataIndex": "filingDate|formatTime",
+      "title": "备案日期",
+      "titleIntl": "328162"
+    },
+    {
+      "align": "left",
+      "dataIndex": "serviceContent",
+      "title": "服务内容",
+      "titleIntl": "316392"
+    }
+  ]
+}

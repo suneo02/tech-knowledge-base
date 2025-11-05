@@ -1,0 +1,50 @@
+{
+  "api": "operation/get/moduleDataForUser",
+  "key": "directorInfoSubMenu",
+  "showIndex": true,
+  "title": "董事信息",
+  "titleId": "415034",
+  "type": "table",
+  "apiOptions": {
+    "method": "get"
+  },
+  "apiParams": {
+    "companyCode": "corp_id"
+  },
+  "apiExtra": [
+    {
+      "apiKey": "dataModule",
+      "value": "companyInfo"
+    },
+    {
+      "apiKey": "childDataModule",
+      "value": "directorInfo"
+    }
+  ],
+  "columns": [
+    {
+      "dataIndex": "name",
+      "title": "姓名/名称",
+      "titleId": "415014",
+      "width": "25%"
+    },
+    {
+      "dataIndex": "directorCategory",
+      "title": "董事类别",
+      "titleId": "415035",
+      "width": "25%"
+    },
+    {
+      "dataIndex": "identificationNumber",
+      "title": "证件号码/唯一业务识别码",
+      "titleId": "415036",
+      "width": "25%"
+    },
+    {
+      "dataIndex": "numberType",
+      "title": "号码类型",
+      "titleId": "415037",
+      "width": "25%"
+    }
+  ]
+}

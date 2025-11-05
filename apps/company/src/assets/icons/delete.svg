@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/Minus_Red@1x</title>
+    <g id="PC" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="05-名单页" transform="translate(-12.000000, -144.000000)">
+            <g id="Icon/Minus_Red" transform="translate(12.000000, 144.000000)">
+                <rect id="矩形" x="0" y="0" width="16" height="16"></rect>
+                <path d="M8,2 C11.2914286,2 14,4.70857143 14,8 C14,11.2914286 11.2914286,14 8,14 C4.70857143,14 2,11.2914286 2,8 C2,4.70857143 4.70857143,2 8,2 Z M10.9473684,7.3 L5.05263158,7.3 C4.75789473,7.3 4.5,7.62666666 4.5,8 C4.5,8.37333334 4.75789473,8.7 5.05263158,8.7 L5.05263158,8.7 L10.9473684,8.7 C11.2421053,8.7 11.5,8.37333334 11.5,8 C11.5,7.62666666 11.2421053,7.3 10.9473684,7.3 L10.9473684,7.3 Z" id="形状结合" fill="#FF453A" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

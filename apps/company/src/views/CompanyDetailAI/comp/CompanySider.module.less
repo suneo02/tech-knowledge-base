@@ -1,0 +1,63 @@
+@import "@/styles/variables.less";
+
+.companySider {
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+
+  :global(.w-menu-item.w-menu-item-selected) {
+    border-radius: 0px;
+    color: #0596b3;
+    background-color: #f3f5f7;
+  }
+
+  &__menuItem {
+    padding: 0 !important;
+    margin: 0 auto;
+    width: 100% !important;
+    height: 72px !important;
+
+    // border-radius: 0px 10px 10px 0px;
+
+    font-size: 14px;
+    line-height: 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .companySider__menuItemLabel {
+      margin: 4px 4px 0;
+      font-size: 14px;
+      width: 100%;
+      // padding: 0 12px;
+      // white-space: wrap;
+    }
+
+    :global(.wicon-svg) {
+      margin-right: 0px !important;
+    }
+
+    &:hover,
+    &:active {
+      color: @primary;
+    }
+  }
+
+  &__icon {
+    // font-size: 24px;
+    // margin: 0;
+    // margin-right: 0px;
+  }
+
+  &__userSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  &__userIcon {
+  }
+}

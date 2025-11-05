@@ -1,0 +1,47 @@
+{
+  "api": "/detail/company/getinvestmentevent",
+  "countKey": "invest_events_num",
+  "downDocTypeName": "不存在导出",
+  "key": "InvestEvent",
+  "level": 2,
+  "title": "投资事件",
+  "titleIntl": "40559",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "objectName",
+      "title": "投资对象",
+      "titleIntl": "358453",
+      "width": "25%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "date|formatTime",
+      "title": "交易日期",
+      "titleIntl": "20265",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "type",
+      "title": "交易类型",
+      "titleIntl": "8709",
+      "width": "12%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "amount|formatMoney",
+      "title": "投资金额（万）",
+      "titleIntl": "437178",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "investorList",
+      "title": "其他投资方",
+      "titleIntl": "358454",
+      "width": "10%"
+    }
+  ]
+}

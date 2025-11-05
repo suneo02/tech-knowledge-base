@@ -1,0 +1,74 @@
+{
+  "name": "gel-ui",
+  "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "style": "./dist/index.css",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./variables.less": "./dist/styles/shared/variables.less",
+    "./dist/index.css": "./dist/index.css"
+  },
+  "scripts": {
+    "dev": "vite build --watch --mode development --minify false --sourcemap",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "tsc": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "peerDependencies": {
+    "@ant-design/icons": "^5.6.1",
+    "@wind/icons": "^1.1.83",
+    "@wind/wind-ui": "4.3.5",
+    "@wind/wind-ui-table": "^2.2.42",
+    "ahooks": "^3.8.4",
+    "antd": "^5.24.0",
+    "axios": "^1.7.9",
+    "classnames": "^2.5.1",
+    "dayjs": "^1.11.13",
+    "gel-api": "workspace:*",
+    "gel-types": "workspace:*",
+    "gel-util": "workspace:*",
+    "lodash": "^4.17.21",
+    "path-browserify": "^1.0.1",
+    "qs": "^6.14.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "sanitize-html": "^2.17.0"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.3.4",
+    "@types/lodash": "^4.17.15",
+    "@types/node": "^22.13.9",
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "less": "^4.2.2",
+    "rollup-plugin-copy": "^3.5.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4",
+    "vite-plugin-dts": "^3.7.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
+}

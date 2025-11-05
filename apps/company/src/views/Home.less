@@ -1,0 +1,131 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f8f8f8;
+
+  .main-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    // margin-top: 2px;
+    height: calc(100% - 62px);
+
+    .breadcrumb-box {
+      background: #fff;
+      width: 100%;
+      .w-breadcrumb {
+        width: 1290px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .breadcrumb-back {
+        float: right;
+        right: 10px;
+        cursor: pointer;
+        color: #00aec7;
+        &:hover {
+          color: #77c4d4;
+        }
+      }
+    }
+
+    .menu {
+      width: 160px;
+    }
+
+    .condition {
+      width: 280px;
+    }
+
+    .page-container {
+      flex: 1;
+      overflow: auto;
+      // padding: 15px;
+      .w-breadcrumb {
+        background: #fff;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+
+.over-sea-users-data-tip {
+  display: flex;
+  position: relative;
+  height: 270px;
+}
+
+.over-sea-users-data-tip a {
+  color: #00aec7;
+}
+
+.over-sea-users-data-tip a:hover {
+  color: #3dc1d4;
+}
+
+.over-sea-users-data-tip p {
+  width: 506px;
+  line-height: 22px;
+  font-size: 14px;
+  padding-bottom: 22px;
+}
+
+.over-sea-users-data-tip img {
+  width: 26px;
+  height: 26px;
+  margin-left: 28px;
+  margin-right: 20px;
+}
+
+.over-sea-users-data-tip td {
+  min-width: 80px;
+}
+
+.over-sea-users-data-tip button {
+  position: absolute;
+  bottom: -160px;
+  right: 28px;
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 0 12px;
+  font-size: 14px;
+  border-radius: 2px;
+  height: 28px;
+  line-height: 26px;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  color: #333;
+  background-color: #fff;
+  border-color: #c5c5c5;
+  outline: none;
+  color: #fff;
+  background-color: #00aec7;
+  border-color: #00aec7;
+}
+
+.over-sea-users-data-tip button:hover {
+  background-color: #3dc1d4;
+  border-color: #3dc1d4;
+  color: #fff;
+}
+
+#over-sea-users-data-tip {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+}
+
+.wind-gel-rime {
+  min-width: auto !important;
+}

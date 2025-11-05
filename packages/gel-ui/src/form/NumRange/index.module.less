@@ -1,0 +1,34 @@
+.number-range {
+  display: flex;
+  align-items: center;
+
+  &__prefix {
+    margin-right: 4px;
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  &__suffix {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+
+    margin-right: 4px;
+    > *:not(:last-child) {
+      margin-right: 4px;
+    }
+  }
+
+  &__input {
+    width: 80px;
+    min-width: 0;
+  }
+
+  &__separator {
+    color: rgba(0, 0, 0, 0.45);
+    padding: 0 4px;
+    line-height: 1;
+  }
+}

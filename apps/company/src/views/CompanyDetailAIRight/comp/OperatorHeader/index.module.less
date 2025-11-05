@@ -1,0 +1,80 @@
+@import '~@/styles/variables.less';
+@import '~@/styles/mixin/common/scrollbar.less';
+
+.wrapper-width() {
+  max-width: 75vw;
+  min-width: 984px;
+  margin: 0 auto;
+}
+
+.shadow-style() {
+  box-shadow:
+    0 2px 4px 1px rgba(0, 0, 0, 0.05),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+// 操作区域
+.company-detail-ai__operation {
+  // border-bottom: 1px solid @border-color-split;
+  background-color: #fff;
+  white-space: nowrap;
+  width: 100%;
+  height: 100%;
+  .shadow-style();
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 12px !important;
+
+  // 操作区域左侧
+  &-left {
+    min-width: 140px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+    &-name {
+      height: 100%;
+      font-weight: bold;
+      color: #333;
+      // cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &-desc {
+      color: #999;
+    }
+  }
+
+  // 操作区域右侧
+  &-right {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  // 功能按钮区
+  &-func {
+    display: flex;
+    align-items: center;
+    margin-right: 60px;
+  }
+
+  // 工具按钮区
+  &-tool {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.aiSiderHidden {
+  .company-detail-ai__operation {
+    &-container {
+      max-width: 1296px;
+    }
+  }
+}

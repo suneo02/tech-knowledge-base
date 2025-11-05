@@ -1,0 +1,48 @@
+{
+  "api": "/detail/company/gettaxpayer",
+  "countKey": "tax_payer_num",
+  "downDocTypeName": "不存在导出",
+  "key": "TaxPayer",
+  "title": "纳税人信息",
+  "titleIntl": "222479",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "taxIdNo",
+      "title": "纳税人识别号",
+      "titleIntl": "138539",
+      "width": "19%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "taxQualiType",
+      "title": "纳税人资格类型",
+      "titleIntl": "222794",
+      "width": "18%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "taxRegisterDate",
+      "renderType": "date",
+      "title": "登记日期",
+      "titleIntl": "87749",
+      "width": "18%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "startDate",
+      "renderType": "date",
+      "title": "有效期",
+      "titleIntl": "21235",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "taxAuthority",
+      "title": "主管税务机关",
+      "titleIntl": "138218",
+      "width": "26%"
+    }
+  ]
+}

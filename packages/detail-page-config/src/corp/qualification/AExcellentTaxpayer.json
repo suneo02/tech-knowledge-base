@@ -1,0 +1,33 @@
+{
+  "api": "detail/company/gettaxcreditlist",
+  "countKey": "taxaCreditCount",
+  "downDocTypeName": "不存在导出",
+  "key": "AExcellentTaxpayer",
+  "title": "A级纳税人",
+  "titleIntl": "332374",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "taxName",
+      "title": "纳税人名称",
+      "titleIntl": "138538",
+      "width": "40%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "assessTime",
+      "renderType": "date",
+      "title": "评级年度",
+      "titleIntl": "138469",
+      "width": "40%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "creditLevel",
+      "title": "纳税信用级别",
+      "titleIntl": "138534",
+      "width": "40%"
+    }
+  ]
+}

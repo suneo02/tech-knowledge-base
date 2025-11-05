@@ -1,0 +1,13 @@
+---
+description: styling standards
+globs: **/*.{css,less}
+---
+
+- 使用 Less Modules 或 styled-components
+- 类名使用 BEM 命名规范
+- 避免使用内联样式
+- 使用相对单位 (rem, em) 而不是固定像素
+- 颜色值使用 CSS 变量
+- 响应式设计使用 media queries
+- 不能使用 gap 及 grid 语法！！！
+- 样式文件放在同级 style 目录下，注意样式拆分

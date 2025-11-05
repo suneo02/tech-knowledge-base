@@ -1,0 +1,54 @@
+{
+  "api": "detail/company/getcertificationlist",
+  "countKey": "certification_merge_num",
+  "downDocTypeName": "不存在导出",
+  "id": "7-13",
+  "key": "7-13",
+  "level": 2,
+  "title": "认证认可",
+  "titleIntl": "332373",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "certifType|formatCont",
+      "title": "证书类型",
+      "titleIntl": "138670",
+      "width": "30%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "certifNo",
+      "title": "证书编号",
+      "titleIntl": "138197",
+      "width": "25%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "certifDate|formatTime",
+      "title": "发证日期",
+      "titleIntl": "138245",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "expireDate|formatTime",
+      "title": "到期日期",
+      "titleIntl": "138895",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "certificateStatus",
+      "title": "证书状态",
+      "titleIntl": "138199",
+      "width": "10%"
+    }
+  ]
+}

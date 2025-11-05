@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/ControlArrow_Up_999@1x</title>
+    <g id="PC" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="05-名单页" transform="translate(-1416.000000, -96.000000)">
+            <g id="Icon/ControlArrow_Up_999" transform="translate(1416.000000, 96.000000)">
+                <rect id="矩形" x="0" y="0" width="16" height="16"></rect>
+                <path d="M8.01285714,10.5 C7.91,10.5 7.80714285,10.4737533 7.72999999,10.3950131 L3.61571429,6.19553805 C3.46142857,6.03805774 3.46142857,5.80183727 3.61571429,5.64435695 C3.77,5.48687664 4.00142857,5.48687664 4.15571429,5.64435695 L8.01285714,9.55511811 L11.8442857,5.61811024 C11.9985714,5.46062992 12.23,5.46062992 12.3842857,5.61811024 C12.5385714,5.77559055 12.5385714,6.01181102 12.3842857,6.16929134 L8.26999999,10.3687664 C8.21857142,10.4737533 8.11571428,10.5 8.01285714,10.5 Z" id="路径" stroke="#666666" fill="#666666" fill-rule="nonzero" transform="translate(8.000000, 8.000000) rotate(180.000000) translate(-8.000000, -8.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

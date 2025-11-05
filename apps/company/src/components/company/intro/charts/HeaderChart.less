@@ -1,0 +1,82 @@
+.header-chart {
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px 0 0 0;
+  height: 140px;
+  overflow: hidden;
+
+  .kg-bg-container {
+    margin-top: 8px;
+    height: 82px;
+    width: 144px;
+    background: url(../../../../assets/imgs/i_graph.png) no-repeat;
+  }
+
+  &:hover {
+    border: 1px solid #00aec7 !important;
+    color: #00aec7;
+    border-radius: 4px;
+  }
+
+  .kg-bg-container-small {
+    transform: scale(0.7);
+  }
+}
+
+.header-chart-2 {
+  height: 164px;
+  border-right: 2px solid #f4f4f4;
+
+  .kg-bg-container {
+    margin-top: 18px;
+  }
+}
+
+.corp-intro-chart-col {
+  padding: 0 6px !important;
+}
+
+.corp-intro-chart-col:nth-of-type(1) {
+  .kg-bg-container {
+    background-position: -5px -2px;
+  }
+}
+
+.corp-intro-chart-col:nth-of-type(2) {
+  .kg-bg-container {
+    background-position: -155px -2px;
+  }
+}
+
+.corp-intro-chart-col:nth-of-type(3) {
+  .kg-bg-container {
+    background-position: -155px -92px;
+  }
+}
+
+.corp-intro-chart-col:nth-of-type(4) {
+  .kg-bg-container {
+    background-position: -5px -92px;
+  }
+}
+
+.corp-intro-chart-col:nth-of-type(5) {
+  .kg-bg-container {
+    // background-position: -306px -92px;
+    background: url(../../../../assets/imgs/atlas_ddycd.png) no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+.corp-intro-chart-col:nth-of-type(6) {
+  .kg-bg-container {
+    // 背景图保持在中间，全部展示出来，不改变横纵比例
+    background: url(../../../../assets/imgs/atlas_glftp.png);
+    background-size: contain; /* 保持比例，完全展示图像 */
+    background-repeat: no-repeat; /* 不重复背景图 */
+    background-position: center; /* 背景图居中显示 */
+  }
+}

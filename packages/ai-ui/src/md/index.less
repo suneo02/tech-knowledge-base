@@ -1,0 +1,319 @@
+.markdown-content {
+  font-size: 14px;
+  line-height: 22px;
+
+  a {
+    color: unset;
+    text-underline-offset: 4px;
+    // text-decoration: underline;
+
+    border-bottom: 1px solid #c3c5c9;
+    &:hover {
+      color: #0596b3; // antd 默认链接hover颜色
+    }
+  }
+
+  h1,
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 26px;
+    margin: 8px 0 4px;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 24px;
+    margin: 0 0 4px;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0 0 4px;
+    font-weight: 700;
+  }
+
+  p {
+    // margin: 0;
+    margin-bottom: 4px;
+    word-wrap: break-word;
+    word-break: break-word;
+    letter-spacing: 0;
+
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0 0 4px;
+  }
+
+  // 修复 br 标签换行间距过宽的问题
+  br {
+    display: block;
+    content: '';
+    margin: 0;
+    padding: 0;
+    height: 0;
+    line-height: 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+
+    th,
+    td {
+      padding: 6px;
+      text-align: left;
+      border: 1px solid #ecedee;
+    }
+
+    th {
+      background-color: #e6e7e9;
+      font-weight: bold;
+      color: rgba(0, 0, 0, 0.88);
+    }
+
+    tr {
+      background-color: #fff;
+
+      &:nth-child(even) {
+        background-color: rgb(242, 243, 243);
+      }
+
+      &:hover {
+        background-color: #fafafa;
+      }
+    }
+
+    // 表格内的代码块样式
+    code {
+      background-color: rgba(0, 0, 0, 0.04);
+      padding: 2px 4px;
+      border-radius: 3px;
+      // font-family: monospace;
+    }
+  }
+
+  /** 只对安卓设备生效 */
+  text {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  > view:not(:last-child) {
+    margin-bottom: 8rpx;
+  }
+
+  // 小程序迁移过来的样式
+
+  // 列表
+  &--list {
+    margin: 8px 0;
+  }
+
+  ul,
+  ol {
+    list-style: revert !important;
+    padding-left: 20px !important;
+    margin: 4px 0;
+
+    li {
+      display: list-item !important;
+      list-style: revert !important;
+      margin: 4px 0;
+    }
+  }
+
+  ul {
+    list-style-type: disc !important;
+
+    > li {
+      list-style-type: disc !important;
+    }
+  }
+
+  ol {
+    list-style-type: decimal !important;
+
+    > li {
+      list-style-type: decimal !important;
+    }
+  }
+
+  // Inline
+  strong {
+    font-weight: bold;
+    letter-spacing: 0;
+  }
+
+  em {
+    font-style: italic;
+  }
+  hr {
+    margin: 12px 0;
+  }
+
+  // Code
+  code {
+    // display: inline-flex;
+    overflow: auto;
+  }
+
+  pre {
+    font-size: 14px;
+    padding: 2px 4px;
+    border-radius: 2px;
+    background-color: #f8f9fa;
+    overflow-x: auto;
+
+    codelang {
+      background: #f3f3f3;
+      text-transform: capitalize;
+    }
+  }
+
+  .source-marker {
+    border: none;
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    width: 15px;
+    font-size: 28px;
+    padding-left: 4px;
+    color: #ced1db;
+    vertical-align: bottom;
+    font-weight: 400;
+    position: relative;
+  }
+}
+
+.source-popover-container {
+  position: fixed;
+  z-index: 1500;
+
+  .w-popover {
+    z-index: 1500;
+  }
+}
+
+// 溯源弹窗
+.source-popover-overlay {
+  .w-popover-content {
+    -webkit-box-shadow:
+      0 3px 14px 2px rgb(0 0 0 / 10%),
+      0 8px 10px 1px rgb(0 0 0 / 6%),
+      0 2px 5px -2px rgb(0 0 0 / 10%);
+    box-shadow:
+      0 3px 14px 2px rgb(0 0 0 / 10%),
+      0 8px 10px 1px rgb(0 0 0 / 6%),
+      0 2px 5px -2px rgb(0 0 0 / 10%);
+
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    &::after {
+      content: '';
+      -webkit-transition: all 0.2s;
+      -o-transition: all 0.2s;
+      transition: all 0.2s;
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 4px;
+      background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(#3862ed),
+        color-stop(11%, #274cda),
+        color-stop(47%, #00aec7),
+        color-stop(62%, #17d9cb),
+        color-stop(94%, #b388e8)
+      );
+      background-image: -webkit-linear-gradient(left, #3862ed, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
+      background-image: -o-linear-gradient(left, #3862ed 0, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
+      background-image: linear-gradient(90deg, #3862ed, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: bottom;
+    }
+  }
+  z-index: 1050;
+
+  .w-popover-arrow {
+    display: none;
+  }
+
+  .w-popover-inner {
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.xcontainer {
+  --p-i: 12px;
+  --h: 32px;
+  position: relative;
+  padding: 16px var(--p-i);
+  border-radius: 4px;
+  //   background-color: #2d2d2d;
+  padding-top: calc(var(--h) + 16px);
+  &-header {
+    border-radius: 4px 4px 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-inline: var(--p-i);
+    height: var(--h);
+    background-color: #24262b;
+    color: #fff;
+    button.copy {
+      margin: 0;
+      padding: 2px 8px;
+      border: none;
+      background: none;
+      font: inherit;
+      color: #999;
+      cursor: pointer;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+
+      font-size: 12px;
+      border: 1px solid #444;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: #fff;
+        border-color: #666;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+
+  //   small {
+  //     position: absolute;
+  //     top: 0;
+  //     right: 0;
+  //     background-color: #000;
+  //     color: #fff;
+  //     padding: 0 5px;
+  //     // border-radius: 5px;
+  //   }
+}

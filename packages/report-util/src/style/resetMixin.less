@@ -1,0 +1,53 @@
+@import './variable/variables.less';
+
+.scrollbar() {
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 120px;
+    width: 10px;
+    border-radius: 5px;
+    background-color: #b7b7b7;
+  }
+
+  &::-webkit-scrollbar:hover {
+    width: 10px;
+    height: 10px;
+    background-color: #ededed;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #a0a0a0;
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    background-color: #8e8e8e;
+  }
+}
+
+.reset-styles() {
+  margin: 0;
+  padding: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.tag-mini() {
+  padding: 0 4px;
+}
+
+.resetBody() {
+  color: @font-color-2;
+  font-size: 14px;
+  font-family:
+    'PingFang SC',
+    -apple-system,
+    'Microsoft YaHei',
+    'Arial',
+    BlinkMacSystemFont,
+    /*ios mac*/ /*Segoe UI,*/ sans-serif /*安卓端命中系统字体*/;
+  line-height: 1.5714286;
+}

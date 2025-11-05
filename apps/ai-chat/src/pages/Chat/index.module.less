@@ -1,0 +1,17 @@
+.layout {
+  width: 100%;
+  // min-width: 1000px;
+  height: 100vh;
+  display: flex;
+  background: #fff;
+
+  :global(.ant-prompts) {
+    color: rgba(0, 0, 0, 0.88);
+  }
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  min-width: 0; // 防止flex子元素溢出
+}

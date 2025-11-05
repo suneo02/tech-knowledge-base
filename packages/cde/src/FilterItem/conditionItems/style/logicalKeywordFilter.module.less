@@ -1,0 +1,16 @@
+.logical-keyword-wrapper {
+  display: flex;
+  & > * {
+    &:not(:last-child) {
+      margin-right: 6px;
+    }
+  }
+
+  &--option {
+    :global {
+      .w-select-selector {
+        height: 100%;
+      }
+    }
+  }
+}

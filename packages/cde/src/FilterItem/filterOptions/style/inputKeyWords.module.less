@@ -1,0 +1,50 @@
+@import 'gel-ui/variables.less';
+
+.inputBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding-left: 2px;
+  border-radius: 2px;
+  border: 1px solid var(--input-border);
+  background-color: #fff;
+  // min-height: 28px;
+  // height: 28px;
+  flex: 1;
+  // gap: 8px;
+
+  &.active {
+    border-color: @primary-color;
+  }
+
+  .input {
+    flex: 1;
+    // height: 100%;
+    min-width: 80px;
+    margin: 0;
+    // padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+
+    &:focus {
+      box-shadow: none;
+      border: none;
+    }
+  }
+}
+
+.custom-tag {
+  background-color: @tag-bg-color;
+  padding: 2px 8px;
+  margin-inline-start: 8px;
+  margin-inline-end: 0;
+  border-radius: 4px;
+  color: @tag-text-color;
+  &-icon {
+    color: @tag-icon-color;
+    cursor: pointer;
+  }
+}

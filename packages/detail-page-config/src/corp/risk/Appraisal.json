@@ -1,0 +1,116 @@
+{
+  "isRiskModule": true,
+  "key": "Appraisal",
+  "title": "询价评估",
+  "titleIntl": "216400",
+  "tooltips": "询价评估的意思是法院对被执行人的资产进行询价并且请专人来评估。",
+  "type": "nodeWithChildren",
+  "children": [
+    {
+      "api": "detail/company/get_evaluation",
+      "downDocTypeName": "不存在导出",
+      "key": "AppraisalResult",
+      "title": "评估结果",
+      "titleIntl": "448363",
+      "type": "verticalTable",
+      "extraPayload": {
+        "dataType": "1"
+      },
+      "columns": [
+        {
+          "align": "left",
+          "dataIndex": "caseNo",
+          "title": "案号",
+          "titleIntl": "138190",
+          "width": "26%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "date",
+          "renderType": "date",
+          "title": "公示日期",
+          "titleIntl": "138143",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "subjectName",
+          "title": "标的物",
+          "titleIntl": "38785",
+          "width": "20%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "evalAmountMax",
+          "renderType": "number",
+          "title": "评估结果",
+          "titleIntl": "448363",
+          "width": "20%",
+          "renderConfig": {
+            "useThousandSeparator": true
+          }
+        },
+        {
+          "align": "left",
+          "dataIndex": "courtName",
+          "title": "法院",
+          "titleIntl": "216403",
+          "width": "22%"
+        }
+      ]
+    },
+    {
+      "api": "detail/company/get_evaluation",
+      "downDocTypeName": "不存在导出",
+      "key": "AppraisalSelected",
+      "title": "选定评估机构",
+      "titleIntl": "439854",
+      "type": "verticalTable",
+      "extraPayload": {
+        "dataType": "2"
+      },
+      "columns": [
+        {
+          "align": "left",
+          "dataIndex": "date",
+          "renderType": "date",
+          "title": "公示日期",
+          "titleIntl": "138143",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "subjectName",
+          "title": "标的物",
+          "titleIntl": "38785",
+          "width": "20%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "caseNo",
+          "title": "案号",
+          "titleIntl": "138190",
+          "width": "18%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "courtName",
+          "title": "法院",
+          "titleIntl": "216403",
+          "width": "26%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "evalAmountMax",
+          "renderType": "number",
+          "title": "选定评估机构",
+          "titleIntl": "439854",
+          "width": "26%",
+          "renderConfig": {
+            "useThousandSeparator": true
+          }
+        }
+      ]
+    }
+  ]
+}

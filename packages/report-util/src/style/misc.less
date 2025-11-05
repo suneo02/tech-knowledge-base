@@ -1,0 +1,77 @@
+@import './variable/variables.less';
+
+.table-comment () {
+  font-weight: normal;
+  font-size: 12px;
+  color: #999;
+}
+
+/* 无数据提示样式 */
+.tableNoData() {
+  width: 100%;
+  padding: 8px 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.noDataCell() {
+  text-align: center;
+  color: #999;
+  padding: 16px 0;
+  font-size: 14px;
+}
+
+.noDataInner() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.report-comment () {
+  text-align: center;
+
+  :global {
+    .report-comment-title {
+      color: #333;
+      font-size: 22px;
+      line-height: 1.5;
+    }
+    .report-comment-line {
+      text-align: left;
+      margin: 10px 30px;
+    }
+  }
+}
+
+.report-appendix-title() {
+  color: #333;
+  font-size: 22px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.report-appendix-line() {
+  text-align: left;
+}
+
+.corp-info-shareholder-name() {
+  > * {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-bottom: 4px;
+  }
+
+  > *:last-child {
+    margin-right: 0;
+  }
+}
+
+.corp-belong-industry-group() {
+  :global {
+    .confidence-level {
+      color: @basic-8;
+      margin-inline-start: 2px;
+    }
+  }
+}

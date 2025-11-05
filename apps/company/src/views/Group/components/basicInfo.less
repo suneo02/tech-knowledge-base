@@ -1,0 +1,44 @@
+@import '@/styles/mixins.less';
+.basic-info-container {
+  #boxShadow;
+  .card-content {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: @global-space-lg 0;
+  }
+  .img-container {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 100%;
+    }
+  }
+  .title {
+    font-size: @font-size-xl;
+    font-weight: bold;
+    margin-block-end: 6px;
+    > span {
+      font-weight: normal;
+      font-size: normal;
+      margin-inline-start: 8px;
+    }
+  }
+  a {
+    border-bottom: 1px solid #c5c5c5;
+  }
+  .flex-container {
+    display: flex;
+    justify-content: flex-start;
+    // align-items: center;
+  }
+  .content-box {
+    > div {
+      margin-block-end: 6px;
+    }
+  }
+}

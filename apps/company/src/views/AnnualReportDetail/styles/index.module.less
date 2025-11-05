@@ -1,0 +1,70 @@
+.annualDetail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: white;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
+  .titleReport {
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  :global {
+    .wind-ui-table-thead > tr > th,
+    .wind-ui-table-tbody > tr > td {
+      padding: 10px 10px;
+    }
+
+    .wind-ui-table-row-cell {
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+    }
+
+    .wind-ui-table-title {
+      font-size: 14px;
+    }
+
+    .wind-ui-table-item-title {
+      font-weight: 400 !important;
+    }
+  }
+}
+
+.singleModule {
+  padding-top: 20px;
+}
+
+.eachDiv {
+  background-color: #fff;
+  margin: 0;
+  width: 1266px;
+}
+
+.eachModule {
+  padding: 0 20px;
+
+  // .longContent {
+  //   * {
+  //     font-family: 'Microsoft YaHei' !important;
+  //   }
+  // }
+}
+
+// Add this to body tag via global styles
+:global {
+  body {
+    min-width: 1190px;
+    height: 100%;
+  }
+
+  html {
+    height: 100%;
+  }
+}

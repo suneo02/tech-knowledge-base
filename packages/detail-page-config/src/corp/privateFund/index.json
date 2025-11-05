@@ -1,0 +1,21 @@
+{
+  "id": "4",
+  "key": "4",
+  "level": 1,
+  "moduleKey": "PrivateFundData",
+  "noneData": "暂无基金数据",
+  "title": "基金数据",
+  "titleIntl": "39902",
+  "type": "菜单",
+  "children": [
+    {
+      "downDocTypeName": "不存在导出",
+      "id": "4-1",
+      "key": "4-1",
+      "level": 2,
+      "title": "基本信息",
+      "titleIntl": "205468",
+      "type": "未知"
+    }
+  ]
+}

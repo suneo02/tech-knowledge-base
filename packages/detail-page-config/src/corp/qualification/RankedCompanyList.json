@@ -1,0 +1,54 @@
+{
+  "api": "detail/company/getrankedcompanylist",
+  "countKey": "ranked_num",
+  "downDocTypeName": "不存在导出",
+  "id": "7-17",
+  "key": "7-17",
+  "level": 2,
+  "title": "上榜信息",
+  "titleIntl": "138468",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "rankName|formatCont",
+      "title": "榜单",
+      "titleIntl": "140374",
+      "width": "30%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "rankTime",
+      "title": "上榜日期",
+      "titleIntl": "12634",
+      "width": "10%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "rankLevel",
+      "title": "最新上榜名次",
+      "titleIntl": "326735",
+      "width": "10%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "rankCount",
+      "title": "累计上榜次数",
+      "titleIntl": "348169",
+      "width": "10%"
+    },
+    {
+      "align": "center",
+      "dataIndex": "rankCode1",
+      "title": "历史上榜详情",
+      "titleIntl": "348176",
+      "width": "10%"
+    }
+  ]
+}

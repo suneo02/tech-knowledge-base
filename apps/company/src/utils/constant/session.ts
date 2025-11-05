@@ -1,0 +1,1 @@
+export const DEFAULT_WSID = '1fe3084b15024f828e86604964ff71c1'

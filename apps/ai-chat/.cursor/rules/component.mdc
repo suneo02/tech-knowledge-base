@@ -1,0 +1,67 @@
+---
+description: 针对组件的开发规范
+globs: 
+alwaysApply: false
+---
+# React 组件开发规范 (基于 Home.tsx 示例)
+
+## 1. 文件与模块结构
+
+-   **Imports**:
+    -   首先导入 React 核心模块 (`react`)。
+    -   然后导入第三方库的组件和模块 (如 `@wind/wind-ui`)。
+    -   接着导入项目内部的模块、组件、工具函数 (如 `@/components/common/RouteModal`, `@/assets/icon`)。
+    -   最后导入 JSON 数据或样式文件 (`./index.json`, `./index.module.less`)。
+    -   样式文件一律使用 `./index.module.less` 且样式中使用 `@prefix: home-container` - 来解决驼峰的问题。
+-   **类型定义**:
+    -   组件的 Props 接口 (`PropsInterface`)、表单值接口 (`FormValues`) 以及其他相关的数据结构接口（如 `AiModal`, `SuperListTool`）。
+-   **常量定义**:
+    -   使用 `const PREFIX = 'component-name-prefix'` 定义组件内 CSS 类名的前缀。
+    -   使用 `const STRINGS = { ... }` 将所有用户可见的静态文本（如标签、占位符、按钮文字）统一管理。
+    -   将影响核心逻辑的配置数组（如 `CREDIT_AFFECTING_FIELDS`）定义为常量。
+    -   从 JSON 或其他数据源导入的数据，应使用新的常量名（如 `superListToolsData`, `aiModalsData`）进行赋值，以表明其在组件内的用途。
+-   **组件定义**:
+    -   使用 `export const ComponentName: React.FC<PropsInterface> = ({ ...props }) => { ... }` 的形式定义函数式组件。
+
+## 2. 组件内部实现
+
+-   **状态管理 (`useState`)**:
+    -   清晰地定义和初始化组件的局部状态。
+    -   例如: `const [prompt, setPrompt] = useState('')`
+-   **副作用与生命周期 (`useEffect`)**:
+    -   逻辑清晰地处理副作用，如从 `location.state` 初始化表单。
+    -   确保 `useEffect` 的依赖项数组正确且最小化。对于从外部导入且在组件生命周期内不变的常量数据（如 `aiModalsData`），可以从依赖项中省略或作为空数组 `[]` 的一部分。
+-   **回调函数与性能 (`useCallback`)**:
+    -   对于传递给子组件或作为 `useEffect` 依赖项的函数，使用 `useCallback` 进行记忆化，以避免不必要的重渲染。
+    -   例如: `const calculateTotalCredits = useCallback((formValues: FormValues) => { ... }, [])`
+-   **事件处理函数**:
+    -   如 `handleFieldChange`, `handleSaveNoRun` 等，应清晰地处理用户交互或表单值变化。
+    -   对于复杂的条件判断（如 `handleFieldChange` 中判断哪些字段变更影响积分），优先使用常量数组和 `.some()` 或 `.find()` 等方法，而不是多层 `if` 或 `hasOwnProperty`。
+-   **辅助函数**:
+    -   如 `parseMentionsOptions`，应保持纯粹和功能单一。
+
+## 3. JSX 与渲染
+
+-   **结构与样式**:
+    -   使用 WIND UI 组件 (`Row`, `Col`, `Card`, `Select`, `Switch`, `Divider`, `Button`) 构建 UI。
+    -   样式优先使用模块化 Less (`styles.className`)。
+    -   简单的、非复用的动态样式或微调（如 `marginInlineEnd: 4`）可以使用内联样式，但复杂的或可复用的样式应定义在 `.less` 文件中。
+-   **列表渲染 (`map`)**:
+    -   当 `map` 的返回包含多个同级 JSX 元素时，使用 `<React.Fragment key={item.id}>...</React.Fragment>` 或 `<div key={item.id}>...</div>` 进行包裹，并确保 `key` 的唯一性。
+-   **条件渲染**:
+    -   使用三元运算符或逻辑与 (`&&`) 进行简洁的条件渲染。
+    -   例如: `tool.credits > 0 ? <CreditDisplay /> : <FreeTag />`
+-   **文本内容**:
+    -   所有用户可见的文本应从 `STRINGS` 常量对象中获取。
+
+## 4. TypeScript 运用
+
+-   **接口优先**: 为 Props、表单值、API 返回数据等定义清晰的 `interface`。
+-   **类型明确**: 避免使用 `any`，除非在极少数情况下确实无法确定类型。对于可以联合多种类型的场景，使用联合类型 (如 `string | number`)。
+-   **索引签名**: 如 `[key: string]: string | number | boolean | undefined`，在需要灵活属性时使用，但要尽可能具体化其值类型。
+
+## 5. 其他规范 (参考通用 Cursor Rules)
+
+-   遵循“接收对象，返回对象”（RORO）模式。
+-   优先处理错误和边界情况。
+-   避免不必要的 `else`，使用 `if-return`。

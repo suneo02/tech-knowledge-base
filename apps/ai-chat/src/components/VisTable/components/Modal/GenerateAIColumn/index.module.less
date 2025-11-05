@@ -1,0 +1,31 @@
+@import 'gel-ui/variables.less';
+@prefix: generate-ai-column;
+
+.@{prefix} {
+  &-container {
+    width: 100%;
+    // background: #ededed;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+  }
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 20px;
+    flex: 0 0 50px;
+    // .wicon-svg {
+    //   font-size: 20px;
+    // }
+  }
+  &-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ededed;
+  }
+}

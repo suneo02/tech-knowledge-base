@@ -1,0 +1,28 @@
+@prefix: base-checkbox-group;
+
+.@{prefix} {
+  &-container {
+    :global {
+      .w-checkbox-group-item {
+        margin-block-end: 8px;
+        min-width: 160px;
+        box-sizing: border-box;
+        border-radius: 2px;
+        border: 1px solid #ededed;
+        padding: 4px 8px;
+        background-color: #fff;
+        cursor: pointer;
+        // transition: all 0.3s ease;
+      }
+    }
+  }
+  &-label {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    &-checkbox {
+      margin-inline-start: 8px;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "api": "detail/company/getcompanyabs",
+  "countKey": "companyabs_num",
+  "downDocTypeName": "不存在导出",
+  "key": "ABSInfo",
+  "title": "ABS信息",
+  "titleIntl": "138122",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "projectName",
+      "title": "项目名称",
+      "titleIntl": "34886",
+      "width": "36%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "issuedAmount",
+      "renderType": "number",
+      "title": "发行总额(万元)",
+      "titleIntl": "138796",
+      "width": "15%",
+      "renderConfig": {
+        "decimalPlaces": 2,
+        "showUnit": true,
+        "unitField": "currencyCode",
+        "useThousandSeparator": true
+      }
+    },
+    {
+      "align": "left",
+      "dataIndex": "announceDate",
+      "renderType": "date",
+      "title": "发行公告日",
+      "titleIntl": "138655",
+      "width": "16%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "dueDate",
+      "renderType": "date",
+      "title": "法定到期日",
+      "titleIntl": "138701",
+      "width": "16%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "basicAssetsType",
+      "title": "基础资产种类",
+      "titleIntl": "448356",
+      "width": "16%"
+    }
+  ]
+}

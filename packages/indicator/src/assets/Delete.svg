@@ -1,0 +1,7 @@
+﻿<svg viewBox="0 0 18 18" focusable="false" class="" data-icon="delete" width="18px" height="18px"
+    fill="#707680" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path
+        d="M11.9 1.9c.11 0 .2.09.2.2v1.8h3.8c.11 0 .2.09.2.2v.8a.2.2 0 01-.2.2h-1.88l-.91 10.81c-.01.1-.1.19-.2.19H5.09a.2.2 0 01-.2-.19L3.98 5.1H2.1a.2.2 0 01-.2-.2v-.8c0-.11.09-.2.2-.2h3.8V2.1c0-.11.09-.2.2-.2h5.8zm.92 3.2H5.18l.84 9.8h5.96l.84-9.8zm-1.92-2H7.1v.8h3.8v-.8z"
+        fill-rule="nonzero"></path>
+</svg>

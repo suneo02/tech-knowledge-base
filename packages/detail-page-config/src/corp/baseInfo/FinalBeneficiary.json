@@ -1,0 +1,137 @@
+{
+  "key": "FinalBeneficiary",
+  "title": "最终受益人",
+  "titleIntl": "138180",
+  "tooltips": "<i><div><span>依据银发【2017】235号文件</span><br/><br/><span>受益所有人为依据相关政策文件识别标准，层层深入并最终明确为掌握控制权或者获取收益的一个或多个自然人。</span><br/><span>受益自然人为拥有25%（含）以上股权或疑似拥有合伙权益或收益权的自然人及对法人或非法人组织进行实际控制的多个自然人。</span><br/><span>受益机构为拥有25%（含）以上股权或疑似拥有合伙权益或收益权的法人及对法人或非法人组织进行实际控制的多个法人。</span><br/><br/><span style=\"color:#666666\">该结果仅供用户参考，并不代表万得的任何观点或保证。</span></div></i>",
+  "type": "nodeWithChildren",
+  "children": [
+    {
+      "api": "detail/company/getbeneficiary_owner",
+      "countKey": "beneficialOwner",
+      "downDocTypeName": "不存在导出",
+      "key": "FinalBeneficiaryBeneficiary",
+      "title": "受益所有人",
+      "titleIntl": "326056",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "name",
+          "title": "受益所有人名称",
+          "titleIntl": "326055",
+          "width": "20%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "shareRate",
+          "title": "最终受益股份",
+          "titleIntl": "261486",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "beneficType",
+          "title": "受益类型",
+          "titleIntl": "326073",
+          "width": "25%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "judgeReason",
+          "title": "判定理由",
+          "titleIntl": "326074",
+          "width": "36%"
+        }
+      ]
+    },
+    {
+      "api": "detail/company/getbeneficiary_naturalpersion",
+      "countKey": "beneficialNaturalPerson",
+      "downDocTypeName": "不存在导出",
+      "key": "FinalBeneficiaryNatural",
+      "title": "受益自然人",
+      "titleIntl": "326053",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "name",
+          "title": "受益自然人名称",
+          "titleIntl": "326054",
+          "width": "20%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "shareRate",
+          "title": "最终受益股份",
+          "titleIntl": "261486",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "beneficType",
+          "title": "受益类型",
+          "titleIntl": "326073",
+          "width": "25%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "jobType",
+          "title": "任职类型",
+          "titleIntl": "326093",
+          "width": "36%"
+        }
+      ]
+    },
+    {
+      "api": "detail/company/getbeneficiary_org",
+      "countKey": "beneficialInstitutions",
+      "downDocTypeName": "不存在导出",
+      "key": "FinalBeneficiaryInstitution",
+      "title": "受益机构",
+      "titleIntl": "326075",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "name",
+          "title": "受益机构名称",
+          "titleIntl": "326076",
+          "width": "35%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "shareRate|formatPercent",
+          "title": "最终受益股份",
+          "titleIntl": "261486",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "beneficType",
+          "title": "受益类型",
+          "titleIntl": "326073",
+          "width": "46%"
+        }
+      ]
+    }
+  ]
+}

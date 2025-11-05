@@ -1,0 +1,11 @@
+.configurable-layout-tabs {
+  position: relative;
+  .configurable-title {
+    position: absolute;
+    right: 0;
+    top: -51px;
+    .title-left-container {
+      display: none;
+    }
+  }
+}

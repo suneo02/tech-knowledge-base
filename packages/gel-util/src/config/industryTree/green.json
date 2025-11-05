@@ -1,0 +1,2634 @@
+[
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "锅炉(窑炉) 节能改造和能效提升包括以实现锅炉(窑炉) 能效提升为目的，采用设备和装备替代更新、技术改造、燃料优化、燃烧调整优化等技术手段，对锅炉(窑炉) 实施的节能技术改造，以及使用天然气、 可再生能源等清洁能源和工厂余热、 电厂乏汽、循环水余热等热力资源替代煤、 石油焦、 渣油、 重油等燃料锅炉(窑炉)供热的节能技术改造。",
+            "level": 3,
+            "nameEn": "Energy-saving transformation and energy efficiency improvement of boilers  kilns",
+            "code": "33701591781",
+            "name": "锅炉(窑炉) 节能改造和能效提升",
+            "parentId": "33701591918"
+          },
+          {
+            "childFlag": 1,
+            "description": "电机系统能效提升包括以实现电机系统能效提升为目的，采用设备更新、技术改造、控制系统优化等技术手段，对电机系统(含系统内风机、水泵、压缩机、变压器等设备)实施的设备或综合性系统节能改造",
+            "level": 3,
+            "nameEn": "Improve the energy efficiency of the motor system",
+            "code": "33701591782",
+            "name": "电机系统能效提升",
+            "parentId": "33701591918"
+          },
+          {
+            "childFlag": 1,
+            "description": "余热余压利用包括采用饱和蒸汽发电、烟气余热回收利用、煤气回收利用等技术，回收工业生产过程低品位余热余压余气等能源资源用于发电、工业供热、居民供暖或生产工艺再利用的设施建设或技术改造",
+            "level": 3,
+            "nameEn": "Waste heat and pressure utilization",
+            "code": "33701591783",
+            "name": "余热余压利用",
+            "parentId": "33701591918"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色照明改造包括采用半导体通用照明产品、高压钠灯、金属卤化物灯等高效照明产品(不包括含汞灯具)，高效照明控制系统，以及采用自然光为光源等实施各类建筑及公共场所的照明节能改造。",
+            "level": 3,
+            "nameEn": "Green lighting renovation",
+            "code": "33701591784",
+            "name": "绿色照明改造",
+            "parentId": "33701591918"
+          },
+          {
+            "childFlag": 1,
+            "description": "汽轮发电机组系统能效提升包括以提升汽轮发电机组能效为目的，对汽轮机通流部分、冷端系统、 锅炉受热面及烟风系统、 运行控制系统、 热力及疏水系统、辅助电机等设备或系统实施的节能技术改造",
+            "level": 3,
+            "nameEn": "Improve the energy efficiency of the steam turbine generator set system",
+            "code": "33701591919",
+            "name": "汽轮发电机组系统能效提升",
+            "parentId": "33701591918"
+          },
+          {
+            "childFlag": 1,
+            "description": "电网节能改造包括以提升电网能效为目的，对输电线路、变电系统等设备或系统实施的节能改造",
+            "level": 3,
+            "nameEn": "Energy-saving transformation of power grid",
+            "code": "33701591920",
+            "name": "电网节能改造",
+            "parentId": "33701591918"
+          },
+          {
+            "childFlag": 1,
+            "description": "能量系统优化包括通过工艺流程优化、 系统技术集成应用、 能量系统设计与控制优化等技术手段，对工业生产过程能源流、 物质流、信息流实施协同优化，提高能源梯级利用成效，使生产系统整体能效提升的节能改造",
+            "level": 3,
+            "nameEn": "Energy system optimization",
+            "code": "33701591921",
+            "name": "能量系统优化",
+            "parentId": "33701591918"
+          },
+          {
+            "childFlag": 1,
+            "description": "船舶绿色低碳升级改造包括以提高船舶运行效率，减少船舶污染物和二氧化碳排放为目的，采用先进适用的绿色技术和装备对船舶进行升级改造。",
+            "level": 3,
+            "nameEn": "Green and low-carbon upgrading and transformation of ships",
+            "code": "33701591922",
+            "name": "船舶绿色低碳升级改造",
+            "parentId": "33701591918"
+          }
+        ],
+        "description": "节能降碳改造是指通过采用节能技术和设备，降低能源消耗和碳排放，实现节能减排的目标。",
+        "level": 2,
+        "nameEn": "Energy saving and carbon reduction transformation",
+        "code": "33701591918",
+        "name": "节能降碳改造",
+        "parentId": "33701591905"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "新能源汽车关键零部件制造包括新能源汽车电池、 电机及其控制系统、 电附件、插电式混合动力专用发动机、机电耦合系统及能量回收系统等新能源汽车关键核心零部件装备制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of key components for new energy vehicles",
+            "code": "33701591916",
+            "name": "新能源汽车关键零部件制造",
+            "parentId": "33701591778"
+          },
+          {
+            "childFlag": 1,
+            "description": "先进轨道交通装备制造包括铁路高端装备制造、城市和港口轨道交通装备制造、轨道交通其他装备制造等，不包括轨道建设",
+            "level": 3,
+            "nameEn": "Advanced rail transit equipment manufacturing",
+            "code": "33701591917",
+            "name": "先进轨道交通装备制造",
+            "parentId": "33701591778"
+          },
+          {
+            "childFlag": 1,
+            "description": "船用绿色动力装备制造包括利用液化天然气(LNG) 、 电池、 甲醇、氢等船用绿色动力装备制造，以及提升船舶能效水平、减少船舶污染物排放有关动力系统和设备制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of green ships (excluding shipbuilding construction)",
+            "code": "33701591779",
+            "name": "绿色船舶制造（不含造船厂建设）",
+            "parentId": "33701591778"
+          },
+          {
+            "childFlag": 1,
+            "description": "先进高效航空装备制造包括新能源飞行器、 新能源航空发动机、 民机绿色化智能化工艺装备等制造， 以及传统航空器绿色化改进改型",
+            "level": 3,
+            "nameEn": "Manufacturing of advanced and efficient aviation equipment",
+            "code": "33701591780",
+            "name": "先进高效航空装备制造",
+            "parentId": "33701591778"
+          },
+          {
+            "childFlag": 1,
+            "description": "先进港口装卸作业设备制造包括能效水平较高的岸边集装箱起重机、 轨道式集装箱门式起重机、 桥式抓斗卸船机、 散货连续装船机、 港口牵引车、 集装箱门座起重机、 轮胎式集装箱门式起重机等制造。",
+            "level": 3,
+            "nameEn": "Advanced port loading and unloading operation equipment manufacturing",
+            "code": "35411905275",
+            "name": "先进港口装卸作业设备制造",
+            "parentId": "33701591778"
+          }
+        ],
+        "description": "先进交通装备制造是指生产先进的交通工具和设备的制造业，包括汽车、火车、飞机、船舶等。",
+        "level": 2,
+        "nameEn": "Advanced transportation equipment manufacturing",
+        "code": "33701591778",
+        "name": "先进交通装备制造",
+        "parentId": "33701591905"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "节能锅炉制造包括高低差速循环流化床油页岩锅炉、 煤泥循环流化床锅炉、 蓄热稳燃高炉煤气锅炉、 高效煤粉工业锅炉、 高效低污染层燃室燃复合燃烧锅炉、 高效生物质锅炉、 多流程生物质循环流化床锅炉、 固体可燃废弃物循环流化床锅炉等节能型电站锅炉、 工业锅炉和船用锅炉，以及先进煤气化装备等制造。",
+            "level": 3,
+            "nameEn": "Energy-saving boiler manufacturing",
+            "code": "33701591906",
+            "name": "节能锅炉制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能内燃机制造包括560kW以下的非道路用柴油机和轻型汽车(包括轻型乘用车和轻型商用车)用柴油机，轻型汽车用汽油机及30kW以下通用汽油机等内燃机制造。",
+            "level": 3,
+            "nameEn": "Energy-saving internal combustion engine manufacturing",
+            "code": "33701591907",
+            "name": "节能内燃机制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能型泵及真空设备制造包括节能泵、节能型真空干燥设备、节能型真空炉等设备制造。",
+            "level": 3,
+            "nameEn": "Energy-saving pumps and vacuum equipment manufacturing",
+            "code": "33701591908",
+            "name": "节能型泵及真空设备制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能电动机、 微特电机制造包括节能型直流电动机、节能型交流电动机、节能型交直流两用电动机、节能型小功率电动机、节能型微特电机、稀土永磁电机等设备制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of energy-saving motors and micro-special motors",
+            "code": "33701591909",
+            "name": "节能电动机、 微特电机制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能型变压器、 整流器、 电感器和电焊机制造包括节能型变压器、 互感器、 静止式变流器、 电抗器、 电感器、 交流接触器、 变频器、 电焊机等设备制造。 ",
+            "level": 3,
+            "nameEn": "Manufacturing of energy-saving transformers,rectifiers,inductors and welding machines",
+            "code": "33701591910",
+            "name": "节能型变压器、 整流器、 电感器和电焊机制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能农资制造包括节能低碳农业大棚、高效节能农用发动机、高速精量排种器、节能环保农机和渔机渔船等制造",
+            "level": 3,
+            "nameEn": "Manufacturing of energy-saving agricultural materials",
+            "code": "33701591911",
+            "name": "节能农资制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效节能商用设备制造包括节能型复印机、 打印机、 传真机、 微型计算机、 投影机、 商用制冷器具、 冷水机组、 热泵机组、 单元式空调等商用设备制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of high-efficiency, energy-saving, and low-carbon commercial equipment",
+            "code": "33701591912",
+            "name": "高效节能低碳商用设备制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效照明产品及系统制造包括发光二极管(LED)用大尺寸开盒即用蓝宝石、大尺寸高效低成本LED外延生长和芯片制备产业化技术装置、替代型半导体照明光源、新型LED照明应用产品、半导体照明产品及其生产装备、控制装置等设备制造。",
+            "level": 3,
+            "nameEn": "Efficient lighting products and system manufacturing",
+            "code": "33701591913",
+            "name": "高效照明产品及系统制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "余热余压余气利用设备制造包括低热值煤气燃气轮机、低温烟气余热深度回收装置、窑炉余热利用装置、基于吸收式换热的集中供热装置、循环水及乏汽余热回收大型热泵装置、高效换热器、高效蓄能器、高效冷凝器等设备制造。",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for waste heat and pressure waste gas",
+            "code": "33701591914",
+            "name": "余热余压余气利用设备制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "能源计量、 检测、 监测、 控制设备制造包括节能检测设备、在线能源计量设备、在线能源检测设备、 热工检测设备、节能自控设备、 温度计量设备、流量计量设备、 电力计量设备、热力计量设备、能源检测电导率设备、能源监测磁导率设备等设备制造(不包括含汞设备) ",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for energy measurement,testing,monitoring and control",
+            "code": "33701591915",
+            "name": "能源计量、 检测、 监测、 控制设备制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能窑炉制造包括采用高温空气燃烧技术的冶金加热炉、节能工业电炉、节能型非电热金属处理用炉、 节能型辊道窑、 节能型隧道窑、 节能型梭式窑、 节能型推板窑、 节能型保护气氛窑炉、 节能型氮化窑、 节能型烧成窑炉、 节能型烘烤干燥炉等高效工业窑炉，以及节能型炉用燃烧器等设备制造。",
+            "level": 3,
+            "nameEn": "Energy-saving kiln manufacturing",
+            "code": "33701591769",
+            "name": "节能窑炉制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效发电机及发电机组制造包括节能型交流发电机、节能型直流发电机、节能型发电机组、 节能型内燃发电机组、节能型旋转式变流机、 与内燃机配用的节能型发电机，节能发电机及发电机组专用零件等设备制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of efficient generators and generator sets",
+            "code": "33701591770",
+            "name": "高效发电机及发电机组制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能型气体压缩设备制造包括节能型空气压缩机、 空气调节器用压缩机、透平式压缩机等设备制造。",
+            "level": 3,
+            "nameEn": "Energy-saving gas compression equipment manufacturing",
+            "code": "33701591771",
+            "name": "节能型气体压缩设备制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能风机风扇制造包括节能型工业风扇、通风机、 鼓风机、 通风罩、 循环气罩等设备制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of energy-saving fan fans",
+            "code": "33701591772",
+            "name": "节能风机风扇制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效节能磁悬浮动力装备制造包括磁悬浮离心鼓风机、磁悬浮透平真空泵、磁悬浮离心制冷压缩机、磁悬浮低温余热发电机、磁悬浮空气压缩机、磁悬浮蒸汽压缩机、磁悬浮飞轮储能等装备制造",
+            "level": 3,
+            "nameEn": "Efficient and energy-saving magnetic levitation power equipment manufacturing",
+            "code": "33701591773",
+            "name": "高效节能磁悬浮动力装备制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能采矿、 建筑专用设备制造包括节能型建井设备、采掘和凿岩设备、 矿山提升设备、矿物破碎机械、 矿物粉磨机械、 矿物筛分和洗选设备、 矿山牵引车及其矿车、矿山设备专用配套件等制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of energy-saving mining and building material production specialized equipment",
+            "code": "33701591774",
+            "name": "节能采矿、建筑材料生产专用设备制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效节能家用电器制造包括节能型房间空调器、 空调机组、 电冰箱、 电动洗衣机、电饭锅、 空气净化器、平板电视机、机顶盒、 电风扇等家用电器制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of high-efficiency, energy-saving, and low-carbon household appliances",
+            "code": "33701591775",
+            "name": "高效节能低碳家用电器制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效节能炉具灶具设备制造包括高效生物质炉、 清洁型煤炉、 高效天然气炉、 高效家用燃气灶具等炉具灶具制造。",
+            "level": 3,
+            "nameEn": "Equipment manufacturing of efficient and energy-saving stoves and stoves",
+            "code": "33701591776",
+            "name": "高效节能炉具灶具设备制造",
+            "parentId": "33701591768"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色建筑材料制造包括节能墙体材料、外墙保温材料、节能玻璃、装配式建筑部品部件、预拌混凝土、预拌砂浆、绿色工业化定制家装等绿色建材产品制造。",
+            "level": 3,
+            "nameEn": "Manufacture of green building materials",
+            "code": "33701591777",
+            "name": "绿色建筑材料制造",
+            "parentId": "33701591768"
+          }
+        ],
+        "description": "高效节能装备制造通常是指生产能够帮助提高能源利用效率和降低能源消耗的设备和技术。这些装备通常包括高效的引擎、发电机、照明系统、家电、热能回收系统等。这些设备和技术可以帮助企业和个人更有效地利用资源，降低能源消耗和成本，减少对环境的影响。",
+        "level": 2,
+        "nameEn": "Efficient and energy-saving equipment manufacturing",
+        "code": "33701591768",
+        "name": "高效节能装备制造",
+        "parentId": "33701591905"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "工业生产过程温室气体减排包括通过工艺改进和清洁生产等措施减少生产过程温室气体排放的活动，如水泥行业通过非碳酸盐原料替代传统石灰石原料、玻璃行业应用先进的浮法工艺减少温室气体排放，化工行业使用六氟化硫混合气和回收六氟化硫等。",
+            "level": 3,
+            "nameEn": "Green house gas emission reduction in industrial production process",
+            "code": "33701591787",
+            "name": "工业生产过程温室气体减排",
+            "parentId": "33701591785"
+          },
+          {
+            "childFlag": 1,
+            "description": "二氧化碳捕集利用与封存包括将二氧化碳从工业生产、能源利用过程中产生的废气或大气中分离出来，加以资源化利用、注入地层封存或注入地下油藏提高石油产量，如火电厂二氧化碳捕集、二氧化碳驱油、直接空气碳捕捉、生物质能碳捕捉与封存等技术应用。",
+            "level": 3,
+            "nameEn": "Carbon dioxide capture utilization and storage",
+            "code": "33701591923",
+            "name": "二氧化碳捕集利用与封存",
+            "parentId": "33701591785"
+          },
+          {
+            "childFlag": 1,
+            "description": "消耗臭氧层物质替代品开发与利用包括鼓励消耗臭氧层物质、氢氟碳化物、持久性有机污染物替代品的开发和利用。",
+            "level": 3,
+            "nameEn": "Development and utilization of alternatives to ozone-depleting substances",
+            "code": "33701591924",
+            "name": "消耗臭氧层物质替代品开发与利用",
+            "parentId": "33701591785"
+          }
+        ],
+        "description": "温室气体控制是指通过采取措施，控制和减少温室气体的排放，以减缓全球气候变暖的趋势。",
+        "level": 2,
+        "nameEn": "Green house gas control",
+        "code": "33701591785",
+        "name": "温室气体控制",
+        "parentId": "33701591905"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "节能降碳改造和能效提升包括钢铁、 有色金属、 石化化工、 建材等重点工业行业， 采用先进技术、 工艺、 设备等实现节能降碳改造和能效提升的活动。 ",
+            "level": 3,
+            "nameEn": "Energy conservation and carbon reduction transformation and energy efficiency improvement",
+            "code": "35411905391",
+            "name": "节能降碳改造和能效提升",
+            "parentId": "35411905276"
+          },
+          {
+            "childFlag": 1,
+            "description": "工艺改进和流程优化包括钢铁、 有色金属、 石化化工、 建材等重点工业行业， 以提高生产效率、 降低资源消耗、 减少污染物和温室气体排放等为目的， 开展的工艺改进和流程优化活动。",
+            "level": 3,
+            "nameEn": "Process improvement and process optimization",
+            "code": "35411905392",
+            "name": "工艺改进和流程优化",
+            "parentId": "35411905276"
+          },
+          {
+            "childFlag": 1,
+            "description": "数字化、智能化升级包括钢铁、 有色金属、 石化化工、 建材等重点工业行业， 以提升工业生产管理数字化、 智能化水平为目的， 开展的数字化、智能化升级活动。",
+            "level": 3,
+            "nameEn": "Digital and intelligent upgrades",
+            "code": "35411905393",
+            "name": "数字化、智能化升级",
+            "parentId": "35411905276"
+          }
+        ],
+        "description": "重点工业行业绿色低碳转型是指在工业领域，通过采取措施，推动重点行业向绿色、低碳方向转型，减少对环境的影响，提高资源利用效率。这包括对生产工艺进行改进，采用清洁能源，提高能源利用效率，减少废弃物排放等。",
+        "level": 2,
+        "nameEn": "Green and low-carbon transformation of key industrial industries",
+        "code": "35411905276",
+        "name": "重点工业行业绿色低碳转型",
+        "parentId": "33701591905"
+      }
+    ],
+    "description": "节能降碳产业指推动节能降碳的装备制造、改造升级、绿色转型等相关产业",
+    "level": 1,
+    "nameEn": "Energy saving and carbon reduction industry",
+    "code": "33701591905",
+    "name": "节能降碳产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "温室气体排放源监控包括温室气体等碳排放数据的监测，监测系统平台开发和数据核算、分析评价、预警、运营维护服务，相关衍生的碳资产管理和碳信息披露服务等。",
+            "level": 3,
+            "nameEn": "Greenhouse gas emission source monitoring",
+            "code": "33701592146",
+            "name": "温室气体排放源监控",
+            "parentId": "33701591887"
+          },
+          {
+            "childFlag": 1,
+            "description": "能耗在线监测系统建设包括能耗数据采集方案设计、能耗监测远程终端设备采购、能耗在线监测计算机平台开发、能耗计量和在线监测设备校准、能耗监测数据库和应用软件开发，重点用能单位、国家机关和大型公共建筑等能耗在线监测系统建设等。",
+            "level": 3,
+            "nameEn": "Construction of energy consumption online monitoring system",
+            "code": "33701592025",
+            "name": "能耗在线监测系统建设",
+            "parentId": "33701591887"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境损害监测评估包括环境损害评估监测方案设计、环境损害鉴定评估、环境损害应急处置方案设计、环境损害法律咨询服务、环境损害保险服务等",
+            "level": 3,
+            "nameEn": "Monitoring and assessment of environmental damage",
+            "code": "33701592026",
+            "name": "环境损害监测评估",
+            "parentId": "33701591887"
+          },
+          {
+            "childFlag": 1,
+            "description": "企业环境监测包括企业环境监测设备采购、环境监测服务、环境监测软硬件开发、环境影响数据库建设、污染物监控人员培训等。",
+            "level": 3,
+            "nameEn": "Enterprise environmental monitoring",
+            "code": "33701592027",
+            "name": "企业环境监测",
+            "parentId": "33701591887"
+          },
+          {
+            "childFlag": 1,
+            "description": "生态系统碳汇监测评估包括国土调查、遥感监测、碳汇监测技术和模型开发、碳储量评估、生态系统碳汇认证标准和认证方法研究、生态保护修复碳汇成效监管、生态保护修复补偿、生态系统碳汇价值评估、生态系统碳汇监管网络体系等",
+            "level": 3,
+            "nameEn": "Assessment of ecosystem carbon sink monitoring",
+            "code": "33701592028",
+            "name": "生态系统碳汇监测评估",
+            "parentId": "33701591887"
+          },
+          {
+            "childFlag": 1,
+            "description": "污染源监测包括污染源监测系统开发、污染源监测设备采购、污染源监测数据库建设和应用软件开发、污染物排放计量和监测设备校准服务等。",
+            "level": 3,
+            "nameEn": "Pollution source monitoring",
+            "code": "33701592147",
+            "name": "污染源监测",
+            "parentId": "33701591887"
+          },
+          {
+            "childFlag": 1,
+            "description": "生态环境监测和生态安全预警包括水、空气、土壤、固体废物、地下水、海洋、农业面源、辐射、噪声、新污染物等生态环境监测，突发生态环境事件涉及的监测设计方案等技术服务，农业废弃物资源监测、农用地和农用水资源监测、林业和草原碳汇监测、生态遥感监测、生物群落监测、生态调查监测预警、生态系统质量监测、生物多样性监测、水土保持监测等监测服务以及毒性试验服务等",
+            "level": 3,
+            "nameEn": "Ecological environment monitoring and ecological safety warning",
+            "code": "33701592148",
+            "name": "生态环境监测和生态安全预警",
+            "parentId": "33701591887"
+          },
+          {
+            "childFlag": 1,
+            "description": "碳监测评估包括重点行业、 城市、 区域层面的碳监测点位布设、 碳监测设备采购、 碳排放反演模型搭建、 碳监测数据联网应用平台建设、 碳监测质量控制和标准规范体系建立等。",
+            "level": 3,
+            "nameEn": "Carbon monitoring and evaluation",
+            "code": "35411905401",
+            "name": "碳监测评估",
+            "parentId": "33701591887"
+          }
+        ],
+        "description": "监测检测是指对环境、能源、设施等进行监测和检测，以保证其正常运行和效率。",
+        "level": 2,
+        "nameEn": "Monitoring and testing",
+        "code": "33701591887",
+        "name": "监测检测",
+        "parentId": "33701591881"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "绿色低碳转型产业项目勘察服务包括风能、太阳能、生物质能、地热能等可再生能源资源及其他绿色资源勘察服务，可生能源等绿色资源经济利用潜力及绿色产业项目建设规模潜力评估等服务",
+            "level": 3,
+            "nameEn": "Green low-carbon transformation industry project survey services",
+            "code": "33701591882",
+            "name": "绿色低碳转型产业项目勘察服务",
+            "parentId": "33701592019"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色低碳转型产业项目施工监理服务包括节能降碳、环境保护、资源循环利用、清洁能源、生态保护修复与利用、环境基础设施绿色升级等绿色产业项目的施工监理服务",
+            "level": 3,
+            "nameEn": "Green low-carbon transformation industry project construction supervision services",
+            "code": "33701591883",
+            "name": "绿色低碳转型产业项目施工监理服务",
+            "parentId": "33701592019"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色低碳转型产业项目咨询和设计服务包括节能降碳、环境保护、资源循环利用、清洁能源、生态保护修复和利用、环境基础设施绿色升级等绿色产业项目的方案设计、技术论证、方案评价、尽职调查、可行性研究、风险评估、工程验收与后评价、运维优化、环境安全评估、生态效率评价，绿色产业发展规划研究、绿色低碳技术咨询、节水管理与技术咨询、化学品生态毒理测试与预测咨询、环境友好型产品评估和信息声明、环境服务质量评价、环境信息披露等服务，自愿碳减排项目设计、碳排放信息披露等碳减排相关的咨询服务，以及环境、社会和治理(ESG)，绿色金融、环境投融资及风险评估、招标采购代理、信息披露、人才培训等方面的咨询服务等",
+            "level": 3,
+            "nameEn": "Green low-carbon transformation industry project consulting and design services",
+            "code": "33701592020",
+            "name": "绿色低碳转型产业项目咨询和设计服务",
+            "parentId": "33701592019"
+          },
+          {
+            "childFlag": 1,
+            "description": "其他绿色低碳转型产业相关咨询服务包括绿色低碳转型产业发展规划、 企业绿色转型规划等研究咨询服务， 环境信息披露、气候投融资等绿色金融产品创新咨询服务， 以及绿色低碳转型产业人才培训等咨询服务。",
+            "level": 3,
+            "nameEn": "Other consulting services related to green and low-carbon transformation industry",
+            "code": "35411905574",
+            "name": "其他绿色低碳转型产业相关咨询服务",
+            "parentId": "33701592019"
+          }
+        ],
+        "description": "咨询监理是指提供专业的咨询和监理服务，以保证项目的顺利进行和质量。",
+        "level": 2,
+        "nameEn": "Consult Supervisor",
+        "code": "33701592019",
+        "name": "咨询监理",
+        "parentId": "33701591881"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "能源管理体系建设包括企业建立能源管理中心、能源管理体系咨询服务、能源管理标杆企业信息咨询、能源管理体系建设成效评估、能源管理体系工具软件开发、能源管理体系认证服务等。",
+            "level": 3,
+            "nameEn": "Energy management system construction",
+            "code": "33701591884",
+            "name": "能源管理体系建设",
+            "parentId": "33701592021"
+          },
+          {
+            "childFlag": 1,
+            "description": "合同节水管理包括采用节水效益分享、节水效果保证、用水费用托管等形式开展的节水技术改造服务，以及合同节水管理服务模式咨询、融资咨询、服务评价等。",
+            "level": 3,
+            "nameEn": "Contract water-saving management",
+            "code": "33701591885",
+            "name": "合同节水管理",
+            "parentId": "33701592021"
+          },
+          {
+            "childFlag": 1,
+            "description": "资源循环利用第三方服务包括为矿产资源综合利用、水资源高效及循环利用、工业固体废弃物综合利用、农林废弃物综合利用、废旧物资循环利用、垃圾资源化利用、废气回收利用等项目提供第三方服务",
+            "level": 3,
+            "nameEn": "Resource recycling third-party services",
+            "code": "33701591886",
+            "name": "资源循环利用第三方服务",
+            "parentId": "33701592021"
+          },
+          {
+            "childFlag": 1,
+            "description": "合同能源管理包括采用节能效益分享、能源费用托管、节能量保证、融资租赁等形式开展的节能技术改造服务，以及合同能源管理商务模式咨询、融资咨询、服务评价等。",
+            "level": 3,
+            "nameEn": "Contract energy management",
+            "code": "33701592022",
+            "name": "合同能源管理",
+            "parentId": "33701592021"
+          },
+          {
+            "childFlag": 1,
+            "description": "电力需求侧管理包括节约用电服务、环保用电服务、绿色用电服务、智能用电服务、有序用电服务等。",
+            "level": 3,
+            "nameEn": "Electricity demand-side management",
+            "code": "33701592023",
+            "name": "电力需求侧管理",
+            "parentId": "33701592021"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境污染第三方治理包括大气污染治理、水污染治理、土壤污染治理、其他污染治理和环境综合整治等环境污染第三方治理。",
+            "level": 3,
+            "nameEn": "Third-party treatment of environmental pollution",
+            "code": "33701592024",
+            "name": "环境污染第三方治理",
+            "parentId": "33701592021"
+          },
+          {
+            "childFlag": 1,
+            "description": "数字化赋能绿色低碳管理包括利用数字化、 信息化等技术， 为工业生产过程、 跨行业耦合、 跨区域协同、 跨领域配合提供节能、 节水、 资源综合利用、 数字化碳管理等绿色低碳相关管控和服务。",
+            "level": 3,
+            "nameEn": "Digitalization empowers green and low-carbon management",
+            "code": "35411905575",
+            "name": "数字化赋能绿色低碳管理",
+            "parentId": "33701592021"
+          }
+        ],
+        "description": "运营管理是指对设施和设备进行运营和管理，以保证其正常运行和效率。",
+        "level": 2,
+        "nameEn": "Operation Management",
+        "code": "33701592021",
+        "name": "运营管理",
+        "parentId": "33701591881"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "绿色技术产品认证推广包括节能降碳、环境保护、资源循环利用、清洁能源、生态保护修复和利用等领域先进技术推广，人造板和木制地板、涂料、卫生陶瓷、建筑玻璃、太阳能热水系统、家具、绝热材料、防水密封材料、陶瓷砖(板)、纺织产品、木塑制品、纸和纸制品、塑料制品、洗涤用品、电冰箱、空调器和洗衣机、轮胎、快递封装用品等绿色产品认证和推广，计算机、复印机等节能产品认证和推广，硅酸盐水泥、平板玻璃等低碳产品认证和推广，水嘴、淋浴器等节水产品认证和推广，节能玻璃、保温材料等绿色建材产品认证和推广，电子电器、建材等环境标志产品认证和推广，有机产品认证和推广，绿色食品认证和推广，森林可持续经营及产品认证和推广，生态保护修复产品认定，绿色交通基础设施认证和推广，可持续航空燃料认证，节能服务公司综合能力评定、合同能源管理服务认证等。",
+            "level": 3,
+            "nameEn": "Green technology product certification promotion",
+            "code": "33701592155",
+            "name": "绿色技术产品认证推广",
+            "parentId": "33701592034"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色技术产品研发包括节能降碳、环境保护、资源循环利用、清洁能源、生态保护修复和利用等领域先进技术产品研发。",
+            "level": 3,
+            "nameEn": "Research and development of green technology products",
+            "code": "33701592035",
+            "name": "绿色技术产品研发",
+            "parentId": "33701592034"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色技术交易包括节能降碳、环境保护、资源循环利用、清洁能源、生态保护修复和利用等领域先进技术交易，以及交易平台的建设和运营，技术成果展示、成果转化、技术审核、技术评估、技术转移、所有权和使用权的转移等服务及其指导和监督",
+            "level": 3,
+            "nameEn": "Green technology trading",
+            "code": "33701592036",
+            "name": "绿色技术交易",
+            "parentId": "33701592034"
+          }
+        ],
+        "description": "绿色技术产品研发认证推广是指研究和开发绿色技术产品，并进行认证和推广，以促进绿色产业的发展。",
+        "level": 2,
+        "nameEn": "Research and development certification and promotion of green technology products",
+        "code": "33701592034",
+        "name": "绿色技术产品研发认证推广",
+        "parentId": "33701591881"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "可再生能源绿证和绿色电力交易包括可再生能源绿证和绿色电力交易的项目信息管理、证书核发、交易体系建设等。",
+            "level": 3,
+            "nameEn": "Renewable energy green certificate and green electricity trading",
+            "code": "33701592159",
+            "name": "可再生能源绿证和绿色电力交易",
+            "parentId": "33701592156"
+          },
+          {
+            "childFlag": 1,
+            "description": "用能权交易包括用能权统计核算、用能权第三方审核、用能权交易法律咨询、节能方案咨询与服务、用能权交易系统开发建设、用能权资产管理和运营服务、用能权金融质押服务等",
+            "level": 3,
+            "nameEn": "Power Trading",
+            "code": "33701592157",
+            "name": "用能权交易",
+            "parentId": "33701592156"
+          },
+          {
+            "childFlag": 1,
+            "description": "排污权交易包括排污权交易的数据统计核算服务、交易法律服务、减排方案咨询与服务、金融服务、信息管理服务等",
+            "level": 3,
+            "nameEn": "Pollutant emission trading",
+            "code": "33701592158",
+            "name": "排污权交易",
+            "parentId": "33701592156"
+          },
+          {
+            "childFlag": 1,
+            "description": "林权交易包括林权交易可行性分析、交易参考价格核定、交易方案设计、数据统计核算、交易技术咨询、交易法律服务、金融服务、信息管理服务以及交易系统开发建设等",
+            "level": 3,
+            "nameEn": "Forest rights transaction",
+            "code": "33701592040",
+            "name": "林权交易",
+            "parentId": "33701592156"
+          },
+          {
+            "childFlag": 1,
+            "description": "碳交易包括碳排放和国家温室气体自愿减排交易有关数据统计核算、碳配额注册登记及变更、碳交易法律服务、碳减排方案咨询与服务、碳金融、碳信息管理服务等",
+            "level": 3,
+            "nameEn": "Carbon trading",
+            "code": "33701592037",
+            "name": "碳交易",
+            "parentId": "33701592156"
+          },
+          {
+            "childFlag": 1,
+            "description": "用水权交易包括用水权交易可行性分析、交易参考价格核定、交易方案设计、交易技术咨询、交易法律服务、交易系统开发建设等",
+            "level": 3,
+            "nameEn": "Water rights transaction",
+            "code": "33701592039",
+            "name": "用水权交易",
+            "parentId": "33701592156"
+          }
+        ],
+        "description": "资源环境权益交易是指通过交易平台，进行资源环境和权益的交易，以促进资源环境和权益的优化配置。",
+        "level": 2,
+        "nameEn": "Resource and environmental equity transactions",
+        "code": "33701592156",
+        "name": "资源环境权益交易",
+        "parentId": "33701591881"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "节能评估和能源审计包括用能单位能源效率评估、节能改造方案设计、第三方能源审计、节能量评估、能源审计培训、固定资产投资项目节能报告编制服务等。",
+            "level": 3,
+            "nameEn": "Energy assessment and energy audit",
+            "code": "33701592029",
+            "name": "节能评估和能源审计",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "建筑能效与碳排放测评包括对各类建筑能效水平和碳排放水平的检测评价服务等",
+            "level": 3,
+            "nameEn": "Architectural energy efficiency and carbon emission assessment",
+            "code": "33701592030",
+            "name": "建筑能效与碳排放测评",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境影响评价包括环境影响综合评价、环境影响及跟踪监测解决方案设计、环境影响法律咨询、环境影响数据库建设，环境影响技术评估，生态保护红线、环境质量底线、资源利用上限和环境准入负面清单编制，以及建设项目、行政区域、工业园区等环境风险评估、环境应急控制方案编制、环境应急预案制定等",
+            "level": 3,
+            "nameEn": "Environmental impact assessment",
+            "code": "33701592031",
+            "name": "环境影响评价",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "自然资源生态保护补偿和资产损害赔偿鉴定评估包括对自然资源生态保护补偿的评估，自然资源生态损害赔偿的评估服务等。",
+            "level": 3,
+            "nameEn": "Assessment of ecological protection compensation and asset damage compensation for natural resources",
+            "code": "33701592032",
+            "name": "自然资源生态保护补偿和资产损害赔偿鉴定评估",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "地质灾害危险性评估包括塌崩、滑坡、泥石流、地面塌陷、地裂缝、地面沉降等地质灾害的危险性评价、灾害区易损性评价、地质灾害破坏损失评价等。",
+            "level": 3,
+            "nameEn": "Geological disaster hazard assessment",
+            "code": "33701592033",
+            "name": "地质灾害危险性评估",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "碳排放相关核算、核查等服务包括碳排放第三方核查、碳排放核查人员培训、碳排放核查数据库建设、碳排放核查结果抽查校核、温室气体自愿减排项目审定与核查服务等。",
+            "level": 3,
+            "nameEn": "Carbon emissions related accounting, verification and other services",
+            "code": "33701592150",
+            "name": "碳排放相关核算、核查等服务",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "清洁生产审核包括对企业生产过程及其生产管理开展全面系统的调查和诊断，发现其原料使用、工艺流程、产品生产、污染物排放等方面薄弱环节，并制定针对性清洁生产改造方案等。",
+            "level": 3,
+            "nameEn": "Clean production review",
+            "code": "33701592151",
+            "name": "清洁生产审核",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "生态环境质量监测与评估包括水环境、海洋环境、大气环境、土壤环境、噪声与振动环境质量监测与评估等。",
+            "level": 3,
+            "nameEn": "Monitoring and evaluation of ecological environment quality",
+            "code": "33701592152",
+            "name": "生态环境质量监测与评估",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "生态保护修复产品和生态系统评估包括生态保护修复产品价值核算、生态保护修复产品评估、生态修复成效评估、生态系统服务价值评估服务等",
+            "level": 3,
+            "nameEn": "Ecological protection and restoration products and ecosystem assessment",
+            "code": "33701592153",
+            "name": "生态保护修复产品和生态系统评估",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "水土保持评估包括建设项目水土保持方案编制、监测评估、监理等技术服务，水土保持设施验收、第三方评估，水土保持信息化监管，水土保持法律咨询服务等。",
+            "level": 3,
+            "nameEn": "Water and soil conservation assessment",
+            "code": "33701592154",
+            "name": "水土保持评估",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色制造评价包括绿色工厂、 绿色工业园区、 绿色供应链管理企业和绿色产品等评价。 ",
+            "level": 3,
+            "nameEn": "Green Manufacturing Evaluation",
+            "code": "35411905402",
+            "name": "绿色制造评价",
+            "parentId": "33701592149"
+          },
+          {
+            "childFlag": 1,
+            "description": "节能和能效诊断包括第三方服务机构依据相关节能政策标准， 针对企业生产工艺流程、 重点用能设备和公辅设施等方面， 为企业提供节能和能效诊断服务， 帮助企业发现用能问题， 提出节能改造措施建议。",
+            "level": 3,
+            "nameEn": "Energy-saving and energy-efficient diagnosis",
+            "code": "35411905403",
+            "name": "节能和能效诊断",
+            "parentId": "33701592149"
+          }
+        ],
+        "description": "评估审查核查是指对项目、计划、政策等进行评估、审查和核查，以保证其合理性和有效性。",
+        "level": 2,
+        "nameEn": "Assessment review verification",
+        "code": "33701592149",
+        "name": "评估审查核查",
+        "parentId": "33701591881"
+      }
+    ],
+    "description": "绿色服务是指以环保、节能、低碳、可持续发展为主要特征，提供绿色产品和服务，以满足社会和市场需求，促进可持续发展的产业。",
+    "level": 1,
+    "nameEn": "Green Service",
+    "code": "33701591881",
+    "name": "绿色服务",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "太阳能利用设施建设和运营包括太阳能光伏发电、太阳能热发电和太阳能热利用等设施。",
+            "level": 3,
+            "nameEn": "Construction and operation of solar energy utilization facilities",
+            "code": "33701591827",
+            "name": "太阳能利用设施建设和运营",
+            "parentId": "33701591826"
+          },
+          {
+            "childFlag": 1,
+            "description": "大型水力发电设施建设和运营包括《“十四五”现代能源体系规划》《“十四五”可再生能源发展规划》等国家级能源规划中明确的重点大型水电基地建设和运营，包括金沙江流域岗托、奔子栏、龙盘、乌东德、白鹤滩、拉哇、旭龙等项目，雅砻江流域牙根二级、两河口、孟底沟等项目，大渡河丹巴、双江口等项目，黄河羊曲等项目，金沙江、雅砻江、大渡河、乌江、红水河、黄河上游等主要水电基地扩机和优化升级项目",
+            "level": 3,
+            "nameEn": "Construction and operation of large-scale hydroelectric power facilities",
+            "code": "33701591828",
+            "name": "大型水力发电设施建设和运营",
+            "parentId": "33701591826"
+          },
+          {
+            "childFlag": 1,
+            "description": "地热能利用设施建设和运营包括中深层水热型地热供暖、浅层地热能利用、地热发电等设施建设和运营",
+            "level": 3,
+            "nameEn": "Construction and operation of geothermal energy utilization facilities",
+            "code": "33701591829",
+            "name": "地热能利用设施建设和运营",
+            "parentId": "33701591826"
+          },
+          {
+            "childFlag": 1,
+            "description": "热泵设施建设和运营包括空气源热泵、地下水源热泵、地表水源热泵、污水源热泵、土壤源热泵、高温地热热泵、高温空气能热泵等热泵供热(冷)设施建设和运营",
+            "level": 3,
+            "nameEn": "Construction and operation of heat pump facilities",
+            "code": "33701591831",
+            "name": "热泵设施建设和运营",
+            "parentId": "33701591826"
+          },
+          {
+            "childFlag": 1,
+            "description": "风力发电设施建设和运营包括陆上风电、海上风电等利用风能发电的设施建设和运营。",
+            "level": 3,
+            "nameEn": "Wind power generation facility construction and operation",
+            "code": "33701591964",
+            "name": "风力发电设施建设和运营",
+            "parentId": "33701591826"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物质能利用设施建设和运营包括以农林废弃物、城市生活垃圾为原料发电、供热及生产气体、液体、固体燃料，以地沟油为主要原料生产生物柴油，以及醇、电、气、肥等多联产示范等。",
+            "level": 3,
+            "nameEn": "Construction and operation of biomass energy utilization facilities",
+            "code": "33701591965",
+            "name": "生物质能利用设施建设和运营",
+            "parentId": "33701591826"
+          },
+          {
+            "childFlag": 1,
+            "description": "核电站及核能综合利用设施建设和运营包括在保障环境安全前提下，利用可控核裂变释放热能，采用第三代和第四代核电技术发电的设施建设和运营。",
+            "level": 3,
+            "nameEn": "Construction and operation of nuclear power plants and comprehensive utilization facilities for nuclear energy",
+            "code": "33701591966",
+            "name": "核电站及核能综合利用设施建设和运营",
+            "parentId": "33701591826"
+          },
+          {
+            "childFlag": 1,
+            "description": "海洋能利用设施建设和运营包括潮汐能发电系统、波浪能发电系统、潮流能/海流能发电系统、海洋温差发电系统、海洋盐差发电系统等设施建设和运营",
+            "level": 3,
+            "nameEn": "Marine energy utilization facility construction and operation",
+            "code": "33701591967",
+            "name": "海洋能利用设施建设和运营",
+            "parentId": "33701591826"
+          },
+          {
+            "childFlag": 1,
+            "description": "氢能基础设施建设和运营包括可再生能源制氢(氨)、氢电耦合、氢气安全高效储存、加氢站、氢燃料电池运行维护、氢燃料电池汽车、氢燃料电池发电和氢能应用等设施建设和运营。",
+            "level": 3,
+            "nameEn": "Hydrogen energy infrastructure construction and operation",
+            "code": "33701591968",
+            "name": "氢能基础设施建设和运营",
+            "parentId": "33701591826"
+          }
+        ],
+        "description": "清洁能源设施建设和运营是指建设和运营清洁能源设施，包括太阳能发电、风能发电、水能发电等。",
+        "level": 2,
+        "nameEn": "Clean energy facility construction and operation",
+        "code": "33701591826",
+        "name": "清洁能源设施建设和运营",
+        "parentId": "33701591818"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "新型储能产品制造包括能量型、功率型储能技术装备及系统集成、辅助技术装备等制造。能量型储能技术装备及系统集成包括压缩空气、锂离子电池、铅碳电池、液流电池技术装备及系统集成，钠离子电池、固态锂离子电池、水系电池等新一代高性能储能技术装备及系统集成，储热蓄冷技术装备及系统集成。功率型储能技术装备及系统集成包括超导、电介质电容器等电磁储能技术装备及系统集成，超级电容器、飞轮储能技术装备及系统集成。辅助技术装备包括电池管理系统、能量智能管理系统、安全预警与系统防护技术装备、先进冷却与消防技术装备等",
+            "level": 3,
+            "nameEn": "Manufacturing of new energy storage products",
+            "code": "33701591824",
+            "name": "新型储能产品制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "氢能“制储输用”全链条装备制造包括用于可再生能源制氢的碱性电解槽、PEM电解槽、SOEC电解槽、AEM电解槽、质子交换膜、双极板等装备，以及高压气态、低温液态、固态、深冷高压、有机液体等形态的氢储运所需铝内胆碳纤维全缠绕气瓶、塑料内胆碳纤维全缠绕气瓶、长管拖车和管束式集装箱、管道、氢气阀门等装备制造",
+            "level": 3,
+            "nameEn": "Hydrogen energy \"production,storage,transportation and use\" full chain equipment manufacturing",
+            "code": "33701591825",
+            "name": "氢能“制储输用”全链条装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "风力发电装备制造包括适合我国风能资源和气候条件、先进高效的陆上风力发电机组和海上风力发电机组，5兆瓦及以上海上和高原型、低温型、低风速风力发电机组配套的各类发电机、风轮叶片、轴承、电缆、变速箱、塔筒等零部件，风电场相关系统与装备等制造",
+            "level": 3,
+            "nameEn": "Wind power equipment manufacturing",
+            "code": "33701591819",
+            "name": "风力发电装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "生物质能利用装备制造包括生物质资源收集、粉碎、运输和储存设备，生物质发电装备，生物质供热装备，生物质沼气、生物质燃气生产装备，生物质固液体燃料生产装备等制造",
+            "level": 3,
+            "nameEn": "Manufacturing of biomass energy utilization equipment",
+            "code": "33701591820",
+            "name": "生物质能利用装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "核电装备制造包括百万千瓦级先进压水堆核电站成套设备，快中子堆和高温气冷堆核电站设备，模块化小型核能装置，核应急装置，核级海绵锆、核级泵、核级阀、百万千瓦级核电系列用锆合金包壳管、换热管、核电用钛合金管道及其管配件和核动力蒸汽发生器传热管用特材等辅助设备，核电用防辐射材料，铀矿开采、铀纯化转化、铀浓缩等设备，高性能燃料元件，铀钚混合氧化物燃料制备装置，数字化、自动化仪表控制系统及反应堆、测量报警保护系统等辅助设备，先进乏燃料后处理装置，核辐射安全与监测装置，核设施退役与放射性废物处理和处置装置，铀、钍伴生矿综合利用设备等制造",
+            "level": 3,
+            "nameEn": "Nuclear power equipment manufacturing",
+            "code": "33701591821",
+            "name": "核电装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "地热能开发利用装备制造包括地源热泵系统、高温地热热泵系统、地热吸收式制冷系统、中低温地热发电系统、地热干燥及热水供应系统、地热防腐防垢关键设备等制造。",
+            "level": 3,
+            "nameEn": "Geothermal energy development and utilization equipment manufacturing",
+            "code": "33701591822",
+            "name": "地热能开发利用装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "非常规油气装备制造包括百万道级地震采集系统、多维高精度成像测井系统、深井自动化钻机、旋转导向钻井系统、深井超深井连续管作业装备、国产水下生产系统、11000吨半潜式起重铺管船、页岩水平井快速钻井装备、长寿命耐油井下动力钻具、埋深超过3500米页岩储层水平井分段压裂装备、钻井液及压裂返排液处理处置装备等制造",
+            "level": 3,
+            "nameEn": "Manufacturing of unconventional oil and gas equipment",
+            "code": "33701591823",
+            "name": "非常规油气装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "太阳能利用装备制造包括光伏发电设备、光热发电设备、太阳能发电控制系统与装备等制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of solar energy utilization equipment",
+            "code": "33701591957",
+            "name": "太阳能利用装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "水力发电和抽水蓄能装备制造包括高性能大容量水电机组、高水头大容量抽水蓄能机组成套设备、百万千瓦级大型水轮发电机组、变速抽水蓄能机组、超高水头大型冲击式水轮发电机组、海水抽水蓄能机组等制造",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for hydroelectric power generation and pumped storage equipment",
+            "code": "33701591958",
+            "name": "水力发电和抽水蓄能装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "燃气轮机装备制造包括重型燃气轮机、微型燃气轮机等制造，以及复杂结构陶瓷型芯、高强抗热冲击陶瓷模壳、大尺寸定向结晶或单晶叶片、大型涡轮盘、高精度转子、高耐用性轴承和密封设备、高强钢拉杆、高温高压燃烧器等燃气轮机核心部件制造",
+            "level": 3,
+            "nameEn": "Gas turbine equipment manufacturing",
+            "code": "33701591959",
+            "name": "燃气轮机装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "海洋能开发利用装备制造包括利用海洋潮汐能、潮流能、波浪能、温差能、盐差能等资源发电的海洋能开发利用装备制造，如潮汐能灯泡贯流式水轮机、竖井贯流式水轮机、垂直轴潮流能水轮机、水平轴潮流能水轮机、鹰式波浪能转换装置、振荡水柱式波浪能转换装置、摆式波浪能转换装置、点吸收式波浪能转换装置、海洋温差能转换装置、海洋盐差能转换装置等",
+            "level": 3,
+            "nameEn": "Marine energy development and utilization equipment manufacturing",
+            "code": "33701591960",
+            "name": "海洋能开发利用装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "海洋油气装备制造包括半潜式钻井平台、钻井船、自升式钻修井/作业平台、半潜式生产平台、浮式生产储卸装置、起重铺管船、大型起重船/浮吊、水下勘测机器人、水下采油树、泄漏油应急处理装置等水下系统及作业装备等制造",
+            "level": 3,
+            "nameEn": "Manufacturing of marine oil and gas equipment",
+            "code": "33701591961",
+            "name": "海洋油气装备制造",
+            "parentId": "33701591956"
+          },
+          {
+            "childFlag": 1,
+            "description": "智能电网产品和装备制造包括智能变压器、整流器和电感器，先进电力电子装置，智能输配电及控制设备，特高压输电装备，充电设施，智能电网与新能源相关的控制类产品等制造",
+            "level": 3,
+            "nameEn": "Smart grid products and equipment manufacturing",
+            "code": "33701591963",
+            "name": "智能电网产品和装备制造",
+            "parentId": "33701591956"
+          }
+        ],
+        "description": "新能源与清洁能源装备制造是指生产新能源和清洁能源装备的制造业，包括太阳能、风能、水能等装备。",
+        "level": 2,
+        "nameEn": "New energy and clean energy equipment manufacturing",
+        "code": "33701591956",
+        "name": "新能源与清洁能源装备制造",
+        "parentId": "33701591818"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "电力源网荷储一体化及多能互补工程建设和运营包括以优化整合电源侧、电网侧、负荷侧资源，构建源网荷储高度融合的新型电力系统为目的的区域(省)级、市(县)级、园区(居民区)级源网荷储一体化工程的建设和运营；为增加可再生能源消纳能力、利用多种资源组合优势、提高电力系统运行稳定性的风光储一体化、风光水(储)一体化、风光火(储)一体化等多能互补系统建设和运营；采用天然气热电冷三联供、分布式可再生能源和能源智能微网等技术建设运营的终端一体化供能系统设施建设和运营，且设施综合能效应不低于70%。",
+            "level": 3,
+            "nameEn": "Construction and operation of integrated power source,network,load and storage,as well as multi-energy complementary projects",
+            "code": "33701591835",
+            "name": "电力源网荷储一体化及多能互补工程建设和运营",
+            "parentId": "33701591972"
+          },
+          {
+            "childFlag": 1,
+            "description": "抽水蓄能电站建设和运营包括为提高电网对风电、光伏发电等间歇性可再生能源电力消纳能力，提升电网运行灵活性、稳定性和可靠性，在电网中主要承担电力“削峰填谷”功能的抽水蓄能电站建设和运营。",
+            "level": 3,
+            "nameEn": "Construction and operation of pumped storage power stations",
+            "code": "33701591836",
+            "name": "抽水蓄能电站建设和运营",
+            "parentId": "33701591972"
+          },
+          {
+            "childFlag": 1,
+            "description": "智能电网建设和运营包括集成信息、控制、储能等技术以及智能化电力设备，促进清洁能源消纳，实现电力发输配用储过程中的数字化管理、智能化决策、互动化交易的电网设施建设和运营。",
+            "level": 3,
+            "nameEn": "Smart grid construction and operation",
+            "code": "33701591837",
+            "name": "智能电网建设和运营",
+            "parentId": "33701591972"
+          },
+          {
+            "childFlag": 1,
+            "description": "天然气输送储运调峰设施建设和运营包括天然气长输管道、储气库、支线管道、区域管网，以及液化天然气(LNG)接收站等天然气输送、储运、调峰设施建设和运营，甲烷泄漏检测与修复装置配备，以及以落实气源合同为前提在天然气资源富集区推动天然气发电与新能源联营设施建设和运营。",
+            "level": 3,
+            "nameEn": "Construction and operation of natural gas transportation,storage and transportation peak shaving facilities",
+            "code": "33701591838",
+            "name": "天然气输送储运调峰设施建设和运营",
+            "parentId": "33701591972"
+          },
+          {
+            "childFlag": 1,
+            "description": "能源产业数字化智能化升级包括电厂、电网、油气田、油气管网、油气储备库、煤矿、终端用能等领域设备设施、工艺流程的智能化升级，建设智能调度体系，建设智慧能源平台和数据中心，开展智能调度、能效管理、负荷智能调控等智慧能源系统技术示范，厂站智能运行、作业机器人替代、大数据辅助决策等技术应用",
+            "level": 3,
+            "nameEn": "Digital and intelligent upgrading of the energy industry",
+            "code": "33701591839",
+            "name": "能源产业数字化智能化升级",
+            "parentId": "33701591972"
+          },
+          {
+            "childFlag": 1,
+            "description": "新型储能设施建设和运营包括钠离子电池、锂离子电池、钒液流电池、铁铬液流电池、锌溴液流电池等电化学储能，压缩空气储能，飞轮储能，火电、核电抽汽蓄能等各类新型储能技术及复合型储能技术的实证、示范和产业化项目。",
+            "level": 3,
+            "nameEn": "Construction and operation of new energy storage facilities",
+            "code": "33701591973",
+            "name": "新型储能设施建设和运营",
+            "parentId": "33701591972"
+          },
+          {
+            "childFlag": 1,
+            "description": "新型电力负荷管理系统建设和运营包括用于数据采集、负荷控制、服务支持等的电力负荷调控响应系统建设和运营。",
+            "level": 3,
+            "nameEn": "Construction and operation of new power load management systems",
+            "code": "33701591975",
+            "name": "新型电力负荷管理系统建设和运营",
+            "parentId": "33701591972"
+          },
+          {
+            "childFlag": 1,
+            "description": "分布式能源工程建设和运营包括天然气热电冷三联供、分布式可再生能源发电、地热能供暖制冷等分布式能源工程。",
+            "level": 3,
+            "nameEn": "Construction and operation of distributed energy projects",
+            "code": "33701591976",
+            "name": "分布式能源工程建设和运营",
+            "parentId": "33701591972"
+          },
+          {
+            "childFlag": 1,
+            "description": "小型水电站更新改造包括对小型水电站进行更新改造， 消除安全隐患， 提高能效水平， 实现无人值班、 远程监控， 具备条件的通过集控中心实现集约化管理。",
+            "level": 3,
+            "nameEn": "Upgrade and transformation of small hydropower stations",
+            "code": "35411905399",
+            "name": "小型水电站更新改造",
+            "parentId": "33701591972"
+          }
+        ],
+        "description": "能源系统安全高效运行是指在能源生产和使用过程中，确保能源系统的稳定、可靠和高效运行，同时保障人员和设备的安全。这包括对能源系统的维护和管理，以及对能源生产和使用的监控和优化。",
+        "level": 2,
+        "nameEn": "The safe and efficient operation of the energy system",
+        "code": "33701591972",
+        "name": "能源系统安全高效运行",
+        "parentId": "33701591818"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "煤层气（煤矿瓦斯）抽采利用包括煤层气开采设施、井下瓦斯抽采设施、煤层气输配管网、煤层气储存设施、煤层气发电系统等设施建设和运营。",
+            "level": 3,
+            "nameEn": "Utilization of coalbed methane (coal mine gas) extraction",
+            "code": "33701591830",
+            "name": "煤层气（煤矿瓦斯）抽采利用",
+            "parentId": "33701591969"
+          },
+          {
+            "childFlag": 1,
+            "description": "煤炭清洁生产包括在煤炭生产过程中利用智能化装备和绿色开采技术，降低能源资源消耗，减少生态环境损害和破坏，实现安全高效绿色智能开采；加大煤炭洗选加工力度，提高商品煤煤质质量等。",
+            "level": 3,
+            "nameEn": "Clean coal production",
+            "code": "33701591832",
+            "name": "煤炭清洁生产",
+            "parentId": "33701591969"
+          },
+          {
+            "childFlag": 1,
+            "description": "煤炭清洁高效利用包括工业清洁燃烧和清洁供热、民用清洁采暖、煤炭资源综合利用等领域的活动。",
+            "level": 3,
+            "nameEn": "Clean and efficient utilization of coal",
+            "code": "33701591970",
+            "name": "煤炭清洁高效利用",
+            "parentId": "33701591969"
+          },
+          {
+            "childFlag": 1,
+            "description": "清洁燃油生产包括符合国VI汽油标准的汽油产品、符合国VI柴油标准的柴油产品、燃油清净增效剂生产，以及重劣质原油、煤焦油加工技术装备的应用等",
+            "level": 3,
+            "nameEn": "Clean Heating Oil production",
+            "code": "33701591833",
+            "name": "清洁燃油生产",
+            "parentId": "33701591969"
+          },
+          {
+            "childFlag": 1,
+            "description": "非常规油气资源开发包括页岩油气、致密油气等非常规油气资源开发",
+            "level": 3,
+            "nameEn": "Unconventional oil and gas resource development",
+            "code": "33701591834",
+            "name": "非常规油气资源开发",
+            "parentId": "33701591969"
+          },
+          {
+            "childFlag": 1,
+            "description": "原油、天然气清洁生产包括在原油、天然气生产过程中采用先进工艺技术与设备，从源头削减污染，提高资源利用效率，减少或者避免污染物的产生和排放，以减轻或者消除对人类健康和环境的危害。",
+            "level": 3,
+            "nameEn": "Clean production of crude oil and natural gas",
+            "code": "33701591971",
+            "name": "原油、天然气清洁生产",
+            "parentId": "33701591969"
+          },
+          {
+            "childFlag": 1,
+            "description": "煤电机组节能降碳改造、供热改造、灵活性改造和清洁高效支撑性调节性电源建设是指通过采用节能降耗技术和设备，提高煤电机组的能源利用效率，降低能源消耗和排放，实现节能减排的目标。",
+            "level": 3,
+            "nameEn": "Coal-fired power generation unit energy-saving and carbon-reduction transformation, heating transformation, flexibility transformation, and the construction of clean and efficient adjustable power sources.",
+            "code": "33701591974",
+            "name": "煤电机组节能降碳改造、供热改造、灵活性改造和清洁高效支撑性调节性电源建设",
+            "parentId": "33701591969"
+          },
+          {
+            "childFlag": 1,
+            "description": "油气田甲烷采收利用包括应用液化处理、吸附处理、压缩处理等技术采收油气田甲烷，以及将其管输用于其他油井供能、废水脱盐处理供能、发电等",
+            "level": 3,
+            "nameEn": "Methanol harvesting and utilization in oil and gas fields",
+            "code": "33701591786",
+            "name": "油气田甲烷采收利用",
+            "parentId": "33701591969"
+          }
+        ],
+        "description": "传统能源清洁低碳转型是指通过采用清洁技术和设备，提高传统能源的利用效率，减少能源消耗和环境污染。",
+        "level": 2,
+        "nameEn": "Clean and Low-Carbon Transition of Traditional Energy Sources",
+        "code": "33701591969",
+        "name": "传统能源清洁低碳转型",
+        "parentId": "33701591818"
+      }
+    ],
+    "description": "能源绿色低碳转型是指从传统的以化石能源（如煤炭、石油和天然气）为主的能源结构，向更加清洁、低碳的能源系统转变的过程。这一转型旨在减少温室气体排放，减轻对环境的影响，同时促进可持续发展。",
+    "level": 1,
+    "nameEn": "Green and low-carbon transformation of energy.",
+    "code": "33701591818",
+    "name": "能源绿色低碳转型",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "矿产资源综合利用装备制造包括能源矿产、黑色金属矿产、有色金属(含稀有金属)矿产、非金属矿产及共伴生矿资源综合利用等装备制造",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for comprehensive utilization of mineral resources",
+            "code": "33701591810",
+            "name": "矿产资源综合利用装备制造",
+            "parentId": "33701591947"
+          },
+          {
+            "childFlag": 1,
+            "description": "工业固体废弃物综合利用装备制造包括煤矸石、粉煤灰、工业副产石膏、冶炼渣、尾矿、化工废渣、赤泥、工业副产盐、废旧滤袋等固体废弃物的综合利用，冶金烟灰粉尘回收与稀贵金属高效低成本回收等装备制造",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for comprehensive utilization of industrial solid waste",
+            "code": "33701591811",
+            "name": "工业固体废弃物综合利用装备制造",
+            "parentId": "33701591947"
+          },
+          {
+            "childFlag": 1,
+            "description": "废旧物资循环利用装备制造包括废钢铁、废有色金属、废塑料、废纸、废旧轮胎、废旧手机、废旧动力电池、废旧纺织品、废玻璃等再生资源回收利用装备制造，废弃电器电子产品、报废机动车、报废船舶、退役飞机、废铅蓄电池、退役光伏组件、风电机组叶片等拆解利用装备制造，汽车零部件、工程机械、机床、文办设备、盾构机、航空发动机、工业机器人等再制造装备制造",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for recycling of waste materials",
+            "code": "33701591812",
+            "name": "废旧物资循环利用装备制造",
+            "parentId": "33701591947"
+          },
+          {
+            "childFlag": 1,
+            "description": "废气回收利用装备制造包括在钢铁、焦化、建材、有色金属、石化化工等行业生产过程中，对产生的荒煤气(焦炉煤气)、高炉煤气、转炉煤气、高硫天然气等可燃废气，工业氢气、甲烷、硫化氢、氯、氯化氢、高纯度二氧化碳等工业废气，烟气、窑炉废气等含尘废气等进行治理、原料化、燃料化及其他综合利用等装备制造",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for waste gas recovery and utilization",
+            "code": "33701591813",
+            "name": "废气回收利用装备制造",
+            "parentId": "33701591947"
+          },
+          {
+            "childFlag": 1,
+            "description": "水资源高效及循环利用装备制造包括农业节水灌溉装置，电力、钢铁、有色、石油石化、煤炭、化工、造纸、纺织印染、食品加工、机械、电子等高用水行业节约用水及废水处理回用装置，城镇污水再生利用装置，建筑中水利用装置，矿井水利用和净化装置，苦咸水综合利用设施，雨水收集利用与回渗装置，大型膜法反渗透海水淡化膜组件、高压泵、能量回收等关键部件和热法海水淡化核心部件，热膜耦合海水淡化装备，利用电厂余热、核能以及风能、海洋能和太阳能等可再生能源进行海水淡化的装备，浓盐水综合利用及浓缩零排放装备等装备制造",
+            "level": 3,
+            "nameEn": "High efficiency and recycling of water resources equipment manufacturing",
+            "code": "33701591948",
+            "name": "水资源高效及循环利用装备制造",
+            "parentId": "33701591947"
+          },
+          {
+            "childFlag": 1,
+            "description": "农林废弃物综合利用装备制造包括秸秆、畜禽养殖废弃物收储运及加工设备，粪肥还田施用设备，病死畜禽、水产品无害化处置设备，养殖废弃物资源化利用装备，农膜、化肥与农兽药包装、灌溉器材、农机具、渔网网衣、筏架等废旧农用物资回收利用设备，以及次小薪材、林业三剩物(采伐剩余物、造材剩余物、加工剩余物)等资源化利用装备制造",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for comprehensive utilization of agricultural and forestry waste",
+            "code": "33701591949",
+            "name": "农林废弃物综合利用装备制造",
+            "parentId": "33701591947"
+          },
+          {
+            "childFlag": 1,
+            "description": "垃圾资源化利用装备制造包括生活垃圾资源化利用、餐厨废弃物资源化利用、污泥综合利用、建筑垃圾综合利用、道路桥梁轨道施工产生的废旧路面沥青综合利用等装备制造。",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for garbage resource utilization",
+            "code": "33701591950",
+            "name": "垃圾资源化利用装备制造",
+            "parentId": "33701591947"
+          }
+        ],
+        "description": "资源循环利用装备制造是指生产资源循环利用装备的制造业，包括废旧物资回收、再利用设备等。",
+        "level": 2,
+        "nameEn": "Resource recycling equipment manufacturing",
+        "code": "33701591947",
+        "name": "资源循环利用装备制造",
+        "parentId": "33701591809"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "废旧物资循环利用包括机动车辆、数码产品、家用电器、服装等二手商品回收利用，汽车零部件、工程机械、机床、文办设备、电动机、内燃机、矿山机械、石油机械、冶金机械、轨道车辆、其他专用机械设备及其零部件等再制造产品生产，盾构机、航空发动机、工业机器人等新兴领域再制造产品生产，废钢铁、废有色金属、废塑料、废纸、废旧轮胎、废旧纺织品、废玻璃等再生资源回收利用，废弃电器电子产品、废旧手机、报废机动车、报废船舶、废铅蓄电池、退役光伏组件、废旧动力电池、风电机组叶片等产品回收拆解利用，纸、塑料、金属、玻璃、木等材质的包装废弃物回收与处理，废旧农膜、灌溉器材、农机具、渔网网衣、筏架等废旧农用物资回收和综合利用等。",
+            "level": 3,
+            "nameEn": "Recycling of waste materials",
+            "code": "33701591816",
+            "name": "废旧物资循环利用",
+            "parentId": "33701591951"
+          },
+          {
+            "childFlag": 1,
+            "description": "废气回收利用包括对钢铁、焦化、建材、有色金属、石化化工等行业生产过程中产生的各类废气进行能源化、原料化、资源化利用。如对荒煤气(焦炉煤气)、高炉煤气、转炉煤气、高硫天然气等废气进行能源化回收利用和生产燃料乙醇等原料化利用，对工业氢气、甲烷、硫化氢、氯、氯化氢、二氧化碳等废气开展提纯生产纯氢、硫磺及二氧化碳耦合制甲醇等原料化回收利用，对高纯度二氧化碳等废气进行原料化、矿化、驱油等回收利用，对生产含氢氯氟烃和氢氟碳化物过程中副产三氟甲烷等废气资源化利用，对烟气、窑炉废气等含尘废气进行资源化利用，对废气进行余热余压回收利用等。",
+            "level": 3,
+            "nameEn": "Exhaust gas recycling",
+            "code": "33701591817",
+            "name": "废气回收利用",
+            "parentId": "33701591951"
+          },
+          {
+            "childFlag": 1,
+            "description": "园区循环化改造包括以提升资源产出率和废弃物循环利用率为目标，依托园区已有项目开展的建链、补链、延链等产业发展类活动，推动形成循环经济产业链；园区内开展的闲置土地、低效土地盘整及废弃土地修复等土地集约利用类活动；园区内开展的废弃物循环利用改造等活动。",
+            "level": 3,
+            "nameEn": "Cycle renovation of the park",
+            "code": "33701591955",
+            "name": "园区循环化改造",
+            "parentId": "33701591951"
+          },
+          {
+            "childFlag": 1,
+            "description": "矿产资源综合利用包括煤矿瓦斯、油母页岩、油砂、伴生天然气等能源矿产资源开发和综合利用，铁、锰、铬等黑色金属矿产中低品位矿、伴生矿综合开发利用，铜、铅、镍、锡、铝、镁、金、银等有色金属矿产资源高效开发利用、伴生矿综合开发利用，以及高岭土、铝矾土、石灰石、石膏、磷矿等非金属矿产资源伴生矿综合开发利用。",
+            "level": 3,
+            "nameEn": "Comprehensive utilization of mineral resources",
+            "code": "33701591814",
+            "name": "矿产资源综合利用",
+            "parentId": "33701591951"
+          },
+          {
+            "childFlag": 1,
+            "description": "工业固体废弃物综合利用包括工业固体废弃物在提取有价组分、建材生产、工程建设(含房屋、基础设施等)、塌陷区治理、采空区充填、生态修复、水污染治理、大气污染治理等领域的应用。如煤矸石和粉煤灰在工程建设、绿色建材生产以及盐碱地、沙漠化土地生态修复等领域利用，金属尾矿有价组分高效提取及整体利用，采矿废石制备砂源替代材料和胶凝回填利用，赤泥在道路材料中应用及回收铁、碱、氧化铝，钢渣微粉作混凝土掺合料在工程建设领域应用，冶炼渣中回收稀有稀散金属和稀贵金属等有价组分，磷石膏在水泥、土壤调理剂、硫酸、新型建筑材料生产中的利用，脱硫石膏、柠檬酸石膏在绿色建材和石膏晶须等新材料生产中的应用，工业副产石膏的资源化、高价值化利用等。",
+            "level": 3,
+            "nameEn": "Comprehensive utilization of industrial solid waste",
+            "code": "33701591815",
+            "name": "工业固体废弃物综合利用",
+            "parentId": "33701591951"
+          },
+          {
+            "childFlag": 1,
+            "description": "水资源高效及循环利用包括农业领域节水灌溉等节水技术应用及农田水利设施建设，工业生产过程节水改造和生产用水、排水循环利用，城镇居民生活节水和污水处理再利用，服务业和公共设施节水和排水处理再利用，允许排入城镇污水系统的工业废水和初期雨水等无害化资源化利用，海水、苦咸水淡化处理及再利用，雨水、微咸水等收集、处理和利用，非常规水资源利用等设施建设和运营。",
+            "level": 3,
+            "nameEn": "High efficiency and recycling of water resources",
+            "code": "33701591952",
+            "name": "水资源高效及循环利用",
+            "parentId": "33701591951"
+          },
+          {
+            "childFlag": 1,
+            "description": "农林废弃物综合利用包括秸秆收储运、固化成型，秸秆生产环保板材、炭基产品、聚乳酸、纸浆等原料化利用，秸秆还田等肥料化利用，青黄贮、膨化、微贮等饲料化利用，食用菌基质、育苗基质、栽培基质等基料化利用等；畜禽养殖废弃物收集、处理和资源化利用，畜禽粪污生产有机肥、沼气等资源化利用；次小薪材、林业三剩物生产复合板材、食用菌栽培和能源化利用等；以果皮、果壳、果渣等经济林果加工剩余物为原料的肥料化利用、栽培基质化利用及活性炭、皂素等林化产品生产。",
+            "level": 3,
+            "nameEn": "Comprehensive utilization of agricultural and forestry waste",
+            "code": "33701591953",
+            "name": "农林废弃物综合利用",
+            "parentId": "33701591951"
+          },
+          {
+            "childFlag": 1,
+            "description": "垃圾资源化利用包括生活垃圾资源化利用、餐厨废弃物资源化利用、污泥综合利用、建筑垃圾综合利用和无害化处置、道路路面施工产生的废旧路面材料综合利用等。",
+            "level": 3,
+            "nameEn": "Waste resource utilization",
+            "code": "33701591954",
+            "name": "垃圾资源化利用",
+            "parentId": "33701591951"
+          },
+          {
+            "childFlag": 1,
+            "description": "木材高效加工及循环利用包括木材保护与改性利用， 木材制品生产与产品开发， 废旧木材回收和循环利用， 木材制品加工的节能、 节材、 环保技术开发与利用。 ",
+            "level": 3,
+            "nameEn": "Efficient processing and recycling of timber",
+            "code": "35411905398",
+            "name": "木材高效加工及循环利用",
+            "parentId": "33701591951"
+          }
+        ],
+        "description": "资源循环利用是指通过采取措施，实现资源的再利用和循环利用，以减少资源消耗和环境污染。",
+        "level": 2,
+        "nameEn": "Resource Recycling",
+        "code": "33701591951",
+        "name": "资源循环利用",
+        "parentId": "33701591809"
+      }
+    ],
+    "description": "资源循环利用产业是指通过回收、加工、再利用等方式，将废弃物转化为可再利用资源，减少资源消耗和环境污染的产业。",
+    "level": 1,
+    "nameEn": "Resource recycling industry",
+    "code": "33701591809",
+    "name": "资源循环利用产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "地下水超采区治理与修复包括华北、东北等地下水超采区开展的灌区节水改造、田间高效节水灌溉工程、以节水为目的的农作物种植品种结构调整和休耕轮耕、工业节水改造、城镇供水管网改造建设、再生水利用工程、调水水利工程、地下水水源置换工程、生态补水等地下水超采区治理与修复活动",
+            "level": 3,
+            "nameEn": "Groundwater overexploitation and restoration",
+            "code": "33701591852",
+            "name": "地下水超采区治理与修复",
+            "parentId": "33701591851"
+          },
+          {
+            "childFlag": 1,
+            "description": "采煤沉陷区综合治理包括采煤沉陷区开展的土地整治、生态修复与环境整治等生态恢复活动，以及采煤沉陷区影响范围内居民避险搬迁、基础设施和公共服务设施修复提升、非煤接续替代产业平台建设等",
+            "level": 3,
+            "nameEn": "Comprehensive management of coal mining subsidence areas",
+            "code": "33701591989",
+            "name": "采煤沉陷区综合治理",
+            "parentId": "33701591851"
+          },
+          {
+            "childFlag": 1,
+            "description": "土地综合整治包括农村土地综合整治和城镇低效用地再开发等活动，如农村山水路林村综合整治、低效农用地整理(不含林地)、低效闲散建设用地整治、工矿废弃地复垦和空心村整治，为提高耕地质量而进行的改良土壤、培肥地力、保水保肥、污控修复等，以及对城镇中布局散乱、利用粗放、用途不合理、建筑危旧的存量建设用地采取综合整治措施、增加城镇建设用地有效供给和提高土地利用效能的活动等。",
+            "level": 3,
+            "nameEn": "Comprehensive improvement of land",
+            "code": "33701591990",
+            "name": "土地综合整治",
+            "parentId": "33701591851"
+          },
+          {
+            "childFlag": 1,
+            "description": "矿山地质环境恢复治理和生态修复包括对矿产资源勘探和采选、油气田开采等过程中的各类生态破坏和环境污染采取人工促进措施，依靠生态系统的自我调节能力与自组织能力，逐步恢复与重建地块生态功能的活动。",
+            "level": 3,
+            "nameEn": "Rehabilitation and ecological restoration of mining geological environment",
+            "code": "33701591855",
+            "name": "矿山地质环境恢复治理和生态修复",
+            "parentId": "33701591851"
+          }
+        ],
+        "description": "国土综合整治是指通过采取措施，改善和优化国土空间布局，提高土地利用效率和生态环境质量。这包括对土地进行整治和修复，以及对土地利用进行规划和管理。",
+        "level": 2,
+        "nameEn": "Land consolidation and improvement",
+        "code": "33701591851",
+        "name": "国土综合整治",
+        "parentId": "33701591977"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "生物多样性保护包括珍稀濒危野生动植物抢救性保护、动植物资源经营、渔业资源保护、古树名木保护等。",
+            "level": 3,
+            "nameEn": "Biodiversity Conservation",
+            "code": "33701591848",
+            "name": "生物多样性保护",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "天然林保护修复包括为维护天然林生态系统的原真性、完整性开展的森林病虫害等有害生物防治、森林管护装备和基础设施建设，天然林抚育保育基础设施建设(如天然林场内林场管护用房、供电、供水、通信、道路等基础设施建设)，天然林退化修复工程(如采用乡土树种的坡耕地还林、人工造林、封山育林、抚育性采伐等)。",
+            "level": 3,
+            "nameEn": "Natural forest protection and restoration",
+            "code": "33701591849",
+            "name": "天然林保护修复",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "森林草原防灭火体系建设和运维包括对森林草原火灾的预防和扑救等体系建设和运维。",
+            "level": 3,
+            "nameEn": "Construction and operation of forest and grassland fire prevention system",
+            "code": "33701591850",
+            "name": "森林草原防灭火体系建设和运维",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "自然保护地建设和保护性运营包括国家公园、自然保护区、自然公园建设及保护性运营等。",
+            "level": 3,
+            "nameEn": "Construction and protective operation of nature reserves",
+            "code": "33701591986",
+            "name": "自然保护地建设和保护性运营",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "山水林田湖草沙一体化保护修复包括对受损、退化、服务功能下降的山、水、林、田、湖、草、沙等生态系统进行整体保护、系统修复、综合治理的活动。",
+            "level": 3,
+            "nameEn": "Integrated protection and restoration of mountains,rivers,forests,fields,lakes,grass and sand",
+            "code": "33701591854",
+            "name": "山水林田湖草沙一体化保护修复",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "湿地保护修复包括因地制宜采取治理、修复、保护等措施，促使河湖、湿地原生生态系统保护和生物多样性恢复，增强其生态完整性和可持续性的活动。",
+            "level": 3,
+            "nameEn": "Wetland protection and restoration.",
+            "code": "33701591856",
+            "name": "湿地保护修复",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "荒漠化和石漠化综合治理包括因地制宜采用退耕还林还草、退牧还草、封沙育林育草、人工种草造林等植物治沙措施，建设机械沙障和植物沙障等物理治沙措施，在水资源匮乏植物难以生长地区使用土壤凝结剂固结流沙表层等化学治沙措施开展的土地荒漠化治理活动；在石漠化地区开展的退耕还林还草、造林整地，生态经济林、水源涵养林、水土保持林营造建设，封山育林等石漠化综合治理活动；通过治坡(梯田、台地、鱼鳞坑建设等)、治沟(淤地坝、拦沙坝等)和小型水利工程等工程措施，种草造林等生物措施，蓄水保土农业生产和建设项目开发方式开展的水土流失综合治理活动。",
+            "level": 3,
+            "nameEn": "Comprehensive treatment of desertification and rocky desertification.",
+            "code": "33701591853",
+            "name": "荒漠化和石漠化综合治理",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "重点区域生态保护和修复包括在青藏高原生态屏障区、黄河重点生态区(含黄土高原生态屏障)、长江重点生态区(含川滇生态屏障)、东北森林带、北方防沙带、南方丘陵山地带、海岸带等重点区域，开展的天然林草恢复、封山育林、草畜平衡、草原禁牧休牧轮牧、沙化土地封禁保护、退化土地治理等生态保护和修复活动。",
+            "level": 3,
+            "nameEn": "Ecological protection and restoration in key areas",
+            "code": "33701591991",
+            "name": "重点区域生态保护和修复",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "有害生物灾害防治包括为保护生物多样性进行的外来物种入侵防控，农业、林业病虫害有害生物灾害防治活动，以及以资源化利用为手段治理外来入侵物种的活动。",
+            "level": 3,
+            "nameEn": "Prevention and control of harmful biological disasters",
+            "code": "33701591992",
+            "name": "有害生物灾害防治",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "水生态系统旱涝灾害防控及应对包括自然水系连通恢复、水利设施建设、湿地恢复、灾害预警信息平台建设等水生态系统灾害防控及应对设施建设和运营。",
+            "level": 3,
+            "nameEn": "Prevention and response to drought and flood disasters in the water ecosystem",
+            "code": "33701591993",
+            "name": "水生态系统旱涝灾害防控及应对",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "海洋生态、 海域海岸带和海岛生态修复包括为维护海洋生态安全、改善海洋生态系统质量、提升海洋生态系统服务功能，通过自然恢复和人工修复相结合的方式，修复受损的海洋生态，实施蓝色海湾整治和自然岸线修复，保护修复海岛自然资源和生态环境等活动。",
+            "level": 3,
+            "nameEn": "Marine ecology,sea area and coastal zone,and island ecological restoration",
+            "code": "33701591994",
+            "name": "海洋生态、海域海岸带和海岛生态修复",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "增殖放流包括为改善水域环境、保护生物多样性向海洋、滩涂、江河、湖泊、水库等天然水域投放渔业生物卵子、幼体或成体，恢复或增加种群数量、改善和优化水域生物群落结构的增殖放流。",
+            "level": 3,
+            "nameEn": "Propagation and release.",
+            "code": "33701591857",
+            "name": "增殖放流",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "草原保护修复包括为保护草原生态环境、 恢复草原生态系统功能、 促进草原可持续利用开展的草原禁牧休牧、 草畜平衡、 草原生态监测、植被重建、 草原有害生物防治等活动及其必须的装备和基础设施建设。",
+            "level": 3,
+            "nameEn": "Grassland protection and restoration",
+            "code": "35411905567",
+            "name": "草原保护修复",
+            "parentId": "33701591985"
+          },
+          {
+            "childFlag": 1,
+            "description": "水土流失综合治理包括通过治坡 、 治沟和小型水利工程等工程措施， 种草造林等植物措施， 蓄水保土农业生产和建设项目开发方式开展的水土流失综合治理活动。 ",
+            "level": 3,
+            "nameEn": "Comprehensive treatment of water and soil loss",
+            "code": "35411905568",
+            "name": "水土流失综合治理",
+            "parentId": "33701591985"
+          }
+        ],
+        "description": "生态保护修复是指通过采取措施，恢复和保护生态环境，提高生态系统的稳定性和可持续性。这包括对受损生态系统进行修复，以及对生态系统进行保护和管理。",
+        "level": 2,
+        "nameEn": "Ecological protection and restoration",
+        "code": "33701591985",
+        "name": "生态保护修复",
+        "parentId": "33701591977"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "农作物病虫害绿色防控包括通过推广抗病虫作物品种，使用“以虫治虫”“稻鸭共育”“生物生化制剂”等生物防治技术，使用“杀虫灯”“防虫网阻隔”等理化诱控技术，使用高效、低毒、低残留、环境友好型农药，开展的农作物病虫害绿色防控活动，以及化学农药减量增效、使用量零增长活动等。",
+            "level": 3,
+            "nameEn": "Green prevention and control of crop diseases and insect pests",
+            "code": "33701591843",
+            "name": "农作物病虫害绿色防控",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "农业生态系统保护修复包括在东北地区、黄淮海和长江流域等地开展耕地轮作，在地下水超采区、生态严重退化区开展休耕，实施农产品复合种植、开展盐碱渍涝治理等活动",
+            "level": 3,
+            "nameEn": "Agricultural ecosystem protection restoration",
+            "code": "33701591844",
+            "name": "农业生态系统保护修复",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "林业基因资源保护包括林业基因(遗传)资源调查、监测与信息化平台建设，林业基因(遗传)资源收集与保存工程(原地或异地保护、保存设施、保护区建设等)，乡土树种、经济树种、速生树种的育种、驯化和生物勘探工程，良种利用工程，侵入物种防控等。",
+            "level": 3,
+            "nameEn": "Forestry gene resource protection",
+            "code": "33701591845",
+            "name": "林业基因资源保护",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "森林游憩和康养包括在不破坏地表植被、生物多样性和生态系统的前提下，依托森林、草地、湿地、荒漠、高山、湖泊、河流、海岸带和野生动物植物等自然景观资源，开展的游览观光、休闲体验、文化体育、健康养生等活动。",
+            "level": 3,
+            "nameEn": "Forest swim and health care",
+            "code": "33701591846",
+            "name": "森林游憩和康养",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色渔业包括碳汇渔业及净水渔业、稻渔综合种养及盐碱水渔农综合利用、池塘及工厂化循环水养殖、深水抗风浪及深远海养殖、海洋牧场、不投饵网箱养殖、水产品加工及副产物综合利用，生态健康养殖有关模式，推进捕捞、养殖、加工、渔港等各领域设施装备节能降碳更新改造等。",
+            "level": 3,
+            "nameEn": "Green Fisheries",
+            "code": "33701591847",
+            "name": "绿色渔业",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "林下种养殖和林下采集包括在不破坏森林植被、不影响林木生长的前提下，在林下或林间空地种植粮食作物、油料作物、药材、食用菌、饲草、蔬菜等，林下养殖家禽、放牧或舍饲饲养家畜等，以及在不破坏林地资源的前提下，合理有序发展的林下采集业",
+            "level": 3,
+            "nameEn": "Under-forest breeding and under-forest collection",
+            "code": "33701591983",
+            "name": "林下种养殖和林下采集",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色畜牧业包括畜禽规模养殖场标准化建设，新型兽药和饲料添加剂生产，优质饲草产业发展，种养结合型家庭农场、合作社、龙头企业，科学合理利用天然草原的家庭牧场等。",
+            "level": 3,
+            "nameEn": "Green livestock industry",
+            "code": "33701591984",
+            "name": "绿色畜牧业",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "种质资源保护包括农作物种质资源、畜禽遗传资源、水产种质资源、农业微生物种质资源、林业种质资源和农业野生植物的引种观察、收集保存、鉴定评价、分发共享活动，对已列入《国家重点保护野生植物名录》的处于濒危状态、对粮食安全和农林业可持续发展具有重要价值的农业野生植物，包括农作物野生近缘植物、野生蔬菜、野生果树、野生茶和野生药用植物等的保护活动，其他对动植物品种资源形成有效保护的活动，以及国家农作物种质资源中期库、国家林草种质资源库(圃)、国家级海洋渔业生物种质资源库、国家级淡水渔业生物种质资源库、水产原良种场、水产遗传育种中心、中转隔离基地、国家动植物基因库、种质资源圃、畜禽保护场保护区、基因库、农业微生物种质资源库的新建和改扩建",
+            "level": 3,
+            "nameEn": "Geministic resource protection",
+            "code": "33701591841",
+            "name": "种质资源保护",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "有机、绿色等认证农业包括通过有机农产品、绿色农产品、生态原产地保护产品、国家森林生态标志产品认证认定的农业生产、加工活动。",
+            "level": 3,
+            "nameEn": "Certification of organic, green agriculture, etc.",
+            "code": "33701591842",
+            "name": "有机、绿色等认证农业",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "现代化育种育苗包括采用高效育种技术进行种子生产加工、质量测试评价、良种推广服务，现代化育种基地、品种区试站、抗性鉴定站、品种测试评价中心、现代化种子(苗)生产基地以及国家核心育种场、种公畜站和扩繁基地的建设，以及规模化、机械化、标准化、集约化、信息化育苗活动。",
+            "level": 3,
+            "nameEn": "Modern breeding and seedling raising",
+            "code": "33701591978",
+            "name": "现代化育种育苗",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色农业生产包括推进农业生产“三品一标”(品种培优、品质提升、品牌打造和标准化生产)、农产品“三品一标”(绿色、有机、地理标志和达标合格农产品)、选育推广高产优质多抗新品种、农业绿色发展监测评价等活动，标准地膜制造和环境友好生物可降解地膜制造，采用加工减损、循环利用、梯次利用、节能低碳等技术推进农产品加工业绿色转型的活动，以及优质农产品生产基地、地理标志农产品核心生产基地、生态农场、农业绿色发展先行区、现代农业全产业链标准化示范基地、绿色标准化农产品生产基地、畜禽养殖标准化示范场、水产健康养殖和生态养殖示范区的建设",
+            "level": 3,
+            "nameEn": "Green agricultural production",
+            "code": "33701591979",
+            "name": "绿色农业生产",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "农作物种植保护地、保护区建设和运营包括在划定的永久基本农田区域因地制宜开展的零星分散耕地整合归并、土地复垦及耕地提质改造工程；在永久基本农田开展的退化耕地综合治理、中低产田改造、高标准农田建设等耕地质量提升工程；耕地占补平衡项目中被占用耕地表土剥离用于新增耕地、劣质地或基本农田整备区耕地土壤改良工程，以及农田水利设施建设、耕地保水保肥、污控修复等活动。其中，禁止开垦、复垦严重沙化土地，禁止在25度以上陡坡开垦、复垦耕地，禁止违规毁林开垦耕地。",
+            "level": 3,
+            "nameEn": "Construction and operation of crop planting protected areas and protected areas",
+            "code": "33701591980",
+            "name": "农作物种植保护地、保护区建设和运营",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "休闲农业和乡村旅游包括农业与旅游、教育、康养等产业融合，推动发展田园养生、研学科普、农耕体验、休闲垂钓、民宿康养等休闲农业和乡村旅游新业态，休闲农业重点县、美丽休闲乡村、休闲农业精品园区、乡村旅游重点村镇建设，以及乡村休闲旅游精品景点和乡村旅游精品线路发布推介",
+            "level": 3,
+            "nameEn": "Casual agriculture and rural tourism",
+            "code": "33701591981",
+            "name": "休闲农业和乡村旅游",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "森林资源培育和经营包括良种生产、苗木培育、森林营造、森林抚育、森林主伐更新、森林可持续经营等。",
+            "level": 3,
+            "nameEn": "Cultivation and management of forest resources.",
+            "code": "33701591982",
+            "name": "森林资源培育和经营",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "竹产业包括竹子良种研发、 资源培育、 采伐加工、 “以竹代塑” 及综合利用、 竹笋等竹林食物生产、 竹林旅游等产业。",
+            "level": 3,
+            "nameEn": "Bamboo Industry",
+            "code": "35411905400",
+            "name": "竹产业",
+            "parentId": "33701591840"
+          },
+          {
+            "childFlag": 1,
+            "description": "海洋牧场建设和运营包括为恢复或增加种群数量、 改善和优化水域生物群落结构采取投放人工鱼礁、 种植海藻场或海草床等措施的海洋牧场建设和运营。",
+            "level": 3,
+            "nameEn": "Construction and operation of marine ranch",
+            "code": "35411905566",
+            "name": "海洋牧场建设和运营",
+            "parentId": "33701591840"
+          }
+        ],
+        "description": "生态农林牧渔业是指在保护生态环境的前提下，发展农林牧渔业。",
+        "level": 2,
+        "nameEn": "Ecological agriculture,forestry,animal husbandry and fishery industry",
+        "code": "33701591840",
+        "name": "生态农林牧渔业",
+        "parentId": "33701591977"
+      }
+    ],
+    "description": "生态保护修复和利用是指通过生态保护和修复技术，保护和改善生态环境，提高生态环境质量，促进生态资源的合理利用。",
+    "level": 1,
+    "nameEn": "Ecological protection restoration and utilization",
+    "code": "33701591977",
+    "name": "生态保护修复和利用",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "绿色数据中心建设包括先进高效的互联网数据中心(IDC)、企业级数据中心(EDC)、高性能计算中心、超算中心等不同类型数据中心的建设",
+            "level": 3,
+            "nameEn": "Green data center construction",
+            "code": "33701591880",
+            "name": "绿色数据中心建设",
+            "parentId": "33701591879"
+          },
+          {
+            "childFlag": 1,
+            "description": "通信网络设施节能改造包括通信网络的传输系统、交换系统和相关设备等的节能改造",
+            "level": 3,
+            "nameEn": "Energy-saving transformation of communication network facilities",
+            "code": "33701592017",
+            "name": "通信网络设施节能改造",
+            "parentId": "33701591879"
+          },
+          {
+            "childFlag": 1,
+            "description": "数据中心节能改造包括数据中心的供配电系统、制冷系统、运行控制系统、其他辅助系统等的节能改造",
+            "level": 3,
+            "nameEn": "Energy-saving transformation of data centers",
+            "code": "33701592018",
+            "name": "数据中心节能改造",
+            "parentId": "33701591879"
+          }
+        ],
+        "description": "信息基础设施是指信息基础设施，包括电信、互联网、广播电视等。",
+        "level": 2,
+        "nameEn": "Information Infrastructure",
+        "code": "33701591879",
+        "name": "信息基础设施",
+        "parentId": "33701591858"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "绿色物流枢纽、绿色物流园区建设和运营包括国家物流枢纽、 国家骨干冷链物流基地、 货物集散中心绿色化改造和运营， 邮政快递营业场所和处理场所等物流场所绿色化改造、 建设和运营， 零碳物流园区建设和运营。",
+            "level": 3,
+            "nameEn": "Green logistics hub and green logistics park construction and operation",
+            "code": "35411905570",
+            "name": "绿色物流枢纽、绿色物流园区建设和运营",
+            "parentId": "33701592008"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色仓储设施（含冷库）建设包括应用绿色建筑材料、 节能技术与装备的大型仓储设施建设和改造， 应用绿色低碳高效制冷剂、 保温耗材的大型冷库建设和改造。",
+            "level": 3,
+            "nameEn": "Green storage facilities (including cold storage) construction",
+            "code": "35411905571",
+            "name": "绿色仓储设施（含冷库）建设",
+            "parentId": "33701592008"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色粮食仓储物流设施建设和运营包括浅圆仓等机械化、 自动化粮食仓储设施， 采用新型防水隔热气密等新材料、 绿色储粮保质保鲜等新技术、 高效节能环保进出仓等新工艺、 智能化仓储等新装备的高标准粮仓建设等。",
+            "level": 3,
+            "nameEn": "Green grain warehousing and logistics construction and operation",
+            "code": "35411905572",
+            "name": "绿色粮食仓储物流设施建设和运营",
+            "parentId": "33701592008"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色物流技术设备应用包括新能源及清洁能源轻型物流车辆、 中重型卡车购置， 新能源叉车应用， 智慧货运信息平台或系统建设和运营等",
+            "level": 3,
+            "nameEn": "Green logistics technology equipment application",
+            "code": "35411905573",
+            "name": "绿色物流技术设备应用",
+            "parentId": "33701592008"
+          }
+        ],
+        "description": "绿色物流包括新能源及清洁能源轻型物流车辆、中重型卡车购置，综合物流枢纽或大型货物集散中心的建设和运营，邮政快递营业场所和处理场所等物流场所的绿色化改造，智慧货运信息平台或系统的建设和运营，数字化智能化邮政快递信息系统或平台的建设和运营，城市寄递系统建设和运营，农村寄递物流体系建设和运营，零碳物流园区示范等活动",
+        "level": 2,
+        "nameEn": "Green Logistics",
+        "code": "33701592008",
+        "name": "绿色物流",
+        "parentId": "33701591858"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "城镇电力设施智能化建设运营和改造包括城镇电力需求侧管理平台开发建设，城镇配电网技术改造，用电设备智能化改造，以及高污染、低效用能设备的电能替代改造等",
+            "level": 3,
+            "nameEn": "Intelligent construction,operation and transformation of urban power facilities",
+            "code": "33701591877",
+            "name": "城镇电力设施智能化建设运营和改造",
+            "parentId": "33701592014"
+          },
+          {
+            "childFlag": 1,
+            "description": "城镇集中供热系统清洁化、低碳化建设运营和改造包括城镇集中供热锅炉节能降碳环保改造、城镇集中供热管网节能降碳改造、热电联产机组供暖替代散煤和燃煤小锅炉、低品位工业余热供暖系统建设运营、核能供热系统建设运营，以及因地制宜实施的热泵、生物质能、地热能、太阳能等清洁低碳供暖等",
+            "level": 3,
+            "nameEn": "Clean and low-carbon construction,operation and transformation of urban centralized heating systems",
+            "code": "33701591878",
+            "name": "城镇集中供热系统清洁化、低碳化建设运营和改造",
+            "parentId": "33701592014"
+          },
+          {
+            "childFlag": 1,
+            "description": "城镇一体化集成供能设施建设和运营包括多能互补利用设施、分布式供能设施或系统、智能微网等城镇一体化集成供能设施建设和运营",
+            "level": 3,
+            "nameEn": "Construction and operation of integrated urban energy supply facilities",
+            "code": "33701592015",
+            "name": "城镇一体化集成供能设施建设和运营",
+            "parentId": "33701592014"
+          },
+          {
+            "childFlag": 1,
+            "description": "农村清洁能源基础设施建设和运营包括清洁取暖设备应用和设施建设运营，清洁取暖配套的农村电网、燃气管道建设改造，以及其他清洁低碳能源利用设施建设运营",
+            "level": 3,
+            "nameEn": "Construction and operation of clean energy infrastructure in rural areas",
+            "code": "33701592016",
+            "name": "农村清洁能源基础设施建设和运营",
+            "parentId": "33701592014"
+          }
+        ],
+        "description": "城乡能源基础设施是指城市和乡村的能源基础设施，包括电力、燃气、热力等。",
+        "level": 2,
+        "nameEn": "Urban and rural energy infrastructure",
+        "code": "33701592014",
+        "name": "城乡能源基础设施",
+        "parentId": "33701591858"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "园林绿化建设、养护管理和运营包括城市综合公园、专类公园、社区公园、游园等公园和绿地公共设施建设、养护和运营，城市绿道及其配套的驿站、标识系统和其他附属设施的建设、养护管理和运营，居住用地、公共管理与公共服务设施用地、商业服务业设施用地、工业用地、物流仓储用地、公用设施用地、绿地与广场用地等的附属绿地建设、养护管理和运营，各级各类城市道路的分隔绿带、路侧绿带、绿化环岛等绿地建设、养护管理，城市郊野公园、区域设施防护绿地等区域绿地建设、养护管理和运营，城市建筑屋顶绿化、墙面绿化、桥隧绿化等立体空间绿化工程建设、养护管理",
+            "level": 3,
+            "nameEn": "Landscape construction,maintenance management and operation",
+            "code": "33701592009",
+            "name": "园林绿化建设、养护管理和运营",
+            "parentId": "33701591871"
+          },
+          {
+            "childFlag": 1,
+            "description": "城镇供水管网分区计量漏损控制建设和运营包括城镇公共供水设施建设运营和改造，以及供水管网流量计量、水质监测、压力调控、数据采集与远传等供水管网漏损控制设备设施建设运营和改造",
+            "level": 3,
+            "nameEn": "Construction and operation of measurement and leakage control in urban water supply network sections",
+            "code": "33701592010",
+            "name": "城镇供水管网分区计量漏损控制建设和运营",
+            "parentId": "33701591871"
+          },
+          {
+            "childFlag": 1,
+            "description": "城镇污水收集系统排查改造建设修复包括城镇污水管网排查、疏浚、维修修复及改造，污(雨)水调蓄设施建设与改造，污水管网地理信息系统(GIS)建设和运营等",
+            "level": 3,
+            "nameEn": "Investigation,renovation,construction and restoration of urban sewage collection system",
+            "code": "33701592011",
+            "name": "城镇污水收集系统排查改造建设修复",
+            "parentId": "33701591871"
+          },
+          {
+            "childFlag": 1,
+            "description": "污水污泥处理处置设施建设和运营包括城镇和农村污水处理及再生利用设施建设运营和改造，污泥浓缩、调理和脱水等减量化处置设施建设运营和改造，厌氧消化处理、高温好氧发酵处理、石灰稳定、热干化、焚烧等处理设施建设运营和改造，以及污泥的运输和储存等。",
+            "level": 3,
+            "nameEn": "Construction and operation of sewage sludge treatment and disposal facilities",
+            "code": "33701592012",
+            "name": "污水污泥处理处置设施建设和运营",
+            "parentId": "33701591871"
+          },
+          {
+            "childFlag": 1,
+            "description": "生态环境监测系统建设和运营包括大气、地表水(含水功能区和农田灌溉水)、地下水、饮用水源、海洋、土壤、温室气体、噪声、辐射等环境监测系统的建设和运营，系统采样分析设备、监测仪器、计算机、监测车辆、监测无人机、监测气球等硬件设备购置、安装建设及软件系统开发，污染源自动监测设施建设和运营等。",
+            "level": 3,
+            "nameEn": "Construction and operation of ecological environment monitoring system",
+            "code": "33701592013",
+            "name": "生态环境监测系统建设和运营",
+            "parentId": "33701591871"
+          },
+          {
+            "childFlag": 1,
+            "description": "海绵城市建设和运营包括在公共建筑及居住小区因地制宜采取屋顶绿化、可渗透地面铺装、微地形、雨水花园建设，雨落管断接、雨水调蓄与收集利用等设施建设和运营；在非机动车道、人行道、停车场、广场等场所采用透水铺装，道路与广场雨水收集、净化和利用设施，生物滞留带、环保雨水口、旋流沉砂等道路雨水径流污染防治治理等设施建设和运营；在城镇公园和公共绿地等场所的雨水花园、下凹式绿地、人工湿地、雨水塘等设施建设和运营；城市排水防涝设施达标建设；以及为保护和修复城市水体自然生态系统开展的河湖水系自然连通恢复和保护工程，河道系统整治、生态修复活动，如渠化河道改造，因势利导恢复自然弯曲河岸线，自然深潭浅滩和泛洪漫滩等",
+            "level": 3,
+            "nameEn": "Construction and operation of sponge cities",
+            "code": "33701591872",
+            "name": "海绵城市建设和运营",
+            "parentId": "33701591871"
+          },
+          {
+            "childFlag": 1,
+            "description": "水利设施智能化建设包括搭建数字孪生平台，升级监测设施，提升通信、计算、控制等设施水平，提升水利设施业务智能化水平和预报、预警、预演、预案能力",
+            "level": 3,
+            "nameEn": "Intelligent construction of water conservancy facilities",
+            "code": "33701591873",
+            "name": "水利设施智能化建设",
+            "parentId": "33701591871"
+          },
+          {
+            "childFlag": 1,
+            "description": "入河入海排污口排查整治及规范化建设包括运用无人机、水下机器人等仪器设备进行入河入海排污口排查和上游排污管线巡查巡检，制订更新排污口位置图、排污管线图，对不符合要求的入河入海排污口按照相关技术规定进行拆除关闭、归并纳管、清理整治，对相关排污管线进行修复、改造和维护，按照要求开展入河入海排污口规范化建设，开展入河入海排污口相关监测、数据采集与传输等设施建设",
+            "level": 3,
+            "nameEn": "Investigation and rectification of sewage outlets into rivers and seas, and standardized construction",
+            "code": "33701591874",
+            "name": "入河入海排污口排查整治及规范化建设",
+            "parentId": "33701591871"
+          },
+          {
+            "childFlag": 1,
+            "description": "生活垃圾收运与处理设施建设和运营包括城镇和农村生活垃圾收集、转运等处理设施建设和运营",
+            "level": 3,
+            "nameEn": "Construction and operation of facilities for collection, transportation, and disposal of household waste",
+            "code": "33701591875",
+            "name": "生活垃圾收运与处理设施建设和运营",
+            "parentId": "33701591871"
+          },
+          {
+            "childFlag": 1,
+            "description": "生态安全预警体系和生态保护修复信息平台建设和运维包括生态安全预警体系的建设和运维，以及生态保护修复信息平台系统的设计、开发、测试和运维",
+            "level": 3,
+            "nameEn": "Construction and operation of ecological security warning system and ecological protection and restoration information platform",
+            "code": "33701591876",
+            "name": "生态安全预警体系和生态保护修复信息平台建设和运维",
+            "parentId": "33701591871"
+          }
+        ],
+        "description": "环境基础设施是指城市和乡村的环境基础设施，包括污水处理、垃圾处理、环境监测等。",
+        "level": 2,
+        "nameEn": "Environmental Infrastructure",
+        "code": "33701591871",
+        "name": "环境基础设施",
+        "parentId": "33701591858"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "超低能耗和低碳建筑建设和运营包括超低能耗、近零能耗、零能耗、低碳、零碳建筑的设计、建造和运行。",
+            "level": 3,
+            "nameEn": "Construction and operation of ultra-low energy and low-carbon buildings",
+            "code": "33701591997",
+            "name": "超低能耗和低碳建筑建设和运营",
+            "parentId": "33701591996"
+          },
+          {
+            "childFlag": 1,
+            "description": "装配式建筑设计和建造包括采用预制部件在建设工地通过装配施工方法的建筑设计和建设。",
+            "level": 3,
+            "nameEn": "Design and construction of prefabricated buildings",
+            "code": "33701591999",
+            "name": "装配式建筑设计和建造",
+            "parentId": "33701591996"
+          },
+          {
+            "childFlag": 1,
+            "description": "建筑工程智能建造包括包括综合应用数字设计、 智能生产、 智能施工等技术的智能建造试点示范工程项目建设， 建筑信息模型（ BIM） 软件、 设计图纸智能辅助审查软件、 协同设计平台软件等自主可控数字化设计软件研发等。",
+            "level": 3,
+            "nameEn": "Smart construction of building projects",
+            "code": "33701592000",
+            "name": "建筑工程智能建造",
+            "parentId": "33701591996"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色建筑建设和运营包括绿色建筑的设计、建造、综合性能调适、交付培训、智慧运维等。",
+            "level": 3,
+            "nameEn": "Green building construction and operation",
+            "code": "33701591859",
+            "name": "绿色建筑建设和运营",
+            "parentId": "33701591996"
+          },
+          {
+            "childFlag": 1,
+            "description": "既有建筑绿色化改造和运营包括改造后建筑相关技术指标符合国家或地方相关建筑节能标准的既有建筑物节能改造、建筑用能系统节能改造活动；获得有效期内国家相关绿色建筑星级标识的既有建筑改造和运营，以及改造后达到有效期内国家相关绿色建筑星级标识的既有建筑改造和运营。",
+            "level": 3,
+            "nameEn": "Green transformation and operation of existing buildings",
+            "code": "33701591860",
+            "name": "既有建筑绿色化改造和运营",
+            "parentId": "33701591996"
+          },
+          {
+            "childFlag": 1,
+            "description": "建筑可再生能源应用包括利用建筑屋顶、墙面安装太阳能光伏发电装置向建筑提供电力，以及利用热泵等设施向建筑供冷、供热的建筑可再生能源应用系统的设计、建设及可再生能源建筑应用改造活动。",
+            "level": 3,
+            "nameEn": "Application of building renewable energy",
+            "code": "33701591862",
+            "name": "建筑可再生能源应用",
+            "parentId": "33701591996"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色农房建设、 改造和运维包括绿色农房的设计、建设、改造、综合性能调适、交付培训、智慧运维等。",
+            "level": 3,
+            "nameEn": "Green farm building construction,renovation and operation and maintenance",
+            "code": "33701591864",
+            "name": "绿色农房建设、 改造和运维",
+            "parentId": "33701591996"
+          }
+        ],
+        "description": "建筑节能与绿色建筑是指通过采用节能技术和设备，提高建筑的能源利用效率，减少能源消耗和环境污染。",
+        "level": 2,
+        "nameEn": "Building energy efficient and green building",
+        "code": "33701591996",
+        "name": "建筑节能与绿色建筑",
+        "parentId": "33701591858"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "充电、换电和加气等设施建设和运营包括分布式交流充电桩、集中式快速充电站、非车载充电机、换电设施、汽车和船舶天然气加注站、城市公共充电设施、城际快速充电网络等基础设施建设和运营。",
+            "level": 3,
+            "nameEn": "Facilities construction and operation for charging, battery swapping, and refueling",
+            "code": "33701592003",
+            "name": "充电、换电和加气等设施建设和运营",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "共享交通设施建设和运营包括公共租赁自行车、互联网租赁自行车、互联网租赁电动自行车、互联网租赁汽车、汽车分时租赁系统、立体停车设施设备、自行车停车设施等共享交通设施建设和运营",
+            "level": 3,
+            "nameEn": "The construction and operation of shared transportation facilities",
+            "code": "33701592004",
+            "name": "共享交通设施建设和运营",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "城市慢行系统建设和运营包括步行交通系统建设、自行车交通系统建设、非机动车停车设施建设、都市绿道建设、道路交叉口路灯优化、路段过街设施建设、慢行系统优化等",
+            "level": 3,
+            "nameEn": "Construction and operation of urban slow traffic system",
+            "code": "33701592005",
+            "name": "城市慢行系统建设和运营",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "多式联运系统与公转铁、公转水建设和运营包括普通集装箱、大宗物资、冷链物资、汽车整车、快递包裹等物资多式联运系统建设和运营，以及促进公转铁、公转水的相关设施建设和运营",
+            "level": 3,
+            "nameEn": "Multimodal transport system construction and operation of public-to-railway and public-to-railway water",
+            "code": "33701592006",
+            "name": "多式联运系统与公转铁、公转水建设和运营",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色民航包括含机场航站楼、跑道、机场廊桥供电设施等在内的绿色机场建设，机场绿色化改造，机场新增或更新的作业车辆及机械采用新能源或清洁能源。",
+            "level": 3,
+            "nameEn": "Green civil aviation",
+            "code": "33701592007",
+            "name": "绿色民航",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境友好型铁路建设运营和铁路绿色化改造环境友好型铁路是指符合国家环保标准规范，考虑对生物重要栖息地的影响，在项目建设和运营过程中切实保护自然生态、尽量减少生态影响的客运、货运和客货两用铁路。包括环境友好型铁路及相关场所建设和运营，以及既有铁路电气化改造、铁路场站和铁路设备绿色化改造、废弃铁路复垦等。",
+            "level": 3,
+            "nameEn": "Environmentally friendly railway construction and operation and green transformation of railways",
+            "code": "33701591868",
+            "name": "环境友好型铁路建设运营和铁路绿色化改造",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "公路甩挂运输系统建设和运营包括甩挂作业站场、甩挂运输管理信息系统等建设运营和改造",
+            "level": 3,
+            "nameEn": "Construction and operation of road transport system",
+            "code": "33701591869",
+            "name": "公路甩挂运输系统建设和运营",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色港口和航道包括港口和船舶岸(受)电系统建设，船用LNG等清洁燃料加注设施建设，内河老旧码头升级改造、船舶受电设施设备改造等。",
+            "level": 3,
+            "nameEn": "Green ports and waterways",
+            "code": "33701591870",
+            "name": "绿色港口和航道",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "绿色公路建设和公路交通基础设施绿色低碳化改造包括公路、综合交通枢纽、高速公路服务区、客货运场站等交通基础设施的绿色化改造。",
+            "level": 3,
+            "nameEn": "Green and low-carbon transformation of highway construction and highway transportation infrastructure",
+            "code": "33701591865",
+            "name": "绿色公路建设和公路交通基础设施绿色低碳化改造",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "智能交通体系建设和运营包括交通指挥中心系统与设备、电子警察系统与设备、交通视频监视系统与设备、卡口系统与设备、交通信号控制系统与设备、智能公交系统与设备、城市智慧汽车基础设施、智能停车系统与设备、交通信息采集发布系统与设备、GPS与警用系统与设备、出租车信息服务管理系统与设备、综合客运枢纽信息化系统与设备、路网综合管理系统、智能化新一代民航旅客服务系统(PSS)、智慧机场管理系统、旅游联程联运信息服务系统、高速公路扣费系统、市区过桥系统、隧道自动扣费系统、停车场不停车交费系统等建设和运营",
+            "level": 3,
+            "nameEn": "Construction and operation of intelligent transportation system",
+            "code": "33701591866",
+            "name": "智能交通体系建设和运营",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "城乡客运系统建设和运营包括地铁、轻轨、有轨电车等城市轨道交通设施建设和运营，农村客运班线、乡镇客运站建设和运营，城市公共汽电车系统(含公交专用道、枢纽场站、信息系统)建设、改造及运营，新能源和清洁能源客车和公共车辆购置等",
+            "level": 3,
+            "nameEn": "Construction and operation of urban and rural passenger transport systems",
+            "code": "33701591867",
+            "name": "城乡客运系统建设和运营",
+            "parentId": "33701592002"
+          },
+          {
+            "childFlag": 1,
+            "description": "交通枢纽场站绿色化改造包括综合交通枢纽、 客货运场站等枢纽基础设施的绿色化改造。",
+            "level": 3,
+            "nameEn": "Green transformation of transportation hub station",
+            "code": "35411905569",
+            "name": "交通枢纽场站绿色化改造",
+            "parentId": "33701592002"
+          }
+        ],
+        "description": "绿色交通是指通过采用环保、节能、低碳的交通方式和设备，提高交通系统的运行效率，减少交通污染。",
+        "level": 2,
+        "nameEn": "Green Traffic",
+        "code": "33701592002",
+        "name": "绿色交通",
+        "parentId": "33701591858"
+      }
+    ],
+    "description": "基础设施绿色升级是指对城市和乡村的基础设施进行绿色化改造，包括绿色建筑、绿色交通、绿色照明等方面的技术和设备。",
+    "level": 1,
+    "nameEn": "Green upgrade of infrastructure",
+    "code": "33701591858",
+    "name": "基础设施绿色升级",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "危险废物处理处置包括列入《国家危险废物名录》的医疗废物、医药废物、废药物药品、农药废物、木材防腐剂废物、废有机溶剂与含有机溶剂废物、热处理含氰废物、废矿物油与含矿物油废物等危险废物的减量化、无害化处理设施建设和运营。",
+            "level": 3,
+            "nameEn": "Treatment and disposal of hazardous waste",
+            "code": "33701591804",
+            "name": "危险废物处理处置",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "恶臭污染治理包括在生产经营活动中产生恶臭气体的企业和其他单位安装净化装置或采取其他工程技术措施开展恶臭污染治理。",
+            "level": 3,
+            "nameEn": "Smelly pollution control",
+            "code": "33701591805",
+            "name": "恶臭污染治理",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "工业固体废弃物无害化处理处置主要包括尾矿、粉煤灰、冶炼渣、工业副产石膏、赤泥、化工废渣、除尘灰等工业固体废弃物的回收、无害化处理和再利用设施建设和运营。",
+            "level": 3,
+            "nameEn": "Harmless treatment and disposal of industrial solid waste",
+            "code": "33701591941",
+            "name": "工业固体废弃物无害化处理处置",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "噪声和振动污染治理包括工业企业噪声污染治理、交通噪声污染治理、建筑施工噪声污染治理以及社会生活噪声污染治理等。",
+            "level": 3,
+            "nameEn": "Noise and vibration pollution control",
+            "code": "33701591942",
+            "name": "噪声和振动污染治理",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "新污染物治理包括石化、涂料、纺织印染、橡胶、农药、医药等行业新污染物治理试点工程，有毒有害化学物质绿色替代、新污染物减排以及污水污泥、废液废渣中新污染物治理示范技术应用。",
+            "level": 3,
+            "nameEn": "New pollutant treatment",
+            "code": "33701591943",
+            "name": "新污染物治理",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "重点行业清洁生产改造包括钢铁、石油石化、化工、有色金属等重点行业企业清洁生产改造，(聚)氯乙烯生产行业无汞化改造等。",
+            "level": 3,
+            "nameEn": "Clean production transformation of key industries",
+            "code": "33701591806",
+            "name": "重点行业清洁生产改造",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "交通车船污染治理包括采用高效、节能、环保的机动车船和非道路移动机械替换老旧和高能耗、高排放装备，机动车船和非道路移动机械的污染排放实时监控系统建设，对机动车船、非道路移动机械维修废油、废水和废气实施治理等",
+            "level": 3,
+            "nameEn": "Pollution control of transportation vehicles and ships",
+            "code": "33701591807",
+            "name": "交通车船污染治理",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "畜禽和水产养殖废弃物污染治理包括畜禽粪污收集处理、畜禽养殖废水处理、畜禽养殖恶臭气体防治、畜禽养殖二次污染防治、病死畜禽收集和无害化处置，以及水产清洁养殖、废弃物收集、减少养殖尾水排放、病死水产品无害化处置等设施建设和改造。",
+            "level": 3,
+            "nameEn": "Pollution control of livestock,poultry and aquaculture waste",
+            "code": "33701591808",
+            "name": "畜禽和水产养殖废弃物污染治理",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "园区污染治理集中化改造包括工业园区、企业集群集中污染治理设施、集中喷涂设施，以及集中涂装中心、活性炭集中处理中心、溶剂回收中心等涉VOCs“绿岛”项目建设运营及升级改造，废弃可再生资源(如废钢铁、废有色金属、废塑料、废橡胶)集中拆解处理和集中污染治理设施建设运营，工业园区、企业集群公共基础设施(如供水、供电、供热、道路、通信等)建设和技术改造等。",
+            "level": 3,
+            "nameEn": "Concentrated transformation of pollution control in the park",
+            "code": "33701591944",
+            "name": "园区污染治理集中化改造",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "船舶港口污染防治包括以防治船舶港口污染为目的实施的港口油气回收系统建设，船舶改造加装尾气污染治理装备和生活污水收集处理装置，大型煤炭、矿石码头堆场防风抑尘设施建设，港口船舶污染物接收设施建设，岸电设施建设，干散货码头粉尘专项治理，实施内河船舶环保设施升级改造，以及避免船舶压舱水带来外来物种入侵危害的设施建设等。",
+            "level": 3,
+            "nameEn": "Ship port pollution prevention and control",
+            "code": "33701591945",
+            "name": "船舶港口污染防治",
+            "parentId": "33701591803"
+          },
+          {
+            "childFlag": 1,
+            "description": "农村人居环境整治提升包括农村生活垃圾分类、清扫收集、储转运等无害化和资源化处理，卫生厕所建设和粪污处理、生活污水治理、农村河道综合治理、黑臭水体整治、村容村貌提升、饮用水安全工程等设施建设和运营。",
+            "level": 3,
+            "nameEn": "Improvement of rural living environment",
+            "code": "33701591946",
+            "name": "农村人居环境整治提升",
+            "parentId": "33701591803"
+          }
+        ],
+        "description": "其他污染治理和环境综合整治是指对除大气、水、土壤污染之外的其他污染进行治理和环境综合整治。",
+        "level": 2,
+        "nameEn": "Other pollution control and comprehensive environmental remediation",
+        "code": "33701591803",
+        "name": "其他污染治理和环境综合整治",
+        "parentId": "33701591925"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "水体保护及地下水污染防治包括严格保护江河源头及水质达到或优于Ⅲ类的江河湖库，开展重要饮用水水源地达标建设、备用水源建设、水源涵养和生态修复，开展生物缓冲带建设，实施报废矿井、钻井、取水井封井回填，开展石油化工、矿山开采、农田等区域地下水污染调查、预防和区划、风险评估及污染治理等",
+            "level": 3,
+            "nameEn": "Water body protection and groundwater pollution prevention and control",
+            "code": "33701591798",
+            "name": "水体保护及地下水污染防治",
+            "parentId": "33701591935"
+          },
+          {
+            "childFlag": 1,
+            "description": "城市（含县城）黑臭水体整治包括污水处理、再生利用、污水管渠建设和技术改造，排污口整治、截污系统建设和改造，内源治理、人工湿地建设、垃圾清理、智慧水务等治理活动。",
+            "level": 3,
+            "nameEn": "Treatment of black and odorous water bodies in cities (including county towns)",
+            "code": "33701591799",
+            "name": "城市（含县城）黑臭水体整治",
+            "parentId": "33701591935"
+          },
+          {
+            "childFlag": 1,
+            "description": "工业园区水污染集中治理包括经济技术开发区、高新技术产业开发区、出口加工区等工业集聚区污水预处理系统建设、污水收集系统和污水集中处理与再生利用设施建设和运营。",
+            "level": 3,
+            "nameEn": "Centralized treatment of industrial park water pollution",
+            "code": "33701591800",
+            "name": "工业园区水污染集中治理",
+            "parentId": "33701591935"
+          },
+          {
+            "childFlag": 1,
+            "description": "重点流域海域水环境治理包括统筹使用截污治污、垃圾清理、河道清淤疏浚、湿地保护修复、植被恢复等手段，开展的改善水环境质量、恢复水域生态功能的治理活动。包括实施长江、黄河、珠江、淮河、海河、松花江、辽河等七大流域，东南诸河、西北诸河、西南诸河等水环境保护与综合治理，开展河湖生态修复，实施太湖、洞庭湖、滇池、巢湖、鄱阳湖、白洋淀、乌梁素海、呼伦湖、艾比湖等重点湖库水污染综合治理，开展长江中下游、珠三角等河湖内源治理，开展渤海、长江口―杭州湾、珠江口邻近海域等重点海域综合治理等",
+            "level": 3,
+            "nameEn": "Environmental management of water in key river basins and sea areas",
+            "code": "33701591936",
+            "name": "重点流域海域水环境治理",
+            "parentId": "33701591935"
+          },
+          {
+            "childFlag": 1,
+            "description": "重点行业水污染治理包括造纸、焦化、氮肥、有色金属、印染、农副食品加工、原料药制造、制革、农药、电镀等重点行业的污废水治理，工业废水循环利用和清洁化改造。",
+            "level": 3,
+            "nameEn": "Water pollution control in key industries",
+            "code": "33701591937",
+            "name": "重点行业水污染治理",
+            "parentId": "33701591935"
+          }
+        ],
+        "description": "水污染治理是指通过采取措施，控制和治理水污染，以改善水质。",
+        "level": 2,
+        "nameEn": "Water pollution control",
+        "code": "33701591935",
+        "name": "水污染治理",
+        "parentId": "33701591925"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "农用地污染治理包括开展农用地土壤污染状况详查与监测、风险评估，农用地土壤环境质量类别划分、安全利用、风险管控、治理与修复，以及治理与修复效果评估等。",
+            "level": 3,
+            "nameEn": "Pollution control of agricultural land",
+            "code": "33701591801",
+            "name": "农用地污染治理",
+            "parentId": "33701591938"
+          },
+          {
+            "childFlag": 1,
+            "description": "农林草业面源污染防治包括通过源头控制、过程阻断、末端强化等综合防治措施，减少农田污染和农业废弃物污染以及抗生素污染等新型污染；测土配方施肥，农田氮磷拦截与再利用等农业清洁生产技术应用；农作物病虫害专业化统防统治及绿色防控专业化服务；粪污集中处理和资源化利用，畜禽规模化养殖和粪污资源化利用、病死畜禽无害化处理设施，生态沟渠、污水净化塘等设施建设和运营",
+            "level": 3,
+            "nameEn": "Pollution prevention and control of non-point source pollution in agriculture,forestry,and grass industries",
+            "code": "33701591802",
+            "name": "农林草业面源污染防治",
+            "parentId": "33701591938"
+          },
+          {
+            "childFlag": 1,
+            "description": "建设用地污染治理包括开展建设用地土壤污染状况详查与监测、风险评估，以及采用转移、吸收、降解等物理、化学、生物工程技术措施，降低土壤污染物含量水平",
+            "level": 3,
+            "nameEn": "Pollution control of construction land pollution",
+            "code": "33701591939",
+            "name": "建设用地污染治理",
+            "parentId": "33701591938"
+          },
+          {
+            "childFlag": 1,
+            "description": "沙漠污染治理包括采用清洗、淋洗、玻璃化、热处理以及气相抽吸等物理措施，焚烧、电动修复、化学稳定等化学措施，植物修复、动物修复和微生物修复等生物措施开展的沙漠污染治理活动。",
+            "level": 3,
+            "nameEn": "Desert pollution control",
+            "code": "33701591940",
+            "name": "沙漠污染治理",
+            "parentId": "33701591938"
+          }
+        ],
+        "description": "土壤污染治理是指通过采取措施，控制和治理土壤污染，以改善土壤质量。",
+        "level": 2,
+        "nameEn": "Soil pollution control",
+        "code": "33701591938",
+        "name": "土壤污染治理",
+        "parentId": "33701591925"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "水污染防治装备制造包括城镇和农村生活污水、工业废水处理与再生利用、回用装备，地表水、地下水污染防控治理与修复装备，清淤机械、排水管网维护检测装备、海绵城市建设配套装备、城镇雨水收集与处理装备，饮用水安全保障及漏损控制装备等装备制造。",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for water pollution prevention and control",
+            "code": "33701591789",
+            "name": "水污染防治装备制造",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "固体废物处理处置装备制造包括工业固体废弃物、生活垃圾、建筑垃圾、农业固体废物、废弃电器电子产品、废弃机动车船等固体废物的收集、 贮存、 运输及处理处置装备制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of solid waste collection, storage, transportation, and disposal equipment",
+            "code": "33701591790",
+            "name": "固体废弃物收集、贮存、运输及处理处置装备制造",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "放射性污染防治和处理设备制造包括放射性废物处理和处置装置、放射源污染土壤的治理与修复装备等设备制造",
+            "level": 3,
+            "nameEn": "Manufacturing of radioactive pollution prevention and treatment equipment",
+            "code": "33701591791",
+            "name": "放射性污染防治和处理设备制造",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "无毒无害原料、产品生产与替代使用包括在电器电子、汽车、涂料、家具、儿童玩具、教育场所硬件设备、印刷、汽车制造涂装、橡胶制品、皮革、制鞋等重点行业使用的无毒无害或低毒低害原料，对含重金属或有机污染物等有毒有害物质原料进行替代的原料或替代品生产和使用。",
+            "level": 3,
+            "nameEn": "Production and substitution of non-toxic and harmless raw materials and products",
+            "code": "33701591792",
+            "name": "无毒无害原料、产品生产与替代使用",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境监测仪器与应急处理设备制造包括大气、水、土壤、生物、噪声与振动、固体废物、机动车排放(含遥感监测和PEMS检测)、核与辐射等生态环境监测及检测仪器仪表、环境应急检测仪器仪表、环境应急装备等设备制造",
+            "level": 3,
+            "nameEn": "Manufacturing of environmental monitoring instruments and emergency response equipment",
+            "code": "33701591793",
+            "name": "环境监测仪器与应急处理设备制造",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "大气污染防治装备制造包括烟气除尘、烟气脱硫脱硝脱汞、挥发性有机物(VOCs)处理、二噁英处理、移动源尾气后处理、食品业油烟净化、家用房间空气清洁装置等装备制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of air pollution prevention and control equipment",
+            "code": "33701591926",
+            "name": "大气污染防治装备制造",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "土壤污染治理与修复装备制造包括矿山复垦与生态修复、农用地土壤污染修复、工业用地土壤污染修复、污染地块治理与修复装备等制造。",
+            "level": 3,
+            "nameEn": "Equipment manufacturing for soil pollution control and restoration",
+            "code": "33701591927",
+            "name": "土壤污染治理与修复装备制造",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "噪声与振动控制设备制造包括声屏障、消声器、隔声窗、动力设备隔振装置、管道隔振用软连接设备、轨道振动与噪声控制装置、吸声隔声材料、阻尼抑振材料和设备、有源噪声与振动控制设备等装备制造。",
+            "level": 3,
+            "nameEn": "Manufacturing of noise and vibration control equipment",
+            "code": "33701591928",
+            "name": "噪声与振动控制设备制造",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "环境污染处理药剂材料制造包括新型化学除磷药剂、杀菌灭藻剂、有机合成高分子絮凝剂、微生物絮凝剂等环保药剂和高性能袋式除尘滤料及纤维等制造",
+            "level": 3,
+            "nameEn": "Manufacturing of environmentally friendly pharmaceutical materials",
+            "code": "33701591929",
+            "name": "环境污染处理药剂材料制造",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "高效低毒低残留农药生产包括低毒低残留农药制造生产工艺改造升级、高毒高风险农药替代、高效低毒低残留的环境友好型农药研发生产等。",
+            "level": 3,
+            "nameEn": "High efficiency,low toxicity,low residue pesticide production",
+            "code": "33701591930",
+            "name": "高效低毒低残留农药生产",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "低（无）污染排放装备制造包括电锅炉， 电炉窑， 低氮燃烧器， 全密闭、 连续化、 自动化等低污染物排放生产装备， 低（ 无） 泄漏的泵、 压缩机、 搅拌器、 泄压阀、 过滤机、 离心机、干燥设备等装备制造。",
+            "level": 3,
+            "nameEn": "Low (no) Pollution Emission Equipment Manufacturing",
+            "code": "35411905395",
+            "name": "低（无）污染排放装备制造",
+            "parentId": "33701591788"
+          },
+          {
+            "childFlag": 1,
+            "description": "公约管控化学物质污染治理装备制造包括汞等重金属、 持久性有机污染物等治理装备制造。",
+            "level": 3,
+            "nameEn": "Convention to control chemical pollution control equipment manufacturing",
+            "code": "35411905394",
+            "name": "公约管控化学物质污染治理装备制造",
+            "parentId": "33701591788"
+          }
+        ],
+        "description": "先进环保装备和原料材料制造是指生产先进的环保装备和原料材料的制造业，包括环保设备、环保材料等。",
+        "level": 2,
+        "nameEn": "Manufacturing of advanced environmental protection equipment and raw materials",
+        "code": "33701591788",
+        "name": "先进环保装备和原料材料制造",
+        "parentId": "33701591925"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "工业脱硫脱硝除尘改造包括燃煤锅炉脱硫脱硝除尘改造、钢铁行业烧结机脱硫改造、焦炉煤气精脱硫改造、水泥行业脱硫脱硝除尘改造、玻璃行业熔窑烟气脱硫脱硝除尘改造等。",
+            "level": 3,
+            "nameEn": "Industrial desulfurization,denitrification,dust removal transformation",
+            "code": "33701591794",
+            "name": "工业脱硫脱硝除尘改造",
+            "parentId": "33701591931"
+          },
+          {
+            "childFlag": 1,
+            "description": "工业厂矿大气污染物无组织排放控制包括对工业厂矿中不经过排气筒的、开放式作业场所逸散的以及通过缝隙、通风口、敞开门窗和类似开口(孔)排放的无组织大气污染物排放等进行控制",
+            "level": 3,
+            "nameEn": "Unorganized emission control of atmospheric pollutants in industrial plants and mines",
+            "code": "33701591796",
+            "name": "工业厂矿大气污染物无组织排放控制",
+            "parentId": "33701591931"
+          },
+          {
+            "childFlag": 1,
+            "description": "餐饮油烟污染治理包括在餐饮服务经营场所安装高效油烟净化设施、油烟异味治理设施以及实施治理设施第三方运维管理、餐饮集聚区的综合治理等。",
+            "level": 3,
+            "nameEn": "Pollution control of cooking fumes",
+            "code": "33701591797",
+            "name": "餐饮油烟污染治理",
+            "parentId": "33701591931"
+          },
+          {
+            "childFlag": 1,
+            "description": "挥发性有机物综合整治包括石化、化工、工业涂装、包装印刷、油品储运销等重点行业企业和领域挥发性有机物综合整治，涂料、油墨、胶粘剂、清洗剂等含VOCs原辅材料使用企业低(无)VOCs含量原辅材料替代。",
+            "level": 3,
+            "nameEn": "Comprehensive rectification of volatile organic compounds",
+            "code": "33701591933",
+            "name": "挥发性有机物综合整治",
+            "parentId": "33701591931"
+          },
+          {
+            "childFlag": 1,
+            "description": "城市扬尘综合整治包括在建设工程施工现场设置全封闭围挡墙、物料堆放覆盖、土方开挖湿法作业、进出道路地面硬化、出入车辆清洗，渣土运输车辆采取密闭措施，采用道路机械化清扫等低尘作业方式，城市及周边建设绿化和防风防沙林等",
+            "level": 3,
+            "nameEn": "Comprehensive urban dust control",
+            "code": "33701591934",
+            "name": "城市扬尘综合整治",
+            "parentId": "33701591931"
+          },
+          {
+            "childFlag": 1,
+            "description": "大气氨排放控制包括畜禽养殖业氨气排放治理， 如圈舍、 粪污处理设施等环节氨气收集处理。",
+            "level": 3,
+            "nameEn": "Air ammonia emission control",
+            "code": "35411905396",
+            "name": "大气氨排放控制",
+            "parentId": "33701591931"
+          },
+          {
+            "childFlag": 1,
+            "description": "重点行业超低排放改造包括电力、 钢铁、 水泥、 焦化等行业及锅炉针对颗粒物、 二氧化硫、 氮氧化物、 挥发性有机物、 氨等污染物开展的有组织排放、 无组织排放、 清洁运输改造。",
+            "level": 3,
+            "nameEn": "The ultra-low emission transformation of key industries",
+            "code": "35411905397",
+            "name": "重点行业超低排放改造",
+            "parentId": "33701591931"
+          }
+        ],
+        "description": "大气污染治理是指通过采取措施，控制和治理大气污染，以改善空气质量。",
+        "level": 2,
+        "nameEn": "Air pollution control",
+        "code": "33701591931",
+        "name": "大气污染治理",
+        "parentId": "33701591925"
+      }
+    ],
+    "description": "环境保护产业是指为环境保护提供技术和设备的产业，包括水处理、大气处理、固体废物处理、噪音控制、环境监测等方面的技术和设备。",
+    "level": 1,
+    "nameEn": "Environmental protection industry",
+    "code": "33701591925",
+    "name": "环境保护产业",
+    "parentId": ""
+  }
+]

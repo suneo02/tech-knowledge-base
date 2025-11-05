@@ -1,0 +1,87 @@
+---
+description: Standards for using APIs in components and other files
+globs: **/*.{tsx,ts}
+---
+## API 调用规范
+
+1. 导入规范:
+```typescript
+// 导入 request 工具
+import { request } from '@/api/request'
+// 导入 API 路径类型
+import type { ApiPath, GetApiResponse, GetApiParams } from '@/api/types'
+```
+
+2. 类型安全的 API 调用:
+```typescript
+// ✅ 推荐写法
+const fetchData = async () => {
+  const response = await request('module/getData', {
+    params: {
+      pageIndex: 1,
+      pageSize: 10
+    }
+  })
+  // response 会自动推导出正确的类型
+}
+
+// ❌ 避免不带类型的调用
+const wrongFetch = async () => {
+  const response = await request('/some/api') // 没有类型保护
+}
+```
+
+3. 在 React 组件中使用:
+```typescript
+const ExampleComponent: React.FC = () => {
+  const [data, setData] = useState<GetApiResponse<'module/getData'>>([])
+  
+  const fetchData = async () => {
+    const response = await request('module/getData', {
+      params: {
+        pageIndex: 1,
+        pageSize: 10
+      }
+    })
+    setData(response.Data)
+  }
+  
+  useEffect(() => {
+    fetchData()
+  }, [])
+  
+  return (...)
+}
+```
+
+4. 错误处理:
+```typescript
+const fetchWithErrorHandling = async () => {
+  try {
+    const response = await request('module/getData', {
+      params: {
+        pageIndex: 1,
+        pageSize: 10
+      }
+    })
+    if (response.ErrorCode !== ErrorCodeEnum.SUCCESS) {
+      // 处理业务错误
+      return
+    }
+    // 处理成功响应
+  } catch (error) {
+    // 处理网络错误
+  }
+}
+```
+
+## 注意事项
+- API 路径必须使用字符串字面量，以确保类型推导
+- 总是使用 request 工具函数发送请求
+- 确保处理所有可能的错误情况
+- 使用 ErrorCodeEnum 进行错误码判断
+- 分页请求必须包含 pageIndex 和 pageSize 参数
+
+@file src/api/paths/index.ts
+@file src/api/types.ts
+@file src/api/request.ts

@@ -1,0 +1,288 @@
+.customer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .container {
+    width: 1280px;
+    margin: 12px auto;
+    flex: 1;
+    display: flex;
+
+    // flex-direction: column;
+    .menu {
+      width: 208px;
+      background-color: #fff;
+      height: fit-content;
+    }
+
+    .content {
+      width: 1060px;
+      margin-left: 12px;
+      background-color: #fff;
+      padding: 0 20px;
+      min-height: 720px;
+
+      .customer-title {
+        line-height: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #3a3a3a;
+      }
+
+      .customer-content {
+        margin: 20px 0;
+        line-height: 26px;
+
+        .label {
+          color: #999;
+
+          .myorder-phone2 {
+            color: #333;
+          }
+        }
+
+        .wi-secondary-color {
+          margin-left: 40px;
+          color: #00aec7;
+          cursor: pointer;
+        }
+
+        .myorder-type {
+          font-style: normal;
+          color: #dd9f10;
+          font-weight: bolder;
+          font-size: 16px;
+        }
+      }
+
+      .customer-account-content {
+        .account-card {
+          display: flex;
+          width: 900px;
+          margin: 0 auto;
+          align-items: end;
+          margin-bottom: 40px;
+          .account-card-item {
+            width: 420px;
+            height: 150px;
+            box-shadow: 0 2px 4px 3px rgb(166 166 166 / 14%);
+            display: flex;
+            border-radius: 2px;
+            cursor: pointer;
+            &:last-child {
+              margin-left: 27px;
+            }
+            img {
+              width: 70px;
+              height: 70px;
+              border-radius: 5px;
+              margin: 40px 36px;
+            }
+          }
+          .account-card-item-sel {
+            flex-wrap: wrap;
+            cursor: auto;
+            .account-item-tag {
+              position: absolute;
+              display: block;
+            }
+          }
+          .account-item-tag {
+            height: 30px;
+            width: 100%;
+            border-radius: 2px;
+            display: none;
+            span {
+              text-align: center;
+              width: 50px;
+              display: inline-block;
+              background: #00aec7;
+              color: #fff;
+              border-radius: 2px;
+            }
+          }
+          .account-label {
+            margin: auto 0;
+          }
+          .account-label-item {
+            line-height: 32px;
+            height: 32px;
+          }
+        }
+        .account-tips {
+          color: #999;
+          margin-bottom: 20px;
+        }
+        .account-go-tel,
+        .account-go-vip {
+          color: #00aec7;
+          cursor: pointer;
+          &:hover {
+            color: #77c4d4;
+          }
+        }
+        .account-go-vip {
+          position: absolute;
+          right: 40px;
+        }
+      }
+
+      .user-note-page {
+        padding: 10px;
+        position: relative;
+        font-size: 14px;
+        color: #333333;
+        line-height: 22px;
+
+        h1 {
+          font-size: 16px;
+          text-align: center;
+          margin: 10px 0 12px;
+          color: #000000;
+          font-weight: bold;
+          line-height: 24px;
+        }
+
+        h2 {
+          font-size: 18px;
+          margin: 10px 0;
+          font-weight: bold;
+        }
+
+        i {
+          font-style: normal;
+          font-weight: bold;
+        }
+
+        .lev1 {
+          font-size: 16px;
+          color: #000000;
+          line-height: 24px;
+        }
+      }
+
+      .contact-us {
+        p {
+          line-height: 32px;
+          font-size: 14px;
+          color: #666;
+        }
+
+        a {
+          color: #333;
+        }
+      }
+
+      // 订单
+      .customer-orderList-header {
+        font-size: 14px;
+        color: #999;
+        margin-bottom: 12px;
+
+        .customer-orderList-header-title {
+          margin-bottom: 12px;
+        }
+      }
+
+      .gel-vip-tick-create {
+        color: #00aec7;
+        cursor: pointer;
+      }
+    }
+  }
+
+  //成功状态
+  .color-status-success {
+    color: #40ba6e;
+  }
+
+  //失败状态
+  .color-status-error {
+    color: #fc3023;
+  }
+
+  //生成中
+  .color-status-creating {
+    display: block;
+    margin-top: -10px;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 120px;
+      height: 7px;
+      position: absolute;
+      background: url(../../assets/imgs/loading_new.gif);
+      background-size: 100%;
+    }
+  }
+}
+
+.tab-tickdetail-bottom {
+  margin-top: 12px;
+}
+
+.btn-no-agree {
+  /* position: absolute; */
+  display: block;
+  width: 206px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  background: #00aec7;
+  border-radius: 2px;
+  color: #fff;
+  text-align: center;
+  /* right: 10px; */
+  /* top: 10px; */
+  cursor: pointer;
+  margin: 14px auto 10px;
+}
+
+.account-change-modal {
+  .account-code-input {
+    display: flex;
+    margin-top: 12px;
+    .w-input {
+      margin-right: 12px;
+    }
+    .w-btn {
+      width: 109px;
+    }
+  }
+}
+
+.checkin-code-container {
+  text-align: center;
+  position: relative;
+  padding-top: 12px;
+  &.checkin-code-expired {
+    .checkin-code {
+      opacity: 0.1;
+      margin-bottom: 12px;
+    }
+  }
+
+  .checkin-tips {
+    margin: 0 auto;
+    margin-top: -190px;
+    height: 178px;
+    width: 178px;
+    padding-top: 65px;
+    background: #fff;
+    border: 1px solid #c5c5c5;
+    font-weight: 500;
+    text-align: center;
+    .w-btn {
+      display: block;
+      margin: 0 auto;
+      margin-top: 8px;
+    }
+  }
+}
+
+.checkin-tag {
+  margin-left: 12px;
+  vertical-align: text-bottom;
+}

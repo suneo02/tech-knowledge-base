@@ -1,0 +1,59 @@
+{
+  "api": "detail/company/getPatentInfo_theCompanyV3",
+  "countKey": "patent_num_bgs",
+  "downDocType": "download/createtempfile/getPatentInfo_theCompanyV3",
+  "downDocTypeName": "新的导出",
+  "key": "PatentTheCompany",
+  "title": "本公司",
+  "titleIntl": "74323",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "patentName",
+      "title": "专利名称",
+      "titleIntl": "138748",
+      "width": "27%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "patentType",
+      "title": "专利类型",
+      "titleIntl": "138430",
+      "width": "12%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "publicAnnouncementNumber",
+      "title": "公开公告号",
+      "titleIntl": "149731",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "lawStatus",
+      "title": "法律状态",
+      "titleIntl": "138372",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "publicAnnouncementDate",
+      "renderType": "date",
+      "title": "公开公告日",
+      "titleIntl": "149732",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "mainBodyInfoList",
+      "isArrayData": true,
+      "title": "归属主体公司",
+      "titleIntl": "216390",
+      "width": "17%",
+      "renderConfig": {
+        "objectKeyForArray": "patentMainBody"
+      }
+    }
+  ]
+}

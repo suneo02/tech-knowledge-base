@@ -1,0 +1,133 @@
+{
+  "api": "detail/company/getcorpbasicinfo_basic",
+  "key": "BussInfo",
+  "title": "登记信息",
+  "titleIntl": "410955",
+  "tooltipTitle": "数据来源：国家企业信用信息公示系统，部分信息根据大数据衍生计算生成",
+  "tooltipTitleIntl": "411313",
+  "type": "horizontalTable",
+  "columns": [
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "corp_name",
+        "title": "社会组织名称",
+        "titleIntl": "410940"
+      },
+      {
+        "dataIndex": "credit_code",
+        "title": "统一社会信用代码",
+        "titleIntl": "138808"
+      }
+    ],
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "eng_name",
+        "title": "英文名称",
+        "titleIntl": "35079"
+      },
+      {
+        "dataIndex": "reg_date",
+        "renderType": "date",
+        "title": "成立登记日期",
+        "titleIntl": "448303"
+      }
+    ],
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "usednames",
+        "renderType": "custom",
+        "title": "曾用名",
+        "titleIntl": "66281",
+        "renderConfig": {
+          "customRenderName": "usedNames"
+        }
+      },
+      {
+        "dataIndex": "oper_period_begin",
+        "renderType": "dateRange",
+        "title": "证书有效期",
+        "titleIntl": "448305",
+        "renderConfig": {
+          "connector": "至",
+          "emptyEndText": "无固定期限",
+          "emptyEndTextIntl": "271247",
+          "emptyStartText": "日期不明",
+          "emptyStartTextIntl": "367373",
+          "emptyText": "日期不明",
+          "emptyTextIntl": "448306",
+          "endField": "oper_period_end",
+          "startField": "oper_period_begin"
+        }
+      }
+    ],
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "corp_type",
+        "title": "社会组织类型",
+        "titleIntl": "448304"
+      },
+      {
+        "dataIndex": "state",
+        "renderType": "custom",
+        "title": "登记状态",
+        "titleIntl": "138772",
+        "renderConfig": {
+          "customRenderName": "bussStatus"
+        }
+      }
+    ],
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "legal_person_name",
+        "title": "法定代表人",
+        "titleIntl": "5529"
+      },
+      {
+        "dataIndex": "reg_authority",
+        "title": "登记管理机关",
+        "titleIntl": "448324"
+      }
+    ],
+    [
+      {
+        "dataIndex": "industryGbFold",
+        "renderType": "custom",
+        "title": "国民经济行业分类",
+        "titleIntl": "138722",
+        "renderConfig": {
+          "customRenderName": "industryGbFold"
+        }
+      },
+      {
+        "dataIndex": "reg_capital",
+        "renderType": "currency",
+        "title": "注册资金",
+        "titleIntl": "448309",
+        "renderConfig": {
+          "unitField": "reg_unit",
+          "unitPrefix": "万",
+          "unitPrefixIntl": "20116"
+        }
+      }
+    ],
+    [
+      {
+        "dataIndex": "reg_address",
+        "title": "住所",
+        "titleIntl": "448326"
+      }
+    ],
+    [
+      {
+        "dataIndex": "business_scope",
+        "title": "业务范围",
+        "titleIntl": "448307"
+      }
+    ]
+  ]
+}

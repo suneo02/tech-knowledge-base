@@ -1,0 +1,60 @@
+{
+  "api": "detail/company/getMergerInfo_v2",
+  "countKey": "merge_num",
+  "downDocTypeName": "不存在导出",
+  "key": "MergeInfo",
+  "title": "并购信息",
+  "titleIntl": "138381",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "dealPartRoleCode|formatCont",
+      "title": "并购角色",
+      "titleIntl": "138382",
+      "width": "8%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "tradeMoney",
+      "title": "交易价值(万元)",
+      "titleIntl": "138801",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "mergeTypeCode|formatCont",
+      "title": "并购方式",
+      "titleIntl": "40645",
+      "width": "21%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "purchaserPayment",
+      "title": "支付金额(万元)",
+      "titleIntl": "138653",
+      "width": "16%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "planPurchaseSharePercentage|formatPercent",
+      "title": "股权转让比例",
+      "titleIntl": "138707",
+      "width": "12%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "firstAfficheDate|formatTime",
+      "title": "首次披露日期",
+      "titleIntl": "138723",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "tradeIntroduction",
+      "title": "进展描述",
+      "titleIntl": "59999",
+      "width": "10%"
+    }
+  ]
+}
