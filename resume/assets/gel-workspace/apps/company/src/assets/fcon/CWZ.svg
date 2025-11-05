@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/查网站</title>
+    <g id="Icon/查网站" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <path d="M33,1 C34.1045695,1 35,1.8954305 35,3 L35,23 C35,24.1045695 34.1045695,25 33,25 L3,25 C1.8954305,25 1,24.1045695 1,23 L1,3 C1,1.8954305 1.8954305,1 3,1 L33,1 Z M32,4 L4,4 L4,22 L32,22 L32,4 Z" id="形状结合" fill="#666666"></path>
+        <rect id="矩形" fill="#0596B3" transform="translate(11.2426, 14.8891) rotate(-45) translate(-11.2426, -14.8891)" x="9.74264069" y="10.8890873" width="3" height="8"></rect>
+        <rect id="矩形" fill="#0596B3" transform="translate(11.2426, 11.3291) scale(1, -1) rotate(-45) translate(-11.2426, -11.3291)" x="9.74264069" y="7.3290873" width="3" height="8"></rect>
+        <rect id="矩形" fill="#0596B3" transform="translate(24.8891, 14.8891) scale(-1, 1) rotate(-45) translate(-24.8891, -14.8891)" x="23.3890873" y="10.8890873" width="3" height="8"></rect>
+        <rect id="矩形" fill="#0596B3" transform="translate(24.8891, 11.3291) scale(-1, -1) rotate(-45) translate(-24.8891, -11.3291)" x="23.3890873" y="7.3290873" width="3" height="8"></rect>
+        <rect id="矩形" fill="#666666" x="16.5" y="25" width="3" height="7"></rect>
+        <rect id="矩形" fill="#666666" x="9" y="32" width="18" height="3"></rect>
+    </g>
+</svg>

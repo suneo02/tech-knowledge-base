@@ -1,0 +1,38 @@
+.markdown-table-container {
+  margin: 16px 0;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  .table-row-light {
+    background-color: #ffffff;
+  }
+
+  .table-row-dark {
+    background-color: #fafafa;
+  }
+
+  .ant-table-wrapper {
+    .ant-table {
+      &-thead {
+        > tr > th {
+          background-color: #f5f5f5;
+          font-weight: 600;
+        }
+      }
+
+      &-tbody {
+        > tr:hover {
+          > td {
+            background-color: #e6f7ff !important;
+          }
+        }
+      }
+    }
+
+    .ant-pagination {
+      margin: 16px 0 0;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/榜单名录</title>
+    <g id="Icon/榜单名录" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <path d="M31,10 L28,10 L28,4 L4,4 L4,32 L16,32 L16,35 L1,35 L1,1 L31,1 L31,10 Z" id="形状结合" fill="#666666"></path>
+        <rect id="矩形" fill="#666666" x="7" y="8" width="13" height="3"></rect>
+        <rect id="矩形" fill="#666666" x="7" y="14" width="9" height="3"></rect>
+        <rect id="矩形" fill="#666666" x="7" y="20" width="9" height="3"></rect>
+        <path d="M26.5,12 C29.8137084,12 32.5,14.6862916 32.5,18 C32.5,21.3137084 29.8137084,24 26.5,24 C23.1862916,24 20.5,21.3137084 20.5,18 C20.5,14.6862916 23.1862916,12 26.5,12 Z M26.5,15 C24.8431458,15 23.5,16.3431458 23.5,18 C23.5,19.6568542 24.8431458,21 26.5,21 C28.1568542,21 29.5,19.6568542 29.5,18 C29.5,16.3431458 28.1568542,15 26.5,15 Z" id="形状结合" fill="#0596B3" fill-rule="nonzero"></path>
+        <path d="M35,27 L35,35 L18,35 L18,27 L35,27 Z M32,30 L21,30 L21,32 L32,32 L32,30 Z" id="形状结合" fill="#0596B3" fill-rule="nonzero"></path>
+        <path d="M26.5,23.5 L26.5,26.5 C25.0961689,26.4001988 22.7531647,25.7920358 21.5,25.5 L21.5,22.5 C22.7378733,22.7962911 25.0823832,23.3986168 26.5,23.5 Z" id="形状结合" fill="#0596B3" fill-rule="nonzero" transform="translate(24, 24.5) rotate(-90) translate(-24, -24.5)"></path>
+        <path d="M31.5,23.5 L31.5,26.5 C30.0961689,26.4001988 27.7531647,25.7920358 26.5,25.5 L26.5,22.5 C27.7378733,22.7962911 30.0823832,23.3986168 31.5,23.5 Z" id="形状结合" fill="#0596B3" fill-rule="nonzero" transform="translate(29, 24.5) scale(-1, 1) rotate(-90) translate(-29, -24.5)"></path>
+    </g>
+</svg>

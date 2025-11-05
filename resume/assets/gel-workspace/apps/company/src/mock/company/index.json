@@ -1,0 +1,457 @@
+[
+  {
+    "titleId": "451255",
+    "title": "经营信息",
+    "children": [
+      {
+        "title": "招投标",
+        "titleId": "142026",
+        "layout": "vertical",
+        "children": [
+          {
+            "title": "招标公告",
+            "titleId": "257704",
+            "layout": "tabs",
+            "display": true,
+            "columnsForChild": [
+              {
+                "dataIndex": "title",
+                "titleId": "90845",
+                "title": "公告标题",
+                "width": "34%",
+                "links": {
+                  "module": 19,
+                  "id": "detail_id"
+                }
+              },
+              {
+                "dataIndex": "latest_announcement_time",
+                "titleId": "257654",
+                "title": "公告日期",
+                "type": 7,
+                "align": "center",
+                "width": 120
+              },
+              {
+                "dataIndex": "bidding_type_name",
+                "titleId": "6196",
+                "title": "公告类型",
+                "width": "12%"
+              },
+              {
+                "dataIndex": "latest_project_stage",
+                "titleId": "260013",
+                "title": "项目最新状态",
+                "width": "20%"
+              },
+              {
+                "dataIndex": "product_name",
+                "title": "招标产品",
+                "customId": "bidProduct",
+                "width": "20%"
+              },
+              {
+                "dataIndex": "project_budget_money",
+                "titleId": "261808",
+                "title": "预算金额",
+                "type": 20,
+                "width": "12%"
+              }
+            ],
+            "searchOptionsForChild": [
+              {
+                "type": "search",
+                "key": "keyword",
+                "placeholder": "请输入公告标题"
+              },
+              {
+                "default": "全部公告类型",
+                "key": "type",
+                "type": "select",
+                "aggsKey": "aggs_bid_type",
+                "aggsParams": {
+                  "label": "key",
+                  "value": "key",
+                  "count": "doc_count"
+                },
+                "width": 120
+              },
+              {
+                "key": "productName",
+                "customId": "bidProductWord",
+                "aggsKey": "aggs_product_name",
+                "aggsParams": {
+                  "label": "key",
+                  "value": "key",
+                  "count": "doc_count"
+                }
+              }
+            ],
+            "children": [
+              {
+                "display": true,
+                "title": "本公司",
+                "titleId": "74323",
+                "api": "detail/company/bidSearchCompany",
+                "countKey": "bid_num_bgs",
+                "downDocTypeApi": "bidSearchCompany",
+                "type": "table",
+                "showIndex": true
+              },
+              {
+                "display": true,
+                "title": "分支机构",
+                "titleId": "204320",
+                "downDocTypeApi": "bidSearchBranch",
+                "api": "detail/company/bidSearchBranch",
+                "countKey": "bid_num_fzjg",
+                "type": "table",
+                "showIndex": true
+              },
+              {
+                "display": true,
+                "title": "控股企业",
+                "titleId": "260329",
+                "api": "detail/company/bidSearchHold",
+                "countKey": "bid_num_kgqy",
+                "downDocTypeApi": "bidSearchHold",
+                "type": "table",
+                "showIndex": true
+              },
+              {
+                "display": true,
+                "title": "对外投资",
+                "titleId": "258836",
+                "api": "detail/company/bidSearchInvest",
+                "countKey": "bid_num_dwtz",
+                "downDocTypeApi": "bidSearchInvest",
+                "type": "table",
+                "showIndex": true
+              }
+            ]
+          },
+          {
+            "title": "投标公告",
+            "titleId": "324714",
+            "layout": "tabs",
+            "display": true,
+            "columnsForChild": [
+              {
+                "dataIndex": "title",
+                "titleId": "90845",
+                "title": "公告标题",
+                "width": "34%",
+                "links": {
+                  "module": 19,
+                  "id": "detail_id"
+                }
+              },
+              {
+                "dataIndex": "latest_announcement_time",
+                "titleId": "257654",
+                "title": "公告日期",
+                "type": 7,
+                "align": "center",
+                "width": 120
+              },
+              {
+                "dataIndex": "bidding_type_name",
+                "titleId": "6196",
+                "title": "公告类型",
+                "width": "12%"
+              },
+              {
+                "dataIndex": "purchasing_unit",
+                "title": "采购单位",
+                "customId": "CorpLinkArrStr",
+                "width": "20%"
+              },
+              {
+                "dataIndex": "product_name",
+                "title": "投标产品",
+                "customId": "bidProduct",
+                "width": "20%"
+              },
+              {
+                "dataIndex": "project_budget_money",
+                "title": "中标金额",
+                "type": 20,
+                "width": "12%"
+              }
+            ],
+            "searchOptionsForChild": [
+              {
+                "type": "search",
+                "key": "keyword",
+                "placeholder": "请输入公告标题"
+              },
+              {
+                "default": "全部公告类型",
+                "key": "type",
+                "type": "select",
+                "aggsKey": "aggs_bid_type",
+                "aggsParams": {
+                  "label": "key",
+                  "value": "key",
+                  "count": "doc_count"
+                },
+                "width": 120
+              },
+              {
+                "key": "productName",
+                "customId": "bidProductWord",
+                "aggsKey": "aggs_product_name",
+                "aggsParams": {
+                  "label": "key",
+                  "value": "key",
+                  "count": "doc_count"
+                }
+              }
+            ],
+            "children": [
+              {
+                "display": true,
+                "title": "本公司",
+                "titleId": "74323",
+                "api": "detail/company/tenderSearchCompany",
+                "countKey": "tid_num_bgs",
+                "downDocTypeApi": "tenderSearchCompany",
+                "type": "table",
+                "showIndex": true,
+                "searchOptions": [
+                  {
+                    "customId": "bidCompanySelf",
+                    "key": "isBidWinner",
+                    "aggsKey": "aggs_bid_win",
+                    "aggsParams": {
+                      "label": "key",
+                      "value": "key",
+                      "count": "doc_count"
+                    }
+                  }
+                ]
+              },
+              {
+                "display": true,
+                "title": "分支机构",
+                "titleId": "204320",
+                "api": "detail/company/tenderSearchBranch",
+                "countKey": "tid_num_fzjg",
+                "downDocTypeApi": "tenderSearchBranch",
+                "type": "table",
+                "showIndex": true
+              },
+              {
+                "display": true,
+                "title": "控股企业",
+                "titleId": "260329",
+                "api": "detail/company/tenderSearchHold",
+                "countKey": "tid_num_kgqy",
+                "downDocTypeApi": "tenderSearchHold",
+                "type": "table"
+              },
+              {
+                "display": true,
+                "title": "对外投资",
+                "titleId": "258836",
+                "api": "detail/company/tenderSearchInvest",
+                "downDocTypeApi": "tenderSearchInvest",
+                "countKey": "tid_num_dwtz",
+                "type": "table",
+                "showIndex": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titleId": "120665",
+    "title": "知识产权",
+    "children": [
+      {
+        "display": true,
+        "component": {
+          "customId": "corpTechScore",
+          "title": "科创分"
+        }
+      },
+      {
+        "title": "专利",
+        "titleId": "138749",
+        "layout": "vertical",
+        "children": [
+          {
+            "display": true,
+            "layout": "tabs",
+            "api": "detail/company/patentStatisticalChart",
+            "children": [
+              {
+                "title": "专利类型分布",
+                "listKey": "agg_patentType",
+                "width": "50%",
+                "type": "chart",
+                "display": true,
+                "chartOptions": {
+                  "type": "pie",
+                  "shape": "ring",
+                  "hideLegend": true
+                }
+              },
+              {
+                "title": "专利状态分布",
+                "listKey": "agg_lawStatusCode",
+                "width": "50%",
+                "type": "chart",
+                "display": true,
+                "chartOptions": {
+                  "type": "pie",
+                  "shape": "ring",
+                  "hideLegend": true
+                }
+              }
+            ]
+          },
+          {
+            "title": "专利",
+            "titleId": "138749",
+            "layout": "tabs",
+            "display": true,
+            "columnsForChild": [
+              {
+                "dataIndex": "patentName",
+                "titleId": "138748",
+                "title": "专利名称",
+                "width": "27%",
+                "links": {
+                  "module": 21,
+                  "id": "dataId",
+                  "typeKey": "patentType"
+                }
+              },
+              {
+                "dataIndex": "patentType",
+                "titleId": "138430",
+                "title": "专利类型",
+                "width": "12%"
+              },
+              {
+                "dataIndex": "publicAnnouncementNumber",
+                "titleId": "149731",
+                "title": "公开公告号",
+                "width": "14%"
+              },
+              {
+                "dataIndex": "lawStatus",
+                "titleId": "138372",
+                "title": "法律状态",
+                "width": "14%",
+                "customId": "patentLawStatus"
+              },
+              {
+                "dataIndex": "publicAnnouncementDate",
+                "titleId": "149732",
+                "title": "公开公告日",
+                "type": 7,
+                "width": "14%"
+              },
+              {
+                "dataIndex": "mainBodyInfoList",
+                "titleId": "216390",
+                "title": "归属主体公司",
+                "width": "17%",
+                "isArray": true,
+                "links": {
+                  "module": 1,
+                  "id": "patentMainBodyId",
+                  "titleKey": "patentMainBody"
+                }
+              }
+            ],
+            "searchOptionsForChild": [
+              {
+                "type": "select",
+                "key": "patentType",
+                "default": "全部专利类型",
+                "aggsKey": "agg_patentType",
+                "aggsParams": {
+                  "label": "key",
+                  "value": "key",
+                  "count": "doc_count"
+                },
+                "width": 120
+              },
+              {
+                "type": "select",
+                "key": "lawStatusCode",
+                "default": "全部法律状态",
+                "aggsKey": "agg_lawStatusCode",
+                "aggsParams": {
+                  "label": "key",
+                  "value": "value",
+                  "count": "doc_count"
+                },
+                "width": 120
+              },
+              {
+                "type": "select",
+                "key": "publicAnnouncementDateRange",
+                "default": "全部公开公告日期",
+                "aggsKey": "agg_publicAnnouncementDate",
+                "aggsParams": {
+                  "label": "key_as_string",
+                  "value": "key",
+                  "count": "doc_count"
+                },
+                "width": 140
+              }
+            ],
+            "children": [
+              {
+                "display": true,
+                "title": "本公司",
+                "titleId": "74323",
+                "api": "detail/company/getPatentInfo_theCompanyV3",
+                "countKey": "patent_num_bgs",
+                "downDocTypeApi": "getPatentInfo_theCompanyV3",
+                "type": "table",
+                "showIndex": true
+              },
+              {
+                "display": true,
+                "title": "分支机构",
+                "titleId": "204320",
+                "api": "detail/company/getPatentInfo_branchV3",
+                "countKey": "patent_num_fzjg",
+                "downDocTypeApi": "getPatentInfo_branchV3",
+                "type": "table",
+                "showIndex": true
+              },
+              {
+                "display": true,
+                "title": "控股企业",
+                "titleId": "260329",
+                "api": "detail/company/getPatentInfo_holdCompanyV3",
+                "countKey": "patent_num_kgqy",
+                "downDocTypeApi": "getPatentInfo_holdCompanyV3",
+                "type": "table",
+                "showIndex": true
+              },
+              {
+                "display": true,
+                "title": "对外投资",
+                "titleId": "258836",
+                "api": "detail/company/getPatentInfo_outboundInvestmentV3",
+                "countKey": "patent_num_dwtz",
+                "downDocTypeApi": "getPatentInfo_outboundInvestmentV3",
+                "type": "table",
+                "showIndex": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,99 @@
+{
+  "api": "detail/company/getcorpbasicinfo_basic",
+  "key": "BussInfo",
+  "title": "基本信息",
+  "titleIntl": "205468",
+  "tooltipTitle": "数据来源：国家企业信用信息公示系统，部分信息根据大数据衍生计算生成",
+  "tooltipTitleIntl": "411313",
+  "type": "horizontalTable",
+  "columns": [
+    [
+      {
+        "colSpan": 5,
+        "dataIndex": "corp_name",
+        "title": "企业名称",
+        "titleIntl": "138677"
+      }
+    ],
+    [
+      {
+        "dataIndex": "anotherNames",
+        "renderType": "custom",
+        "title": "别名",
+        "titleIntl": "334033",
+        "renderConfig": {
+          "customRenderName": "overseasAlias"
+        }
+      }
+    ],
+    [
+      {
+        "colSpan": 2,
+        "dataIndex": "corp_type",
+        "title": "公司类型",
+        "titleIntl": "138681"
+      },
+      {
+        "colSpan": 2,
+        "dataIndex": "state",
+        "title": "状态",
+        "titleIntl": "32098"
+      }
+    ],
+    [
+      {
+        "colSpan": 2,
+        "dataIndex": "province",
+        "title": "国家/地区",
+        "titleIntl": "6886"
+      },
+      {
+        "colSpan": 2,
+        "dataIndex": "biz_reg_no",
+        "title": "公司编号",
+        "titleIntl": "6228"
+      }
+    ],
+    [
+      {
+        "dataIndex": "reg_date",
+        "renderType": "date",
+        "title": "成立日期",
+        "titleIntl": "2823"
+      },
+      {
+        "dataIndex": "cancel_date",
+        "renderType": "date",
+        "title": "关闭/解散日期",
+        "titleIntl": "448330"
+      }
+    ],
+    [
+      {
+        "colSpan": 5,
+        "dataIndex": "overseasCorpIndustryList",
+        "renderType": "custom",
+        "title": "经营范围（SIC）",
+        "titleIntl": "448331",
+        "renderConfig": {
+          "customRenderName": "overseasBusinessScope"
+        }
+      }
+    ],
+    [
+      {
+        "dataIndex": "reg_address",
+        "title": "注册地址",
+        "titleIntl": "35776"
+      }
+    ],
+    [
+      {
+        "colSpan": 5,
+        "dataIndex": "brief",
+        "title": "公司介绍",
+        "titleIntl": "419632"
+      }
+    ]
+  ]
+}

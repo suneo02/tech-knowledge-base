@@ -1,0 +1,533 @@
+[
+  {
+    "type": "company",
+    "title": "企业信息",
+    "links": {
+      "card": {
+        "hash": "/baifen/company-detail",
+        "id": "companyCode",
+        "idKey": "corp_id"
+      },
+      "left": {
+        "text": "查看全部结果",
+        "hash": "/baifen/super-search/result",
+        "isBaifen": true,
+        "access": "svip"
+      }
+    },
+    "wxColumns": [
+      {
+        "direction": "row",
+        "justify": "start",
+        "gap": "24rpx",
+        "marginBottom": "16rpx",
+        "children": [
+          {
+            "dataIndex": "logo",
+            "titleId": "",
+            "title": "头像",
+            "type": "image",
+            "imageSuffix": 6288,
+            "txtLogoIndex": "corp_name",
+            "idLogoIndex": "corp_id"
+          },
+          {
+            "direction": "column",
+            "justify": "center",
+            "gap": "12rpx",
+            "children": [
+              {
+                "dataIndex": "corp_name",
+                "titleId": "",
+                "title": "公司名称",
+                "css": "col-title",
+                "isTitle": true
+              },
+              {
+                "direction": "row",
+                "justify": "start",
+                "gap": "12rpx",
+                "children": [
+                  {
+                    "dataIndex": "status_after",
+                    "titleId": "",
+                    "title": "企业状态",
+                    "type": "tag",
+                    "tagType": "statusTag"
+                  },
+                  {
+                    "dataIndex": "listedTag",
+                    "titleId": "",
+                    "title": "上市企业",
+                    "type": "tag",
+                    "isStatic": true,
+                    "tagType": "listedIssuingTag"
+                  },
+                  {
+                    "dataIndex": "issuingTag",
+                    "titleId": "",
+                    "title": "发债企业",
+                    "type": "tag",
+                    "isStatic": true,
+                    "tagType": "listedIssuingTag"
+                  },
+                  {
+                    "dataIndex": "qualityTag",
+                    "titleId": "",
+                    "title": "企业性质",
+                    "type": "tag",
+                    "tagType": "qualityTag"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dataIndex": "artificial_person_name",
+        "titleId": "",
+        "title": "法人",
+        "showLabel": true
+      },
+      {
+        "dataIndex": "registerCapital|formatAmountWithMillion",
+        "formatParams": ["capital_unit"],
+        "titleId": "",
+        "title": "注册资本",
+        "showLabel": true
+      },
+      {
+        "dataIndex": "register_address",
+        "titleId": "",
+        "title": "地址",
+        "showLabel": true
+      }
+    ]
+  },
+  {
+    "type": "trademark",
+    "title": "商标",
+    "links": {
+      "card": {
+        "hash": "/intellectual/brand/brand",
+        "id": "detailId",
+        "idKey": "detailId"
+      },
+      "left": {
+        "text": "查看全部结果",
+        "hash": "/common/company/row",
+        "params": {
+          "pageId": "brand"
+        }
+      }
+    },
+    "wxColumns": [
+      {
+        "direction": "row",
+        "justify": "start",
+        "gap": "24rpx",
+        "marginBottom": "16rpx",
+        "children": [
+          {
+            "dataIndex": "trademarkImage",
+            "titleId": "",
+            "title": "头像",
+            "type": "image",
+            "imageSuffix": 6710
+          },
+          {
+            "direction": "column",
+            "justify": "center",
+            "gap": "12rpx",
+            "children": [
+              {
+                "dataIndex": "trademarkName",
+                "titleId": "",
+                "title": "商标名称",
+                "css": "col-title",
+                "isTitle": true
+              },
+              {
+                "direction": "row",
+                "justify": "start",
+                "gap": "12rpx",
+                "children": [
+                  {
+                    "dataIndex": "trademarkStatus",
+                    "titleId": "",
+                    "title": "企业状态",
+                    "type": "tag",
+                    "tagType": "blue"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dataIndex": "applicationDate|formatTime",
+        "titleId": "",
+        "title": "申请时间",
+        "showLabel": true
+      },
+      {
+        "dataIndex": "internationalClassification",
+        "titleId": "",
+        "title": "商标类型",
+        "showLabel": true
+      }
+    ]
+  },
+  {
+    "type": "bid",
+    "title": "招投标信息",
+    "links": {
+      "card": {
+        "hash": "/v3/biddingDetail",
+        "id": "data",
+        "idKey": "detail_id"
+      },
+      "left": {
+        "text": "查看全部结果",
+        "hash": "/companyDetail/bidList"
+      }
+    },
+    "wxColumns": [
+      {
+        "dataIndex": "title",
+        "title": "项目名称",
+        "isTitle": true
+      },
+      {
+        "direction": "row",
+        "justify": "start",
+        "gap": "16rpx",
+        "children": [
+          {
+            "dataIndex": "bidding_type_name|formatBiddingType",
+            "title": "项目状态",
+            "type": "tag",
+            "tagType": "blue"
+          },
+          {
+            "dataIndex": "purchasing_unit_region",
+            "title": "地址",
+            "type": "tag",
+            "tagType": "gray"
+          }
+        ]
+      },
+      {
+        "dataIndex": "latest_announcement_time|formatTime",
+        "title": "发布日期",
+        "showLabel": true
+      },
+      {
+        "dataIndex": "purchasing_unit|formatNameorId",
+        "title": "采购单位",
+        "showLabel": true
+      },
+      {
+        "dataIndex": "price",
+        "title": "招标预算",
+        "showLabel": true
+      }
+    ]
+  },
+  {
+    "type": "job",
+    "title": "招聘信息",
+    "links": {
+      "card": {
+        "hash": "/common/company/detail",
+        "id": "detailId",
+        "idKey": "referenceId",
+        "params": {
+          "pageId": "recruitt"
+        }
+      },
+      "left": {
+        "text": "查看全部结果",
+        "hash": "/common/company/row",
+        "params": {
+          "pageId": "recruitt"
+        }
+      }
+    },
+    "wxColumns": [
+      {
+        "dataIndex": "job",
+        "title": "职位名称",
+        "isTitle": true
+      },
+      {
+        "dataIndex": "releaseTime|formatTime",
+        "title": "发布日期",
+        "showLabel": true
+      },
+      {
+        "dataIndex": "city",
+        "title": "工作地点",
+        "showLabel": true
+      },
+      {
+        "dataIndex": "experience",
+        "title": "经验要求",
+        "showLabel": true
+      }
+    ]
+  },
+  {
+    "type": "character",
+    "title": "人物信息",
+    "links": {
+      "card": {
+        "hash": "/person",
+        "id": "id",
+        "idKey": "personId"
+      },
+      "left": {
+        "text": "查看全部结果",
+        "hash": "/companyDetail"
+      }
+    },
+    "wxColumns": [
+      {
+        "direction": "row",
+        "justify": "start",
+        "gap": "16rpx",
+        "children": [
+          {
+            "dataIndex": "personImage|addWsidForImg",
+            "title": "头像",
+            "type": "image",
+            "txtLogoIndex": "personName",
+            "idLogoIndex": "personId"
+          },
+          {
+            "direction": "column",
+            "justify": "start",
+            "gap": "0",
+            "children": [
+              {
+                "dataIndex": "personName",
+                "title": "姓名",
+                "isTitle": true
+              },
+              {
+                "dataIndex": ["personTitle", "jobTitle"],
+                "title": "角色"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "标准信息",
+    "titleId": "326113",
+    "api": "/detail/company/getstandardinfo",
+    "countKey": "standardInfo",
+    "type": "standard",
+    "links": {
+      "card": {
+        "hash": "/companyDetail/standardDetail",
+        "id": "standardLevelCode"
+      },
+      "left": {
+        "text": "查看全部结果",
+        "hash": "/companyDetail/standardInfo"
+      }
+    },
+    "columns": [
+      {
+        "dataIndex": "standardName",
+        "titleId": "326133",
+        "title": "标准名称",
+        "isTitle": true
+      },
+      {
+        "dataIndex": "standardNo",
+        "titleId": "326134",
+        "title": "标准号"
+      },
+      {
+        "dataIndex": "standardLevel",
+        "titleId": "326135",
+        "title": "标准级别"
+      },
+      {
+        "dataIndex": "standardStatus",
+        "titleId": "326114",
+        "title": "标准状态"
+      },
+      {
+        "dataIndex": "standardNature",
+        "titleId": "326115",
+        "title": "标准性质"
+      },
+      {
+        "dataIndex": "releaseDate|formatTime",
+        "titleId": "138908",
+        "title": "发布日期",
+        "align": "center",
+        "width": "120px"
+      }
+    ],
+    "wxColumns": [
+      {
+        "dataIndex": "standardName",
+        "titleId": "326133",
+        "title": "标准名称",
+        "fontWeight": "bold",
+        "isTitle": true
+      },
+      {
+        "showLabel": true,
+        "dataIndex": "releaseDate|formatTime",
+        "titleId": "138908",
+        "title": "发布日期",
+        "align": "center"
+      },
+      {
+        "dataIndex": "standardLevel",
+        "titleId": "326135",
+        "title": "标准级别",
+        "showLabel": true
+      }
+    ],
+    "filters": [
+      {
+        "api": "category",
+        "searchKey": "aggs_category"
+      },
+      {
+        "api": "status",
+        "searchKey": "aggs_status"
+      }
+    ],
+    "hiddenTitle": true
+  },
+  {
+    "title": "专利",
+    "type": "patent",
+    "titleId": "",
+    "api": "detail/company/getPatentInfo_theCompany",
+    "countKey": "patent_num_bgs",
+    "downDocType": "patent_theCompany",
+    "links": {
+      "card": {
+        "hash": "/intellectual/patent/patent",
+        "id": "detailId",
+        "idKey": "dataId",
+        "params": {
+          "pageId": "patent"
+        }
+      },
+      "left": {
+        "text": "查看全部结果",
+        "hash": "/common/company/row",
+        "params": {
+          "pageId": "patent"
+        }
+      }
+    },
+    "wxColumns": [
+      {
+        "dataIndex": "patentName",
+        "titleId": "138748",
+        "title": "专利名称",
+        "isTitle": true
+      },
+      {
+        "dataIndex": "lawStatus",
+        "titleId": "138372",
+        "title": "法律状态",
+        "type": "tag"
+      },
+      {
+        "dataIndex": "publicAnnouncementDate|formatTime",
+        "titleId": "149732",
+        "title": "公开公告日",
+        "align": "center",
+        "width": "120px",
+        "showLabel": true
+      },
+      {
+        "dataIndex": "patentType",
+        "titleId": "149731",
+        "title": "专利类型",
+        "showLabel": true
+      }
+    ]
+  },
+  {
+    "title": "集团系",
+    "titleId": "148622",
+    "countKey": "group_membercorp_num",
+    "type": "group",
+    "links": {
+      "card": {
+        "hash": "/companyDetail/groupSystemDetail",
+        "id": "groupSystemId",
+        "idKey": "groupId"
+      },
+      "left": {
+        "text": "查看全部结果",
+        "hash": "/companyDetail/groupSystem",
+        "showOnlyOne": true
+      }
+    },
+    "wxColumns": [
+      {
+        "direction": "row",
+        "justify": "start",
+        "children": [
+          {
+            "dataIndex": "groupLogUrl",
+            "titleId": "",
+            "title": "头像",
+            "type": "image"
+          },
+          {
+            "direction": "column",
+            "justify": "center",
+            "gap": "20rpx",
+            "children": [
+              {
+                "dataIndex": "groupSystemName",
+                "titleId": "216389",
+                "title": "归属集团系",
+                "linksAllInOne": {
+                  "key": "groupSystemId",
+                  "mode": "group"
+                }
+              },
+              {
+                "dataIndex": "coreMainCompanyTagList",
+                "titleId": "",
+                "title": "核心主体公司",
+                "type": "tag"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dataIndex": "coreMainCompanyName",
+        "titleId": "",
+        "title": "核心主体公司",
+        "showLabel": true
+      },
+      {
+        "dataIndex": "groupCompanyNum",
+        "titleId": "",
+        "title": "集团企业数量",
+        "showLabel": true
+      }
+    ]
+  }
+]

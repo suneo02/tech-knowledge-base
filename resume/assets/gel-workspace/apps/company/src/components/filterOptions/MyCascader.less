@@ -1,0 +1,64 @@
+@import '../../app.less';
+
+.filter-item {
+  position: relative;
+}
+
+// .ant-cascader-dropdown {
+//   width: calc(100% - 20px);
+//   box-shadow: none;
+//   border: 1px solid #d9d9d9;
+//   left: 0 !important;
+//   // top: 35px !important;
+// }
+
+.ant-cascader-menus {
+  height: 100%;
+
+  .ant-cascader-menu {
+    // flex: 1;
+    height: 100%;
+    max-height: 460px;
+  }
+}
+.cityOrIndustry {
+  .ant-cascader-menus .ant-cascader-menu {
+    flex: 1;
+  }
+}
+
+// // 暂不显示三级四级行业分类
+// .industry_gb {
+//   .ant-cascader-menu:nth-child(3),
+//   .ant-cascader-menu:nth-child(4) {
+//     display: none;
+//   }
+
+//   .ant-cascader-menu:nth-child(2) .ant-cascader-menu-item-expand-icon {
+//     display: none;
+//   }
+// }
+
+.ant-cascader-dropdown.hasLogic {
+  width: calc(100% - 832px);
+}
+
+.ant-cascader-menu-item {
+  flex-wrap: unset;
+  white-space: unset;
+  text-overflow: unset;
+  align-items: unset;
+
+  .ant-cascader-checkbox {
+    top: 3px;
+  }
+}
+
+// .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled),
+// .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover {
+//   background: #f2f2f2;
+
+//   .ant-cascader-menu-item-expand-icon {
+//     color: @g-primary-color;
+//   }
+// }

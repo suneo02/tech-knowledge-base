@@ -1,0 +1,117 @@
+@import '@/styles/variables.less';
+@content-width: 1120px;
+
+.home {
+  &-logo-section {
+    max-width: @content-width;
+  }
+}
+.home-content {
+  height: 100%;
+  position: relative;
+  &-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    > div {
+      > div {
+        margin-block-end: 80px;
+      }
+    }
+  }
+  &-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+  }
+  &-center {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: @content-width;
+    min-width: 320px;
+
+    height: 260px;
+
+    > *:not(:last-child) {
+      margin-right: 20px;
+    }
+    .recommend-question {
+      flex: 1;
+    }
+  }
+}
+
+.chat-sender {
+  width: 100%;
+  max-width: @content-width;
+  min-width: 320px;
+  margin-bottom: 140px;
+
+  textarea {
+    min-height: 60px !important;
+  }
+  // 发送框样式
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+
+  color: @primary;
+  transition: none;
+  border-color: transparent !important;
+  background-color: #f3f5f7;
+
+  box-sizing: border-box;
+
+  &:focus-within,
+  &:hover {
+    background-color: #f3f5f7;
+    box-shadow: @shadow-normal;
+  }
+
+  :global {
+    .ant-sender-content {
+      // 容器底部渐变蓝
+      &::after {
+        content: '';
+        -webkit-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s;
+        display: block;
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 4px;
+        background-image: -webkit-gradient(
+          linear,
+          left top,
+          right top,
+          from(#3862ed),
+          color-stop(11%, #274cda),
+          color-stop(47%, #00aec7),
+          color-stop(62%, #17d9cb),
+          color-stop(94%, #b388e8)
+        );
+        background-image: -webkit-linear-gradient(left, #3862ed, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
+        background-image: -o-linear-gradient(left, #3862ed 0, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
+        background-image: linear-gradient(90deg, #3862ed, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: bottom;
+      }
+      &:focus-within {
+        background-color: #f3f5f7;
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.quick-btn-group {
+  margin-bottom: 100px;
+}

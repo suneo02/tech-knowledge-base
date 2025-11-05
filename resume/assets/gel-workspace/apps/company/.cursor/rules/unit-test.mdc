@@ -1,0 +1,6 @@
+---
+description: unit test
+globs: **/*.{ts,tsx}
+---
+每次添加新的组件或工具方法时，必须使用 React Jest 编写相应的单元测试。
+测试文件应放在与组件或工具方法对应的 __tests__ 文件夹下。

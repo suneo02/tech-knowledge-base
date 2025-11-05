@@ -1,0 +1,29 @@
+@company-report-style-prefix: company-report;
+.related-report-export {
+  .@{company-report-style-prefix}--btn-group {
+    flex-wrap: wrap;
+    gap: 2px !important;
+
+
+    .w-radio-wrapper {
+      font-size: 12px;
+      margin: 0;
+    }
+  }
+
+  .@{company-report-style-prefix}--item--title {
+    flex-wrap: nowrap;
+    text-wrap: nowrap;
+    &:after {
+      margin-left: 0;
+    }
+  }
+
+  &--footer-btns {
+    & > *:not(:last-child) {
+      margin-right: 16px;
+    }
+
+  }
+
+}

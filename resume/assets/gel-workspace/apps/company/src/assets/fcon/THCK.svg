@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>Icon/他行存客 Color</title>
+    <g id="Icon/他行存客-Color" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <rect id="矩形" fill="white" x="8.5" y="25" width="5" height="5"></rect>
+        <rect id="矩形" fill="white" x="15.5" y="25" width="5" height="5"></rect>
+        <rect id="矩形" fill="white" x="22.5" y="25" width="5" height="5"></rect>
+        <rect id="矩形" fill="white" x="8.5" y="18" width="5" height="5"></rect>
+        <rect id="矩形" fill="white" x="15.5" y="18" width="5" height="5"></rect>
+        <polygon id="路径-3" fill="white" fill-rule="nonzero" points="18 1.12096025 18.9013612 1.7985808 34.9013612 13.8269759 33.0986388 16.2249317 18 4.87355868 2.90136122 16.2249317 1.09863878 13.8269759 17.0986388 1.7985808"></polygon>
+        <polygon id="路径-4" fill="white" fill-rule="nonzero" points="6.5 13 6.5 32 29.5 32 29.5 13 32.5 13 32.5 35 3.5 35 3.5 13"></polygon>
+    </g>
+</svg>

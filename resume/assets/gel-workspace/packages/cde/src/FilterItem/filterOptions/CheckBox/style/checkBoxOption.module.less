@@ -1,0 +1,19 @@
+@import 'gel-ui/variables.less';
+@import '@/style/mixins.less';
+
+.box {
+  display: flex;
+}
+
+.check-label {
+  display: inline-flex;
+  align-items: center;
+  color: rgb(102, 102, 102);
+  > *:not(:last-child) {
+    margin-right: 6px;
+  }
+}
+
+.checkbox-group-normal {
+  .flex-grid-layout(5, 12px); // 使用全局混合函数
+}

@@ -1,0 +1,25 @@
+{
+  "api": "detail/company/getliquidation",
+  "countKey": "liquidation_num",
+  "downDocTypeName": "不存在导出",
+  "key": "LiquidationInfo",
+  "title": "清算信息",
+  "titleIntl": "145873",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "director",
+      "title": "清算组负责人",
+      "titleIntl": "145874",
+      "width": "26%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "member",
+      "title": "清算组成员",
+      "titleIntl": "145875",
+      "width": "69%"
+    }
+  ]
+}

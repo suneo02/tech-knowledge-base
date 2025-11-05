@@ -1,0 +1,33 @@
+{
+  "api": "detail/company/getpevcquits",
+  "countKey": "pevcquit_num",
+  "downDocType": "download/createtempfile/getpevcquits",
+  "downDocTypeName": "新的导出",
+  "key": "PEVCQuit",
+  "title": "PEVC退出信息",
+  "titleIntl": "138436",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "investorName",
+      "title": "退出机构",
+      "titleIntl": "138606",
+      "width": "40%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "openTime|formatTime",
+      "title": "退出日期",
+      "titleIntl": "63486",
+      "width": "26%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "financeRound",
+      "title": "退出方式",
+      "titleIntl": "138819",
+      "width": "30%"
+    }
+  ]
+}

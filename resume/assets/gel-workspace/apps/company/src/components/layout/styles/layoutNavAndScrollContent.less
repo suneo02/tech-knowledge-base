@@ -1,0 +1,114 @@
+@import '@/styles/mixins.less';
+
+.layout-nav-and-scroll-content {
+  --content-width: 1280px;
+  height: 100%;
+  background: var(--color-bg-2);
+  overflow-x: hidden;
+  padding-top: @global-space;
+  > div {
+    width: var(--content-width);
+    margin: 0 auto;
+  }
+  .content {
+    // animation: slideTop 1s ease-in-out backwards;
+    width: var(--content-width);
+    padding-left: 220px;
+    .empty-container {
+      height: calc(100vh - 40px);
+      width: 100%;
+      #boxShadow;
+    }
+    .card-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .num {
+      font-size: @font-size-sm;
+      color: var(--font-color-4);
+    }
+    .node-item {
+      #boxShadow;
+      // margin: @global-space 0;
+      .w-card-head {
+        padding: @global-space;
+        height: fit-content;
+      }
+    }
+    // .node-item-children {
+    //   margin-bottom: @global-space;
+    //   .w-card-head,
+    //   .w-card-body {
+    //     padding: 6px 0;
+    //   }
+    //   .wind-ui-table-horizontal,
+    //   .wind-ui-table-wrapper {
+    //     padding: 0;
+    //   }
+    //   .w-card .w-tabs-bar {
+    //     border-bottom: none
+    //   }
+    // }
+  }
+}
+.w-card-body {
+  padding: 0 @global-space;
+  > div:last-child {
+    border-bottom: none;
+  }
+}
+
+.node-item-children {
+  // padding: @global-space 6px;
+  border-bottom: 1px dashed #ededed;
+  // box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  // border-radius: 8px;
+  padding-block-start: @global-space;
+  padding-block-end: @global-space;
+  &:nth-child(1) {
+    padding-top: none;
+  }
+  min-height: 100px;
+  transition: height 0.3s;
+  .w-card-head {
+    padding: 0 0 @global-space 0 !important;
+  }
+  .w-card-body {
+    padding: 0;
+    overflow: hidden;
+    border-radius: 0 0 @border-radius-base @border-radius-base;
+    zoom: 1;
+    padding-bottom: @global-space;
+    > div {
+      position: relative;
+    }
+  }
+  // .wind-ui-table-wrapper {
+  //   padding-bottom: @global-space;
+  // }
+  .wind-ui-table-title {
+    padding: 0 0 @global-space 0;
+  }
+  // .wind-ui-table-body {
+  //   border: 1px solid #ededed;
+  // }
+}
+
+// @keyframes slideTop {
+//   from {
+//     transform: translateY(100%);
+//   }
+//   to {
+//     transform: translateY(0);
+//   }
+// }
+
+// @keyframes slideRight {
+//   from {
+//     transform: translateX(-100%);
+//   }
+//   to {
+//     transform: translateX(0);
+//   }
+// }

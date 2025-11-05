@@ -1,0 +1,24 @@
+@import 'gel-ui/variables.less';
+
+.menu {
+  width: 160px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+
+  :global {
+    .w-menu-item-selected {
+      background-color: @menu-item-active;
+    }
+    .w-menu-item {
+      height: 40px !important;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.has-value {
+  display: flex;
+  align-items: center;
+}

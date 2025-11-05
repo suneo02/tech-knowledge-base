@@ -1,0 +1,113 @@
+{
+  "countKey": "customer_num|supplier_num",
+  "downDocTypeName": "不存在导出",
+  "id": "6-14",
+  "key": "6-14",
+  "level": 2,
+  "title": "客户和供应商",
+  "titleIntl": "205516",
+  "type": "子菜单",
+  "children": [
+    {
+      "api": "detail/company/getcorpcustomer",
+      "countKey": "customer_num",
+      "downDocTypeName": "不存在导出",
+      "id": "6-14-1",
+      "key": "6-14-1",
+      "level": 3,
+      "title": "客户",
+      "titleIntl": "28717",
+      "type": "表格",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "company_name",
+          "title": "客户名称",
+          "titleIntl": "205519",
+          "width": "30%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "money",
+          "title": "销售金额(元)",
+          "titleIntl": "205518",
+          "width": "25%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "proportion|formatPercent",
+          "title": "销售占比",
+          "titleIntl": "298342",
+          "width": "16%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "period|formatTime",
+          "title": "报告期",
+          "titleIntl": "1794",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "relationship",
+          "title": "与本公司关系",
+          "titleIntl": "255527",
+          "width": "16%"
+        }
+      ]
+    },
+    {
+      "api": "detail/company/getcorpsupplier",
+      "countKey": "supplier_num",
+      "downDocTypeName": "不存在导出",
+      "id": "6-14-2",
+      "key": "6-14-2",
+      "level": 3,
+      "title": "供应商",
+      "titleIntl": "108764",
+      "type": "表格",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "company_name",
+          "title": "供应商名称",
+          "titleIntl": "205522",
+          "width": "30%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "money",
+          "title": "采购金额(元)",
+          "titleIntl": "205521",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "period|formatTime",
+          "title": "报告期",
+          "titleIntl": "1794",
+          "width": "14%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "relationship",
+          "title": "与本公司关系",
+          "titleIntl": "255527",
+          "width": "18%"
+        }
+      ]
+    }
+  ]
+}

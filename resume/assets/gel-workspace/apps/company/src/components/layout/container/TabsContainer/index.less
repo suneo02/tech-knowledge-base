@@ -1,0 +1,102 @@
+/** 目前只针对windUI 4， 请别直接替换 */
+.calvin-tab-box-4 {
+  width: 100%;
+  overflow: hidden;
+
+
+  .w-tabs-bar.w-tabs-top-bar {
+    width: 100%;
+    top: 6px;
+    position: absolute;
+    z-index: 3;
+  }
+
+  .w-tabs-new-nav {
+    border-block-end: 1px solid #ededed;
+  }
+
+  .w-tabs-tabpane {
+    margin-top: 43px;
+    padding: 12px;
+    border: 1px solid #ededed;
+
+
+    &:has(.search-filters-container) {
+      .search-filters-container {
+        position: absolute;
+        z-index: 3;
+        top: 9px;
+        right: 12px;
+      }
+    }
+
+    &:has(.card-header-title) {
+      > .card-header-title {
+        &:not(.card-header-options) {
+          display: none;
+        }
+
+        .search-filters-container {
+          top: 0;
+          right: 6px;
+        }
+
+        position: absolute;
+        top: 7px;
+        right: 6px;
+      }
+    }
+  }
+}
+
+/**
+@deprecated
+ */
+.calvin-tab-box-3 {
+  width: 100%;
+  overflow: hidden;
+
+  .w-tabs-bar.w-tabs-top-bar {
+    width: 100%;
+    top: 6px;
+    position: absolute;
+    z-index: 3;
+  }
+
+  .w-tabs-tabpane {
+    margin-top: 32px;
+    min-height: 300px;
+    padding: 16px 16px 0;
+
+    &:has(.search-container) {
+      .search-container {
+        position: absolute;
+        z-index: 3;
+        top: 5px;
+        right: 16px;
+      }
+
+      .content-container {
+        padding-top: 10px;
+        margin-bottom: 28px;
+      }
+    }
+
+    &:has(.card-header-title) {
+      > .card-header-title {
+        &:not(.card-header-options) {
+          display: none;
+        }
+
+        .search-container {
+          top: 0;
+          right: 6px;
+        }
+
+        position: absolute;
+        top: 7px;
+        right: 6px;
+      }
+    }
+  }
+}

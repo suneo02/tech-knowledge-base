@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/金融机构</title>
+    <g id="Icon/金融机构" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <rect id="矩形" fill="#666666" x="3" y="32" width="30" height="3"></rect>
+        <rect id="矩形" fill="#0596B3" x="6" y="18" width="3" height="13"></rect>
+        <rect id="矩形" fill="#0596B3" x="13" y="18" width="3" height="13"></rect>
+        <rect id="矩形" fill="#0596B3" x="20" y="18" width="3" height="13"></rect>
+        <rect id="矩形" fill="#0596B3" x="27" y="18" width="3" height="13"></rect>
+        <path d="M18,1 L35,14 L35,17 L1,17 L1,14 L18,1 Z M18,5 L6,14 L30,14 L18,5 Z" id="形状结合" fill="#666666"></path>
+    </g>
+</svg>

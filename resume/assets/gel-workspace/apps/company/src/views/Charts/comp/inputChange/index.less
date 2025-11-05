@@ -1,0 +1,42 @@
+@import '~@/styles/colorVariables.less';
+@import '~@/styles/variables.less';
+
+.input-change-comp {
+  .input-change-comp-content {
+    .switch {
+      cursor: pointer;
+      color: @gray-6;
+      &:hover {
+        color: @primary-hover;
+      }
+      &:active {
+        color: @primary-active;
+      }
+      .wicon-svg {
+        margin-right: 8px;
+        margin-left: @global-space;
+        transform: rotateX(180deg);
+      }
+    }
+    .label {
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+
+      &:hover {
+        color: @primary-hover;
+      }
+      &:active {
+        color: @primary-active;
+      }
+    }
+  }
+  .pre-search-input input {
+    height: 28px;
+    line-height: 28px;
+  }
+
+  .wi-demo-link-switch {
+    margin-left: @global-space !important;
+  }
+}

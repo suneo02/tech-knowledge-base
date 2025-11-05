@@ -1,0 +1,31 @@
+{
+  "api": "detail/company/getannualinfo",
+  "countKey": "annual_num",
+  "downDocTypeName": "不存在导出",
+  "key": "AnnualReport",
+  "title": "工商企业年报",
+  "titleIntl": "448300",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "annual_year",
+      "title": "报送年度",
+      "titleIntl": "138585",
+      "width": "48%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "release_time|formatTime",
+      "title": "公示日期",
+      "titleIntl": "138143",
+      "width": "48%"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+@prefix: my-file-breadcrumb;
+
+.@{prefix} {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+
+  // 为WindBreadcrumb组件内的span元素应用样式
+  span {
+    cursor: pointer;
+  }
+
+  // 激活项的样式
+  &-active {
+    font-weight: 500;
+  }
+
+  &-separator {
+    color: #bfbfbf;
+
+    &-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

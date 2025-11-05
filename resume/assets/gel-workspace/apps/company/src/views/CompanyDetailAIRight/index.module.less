@@ -1,0 +1,120 @@
+@import '@/styles/mixin/common/scrollbar.less';
+@import '@/styles/variables.less';
+
+@prefix: layout-detail-ai;
+
+.wrapper-width() {
+  max-width: 75vw;
+  min-width: 984px;
+  margin: 0 auto;
+}
+
+
+
+.@{prefix} {
+  &-wind-height {
+    width: 100%;
+    height: 36px;
+    background-color: #000;
+  }
+  &-container {
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    width: 100vw;
+    position: relative;
+
+    .@{prefix}-menu {
+      top: 72px;
+      max-height: calc(100vh - 72px - 8px);
+    }
+  }
+
+  &-header {
+    height: 36px;
+    position: absolute;
+    top: 0;
+    z-index: 8;
+    width: 100%;
+  }
+
+  &-content {
+    margin-top: 36px;
+    flex: 1;
+    width: 100%;
+    display: flex;
+  }
+
+  &-left {
+    position: relative;
+    min-width: 0;
+    flex: 1 1 0;
+    overflow: hidden;
+  }
+
+  &-right {
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+
+    &-controls {
+      // height: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      z-index: 1;
+      padding: 12px;
+      button {
+        margin-right: 8px;
+      }
+      &-avatar {
+        display: flex;
+        align-items: center;
+
+        font-size: 16px;
+        color: #333;
+        font-weight: 700;
+        span {
+          margin-left: 12px;
+        }
+      }
+    }
+  }
+
+  &-right-hidden {
+    transform: translateX(100%);
+    position: absolute;
+    display: flex;
+    right: 0;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &-menu {
+    background-color: #fffbe6;
+    position: fixed;
+    width: 208px;
+    top: 36px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 12px;
+    max-height: calc(100vh - 36px - 8px);
+    .scrollbar-style();
+  }
+  &-scrollbar {
+    height: 200vh;
+    width: 100%;
+
+    &-content {
+      padding: 12px;
+      padding-left: 220px;
+      background-color: #fff;
+    }
+  }
+}

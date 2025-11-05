@@ -1,0 +1,36 @@
+.custom-cascade {
+  .custom-cascade-inner {
+    width: 100%;
+    min-width: 120px;
+    max-width: 100%;
+  }
+  &--popup {
+    :global {
+      .w-cascader-menu {
+        flex: 1;
+        height: 100%;
+        max-height: 450px;
+      }
+      .w-cascader-menus {
+        max-height: 450px;
+      }
+
+      .w-cascader-menu-item-content {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.dropdownMatchSelectWidth {
+  position: relative;
+  .custom-cascade--popup {
+    width: 100%;
+
+    width: 100%;
+    max-width: 100%;
+    left: 0 !important;
+  }
+}

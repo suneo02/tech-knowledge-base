@@ -1,0 +1,193 @@
+.detach-chart-container {
+  background: #fff;
+  height: 100%;
+  .detach-chart-demo {
+    margin-left: 300px;
+    position: absolute;
+    width: calc(100% - 300px);
+  }
+  .search-relation-label {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 20vh;
+    margin-bottom: 10vh;
+    color: #00aec7;
+    line-height: 27px;
+  }
+
+  .relation-chart-main {
+    height: calc(100% - 12px);
+    position: relative;
+    padding-right: 5px;
+  }
+  .relation-chart-nav {
+    // display: none;
+    position: absolute;
+    width: 280px;
+    left: 10px;
+    top: 0;
+    background: #fff;
+    height: 100%;
+    box-sizing: border-box;
+    padding-left: 12px;
+    padding-top: 12px;
+    border: 1px solid #ddd;
+  }
+  .chart-nav-infotips {
+    position: absolute;
+    bottom: 5%;
+    font-size: 12px !important;
+    padding-right: 10px;
+  }
+  .relation-chart-ok {
+    text-align: center;
+    height: 30px;
+    background: #3dc1d4;
+    border: 1px solid #3dc1d4;
+    width: 150px;
+    line-height: 30px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 53px !important;
+    margin-top: 74px !important;
+    box-shadow: 0 0 6px #00aec7;
+    font-weight: bold;
+  }
+  .relation-chart-nav-type {
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 12px;
+  }
+  .chart-nav-slide {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 110px;
+    // background: url(../assets/imgs/chart/wind-line1.png) no-repeat center center;
+    position: absolute;
+    top: calc(50% - 75px);
+    right: 0;
+    cursor: pointer;
+  }
+  .detach-chart-line {
+    height: 1px;
+    width: 95%;
+    margin-top: 48px;
+    background: #c5c5c5;
+    margin-bottom: 24px !important;
+  }
+  .pre-search-input {
+    width: 95% !important;
+  }
+  .detach-nav-tab {
+    margin-left: -10px;
+    margin-top: -12px;
+    margin-bottom: 24px;
+    height: 31px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    span {
+      display: inline-block;
+      width: 50%;
+      line-height: 30px;
+      cursor: pointer;
+      background: #f4f4f4;
+    }
+    .detach-nav-tab-left {
+      border-right: 1px solid #ddd;
+    }
+  }
+  .detach-nav-tab-sel {
+    background: #fff !important;
+  }
+  .detach-nav-title {
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  .detach-chart-favor-list {
+    min-height: calc(100vh - 500px);
+    max-height: calc(100vh - 400px);
+    overflow-y: auto;
+  }
+  .detach-chart-favor-item {
+    height: 30px;
+    .w-checkbox-wrapper {
+      width: 100%;
+      .w-checkbox {
+        top: -8px;
+      }
+      > span {
+        &:last-of-type {
+          line-height: 30px;
+          width: 90%;
+          word-break: break-word;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .detach-chart-btn {
+    text-align: center;
+    height: 30px;
+    background: #3dc1d4;
+    border: 1px solid #3dc1d4;
+    width: 150px;
+    line-height: 30px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 53px !important;
+    margin-top: 24px !important;
+    box-shadow: 0 0 6px #00aec7;
+    font-weight: bold;
+  }
+  .search-relation-sample {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    img {
+      margin-bottom: 10px;
+    }
+    .demo-jump-cont {
+      display: block;
+      height: 80px;
+      line-height: 80px;
+      font-weight: bold;
+      font-size: 22px;
+      border-radius: 0 0 8px 8px;
+      margin-top: -4px;
+      box-shadow: 0 0 5px rgba(51, 51, 51, 0.2);
+      text-align: center;
+      div {
+        line-height: 80px;
+        &:last-of-type {
+          display: none;
+        }
+      }
+    }
+
+    > div {
+      cursor: pointer;
+      &:hover {
+        .demo-jump-cont {
+          div {
+            line-height: 56px;
+            color: #00aec7;
+            &:last-of-type {
+              color: #666;
+              display: block;
+              line-height: 14px !important;
+              font-size: 14px;
+              font-weight: 100;
+            }
+          }
+        }
+      }
+    }
+  }
+}

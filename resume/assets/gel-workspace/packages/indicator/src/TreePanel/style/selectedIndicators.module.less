@@ -1,0 +1,69 @@
+@import 'gel-ui/variables.less';
+@import './styles.less';
+.selectedIndicators {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px;
+  margin-block-end: 32px;
+
+  &-title {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+    margin-bottom: 16px;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    .scrollbar-style();
+    & > *:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: @tag-bg-color;
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: @tag-text-color;
+    box-sizing: border-box;
+
+    &-text {
+      flex: 1;
+      margin-right: 8px;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.5;
+      padding: 4px 0;
+      min-width: 0;
+    }
+
+    &-action {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+
+      :global {
+        // 确保按钮不被压缩
+        .ant-btn {
+          min-width: 28px;
+          padding: 0;
+          margin: 0;
+
+          &-text {
+            &:hover {
+              background-color: transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+}

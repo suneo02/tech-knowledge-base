@@ -1,0 +1,60 @@
+{
+  "api": "detail/company/getcorpbasicinfo_basic",
+  "key": "BussInfo",
+  "title": "基本信息",
+  "titleIntl": "205468",
+  "tooltipTitle": "数据来源：国家企业信用信息公示系统，部分信息根据大数据衍生计算生成",
+  "tooltipTitleIntl": "411313",
+  "type": "horizontalTable",
+  "columns": [
+    [
+      {
+        "dataIndex": "corp_name",
+        "title": "企业名称",
+        "titleIntl": "138677"
+      }
+    ],
+    [
+      {
+        "dataIndex": "anotherNames",
+        "renderType": "custom",
+        "title": "别名",
+        "titleIntl": "334033",
+        "renderConfig": {
+          "customRenderName": "overseasAlias"
+        }
+      }
+    ],
+    [
+      {
+        "dataIndex": "biz_reg_no",
+        "title": "新式注册号",
+        "titleIntl": "419635"
+      },
+      {
+        "dataIndex": "credit_code",
+        "title": "旧式注册号",
+        "titleIntl": "419636"
+      }
+    ],
+    [
+      {
+        "dataIndex": "corp_type",
+        "title": "公司类型",
+        "titleIntl": "138681"
+      },
+      {
+        "dataIndex": "reg_authority",
+        "title": "登记机关",
+        "titleIntl": "138477"
+      }
+    ],
+    [
+      {
+        "dataIndex": "province",
+        "title": "国家/地区",
+        "titleIntl": "6886"
+      }
+    ]
+  ]
+}

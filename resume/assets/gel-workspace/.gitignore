@@ -1,0 +1,16 @@
+node_modules
+.idea
+**/node_modules
+**/.idea
+**/dist
+.vscode
+.history
+.turbo
+**/.turbo
+
+**/logs
+
+**/output*.pdf
+
+**/.cursor
+

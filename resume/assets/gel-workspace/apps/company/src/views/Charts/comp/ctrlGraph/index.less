@@ -1,0 +1,31 @@
+@import '@/styles/theme_rime.less';
+@import '@/styles/colorVariables.less';
+
+.graph-spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.graph-left-info {
+  padding: 12px;
+  font-size: 16px;
+  color: #333;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #fff;
+  font-weight: 400;
+
+  .graph-left-info-name {
+    cursor: pointer;
+    color: @primary;
+    &:hover {
+      color: @primary-hover !important;
+    }
+    &:active {
+      color: @primary-active !important;
+    }
+  }
+}

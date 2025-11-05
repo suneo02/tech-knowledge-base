@@ -1,0 +1,112 @@
+/**
+ * Shared variables for table components
+ */
+
+// Border
+@table-border-base: 1px solid #f0f0f0;
+
+// table 表头或表体单元格的 padding
+@table-cell-padding: 2px 8px;
+
+// 基础表格样式
+.table-base() {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-size: 14px;
+  line-height: 1.5;
+
+  margin-bottom: 8px;
+  margin-top: 8px;
+
+  thead {
+    color: @font-color-2;
+  }
+  tbody {
+    color: rgba(0, 0, 0, 0.85);
+  }
+  th,
+  td {
+    overflow-wrap: break-word;
+    /* 如果您需要支持旧版浏览器，可以加上 word-wrap */
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+  }
+}
+
+// 边框样式
+.table-bordered() {
+  border: @table-border-base;
+
+  td,
+  th {
+    border: @table-border-base;
+  }
+}
+
+// 尺寸样式
+.table-size-default() {
+  td,
+  th {
+    padding: 1px 2px;
+  }
+}
+
+// 表头样式
+.table-header() {
+  background-color: #fafafa;
+  font-weight: 500;
+  text-align: left;
+  border-bottom: @table-border-base;
+  padding: @table-cell-padding;
+}
+
+// 单元格样式
+.table-cell() {
+  border-bottom: @table-border-base;
+  padding: @table-cell-padding;
+}
+
+// 悬停样式
+.table-row-hover() {
+  &:hover {
+    background-color: @table-hover-bg;
+    td {
+      background-color: @table-hover-bg;
+    }
+  }
+}
+
+// Even row style
+.table-row-even() {
+  &:nth-child(even) {
+    background-color: @table-row-even-bg;
+  }
+}
+
+// 文本对齐
+.text-align(@align) {
+  text-align: @align;
+}
+
+// 垂直对齐
+.vertical-align(@align) {
+  vertical-align: @align;
+}
+
+// 滚动样式
+.scroll-container() {
+  overflow: auto;
+}
+
+.scroll-x() {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.scroll-y() {
+  overflow-y: auto;
+}

@@ -1,0 +1,97 @@
+.payment-container {
+  box-sizing: border-box;
+  width: 791px;
+  min-height: 328px;
+  padding: 16px 32px;
+  margin: auto;
+
+  background: url('../../../../../../assets/vip/has-no-power.png') no-repeat top center;
+  background-size: 100% auto; /* 宽度100%，高度自动调整 */
+  /* 从顶部开始，水平居中 */
+  /* 不重复背景 */
+}
+
+.title {
+  font-size: 24px;
+  // 白色字体
+  color: #fff;
+  font-weight: normal;
+}
+
+.title-second {
+  font-size: 16px;
+  font-weight: normal;
+  color: #fff;
+
+  margin-bottom: 8px;
+}
+
+.desc {
+  &-container {
+    padding: 0 40px;
+    width: 100%;
+
+    height: 60px;
+    background: white;
+    border-radius: 4px;
+    // baseline 基线对齐
+    vertical-align: baseline;
+    border: #e8e8e9 1px solid;
+
+    margin-bottom: 8px;
+  }
+
+  &-corp {
+    font-size: 20px;
+  }
+
+  &-price {
+    color: #dc3023;
+    font-weight: bold;
+    font-size: 24px;
+  }
+}
+
+.tipsContainer {
+  margin-bottom: 20px;
+  align-self: flex-start;
+}
+
+
+.tip {
+  &-wrapper {
+    line-height: 24px;
+    color: #999;
+  }
+
+}
+.checkbox-and-pay {
+  margin-bottom: 8px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox {
+  font-size: 14px;
+  color: #333;
+}
+
+.paymentButton {
+  width: 120px;
+  height: 40px;
+
+  text-align: center;
+}
+
+.searcher-form-modal {
+  width: 780px !important;
+
+  :global(.w-modal-body) {
+    padding: 0;
+  }
+}

@@ -1,0 +1,977 @@
+[
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "指家庭成员或雇用人员对居家老年人进行生活照料、康复护理等服务的活动，以及养老服务机构或其他社会主体（企业，社会组织等）向居家老年人提供的上门服务活动，如助餐、助行、助急、助浴、助洁、助医、日常照料等，不包括社区上门服务",
+        "level": 2,
+        "nameEn": "Home-based nursing care services",
+        "code": "35441841116",
+        "name": "居家养老照护服务",
+        "parentId": "35441841115"
+      },
+      {
+        "childFlag": 1,
+        "description": "指养老服务机构依托社区养老服务设施向社区老年人提供的日托、全托等服务；社区养老服务机构、社区嵌入式的养老服务设施和带护理型床位的社区日间照料中心等机构提供的照护服务；依托社区综合服务设施和社区公共服务综合信息平台、呼叫服务系统和应急救援服务机制为老年人提供的全托、月托、上门等为主的精准化专业化生活照料、助餐助行、助浴助洁、助医、紧急救援、精神慰籍等照护服务；社区邻里互助、助老食堂、助老餐桌、老年社区（全周期养老综合体）提供的社区养老照护服务",
+        "level": 2,
+        "nameEn": "Community elderly care services",
+        "code": "35441841117",
+        "name": "社区养老照护服务",
+        "parentId": "35441841115"
+      },
+      {
+        "childFlag": 1,
+        "description": "指各级政府、企业和社会力量兴办的养老院、老年福利院、老年公寓、老年养护院、敬老院、光荣院、农村幸福院、养老大院、农村特困人员供养服务机构等养老机构为在机构集中养老的老年人提供的养护和专业化护理服务；内设诊所、卫生所（室）、医务室、护理站的养老机构提供的医养结合服务；公办养老机构及公建民营养老机构为经济困难失能（含失智）老年人、计划生育特殊家庭老年人提供无偿或低收费托养服务；失智老年人照护机构提供的服务，不包括机构为居家老年人提供的上门服务",
+        "level": 2,
+        "nameEn": "Institutional nursing care services",
+        "code": "35441841118",
+        "name": "机构养老照护服务",
+        "parentId": "35441841115"
+      }
+    ],
+    "description": "指为老年人提供生活照料、医疗护理、康复保健、精神慰藉等服务的活动。",
+    "level": 1,
+    "nameEn": "Nursing home care services",
+    "code": "35441841115",
+    "name": "养老照护服务",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "指医院、基层医疗卫生机构、专业卫生机构等医疗卫生机构以防止和减少老年人损伤、疾病及其后遗症和并发症的数量或严重程度，提高老年人健康水平为目的，开展疾病预防、营养、中医养生等非诊疗性健康服务，以及预防保健、健康咨询、健康状态辨识、健康危险因素的干预以及家庭医生、老年疾病档案管理等健康管理服务，包括老年人中医治未病、家庭医生签约服务，不包括养老机构内设诊所、卫生所（室）、医务室、护理站提供的服务",
+        "level": 2,
+        "nameEn": "Prevention of health care and health management for the elderly",
+        "code": "35441841120",
+        "name": "老年预防保健和健康管理",
+        "parentId": "35441841119"
+      },
+      {
+        "childFlag": 1,
+        "description": "指医院、基层医疗卫生机构、专业卫生机构等医疗卫生机构以减轻老年人疾病或损伤的症状和严重程度，阻止威胁生命或正常生活功能为首要目标的门诊、住院等诊疗服务，包括老年人中医药疾病诊疗服务",
+        "level": 2,
+        "nameEn": "Elderly disease diagnosis and treatment services",
+        "code": "35441841121",
+        "name": "老年人疾病诊疗服务",
+        "parentId": "35441841119"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指为老年人提供的以达到、恢复或维持最佳的身体、感官、智力、心理和社会功能水平为目的的康复服务，为需要长期照护的老年患者提供的以减轻疼痛、减少健康状况恶化的专业化护理服务，包括老年中医康复、偏瘫肢体综合训练、认知知觉功能康复训练等老年康复医疗护理服务",
+            "level": 3,
+            "nameEn": "Senior rehabilitation and medical care services",
+            "code": "35441841123",
+            "name": "老年康复和医疗护理服务",
+            "parentId": "35441841122"
+          },
+          {
+            "childFlag": 1,
+            "description": "指为老年人、老年残疾人提供假肢、矫形器、轮椅车、助行器、助听器等康复辅具适配服务的活动，不包括医疗、康复机构的康复辅具适配服务",
+            "level": 3,
+            "nameEn": "Elderly rehabilitation auxiliary equipment configuration service",
+            "code": "35441841124",
+            "name": "老年康复辅具配置服务",
+            "parentId": "35441841122"
+          }
+        ],
+        "description": "指为老年人提供康复护理服务的活动。",
+        "level": 2,
+        "nameEn": "Senior rehabilitation care services",
+        "code": "35441841122",
+        "name": "老年康复护理服务",
+        "parentId": "35441841119"
+      },
+      {
+        "childFlag": 1,
+        "description": "指安宁疗护中心、其他具备安宁疗护服务能力的机构或组织通过控制老年患者疾病终末期或临终前痛苦和不适症状，提供生理、心理等方面的照料和人文关怀等服务，以提高生命质量，帮助老年患者舒适、安详、有尊严离世",
+        "level": 2,
+        "nameEn": "Impair care services",
+        "code": "35441841125",
+        "name": "安宁疗护服务",
+        "parentId": "35441841119"
+      },
+      {
+        "childFlag": 1,
+        "description": "指医养结合或康养服务等未列明的老年医疗卫生服务。",
+        "level": 2,
+        "nameEn": "Other non-listed elderly health care services",
+        "code": "35441841126",
+        "name": "其他未列明老年医疗卫生服务",
+        "parentId": "35441841119"
+      }
+    ],
+    "description": "指为老年人提供医疗服务的活动。",
+    "level": 1,
+    "nameEn": "Senior medical and health services",
+    "code": "35441841119",
+    "name": "老年医疗卫生服务",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指职业院校、普通高校中，健康服务与管理、中医养生学、中医康复学、老年医学、老年人服务与管理、老年保健与管理、康复治疗技术、康复辅助器具技术、营养与保健、心理咨询和社会工作等与养老相关的职业教育和普通教育，包括职业院校（含技工学校）设置的养老服务相关专业或开设的相关课程中提供的养老技能培训活动和养老服务实训基地服务",
+            "level": 3,
+            "nameEn": "Professional education related to old-age care",
+            "code": "35441841149",
+            "name": "养老相关专业教育",
+            "parentId": "35441841148"
+          },
+          {
+            "childFlag": 1,
+            "description": "指由人力资源社会保障部门、教育部门或其他政府部门批准举办，或由养老服务机构、社会组织、社工机构、红十字会等开展的养老照护、应急救护知识、技能培训，以及社会机构举办的与养老服务相关的职业技能培训活动，如养老服务、老年护理、老年康复、健康管理、保健按摩、公共营养等技能培训活动",
+            "level": 3,
+            "nameEn": "Training of vocational skills for old-age care",
+            "code": "35441841150",
+            "name": "养老职业技能培训",
+            "parentId": "35441841148"
+          },
+          {
+            "childFlag": 1,
+            "description": "指为老年人自身及其家庭成员（配偶、子女、亲戚等）提供的养老技能培训，包括家庭护老者技能培训、失能老年人家庭成员照护培训等",
+            "level": 3,
+            "nameEn": "Family care skills training",
+            "code": "35441841151",
+            "name": "家庭护老技能培训",
+            "parentId": "35441841148"
+          }
+        ],
+        "description": "指为老年人提供教育培训和技能培训服务的活动。",
+        "level": 2,
+        "nameEn": "Education and skills training for old age",
+        "code": "35441841148",
+        "name": "养老教育和技能培训",
+        "parentId": "35441841147"
+      },
+      {
+        "childFlag": 1,
+        "description": "指根据老年人的生理和心理特征，由政府、社区、社会力量或者企业举办的各类以帮助老年人提高安全资金管理意识、丰富老年人生活、提高老年人健康素养为目的的老年学校和“县（市、区）-乡镇（街道）-村（居委会）”三级社区老年教育办学网络，以及全国老年教育公共服务平台提供的老年教育服务",
+        "level": 2,
+        "nameEn": "Elderly Education",
+        "code": "35441841152",
+        "name": "老年教育",
+        "parentId": "35441841147"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指针对养老护理员等职业技能考核和鉴定服务。",
+            "level": 3,
+            "nameEn": "Vocational skills services for elderly care",
+            "code": "35441841154",
+            "name": "养老职业技能服务",
+            "parentId": "35441841153"
+          },
+          {
+            "childFlag": 1,
+            "description": "指专门为老年人提供家政、护理、康复等服务的养老服务岗位人员的就业服务。",
+            "level": 3,
+            "nameEn": "Employment services for old-age care",
+            "code": "35441841155",
+            "name": "养老就业服务",
+            "parentId": "35441841153"
+          },
+          {
+            "childFlag": 1,
+            "description": "指为老年人制定的老年人才开发利用专项规划，建立老年人才信息库，支持老年人才自主创业，帮助有意愿且身体状况允许的贫困老年人和其他老年人接受岗位技能培训或农业实用技术培训，推动用人单位与受聘老年人依法签订书面协议等人力资源开发服务。",
+            "level": 3,
+            "nameEn": "Human Resources Development Services for the Elderly",
+            "code": "35441841156",
+            "name": "老年人人力资源开发服务",
+            "parentId": "35441841153"
+          }
+        ],
+        "description": "指为老年人提供人力资源服务的活动。",
+        "level": 2,
+        "nameEn": "Human Resources Service for Elderly Care",
+        "code": "35441841153",
+        "name": "养老人力资源服务",
+        "parentId": "35441841147"
+      }
+    ],
+    "description": "指为老年人提供教育培训和人力资源服务的活动。",
+    "level": 1,
+    "nameEn": "Nursing education training and human resources services",
+    "code": "35441841147",
+    "name": "养老教育培训和人力资源服务",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "指国家及各级民政、教育等部门对养老机构、老年学校安全等管理的活动和其他养老相关的管理和服务活动，如养老机构服务质量监管和老年用品的质量监管，包括研究建立长期照护服务项目、标准、质量评价等行业规范，完善居家、社区、机构相衔接的专业化长期照护服务体系，完善全国统一的老年人能力综合评估标准，统一开展老年人能力综合评估，全面建立经济困难的高龄、失能老年人补贴制度，稳妥推进长期护理保险试点，研究设立全国养老服务工作的评比表彰项目，建立养老服务监测分析与发展评价机制，对依法申报消防设计审核、消防验收和消防备案的养老机构，主动提供消防技术咨询服务，做好养老机构消防审批服务等",
+        "level": 2,
+        "nameEn": "Government pension management services",
+        "code": "35441840908",
+        "name": "政府养老管理服务",
+        "parentId": "35441840907"
+      },
+      {
+        "childFlag": 1,
+        "description": "指养老服务相关的老年协会等社会团体和基金会等提供的养老服务",
+        "level": 2,
+        "nameEn": "Social organization services for elderly care",
+        "code": "35441840909",
+        "name": "养老社会组织服务",
+        "parentId": "35441840907"
+      }
+    ],
+    "description": "指为老年人提供公共管理服务的活动。",
+    "level": 1,
+    "nameEn": "Public management of old-age security",
+    "code": "35441840907",
+    "name": "养老公共管理",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "指养老健康、文化、娱乐、社会参与等相关活动的新闻采访、编辑和发布服务，以及老年人喜闻乐见的图书、报刊及影视剧、戏剧、广播剧等优秀老年文艺作品的制作和发布服务，包括数字广播、电视、互联网、手机APP等移动客户端、微博、微信、社区宣传展板等提供的养老信息服务和出版服务",
+        "level": 2,
+        "nameEn": "Pension Media Services",
+        "code": "35441840911",
+        "name": "养老传媒服务",
+        "parentId": "35441840910"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指由政府设立的法律咨询或者法律援助机构组织法律援助的律师，为经济困难或特殊需求老年人提供的免费或优惠的法律服务活动，建立老年人法律维权热线，以及针对老年群体特点开展适应老年人特殊需求的专项法律服务活动，包括为农村和贫困、高龄、空巢、失能等特殊困难老年群体提供的法律服务、法律援助和司法救助，以及保障老年人合法权益的法律援助",
+            "level": 3,
+            "nameEn": "Senior judicial assistance services",
+            "code": "35441840913",
+            "name": "老年司法援助服务",
+            "parentId": "35441840912"
+          },
+          {
+            "childFlag": 1,
+            "description": "指为老年人办理的减免费用的公证服务",
+            "level": 3,
+            "nameEn": "Public Welfare Notary Service for Elderly",
+            "code": "35441840914",
+            "name": "老年公益公证服务",
+            "parentId": "35441840912"
+          }
+        ],
+        "description": "指为老年人提供法律服务和法律援助的活动。",
+        "level": 2,
+        "nameEn": "Senior legal services and legal aid",
+        "code": "35441840912",
+        "name": "老年法律服务和法律援助",
+        "parentId": "35441840910"
+      },
+      {
+        "childFlag": 1,
+        "description": "指养老用品、康复辅具、健康文化等各类博览、展览或展会等服务，包括设立养老、康复展区的国际进口博览会提供的相关服务",
+        "level": 2,
+        "nameEn": "Exhibition services related to old-age care",
+        "code": "35441840915",
+        "name": "养老相关展览服务",
+        "parentId": "35441840910"
+      },
+      {
+        "childFlag": 1,
+        "description": "指为老年人提供的婚姻介绍、婚庆典礼等服务",
+        "level": 2,
+        "nameEn": "Senior marriage services",
+        "code": "35441840916",
+        "name": "老年婚姻服务",
+        "parentId": "35441840910"
+      },
+      {
+        "childFlag": 1,
+        "description": "指有资质的社会组织接受计划生育特殊家庭、孤寡、残疾等特殊老年人委托，依法代为办理入住养老机构、就医等事务",
+        "level": 2,
+        "nameEn": "Pension agency services",
+        "code": "35441840917",
+        "name": "养老代理服务",
+        "parentId": "35441840910"
+      },
+      {
+        "childFlag": 1,
+        "description": "指为老年人提供的其他未列明的服务",
+        "level": 2,
+        "nameEn": "Other unlisted elderly care services",
+        "code": "35441840918",
+        "name": "其他未列明的养老服务",
+        "parentId": "35441840910"
+      }
+    ],
+    "description": "指为老年人提供其他养老服务的活动。",
+    "level": 1,
+    "nameEn": "Other elderly care services",
+    "code": "35441840910",
+    "name": "其他养老服务",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指专门为老年人生产或专供老年人食用的营养食品，适宜老年人群的保健食品的销售活动，不包括专门为中青年、少年儿童等其他人员食用的营养食品和适宜中青年、少年儿童的保健食品的批发和零售",
+            "level": 3,
+            "nameEn": "Sales of elderly nutrition and health care products",
+            "code": "35441840931",
+            "name": "老年营养和保健品销售",
+            "parentId": "35441840930"
+          },
+          {
+            "childFlag": 1,
+            "description": "指专门为老年人生产或专供老年人使用的老年服装、手套、袜子、围巾、帽子、鞋、眼镜、登山杖等日用品和辅助产品，以及适合老人操作的电脑和移动电话的批发和零售",
+            "level": 3,
+            "nameEn": "Sales of elderly daily necessities and auxiliary products",
+            "code": "35441840932",
+            "name": "老年日用品及辅助产品销售",
+            "parentId": "35441840930"
+          },
+          {
+            "childFlag": 1,
+            "description": "指专门为老年人生产或专供老年人康复、按摩用的保健用品的批发和零售，如艾灸枕、艾灸贴、艾灸帽、刮痧头梳、养生理疗枕以及竹制保健产品等的批发与零售",
+            "level": 3,
+            "nameEn": "Sales of elderly health care products",
+            "code": "35441840933",
+            "name": "老年保健用品销售",
+            "parentId": "35441840930"
+          },
+          {
+            "childFlag": 1,
+            "description": "指专门为老年人生产或适合老年人运动使用的健身自行车、健身球、弹簧拉力器、各种球类用品、钓鱼器具、手腕活动器等健身产品的批发和零售，以及适合老年人娱乐的围棋、象棋、军棋、跳棋、九连环、拼图、小闷盒、扑克牌等益智玩具，体育游艺器材，如保龄球、台球、沙狐球、桌式足球等供室内、桌上等游艺及娱乐场所使用的运动游乐设备的批发和零售，也包括养老类图书、报刊、音像制品、电子和数字出版物等文化用品的批发和零售",
+            "level": 3,
+            "nameEn": "Sales of elderly cultural and sports products",
+            "code": "35441840934",
+            "name": "老年文体产品销售",
+            "parentId": "35441840930"
+          },
+          {
+            "childFlag": 1,
+            "description": "指用于老年病的化学药品、生物药品、中成药、中药材、中药饮片（含中药配方颗粒）的批发和零售",
+            "level": 3,
+            "nameEn": "Sales of elderly drugs",
+            "code": "35441840935",
+            "name": "老年药品销售",
+            "parentId": "35441840930"
+          },
+          {
+            "childFlag": 1,
+            "description": "指用于老年病的康复理疗等医疗设备的批发和零售；适合老年人的成人护理垫、老年纸尿垫、隔尿垫、纸尿片、纸尿裤、充气褥疮坐垫、轮椅、助行器、助听器、按摩垫、按摩球、足底按摩器、揉捏按摩器、如厕辅助器具、认知治疗辅助器具、防止大小便失禁的辅助器具、肠造口护理辅助器具、失禁训练辅助器具以及清洗、盆浴和淋浴辅助器具等产品和零部件的批发和零售",
+            "level": 3,
+            "nameEn": "Sales of elderly medical devices and rehabilitation accessories",
+            "code": "35441840936",
+            "name": "老年医疗器械和康复辅具销售",
+            "parentId": "35441840930"
+          },
+          {
+            "childFlag": 1,
+            "description": "指专门为老年人生产或专供老年人用的可穿戴智能设备的批发和零售；为老年人服务或养老院使用的智能机器人和智能家庭消费设备的批发和零售",
+            "level": 3,
+            "nameEn": "Sales of elderly smart and wearable equipment",
+            "code": "35441840937",
+            "name": "老年智能与可穿戴装备销售",
+            "parentId": "35441840930"
+          },
+          {
+            "childFlag": 1,
+            "description": "指老年人出行所需的三轮、四轮的助动车以及轮椅车的销售",
+            "level": 3,
+            "nameEn": "Sales of Bus in the Old Age",
+            "code": "35441840938",
+            "name": "老年代步车销售",
+            "parentId": "35441840930"
+          }
+        ],
+        "description": "指为老年人提供生活用品、医疗用品、康复用品等产品的销售活动。",
+        "level": 2,
+        "nameEn": "Sales of elderly products and related products",
+        "code": "35441840930",
+        "name": "老年用品及相关产品销售",
+        "parentId": "35441840929"
+      },
+      {
+        "childFlag": 1,
+        "description": "指为满足老年人基本生活、休闲娱乐、文化体育等需求，而提供的各种产品出租服务，包括养老机构、城乡社区提供的康复辅助器具等老年相关产品的租赁、回收等服务",
+        "level": 2,
+        "nameEn": "Rental of related products for elderly",
+        "code": "35441840939",
+        "name": "老年相关产品租赁",
+        "parentId": "35441840929"
+      }
+    ],
+    "description": "指为老年人提供生活用品、医疗用品、康复用品等产品的销售和租赁活动。",
+    "level": 1,
+    "nameEn": "Sales and rental of elderly products and related products",
+    "code": "35441840929",
+    "name": "老年用品及相关产品销售和租赁",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "指新建、改建和扩建的为老年人提供居住、生活照料、医疗保健等方面专项或综合服务的老年养护院、养老院和老年日间照料中心等各类养老设施及其服务用房、场地及附属设施的建设与改造活动和建筑装饰、装修、维修等活动，包括特困人员供养服务设施（敬老院）改造提升工程",
+        "level": 2,
+        "nameEn": "Construction, renovation and renovation of elderly care facilities",
+        "code": "35441840941",
+        "name": "养老设施建设、改造及装修维修",
+        "parentId": "35441840940"
+      },
+      {
+        "childFlag": 1,
+        "description": "指适应老年人生活特点和安全需要的家庭住宅装修、家具设施、辅助设备等建设、配备和改造，包括对多层老旧住宅加装电梯；对老年人居住环境进行安全评估，通过方案设计、施工改造、辅具适配、设备配备等方式，改善老年人居住环境，以及无障碍设施的适老化改造",
+        "level": 2,
+        "nameEn": "Residential aging and barrierless renovation",
+        "code": "35441840942",
+        "name": "住宅适老化及无障碍改造",
+        "parentId": "35441840940"
+      },
+      {
+        "childFlag": 1,
+        "description": "指对公共设施进行适老化及无障碍改造，局部适老化和无障碍环境功能改善的活动，包括临水和临空的活动场所、踏步及坡道等设施设置安全护栏、扶手及照明设施，老年人自主安全地通行道路、出入相关建筑物、搭乘公共交通工具、交流信息、获得社区服务密切相关的公共设施的无障碍设计与改造，对坡道、楼梯、电梯、扶手等居住区公共设施无障碍改造，公共厕所或公共卫生间的适老化改造，以及老年人生活圈配套设施的建设和完善",
+        "level": 2,
+        "nameEn": "Public facilities are aging-friendly and accessible",
+        "code": "35441840943",
+        "name": "公共设施适老化及无障碍改造",
+        "parentId": "35441840940"
+      }
+    ],
+    "description": "指为老年人提供居住、休闲、娱乐等场所的建设活动。",
+    "level": 1,
+    "nameEn": "Construction of elderly care facilities",
+    "code": "35441840940",
+    "name": "养老设施建设",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指为老年人提供的运动休闲服务和老年人参与的公益性群众体育活动，包括广场舞、棋牌类等健身活动和游乐场体育休闲活动等",
+            "level": 3,
+            "nameEn": "Elderly sports leisure and mass sports activities",
+            "code": "35441841129",
+            "name": "老年运动休闲和群众体育活动",
+            "parentId": "35441841128"
+          },
+          {
+            "childFlag": 1,
+            "description": "指国民体质监测与康体服务，以及科学健身指导、运动康复按摩、体育健康指导等服务，不包括由各类医院、疗养院等提供的运动创伤治疗、康复、保健等服务",
+            "level": 3,
+            "nameEn": "Senior Sports Health Service",
+            "code": "35441841130",
+            "name": "老年体育健康服务",
+            "parentId": "35441841128"
+          }
+        ],
+        "description": "指为老年人提供体育健身服务的活动。",
+        "level": 2,
+        "nameEn": "Senior sports fitness services",
+        "code": "35441841128",
+        "name": "老年体育健身服务",
+        "parentId": "35441841127"
+      },
+      {
+        "childFlag": 1,
+        "description": "指主要由老年人参与的文艺类演出、学习培训、比赛、展览、鉴赏等文化娱乐活动，以及博物馆、图书馆等机构开展的养老相关的各类文化娱乐活动",
+        "level": 2,
+        "nameEn": "Elderly cultural entertainment activities",
+        "code": "35441841131",
+        "name": "老年文化娱乐活动",
+        "parentId": "35441841127"
+      },
+      {
+        "childFlag": 1,
+        "description": "指为老年人提供旅游服务的活动。",
+        "level": 2,
+        "nameEn": "Senior tourism services",
+        "code": "35441841132",
+        "name": "老年旅游服务",
+        "parentId": "35441841127"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指以老年人保养、调养、颐养生命为目的的保健服务和休闲养生活动，包括运动养生保健服务、保健按摩服务、足疗服务、汗蒸服务、理发及美容服务、其他健康保健服务，不包括以医疗机构、康复护理机构、疗养院为主要载体开展的医疗康复服务部分",
+            "level": 3,
+            "nameEn": "Senior health care services",
+            "code": "35441841134",
+            "name": "老年养生保健服务",
+            "parentId": "35441841133"
+          },
+          {
+            "childFlag": 1,
+            "description": "指以集中式入户等多种形式，了解老年人常见心理问题，开展心理健康评估及服务",
+            "level": 3,
+            "nameEn": "Senior mental health services",
+            "code": "35441841135",
+            "name": "老年心理健康服务",
+            "parentId": "35441841133"
+          }
+        ],
+        "description": "指为老年人提供健康养生服务的活动。",
+        "level": 2,
+        "nameEn": "Elderly health care services",
+        "code": "35441841133",
+        "name": "老年健康养生服务",
+        "parentId": "35441841127"
+      },
+      {
+        "childFlag": 1,
+        "description": "指老年人志愿参与基层民主监督、社会治安、公益慈善、移风易俗、民事调解、文教卫生、全民健身等志愿工作，医疗卫生、文化教育、农业科技等老专家、老知识分子参与东部援助西部、发达地区援助落后地区等志愿服务",
+        "level": 2,
+        "nameEn": "Senior volunteer service",
+        "code": "35441841136",
+        "name": "老年志愿服务",
+        "parentId": "35441841127"
+      }
+    ],
+    "description": "指为老年人提供健康管理、健康促进和社会参与服务的活动。",
+    "level": 1,
+    "nameEn": "Promotion of elderly health and social participation",
+    "code": "35441841127",
+    "name": "老年健康促进与社会参与",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "指政府、社会力量对经济困难的老年人给予基本生活、医疗等救助，包括为老年人提供的红十字机构服务、慈善机构服务、社会救济管理服务、优抚事业单位服务、其他未列明社会救助服务；老年人的最低生活保障、临时救助、自然灾害生活救助、医疗救助，特困老年人员救助供养，生活无着的老年人救助等",
+        "level": 2,
+        "nameEn": "Social assistance for the elderly",
+        "code": "35441841143",
+        "name": "老年人社会救助",
+        "parentId": "35441841137"
+      },
+      {
+        "childFlag": 1,
+        "description": "指为老年人提供的慈善、募捐等社会工作的活动；志愿者或者志愿组织，在不收取任何物质报酬的情况下，志愿贡献个人的时间、知识、技能等，为养老服务机构和设施，以及老年人提供的各类服务",
+        "level": 2,
+        "nameEn": "Charity services for the elderly",
+        "code": "35441841144",
+        "name": "老年人慈善服务",
+        "parentId": "35441841137"
+      },
+      {
+        "childFlag": 1,
+        "description": "指政府为经济困难的高龄、失能等老年人提供的高龄津贴、护理补贴、养老服务补贴、其他老龄补贴等适度普惠性社会福利服务",
+        "level": 2,
+        "nameEn": "Social welfare for the elderly",
+        "code": "35441841145",
+        "name": "老年人社会福利",
+        "parentId": "35441841137"
+      },
+      {
+        "childFlag": 1,
+        "description": "指用于老年人社会福利和社会救助的彩票公益金服务。",
+        "level": 2,
+        "nameEn": "Public Welfare Fund Service for Lottery",
+        "code": "35441841146",
+        "name": "养老彩票公益金服务",
+        "parentId": "35441841137"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指以社会互助共济等方式筹集资金，为长期失能、部分失能老年人的基本生活照料以及与基本生活密切相关的医疗护理提供资金或服务保障的社会保险服务",
+            "level": 3,
+            "nameEn": "Long-term care insurance for the elderly",
+            "code": "35441841141",
+            "name": "老年长期护理保险",
+            "parentId": "35441841138"
+          },
+          {
+            "childFlag": 1,
+            "description": "指企业年金、职业年金，以及针对老年人的补充医疗和其他补充保险。",
+            "level": 3,
+            "nameEn": "Elderly supplementary insurance",
+            "code": "35441841142",
+            "name": "老年补充保险",
+            "parentId": "35441841138"
+          },
+          {
+            "childFlag": 1,
+            "description": "指职工基本养老保险、城乡居民基本养老保险的基金、经办、投资、管理等有关活动",
+            "level": 3,
+            "nameEn": "Basic pension insurance",
+            "code": "35441841139",
+            "name": "基本养老保险",
+            "parentId": "35441841138"
+          },
+          {
+            "childFlag": 1,
+            "description": "指针对老年人的职工基本医疗保险和城乡居民基本医疗保险的基金、经办、投资、管理等有关活动，包括老年大病保险活动",
+            "level": 3,
+            "nameEn": "Basic medical insurance for old age",
+            "code": "35441841140",
+            "name": "老年基本医疗保险",
+            "parentId": "35441841138"
+          }
+        ],
+        "description": "指为老年人提供社会保险服务的活动。",
+        "level": 2,
+        "nameEn": "Social insurance for the elderly",
+        "code": "35441841138",
+        "name": "老年社会保险",
+        "parentId": "35441841137"
+      }
+    ],
+    "description": "指为老年人提供社会保障服务的活动。",
+    "level": 1,
+    "nameEn": "Elderly Social Security",
+    "code": "35441841137",
+    "name": "老年社会保障",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指以老年人的寿命为保险标的的人寿保险，包括定期寿险、终身寿险和两全保险等。",
+            "level": 3,
+            "nameEn": "Senior Life Insurance",
+            "code": "35441841159",
+            "name": "老年人寿保险",
+            "parentId": "35441841158"
+          },
+          {
+            "childFlag": 1,
+            "description": "指对老年人以健康原因或医疗行为发生为给付保险金条件的人身保险，包括疾病保险、医疗保险、护理保险、医疗意外保险。",
+            "level": 3,
+            "nameEn": "Senior Health Insurance",
+            "code": "35441840886",
+            "name": "老年健康保险",
+            "parentId": "35441841158"
+          },
+          {
+            "childFlag": 1,
+            "description": "指以老年人因意外事故而导致身故、残疾或者发生保险合同约定的其他事故为给付保险金条件的人身保险。",
+            "level": 3,
+            "nameEn": "Surprise insurance for elderly people",
+            "code": "35441840887",
+            "name": "老年人意外伤害保险",
+            "parentId": "35441841158"
+          },
+          {
+            "childFlag": 1,
+            "description": "指以被保险人在其管理区域内从事养老服务时，因过失导致意外事故，造成第三者的人身伤亡或财产损失的赔偿责任为保险标的的保险。",
+            "level": 3,
+            "nameEn": "Pension institution liability insurance",
+            "code": "35441840888",
+            "name": "养老机构责任保险",
+            "parentId": "35441841158"
+          }
+        ],
+        "description": "指为老年人提供商业保险服务的活动。",
+        "level": 2,
+        "nameEn": "Senior Commercial Insurance",
+        "code": "35441841158",
+        "name": "老年商业保险",
+        "parentId": "35441841157"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指商业保险机构提供的，以养老保障为目的的年金保险",
+            "level": 3,
+            "nameEn": "Pension Insurance",
+            "code": "35441840890",
+            "name": "养老年金保险",
+            "parentId": "35441840889"
+          },
+          {
+            "childFlag": 1,
+            "description": "指将住房反向抵押与养老年金保险相结合的商业养老保险服务",
+            "level": 3,
+            "nameEn": "Housing reverse mortgage pension insurance",
+            "code": "35441840891",
+            "name": "住房反向抵押养老保险",
+            "parentId": "35441840889"
+          },
+          {
+            "childFlag": 1,
+            "description": "指保险中介服务、保险监管服务及保障委托管理服务等与养老相关或密切相关的保险活动，包括个人商业养老年金保险产品，个人商业养老年金保险计划",
+            "level": 3,
+            "nameEn": "Other commercial pension insurance",
+            "code": "35441840892",
+            "name": "其他商业养老保险",
+            "parentId": "35441840889"
+          }
+        ],
+        "description": "指为老年人提供商业养老保险服务的活动。",
+        "level": 2,
+        "nameEn": "Commercial pension insurance",
+        "code": "35441840889",
+        "name": "商业养老保险",
+        "parentId": "35441841157"
+      },
+      {
+        "childFlag": 1,
+        "description": "指银行及银行理财子公司、信托等金融机构开发或者提供的养老型理财产品、信托产品等养老金融产品服务，以及为养老活动提供支持的基金管理服务、养老目标基金管理服务、养老投资与资产管理、产权交易服务等，包括银行养老理财服务和银行理财子公司养老理财服务",
+        "level": 2,
+        "nameEn": "Pension financial management services",
+        "code": "35441840893",
+        "name": "养老理财服务",
+        "parentId": "35441841157"
+      },
+      {
+        "childFlag": 1,
+        "description": "指养老保险经办机构将单位和个人按照有关法律、法规规定缴纳的养老保险费作为信托资产，交给金融信托机构管理和经营，职工退休后获益的一种信托形式",
+        "level": 2,
+        "nameEn": "Pension Trust",
+        "code": "35441840894",
+        "name": "养老金信托",
+        "parentId": "35441841157"
+      },
+      {
+        "childFlag": 1,
+        "description": "指专门为老年人提供生活照料、康复护理等服务的营利性或非营利性养老项目发行养老产业专项债券，用于建设养老服务设施设备和提供养老服务",
+        "level": 2,
+        "nameEn": "Pension Bonds",
+        "code": "35441840895",
+        "name": "养老债券",
+        "parentId": "35441841157"
+      },
+      {
+        "childFlag": 1,
+        "description": "指营利性养老机构以有偿取得的土地设施等资产进行抵押融资的金融服务和养老融资服务等其他养老金融服务",
+        "level": 2,
+        "nameEn": "Other pension financial services",
+        "code": "35441840896",
+        "name": "其他养老金融服务",
+        "parentId": "35441841157"
+      }
+    ],
+    "description": "指为老年人提供金融服务的活动。",
+    "level": 1,
+    "nameEn": "Pension financial services",
+    "code": "35441841157",
+    "name": "养老金融服务",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指专门为老年人服务提供第三方服务平台的互联网活动，包括互联网养老服务和产品销售平台、互联网老年旅游出行服务平台等",
+            "level": 3,
+            "nameEn": "Internet Pension Service Platform",
+            "code": "35441840903",
+            "name": "互联网养老服务平台",
+            "parentId": "35441840902"
+          },
+          {
+            "childFlag": 1,
+            "description": "指养老相关数据处理与存储、大数据处理、云存储、云计算、云加工、区块链技术等服务",
+            "level": 3,
+            "nameEn": "Big data for old-age security and cloud computing services",
+            "code": "35441840904",
+            "name": "养老大数据与云计算服务",
+            "parentId": "35441840902"
+          },
+          {
+            "childFlag": 1,
+            "description": "指面向养老行业所开展的物联网咨询、设计、建设、维护、管理等服务，物联网和远程智能安防监控技术服务",
+            "level": 3,
+            "nameEn": "Internet of Things pension technology services",
+            "code": "35441840905",
+            "name": "物联网养老技术服务",
+            "parentId": "35441840902"
+          },
+          {
+            "childFlag": 1,
+            "description": "指养老服务领域的人工智能等新一代信息技术和智能硬件等产品的技术服务，以及其他与养老相关的应用软件开发与经营，基础环境、网络、软硬件等运行维护，健康信息技术咨询等服务，包括与户籍、医疗、社会保险、社会救助等信息资源对接的国家养老服务管理信息系统的技术服务，以及在保障数据安全的前提下，研发涉及老年人的人口、保障、服务、信用、财产等基础信息分类的养老服务综合信息化平台",
+            "level": 3,
+            "nameEn": "Other smart elderly care technical services",
+            "code": "35441840906",
+            "name": "其他智慧养老技术服务",
+            "parentId": "35441840902"
+          }
+        ],
+        "description": "指为老年人提供智慧养老服务的活动。",
+        "level": 2,
+        "nameEn": "Smart elderly care services",
+        "code": "35441840902",
+        "name": "智慧养老服务",
+        "parentId": "35441840897"
+      },
+      {
+        "childFlag": 0,
+        "node": [
+          {
+            "childFlag": 1,
+            "description": "指将与老年人健康相关的新技术、新产品、新工艺直接推向市场而进行的技术推广和转让活动、知识产权服务、科技中介活动、创业服务平台，以及其他科技推广活动，包括老年食品、养老照护辅具、老年日常生活辅助产品、老年用品、老年康复训练及健康促进辅具等新产品的科技推广和应用服务",
+            "level": 3,
+            "nameEn": "Promotion and application services of old-age technology",
+            "code": "35441840900",
+            "name": "养老科技推广和应用服务",
+            "parentId": "35441840898"
+          },
+          {
+            "childFlag": 1,
+            "description": "指养老相关食品、药品、医疗用品及器材等健康相关产品的质量、检测、检验和出入境检验检疫、测试、鉴定等活动，包括养老相关产品标准化、计量、认证认可活动",
+            "level": 3,
+            "nameEn": "Quality inspection and technical services for old-age products",
+            "code": "35441840901",
+            "name": "养老产品质检技术服务",
+            "parentId": "35441840898"
+          },
+          {
+            "childFlag": 1,
+            "description": "指针对老年疾病的医学、护理学研究和其他医学研究与试验发展服务，老年社会发展、老年心理、养老照料等社会科学研究活动，老年食品、养老照护辅具、老年日常生活辅助产品、老年用品、老年康复训练及健康促进辅具等医疗产品的研发活动",
+            "level": 3,
+            "nameEn": "Research and development of pension science and experiments",
+            "code": "35441840899",
+            "name": "养老科学研究和试验发展",
+            "parentId": "35441840898"
+          }
+        ],
+        "description": "指为老年人提供科技服务的活动。",
+        "level": 2,
+        "nameEn": "Pension technology services",
+        "code": "35441840898",
+        "name": "养老科技服务",
+        "parentId": "35441840897"
+      }
+    ],
+    "description": "指为老年人提供科技服务和智慧养老服务的活动。",
+    "level": 1,
+    "nameEn": "Pension technology and smart pension services",
+    "code": "35441840897",
+    "name": "养老科技和智慧养老服务",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "指老年人出行所需的三轮、四轮的助动车以及轮椅车的制造",
+        "level": 2,
+        "nameEn": "Old age car manufacturing",
+        "code": "35441840928",
+        "name": "老年代步车制造",
+        "parentId": "35441840919"
+      },
+      {
+        "childFlag": 1,
+        "description": "指适合老年人群营养健康需求的饮食产品的制造，包括营养食品和保健食品的制造",
+        "level": 2,
+        "nameEn": "Manufacturing of elderly food",
+        "code": "35441840920",
+        "name": "老年食品制造",
+        "parentId": "35441840919"
+      },
+      {
+        "childFlag": 1,
+        "description": "指老年服装、手套、袜子、围巾、帽子、鞋、眼镜、登山杖等日用品和辅助产品的制造；适合老人操作的电脑和移动电话的制造",
+        "level": 2,
+        "nameEn": "Manufacturing of elderly daily necessities and auxiliary products",
+        "code": "35441840921",
+        "name": "老年日用品及辅助产品制造",
+        "parentId": "35441840919"
+      },
+      {
+        "childFlag": 1,
+        "description": "指适合老年人运动的健身自行车、健身球、弹簧拉力器、各种球类用品、钓鱼器具、手腕活动器及户外健身器材等健身产品的制造",
+        "level": 2,
+        "nameEn": "Manufacturing of elderly fitness products",
+        "code": "35441840922",
+        "name": "老年健身产品制造",
+        "parentId": "35441840919"
+      },
+      {
+        "childFlag": 1,
+        "description": "指适合老年人娱乐的围棋、象棋、军棋、跳棋、九连环、拼图、小闷盒、扑克牌等益智玩具，体育游艺器材，保龄球、台球、沙狐球、桌式足球等供室内、桌上等游艺及娱乐场所使用的运动游乐设备等制造",
+        "level": 2,
+        "nameEn": "Manufacturing of elderly leisure and entertainment products",
+        "code": "35441840923",
+        "name": "老年休闲娱乐产品制造",
+        "parentId": "35441840919"
+      },
+      {
+        "childFlag": 1,
+        "description": "指适合老年人康复、按摩用的保健用品的制造，如艾灸枕、艾灸贴、艾灸帽、刮痧头梳、养生理疗枕以及竹制保健产品等制造",
+        "level": 2,
+        "nameEn": "Manufacturing of elderly health care products",
+        "code": "35441840924",
+        "name": "老年保健用品制造",
+        "parentId": "35441840919"
+      },
+      {
+        "childFlag": 1,
+        "description": "指维护、调节、促进老年人生理、心理机能的原料药、化学药品制剂、天然或人工种植养殖的动植物矿物药材的生产加工活动",
+        "level": 2,
+        "nameEn": "Manufacturing of elderly drugs",
+        "code": "35441840925",
+        "name": "老年药品制造",
+        "parentId": "35441840919"
+      },
+      {
+        "childFlag": 1,
+        "description": "指用于病房护理、老年病的康复理疗等医疗设备的制造；适合老年人的成人护理垫、老年纸尿垫、隔尿垫、纸尿片、纸尿裤、充气褥疮坐垫、轮椅、助行器、助听器、按摩垫、按摩球、足底按摩器、揉捏按摩器、如厕辅助器具、认知治疗辅助器具、防止大小便失禁的辅助器具、肠造口护理辅助器具、失禁训练辅助器具以及清洗、盆浴和淋浴辅助器具等产品和零部件的制造",
+        "level": 2,
+        "nameEn": "Manufacturing of elderly medical devices and rehabilitation accessories",
+        "code": "35441840926",
+        "name": "老年医疗器械和康复辅具制造",
+        "parentId": "35441840919"
+      },
+      {
+        "childFlag": 1,
+        "description": "指为老年人服务或养老院使用的智能机器人和智能家庭消费设备、康复机器人制造；适合老年人用的可穿戴智能设备制造",
+        "level": 2,
+        "nameEn": "Senior intelligent and wearable equipment manufacturing",
+        "code": "35441840927",
+        "name": "老年智能与可穿戴装备制造",
+        "parentId": "35441840919"
+      }
+    ],
+    "description": "指为老年人提供生活用品、医疗用品、康复用品等产品的制造活动。",
+    "level": 1,
+    "nameEn": "Manufacturing of elderly products and related products",
+    "code": "35441840919",
+    "name": "老年用品及相关产品制造",
+    "parentId": ""
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "api": "/detail/company/getshareholderinfomation",
+  "countKey": "businessregisterCount",
+  "key": "ShareholderInfomation",
+  "title": "登记信息",
+  "titleIntl": "410955",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "shareholder",
+      "renderType": "custom",
+      "title": "姓名",
+      "titleIntl": "34979",
+      "renderConfig": {
+        "customRenderName": "bussInfoShareholderName"
+      }
+    },
+    {
+      "align": "right",
+      "dataIndex": "promiseMoneyAmount",
+      "renderType": "number",
+      "title": "认缴出资（万元）",
+      "titleIntl": "257826",
+      "renderConfig": {
+        "showUnit": true,
+        "unitField": "promiseMoneyCurrency",
+        "unitPrefix": " ",
+        "useThousandSeparator": true
+      }
+    }
+  ]
+}

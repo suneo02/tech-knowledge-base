@@ -1,0 +1,5597 @@
+[
+  {
+    "node": [
+      {
+        "code": "34632518049",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Hospital logistics robot"
+      },
+      {
+        "code": "34632204532",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Shopping guide robot"
+      },
+      {
+        "code": "34524335896",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Served Driver"
+      },
+      {
+        "code": "34524335898",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Served Motor"
+      },
+      {
+        "code": "34646363773",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Emergency Robot"
+      },
+      {
+        "code": "33327978204",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Vascular intervention surgical robot"
+      },
+      {
+        "code": "34524335894",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Exoskeletal Robot"
+      },
+      {
+        "code": "34037800225",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Humanoid Robot"
+      },
+      {
+        "code": "34632509041",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Cooking Robot"
+      },
+      {
+        "code": "34642118197",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Power Sensor"
+      },
+      {
+        "code": "34631873617",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Inventory Robot"
+      },
+      {
+        "code": "34433207743",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Harmonic Reducer"
+      },
+      {
+        "code": "33395004141",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Environmental protection robot"
+      },
+      {
+        "code": "33395004138",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Construction Robot"
+      },
+      {
+        "code": "33395004151",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Underwater Robot"
+      },
+      {
+        "code": "33395004147",
+        "level": 2,
+        "pCode": 4158,
+        "name": "SLAM"
+      },
+      {
+        "code": "33395004146",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Agricultural Robot"
+      },
+      {
+        "code": "33395004155",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Machine Vision"
+      },
+      {
+        "code": "33395004152",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Inspection Robot"
+      },
+      {
+        "code": "33327978341",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Oral surgical robot"
+      },
+      {
+        "code": "33327978336",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Ophthalmology surgical robot"
+      },
+      {
+        "code": "34642117521",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Telemedicine Robot"
+      },
+      {
+        "code": "33327978358",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Orthopedic surgical robot"
+      },
+      {
+        "code": "34632207029",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Food delivery robot"
+      },
+      {
+        "code": "33327978352",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Mirror surgical robot"
+      },
+      {
+        "code": "34692603045",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Robot Controller"
+      },
+      {
+        "code": "34646298497",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Unmanned Ship"
+      },
+      {
+        "code": "4159",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Industrial robot"
+      },
+      {
+        "code": "34631873077",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Upper limb rehabilitation robot"
+      },
+      {
+        "code": "4165",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Transport Robot"
+      },
+      {
+        "code": "34632517650",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Diagnosis Robot"
+      },
+      {
+        "code": "34654348468",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Spray Robot"
+      },
+      {
+        "code": "34631916495",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Sorting Robot"
+      },
+      {
+        "code": "34632209481",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Commercial cleaning robot"
+      },
+      {
+        "code": "34632508555",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Coal mine robots"
+      },
+      {
+        "code": "34632440816",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Disinfection Robot"
+      },
+      {
+        "code": "34631825175",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Photovoltaic cleaning robot"
+      },
+      {
+        "code": "34632206455",
+        "level": 2,
+        "pCode": 4158,
+        "name": "End Performer"
+      },
+      {
+        "code": "34644224184",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Cut Robot"
+      },
+      {
+        "code": "34632515426",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Home cleaning robot"
+      },
+      {
+        "code": "34632068739",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Neurosurgery surgical robot"
+      },
+      {
+        "code": "34646380868",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Collaborative Robot"
+      },
+      {
+        "code": "35418338528",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Chatbot"
+      },
+      {
+        "code": "33395004445",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Robot simulation software"
+      },
+      {
+        "code": "33395004441",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Robot operating system"
+      },
+      {
+        "code": "33395004455",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Welding Robot"
+      },
+      {
+        "code": "34433208068",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Planetary Reducer"
+      },
+      {
+        "code": "34433208069",
+        "level": 2,
+        "pCode": 4158,
+        "name": "RV Reducer"
+      },
+      {
+        "code": "33395004459",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Grinding Robot"
+      },
+      {
+        "code": "33395004456",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Voice Recognition"
+      },
+      {
+        "code": "34629616870",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Touch Sensor"
+      },
+      {
+        "code": "34632510970",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Accompanying Robots"
+      },
+      {
+        "code": "34642116313",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Coded Robot"
+      },
+      {
+        "code": "34646209729",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Microsurgical surgical robot"
+      },
+      {
+        "code": "34640444431",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Educational Robots"
+      },
+      {
+        "code": "35418351580",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Climbing Robot"
+      },
+      {
+        "code": "34632466139",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Wall climbing robot"
+      },
+      {
+        "code": "34632493520",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Drug delivery robot"
+      },
+      {
+        "code": "34632468432",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Location Sensor"
+      },
+      {
+        "code": "34631895427",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Lower limb rehabilitation robot"
+      },
+      {
+        "code": "35271587497",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Mechanical Arm"
+      },
+      {
+        "code": "34631826975",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Drug distribution robot"
+      },
+      {
+        "code": "35441614687",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Fight Robot"
+      },
+      {
+        "code": "34597468623",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Speed Sensor"
+      },
+      {
+        "code": "34632508115",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Nursing Robot"
+      },
+      {
+        "code": "34629607953",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Tourist Robot"
+      },
+      {
+        "code": "34632467049",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Welcome Robot"
+      },
+      {
+        "code": "34594445981",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Courtyard Robot"
+      },
+      {
+        "code": "34640400495",
+        "level": 2,
+        "pCode": 4158,
+        "name": "Visual Sensor"
+      }
+    ],
+    "code": "4158",
+    "level": 1,
+    "name": "ROBOT"
+  },
+  {
+    "node": [
+      {
+        "code": "35330007290",
+        "level": 2,
+        "pCode": 35311757983,
+        "name": "Biological Breeding"
+      },
+      {
+        "code": "35330010407",
+        "level": 2,
+        "pCode": 35311757983,
+        "name": "Biological agrochemical products"
+      },
+      {
+        "code": "35311757982",
+        "level": 2,
+        "pCode": 35311757983,
+        "name": "Biological veterinary drug"
+      },
+      {
+        "code": "35312170556",
+        "level": 2,
+        "pCode": 35311757983,
+        "name": "Biological Feed"
+      }
+    ],
+    "code": "35311757983",
+    "level": 1,
+    "name": "Bio-agriculture"
+  },
+  {
+    "node": [
+      {
+        "code": "35254850169",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Silver Economy"
+      },
+      {
+        "code": "34642319756",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Functional skin care products"
+      },
+      {
+        "code": "34715451846",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Accessory"
+      },
+      {
+        "code": "34647809641",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Pet Supplies & Pet Products"
+      },
+      {
+        "code": "35437296146",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Catering service provider"
+      },
+      {
+        "code": "35157833439",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Offline Entertainment"
+      },
+      {
+        "code": "35139145571",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Seasoned Food"
+      },
+      {
+        "code": "33269040347",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Coffee"
+      },
+      {
+        "code": "33269040358",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Life Service"
+      },
+      {
+        "code": "33269040357",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Drinking Wine"
+      },
+      {
+        "code": "33269040356",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Mother and baby"
+      },
+      {
+        "code": "34433207744",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Artificial Meat"
+      },
+      {
+        "code": "35155794777",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Sports and sports"
+      },
+      {
+        "code": "35197524197",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Homestay"
+      },
+      {
+        "code": "34643016999",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Functional Food"
+      },
+      {
+        "code": "13921",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Instant Food"
+      },
+      {
+        "code": "13935",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Frozen Foods"
+      },
+      {
+        "code": "34642476767",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Unmanned Retail"
+      },
+      {
+        "code": "35370656352",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Millet Economy"
+      },
+      {
+        "code": "34595006360",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Cold Drink"
+      },
+      {
+        "code": "34720935197",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Children's Food"
+      },
+      {
+        "code": "34642474648",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Pet Food"
+      },
+      {
+        "code": "34643066712",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Leisure Snacks"
+      },
+      {
+        "code": "34640444318",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Snack Shop"
+      },
+      {
+        "code": "35153868934",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Special medical food"
+      },
+      {
+        "code": "35439173179",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "After-car Service"
+      },
+      {
+        "code": "142757",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Dairy Products"
+      },
+      {
+        "code": "34716526074",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Beauty Store"
+      },
+      {
+        "code": "34642997513",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Serving Lightly"
+      },
+      {
+        "code": "15576150968",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Color Make-Up"
+      },
+      {
+        "code": "34648362585",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Healthy Food"
+      },
+      {
+        "code": "34640445126",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Pet Medical"
+      },
+      {
+        "code": "35139150551",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Agricultural and sideline food processing"
+      },
+      {
+        "code": "34631826203",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Tide Play"
+      },
+      {
+        "code": "143012",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Pet Service"
+      },
+      {
+        "code": "33269038638",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "New tea drink"
+      },
+      {
+        "code": "33269038647",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Fresh Food E-commerce"
+      },
+      {
+        "code": "33305089489",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Pre-made Dishes"
+      },
+      {
+        "code": "33269038646",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Baking"
+      },
+      {
+        "code": "33269038645",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Food and Beverage"
+      },
+      {
+        "code": "33269038652",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Beauty Care"
+      },
+      {
+        "code": "33269038648",
+        "level": 2,
+        "pCode": 33269040361,
+        "name": "Powder Pasta"
+      }
+    ],
+    "code": "33269040361",
+    "level": 1,
+    "name": "New consumption"
+  },
+  {
+    "node": [
+      {
+        "code": "34647942000",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Live streaming e-commerce"
+      },
+      {
+        "code": "34647941252",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Content E-commerce"
+      },
+      {
+        "code": "35252954565",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Second-hand E-commerce"
+      },
+      {
+        "code": "35254664600",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Social E-commerce"
+      },
+      {
+        "code": "35254855606",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Life service e-commerce"
+      },
+      {
+        "code": "34632032661",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Cross-border E-commerce"
+      },
+      {
+        "code": "35259380535",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Beauty E-commerce"
+      },
+      {
+        "code": "35253030076",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "E-commerce agency operation"
+      },
+      {
+        "code": "35252976143",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "B2B E-commerce"
+      },
+      {
+        "code": "35265958815",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "E-commerce derivative services"
+      },
+      {
+        "code": "35265952903",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Community group buying"
+      },
+      {
+        "code": "35265956802",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Automobile E-commerce"
+      },
+      {
+        "code": "35257105633",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Retail E-commerce"
+      },
+      {
+        "code": "35265650927",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Discount E-commerce"
+      },
+      {
+        "code": "35254691031",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "E-commerce Logistics"
+      },
+      {
+        "code": "35254689541",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Mother and baby e-commerce"
+      },
+      {
+        "code": "33269038647",
+        "level": 2,
+        "pCode": 33608466062,
+        "name": "Fresh Food E-commerce"
+      }
+    ],
+    "code": "33608466062",
+    "level": 1,
+    "name": "E-commerce"
+  },
+  {
+    "node": [
+      {
+        "code": "35236200347",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Payment Technology"
+      },
+      {
+        "code": "35187580107",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Blockchain Wallet"
+      },
+      {
+        "code": "35175132438",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Blockchain Finance"
+      },
+      {
+        "code": "35223808338",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Credit Technology"
+      },
+      {
+        "code": "35197715218",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Blockchain Payment"
+      },
+      {
+        "code": "35194662290",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Blockchain Exchange"
+      },
+      {
+        "code": "35229477356",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Credit Technology"
+      },
+      {
+        "code": "35221348429",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Regulatory Technology"
+      },
+      {
+        "code": "34661592640",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Wealth Technology"
+      },
+      {
+        "code": "34643018982",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Insurance Technology"
+      },
+      {
+        "code": "35218040537",
+        "level": 2,
+        "pCode": 33608466073,
+        "name": "Supply chain finance technology"
+      }
+    ],
+    "code": "33608466073",
+    "level": 1,
+    "name": "Fintech"
+  },
+  {
+    "node": [
+      {
+        "code": "35292541728",
+        "level": 2,
+        "pCode": 35300480178,
+        "name": "Machine tool precision parts"
+      },
+      {
+        "code": "35308979493",
+        "level": 2,
+        "pCode": 35300480178,
+        "name": "Metal-forming Machine Tool"
+      },
+      {
+        "code": "35308977975",
+        "level": 2,
+        "pCode": 35300480178,
+        "name": "Machine tool processing center"
+      },
+      {
+        "code": "35298136031",
+        "level": 2,
+        "pCode": 35300480178,
+        "name": "Special processing machine tools"
+      },
+      {
+        "code": "35292453795",
+        "level": 2,
+        "pCode": 35300480178,
+        "name": "Machine tool functional components"
+      },
+      {
+        "code": "35305081930",
+        "level": 2,
+        "pCode": 35300480178,
+        "name": "CNC System"
+      },
+      {
+        "code": "35308976751",
+        "level": 2,
+        "pCode": 35300480178,
+        "name": "Metal-cutting Machine Tool"
+      },
+      {
+        "code": "35291557465",
+        "level": 2,
+        "pCode": 35300480178,
+        "name": "Machine tool castings"
+      },
+      {
+        "code": "142942",
+        "level": 2,
+        "pCode": 35300480178,
+        "name": "Cut Knives"
+      }
+    ],
+    "code": "35300480178",
+    "level": 1,
+    "name": "Industrial mother machine"
+  },
+  {
+    "node": [
+      {
+        "code": "35297937997",
+        "level": 2,
+        "pCode": 35300016769,
+        "name": "3D printing-consumer"
+      },
+      {
+        "code": "35311163482",
+        "level": 2,
+        "pCode": 35300016769,
+        "name": "3D printing car"
+      },
+      {
+        "code": "35297550013",
+        "level": 2,
+        "pCode": 35300016769,
+        "name": "3D Printing"
+      },
+      {
+        "code": "35299865862",
+        "level": 2,
+        "pCode": 35300016769,
+        "name": "3D printing-medical care"
+      },
+      {
+        "code": "35311138106",
+        "level": 2,
+        "pCode": 35300016769,
+        "name": "3D printing aerospace"
+      }
+    ],
+    "code": "35300016769",
+    "level": 1,
+    "name": "Downstream application of 3D printing"
+  },
+  {
+    "node": [
+      {
+        "code": "35438525902",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Social interaction of the same sex"
+      },
+      {
+        "code": "35384039904",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Anime Creation"
+      },
+      {
+        "code": "35385813052",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Venture capital media"
+      },
+      {
+        "code": "35383481352",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Network literature platform"
+      },
+      {
+        "code": "35439198108",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Financial Media"
+      },
+      {
+        "code": "35438484303",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Manga reading platform"
+      },
+      {
+        "code": "35438402206",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Marriage and love socializing"
+      },
+      {
+        "code": "35383365200",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Elevator Media"
+      },
+      {
+        "code": "35383497695",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Automotive Media"
+      },
+      {
+        "code": "35381717743",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Children's picture books"
+      },
+      {
+        "code": "35438605571",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "VR Social"
+      },
+      {
+        "code": "35385636206",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "IP Production"
+      },
+      {
+        "code": "35439195416",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Music Social"
+      },
+      {
+        "code": "35387270849",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Social"
+      },
+      {
+        "code": "35439191621",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Interesting Social"
+      },
+      {
+        "code": "35438591957",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Workplace social platform"
+      },
+      {
+        "code": "35438599574",
+        "level": 2,
+        "pCode": 35381717744,
+        "name": "Middle aged social"
+      }
+    ],
+    "code": "35381717744",
+    "level": 1,
+    "name": "Media"
+  },
+  {
+    "node": [
+      {
+        "code": "35387274820",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Comprehensive environmental governance"
+      },
+      {
+        "code": "35394167277",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Sponge City"
+      },
+      {
+        "code": "35394040201",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Recycling"
+      },
+      {
+        "code": "35384088637",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "PPP Project"
+      },
+      {
+        "code": "35387038280",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Ecological Protection"
+      },
+      {
+        "code": "35394165106",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Household garbage treatment"
+      },
+      {
+        "code": "144836",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Garbage Power Generation"
+      },
+      {
+        "code": "35394161380",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Environmental Monitoring"
+      },
+      {
+        "code": "35384092653",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Environmental Instruments"
+      },
+      {
+        "code": "35384091905",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Landscape engineering"
+      },
+      {
+        "code": "35385633721",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Soil Remediation"
+      },
+      {
+        "code": "35387273007",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Environmental protection equipment"
+      },
+      {
+        "code": "35384034219",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Air pollution control"
+      },
+      {
+        "code": "35387278353",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Third-party Testing"
+      },
+      {
+        "code": "35394041402",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Noise Control"
+      },
+      {
+        "code": "35385630115",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Solid Waste Treatment"
+      },
+      {
+        "code": "33608466610",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Green Material"
+      },
+      {
+        "code": "35384047293",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Water Pollution Treatment"
+      },
+      {
+        "code": "35384086921",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Environmental protection engineering construction"
+      },
+      {
+        "code": "35403437633",
+        "level": 2,
+        "pCode": 33608466067,
+        "name": "Green building"
+      }
+    ],
+    "code": "33608466067",
+    "level": 1,
+    "name": "Energy saving and environmental protection"
+  },
+  {
+    "node": [
+      {
+        "code": "35292535663",
+        "level": 2,
+        "pCode": 33608466602,
+        "name": "Healthcare Institutions"
+      },
+      {
+        "code": "35298091821",
+        "level": 2,
+        "pCode": 33608466602,
+        "name": "Medical Business"
+      },
+      {
+        "code": "35215973186",
+        "level": 2,
+        "pCode": 33608466602,
+        "name": "Auxiliary Reproduction"
+      },
+      {
+        "code": "35298135439",
+        "level": 2,
+        "pCode": 33608466602,
+        "name": "Medical Informatization"
+      },
+      {
+        "code": "35298098384",
+        "level": 2,
+        "pCode": 33608466602,
+        "name": "Medical research and development outsourcing"
+      }
+    ],
+    "code": "33608466602",
+    "level": 1,
+    "name": "Medical Service"
+  },
+  {
+    "node": [
+      {
+        "code": "34680134597",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "VR Theme Park"
+      },
+      {
+        "code": "34701604718",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "AR Terminal"
+      },
+      {
+        "code": "35187580107",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Blockchain Wallet"
+      },
+      {
+        "code": "34524335901",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "AIGC"
+      },
+      {
+        "code": "35175132438",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Blockchain Finance"
+      },
+      {
+        "code": "33327978211",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "AI Chip"
+      },
+      {
+        "code": "34559166115",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Metaverse Social"
+      },
+      {
+        "code": "34648362952",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Wind industrial internet concept index"
+      },
+      {
+        "code": "34644747471",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "AI Healthcare"
+      },
+      {
+        "code": "34677582370",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "VR/AR optical devices"
+      },
+      {
+        "code": "35197715218",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Blockchain Payment"
+      },
+      {
+        "code": "34680153055",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "VR MEDICAL"
+      },
+      {
+        "code": "34648361506",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Vehicle Networking"
+      },
+      {
+        "code": "34701569269",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "AR sensing interactive system"
+      },
+      {
+        "code": "35203617731",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Medical Internet of Things"
+      },
+      {
+        "code": "35194662290",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Blockchain Exchange"
+      },
+      {
+        "code": "35203564500",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Cloud computing"
+      },
+      {
+        "code": "34701220034",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Metaverse Game"
+      },
+      {
+        "code": "35197710154",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Home Internet of Things"
+      },
+      {
+        "code": "34680900579",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "VR system software"
+      },
+      {
+        "code": "34673794393",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "VR/AR Chip"
+      },
+      {
+        "code": "33699649516",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Smart digital humans"
+      },
+      {
+        "code": "34680897636",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "VR perception interaction system"
+      },
+      {
+        "code": "34701068731",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "VR/AR Display"
+      },
+      {
+        "code": "34644222787",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "AI Education"
+      },
+      {
+        "code": "34037800684",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "AI big model"
+      },
+      {
+        "code": "34559165901",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Autopilot Software"
+      },
+      {
+        "code": "34559165902",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Self-driving Car"
+      },
+      {
+        "code": "34524335698",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Autopilot domain controller"
+      },
+      {
+        "code": "34680140610",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "VR Terminal"
+      },
+      {
+        "code": "34680897062",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "VR tool software"
+      },
+      {
+        "code": "32609549201",
+        "level": 2,
+        "pCode": 33608466605,
+        "name": "Line control chassis"
+      }
+    ],
+    "code": "33608466605",
+    "level": 1,
+    "name": "Digital Economy"
+  },
+  {
+    "node": [
+      {
+        "code": "34680134597",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR Theme Park"
+      },
+      {
+        "code": "4591",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Energy storage lithium battery"
+      },
+      {
+        "code": "4593",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Power lithium battery"
+      },
+      {
+        "code": "34701604718",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "AR Terminal"
+      },
+      {
+        "code": "34603794897",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Liquid flow battery"
+      },
+      {
+        "code": "34524335901",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "AIGC"
+      },
+      {
+        "code": "33327978211",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "AI Chip"
+      },
+      {
+        "code": "33327978221",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Brain-computer Interface"
+      },
+      {
+        "code": "33608466072",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Synthetic Biology"
+      },
+      {
+        "code": "34559166115",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Metaverse Social"
+      },
+      {
+        "code": "34037800221",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Biological Product"
+      },
+      {
+        "code": "34037800219",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "6G"
+      },
+      {
+        "code": "34037800225",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Humanoid Robot"
+      },
+      {
+        "code": "34037800232",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Computing power network"
+      },
+      {
+        "code": "3181",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Lithium battery material"
+      },
+      {
+        "code": "34603785153",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Hydrogen fuel cell"
+      },
+      {
+        "code": "34677582370",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR/AR optical devices"
+      },
+      {
+        "code": "32609541812",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Solid-state Battery"
+      },
+      {
+        "code": "34680153055",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR MEDICAL"
+      },
+      {
+        "code": "32609541808",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Sodium ion battery"
+      },
+      {
+        "code": "34701621654",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Quantum Computer"
+      },
+      {
+        "code": "35355739983",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR/AR content distribution platform"
+      },
+      {
+        "code": "34644424151",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "AI cloud service"
+      },
+      {
+        "code": "34680110500",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Quantum security gateway"
+      },
+      {
+        "code": "34701627805",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Quantum computing cloud platform"
+      },
+      {
+        "code": "35371335994",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR/AR media community"
+      },
+      {
+        "code": "35414899457",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Physical Interaction"
+      },
+      {
+        "code": "34701615680",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Quantum Phone"
+      },
+      {
+        "code": "34701569269",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "AR sensing interactive system"
+      },
+      {
+        "code": "34701683436",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "OLED"
+      },
+      {
+        "code": "34688831701",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Quantum Software"
+      },
+      {
+        "code": "34701220034",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Metaverse Game"
+      },
+      {
+        "code": "34680900579",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR system software"
+      },
+      {
+        "code": "35431051019",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR Audio"
+      },
+      {
+        "code": "35371718142",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Action capture device"
+      },
+      {
+        "code": "34673794393",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR/AR Chip"
+      },
+      {
+        "code": "34701589930",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Holographic Display"
+      },
+      {
+        "code": "34626502827",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Hydrogen energy storage"
+      },
+      {
+        "code": "34701608970",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "MicroLED"
+      },
+      {
+        "code": "33699649516",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Smart digital humans"
+      },
+      {
+        "code": "34680897636",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR perception interaction system"
+      },
+      {
+        "code": "34701068731",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR/AR Display"
+      },
+      {
+        "code": "35417173546",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Holographic Technology"
+      },
+      {
+        "code": "34037800684",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "AI big model"
+      },
+      {
+        "code": "34037800683",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Biological Reactor"
+      },
+      {
+        "code": "35414965122",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR/AR Experience Hall"
+      },
+      {
+        "code": "34037800694",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Satellite Internet"
+      },
+      {
+        "code": "34037800693",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "IPv6"
+      },
+      {
+        "code": "34037800690",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Biological Sensor"
+      },
+      {
+        "code": "34701610601",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "QLED"
+      },
+      {
+        "code": "35380747540",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "MR"
+      },
+      {
+        "code": "34648361906",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "AI data service"
+      },
+      {
+        "code": "35359629087",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR Film and television production"
+      },
+      {
+        "code": "34524335697",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "AI Server"
+      },
+      {
+        "code": "34701148742",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "MiniLED"
+      },
+      {
+        "code": "34680133753",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Laser Display"
+      },
+      {
+        "code": "34680140610",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR Terminal"
+      },
+      {
+        "code": "34689433958",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "Quantum Chip"
+      },
+      {
+        "code": "34680897062",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR tool software"
+      },
+      {
+        "code": "35371361514",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR/AR Video"
+      },
+      {
+        "code": "35417777956",
+        "level": 2,
+        "pCode": 33608466611,
+        "name": "VR/AR Education"
+      }
+    ],
+    "code": "33608466611",
+    "level": 1,
+    "name": "Future Industry"
+  },
+  {
+    "node": [
+      {
+        "code": "34647938232",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "NH INTELLIGENT"
+      },
+      {
+        "code": "34648362871",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Agricultural Informatization"
+      },
+      {
+        "code": "34524335900",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Genetically modified organisms"
+      },
+      {
+        "code": "34608872339",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Agricultural Drone"
+      },
+      {
+        "code": "34037800214",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Rural environmental protection"
+      },
+      {
+        "code": "34037800216",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Processing of agricultural products"
+      },
+      {
+        "code": "35185273597",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Agricultural Materials"
+      },
+      {
+        "code": "35159350887",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Agricultural machinery"
+      },
+      {
+        "code": "35154170871",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Rural E-commerce"
+      },
+      {
+        "code": "35149459568",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Rural Finance"
+      },
+      {
+        "code": "35151346096",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Rural Logistics"
+      },
+      {
+        "code": "35159328256",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Rural Infrastructure"
+      },
+      {
+        "code": "35151548667",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Rural Tourism"
+      },
+      {
+        "code": "2097",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Forage"
+      },
+      {
+        "code": "35151355565",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Poultry Farming"
+      },
+      {
+        "code": "35154175846",
+        "level": 2,
+        "pCode": 33608466058,
+        "name": "Aquaculture"
+      }
+    ],
+    "code": "33608466058",
+    "level": 1,
+    "name": "Rural Revitalization"
+  },
+  {
+    "node": [
+      {
+        "code": "4591",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Energy storage lithium battery"
+      },
+      {
+        "code": "4593",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Power lithium battery"
+      },
+      {
+        "code": "34603794897",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Liquid flow battery"
+      },
+      {
+        "code": "34603716551",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Proton exchange membrane"
+      },
+      {
+        "code": "34559166111",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Hydrogen Production"
+      },
+      {
+        "code": "33608466071",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Carbon Management"
+      },
+      {
+        "code": "33608466066",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Smart Grid"
+      },
+      {
+        "code": "34654297212",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Virtual power plant"
+      },
+      {
+        "code": "33608466072",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Synthetic Biology"
+      },
+      {
+        "code": "34661589912",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Electric Two-wheeler"
+      },
+      {
+        "code": "3181",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Lithium battery material"
+      },
+      {
+        "code": "34608892970",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Biomaterials"
+      },
+      {
+        "code": "34654307926",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Carbon dioxide energy storage"
+      },
+      {
+        "code": "34626406638",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Distributed Photovoltaics"
+      },
+      {
+        "code": "35312239623",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Integrated optical storage and charging"
+      },
+      {
+        "code": "34603785153",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Hydrogen fuel cell"
+      },
+      {
+        "code": "32609541813",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Charging and battery swapping"
+      },
+      {
+        "code": "32609541812",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Solid-state Battery"
+      },
+      {
+        "code": "32609541811",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Electric motor control"
+      },
+      {
+        "code": "32609541808",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Sodium ion battery"
+      },
+      {
+        "code": "34716388064",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Compressed air energy storage"
+      },
+      {
+        "code": "34626205019",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Photovoltaic Cell"
+      },
+      {
+        "code": "34661591524",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Fuel cell vehicle"
+      },
+      {
+        "code": "34720905397",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Environmental protection"
+      },
+      {
+        "code": "34654301187",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "PCS"
+      },
+      {
+        "code": "35312182668",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Two-wheeler charging and swapping"
+      },
+      {
+        "code": "144966",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Photovoltaic Bracket"
+      },
+      {
+        "code": "34626502827",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Hydrogen energy storage"
+      },
+      {
+        "code": "34626373444",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Hydrogen storage and transportation"
+      },
+      {
+        "code": "34626374223",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Heterojunction and perovskite"
+      },
+      {
+        "code": "34632205760",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Flyingwheel energy storage"
+      },
+      {
+        "code": "34716453048",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Portable energy storage"
+      },
+      {
+        "code": "34640423072",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Industrial and commercial energy storage"
+      },
+      {
+        "code": "34624152168",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Photovoltaic silicon wafers"
+      },
+      {
+        "code": "32609540665",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Battery Recycling"
+      },
+      {
+        "code": "33608466600",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Wind Power"
+      },
+      {
+        "code": "33608466613",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Nuclear Energy"
+      },
+      {
+        "code": "34559165900",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Liquid metal battery"
+      },
+      {
+        "code": "33608466610",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Green Material"
+      },
+      {
+        "code": "33608466608",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Green Agriculture"
+      },
+      {
+        "code": "34640557928",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "BMS"
+      },
+      {
+        "code": "4512",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Photovoltaic Equipment"
+      },
+      {
+        "code": "4515",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Photovoltaic Modules"
+      },
+      {
+        "code": "4517",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Photovoltaic Inverters"
+      },
+      {
+        "code": "32609549201",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "Line control chassis"
+      },
+      {
+        "code": "32609549200",
+        "level": 2,
+        "pCode": 33608466059,
+        "name": "New energy vehicle"
+      }
+    ],
+    "code": "33608466059",
+    "level": 1,
+    "name": "Carbon Neutrality"
+  },
+  {
+    "node": [
+      {
+        "code": "35197534717",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "3D printing material"
+      },
+      {
+        "code": "35216069660",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "High-performance fibers and composite materials"
+      },
+      {
+        "code": "143138",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Superhard Material"
+      },
+      {
+        "code": "3124",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Carbon Material"
+      },
+      {
+        "code": "3132",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Graphene"
+      },
+      {
+        "code": "3181",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Lithium battery material"
+      },
+      {
+        "code": "34608892970",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Biomaterials"
+      },
+      {
+        "code": "35233409166",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Liquid Metal"
+      },
+      {
+        "code": "35234092620",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Thermal management materials"
+      },
+      {
+        "code": "34648363097",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Semiconductor front materials"
+      },
+      {
+        "code": "34608856550",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "New display materials"
+      },
+      {
+        "code": "35215973220",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Super Material"
+      },
+      {
+        "code": "34608864187",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Functional membrane material"
+      },
+      {
+        "code": "34631924016",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Polymer Materials"
+      },
+      {
+        "code": "35244321292",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Metal-based composite materials"
+      },
+      {
+        "code": "35229567036",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Biomaterials"
+      },
+      {
+        "code": "34608533959",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Compound Semiconductor"
+      },
+      {
+        "code": "35217866692",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Superconducting Material"
+      },
+      {
+        "code": "35229426364",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Nanometer material"
+      },
+      {
+        "code": "35252992252",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "New alloy material"
+      },
+      {
+        "code": "34632474378",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Frontier new materials"
+      },
+      {
+        "code": "142837",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Engineering Plastic"
+      },
+      {
+        "code": "35234089091",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Rare earth materials"
+      },
+      {
+        "code": "35216064831",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Photovoltaic Material"
+      },
+      {
+        "code": "35249842613",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Shape memory alloy"
+      },
+      {
+        "code": "33608466610",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Green Material"
+      },
+      {
+        "code": "35216067994",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Functional ceramic material"
+      },
+      {
+        "code": "34646366668",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Semiconductor back channel materials"
+      },
+      {
+        "code": "35229318535",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Carbon nanotube material"
+      },
+      {
+        "code": "35233674531",
+        "level": 2,
+        "pCode": 33608466061,
+        "name": "Smart Material"
+      }
+    ],
+    "code": "33608466061",
+    "level": 1,
+    "name": "New Materials"
+  },
+  {
+    "node": [
+      {
+        "code": "35197534717",
+        "level": 2,
+        "pCode": 33608466612,
+        "name": "3D printing material"
+      },
+      {
+        "code": "145500",
+        "level": 2,
+        "pCode": 33608466612,
+        "name": "3D printing service"
+      },
+      {
+        "code": "35282079770",
+        "level": 2,
+        "pCode": 33608466612,
+        "name": "3D printing components"
+      },
+      {
+        "code": "35300016769",
+        "level": 2,
+        "pCode": 33608466612,
+        "name": "Downstream application of 3D printing"
+      },
+      {
+        "code": "35282654689",
+        "level": 2,
+        "pCode": 33608466612,
+        "name": "3D Printing Equipment"
+      }
+    ],
+    "code": "33608466612",
+    "level": 1,
+    "name": "3D Printing"
+  },
+  {
+    "node": [
+      {
+        "code": "34632467866",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Air Suspension"
+      },
+      {
+        "code": "4593",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Power lithium battery"
+      },
+      {
+        "code": "34603716551",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Proton exchange membrane"
+      },
+      {
+        "code": "33327978215",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Car Chip"
+      },
+      {
+        "code": "34632230490",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Robotaxi"
+      },
+      {
+        "code": "34701638241",
+        "level": 2,
+        "pCode": 144692,
+        "name": "4D millimeter wave radar"
+      },
+      {
+        "code": "34632209189",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Autopilot Truck"
+      },
+      {
+        "code": "34680128612",
+        "level": 2,
+        "pCode": 144692,
+        "name": "NOA"
+      },
+      {
+        "code": "3181",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Lithium battery material"
+      },
+      {
+        "code": "34603785153",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Hydrogen fuel cell"
+      },
+      {
+        "code": "34720546922",
+        "level": 2,
+        "pCode": 144692,
+        "name": "New energy heavy truck"
+      },
+      {
+        "code": "32609541813",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Charging and battery swapping"
+      },
+      {
+        "code": "32609541812",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Solid-state Battery"
+      },
+      {
+        "code": "32609541811",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Electric motor control"
+      },
+      {
+        "code": "32609541809",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Car-mounted LiDAR"
+      },
+      {
+        "code": "32609541808",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Sodium ion battery"
+      },
+      {
+        "code": "34661591524",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Fuel cell vehicle"
+      },
+      {
+        "code": "34701643080",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Unmanned driving in the mining area"
+      },
+      {
+        "code": "35439173179",
+        "level": 2,
+        "pCode": 144692,
+        "name": "After-car Service"
+      },
+      {
+        "code": "32609540665",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Battery Recycling"
+      },
+      {
+        "code": "34524335698",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Autopilot domain controller"
+      },
+      {
+        "code": "145295",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Fuel Cell"
+      },
+      {
+        "code": "34689430921",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Thermal management of new energy vehicles"
+      },
+      {
+        "code": "32609549198",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Smart Cockpit"
+      },
+      {
+        "code": "32609549197",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Automated driving"
+      },
+      {
+        "code": "32609549201",
+        "level": 2,
+        "pCode": 144692,
+        "name": "Line control chassis"
+      },
+      {
+        "code": "32609549200",
+        "level": 2,
+        "pCode": 144692,
+        "name": "New energy vehicle"
+      },
+      {
+        "code": "34677601211",
+        "level": 2,
+        "pCode": 144692,
+        "name": "HUD"
+      }
+    ],
+    "code": "144692",
+    "level": 1,
+    "name": "New Energy Automobile"
+  },
+  {
+    "node": [
+      {
+        "code": "34724691158",
+        "level": 2,
+        "pCode": 35292535663,
+        "name": "Hospital Comprehensive"
+      },
+      {
+        "code": "34720823864",
+        "level": 2,
+        "pCode": 35292535663,
+        "name": "Oral Medical Institutions"
+      },
+      {
+        "code": "34723975189",
+        "level": 2,
+        "pCode": 35292535663,
+        "name": "Blood dialysis center"
+      },
+      {
+        "code": "34719421582",
+        "level": 2,
+        "pCode": 35292535663,
+        "name": "Third party medical examination agency"
+      },
+      {
+        "code": "34595416746",
+        "level": 2,
+        "pCode": 35292535663,
+        "name": "Traditional Chinese Medicine Health Center"
+      },
+      {
+        "code": "34559165897",
+        "level": 2,
+        "pCode": 35292535663,
+        "name": "Pension and rehabilitation institutions"
+      },
+      {
+        "code": "34559165898",
+        "level": 2,
+        "pCode": 35292535663,
+        "name": "Assisted reproductive services"
+      },
+      {
+        "code": "34720832108",
+        "level": 2,
+        "pCode": 35292535663,
+        "name": "Ophthalmology medical institution"
+      }
+    ],
+    "code": "35292535663",
+    "level": 1,
+    "name": "Healthcare Institutions"
+  },
+  {
+    "node": [
+      {
+        "code": "34632031808",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Satellite Development"
+      },
+      {
+        "code": "34642988087",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Satellite Communication"
+      },
+      {
+        "code": "35203609299",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Ground Equipment"
+      },
+      {
+        "code": "34629708158",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Satellite Operation"
+      },
+      {
+        "code": "34640401758",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Carrier rocket"
+      },
+      {
+        "code": "34631871766",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Space resource development"
+      },
+      {
+        "code": "34642120938",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Satellite Navigation"
+      },
+      {
+        "code": "34631895387",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Space Travel"
+      },
+      {
+        "code": "34632206757",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Satellite measurement and control"
+      },
+      {
+        "code": "34642469660",
+        "level": 2,
+        "pCode": 35300508571,
+        "name": "Satellite remote sensing"
+      }
+    ],
+    "code": "35300508571",
+    "level": 1,
+    "name": "Commercial Aerospace"
+  },
+  {
+    "node": [
+      {
+        "code": "35406643832",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Meteorological big data"
+      },
+      {
+        "code": "35406639255",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Analysis of user behavior"
+      },
+      {
+        "code": "35402828224",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Big Data anti-fraud"
+      },
+      {
+        "code": "35402829806",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Data Annotation"
+      },
+      {
+        "code": "35406457528",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Data Center"
+      },
+      {
+        "code": "35414919159",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Genetic big data"
+      },
+      {
+        "code": "35406642540",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Business Intelligence"
+      },
+      {
+        "code": "35415017356",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Big data risk control"
+      },
+      {
+        "code": "35400125503",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Public opinion monitoring"
+      },
+      {
+        "code": "35396581545",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "E-sports big data"
+      },
+      {
+        "code": "35406445730",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Tumor Big Data"
+      },
+      {
+        "code": "35406451116",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Retail big data"
+      },
+      {
+        "code": "35406639873",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Industrial big data"
+      },
+      {
+        "code": "35403458903",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Agricultural big data"
+      },
+      {
+        "code": "35406642238",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Big Data Security"
+      },
+      {
+        "code": "35406640731",
+        "level": 2,
+        "pCode": 35396581546,
+        "name": "Government Big Data"
+      }
+    ],
+    "code": "35396581546",
+    "level": 1,
+    "name": "Big Data"
+  },
+  {
+    "node": [
+      {
+        "code": "35271719293",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Camera Module"
+      },
+      {
+        "code": "35282655626",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Display Panel"
+      },
+      {
+        "code": "35282473853",
+        "level": 2,
+        "pCode": 24589,
+        "name": "RF Devices"
+      },
+      {
+        "code": "5543",
+        "level": 2,
+        "pCode": 24589,
+        "name": "LED"
+      },
+      {
+        "code": "5589",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Passive Component"
+      },
+      {
+        "code": "5603",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Electroacoustic components"
+      },
+      {
+        "code": "5633",
+        "level": 2,
+        "pCode": 24589,
+        "name": "PCB"
+      },
+      {
+        "code": "35282682566",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Scientific Instrument"
+      },
+      {
+        "code": "35308889175",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Electronic distribution agency"
+      },
+      {
+        "code": "35274456243",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Electronic information manufacturing"
+      },
+      {
+        "code": "35282539586",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Electronic Chemicals"
+      },
+      {
+        "code": "35292536155",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Structural Parts"
+      },
+      {
+        "code": "35312198124",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Functional Devices"
+      },
+      {
+        "code": "35281488783",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Optical Material"
+      },
+      {
+        "code": "142912",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Magnetic material"
+      },
+      {
+        "code": "142946",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Optical Lens"
+      },
+      {
+        "code": "35271754963",
+        "level": 2,
+        "pCode": 24589,
+        "name": "Electronic Equipment"
+      }
+    ],
+    "code": "24589",
+    "level": 1,
+    "name": "Electronic Component"
+  },
+  {
+    "node": [
+      {
+        "code": "35355787727",
+        "level": 2,
+        "pCode": 35355598328,
+        "name": "Ice and snow tourism"
+      },
+      {
+        "code": "35356153078",
+        "level": 2,
+        "pCode": 35355598328,
+        "name": "Ice and snow field equipment"
+      },
+      {
+        "code": "35355598326",
+        "level": 2,
+        "pCode": 35355598328,
+        "name": "Ice and snow sports training"
+      },
+      {
+        "code": "35355796254",
+        "level": 2,
+        "pCode": 35355598328,
+        "name": "Ice and Snow Information Service"
+      },
+      {
+        "code": "35356333615",
+        "level": 2,
+        "pCode": 35355598328,
+        "name": "Ice and Snow Games"
+      },
+      {
+        "code": "35356177850",
+        "level": 2,
+        "pCode": 35355598328,
+        "name": "Personal ice and snow equipment"
+      }
+    ],
+    "code": "35355598328",
+    "level": 1,
+    "name": "Ice and snow economy"
+  },
+  {
+    "node": [
+      {
+        "code": "35241880495",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Early Education"
+      },
+      {
+        "code": "35241839399",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Teaching materials teaching assistants"
+      },
+      {
+        "code": "35226591264",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Teaching smart hardware"
+      },
+      {
+        "code": "19894",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Vocational Training"
+      },
+      {
+        "code": "19920",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Preschool Education"
+      },
+      {
+        "code": "35244332518",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Character Building Education"
+      },
+      {
+        "code": "35252481368",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Online Education"
+      },
+      {
+        "code": "35236880985",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Higher Education"
+      },
+      {
+        "code": "35241737810",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Compiled for the public exam"
+      },
+      {
+        "code": "35244048252",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Art Education"
+      },
+      {
+        "code": "35228583959",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Home education hardware"
+      },
+      {
+        "code": "34646382437",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Continuing Education"
+      },
+      {
+        "code": "34644222787",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "AI Education"
+      },
+      {
+        "code": "35236837874",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Mother and baby education"
+      },
+      {
+        "code": "35244289629",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Language Training"
+      },
+      {
+        "code": "35239213006",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "K12 School"
+      },
+      {
+        "code": "35239221423",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "CAREER EDUCATION"
+      },
+      {
+        "code": "35146572731",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "K12 Education & Training"
+      },
+      {
+        "code": "34644747316",
+        "level": 2,
+        "pCode": 33608466603,
+        "name": "Education Informatization"
+      }
+    ],
+    "code": "33608466603",
+    "level": 1,
+    "name": "Education"
+  },
+  {
+    "node": [
+      {
+        "code": "34701861943",
+        "level": 2,
+        "pCode": 33327978193,
+        "name": "Heart Electrophysiology"
+      },
+      {
+        "code": "33327978196",
+        "level": 2,
+        "pCode": 33327978193,
+        "name": "Cardiovascular intervention consumables"
+      },
+      {
+        "code": "33327978206",
+        "level": 2,
+        "pCode": 33327978193,
+        "name": "Artificial Heart"
+      },
+      {
+        "code": "33327978204",
+        "level": 2,
+        "pCode": 33327978193,
+        "name": "Vascular intervention surgical robot"
+      },
+      {
+        "code": "33327978226",
+        "level": 2,
+        "pCode": 33327978193,
+        "name": "Pacemaker"
+      },
+      {
+        "code": "33327978334",
+        "level": 2,
+        "pCode": 33327978193,
+        "name": "Appearary membrane pulmonary oxygenation"
+      },
+      {
+        "code": "33327978360",
+        "level": 2,
+        "pCode": 33327978193,
+        "name": "Artificial Valve"
+      }
+    ],
+    "code": "33327978193",
+    "level": 1,
+    "name": "Cardiovascular medical devices"
+  },
+  {
+    "node": [
+      {
+        "code": "34701861943",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Heart Electrophysiology"
+      },
+      {
+        "code": "33327978199",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Radiotherapy Equipment"
+      },
+      {
+        "code": "33327978204",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Vascular intervention surgical robot"
+      },
+      {
+        "code": "33327978213",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Medical System"
+      },
+      {
+        "code": "33327978327",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Artificial intelligence imaging diagnosis"
+      },
+      {
+        "code": "33327978334",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Appearary membrane pulmonary oxygenation"
+      },
+      {
+        "code": "33327978333",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Root therapy instrument"
+      },
+      {
+        "code": "33327978341",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Oral surgical robot"
+      },
+      {
+        "code": "33327978336",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Ophthalmology surgical robot"
+      },
+      {
+        "code": "33327978347",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Radio frequency therapy instrument"
+      },
+      {
+        "code": "33327978358",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Orthopedic surgical robot"
+      },
+      {
+        "code": "33327978352",
+        "level": 2,
+        "pCode": 33327978340,
+        "name": "Mirror surgical robot"
+      }
+    ],
+    "code": "33327978340",
+    "level": 1,
+    "name": "Medical Equipment"
+  },
+  {
+    "node": [
+      {
+        "code": "35218096949",
+        "level": 2,
+        "pCode": 35215973186,
+        "name": "Assisted reproductive reagents and consumables"
+      },
+      {
+        "code": "35203536035",
+        "level": 2,
+        "pCode": 35215973186,
+        "name": "Assisted reproductive testing"
+      },
+      {
+        "code": "34559165898",
+        "level": 2,
+        "pCode": 35215973186,
+        "name": "Assisted reproductive services"
+      }
+    ],
+    "code": "35215973186",
+    "level": 1,
+    "name": "Auxiliary Reproduction"
+  },
+  {
+    "node": [
+      {
+        "code": "35263110871",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine ecological protection"
+      },
+      {
+        "code": "35254503971",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Ship Equipment"
+      },
+      {
+        "code": "143190",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Port Service"
+      },
+      {
+        "code": "35271609778",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine Energy"
+      },
+      {
+        "code": "35256863126",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine Chemical"
+      },
+      {
+        "code": "35263117052",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine Aquaculture"
+      },
+      {
+        "code": "34433207745",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Fresh water farming"
+      },
+      {
+        "code": "35256781746",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine Minerals"
+      },
+      {
+        "code": "33395004151",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Underwater Robot"
+      },
+      {
+        "code": "35266854410",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine information services"
+      },
+      {
+        "code": "35267370459",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine Transport"
+      },
+      {
+        "code": "35256922738",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Oceanic Fisheries"
+      },
+      {
+        "code": "35265758863",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine Tourism"
+      },
+      {
+        "code": "35254638358",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine Electronics"
+      },
+      {
+        "code": "35252858391",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Hai product processing"
+      },
+      {
+        "code": "35256763845",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine engineering equipment"
+      },
+      {
+        "code": "18836",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Oceanographic engineering"
+      },
+      {
+        "code": "34524335695",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine new energy"
+      },
+      {
+        "code": "35254760240",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine health products"
+      },
+      {
+        "code": "35265910447",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Ship Manufacturing"
+      },
+      {
+        "code": "35265695874",
+        "level": 2,
+        "pCode": 35300670247,
+        "name": "Marine Medicine"
+      }
+    ],
+    "code": "35300670247",
+    "level": 1,
+    "name": "Marine Economy"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978198",
+        "level": 2,
+        "pCode": 33327978212,
+        "name": "Artificial Joints"
+      },
+      {
+        "code": "33327978200",
+        "level": 2,
+        "pCode": 33327978212,
+        "name": "Rehabilitation Aids"
+      },
+      {
+        "code": "33327978222",
+        "level": 2,
+        "pCode": 33327978212,
+        "name": "Endoscope"
+      },
+      {
+        "code": "33327978218",
+        "level": 2,
+        "pCode": 33327978212,
+        "name": "Spinal Consumables"
+      },
+      {
+        "code": "33327978332",
+        "level": 2,
+        "pCode": 33327978212,
+        "name": "Trauma Consumables"
+      },
+      {
+        "code": "33327978342",
+        "level": 2,
+        "pCode": 33327978212,
+        "name": "Nuclear medical imaging equipment"
+      },
+      {
+        "code": "33327978350",
+        "level": 2,
+        "pCode": 33327978212,
+        "name": "Sports Medicine"
+      },
+      {
+        "code": "33327978358",
+        "level": 2,
+        "pCode": 33327978212,
+        "name": "Orthopedic surgical robot"
+      }
+    ],
+    "code": "33327978212",
+    "level": 1,
+    "name": "Orthopedic medical equipment"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978198",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Artificial Joints"
+      },
+      {
+        "code": "33327978196",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Cardiovascular intervention consumables"
+      },
+      {
+        "code": "33327978206",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Artificial Heart"
+      },
+      {
+        "code": "33327978220",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Artificial Earwax"
+      },
+      {
+        "code": "33327978218",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Spinal Consumables"
+      },
+      {
+        "code": "33327978226",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Pacemaker"
+      },
+      {
+        "code": "33327978225",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Orthodontics Material"
+      },
+      {
+        "code": "33327978332",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Trauma Consumables"
+      },
+      {
+        "code": "33327978350",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Sports Medicine"
+      },
+      {
+        "code": "33327978348",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Plant Teeth"
+      },
+      {
+        "code": "33327978344",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Artificial Crystal"
+      },
+      {
+        "code": "33327978360",
+        "level": 2,
+        "pCode": 33327978355,
+        "name": "Artificial Valve"
+      }
+    ],
+    "code": "33327978355",
+    "level": 1,
+    "name": "High value consumables"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978197",
+        "level": 2,
+        "pCode": 33327978349,
+        "name": "Molecular Diagnosis"
+      },
+      {
+        "code": "33327978216",
+        "level": 2,
+        "pCode": 33327978349,
+        "name": "Biochemistry Diagnosis"
+      },
+      {
+        "code": "33327978339",
+        "level": 2,
+        "pCode": 33327978349,
+        "name": "Immunodiagnosis"
+      },
+      {
+        "code": "33327978351",
+        "level": 2,
+        "pCode": 33327978349,
+        "name": "Life science instruments and reagents"
+      },
+      {
+        "code": "33327978356",
+        "level": 2,
+        "pCode": 33327978349,
+        "name": "POCT Diagnosis"
+      }
+    ],
+    "code": "33327978349",
+    "level": 1,
+    "name": "Laboratory Medicine"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978194",
+        "level": 2,
+        "pCode": 33327978227,
+        "name": "Oral CT"
+      },
+      {
+        "code": "33327978225",
+        "level": 2,
+        "pCode": 33327978227,
+        "name": "Orthodontics Material"
+      },
+      {
+        "code": "33327978333",
+        "level": 2,
+        "pCode": 33327978227,
+        "name": "Root therapy instrument"
+      },
+      {
+        "code": "33327978348",
+        "level": 2,
+        "pCode": 33327978227,
+        "name": "Plant Teeth"
+      }
+    ],
+    "code": "33327978227",
+    "level": 1,
+    "name": "Oral medical equipment"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978194",
+        "level": 2,
+        "pCode": 33327978345,
+        "name": "Oral CT"
+      },
+      {
+        "code": "33327978205",
+        "level": 2,
+        "pCode": 33327978345,
+        "name": "Ultrasound diagnostic equipment"
+      },
+      {
+        "code": "33327978342",
+        "level": 2,
+        "pCode": 33327978345,
+        "name": "Nuclear medical imaging equipment"
+      },
+      {
+        "code": "33327978337",
+        "level": 2,
+        "pCode": 33327978345,
+        "name": "Octrine Octs"
+      }
+    ],
+    "code": "33327978345",
+    "level": 1,
+    "name": "Medical imaging equipment"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978193",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Cardiovascular medical devices"
+      },
+      {
+        "code": "33327978212",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Orthopedic medical equipment"
+      },
+      {
+        "code": "33327978209",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Medical beauty equipment"
+      },
+      {
+        "code": "33327978223",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Surgical Robot"
+      },
+      {
+        "code": "35298138220",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Medical hygiene materials"
+      },
+      {
+        "code": "33327978219",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Rehabilitation Equipment"
+      },
+      {
+        "code": "33327978217",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Digital Therapy"
+      },
+      {
+        "code": "33327978227",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Oral medical equipment"
+      },
+      {
+        "code": "33327978340",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Medical Equipment"
+      },
+      {
+        "code": "33327978349",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Laboratory Medicine"
+      },
+      {
+        "code": "33327978345",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Medical imaging equipment"
+      },
+      {
+        "code": "33327978355",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "High value consumables"
+      },
+      {
+        "code": "33327978353",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Ophthalmology medical equipment"
+      },
+      {
+        "code": "35215973186",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Auxiliary Reproduction"
+      },
+      {
+        "code": "142591",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Treatment Equipment"
+      },
+      {
+        "code": "35238470338",
+        "level": 2,
+        "pCode": 33327978208,
+        "name": "Ordinary Consumables"
+      }
+    ],
+    "code": "33327978208",
+    "level": 1,
+    "name": "Medical instruments and equipment"
+  },
+  {
+    "node": [
+      {
+        "code": "35226550171",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Smart Earphones"
+      },
+      {
+        "code": "34559166110",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Smart car hardware"
+      },
+      {
+        "code": "35226591264",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Teaching smart hardware"
+      },
+      {
+        "code": "34559166112",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Smart Glasses"
+      },
+      {
+        "code": "34559166114",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Smart Home"
+      },
+      {
+        "code": "34559166116",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "XR Hardware"
+      },
+      {
+        "code": "35228938257",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Sweeping Robot"
+      },
+      {
+        "code": "35228944486",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Game hardware and peripherals"
+      },
+      {
+        "code": "35229044199",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Intelligent security hardware"
+      },
+      {
+        "code": "35228583959",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Home education hardware"
+      },
+      {
+        "code": "35236820278",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Smart Speaker"
+      },
+      {
+        "code": "35225991287",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Intelligent Watch"
+      },
+      {
+        "code": "35241836916",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Smart audio hardware"
+      },
+      {
+        "code": "35236150736",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Smart Bracelet"
+      },
+      {
+        "code": "35236385159",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Smart medical hardware"
+      },
+      {
+        "code": "35221517551",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Pet smart hardware"
+      },
+      {
+        "code": "35226594931",
+        "level": 2,
+        "pCode": 33608466070,
+        "name": "Fashion smart hardware"
+      }
+    ],
+    "code": "33608466070",
+    "level": 1,
+    "name": "Intelligent hardware"
+  },
+  {
+    "node": [
+      {
+        "code": "34524335899",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Semiconductor rear equipment"
+      },
+      {
+        "code": "33327978203",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "EDA/IP"
+      },
+      {
+        "code": "33327978202",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Optoelectronic Chip"
+      },
+      {
+        "code": "33327978215",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Car Chip"
+      },
+      {
+        "code": "33327978211",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "AI Chip"
+      },
+      {
+        "code": "33327978210",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "MCU"
+      },
+      {
+        "code": "34648362165",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Traditional packaging and testing"
+      },
+      {
+        "code": "3154",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Photoresist"
+      },
+      {
+        "code": "33327978331",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Simulated Chip"
+      },
+      {
+        "code": "33327978330",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Logical Chip"
+      },
+      {
+        "code": "33327978329",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Storage Chip"
+      },
+      {
+        "code": "33327978328",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Communication Chip"
+      },
+      {
+        "code": "33327978361",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Sensor Chip"
+      },
+      {
+        "code": "34648363097",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Semiconductor front materials"
+      },
+      {
+        "code": "5586",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Glass Substrate"
+      },
+      {
+        "code": "5647",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "RF Chip"
+      },
+      {
+        "code": "34654348457",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Special Chip"
+      },
+      {
+        "code": "34608533959",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Compound Semiconductor"
+      },
+      {
+        "code": "34646368072",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Advanced Packaging"
+      },
+      {
+        "code": "34646364269",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Power Semiconductor"
+      },
+      {
+        "code": "34646374946",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Semiconductor equipment components"
+      },
+      {
+        "code": "34524335694",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Semiconductor front equipment"
+      },
+      {
+        "code": "34524335699",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Biochip"
+      },
+      {
+        "code": "34646366668",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Semiconductor back channel materials"
+      },
+      {
+        "code": "34648364308",
+        "level": 2,
+        "pCode": 33327978224,
+        "name": "Wafer Foundry"
+      }
+    ],
+    "code": "33327978224",
+    "level": 1,
+    "name": "Semiconductor"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978207",
+        "level": 2,
+        "pCode": 33327978219,
+        "name": "Hearing Aids"
+      },
+      {
+        "code": "33327978200",
+        "level": 2,
+        "pCode": 33327978219,
+        "name": "Rehabilitation Aids"
+      },
+      {
+        "code": "33327978214",
+        "level": 2,
+        "pCode": 33327978219,
+        "name": "Rehabilitation Robot"
+      },
+      {
+        "code": "33327978221",
+        "level": 2,
+        "pCode": 33327978219,
+        "name": "Brain-computer Interface"
+      },
+      {
+        "code": "33327978357",
+        "level": 2,
+        "pCode": 33327978219,
+        "name": "Medical appliances for physical therapy"
+      }
+    ],
+    "code": "33327978219",
+    "level": 1,
+    "name": "Rehabilitation Equipment"
+  },
+  {
+    "node": [
+      {
+        "code": "34524335901",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AIGC"
+      },
+      {
+        "code": "33327978211",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Chip"
+      },
+      {
+        "code": "35192288448",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI video generation"
+      },
+      {
+        "code": "34644747471",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Healthcare"
+      },
+      {
+        "code": "35192287036",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Companionship"
+      },
+      {
+        "code": "34644424151",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI cloud service"
+      },
+      {
+        "code": "34632512361",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "MLOps"
+      },
+      {
+        "code": "34632465949",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "VR Headset"
+      },
+      {
+        "code": "34644747750",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Industry"
+      },
+      {
+        "code": "33699649511",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Machine Learning"
+      },
+      {
+        "code": "33699649510",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Natural language processing"
+      },
+      {
+        "code": "33395004456",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Voice Recognition"
+      },
+      {
+        "code": "33699649518",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Knowledge Map"
+      },
+      {
+        "code": "33699649516",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Smart digital humans"
+      },
+      {
+        "code": "33699649512",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Computer Vision"
+      },
+      {
+        "code": "34724933650",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Game"
+      },
+      {
+        "code": "34642472473",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI cultural tourism"
+      },
+      {
+        "code": "34644222787",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Education"
+      },
+      {
+        "code": "34037800684",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI big model"
+      },
+      {
+        "code": "34646382542",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Energy"
+      },
+      {
+        "code": "34648361906",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI data service"
+      },
+      {
+        "code": "34654348693",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Traffic"
+      },
+      {
+        "code": "34559165901",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Autopilot Software"
+      },
+      {
+        "code": "34559165902",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Self-driving Car"
+      },
+      {
+        "code": "35185349427",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Infra"
+      },
+      {
+        "code": "34524335697",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Server"
+      },
+      {
+        "code": "34524335698",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Autopilot domain controller"
+      },
+      {
+        "code": "34632514898",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AR Glasses"
+      },
+      {
+        "code": "34644746475",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Agriculture"
+      },
+      {
+        "code": "35175131538",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "AI Agent"
+      },
+      {
+        "code": "32609549201",
+        "level": 2,
+        "pCode": 33608466601,
+        "name": "Line control chassis"
+      }
+    ],
+    "code": "33608466601",
+    "level": 1,
+    "name": "Artificial Intelligence"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978204",
+        "level": 2,
+        "pCode": 33327978223,
+        "name": "Vascular intervention surgical robot"
+      },
+      {
+        "code": "33327978341",
+        "level": 2,
+        "pCode": 33327978223,
+        "name": "Oral surgical robot"
+      },
+      {
+        "code": "33327978336",
+        "level": 2,
+        "pCode": 33327978223,
+        "name": "Ophthalmology surgical robot"
+      },
+      {
+        "code": "33327978358",
+        "level": 2,
+        "pCode": 33327978223,
+        "name": "Orthopedic surgical robot"
+      },
+      {
+        "code": "33327978352",
+        "level": 2,
+        "pCode": 33327978223,
+        "name": "Mirror surgical robot"
+      }
+    ],
+    "code": "33327978223",
+    "level": 1,
+    "name": "Surgical Robot"
+  },
+  {
+    "node": [
+      {
+        "code": "33608466069",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Ultra-automated"
+      },
+      {
+        "code": "145503",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Entrepreneurial services"
+      },
+      {
+        "code": "24575",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Information Technology Services"
+      },
+      {
+        "code": "35197722892",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Intellectual property services"
+      },
+      {
+        "code": "18498",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Human resources services"
+      },
+      {
+        "code": "35203614586",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Financial management software"
+      },
+      {
+        "code": "35203631318",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Customer relationship management software"
+      },
+      {
+        "code": "35201654268",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Robot process automation"
+      },
+      {
+        "code": "35197705446",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Enterprise operation management software"
+      },
+      {
+        "code": "35203444170",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Advertising marketing services"
+      },
+      {
+        "code": "35203610068",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Financial and tax services"
+      },
+      {
+        "code": "35197528194",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Human resource management software"
+      },
+      {
+        "code": "35203623044",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Design Service"
+      },
+      {
+        "code": "35312166795",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Exhibition Service"
+      },
+      {
+        "code": "35371313452",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Data analysis service"
+      },
+      {
+        "code": "35203616432",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Legal Services"
+      },
+      {
+        "code": "35201861604",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Supply chain management software"
+      },
+      {
+        "code": "19014",
+        "level": 2,
+        "pCode": 33608466607,
+        "name": "Supply chain management"
+      }
+    ],
+    "code": "33608466607",
+    "level": 1,
+    "name": "Enterprise Services"
+  },
+  {
+    "node": [
+      {
+        "code": "34608872339",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Agricultural Drone"
+      },
+      {
+        "code": "34524335895",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Industrial-grade Drone"
+      },
+      {
+        "code": "35148858187",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Surveying and mapping drones"
+      },
+      {
+        "code": "16121",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Military Drone"
+      },
+      {
+        "code": "34640383159",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Logistics Drone"
+      },
+      {
+        "code": "35113117137",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Low-altitude Infrastructure"
+      },
+      {
+        "code": "35146380471",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Security Drone"
+      },
+      {
+        "code": "35145559388",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Consumer-grade Drones"
+      },
+      {
+        "code": "35139005664",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Traditional fixed-wing aircraft"
+      },
+      {
+        "code": "35014276247",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Multi-rotor Drone"
+      },
+      {
+        "code": "35145569408",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "EVTOL Motor"
+      },
+      {
+        "code": "35096809114",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Low-altitude economic education training"
+      },
+      {
+        "code": "35011885386",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Fixed-wing Drone"
+      },
+      {
+        "code": "34433208065",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "eVTOL"
+      },
+      {
+        "code": "35148865431",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Helicopter"
+      },
+      {
+        "code": "34721019240",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Remaining Drones"
+      },
+      {
+        "code": "34608896573",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Drone System"
+      },
+      {
+        "code": "35155668978",
+        "level": 2,
+        "pCode": 35300541160,
+        "name": "Reverse by drones"
+      }
+    ],
+    "code": "35300541160",
+    "level": 1,
+    "name": "Low-altitude Economy"
+  },
+  {
+    "node": [
+      {
+        "code": "35329946492",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Freight Logistics"
+      },
+      {
+        "code": "35343473294",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Logistics Management"
+      },
+      {
+        "code": "143188",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Cold chain logistics"
+      },
+      {
+        "code": "35334033134",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Intelligent express cabinet"
+      },
+      {
+        "code": "35327829576",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Logistics Informatization"
+      },
+      {
+        "code": "35333989197",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Cross-border Logistics"
+      },
+      {
+        "code": "35330013747",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Logistics Equipment"
+      },
+      {
+        "code": "35356404670",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Logistics Warehousing"
+      },
+      {
+        "code": "35334111171",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Local Logistics"
+      },
+      {
+        "code": "35370926083",
+        "level": 2,
+        "pCode": 35327829577,
+        "name": "Dangerous goods logistics"
+      }
+    ],
+    "code": "35327829577",
+    "level": 1,
+    "name": "Logistics"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978221",
+        "level": 2,
+        "pCode": 33327978217,
+        "name": "Brain-computer Interface"
+      }
+    ],
+    "code": "33327978217",
+    "level": 1,
+    "name": "Digital Therapy"
+  },
+  {
+    "node": [
+      {
+        "code": "34559166113",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Living Car"
+      },
+      {
+        "code": "34640428948",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Camping"
+      },
+      {
+        "code": "35243947627",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Scenic area management"
+      },
+      {
+        "code": "34652101974",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "VR/AR Tourism"
+      },
+      {
+        "code": "34646324574",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Customized Tourism"
+      },
+      {
+        "code": "35244338171",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Travel OTA"
+      },
+      {
+        "code": "35244335181",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Travel Media"
+      },
+      {
+        "code": "35252342480",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Hotel management software"
+      },
+      {
+        "code": "35244324706",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Travel Agency"
+      },
+      {
+        "code": "35254497040",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Travel Accommodation"
+      },
+      {
+        "code": "143062",
+        "level": 2,
+        "pCode": 33608466065,
+        "name": "Theme Park"
+      }
+    ],
+    "code": "33608466065",
+    "level": 1,
+    "name": "Journey"
+  },
+  {
+    "node": [
+      {
+        "code": "34648362952",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Wind industrial internet concept index"
+      },
+      {
+        "code": "35149457956",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Industrial E-commerce"
+      },
+      {
+        "code": "35151544636",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Enterprise big data"
+      },
+      {
+        "code": "34647680479",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Flexible supply chain"
+      },
+      {
+        "code": "35146573904",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Energy Internet"
+      },
+      {
+        "code": "35158904391",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Enterprise cloud services"
+      },
+      {
+        "code": "35153941264",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Digital Twins"
+      },
+      {
+        "code": "35151508363",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Marketing Support"
+      },
+      {
+        "code": "35151548026",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Enterprise network security"
+      },
+      {
+        "code": "35146576400",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Supply chain finance"
+      },
+      {
+        "code": "34644556265",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "MRO E-commerce"
+      },
+      {
+        "code": "35187247460",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Agricultural Internet"
+      },
+      {
+        "code": "35149250751",
+        "level": 2,
+        "pCode": 33608466609,
+        "name": "Smart Logistics"
+      }
+    ],
+    "code": "33608466609",
+    "level": 1,
+    "name": "Industrial Internet"
+  },
+  {
+    "node": [
+      {
+        "code": "14566",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Medical Software"
+      },
+      {
+        "code": "35178676448",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Database"
+      },
+      {
+        "code": "35159341742",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Develop Software"
+      },
+      {
+        "code": "14635",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Network security software"
+      },
+      {
+        "code": "35185084980",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Operation and maintenance software"
+      },
+      {
+        "code": "35159338861",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Enterprise management software"
+      },
+      {
+        "code": "35153871248",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Data security software"
+      },
+      {
+        "code": "35178790984",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Auto Software"
+      },
+      {
+        "code": "35203445847",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Industrial Software"
+      },
+      {
+        "code": "35192271333",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "System"
+      },
+      {
+        "code": "35159342904",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Enterprise collaboration software"
+      },
+      {
+        "code": "35203557774",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Education Software"
+      },
+      {
+        "code": "35263497170",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "ID and access management software"
+      },
+      {
+        "code": "35194966857",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "AI Software"
+      },
+      {
+        "code": "35157842226",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "IoT security software"
+      },
+      {
+        "code": "35203599070",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Communication Software"
+      },
+      {
+        "code": "35185083196",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Middleware"
+      },
+      {
+        "code": "35192293676",
+        "level": 2,
+        "pCode": 33608466606,
+        "name": "Commercial productivity software"
+      }
+    ],
+    "code": "33608466606",
+    "level": 1,
+    "name": "Computer software"
+  },
+  {
+    "node": [
+      {
+        "code": "34680144581",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "Small Molecule Drug"
+      },
+      {
+        "code": "33269040354",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "Oligonucleotide Drugs"
+      },
+      {
+        "code": "33269040352",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "CAR-T"
+      },
+      {
+        "code": "33269040364",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "Antibody Drugs"
+      },
+      {
+        "code": "33269040363",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "CAR-NK"
+      },
+      {
+        "code": "145541",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "Gene Therapy"
+      },
+      {
+        "code": "34654348676",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "Molecular Glue"
+      },
+      {
+        "code": "33269038636",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "Peptide Drug"
+      },
+      {
+        "code": "33269038635",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "ADC"
+      },
+      {
+        "code": "35254330363",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "CAR-M"
+      },
+      {
+        "code": "33269038642",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "Nuclear Medicine"
+      },
+      {
+        "code": "33269038640",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "Live bacteria drug"
+      },
+      {
+        "code": "33269038653",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "Stem cell therapy"
+      },
+      {
+        "code": "34654347324",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "PROTAC"
+      },
+      {
+        "code": "33269038651",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "TCR-T"
+      },
+      {
+        "code": "33269038649",
+        "level": 2,
+        "pCode": 33269040359,
+        "name": "MRNA Drugs"
+      }
+    ],
+    "code": "33269040359",
+    "level": 1,
+    "name": "Innovative Drugs"
+  },
+  {
+    "node": [
+      {
+        "code": "34706433353",
+        "level": 2,
+        "pCode": 35298138220,
+        "name": "Medical protective equipment"
+      },
+      {
+        "code": "34693649522",
+        "level": 2,
+        "pCode": 35298138220,
+        "name": "Surgical Instruments"
+      },
+      {
+        "code": "34701854105",
+        "level": 2,
+        "pCode": 35298138220,
+        "name": "Pharmaceutical Dressings"
+      }
+    ],
+    "code": "35298138220",
+    "level": 1,
+    "name": "Medical hygiene materials"
+  },
+  {
+    "node": [
+      {
+        "code": "35300549846",
+        "level": 2,
+        "pCode": 35312248330,
+        "name": "Biological environmental protection"
+      },
+      {
+        "code": "35311757983",
+        "level": 2,
+        "pCode": 35312248330,
+        "name": "Bio-agriculture"
+      },
+      {
+        "code": "33395004460",
+        "level": 2,
+        "pCode": 35312248330,
+        "name": "Life Sciences"
+      },
+      {
+        "code": "35312248328",
+        "level": 2,
+        "pCode": 35312248330,
+        "name": "Bioenergy"
+      }
+    ],
+    "code": "35312248330",
+    "level": 1,
+    "name": "Biotechnology"
+  },
+  {
+    "node": [
+      {
+        "code": "12303",
+        "level": 2,
+        "pCode": 35298096527,
+        "name": "Chinese Patent Medicine"
+      },
+      {
+        "code": "12456",
+        "level": 2,
+        "pCode": 35298096527,
+        "name": "Sliced Traditional Chinese Medicine"
+      },
+      {
+        "code": "35233816691",
+        "level": 2,
+        "pCode": 35298096527,
+        "name": "Innovative Chinese medicine drugs"
+      },
+      {
+        "code": "35234379930",
+        "level": 2,
+        "pCode": 35298096527,
+        "name": "Planting and breeding of Chinese medicinal materials"
+      }
+    ],
+    "code": "35298096527",
+    "level": 1,
+    "name": "Chinese medicine preparation"
+  },
+  {
+    "node": [
+      {
+        "code": "33269040349",
+        "level": 2,
+        "pCode": 33269040348,
+        "name": "Immunotherapy"
+      },
+      {
+        "code": "145523",
+        "level": 2,
+        "pCode": 33269040348,
+        "name": "Cell Therapy"
+      },
+      {
+        "code": "35386913635",
+        "level": 2,
+        "pCode": 33269040348,
+        "name": "RNA editing therapy"
+      },
+      {
+        "code": "34654346167",
+        "level": 2,
+        "pCode": 33269040348,
+        "name": "Target protein degradation"
+      },
+      {
+        "code": "35386958607",
+        "level": 2,
+        "pCode": 33269040348,
+        "name": "DNA editing therapy"
+      },
+      {
+        "code": "35388172715",
+        "level": 2,
+        "pCode": 33269040348,
+        "name": "Genetic editing therapy"
+      },
+      {
+        "code": "33269038639",
+        "level": 2,
+        "pCode": 33269040348,
+        "name": "RNA Drug"
+      },
+      {
+        "code": "33269038637",
+        "level": 2,
+        "pCode": 33269040348,
+        "name": "Gene Therapy"
+      }
+    ],
+    "code": "33269040348",
+    "level": 1,
+    "name": "Innovative Therapy"
+  },
+  {
+    "node": [
+      {
+        "code": "33269040348",
+        "level": 2,
+        "pCode": 33269038650,
+        "name": "Innovative Therapy"
+      },
+      {
+        "code": "34527736122",
+        "level": 2,
+        "pCode": 33269038650,
+        "name": "Weight loss pills"
+      },
+      {
+        "code": "33269040359",
+        "level": 2,
+        "pCode": 33269038650,
+        "name": "Innovative Drugs"
+      },
+      {
+        "code": "35298096527",
+        "level": 2,
+        "pCode": 33269038650,
+        "name": "Chinese medicine preparation"
+      }
+    ],
+    "code": "33269038650",
+    "level": 1,
+    "name": "Pharmaceutical Manufacturing"
+  },
+  {
+    "node": [
+      {
+        "code": "34608892970",
+        "level": 2,
+        "pCode": 35300549846,
+        "name": "Biomaterials"
+      }
+    ],
+    "code": "35300549846",
+    "level": 1,
+    "name": "Biological environmental protection"
+  },
+  {
+    "node": [
+      {
+        "code": "33269040354",
+        "level": 2,
+        "pCode": 33269038639,
+        "name": "Oligonucleotide Drugs"
+      },
+      {
+        "code": "33269038649",
+        "level": 2,
+        "pCode": 33269038639,
+        "name": "MRNA Drugs"
+      }
+    ],
+    "code": "33269038639",
+    "level": 1,
+    "name": "RNA Drug"
+  },
+  {
+    "node": [
+      {
+        "code": "33269040352",
+        "level": 2,
+        "pCode": 145523,
+        "name": "CAR-T"
+      },
+      {
+        "code": "33269040363",
+        "level": 2,
+        "pCode": 145523,
+        "name": "CAR-NK"
+      },
+      {
+        "code": "35254330363",
+        "level": 2,
+        "pCode": 145523,
+        "name": "CAR-M"
+      },
+      {
+        "code": "33269038653",
+        "level": 2,
+        "pCode": 145523,
+        "name": "Stem cell therapy"
+      },
+      {
+        "code": "33269038651",
+        "level": 2,
+        "pCode": 145523,
+        "name": "TCR-T"
+      }
+    ],
+    "code": "145523",
+    "level": 1,
+    "name": "Cell Therapy"
+  },
+  {
+    "node": [
+      {
+        "code": "33269040352",
+        "level": 2,
+        "pCode": 33269040349,
+        "name": "CAR-T"
+      },
+      {
+        "code": "33269040364",
+        "level": 2,
+        "pCode": 33269040349,
+        "name": "Antibody Drugs"
+      },
+      {
+        "code": "33269040363",
+        "level": 2,
+        "pCode": 33269040349,
+        "name": "CAR-NK"
+      },
+      {
+        "code": "33269038635",
+        "level": 2,
+        "pCode": 33269040349,
+        "name": "ADC"
+      },
+      {
+        "code": "33269038651",
+        "level": 2,
+        "pCode": 33269040349,
+        "name": "TCR-T"
+      },
+      {
+        "code": "33269038649",
+        "level": 2,
+        "pCode": 33269040349,
+        "name": "MRNA Drugs"
+      }
+    ],
+    "code": "33269040349",
+    "level": 1,
+    "name": "Immunotherapy"
+  },
+  {
+    "node": [
+      {
+        "code": "35359741244",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Geometry precision instruments"
+      },
+      {
+        "code": "35385611530",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Electromagnetic precision instruments"
+      },
+      {
+        "code": "35387046839",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Precision instrument for ion radiation"
+      },
+      {
+        "code": "35356196710",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Thermal work volume precision instrument"
+      },
+      {
+        "code": "35387046154",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Precision instruments for medical use"
+      },
+      {
+        "code": "35387044649",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Precision instruments for optics and acoustics"
+      },
+      {
+        "code": "35356331494",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Mechanical precision instruments"
+      },
+      {
+        "code": "35356328515",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Time frequency precision instrument"
+      },
+      {
+        "code": "35387047936",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Precision instruments for genetic engineering"
+      },
+      {
+        "code": "35385630966",
+        "level": 2,
+        "pCode": 35356196711,
+        "name": "Radio precision instruments"
+      }
+    ],
+    "code": "35356196711",
+    "level": 1,
+    "name": "Precision Instrument"
+  },
+  {
+    "node": [
+      {
+        "code": "33395004148",
+        "level": 2,
+        "pCode": 33395004460,
+        "name": "Laboratory Automation"
+      },
+      {
+        "code": "33395004153",
+        "level": 2,
+        "pCode": 33395004460,
+        "name": "Experimental Consumables"
+      },
+      {
+        "code": "33395004447",
+        "level": 2,
+        "pCode": 33395004460,
+        "name": "Life science instruments"
+      },
+      {
+        "code": "33395004446",
+        "level": 2,
+        "pCode": 33395004460,
+        "name": "Organs"
+      },
+      {
+        "code": "33395004440",
+        "level": 2,
+        "pCode": 33395004460,
+        "name": "Genetic Sequencer"
+      },
+      {
+        "code": "33395004454",
+        "level": 2,
+        "pCode": 33395004460,
+        "name": "Scientific research reagents"
+      }
+    ],
+    "code": "33395004460",
+    "level": 1,
+    "name": "Life Sciences"
+  },
+  {
+    "node": [
+      {
+        "code": "145541",
+        "level": 2,
+        "pCode": 33269038637,
+        "name": "Gene Therapy"
+      }
+    ],
+    "code": "33269038637",
+    "level": 1,
+    "name": "Gene Therapy"
+  },
+  {
+    "node": [
+      {
+        "code": "34642988087",
+        "level": 2,
+        "pCode": 35432258851,
+        "name": "Satellite Communication"
+      }
+    ],
+    "code": "35432258851",
+    "level": 1,
+    "name": "Communication and communication"
+  },
+  {
+    "node": [
+      {
+        "code": "33327978337",
+        "level": 2,
+        "pCode": 33327978353,
+        "name": "Octrine Octs"
+      },
+      {
+        "code": "33327978336",
+        "level": 2,
+        "pCode": 33327978353,
+        "name": "Ophthalmology surgical robot"
+      },
+      {
+        "code": "33327978344",
+        "level": 2,
+        "pCode": 33327978353,
+        "name": "Artificial Crystal"
+      }
+    ],
+    "code": "33327978353",
+    "level": 1,
+    "name": "Ophthalmology medical equipment"
+  },
+  {
+    "node": [
+      {
+        "code": "35312253384",
+        "level": 2,
+        "pCode": 35312248328,
+        "name": "Biomass Energy"
+      }
+    ],
+    "code": "35312248328",
+    "level": 1,
+    "name": "Bioenergy"
+  },
+  {
+    "node": [
+      {
+        "code": "35282526468",
+        "level": 2,
+        "pCode": 35282079770,
+        "name": "3D printing mold"
+      },
+      {
+        "code": "35281695720",
+        "level": 2,
+        "pCode": 35282079770,
+        "name": "Zhenjing System"
+      }
+    ],
+    "code": "35282079770",
+    "level": 1,
+    "name": "3D printing components"
+  },
+  {
+    "node": [
+      {
+        "code": "35201654268",
+        "level": 2,
+        "pCode": 33608466069,
+        "name": "Robot process automation"
+      },
+      {
+        "code": "35238576589",
+        "level": 2,
+        "pCode": 33608466069,
+        "name": "Low code/no code platform"
+      },
+      {
+        "code": "35249369360",
+        "level": 2,
+        "pCode": 33608466069,
+        "name": "iBPMs"
+      }
+    ],
+    "code": "33608466069",
+    "level": 1,
+    "name": "Ultra-automated"
+  },
+  {
+    "node": [
+      {
+        "code": "34724655728",
+        "level": 2,
+        "pCode": 35298091821,
+        "name": "Medical Retail"
+      }
+    ],
+    "code": "35298091821",
+    "level": 1,
+    "name": "Medical Business"
+  },
+  {
+    "node": [
+      {
+        "code": "35268711400",
+        "level": 2,
+        "pCode": 35282654689,
+        "name": "3D printing fast forming"
+      },
+      {
+        "code": "35268709918",
+        "level": 2,
+        "pCode": 35282654689,
+        "name": "SLM"
+      },
+      {
+        "code": "35281663094",
+        "level": 2,
+        "pCode": 35282654689,
+        "name": "Continuous fiber 3D printing"
+      },
+      {
+        "code": "35268711762",
+        "level": 2,
+        "pCode": 35282654689,
+        "name": "SLS"
+      }
+    ],
+    "code": "35282654689",
+    "level": 1,
+    "name": "3D Printing Equipment"
+  },
+  {
+    "node": [
+      {
+        "code": "35282084439",
+        "level": 2,
+        "pCode": 35197534717,
+        "name": "Non-metallic materials for 3D printing"
+      },
+      {
+        "code": "35282540434",
+        "level": 2,
+        "pCode": 35197534717,
+        "name": "Metal 3D printing powder"
+      }
+    ],
+    "code": "35197534717",
+    "level": 1,
+    "name": "3D printing material"
+  },
+  {
+    "node": [
+      {
+        "code": "34724055377",
+        "level": 2,
+        "pCode": 35298135439,
+        "name": "DRG/DIP"
+      },
+      {
+        "code": "34720900398",
+        "level": 2,
+        "pCode": 35298135439,
+        "name": "Online medical services"
+      },
+      {
+        "code": "34559165904",
+        "level": 2,
+        "pCode": 35298135439,
+        "name": "Digital Healthcare"
+      },
+      {
+        "code": "34524335696",
+        "level": 2,
+        "pCode": 35298135439,
+        "name": "AI drug discovery"
+      }
+    ],
+    "code": "35298135439",
+    "level": 1,
+    "name": "Medical Informatization"
+  },
+  {
+    "node": [
+      {
+        "code": "34654348676",
+        "level": 2,
+        "pCode": 34654346167,
+        "name": "Molecular Glue"
+      },
+      {
+        "code": "34654347324",
+        "level": 2,
+        "pCode": 34654346167,
+        "name": "PROTAC"
+      }
+    ],
+    "code": "34654346167",
+    "level": 1,
+    "name": "Target protein degradation"
+  },
+  {
+    "node": [
+      {
+        "code": "34559165899",
+        "level": 2,
+        "pCode": 35298098384,
+        "name": "Scientific research and testing services"
+      },
+      {
+        "code": "34559165903",
+        "level": 2,
+        "pCode": 35298098384,
+        "name": "CXO"
+      }
+    ],
+    "code": "35298098384",
+    "level": 1,
+    "name": "Medical research and development outsourcing"
+  }
+]

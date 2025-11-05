@@ -1,0 +1,109 @@
+@import 'gel-ui/variables.less';
+
+// 侧边栏 图标及 文字间距
+@icon-margin-right: 8px;
+// 侧边栏 图标大小
+@icon-size: 16px;
+
+// menu 横向 内边距
+@menu-horizontal-padding: 16px;
+
+.sider {
+  display: flex;
+  flex-direction: column;
+
+  width: 256px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  // padding: 20px;
+
+  &-divider {
+    margin: 0 0 16px 0;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    height: 36px !important;
+    line-height: 24px;
+
+    & > *:not(:first-child) {
+      margin-left: @icon-margin-right;
+    }
+  }
+}
+
+// 自定义菜单样式
+.customMenu {
+  padding: 8px 12px 0;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  &Active {
+    background-color: @click-1;
+    font-weight: 500;
+    color: @click-6;
+
+    &:hover {
+      background-color: @click-1;
+    }
+
+    .sider-icon {
+      // 选中状态图标颜色
+      path {
+        fill: @click-6;
+      }
+    }
+  }
+}
+
+.menuItemText {
+  margin-left: @icon-margin-right;
+  font-size: 15px;
+}
+
+.menu-container {
+  // margin-top: 16px;
+  padding: 0 12px;
+}
+
+.my-files {
+  &-container {
+  }
+
+  &-header {
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+
+    > *:not(:last-child) {
+      margin-right: @icon-margin-right;
+    }
+
+    &-text {
+      cursor: pointer;
+      line-height: 24px;
+    }
+  }
+}
+
+.sider-icon {
+  width: @icon-size;
+  height: @icon-size;
+}
+
+// Logo styles have been moved to logo-section.module.less

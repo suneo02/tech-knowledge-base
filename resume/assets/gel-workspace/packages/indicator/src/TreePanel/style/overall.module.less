@@ -1,0 +1,89 @@
+@import 'gel-ui/variables.less';
+@import './styles.less';
+
+.overallContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.overall {
+  overflow-y: auto;
+  position: relative;
+  padding-block-start: 12px;
+
+  // 使用共享的滚动条样式
+  .scrollbar-style();
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ededed;
+  padding-block-end: 12px;
+  .padding();
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
+  flex-shrink: 0;
+  &-input {
+    flex: auto;
+    // min-width: 400px;
+  }
+  &-autoComplete {
+    min-width: 100%;
+  }
+  &-coins {
+    background-color: #ededed;
+    padding: 4px;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    &-text {
+      margin-inline-end: 4px;
+    }
+  }
+  &-total-coins {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // width: 64px;
+    color: @orange-6;
+  }
+}
+
+.backToTop {
+  position: sticky;
+  bottom: 20px;
+  right: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  pointer-events: none;
+  z-index: 10;
+  button {
+    border: 0px;
+    box-shadow:
+      0 6px 16px 0 rgba(0, 0, 0, 0.08),
+      0 3px 6px -4px rgba(0, 0, 0, 0.12),
+      0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  :global {
+    button {
+      pointer-events: auto;
+    }
+  }
+}
+
+// 这个有点恶心的，会影响到全局，但是wind不支持局部定义className，无奈之举
+:global {
+  .w-select-dropdown-wrap .w-select-list-holder {
+    min-width: 100%;
+  }
+}

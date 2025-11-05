@@ -1,0 +1,48 @@
+{
+  "api": "/detail/company/getshareholdercontribution",
+  "countKey": "shareholder_contribution_num",
+  "downDocTypeName": "不存在导出",
+  "key": "ShareholderAndCapitalContribution",
+  "title": "股东及出资信息",
+  "titleIntl": "138508",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "shareholder_name",
+      "title": "股东名称",
+      "titleIntl": "138783",
+      "width": "40%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "promise_money_amount",
+      "renderType": "number",
+      "title": "认缴额（万元）",
+      "titleIntl": "222770",
+      "width": "36%",
+      "renderConfig": {
+        "decimalPlaces": 2,
+        "showUnit": true,
+        "showZeroAsDefault": true,
+        "unitField": "promise_money_amountUnit",
+        "useThousandSeparator": true
+      }
+    },
+    {
+      "align": "right",
+      "dataIndex": "real_money_amount",
+      "renderType": "number",
+      "title": "实缴额（万元）",
+      "titleIntl": "222769",
+      "width": "36%",
+      "renderConfig": {
+        "decimalPlaces": 2,
+        "showUnit": true,
+        "showZeroAsDefault": true,
+        "unitField": "real_money_amountUnit",
+        "useThousandSeparator": true
+      }
+    }
+  ]
+}

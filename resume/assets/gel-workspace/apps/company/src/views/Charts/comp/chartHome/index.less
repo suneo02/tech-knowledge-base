@@ -1,0 +1,94 @@
+.chart-home-content {
+  padding: 0 0 12px;
+  overflow-y: scroll;
+
+  .ap-header {
+    display: flex;
+    height: 280px;
+    padding: 8px 160px 12px 56px;
+    align-items: center;
+    background: url(../../../../assets/imgs/graph-header.jpg) no-repeat;
+    background-size: 100%;
+    justify-content: space-between;
+
+    .ap-header-left {
+      margin-bottom: 20px;
+    }
+
+    .title {
+      margin-top: 0;
+      font-size: 40px;
+      color: #000000;
+      line-height: 48px;
+      font-weight: bold;
+      margin-bottom: 28px;
+    }
+
+    p {
+      font-size: 20px;
+      color: #666;
+      line-height: 28px;
+      margin-top: 4px;
+    }
+
+    img {
+      height: 260px;
+    }
+  }
+
+  .ap-content {
+    flex: 1;
+    padding: 0 20px 32px 20px;
+    overflow: hidden;
+    background: #ffffff;
+
+    .ap-card {
+      margin-top: 32px;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      li {
+        padding: 12px;
+        font-size: 17px;
+        cursor: pointer;
+        min-height: 160px;
+        line-height: 18px;
+        text-align: center;
+        margin-right: 24px;
+        border-radius: 4px;
+        flex: 0 0 calc(20% - 16px);
+        border: 1px solid #c5c5c5;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.07);
+        }
+
+        &:last-child {
+          margin: 0;
+        }
+
+        p {
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .ap-card-title {
+      font-size: 20px;
+      color: #000000;
+      font-weight: bold;
+      line-height: 28px;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+  }
+}

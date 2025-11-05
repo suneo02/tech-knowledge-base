@@ -1,0 +1,194 @@
+@import '@/styles/variables.less';
+@import '@/styles/colorVariables.less';
+
+.backTop-box {
+  bottom: 20px;
+  box-shadow: @box-shadow-sm;
+  position: absolute;
+  right: 20px;
+  width: 48px;
+  z-index: 1000;
+  border-radius: 8px;
+  background-color: #fff;
+
+  .w-back-top {
+    background-color: TRANSPARENT;
+    bottom: 0;
+    color: @icon-color;
+    font-size: 14px;
+    font-size: 12px;
+    letter-spacing: 0;
+    opacity: 1;
+    /* padding-bottom: 10px; */
+    /* padding-top: 10px; */
+    position: relative;
+    right: 0;
+    box-shadow: none;
+    // box-shadow: @box-shadow-sm;
+
+    //  width: 58px;
+
+    .wicon-star-f {
+      color: #00aec7;
+    }
+
+    span {
+      word-break: break-word;
+    }
+
+    &:hover {
+      span {
+        color: #00aec7;
+      }
+    }
+  }
+
+  // 工具栏图标公共样式
+  .content-toolbar-APP-icon,
+  .content-toolbar-mini-icon,
+  .content-toolbar-QRCode-icon {
+    width: 24px;
+    height: 24px;
+    margin: 4px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: background 0.3s ease;
+  }
+
+  // 各图标特定背景
+  .content-toolbar-APP-icon {
+    background-image: url('~@/assets/icons/Mobile.svg');
+  }
+
+  .content-toolbar-mini-icon {
+    background-image: url('~@/assets/icons/miniApp.svg');
+  }
+
+  .content-toolbar-QRCode-icon {
+    background-image: url('~@/assets/icons/QRCode.svg');
+  }
+
+  // hover效果公共样式
+  .content-toolbar-APP:hover .content-toolbar-APP-icon {
+    background-image: url('~@/assets/icons/Mobile_hover.svg');
+  }
+
+  .content-toolbar-mini:hover .content-toolbar-mini-icon {
+    background-image: url('~@/assets/icons/miniApp_hover.svg');
+  }
+
+  .content-toolbar-QRCode:hover .content-toolbar-QRCode-icon {
+    background-image: url('~@/assets/icons/QRCode_hover.svg');
+  }
+}
+
+// 横向工具栏样式
+.tools-bar-horizon {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  &-left {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-right: -40px;
+  }
+
+  background-color: #fff;
+  padding: 0;
+  height: 32px;
+
+  .wicon-star-f {
+    color: #00aec7;
+  }
+
+  .horizon-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0 12px;
+    height: 100%;
+    font-size: 18px;
+    &:last-child {
+      padding-right: 0;
+    }
+
+    .horizon-item-text {
+      margin: 0 4px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .anticon,
+    .wicon {
+      // font-size: 16px;
+      color: #666;
+
+      &:hover {
+        color: #00aec7;
+      }
+    }
+
+    &.sel-customer {
+      .anticon,
+      .wicon {
+        color: #00aec7;
+      }
+    }
+  }
+
+  // 继承工具栏图标公共样式
+  .content-toolbar-APP-icon,
+  .content-toolbar-mini-icon,
+  .content-toolbar-QRCode-icon {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: background 0.3s ease;
+  }
+
+  // 图标特定背景
+  .content-toolbar-APP-icon {
+    background-image: url('~@/assets/icons/Mobile.svg');
+  }
+
+  .content-toolbar-mini-icon {
+    background-image: url('~@/assets/icons/miniApp.svg');
+  }
+
+  .content-toolbar-QRCode-icon {
+    background-image: url('~@/assets/icons/QRCode.svg');
+  }
+
+  // hover效果
+  .horizon-item:hover {
+    .content-toolbar-APP-icon {
+      background-image: url('~@/assets/icons/Mobile_hover.svg');
+    }
+
+    .content-toolbar-mini-icon {
+      background-image: url('~@/assets/icons/miniApp_hover.svg');
+    }
+
+    .content-toolbar-QRCode-icon {
+      background-image: url('~@/assets/icons/QRCode_hover.svg');
+    }
+  }
+
+  // 分隔线样式
+  .w-divider-vertical {
+    height: 16px;
+    margin: 0 4px;
+  }
+}

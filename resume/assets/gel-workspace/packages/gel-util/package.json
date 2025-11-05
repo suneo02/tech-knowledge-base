@@ -1,0 +1,153 @@
+{
+  "name": "gel-util",
+  "version": "1.0.0",
+  "description": "Gel Web Utilities - Environment and Client Functions",
+  "main": "./dist/env.mjs",
+  "module": "./dist/env.mjs",
+  "types": "./dist/types/env/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "config": [
+        "./dist/types/config/index.d.ts"
+      ],
+      "corp": [
+        "./dist/types/corp/index.d.ts"
+      ],
+      "corpConfig": [
+        "./dist/types/corpConfig/index.d.ts"
+      ],
+      "download": [
+        "./dist/types/download/index.d.ts"
+      ],
+      "env": [
+        "./dist/types/env/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/format/index.d.ts"
+      ],
+      "hooks": [
+        "./dist/types/hooks/index.d.ts"
+      ],
+      "intl": [
+        "./dist/types/intl/index.d.ts"
+      ],
+      "link": [
+        "./dist/types/link/index.d.ts"
+      ],
+      "typeUtil": [
+        "./dist/types/typeUtil/index.d.ts"
+      ],
+      "misc": [
+        "./dist/types/misc/index.d.ts"
+      ],
+      "storage": [
+        "./dist/types/storage/index.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    "./config": {
+      "types": "./dist/types/config/index.d.ts",
+      "import": "./dist/config.mjs"
+    },
+    "./corp": {
+      "types": "./dist/types/corp/index.d.ts",
+      "import": "./dist/corp.mjs"
+    },
+    "./corpConfig": {
+      "types": "./dist/types/corpConfig/index.d.ts",
+      "import": "./dist/corpConfig.mjs"
+    },
+    "./download": {
+      "types": "./dist/types/download/index.d.ts",
+      "import": "./dist/download.mjs"
+    },
+    "./env": {
+      "types": "./dist/types/env/index.d.ts",
+      "import": "./dist/env.mjs"
+    },
+    "./format": {
+      "types": "./dist/types/format/index.d.ts",
+      "import": "./dist/format.mjs"
+    },
+    "./hooks": {
+      "types": "./dist/types/hooks/index.d.ts",
+      "import": "./dist/hooks.mjs"
+    },
+    "./intl": {
+      "types": "./dist/types/intl/index.d.ts",
+      "import": "./dist/intl.mjs"
+    },
+    "./link": {
+      "types": "./dist/types/link/index.d.ts",
+      "import": "./dist/link.mjs"
+    },
+    "./typeUtil": {
+      "types": "./dist/types/typeUtil/index.d.ts",
+      "import": "./dist/typeUtil.mjs"
+    },
+    "./misc": {
+      "types": "./dist/types/misc/index.d.ts",
+      "import": "./dist/misc.mjs"
+    },
+    "./storage": {
+      "types": "./dist/types/storage/index.d.ts",
+      "import": "./dist/storage.mjs"
+    },
+    "./locales/*": "./dist/locales/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite build --watch --mode development --minify false --sourcemap",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "tsc": "npm run typecheck",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "prepublishOnly": "npm run clean && npm run build",
+    "intl:entry2json": "node scripts/intlTools/entry2Json.js",
+    "intl:migrate-locale": "node scripts/migrate-locale-to-json.js src/intl/locales/iml_en.js src/intl/locales/iml_cn.js"
+  },
+  "dependencies": {
+    "i18next": "^24.2.2"
+  },
+  "peerDependencies": {
+    "axios": "^1.7.9",
+    "gel-types": "workspace:*",
+    "js-cookie": "^3.0.5",
+    "lodash": "^4.17.21",
+    "path-browserify": "^1.0.1",
+    "qs": "^6.14.0",
+    "react": ">=16.8.0",
+    "typescript": ">=4.5.0"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20.0.0",
+    "@types/path-browserify": "^1.0.3",
+    "@types/qs": "^6.9.18",
+    "@types/react": "^18.2.48",
+    "eslint": "^8.0.0",
+    "jsdom": "^26.1.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "typescript": "^5.0.0",
+    "vite": "^6.1.0",
+    "vite-plugin-dts": "^3.9.1"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "keywords": [
+    "gel",
+    "web",
+    "utilities",
+    "environment"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "sideEffects": false
+}

@@ -1,0 +1,33 @@
+.commonQuestions {
+  margin-top: 16px;
+
+  .title {
+    display: block;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 8px;
+  }
+
+  .questionsContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .questionItem {
+    height: 20px;
+    color: rgba(255, 255, 255, 0.65);
+    cursor: pointer;
+    margin-bottom: 4px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      color: #00aec7;
+    }
+  }
+}

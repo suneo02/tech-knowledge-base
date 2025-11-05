@@ -1,0 +1,48 @@
+@import '../../../styles/previewVariable.less';
+@import 'report-util/style';
+
+@preview-group-padding-x: 50px;
+
+@preview-group-padding: 70px @preview-group-padding-x;
+@preview-content-width: 680.31px;
+
+.preview-report-content {
+  overflow: scroll;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.content-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border: @preview-report-border;
+  width: @preview-content-width + @preview-group-padding-x * 2 + 1px * 2;
+
+  & > * {
+    margin: auto;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 100%;
+  }
+}
+
+.pdf-page-preview-container {
+  min-height: @preview-cover-height;
+  border: @preview-report-border;
+  padding: @preview-group-padding;
+}
+
+.table-sections-container {
+  flex-shrink: 0;
+  border: @preview-report-border;
+  padding: @preview-group-padding;
+}
+
+.preview-item {
+  overflow: hidden;
+}

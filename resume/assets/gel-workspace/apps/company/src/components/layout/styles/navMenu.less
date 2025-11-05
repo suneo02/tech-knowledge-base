@@ -1,0 +1,56 @@
+@import '@/styles/mixins.less';
+.nav-menu-container {
+  box-sizing: border-box;
+  animation: slideRight 1s ease-in-out;
+  #boxShadow;
+  position: fixed;
+  width: calc(220px - @global-space);
+  z-index: 10;
+  background: #fff;
+  height: calc(100% - 40px - @global-space);
+  overflow: hidden;
+  border-radius: @border-radius-base;
+
+  .tree-container {
+    height: calc(100vh - 80px - @global-space);
+    overflow: hidden;
+  }
+  .menu-container {
+    padding-inline-start: 12px;
+    padding-inline-end: 12px;
+  }
+  .w-tree-node-selected {
+    .num {
+      color: #fff;
+    }
+  }
+  .num {
+    color: var(--font-color-4);
+  }
+  .nav-vip {
+    position: absolute;
+    left: -10px;
+    font-size: @font-size-sm;
+    font-weight: bold;
+    color: #e4c557;
+  }
+  .level-1 {
+    margin-block-start: 4px;
+    margin-block-end: 4px;
+    padding: 1px 0;
+  }
+  .level-2 {
+    padding: 1px 0;
+  }
+  .w-tree-treenode {
+    box-sizing: border-box;
+    margin-block-start: 2px;
+    margin-block-end: 2px;
+    height: 28px;
+  }
+  .w-tree-default .w-tree-treenode .w-tree-node-content-wrapper {
+    min-height: 28px;
+    line-height: 26px;
+    height: auto;
+  }
+}

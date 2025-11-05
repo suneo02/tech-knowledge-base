@@ -1,0 +1,91 @@
+{
+  "api": "detail/company/getcorpbasicinfo_basic",
+  "key": "BussInfo",
+  "title": "基本信息",
+  "titleIntl": "205468",
+  "tooltipTitle": "数据来源：国家企业信用信息公示系统，部分信息根据大数据衍生计算生成",
+  "tooltipTitleIntl": "411313",
+  "type": "horizontalTable",
+  "columns": [
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "corp_name",
+        "renderType": "custom",
+        "title": "企业名称",
+        "titleIntl": "138677",
+        "renderConfig": {
+          "customRenderName": "hkCorpName"
+        }
+      },
+      {
+        "dataIndex": "usednames",
+        "renderType": "custom",
+        "title": "曾用名",
+        "titleIntl": "66281",
+        "renderConfig": {
+          "customRenderName": "hkUsedNames"
+        }
+      }
+    ],
+    [
+      {
+        "dataIndex": "credit_code",
+        "title": "商业登记号码",
+        "titleIntl": "417708"
+      },
+      {
+        "dataIndex": "biz_reg_no",
+        "title": "公司编号",
+        "titleIntl": "6228"
+      }
+    ],
+    [
+      {
+        "dataIndex": "reg_date",
+        "renderType": "date",
+        "title": "成立日期",
+        "titleIntl": "2823"
+      },
+      {
+        "dataIndex": "revokeDate",
+        "renderType": "date",
+        "title": "已告解散日期/不再是独立实体日期",
+        "titleIntl": "448322"
+      }
+    ],
+    [
+      {
+        "dataIndex": "corp_type",
+        "title": "企业类型",
+        "titleIntl": "60452"
+      },
+      {
+        "dataIndex": "state",
+        "title": "企业状态",
+        "titleIntl": "134794"
+      }
+    ],
+    [
+      {
+        "dataIndex": "reg_address",
+        "title": "注册地址",
+        "titleIntl": "35776"
+      }
+    ],
+    [
+      {
+        "dataIndex": "bus_address",
+        "title": "办公地址",
+        "titleIntl": "1588"
+      }
+    ],
+    [
+      {
+        "dataIndex": "remark",
+        "title": "备注",
+        "titleIntl": "1919"
+      }
+    ]
+  ]
+}

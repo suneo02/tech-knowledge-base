@@ -1,0 +1,40 @@
+{
+  "api": "detail/company/commercialFranchiseList",
+  "countKey": "commercial_franchise_info_num",
+  "downDocTypeName": "不存在导出",
+  "id": "7-5",
+  "key": "7-5",
+  "level": 2,
+  "title": "商业特许经营",
+  "titleIntl": "216405",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "recordNumber",
+      "title": "备案号",
+      "titleIntl": "216408",
+      "width": "34%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "franchisorName",
+      "title": "特许人名称",
+      "titleIntl": "216406",
+      "width": "31%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "filingAnnouncementDate|formatTime",
+      "title": "备案公告日期",
+      "titleIntl": "216407",
+      "width": "31%"
+    }
+  ]
+}

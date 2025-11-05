@@ -1,0 +1,47 @@
+{
+  "api": "/detail/company/getcontrolledcorplistnew",
+  "downDocType": "download/createtempfile/getcontrolledcorplistnew",
+  "downDocTypeName": "新的导出",
+  "key": "HoldCompany",
+  "title": "控股企业",
+  "titleIntl": "138589",
+  "tooltips": "<i><div><span>控股企业指企业直接或间接拥有其控制权的企业，仅供参考</span></div></i>",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "invest_name",
+      "title": "企业名称",
+      "titleIntl": "138677",
+      "width": "24%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "invest_reg_status",
+      "title": "经营状态",
+      "titleIntl": "138416",
+      "width": "10%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "invest_reg_capital",
+      "title": "注册资本（万）",
+      "titleIntl": "265705",
+      "width": "15%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "rate|formatPercent",
+      "title": "持股比例",
+      "titleIntl": "138871",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "realStockPathList",
+      "title": "股权链",
+      "titleIntl": "138518",
+      "width": "32%"
+    }
+  ]
+}
