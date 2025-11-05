@@ -82,3 +82,39 @@ pages_build_output_dir = "site"
 - **域名绑定**：在 Cloudflare Pages 控制台中添加自定义域名，并完成 DNS 解析验证。
 
 配置完成后，站点将通过 `https://<project>.pages.dev` 域名自动发布，并享受 Cloudflare 的全局加速能力。
+
+---
+
+## Git Subtree 维护
+
+项目使用 Git Subtree 管理嵌套的代码仓库，用于在简历中引用外部项目源码作为参考资料。
+
+### 当前 Subtree 配置
+
+- **路径**：`resume/assets/gel-workspace`
+- **远程仓库**：`git@gitee_suneo:honekawa-suneo/gel-workspace.git`
+- **分支**：`main`
+
+### 更新 Subtree 内容
+
+当上游仓库有更新时，可以拉取最新代码：
+
+```bash
+git subtree pull --prefix=resume/assets/gel-workspace \
+  git@gitee_suneo:honekawa-suneo/gel-workspace.git main --squash
+```
+
+### 推送修改到上游（可选）
+
+如果在本地修改了 subtree 中的代码，并希望推送回上游仓库：
+
+```bash
+git subtree push --prefix=resume/assets/gel-workspace \
+  git@gitee_suneo:honekawa-suneo/gel-workspace.git main
+```
+
+### 注意事项
+
+- 使用 `--squash` 参数可以压缩上游的提交历史，保持本项目的 Git 历史清晰
+- 克隆本项目时，subtree 内容会自动包含，无需额外操作
+- 如需添加新的 subtree，使用 `git subtree add` 命令
