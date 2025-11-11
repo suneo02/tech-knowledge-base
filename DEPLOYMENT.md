@@ -100,8 +100,7 @@ pages_build_output_dir = "site"
 当上游仓库有更新时，可以拉取最新代码：
 
 ```bash
-git subtree pull --prefix=resume/assets/gel-workspace \
-  git@gitee_suneo:honekawa-suneo/gel-workspace.git main --squash
+git subtree pull --prefix=resume/assets/gel-workspace git@gitee_suneo:honekawa-suneo/gel-workspace.git main --squash
 ```
 
 ### 推送修改到上游（可选）
