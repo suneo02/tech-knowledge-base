@@ -1,5 +1,5 @@
 import { DPU_STOCK_CODE } from '@/constants'
-import { uniqueId } from 'lodash'
+import { uniqueId } from 'lodash-es'
 
 export const toJsonObject = (value) => {
   if (typeof value === 'string') {

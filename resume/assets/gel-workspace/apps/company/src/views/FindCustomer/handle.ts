@@ -1,4 +1,4 @@
-import { getUrlSearchValue } from 'gel-util/link'
+import { getUrlSearchValue } from 'gel-util/common'
 
 /**
  * 获取 URL 中的 menuKey 参数值（适用于类组件）

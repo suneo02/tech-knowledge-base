@@ -60,10 +60,11 @@ export const UpdateTimeButton: React.FC<UpdateTimeButtonProps> = ({ corpUpdateTi
         onClick={handleClick}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
+        data-uc-id="sFUJ92Cjb_H"
+        data-uc-ct="syno"
       />
       <span className={styles.timeLabel}>{intl('138868', '更新时间')}</span>
       <span className={styles.timestamp}>{wftCommon.formatTime(corpUpdateTime)}</span>
     </span>
   )
 }
-

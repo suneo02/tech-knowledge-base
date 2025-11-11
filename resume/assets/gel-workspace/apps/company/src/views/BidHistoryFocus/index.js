@@ -101,7 +101,7 @@ const BidHistoryFocus = React.forwardRef(({ onApplySub }, ref) => {
       render: (txt, record) => {
         const icon = record.emailReminder ? (
           <span>
-            <MailO style={{ marginRight: '4px' }} />
+            <MailO style={{ marginRight: '4px' }} data-uc-id="plsNXAEAVj" data-uc-ct="mailo" />
             {wftCommon.formatCont(txt)}
           </span>
         ) : (
@@ -122,7 +122,13 @@ const BidHistoryFocus = React.forwardRef(({ onApplySub }, ref) => {
       align: 'center',
       render: (_, record) => (
         <div>
-          <Button type="text" className="table-app" onClick={() => appSub(record.id, record.conditionName)}>
+          <Button
+            type="text"
+            className="table-app"
+            onClick={() => appSub(record.id, record.conditionName)}
+            data-uc-id="D3bLFg5pe7"
+            data-uc-ct="button"
+          >
             {intl('16576', '应用')}
           </Button>
           <Button
@@ -133,6 +139,8 @@ const BidHistoryFocus = React.forwardRef(({ onApplySub }, ref) => {
               setModalType('delSingleSub')
               setVisible(true)
             }}
+            data-uc-id="CX7Alr0_h6"
+            data-uc-ct="button"
           >
             {intl('19853', '删除')}
           </Button>
@@ -150,8 +158,12 @@ const BidHistoryFocus = React.forwardRef(({ onApplySub }, ref) => {
           className="subscribe-bidName"
           title={item.conditionName}
           onClick={() => appSub(item.id, item.conditionName)}
+          data-uc-id="8zx27UZBUYK"
+          data-uc-ct="span"
         >
-          {item.emailReminder ? <MailO style={{ marginRight: '4px' }} /> : null}
+          {item.emailReminder ? (
+            <MailO style={{ marginRight: '4px' }} data-uc-id="7gRWnq-L2D" data-uc-ct="mailo" />
+          ) : null}
           {item.conditionName}
         </span>
         {isDelete && (
@@ -163,6 +175,8 @@ const BidHistoryFocus = React.forwardRef(({ onApplySub }, ref) => {
               setModalType('delSingleSub')
               setVisible(true)
             }}
+            data-uc-id="aVYF9Hl-JDC"
+            data-uc-ct="span"
           />
         )}
       </li>
@@ -210,28 +224,38 @@ const BidHistoryFocus = React.forwardRef(({ onApplySub }, ref) => {
       />
       {subscribeList.length > 10 && (
         <div className="subscribe-more">
-          <span onClick={() => setVisibleSubList(true)}>{intl('138650', '查看全部')}</span>
+          <span onClick={() => setVisibleSubList(true)} data-uc-id="nPEnExg37AK" data-uc-ct="span">
+            {intl('138650', '查看全部')}
+          </span>
         </div>
       )}
-
       <Modal
         title={intl('349133', '招投标订阅')}
         visible={visible}
         onOk={handleOk}
         onCancel={() => setVisible(false)}
         destroyOnClose
+        data-uc-id="-efuK8NLHd"
+        data-uc-ct="modal"
       >
         {renderModalContent()}
       </Modal>
-
       <Modal
         title={intl('349133', '招投标订阅')}
         visible={visibleSubList}
         width="600px"
         onCancel={() => setVisibleSubList(false)}
         footer={null}
+        data-uc-id="2it8ZxYgsP"
+        data-uc-ct="modal"
       >
-        <Table columns={columns} dataSource={subscribeList} pagination={false} />
+        <Table
+          columns={columns}
+          dataSource={subscribeList}
+          pagination={false}
+          data-uc-id="1R_bvojbrR"
+          data-uc-ct="table"
+        />
       </Modal>
     </div>
   )

@@ -1,10 +1,10 @@
 // 定义每个模块的参数接口
-import { CompanyParams } from './company'
-import { KGLinkActiveKeyEnum, KGLinkParams } from './kg'
-import { RPLinkParams } from './report'
-import { UserLinkParams } from './user'
 
+export * from './chat'
+export * from './common'
+export * from './facade'
+export * from './innerlink'
+export * from './kg'
+export * from './requiredParams'
+export * from './search'
 export { UserLinkParamEnum } from './user'
-export { KGLinkActiveKeyEnum }
-
-export type LinkParams = KGLinkParams & UserLinkParams & CompanyParams & RPLinkParams

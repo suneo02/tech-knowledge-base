@@ -1,13 +1,14 @@
-import { validateReportDetailNodeJson } from '@/validation'
-import { CorpBasicInfo, ReportDetailNodeJson } from 'gel-types'
+import { validateReportDetailNodeOrNodesJson } from '@/validation'
+import { CorpBasicInfo, ReportDetailNodeOrNodesJson } from 'gel-types'
 import defaultCorpInfoConfigJson from './defaultConfig.json' assert { type: 'json' }
 import { getCorpConfigMapByCorpTypeId } from './rowsByCorpTypeId'
 import { corpConfigMapByAreaCode, corpInfoConfigCanada } from './rowsByNation'
 import { corpConfigMapByConfigType } from './rowsByOrgType'
 
-export const defaultCorpInfoConfig: ReportDetailNodeJson = validateReportDetailNodeJson(defaultCorpInfoConfigJson)
+export const defaultCorpInfoConfig: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(defaultCorpInfoConfigJson)
 
-export const getCorpInfoConfigByInfo = (basicInfo?: CorpBasicInfo): ReportDetailNodeJson => {
+export const getCorpInfoConfigByInfo = (basicInfo?: CorpBasicInfo): ReportDetailNodeOrNodesJson => {
   if (!basicInfo) {
     return defaultCorpInfoConfig
   }

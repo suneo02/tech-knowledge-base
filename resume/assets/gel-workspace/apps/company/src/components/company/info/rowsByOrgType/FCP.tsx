@@ -28,7 +28,7 @@ import {
   corpInfoBussScopeRow,
   corpInfoEmployeeScaleRow,
   corpInfoEndowmentNumRow,
-  corpInfoScaleRow,
+  getCorpInfoScaleRow,
 } from '../rowsCommon/corpScaleRow.tsx'
 
 /**
@@ -37,7 +37,7 @@ import {
  */
 export const corpInfoFCPRows = (
   baseInfo: ICorpBasicInfoFront,
-  onCorpScaleClick: () => void
+  onClickFeedback: () => void
 ): HorizontalTableColumns<ICorpBasicInfoFront> => [
   [corpInfoNameRow, corpInfoCreditCodeRow],
   [corpInfoEngNameRow, corpInfoBizRegNoRow],
@@ -68,7 +68,7 @@ export const corpInfoFCPRows = (
     corpInfoRegAuthorityRow,
     corpInfoIssueDateRow,
   ],
-  [corpInfoScaleRow(onCorpScaleClick), corpInfoEmployeeScaleRow, corpInfoEndowmentNumRow],
+  [getCorpInfoScaleRow(onClickFeedback), corpInfoEmployeeScaleRow, corpInfoEndowmentNumRow],
   [corpInfoIndustryRow()],
   [
     {

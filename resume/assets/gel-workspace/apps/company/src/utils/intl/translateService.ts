@@ -1,5 +1,5 @@
 import { wftCommon } from '@/utils/utils.tsx'
-import { getWsid } from '../env'
+import { getApiPrefix, getWsid } from '../env'
 
 export const translateService = (param, successFun) => {
   function errCallback(_e?) {
@@ -17,7 +17,9 @@ export const translateService = (param, successFun) => {
   }
   const chReg = /[\u4e00-\u9fa5]+/ // 中文正则
   const tUrl =
-    '/Wind.WFC.Enterprise.Web/Enterprise/WindSecureApi.aspx?cmd=apitranslates&gelmodule=gelpc&s=' + Math.random()
+    getApiPrefix() +
+    '/Wind.WFC.Enterprise.Web/Enterprise/WindSecureApi.aspx?cmd=apitranslates&gelmodule=gelpc&s=' +
+    Math.random()
   const zhParam = {}
   const objParam = {}
   const arrParam = {}
@@ -117,8 +119,6 @@ export const translateService = (param, successFun) => {
     dataType: 'json',
     timeout: 60000,
     success: function (res) {
-      wftCommon.removeLoadTask(param)
-
       if (res.ErrorCode == 0) {
         const data = res.Data
         if (data && data.translateResult) {
@@ -170,8 +170,10 @@ export const translateService = (param, successFun) => {
       }
     },
     error: function (e) {
-      wftCommon.removeLoadTask(param)
       errCallback && errCallback(e)
+    },
+    complete: function () {
+      wftCommon.removeLoadTask(param)
     },
   }
   if (wftCommon.isDevDebugger()) {

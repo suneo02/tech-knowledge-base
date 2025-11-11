@@ -1,5 +1,5 @@
-import { validateReportDetailNodeJson } from '@/validation'
-import { ReportDetailNodeJson } from 'gel-types'
+import { validateReportDetailNodeOrNodesJson } from '@/validation'
+import { ReportDetailNodeOrNodesJson } from 'gel-types'
 import corpABSInfoJson from './ABSInfo.json' assert { type: 'json' }
 import corpBankCreditJson from './BankCredit.json' assert { type: 'json' }
 import corpBondIssueJson from './BondIssue.json' assert { type: 'json' }
@@ -15,34 +15,36 @@ import corpPEVCFinanceJson from './PEVCFinance.json' assert { type: 'json' }
 import corpPEVCQuitJson from './PEVCQuit.json' assert { type: 'json' }
 import corpSharedStockJson from './SharedStock.json' assert { type: 'json' }
 
-export const corpABSInfo: ReportDetailNodeJson = validateReportDetailNodeJson(corpABSInfoJson)
+export const corpABSInfo: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpABSInfoJson)
 
-export const corpBondIssue: ReportDetailNodeJson = validateReportDetailNodeJson(corpBondIssueJson)
+export const corpBondIssue: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpBondIssueJson)
 
-export const corpChattelFinancing: ReportDetailNodeJson = validateReportDetailNodeJson(corpChattelFinancingJson)
+export const corpChattelFinancing: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpChattelFinancingJson)
 
-export const corpChattelMortgageMortgager: ReportDetailNodeJson = validateReportDetailNodeJson(
+export const corpChattelMortgageMortgager: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(
   corpChattelMortgageMortgagerJson
 )
 
-export const corpChattelMortgageMortgagee: ReportDetailNodeJson = validateReportDetailNodeJson(
+export const corpChattelMortgageMortgagee: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(
   corpChattelMortgageMortgageeJson
 )
 
-export const corpDebtRating: ReportDetailNodeJson = validateReportDetailNodeJson(corpDebtRatingJson)
+export const corpDebtRating: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpDebtRatingJson)
 
-export const corpInfoAwaitListing: ReportDetailNodeJson = validateReportDetailNodeJson(corpInfoAwaitListingJson)
+export const corpInfoAwaitListing: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpInfoAwaitListingJson)
 
-export const corpSharedStock: ReportDetailNodeJson = validateReportDetailNodeJson(corpSharedStockJson)
+export const corpSharedStock: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpSharedStockJson)
 
-export const corpInvestAgency: ReportDetailNodeJson = validateReportDetailNodeJson(corpInvestAgencyJson)
+export const corpInvestAgency: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpInvestAgencyJson)
 
-export const corpInvestEvent: ReportDetailNodeJson = validateReportDetailNodeJson(corpInvestEventJson)
+export const corpInvestEvent: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpInvestEventJson)
 
-export const corpPEVCFinance: ReportDetailNodeJson = validateReportDetailNodeJson(corpPEVCFinanceJson)
+export const corpPEVCFinance: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpPEVCFinanceJson)
 
-export const corpPEVCQuit: ReportDetailNodeJson = validateReportDetailNodeJson(corpPEVCQuitJson)
+export const corpPEVCQuit: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpPEVCQuitJson)
 
-export const corpMergeInfo: ReportDetailNodeJson = validateReportDetailNodeJson(corpMergeInfoJson)
+export const corpMergeInfo: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpMergeInfoJson)
 
-export const corpBankCredit: ReportDetailNodeJson = validateReportDetailNodeJson(corpBankCreditJson)
+export const corpBankCredit: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpBankCreditJson)

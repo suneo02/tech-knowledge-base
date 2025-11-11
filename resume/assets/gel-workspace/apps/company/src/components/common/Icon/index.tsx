@@ -1,5 +1,9 @@
 import React from 'react'
 import styles from './index.module.less'
+
+export { DocExcelIcon } from './DocExcel'
+export { DocPdfIcon } from './DocPdf'
+
 export const WIcon = ({
   children,
   active,

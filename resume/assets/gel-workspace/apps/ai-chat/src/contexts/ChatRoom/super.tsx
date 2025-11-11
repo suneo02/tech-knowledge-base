@@ -64,8 +64,10 @@ export const ChatRoomSuperProvider = ({ children }: SuperChatProviderProps) => {
 
   const { run: getConversationDetail } = useRequest(createSuperlistRequestFcs('conversation/conversationDetail'), {
     onSuccess: (data) => {
-      roomState.setChatId(data.Data.data.chatId)
-      setTableId(data.Data.data.tableId)
+      if (data.Data) {
+        roomState.setChatId(data.Data.data.chatId)
+        setTableId(data.Data.data.tableId)
+      }
     },
     onError: console.error,
     manual: true,
@@ -88,7 +90,7 @@ export const ChatRoomSuperProvider = ({ children }: SuperChatProviderProps) => {
 
   const updateRoomId = useCallback(
     (id: string) => {
-      console.log('updateRoomId', id)
+      // console.log('updateRoomId', id)
       roomState.setRoomId(id)
       setConversationId(id.includes(CHAT_ROOM_ID_PREFIX) ? '' : id)
     },

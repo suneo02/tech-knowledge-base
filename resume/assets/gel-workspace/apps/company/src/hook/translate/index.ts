@@ -1,7 +1,8 @@
+import { translateComplexHtmlData } from '@/utils/intl'
+import { isEn } from 'gel-util/intl'
 import { cloneDeep } from 'lodash'
 import { useEffect, useMemo, useState } from 'react'
 import { wftCommon } from '../../utils/utils'
-import { translateComplexHtmlData } from '@/utils/intl'
 
 /**
  *
@@ -19,7 +20,7 @@ export const useTranslateService = <T>(
   const [ifTranslated, setIfTranslated] = useState(false)
   const [loading, setLoading] = useState(false)
   const handleDataChange = async () => {
-    if (!window.en_access_config || !ifNeedTranslate || !data) {
+    if (!isEn() || !ifNeedTranslate || !data) {
       return
     }
 
@@ -53,7 +54,7 @@ export const useTranslateService = <T>(
 
   const dataIntl = useMemo(() => {
     // 如果是中文访问 或者数据还没翻译好 或者不需要翻译
-    if (!window.en_access_config || !ifTranslated || !ifNeedTranslate) {
+    if (!isEn() || !ifTranslated || !ifNeedTranslate) {
       return data
     } else {
       return dataTranslated

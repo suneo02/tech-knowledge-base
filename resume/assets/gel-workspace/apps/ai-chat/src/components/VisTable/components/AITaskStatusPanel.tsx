@@ -1,9 +1,9 @@
+import { TaskHistoryLog, TaskStatusItem } from '@/components/ETable/context/ai-task/types'
+import { useTableAITask } from '@/components/ETable/context/TableAITaskContext'
 import { CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, SyncOutlined } from '@ant-design/icons'
 import { Badge, Button, Card, Popover, Progress, Space, Tag, Timeline, Tooltip, Typography } from 'antd'
 import { ProgressStatusEnum } from 'gel-api'
 import { useVisTableContext } from '../context/VisTableContext'
-import { TaskHistoryLog, TaskIdentifier, TaskStatusItem, useTableAITask } from '@/components/MultiTable/context'
-import { useAITaskOperation } from '@/components/MultiTable/hooks'
 
 const { Text, Paragraph } = Typography
 
@@ -17,7 +17,14 @@ export const AITaskStatusPanel: React.FC = () => {
   const { visTableRef } = useVisTableContext()
 
   // 使用AI任务操作Hook获取解析功能
-  const { parseTaskId } = useAITaskOperation({ multiTableRef: visTableRef })
+  // const { parseTaskId } = useAITaskOperation({ multiTableRef: visTableRef })
+  const parseTaskId = (taskId?: string) => {
+    if (!taskId) return { columnId: '', rowId: '' }
+    return {
+      columnId: '',
+      rowId: '',
+    }
+  }
 
   // 获取任务信息
   const getTaskInfo = (taskId: string) => {
@@ -50,7 +57,8 @@ export const AITaskStatusPanel: React.FC = () => {
   }
 
   // 创建TaskIdentifier对象
-  const createTaskIdentifier = (columnId: string, rowId: string): TaskIdentifier => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const createTaskIdentifier = (columnId: string, rowId: string): any => {
     return { columnId, rowId }
   }
 

@@ -1,0 +1,31 @@
+@prefix: subscribe-list;
+.@{prefix} {
+  &-container {
+    :global {
+      .ant-collapse-borderless {
+        background-color: #fff;
+      }
+      .ant-collapse-item {
+        border-bottom: none;
+        margin-block-end: 12px;
+        border: 1px solid var(--basic-13) !important;
+        border-radius: 4px !important;
+      }
+    }
+  }
+  &-preview-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-new-count {
+      color: var(--basic-9);
+      span {
+        font-weight: 600;
+        color: var(--click-5);
+        &:hover {
+          color: var(--click-6);
+        }
+      }
+    }
+  }
+}

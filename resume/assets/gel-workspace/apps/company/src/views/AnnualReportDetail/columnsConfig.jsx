@@ -50,7 +50,7 @@ const rows = {
     columns: [
       [
         {
-          title: '社会统一信用代码',
+          title: '统一社会信用代码',
           dataIndex: 'credit_code',
           colSpan: 2,
           contentAlign: 'left',
@@ -219,7 +219,12 @@ const rows = {
     name: (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         {intl('205468', '基本信息')}
-        <FilePdfO style={{ fontSize: 18 }} onClick={() => downPdf({ companyName: window.company_name })} />
+        <FilePdfO
+          style={{ fontSize: 18 }}
+          onClick={() => downPdf({ companyName: window.company_name })}
+          data-uc-id="EjSZ_eKb2l"
+          data-uc-ct="filepdfo"
+        />
       </div>
     ),
   },

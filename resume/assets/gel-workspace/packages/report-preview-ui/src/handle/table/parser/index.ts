@@ -6,14 +6,15 @@ import {
 } from 'gel-types'
 import { configDetailIntlHelper } from 'report-util/corpConfigJson'
 import { tableIndexColumn } from 'report-util/table'
+import { TIntl } from 'report-util/types'
 import { HorizontalTableColProps, TableColProps, TableProps, TablePropsCross } from '../../../types/table'
-import { tForRPPreview } from '../../../utils'
 import { parseConfigTableCellConfig } from '../cell/renderers'
 
 /**
  * Parse cross table configuration
  */
 const parseCrossTableConfig = (
+  t: TIntl,
   config: ReportCrossTableJson,
   commonProps: Pick<TableProps, 'title' | 'api'>,
   getWsid: () => string | undefined
@@ -21,6 +22,7 @@ const parseCrossTableConfig = (
   // 交叉表
 
   const processedColumns: TablePropsCross['column'] | undefined = parseConfigTableCellConfig(
+    t,
     {
       ...config.cellConfig,
       // 交叉表的列配置，不包含标题和国际化标题 标题从接口中获取，此处只是占位。在之后的代码会被替换
@@ -46,6 +48,7 @@ const parseCrossTableConfig = (
  * Parse horizontal table configuration
  */
 const parseHorizontalTableConfig = (
+  t: TIntl,
   config: ReportHorizontalTableJson,
   commonProps: Pick<TableProps, 'title' | 'api'>,
   getWsid: () => string | undefined
@@ -61,7 +64,7 @@ const parseHorizontalTableConfig = (
 
   // 处理水平表格（二维数组）
   const processedColumns = config.columns
-    .map((rowConfig) => rowConfig.map((config) => parseConfigTableCellConfig(config, getWsid)))
+    .map((rowConfig) => rowConfig.map((config) => parseConfigTableCellConfig(t, config, getWsid)))
     .filter(Boolean) as HorizontalTableColProps[][]
 
   // 构造并返回 TableProps 对象
@@ -76,6 +79,7 @@ const parseHorizontalTableConfig = (
  * Parse normal table configuration
  */
 const parseNormalTableConfig = (
+  t: TIntl,
   config: ReportVerticalTableJson,
   commonProps: Pick<TableProps, 'title' | 'api'>,
   getWsid: () => string | undefined
@@ -91,7 +95,7 @@ const parseNormalTableConfig = (
 
   // 处理普通表格（一维数组）
   let processedColumns = config.columns
-    .map((config) => parseConfigTableCellConfig(config, getWsid))
+    .map((config) => parseConfigTableCellConfig(t, config, getWsid))
     .filter(Boolean) as TableColProps[]
 
   // 如果不需要隐藏索引列，添加到开始
@@ -114,10 +118,11 @@ const parseNormalTableConfig = (
  * @returns 表格行配置
  */
 export const parseConfigTableConfig = (
+  t: TIntl,
   config: ReportDetailTableJson,
   getWsid: () => string | undefined
 ): TableProps => {
-  let title = configDetailIntlHelper(config, 'title', tForRPPreview) || ''
+  let title = configDetailIntlHelper(config, 'title', t) || ''
 
   const commonProps: Pick<TableProps, 'title' | 'api'> = {
     title,
@@ -125,10 +130,10 @@ export const parseConfigTableConfig = (
   }
 
   if (config.type === 'crossTable') {
-    return parseCrossTableConfig(config, commonProps, getWsid)
+    return parseCrossTableConfig(t, config, commonProps, getWsid)
   } else if (config.type === 'horizontalTable') {
-    return parseHorizontalTableConfig(config, commonProps, getWsid)
+    return parseHorizontalTableConfig(t, config, commonProps, getWsid)
   } else {
-    return parseNormalTableConfig(config, commonProps, getWsid)
+    return parseNormalTableConfig(t, config, commonProps, getWsid)
   }
 }

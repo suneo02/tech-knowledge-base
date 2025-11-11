@@ -1,9 +1,10 @@
 /** @format */
+import { openFeedbackModal } from '@/components/company/feedback/useFeedbackModal'
+import { CorpCardInfo } from 'gel-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { GlobalContext } from '../../../context/GlobalContext'
-// import { parseQueryString } from '../../../lib/utils'
 import { wftCommon } from '../../../utils/utils'
 import { CompanyInfoDisplay } from './CompanyInfoDisplay'
 import { ICorpBasicInfoFront } from './handle'
@@ -15,7 +16,7 @@ interface CompanyInfoProps {
       corp: any
     }
     corpArea?: any
-    corpHeaderInfo?: any
+    corpHeaderInfo?: CorpCardInfo
     [key: string]: any
   }
   history: any
@@ -58,10 +59,8 @@ class CompanyInfo extends React.Component<CompanyInfoProps, CompanyInfoState> {
   }
 
   showFeedBackModel = () => {
-    const node = document.querySelector('.content-toolbar-feedback')
-    if (node instanceof HTMLElement) {
-      node.click()
-    }
+    const { baseInfo } = this.props.company
+    openFeedbackModal(baseInfo?.corp_name)
   }
 
   shouldComponentUpdate = (nextProps: CompanyInfoProps, nextState: CompanyInfoState) => {
@@ -103,7 +102,7 @@ class CompanyInfo extends React.Component<CompanyInfoProps, CompanyInfoState> {
   }
 
   render() {
-    const { baseInfo, corpArea, corpHeaderInfo } = this.props.company
+    const { baseInfo, corpHeaderInfo } = this.props.company
     let loadingState = true
     if (baseInfo.corp_type_id) {
       // 获取到了企业基础信息
@@ -120,9 +119,11 @@ class CompanyInfo extends React.Component<CompanyInfoProps, CompanyInfoState> {
       <CompanyInfoDisplay
         baseInfo={baseInfo}
         corpHeaderInfo={corpHeaderInfo}
-        onFeedbackClick={this.showFeedBackModel}
+        onClickFeedback={this.showFeedBackModel}
         isLoading={loadingState}
         enCorpInfo={this.state.en_corpInfo}
+        data-uc-id="bhSNcvDRbM"
+        data-uc-ct="companyinfodisplay"
       />
     )
   }

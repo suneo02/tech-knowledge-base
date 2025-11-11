@@ -6,7 +6,9 @@ const ChildComponent = React.memo(() => {
   return (
     <div style={{ height: '400vh' }}>
       <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setCount(count + 1)} data-uc-id="PvZ0s1roX" data-uc-ct="button">
+        Increment
+      </button>
     </div>
   )
 })

@@ -7,7 +7,6 @@ import styles from './index.module.less'
 
 export const AddConversationBtn: FC<ButtonProps> = ({ ...props }) => {
   return (
-    // @ts-expect-error ttt
     <Button variant="alice" {...props} className={classNames(styles.addConversationBtn, props.className)}>
       {t('421522', '新建对话')}
     </Button>

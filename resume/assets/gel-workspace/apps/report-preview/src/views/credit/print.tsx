@@ -4,18 +4,20 @@ import { fetchPackageInfo, selectUserPackage, useAppDispatch, useAppSelector } f
 import { selectUserPackageFetched } from '@/store/user'
 import { getWsid, isDev } from '@/utils'
 import { useTitle } from 'ahooks'
+import { useIntl } from 'gel-ui'
 import { generatePageTitle } from 'gel-util/misc'
 import React, { useEffect } from 'react'
 import { CreditRPPrintComp } from 'report-preview-ui'
 import { getUrlParamCorpCode } from 'report-util/url'
 
 export const CreditRPPrint: React.FC = () => {
+  const t = useIntl()
   const dispatch = useAppDispatch()
 
   const packageInfo = useAppSelector(selectUserPackage)
 
   const isPackageInfoFetched = useAppSelector(selectUserPackageFetched)
-  useTitle(generatePageTitle('CreditRPPreview'))
+  useTitle(generatePageTitle(t, 'CreditRPPreview'))
   useEffect(() => {
     dispatch(fetchPackageInfo())
   }, [])

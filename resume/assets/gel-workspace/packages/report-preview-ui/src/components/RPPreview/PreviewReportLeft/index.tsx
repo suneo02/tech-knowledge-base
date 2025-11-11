@@ -5,15 +5,15 @@ import { useEffect, useMemo, useState } from 'react'
 import { RPPreviewLeftProps } from './type'
 import { flattenTreeNodesForSelect } from './util'
 
-import { t } from 'gel-util/intl'
-import React from 'react'
-import { useRPPreviewCtx } from '../../../context/RPPreview'
+import { useRPPreviewCtx } from '@/context/RPPreview'
+import { useIntl } from 'gel-ui'
 import { useReportTreeExpand, useReportTreeNodeRender } from '../../../hooks'
 import { convertReportConfigToTreeNodes } from '../../../utils/convertReportConfigToTreeNodes'
 import styles from './index.module.less'
 const { Header, Sider } = Layout
 
 export const PreviewReportLeft: React.FC<RPPreviewLeftProps> = ({ onNodeSelected }) => {
+  const t = useIntl()
   const { reportConfig, hiddenNodeIds, handleToggleNodeVisibility } = useRPPreviewCtx()
   const [selectedKey, setSelectedKey] = useState<string | undefined>()
 
@@ -24,7 +24,7 @@ export const PreviewReportLeft: React.FC<RPPreviewLeftProps> = ({ onNodeSelected
   }, [selectedKey])
 
   const originalTreeNodes = useMemo(() => {
-    return convertReportConfigToTreeNodes(reportConfig)
+    return convertReportConfigToTreeNodes(reportConfig, t)
   }, [reportConfig])
 
   const { treeNodes } = useReportTreeNodeRender({

@@ -22,7 +22,7 @@ const mockPackageInfo: UserPackageInfo = {
 }
 
 const mockAxiosInstance = axios.create({
-  baseURL: 'https://10.100.244.57:3030/xprod',
+  baseURL: 'https://10.100.244.57:3030/api/xsh',
   headers: {
     'wind.sessionid': 'b34ae8e7978748238d2b64a6a15330de',
   },

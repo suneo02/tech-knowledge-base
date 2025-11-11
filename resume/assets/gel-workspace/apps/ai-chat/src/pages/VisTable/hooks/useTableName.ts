@@ -1,6 +1,7 @@
 import { requestToWFCSuperlistFcs } from '@/api'
 import { message } from '@wind/wind-ui'
 import { useEffect, useState } from 'react'
+import { isEn } from 'gel-util/intl'
 
 /**
  * 表格名称管理Hook
@@ -24,7 +25,7 @@ export const useTableName = (tableId: string, initialName: string = '', onChange
   // 更新表格名称的处理函数
   const handleUpdateTableName = async (newTableName: string): Promise<void> => {
     if (!tableId) {
-      message.error('表格ID不存在')
+      message.error(isEn() ? 'Table ID does not exist' : '表格ID不存在')
       throw new Error('表格ID不存在')
     }
 
@@ -34,13 +35,13 @@ export const useTableName = (tableId: string, initialName: string = '', onChange
         tableName: newTableName,
       })
       updateTableName(newTableName)
-      message.success('表格名称更新成功')
+      message.success(isEn() ? 'Table name updated successfully' : '表格名称更新成功')
     } catch (err) {
       console.error('更新表格名称失败:', err)
       if (err instanceof Error) {
-        message.error(`更新表格名称失败: ${err.message}`)
+        message.error(isEn() ? `Failed to update table name: ${err.message}` : `更新表格名称失败: ${err.message}`)
       } else {
-        message.error('更新表格名称失败')
+        message.error(isEn() ? 'Failed to update table name' : '更新表格名称失败')
       }
       throw err
     }
@@ -49,13 +50,19 @@ export const useTableName = (tableId: string, initialName: string = '', onChange
   // 验证表格名称
   const validateTableName = (value: string) => {
     if (!value.trim()) {
-      return { isValid: false, errorMsg: '表格名称不能为空' }
+      return { isValid: false, errorMsg: isEn() ? 'Table name cannot be empty' : '表格名称不能为空' }
     }
     if (value.length > 50) {
-      return { isValid: false, errorMsg: '表格名称不能超过50个字符' }
+      return {
+        isValid: false,
+        errorMsg: isEn() ? 'Table name cannot exceed 50 characters' : '表格名称不能超过50个字符',
+      }
     }
     if (/[<>\\]/.test(value)) {
-      return { isValid: false, errorMsg: '表格名称不能包含特殊字符' }
+      return {
+        isValid: false,
+        errorMsg: isEn() ? 'Table name cannot contain special characters' : '表格名称不能包含特殊字符',
+      }
     }
     return { isValid: true }
   }

@@ -1,8 +1,9 @@
 import { HomeSider } from '@/components/SuperList/HomeSider'
+import { fetchPoints, useAppDispatch } from '@/store'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import styles from './SuperLayout.module.less'
-import { fetchPoints, useAppDispatch } from '@/store'
+import { postPointBuried } from '@/utils/common/bury'
 
 /**
  * Super应用通用布局组件
@@ -13,6 +14,7 @@ const SuperLayout: React.FC = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchPoints())
+    postPointBuried('922604570271')
   }, [])
   return (
     <div className={styles['super-layout-container']} data-id="super-home">

@@ -1,5 +1,5 @@
 import { Button, Checkbox, DatePicker, Empty, Input, Modal, Radio, Select, Spin } from '@wind/wind-ui'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import React from 'react'
 import { connect } from 'react-redux'
 import { pointBuriedGel } from '../../api/configApi'
@@ -9,11 +9,11 @@ import { HistoryList } from '../../components/searchListComponents/searchListCom
 import PreSearchInput from '../../components/singleSearch/preSearchInput.tsx'
 import { wftCommon } from '../../utils/utils'
 
-import { WindCascadeFieldNamesCommon } from '@/components/cascade/type'
-import { WindCascade } from '@/components/cascade/WindCascade'
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 import { globalIndustryOfNationalEconomy2 } from '@/utils/industryOfNationalEconomyTree'
 import { message } from '@wind/wind-ui'
+import { CorpPresearchModule, LoadMoreTrigger, WindCascade, WindCascadeFieldNamesCommon } from 'gel-ui'
+import { CorpPresearch } from '../../components/CorpPreSearch'
 import { jobResultOption } from '../../handle/searchConfig'
 import { newMap } from '../../handle/searchConfig/newMap'
 import { setPageTitle } from '../../handle/siteTitle'
@@ -31,7 +31,7 @@ const StylePrefix = 'search-job'
 
 class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
   private child: any
-
+  corpInputRef: any
   constructor(props) {
     super(props)
     this.state = {
@@ -71,8 +71,10 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
       queryHisShow: 'none',
       recommend: true,
       companyHis: [],
+      mainCorp: [],
     }
     this.child = React.createRef()
+    this.corpInputRef = React.createRef()
   }
 
   componentDidUpdate = () => {
@@ -120,19 +122,16 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
   showModal = () => {
     this.setState({ visible: true })
   }
-  scroll = (event) => {
-    //触底加载
 
+  loadMore = () => {
     const { pageNo, resultNum } = this.state
-    const { clientHeight, scrollTop, scrollHeight } = event.target
-    if (clientHeight + scrollTop >= scrollHeight) {
-      if ((pageNo + 1) * 10 < parseInt(resultNum)) {
-        setTimeout(() => {
-          this.setState({ pageNo: pageNo + 1, loadingList: true }, () => this.getData())
-        }, 600)
-      }
+    if ((pageNo + 1) * 10 < parseInt(resultNum)) {
+      setTimeout(() => {
+        this.setState({ pageNo: pageNo + 1, loadingList: true }, () => this.getData())
+      }, 600)
     }
   }
+
   eduRadioChange = (e, list, indeterminate, checkAll, arr) => {
     // @ts-expect-error ttt
     this.setState({
@@ -154,7 +153,7 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
     })
   }
   disabledDate = (current) => {
-    return current && current >= moment().endOf('day')
+    return current && current >= dayjs().endOf('day')
   }
 
   releaseDateChange = (e) => {
@@ -228,7 +227,7 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
     } = this.state
     const newArr: string[] = []
     let param: any = {}
-    const showPre = this.child.state.showPre
+    const showPre = this.state.mainCorp
     if (showPre) {
       for (let i = 0; i < showPre.length; i++) {
         newArr.push(showPre[i].split('|')[1])
@@ -352,7 +351,7 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
     if (item.companyCode && companyName !== '--') {
       const onLinkClick = () => wftCommon.linkCompany('Bu3', item.companyCode)
       companyLinkComp = (
-        <span className="underline-company" onClick={onLinkClick}>
+        <span className="underline-company" onClick={onLinkClick} data-uc-id="udPTPTQjxC" data-uc-ct="span">
           {companyName}
         </span>
       )
@@ -362,7 +361,12 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
 
     return (
       <div className={`${StylePrefix}--item div_Card`}>
-        <h5 className="searchtitle-brand wi-link-color" onClick={() => wftCommon.jumpJqueryPage(jumpUrl)}>
+        <h5
+          className="searchtitle-brand wi-link-color"
+          onClick={() => wftCommon.jumpJqueryPage(jumpUrl)}
+          data-uc-id="wS7zQZe686"
+          data-uc-ct="h5"
+        >
           {item.positionName ? item.positionName : '--'}
         </h5>
         <span className="list-opeation-job color-orange">{item.pay ? item.pay : '--'}</span>
@@ -398,14 +402,28 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
     }
     return (
       <li className="history-Joblist">
-        <span className="job-history-title" onClick={() => wftCommon.jumpJqueryPage(jumpUrl)}>
+        <span
+          className="job-history-title"
+          onClick={() => wftCommon.jumpJqueryPage(jumpUrl)}
+          data-uc-id="beyuW-vfcf"
+          data-uc-ct="span"
+        >
           {item.keyword}
         </span>
         <br />
         <span className="job-corp">
           {intl('271969', '招聘企业')}：<span>{detail.companyName ? detail.companyName : '--'}</span>
         </span>
-        {isDelete ? <span className="del-history" onClick={() => this.deleteSingleJobHis(detailid)}></span> : ''}
+        {isDelete ? (
+          <span
+            className="del-history"
+            onClick={() => this.deleteSingleJobHis(detailid)}
+            data-uc-id="ssQNMhowIn"
+            data-uc-ct="span"
+          ></span>
+        ) : (
+          ''
+        )}
       </li>
     )
   }
@@ -438,6 +456,7 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
 
   reset = () => {
     this.child.deleteAllPre()
+    this.corpInputRef.current.clearSelection()
     this.setState({
       pageno: 0,
       pagesize: 10,
@@ -459,6 +478,7 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
       queryHisShow: 'none',
       defaultRegion: [],
       defaultIndustry: [],
+      mainCorp: [],
     })
   }
 
@@ -492,7 +512,6 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
 
   render() {
     const { errorCode, resultList, loading, loadingList, keywordHis, queryHisShow, recommend, companyHis } = this.state
-    console.log('🚀 ~ SearchBidNew ~ render ~ keywordHis:', keywordHis)
     let resultAlert = recommend ? intl('345554', '为您推荐%个符合条件的岗位') : intl('345573', '找到%条符合条件的岗位')
     resultAlert = resultAlert.replace(
       /%/,
@@ -508,8 +527,14 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
         <div className="loading-failed">
           <p>{intl('313373', '加载失败，请重试')}</p>
           <p>
-            {/*  @ts-expect-error ttt */}
-            <Button size="default" type="primary" onClick={this.getData}>
+            <Button
+              // @ts-expect-error ttt
+              size="default"
+              type="primary"
+              onClick={this.getData}
+              data-uc-id="NziPuq4u9"
+              data-uc-ct="button"
+            >
               {intl('138836', '确定')}
             </Button>
           </p>
@@ -525,14 +550,19 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
           })}
         </>
       ) : (
-        <Empty status={'no-data'} direction="vertical" />
+        <Empty status={'no-data'} direction="vertical" data-uc-id="2vwjwWQtN4" data-uc-ct="empty" />
       )
     }
     return (
-      <div onScroll={this.scroll} className={`search_job ${StylePrefix}`}>
+      <div className={`search_job ${StylePrefix}`}>
         <div className="bread-crumb">
           <div className="bread-crumb-content">
-            <span className="last-rank" onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}>
+            <span
+              className="last-rank"
+              onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}
+              data-uc-id="sAkqbwFbsB"
+              data-uc-ct="span"
+            >
               {intl('19475', '首页')}
             </span>
             <i></i>
@@ -557,15 +587,23 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
                     onBlur={() => {
                       setTimeout(() => {
                         this.setState({ queryHisShow: 'none' })
-                      }, 150)
+                      }, 500)
                     }}
+                    data-uc-id="alDYX0eOOM"
+                    data-uc-ct="input"
                   />
                   <div className="historySearch" style={{ display: queryHisShow }}>
                     {keywordHis && keywordHis.length > 0 ? <div>{intl('437396', '历史搜索')}</div> : null}
                     {keywordHis && keywordHis.length > 0
                       ? keywordHis.map((item, index) => {
                           return (
-                            <div key={index} onClick={() => this.setState({ queryText: item.name })}>
+                            <div
+                              key={index}
+                              onClick={() => this.setState({ queryText: item.name })}
+                              data-uc-id="j0iwXSoIZV"
+                              data-uc-ct="div"
+                              data-uc-x={index}
+                            >
                               {item.name}
                             </div>
                           )
@@ -581,6 +619,33 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
                   placeholder={intl('349196', '请输入招聘企业名称')}
                   onChange={() => {}}
                   historyList={companyHis}
+                  style={{ display: 'none' }}
+                  data-uc-id="5G3Ncjb5KQ"
+                  data-uc-ct="presearchinput"
+                />
+
+                <CorpPresearch
+                  placeholder={intl('349196', '请输入招聘企业名称')}
+                  onSelectChange={(value, option) => {
+                    if (!value) {
+                      this.setState({ mainCorp: [] })
+                      return
+                    }
+                    const values = option?.map((item) => {
+                      return item?.value + '|' + item?.data?.corpId
+                    })
+                    setTimeout(() => {
+                      this.setState({ mainCorp: values })
+                    }, 0)
+                  }}
+                  widthAuto={true}
+                  minWidth={'100%'}
+                  searchMode="select"
+                  needHistory={true}
+                  module={CorpPresearchModule.JOB}
+                  ref={this.corpInputRef}
+                  data-uc-id="5Q_fSrKuYF"
+                  data-uc-ct="corppresearch"
                 />
               </div>
               <div className="condition-area">
@@ -593,6 +658,8 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
                     fieldNames={{ label: 'name', value: 'code', children: 'node' }}
                     value={this.state.defaultRegion}
                     onChange={(e) => this.cascaderChange(e, 'areaCodes', 'defaultRegion')}
+                    data-uc-id="b-EmKV4zbH"
+                    data-uc-ct="windcascade"
                   />
                 </div>
                 <div className="condition-industry">
@@ -604,6 +671,8 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
                     fieldNames={WindCascadeFieldNamesCommon}
                     value={this.state.defaultIndustry}
                     onChange={(e) => this.cascaderChange(e, 'compIndustry', 'defaultIndustry')}
+                    data-uc-id="mCtCL-0QFy"
+                    data-uc-ct="windcascade"
                   />
                 </div>
               </div>
@@ -615,24 +684,35 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
                   className={`${StylePrefix}--publish-date--radio`}
                   onChange={this.releaseDateChange}
                   value={this.state.releaseState}
+                  data-uc-id="wmWCKGPiIQ"
+                  data-uc-ct="radiogroup"
                 >
                   {releaseDate.map((item) => {
                     return (
-                      <Radio key={item.value} value={item.value}>
+                      <Radio
+                        key={item.value}
+                        value={item.value}
+                        data-uc-id="1oabzCAIRy"
+                        data-uc-ct="radio"
+                        data-uc-x={item.value}
+                      >
                         {item.name}
                       </Radio>
                     )
                   })}
-                  <Radio value="custome">{intl('25405', '自定义')}</Radio>
+                  <Radio value="custome" data-uc-id="l-q_jjMZX8" data-uc-ct="radio">
+                    {intl('25405', '自定义')}
+                  </Radio>
                 </RadioGroup>
                 <RangePicker
                   className={`${StylePrefix}--publish-date--picker`}
                   placeholder={[intl('9524', '开始时间'), intl('138688', '截止时间')]}
                   onChange={this.onTimeChange}
-                  // @ts-expect-error ttt
                   value={this.state.defaultTime}
                   allowClear
                   disabledDate={this.disabledDate}
+                  data-uc-id="OuHr_53fH"
+                  data-uc-ct="rangepicker"
                 />
               </div>
               <div className="condition-area">
@@ -642,6 +722,8 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
                     options={expReq}
                     value={this.state.expList}
                     onChange={(e) => this.eduRadioChange(e, 'expList', 'expIndeterminate', 'expCheckAll', expReq)}
+                    data-uc-id="catDN5sLuk"
+                    data-uc-ct="checkboxgroup"
                   />
                 </div>
               </div>
@@ -652,12 +734,14 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
                     options={eduReq}
                     value={this.state.eduList}
                     onChange={(e) => this.eduRadioChange(e, 'eduList', 'eduIndeterminate', 'eduCheckAll', eduReq)}
+                    data-uc-id="nWbCStExtQ"
+                    data-uc-ct="checkboxgroup"
                   />
                 </div>
               </div>
               <div className="condition-area" id="conditionButton">
                 <div style={{ float: 'right' }}>
-                  <Button size="large" onClick={this.reset}>
+                  <Button size="large" onClick={this.reset} data-uc-id="U_vGOqgIA0" data-uc-ct="button">
                     {intl('138490', '重置条件')}
                   </Button>
                   <Button
@@ -668,6 +752,8 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
                     onClick={() => {
                       this.setState({ pageNo: 0 }, this.getData)
                     }}
+                    data-uc-id="MBo_4uiNhV"
+                    data-uc-ct="button"
                   >
                     {intl('257693', '应用筛选')}
                   </Button>
@@ -684,17 +770,27 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
                     style={{ width: 164 }}
                     onChange={(e) => this.handleChange(e)}
                     value={this.state.selectValue}
+                    data-uc-id="W78xu7bW_C"
+                    data-uc-ct="select"
                   >
                     {jobResultOption.map(({ sort, key }) => {
-                      // @ts-expect-error ttt
-                      return <Option key={key}>{sort}</Option>
+                      return (
+                        <Option key={key} data-uc-id={`FvV9Bw6ItPd${key}`} data-uc-ct="option" data-uc-x={key}>
+                          {sort}
+                        </Option>
+                      )
                     })}
                   </Select>
                 </div>
               </div>
               <div className="div_List">
                 {showResult}
-                {loadingList ? <Spin /> : null}
+                <LoadMoreTrigger
+                  onLoadMore={this.loadMore}
+                  loading={loadingList}
+                  data-uc-id="52_M4aeJCGH"
+                  data-uc-ct="loadmoretrigger"
+                />
               </div>
             </div>
           </div>
@@ -713,14 +809,14 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
             </div>
           </div>
         </div>
-
         {this.state.visible ? (
-          // @ts-expect-error ttt
           <Modal
             title={intl('138910', '提示')}
             visible={this.state.visible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
+            data-uc-id="LQacaj4n2x"
+            data-uc-ct="modal"
           >
             <p>{intl('272001', '全部清除最近浏览企业')}</p>
           </Modal>

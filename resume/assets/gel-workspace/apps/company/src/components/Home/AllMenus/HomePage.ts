@@ -9,13 +9,14 @@ import {
 } from './config/ComprehensiveSearch'
 import {
   getBatchQueryExportItem,
-  getCompanyAtlasPlatformItem,
+  // getCompanyAtlasPlatformItem,
   getCompanyDataApiItem,
   getCompanyDataBrowserItem,
   getCompanyDynamicsItem,
   getReportPlatformItem,
 } from './config/EasyTool'
 import {
+  getCompanyAtlasPlatformItem,
   getCompetitorAtlasItem,
   getEquityPenetrationItem,
   getFinalBeneficiaryItem,

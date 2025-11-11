@@ -45,10 +45,6 @@ export const SearchPageData = [
       type: 'trademark_search',
     },
   },
-  {
-    title: '查全球企业',
-    subModule: SearchLinkEnum.OutCompany,
-  },
 ].map((item) => ({
   ...item,
   module: LinksModule.SEARCH,

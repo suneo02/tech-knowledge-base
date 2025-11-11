@@ -1,0 +1,108 @@
+@import 'gel-ui/variables.less';
+
+// ============================================================================
+// 大纲编辑器布局变量
+// ============================================================================
+
+@outline-action-button-size: 20px; // 操作按钮尺寸（添加、确认等）
+@outline-number-width: 1.5em; // 编号区域宽度
+@outline-dot-size: 6px; // 左侧圆点尺寸
+@outline-border-radius: 4px; // 统一圆角
+@outline-editor-min-height: 32px; // 编辑器最小高度
+@outline-content-indent: @component-space-xs; // 内容区域（keywords/thought）相对 header 的额外缩进
+
+// 内容区域左侧偏移量 = 操作按钮宽度 + 编号宽度
+@outline-content-left-offset: calc(@outline-action-button-size + @outline-number-width);
+@outline-content-width: calc(100% - @outline-content-left-offset);
+
+// 圆点位置 = 操作按钮宽度 + 间距（与编号左对齐）
+@outline-dot-left-position: calc(-1 * @outline-content-left-offset + @outline-action-button-size + @component-space-sm);
+
+// ============================================================================
+// 编辑器样式 Mixins
+// ============================================================================
+
+/**
+ * 编辑器容器边框样式
+ * 用于统一编辑器的视觉样式，包括边框、背景、焦点状态等
+ */
+.editor-container-border() {
+  display: flex;
+  align-items: center;
+  padding: @component-space-xs @component-space-sm;
+  border: 1px solid @border-color-base;
+  border-radius: @outline-border-radius;
+  background-color: @basic-16;
+  transition: border-color 0.2s ease;
+
+  &:focus-within {
+    border-color: @primary-color;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  }
+}
+
+/**
+ * 编辑器内容样式
+ * 用于统一编辑器内容区域的样式
+ */
+.editor-content() {
+  flex: 1;
+  min-width: 0;
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+/**
+ * 编辑器思路容器样式
+ * 专门用于编写思路编辑器的容器样式
+ */
+.thought-editor-container() {
+  .editor-container-border();
+  min-height: @outline-editor-min-height;
+  margin-top: @component-space-xs;
+}
+
+// ============================================================================
+// 大纲布局 Mixins
+// ============================================================================
+
+/**
+ * 大纲内容区域对齐样式
+ * 用于统一大纲内容区域（关键词、编写思路等）的左对齐
+ * 相对于 header 有额外的缩进，形成视觉层级
+ */
+.outline-content-alignment() {
+  margin-left: calc(@outline-content-left-offset + @outline-content-indent);
+  padding-left: 0;
+  width: calc(@outline-content-width - @outline-content-indent);
+}
+
+/**
+ * 左侧圆点伪元素样式
+ * 用于在大纲内容块左侧渲染统一的圆点，与 header 的 number 左对齐
+ * 圆点会自动垂直居中对齐第一行文本
+ * 
+ * @param @top-offset   圆点的 top 偏移值（需要手动计算）
+ * @param @color        圆点颜色，默认使用字体三级色
+ * 
+ * 计算公式（在调用处计算）：
+ * top = padding-top + (font-size × line-height - dot-size) / 2
+ * 
+ * 示例：
+ * - font-size: 12px, line-height: 1.5, padding: 0
+ *   top = 0 + (12px × 1.5 - 6px) / 2 = 6px
+ * - font-size: 12px, line-height: 1.5, padding: 4px
+ *   top = 4px + (12px × 1.5 - 6px) / 2 = 10px
+ */
+.outline-left-dot(@top-offset) {
+  &::before {
+    content: '';
+    position: absolute;
+    left: @outline-dot-left-position;
+    top: @top-offset;
+    width: @outline-dot-size;
+    height: @outline-dot-size;
+    border-radius: 50%;
+    background-color: @font-color-4;
+  }
+}

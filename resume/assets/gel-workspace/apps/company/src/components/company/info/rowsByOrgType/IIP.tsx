@@ -23,7 +23,7 @@ import {
   corpInfoEmployeeScaleRow,
   corpInfoEndowmentNumRow,
   corpInfoRegAddressRow,
-  corpInfoScaleRow,
+  getCorpInfoScaleRow,
 } from '@/components/company/info/rowsCommon/corpScaleRow.tsx'
 import { corpInfoIndustryRow } from '@/components/company/info/rowsCommon/industryGBRow.tsx'
 import { corpInfoEngNameRow, corpInfoUsedNamesRow } from '@/components/company/info/rowsCommon/names.tsx'
@@ -33,14 +33,14 @@ import { ICorpBasicInfoFront } from '../handle'
 
 export const getIndividualBusinessRows = (
   baseInfo: ICorpBasicInfoFront,
-  onCorpScaleClick: () => void
+  onClickFeedback: () => void
 ): HorizontalTableColumns<ICorpBasicInfoFront> => {
   return [
     [corpInfoNameRow, corpInfoCreditCodeRow],
     [corpInfoEngNameRow, corpInfoBizRegNoRow],
     [corpInfoUsedNamesRow(baseInfo), corpInfoOrgCodeRow],
     [corpInfoTypeRow, corpInfoTaxIdRow],
-    [corpInfoScaleRow(onCorpScaleClick), corpInfoEmployeeScaleRow, corpInfoEndowmentNumRow],
+    [getCorpInfoScaleRow(onClickFeedback), corpInfoEmployeeScaleRow, corpInfoEndowmentNumRow],
     [
       {
         ...corpInfoLegalPersonRow,

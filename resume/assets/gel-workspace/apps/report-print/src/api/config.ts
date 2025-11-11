@@ -1,6 +1,3 @@
-// API 超时时间（毫秒）
-export const API_TIMEOUT = 180000
-
 export const WFC_PATH = '/Wind.WFC.Enterprise.Web'
 
 // 内容类型
@@ -11,5 +8,7 @@ export const CONTENT_TYPES = {
 } as const
 
 export const wfcGelPath = `${WFC_PATH}/Enterprise/gel`
+
+export const baifenAigcApiPath = '/bankcomp/ai/file/download/html'
 
 export const wfcSecurePath = `${WFC_PATH}/Enterprise/WindSecureApi.aspx`

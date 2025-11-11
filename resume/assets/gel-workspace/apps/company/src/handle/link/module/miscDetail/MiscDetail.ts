@@ -4,10 +4,12 @@ export const MiscDetailTypeMap = {
   RECRUIT: 'jobDetail',
 }
 
-export const getMiscDetailBySubModule = ({ subModule, id, params , env}) => {
-  const baseUrl = new URL(getPrefixUrl({
-    envParam: env
-  }))
+export const getMiscDetailBySubModule = ({ subModule, id, params, env }) => {
+  const baseUrl = new URL(
+    getPrefixUrl({
+      envParam: env,
+    })
+  )
   baseUrl.pathname = handleAppendUrlPath(baseUrl.pathname)
   switch (subModule) {
     case MiscDetailTypeMap.RECRUIT:

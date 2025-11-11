@@ -9,33 +9,6 @@ export const patentDetailApi = (data) => {
   })
 }
 
-export const getPatentDetailPdf = (data) => {
-  return axios.request({
-    url: '/Wind.WFC.Enterprise.Web/Enterprise/WindSecureApi.aspx?cmd=getpatentdetailpdf',
-    method: 'post',
-    data,
-    cmd: 'getpatentdetailpdf',
-  })
-}
-
-export const getPatentDetailRight = (data) => {
-  return axios.request({
-    url: '/Wind.WFC.Enterprise.Web/Enterprise/WindSecureApi.aspx?cmd=getpatentdetailright',
-    method: 'post',
-    data,
-    cmd: 'getpatentdetailright',
-  })
-}
-
-export const getPatentDetailInstruction = (data) => {
-  return axios.request({
-    url: '/Wind.WFC.Enterprise.Web/Enterprise/WindSecureApi.aspx?cmd=getpatentdetailinstruction',
-    method: 'post',
-    data,
-    cmd: 'getpatentdetailinstruction',
-  })
-}
-
 export const getPatentDetailIndustry = (data) => {
   return axios.request({
     method: 'post',
@@ -128,6 +101,3 @@ export const downloadPdf = (data) => {
     cmd: 'createannualreportpdf',
   })
 }
-
-//  myWfcAjax('/operation/',{restfulApi:'/detail/company/getannualdetail_basic/'+ yearReport.companyCode,"year": yearReport.reportYear},function(data) {
-//getbranddetail

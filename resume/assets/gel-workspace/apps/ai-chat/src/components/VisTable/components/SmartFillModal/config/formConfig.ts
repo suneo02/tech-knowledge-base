@@ -1,3 +1,4 @@
+// @ts-expect-error
 import { ExtendedColumnDefine } from '@/components/MultiTable/utils/columnsUtils'
 import { FieldConfig } from '../components/ConfigurableForm'
 import { InputField } from '../types'
@@ -36,9 +37,9 @@ export const getFormFieldConfigs = (): FieldConfig[] => {
       type: 'mentions',
       required: true,
       placeholder: '输入@引用列',
-      description: '输入@引用列，模型会根据列名生成提示语',
+      description: '输入@引用列，模型会根据列名生成提示词',
       rows: 8,
-      group: '提示语',
+      group: '提示词',
     },
     {
       name: 'enableLinkTool',
@@ -130,7 +131,7 @@ export const getInputFieldMappingConfigs = (
   inputFields: InputField[],
   columns: ExtendedColumnDefine[]
 ): FieldConfig[] => {
-  console.log('🚀 ~ getInputFieldMappingConfigs:', columns)
+  // console.log('🚀 ~ getInputFieldMappingConfigs:', columns)
   return inputFields.map(({ title, required, placeholder, description }) => ({
     name: `mapping_${title}`,
     label: title,
@@ -139,6 +140,6 @@ export const getInputFieldMappingConfigs = (
     description,
     required: required,
     options: columns.map((col) => ({ label: col.title, value: col.field, icon: col.headerIcon })),
-    group: '请选择一列用于提示语填充',
+    group: '请选择一列用于提示词填充',
   }))
 }

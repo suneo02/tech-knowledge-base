@@ -1,5 +1,4 @@
-import { getUrlSearchValue } from '@/link/handle/param'
-import { t } from 'i18next'
+import { getUrlSearchValue } from '@/common/url'
 import { SupportedLang, SupportedLocale } from './type'
 
 /**
@@ -12,15 +11,38 @@ export const LANGUAGE_KEY = 'lan'
  */
 export const DEFAULT_LOCALE: SupportedLocale = 'zh-CN'
 
-// 标准化语言代码
+/**
+ * BCP47 规范化语言标签并根据已支持资源做优雅降级
+ * @param locale 语言标签
+ * @important 当前未内置资源，暂时使用中文，之后统一优雅降级为英文
+ */
 const normalizeLocale = (locale: string | undefined): SupportedLocale => {
   if (!locale) return DEFAULT_LOCALE
-  const lang = locale.toLowerCase()
-  return lang.startsWith('en') ? 'en-US' : 'zh-CN'
+
+  // 统一分隔符与大小写：language-REGION 形式
+  const cleaned = String(locale).replace('_', '-').trim()
+  const [rawLang] = cleaned.split('-')
+  const language = (rawLang || '').toLowerCase()
+
+  // 中文族群：包含 zh、zh-hans、zh-hant 等，统一回退 zh-CN 资源
+  if (language === 'zh' || language.startsWith('zh')) {
+    return 'zh-CN'
+  }
+
+  // 英文族群统一到 en-US 资源
+  if (language === 'en' || language.startsWith('en')) {
+    return 'en-US'
+  }
+
+  // 其他语言（如 ja/ko/fr/de/es/...）当前未内置资源，暂时使用中文
+  return 'zh-CN' // 之后统一优雅降级为英文
 }
 
 const normalizeNavigatorLanguage = (): SupportedLocale => {
-  const lang = navigator.language
+  const nav: Navigator | undefined = typeof navigator !== 'undefined' ? navigator : undefined
+  const languages =
+    nav && 'languages' in nav ? (nav as unknown as { languages?: readonly string[] }).languages : undefined
+  const lang = (languages && languages[0]) || nav?.language
   return normalizeLocale(lang)
 }
 /**
@@ -95,25 +117,4 @@ export const switchLocaleInWeb = () => {
  */
 export const isEn = () => {
   return getLocale() === 'en-US'
-}
-
-/**
- * @deprecated 临时方案
- * 后续直接调用 t
- * @param _
- * @param defaultV
- * @returns
- */
-export const intl = (key: string | number, defaultV?: string | Record<string, string>) => {
-  if (typeof defaultV === 'string') {
-    return t(String(key), defaultV)
-  } else if (typeof defaultV === 'object') {
-    // 这里手动替换 {} 中的内容, 使用正则
-    const str = t(String(key))
-    return str.replace(/\{([^}]+)\}/g, (match, p1) => {
-      return defaultV[p1] || match
-    })
-  } else {
-    return t(String(key))
-  }
 }

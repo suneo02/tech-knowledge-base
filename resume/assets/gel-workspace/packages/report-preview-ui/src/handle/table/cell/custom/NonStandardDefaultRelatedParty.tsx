@@ -1,5 +1,5 @@
 import React from 'react'
-import { tForRPPreview } from '../../../../utils'
+import { TIntl } from 'report-util/types'
 
 interface Party {
   companyName: string
@@ -13,6 +13,7 @@ interface Party {
  * @returns
  */
 export const renderNonStandardDefaultRelatedParty = (
+  t: TIntl,
   txt: Record<string, Party[]> | undefined,
   _row: any
 ): React.ReactNode => {
@@ -26,5 +27,5 @@ export const renderNonStandardDefaultRelatedParty = (
     }
   })
   if (!partiesArr.length) return ''
-  return <span className="parties-tooltip">{`${tForRPPreview('4600', '担保人')}: ${partiesArr[0].companyName}`}</span>
+  return <span className="parties-tooltip">{`${t('4600', '担保人')}: ${partiesArr[0].companyName}`}</span>
 }

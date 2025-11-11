@@ -1,98 +1,13 @@
-import { useIntersection } from '@/utils/intersection'
-import { DeleteOutlined } from '@ant-design/icons'
-import { Conversations, ConversationsProps } from '@ant-design/x'
-import { AddStarO, CheckO, CloseO, PencilO, StarF, StarO } from '@wind/icons'
-import { Input, Spin } from '@wind/wind-ui'
-import classNames from 'classnames'
-import { t } from 'gel-util/intl'
-import { memo, useEffect, useRef, useState } from 'react'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { getGroupableConfig } from '../handle'
-import styles from './index.module.less'
+import { entWebAxiosInstance } from '@/api/entWeb'
 import { postPointBuried } from '@/utils/common/bury'
-
-// 编辑输入框组件
-const EditingInput = memo(
-  ({
-    initialValue,
-    conversationId,
-    onConfirm,
-    onCancel,
-  }: {
-    initialValue: string
-    conversationId: string
-    onConfirm: (id: string, value: string) => void
-    onCancel: () => void
-  }) => {
-    const [value, setValue] = useState(initialValue)
-    const [blurable, setBlurable] = useState(false)
-
-    useEffect(() => {
-      // 延迟设置blurable，避免立即失焦
-      const timer = setTimeout(() => {
-        setBlurable(true)
-      }, 100)
-      return () => clearTimeout(timer)
-    }, [])
-
-    return (
-      <>
-        <div className={styles['editing-item']}>
-          <Input
-            autoFocus
-            size="small"
-            value={value}
-            // @ts-expect-error windui
-            maxLength={30}
-            onChange={(e) => setValue(e.target.value)}
-            onBlur={(e) => {
-              if (!value) {
-                return
-              }
-              e.preventDefault()
-              e.stopPropagation()
-              if (blurable) {
-                setTimeout(() => {
-                  onCancel()
-                }, 100)
-              }
-            }}
-            onFocus={() => {
-              console.log('onFocus')
-            }}
-            onPressEnter={() => {
-              onConfirm(conversationId, value)
-            }}
-            style={{ width: '100%' }}
-          />
-          <CheckO
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-            style={{ fontSize: 16, marginLeft: '8px', cursor: 'pointer' }}
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-
-              console.log('🚀 ~ e:', e)
-              console.log('🚀 ~ onClick ~ value:', value)
-              onConfirm(conversationId, value)
-            }}
-          />
-          <CloseO
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-            style={{ fontSize: 16, marginLeft: '8px' }}
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              onCancel()
-            }}
-          />
-        </div>
-      </>
-    )
-  }
-)
+import { Conversations, ConversationsProps } from '@ant-design/x'
+import { Spin } from '@wind/wind-ui'
+import classNames from 'classnames'
+import { ConversavionEditingInput, getConversationMenu, getGroupableConfig } from 'gel-ui'
+import { createIntersectionObserver } from 'gel-util/common'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import styles from './index.module.less'
 
 interface InfiniteScrollConversationsProps {
   items?: ConversationsProps['items']
@@ -110,6 +25,8 @@ interface InfiniteScrollConversationsProps {
   className?: string
   conversationClassName?: string
   infiniteScrollClassName?: string
+  enableFavorite?: boolean
+  enableRename?: boolean
 }
 
 export const InfiniteScrollConversations: React.FC<InfiniteScrollConversationsProps> = ({
@@ -128,12 +45,14 @@ export const InfiniteScrollConversations: React.FC<InfiniteScrollConversationsPr
   className,
   conversationClassName,
   infiniteScrollClassName,
-}) => {
+  enableFavorite,
+  enableRename,
+}: InfiniteScrollConversationsProps) => {
   const loadMoreRef = useRef(null)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [itemsList, setItemsList] = useState<ConversationsProps['items']>([])
 
-  const { observable } = useIntersection(
+  const { observable } = createIntersectionObserver(
     () => {
       loadMoreItems?.()
     },
@@ -147,51 +66,53 @@ export const InfiniteScrollConversations: React.FC<InfiniteScrollConversationsPr
 
   // 处理重命名确认
   const handleRenameConfirm = async (conversationId: string, newName: string) => {
-    console.log('🚀 ~ handleRenameConfirm ~ newName:', newName)
-    if (!newName.trim() || !onRenameConversation) return
+    if (!newName.trim() || !onRenameConversation) {
+      setEditingId(null)
+      return
+    }
 
     try {
       const success = await onRenameConversation(conversationId, newName.trim())
       if (success) {
-        // 重命名成功后清除编辑状态
-        setEditingId(null)
+        // 重命名成功后,乐观更新UI
+        setItemsList((prev) =>
+          (prev || []).map((item) => (item.key === conversationId ? { ...item, label: newName.trim() } : item))
+        )
       }
     } catch (error) {
       console.error('重命名处理出错:', error)
+    } finally {
+      setEditingId(null)
     }
   }
 
-  // 当items或editingId变化时，更新itemsList
+  // 当items变化时，更新itemsList
   useEffect(() => {
-    if (!items) {
-      setItemsList([])
-      return
-    }
+    setItemsList(items)
+  }, [items])
 
-    // 如果有正在编辑的项，替换为编辑框
-    if (editingId) {
-      const newItems = items.map((item) => {
-        if (item.key === editingId) {
-          const initialValue = typeof item.label === 'string' ? item.label : ''
-          return {
-            ...item,
-            label: (
-              <EditingInput
-                initialValue={initialValue}
-                conversationId={editingId}
-                onConfirm={handleRenameConfirm}
-                onCancel={() => setEditingId(null)}
-              />
-            ),
-          }
+  // 使用 useMemo 生成最终渲染的列表
+  const renderedItems = useMemo(() => {
+    if (!editingId) return itemsList
+
+    return (itemsList || []).map((item) => {
+      if (item.key === editingId) {
+        const initialValue = typeof item.label === 'string' ? item.label : ''
+        return {
+          ...item,
+          label: (
+            <ConversavionEditingInput
+              initialValue={initialValue}
+              conversationId={editingId}
+              onConfirm={handleRenameConfirm}
+              onCancel={() => setEditingId(null)}
+            />
+          ),
         }
-        return item
-      })
-      setItemsList(newItems)
-    } else {
-      setItemsList(items)
-    }
-  }, [items, editingId])
+      }
+      return item
+    })
+  }, [itemsList, editingId])
 
   // 处理添加收藏
   const handleAddFavorite = async (conversation: {
@@ -217,52 +138,14 @@ export const InfiniteScrollConversations: React.FC<InfiniteScrollConversationsPr
     }
   }
 
-  const menuConfig: ConversationsProps['menu'] = (conversation) => ({
-    items: [
-      {
-        label: conversation?.collectFlag ? t('257657', '取消收藏') : t('265408', '收藏'),
-        key: 'favorite',
-        // @ts-expect-error windui
-        icon: conversation?.collectFlag ? <StarF style={{ fontSize: 16 }} /> : <AddStarO style={{ fontSize: 16 }} />,
-      },
-      {
-        label: t('18507', '重命名'),
-        key: 'rename',
-        // @ts-expect-error windui
-        icon: <PencilO style={{ fontSize: 16 }} />,
-      },
-      {
-        label: t('232203', '删除'),
-        key: 'delete',
-        icon: <DeleteOutlined style={{ fontSize: 16 }} />,
-        danger: true,
-      },
-    ],
-    onClick: ({ key, domEvent }) => {
-      // 阻止事件冒泡，防止触发 onActiveChange
-      console.log('🚀 ~ conversation:', conversation)
-      domEvent.stopPropagation()
-
-      if (key === 'delete') {
-        if (onDeleteConversation) {
-          onDeleteConversation(conversation.key)
-          postPointBuried('922610370021')
-        } else {
-          console.error('onDeleteConversation is not defined')
-        }
-      }
-      if (key === 'rename') {
-        if (editingId === conversation.key) {
-          return
-        }
-        postPointBuried('922610370020')
-        setEditingId(conversation.key)
-      }
-
-      if (key === 'favorite') {
-        handleAddFavorite(conversation)
-      }
-    },
+  const menuConfig = getConversationMenu({
+    onDelete: onDeleteConversation,
+    editingId: editingId ?? undefined,
+    onRename: setEditingId,
+    onAddFavorite: handleAddFavorite,
+    entWebAxiosInstance,
+    enableFavorite,
+    enableRename,
   })
 
   useEffect(() => {
@@ -290,7 +173,7 @@ export const InfiniteScrollConversations: React.FC<InfiniteScrollConversationsPr
         scrollableTarget="scrollableDiv"
       >
         <Conversations
-          items={itemsList}
+          items={renderedItems}
           className={classNames(styles.conversations, conversationClassName)}
           activeKey={activeKey}
           onActiveChange={onActiveChange}

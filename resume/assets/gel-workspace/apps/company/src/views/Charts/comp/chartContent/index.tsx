@@ -8,8 +8,8 @@ import CytoGraph from '../cytoGraph'
 import { wftCommon } from '@/utils/utils'
 import OldCompanyChart from '@/views/Chart/OldCompanyChart'
 import { linkToCompany } from '../../handle'
-import { WIND_BDG_GRAPH_TYPE } from '@/api/graph'
-import { GRAPH_MENU_TYPE, WIND_BDG_GRAPH_MENU_TO_TYPE, GraphMenuTypeWithApi } from '../constants'
+import { WIND_BDG_GRAPH_TYPE, GRAPH_MENU_TYPE } from '../../types'
+import { WIND_BDG_GRAPH_MENU_TO_TYPE, GraphMenuTypeWithApi } from '../constants'
 import { makeExtraParams } from './extra'
 import global from '@/lib/global'
 import intl from '@/utils/intl'
@@ -55,8 +55,6 @@ const ChartContent: React.FC<ChartContentProps> = ({
     setTimeout(() => {
       if (containerRef.current) {
         const { offsetWidth, offsetHeight } = containerRef.current
-        console.log('offsetWidth after menu collapse:', offsetWidth)
-        console.log('offsetHeight after menu collapse:', offsetHeight)
         setDimensions({
           width: offsetWidth,
           height: offsetHeight,
@@ -158,6 +156,10 @@ const ChartContent: React.FC<ChartContentProps> = ({
             saveImgName={companyName + '_' + title}
             primaryColor={primaryColor}
             emptyText={emptyText}
+            containerRef={containerRef}
+            data-uc-id="det2-TL9-j"
+            data-uc-ct="gcctgraph"
+            data-uc-x={type}
           />
         )
       // 对外投资图
@@ -175,6 +177,9 @@ const ChartContent: React.FC<ChartContentProps> = ({
             companyOrPersonLinkHandle={companyOrPersonLinkHandle}
             primaryColor={primaryColor}
             emptyText={emptyText}
+            data-uc-id="4gM6biVKep"
+            data-uc-ct="gcctgraph"
+            data-uc-x={type}
           />
         )
       // 关联方图谱
@@ -195,6 +200,8 @@ const ChartContent: React.FC<ChartContentProps> = ({
             primaryColor={primaryColor}
             companyOrPersonLinkHandle={companyOrPersonLinkHandle}
             emptyText={emptyText}
+            data-uc-id="qbHYoiKjx_"
+            data-uc-ct="relatedgraph"
           />
         )
       // 企业图谱
@@ -209,6 +216,8 @@ const ChartContent: React.FC<ChartContentProps> = ({
             width={dimensions.width}
             height={dimensions.height}
             primaryColor={primaryColor}
+            data-uc-id="E9KnxdBqCY"
+            data-uc-ct="companygraph"
           />
         )
       // 疑似关系图谱
@@ -226,6 +235,8 @@ const ChartContent: React.FC<ChartContentProps> = ({
             width={dimensions.width}
             height={dimensions.height}
             apiParams={apiParams}
+            data-uc-id="Y_Q9UAOXQe"
+            data-uc-ct="cytograph"
           />
         )
       // 实际控制图、受益人图谱
@@ -258,6 +269,8 @@ const ChartContent: React.FC<ChartContentProps> = ({
             apiParams={apiParams}
             graphMenuType={type}
             emptyText={emptyText}
+            data-uc-id="dVRNNOoxmF"
+            data-uc-ct="ctrlgraph"
           />
         )
       // 查关系
@@ -285,6 +298,8 @@ const ChartContent: React.FC<ChartContentProps> = ({
             graphMenuType={type}
             width={dimensions.width}
             height={dimensions.height}
+            data-uc-id="d5DWCh1WEF"
+            data-uc-ct="detachgraph"
           />
         )
       // 持股路径
@@ -292,7 +307,11 @@ const ChartContent: React.FC<ChartContentProps> = ({
         return (
           <>
             <React.Suspense fallback={<div></div>}>
-              {<ShareholderGraphComp actions={actions}> </ShareholderGraphComp>}
+              {
+                <ShareholderGraphComp actions={actions} data-uc-id="GQIrnjxfZj" data-uc-ct="shareholdergraphcomp">
+                  {' '}
+                </ShareholderGraphComp>
+              }
             </React.Suspense>
           </>
         )
@@ -314,13 +333,19 @@ const ChartContent: React.FC<ChartContentProps> = ({
       // 融资历程
       case GRAPH_MENU_TYPE.FINANCING_HISTORY:
         return (
-          <OldCompanyChart type={type} companyCode={companyCode} onlyChart={true} bottomMask={false}></OldCompanyChart>
+          <OldCompanyChart
+            type={type}
+            companyCode={companyCode}
+            onlyChart={true}
+            bottomMask={false}
+            data-uc-id="02nK5pSICo"
+            data-uc-ct="oldcompanychart"
+          ></OldCompanyChart>
         )
       default:
         return null
     }
   }, [companyCode, menu, dimensions, waterMask, actions, isFinancial])
-  console.log('dimensions', dimensions)
 
   return (
     <div

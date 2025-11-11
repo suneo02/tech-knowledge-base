@@ -178,22 +178,6 @@ export const ENTITY_TYPE = {
 }
 
 /**
- * 扩展实体类型
- * 需要渲染为参考信息
- */
-export const ENTITY_TYPE_EXTEND = {
-  RN: 'RN', // 不固定
-  NEWS: 'N', // 新闻
-  RPP: 'R', // 研报
-  ANN: 'A', // 公告
-  LAW: 'L', // 法律法规
-  YQ: 'YQ', // 舆情
-  // CCC: '3C', // 3C会议
-
-  // BK: 'BK', // 百科
-}
-
-/**
  * Alice数据来源枚举
  */
 export const ALICE_DATASOURCE = {
@@ -410,14 +394,6 @@ export const EVENT_NAME = {
   keyBoardHeightChange: 'keyBoardHeightChange',
   selectFileItem: 'selectFileItem',
 }
-export const VALITYPE = [
-  ENTITY_TYPE_EXTEND.ANN,
-  ENTITY_TYPE_EXTEND.LAW,
-  ENTITY_TYPE_EXTEND.NEWS,
-  ENTITY_TYPE_EXTEND.RPP,
-  ENTITY_TYPE_EXTEND.RN,
-  ENTITY_TYPE_EXTEND.YQ,
-]
 
 export const WX_ERROR_CODE = {
   disAgreePrivacy: 104, //拒绝隐私协议

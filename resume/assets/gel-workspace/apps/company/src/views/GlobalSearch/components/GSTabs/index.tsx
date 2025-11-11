@@ -11,6 +11,8 @@ import useStats from './useStats'
 import './index.less'
 import { useScrollContext } from '@/components/layout/layoutScrollContent/ScrollContext'
 import { wftCommon } from '@/utils/utils'
+import { hashParams } from '@/utils/links'
+import { outCompanyParam } from '@/handle/searchConfig'
 
 export const OTHER_STATS_API = 'search/company/getSearchNum'
 
@@ -23,8 +25,8 @@ export const GLOBAL_PART = 'search/company/getGlobalCompanySearchPartMatch'
 const TAB_LIST = [
   { key: GSTabsEnum.GLOBAL, label: intl('206099', '全球企业') },
   { key: GSTabsEnum.CHINA, label: intl('406774', '中国企业') },
-  { key: GSTabsEnum.GROUP, label: intl('148622', '集团系') },
   { key: GSTabsEnum.CHARACTER, label: intl('138433', '人物') },
+  { key: GSTabsEnum.GROUP, label: intl('148622', '集团系') },
   { key: GSTabsEnum.BIDDING, label: intl('271633', '招投标') },
   { key: GSTabsEnum.IP, label: intl('120665', '知识产权') },
 ]
@@ -37,6 +39,14 @@ interface Props {
 }
 
 const GSTabs: React.FC<Props> = ({ type = GSTabsEnum.CHINA, queryText, onUserActionChange, onChange }) => {
+  const { getParamValue } = hashParams()
+  const areaType = getParamValue('areaType')
+
+  let initialValues
+  if (areaType) {
+    const code = outCompanyParam.find((c) => c.param === areaType)?.code
+    initialValues = { areaCode: code ? code : [] }
+  }
   const [activeKey, setActiveKey] = useState<GSTabsEnum | null>(type !== GSTabsEnum.CHINA ? type : GSTabsEnum.CHINA)
   const [disableTooltip, setDisableTooltip] = useState(false)
   const [remark, setRemark] = useState<string | null>(null)
@@ -50,8 +60,9 @@ const GSTabs: React.FC<Props> = ({ type = GSTabsEnum.CHINA, queryText, onUserAct
       [GSTabsEnum.IP]: 'intelluctalSearch',
     }
     const path = urlMap[key]
+    const keyword = getParamValue('keyword') || queryText
     if (path) {
-      window.open(`SearchHomeList.html?linksource=CEL&keyword=${queryText}#/${path}`)
+      window.open(`SearchHomeList.html?linksource=CEL&keyword=${keyword}#/${path}`)
     }
   }
 
@@ -82,6 +93,7 @@ const GSTabs: React.FC<Props> = ({ type = GSTabsEnum.CHINA, queryText, onUserAct
             api={[GLOBAL_FULL, GLOBAL_PART]}
             type={item.key}
             remark={remark}
+            filterParams={{ ...initialValues }}
           />
         )
       case GSTabsEnum.CHINA:
@@ -139,12 +151,26 @@ const GSTabs: React.FC<Props> = ({ type = GSTabsEnum.CHINA, queryText, onUserAct
 
   const GlobalTipsWrapper = memo(({ visible, onClose }: { visible: boolean; onClose: () => void }) => {
     if (!visible || disableTooltip) return null
+
+    // 添加30秒后自动消失的逻辑
+    useEffect(() => {
+      if (visible) {
+        const timer = setTimeout(() => {
+          onClose()
+        }, 30000)
+
+        return () => clearTimeout(timer)
+      }
+    }, [visible, onClose])
+
     return (
       <GlobalTips
         visible={visible}
         globalCount={Number(globalStats?.count) || 0}
         onClose={onClose}
         onClick={() => updateActiveKey(GSTabsEnum.GLOBAL)}
+        data-uc-id="xD18WUKyUX"
+        data-uc-ct="globaltips"
       />
     )
   })
@@ -156,6 +182,8 @@ const GSTabs: React.FC<Props> = ({ type = GSTabsEnum.CHINA, queryText, onUserAct
         <GlobalTipsWrapper
           visible={!loading && !!chinaStats?.count && !!globalStats?.count}
           onClose={() => setDisableTooltip(true)}
+          data-uc-id="J2VjRsPnWA"
+          data-uc-ct="globaltipswrapper"
         />
         <DefaultTabBar {...props} style={{ backgroundColor: '#fff', paddingInline: 12, height: 36 }} />
       </StickyBox>
@@ -226,16 +254,22 @@ const GSTabs: React.FC<Props> = ({ type = GSTabsEnum.CHINA, queryText, onUserAct
             },
           }}
         >
-          {/* @ts-expect-error ttt */}
           <Tabs
             className="global-search-tabs"
             activeKey={activeKey}
             onChange={handleTabChange}
             renderTabBar={renderTabBar}
+            data-uc-id="wBX7Dw-x1J"
+            data-uc-ct="tabs"
           >
             {items.map((item) => (
-              // @ts-expect-error ttt
-              <Tabs.TabPane key={item.key} tab={item.label}>
+              <Tabs.TabPane
+                key={item.key}
+                tab={item.label}
+                data-uc-id="rYLlLZxSnE"
+                data-uc-ct="tabs"
+                data-uc-x={item.key}
+              >
                 {item.children}
               </Tabs.TabPane>
             ))}

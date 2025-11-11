@@ -1,0 +1,57 @@
+.fixed-sider {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  background: white;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+
+  :global(.w-layout-sider-children) {
+    height: 100%;
+  }
+}
+
+.content-wrapper {
+  display: flex;
+  height: 100%;
+  flex-grow: 1;
+  min-width: 0; // 防止flex子元素溢出
+}
+
+.chat-container {
+  position: relative;
+  width: 33.33%;
+  min-width: 450px;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+.expand-btn {
+  position: absolute;
+  top: 24px;
+  right: 8px;
+  z-index: 10;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.right-panel {
+  flex: 1;
+  height: 100%;
+  background-color: #e9e9e9;
+  overflow: auto;
+  transition: width 0.2s ease;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

@@ -1,24 +1,32 @@
 import { SectionHeading } from '@/components/SectionHeading'
 import { TableComment } from '@/components/TableComment'
-import { tForRPPreview } from '@/utils'
-import { ReportDetailTableJson, TCorpDetailNodeKey } from 'gel-types'
+import { getTForRPPreview } from '@/utils'
+import { TCorpDetailNodeKey } from 'gel-types'
+import { useIntl } from 'gel-ui'
 import { isEn } from 'gel-util/intl'
 import { FC } from 'react'
-import { SectionHeadingOptions, getReportNodePrefixComment } from 'report-util/corpConfigJson'
+import { FlattenedReportConfig, SectionHeadingOptions, getReportNodePrefixComment } from 'report-util/corpConfigJson'
 
 export const RPSection: FC<
   {
     tableKey: TCorpDetailNodeKey | undefined
     tableData?: any
-    tableConfigsStore: Partial<Record<TCorpDetailNodeKey, ReportDetailTableJson>>
+    tableConfigsStore: FlattenedReportConfig['tableConfigsStore']
   } & SectionHeadingOptions
 > = ({ tableKey, tableData, tableConfigsStore, ...options }) => {
+  const t = useIntl()
   let tableDataFirst = tableData?.[0]
   if (!tableDataFirst) {
     tableDataFirst = tableData
   }
   const comment = tableKey
-    ? getReportNodePrefixComment(tableKey, tableDataFirst || {}, tableConfigsStore[tableKey], tForRPPreview, isEn())
+    ? getReportNodePrefixComment(
+        tableKey,
+        tableDataFirst || {},
+        tableConfigsStore[tableKey],
+        getTForRPPreview(t),
+        isEn()
+      )
     : undefined
   return (
     <SectionHeading

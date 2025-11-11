@@ -17,7 +17,7 @@ export const patentPdfRows = [
       const url = record.url
       if (!url) return txt
       return (
-        <a href={url} target="_blank" rel="noreferrer">
+        <a href={url} target="_blank" rel="noreferrer" data-uc-id="8J4iaX0o-V" data-uc-ct="a">
           {txt || '--'}
         </a>
       )

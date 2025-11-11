@@ -1,3 +1,4 @@
+import { translateComplexHtmlData } from '@/utils/intl'
 import { useEffect, useState } from 'react'
 import axios from '../../api'
 import { useTranslateService } from '../../hook'
@@ -6,7 +7,6 @@ import { wftCommon } from '../../utils/utils'
 import './index.less'
 
 const useBiddingDetail = () => {
-  let location = window.location
   let param = parseQueryString()
   let detailid = param['detailid']
   let jumpAttach = param['jumpAttach'] || 0
@@ -14,7 +14,7 @@ const useBiddingDetail = () => {
     data: {},
     loading: false,
   })
-  const [data2, setData2] = useState({
+  const [data2] = useState({
     data: {
       url: '/gel/detail/company/getstandardinfodetail_draftingunit',
       method: 'post',
@@ -36,28 +36,6 @@ const useBiddingDetail = () => {
     loading: true,
     translating: false,
   })
-
-  const translateHTML = async (htmlStr) => {
-    if (!htmlStr) return ''
-    let matchedlist = htmlStr.match(/[\u4e00-\u9fff]+/g)
-    if (matchedlist && matchedlist.length) matchedlist = matchedlist.sort((a, b) => b.length - a.length)
-    const result = await axios.request({
-      method: 'post',
-      cmd: 'apitranslates',
-      data: {
-        transText: `{x:'${matchedlist.join('|')}'}`,
-        sourceLang: 1,
-        targetLang: 2,
-        source: 'gel',
-      },
-    })
-    let transText = htmlStr
-    if (result?.Data?.translateResult?.x) {
-      const translatedList = result.Data.translateResult.x.split('|')
-      translatedList.map((res, index) => (transText = transText.replace(matchedlist[index], res)))
-    }
-    return transText
-  }
 
   const getStandardInfoDetail = () => {
     setData1((state) => ({ ...state, loading: true }))
@@ -83,7 +61,7 @@ const useBiddingDetail = () => {
           }
         }
       })
-      .catch((e) => {
+      .catch(() => {
         setData1({
           data: data1,
           loading: false,
@@ -154,7 +132,7 @@ const useBiddingDetail = () => {
             data: e,
             attachment,
           }))
-          .catch((e) => ({
+          .catch(() => ({
             data: null,
             attachment,
           }))
@@ -171,7 +149,7 @@ const useBiddingDetail = () => {
         }))
         if (window.en_access_config) {
           setDetail((state) => ({ ...state, translating: true }))
-          const translatedHtml = await translateHTML(res?.data).finally(
+          const translatedHtml = await translateComplexHtmlData(res?.data).finally(
             // @ts-expect-error ttt
             setDetail((state) => ({
               ...state,

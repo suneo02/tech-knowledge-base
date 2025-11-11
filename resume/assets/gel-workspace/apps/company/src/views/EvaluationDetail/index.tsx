@@ -15,7 +15,12 @@ function EvaluationDetail(_props) {
   const breadCrumb = (
     <div className="bread-crumb">
       <div className="bread-crumb-content">
-        <span className="last-rank" onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}>
+        <span
+          className="last-rank"
+          onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}
+          data-uc-id="mMSv0r9RD_"
+          data-uc-ct="span"
+        >
           {intl('19475', '首页')}
         </span>
         <i></i>

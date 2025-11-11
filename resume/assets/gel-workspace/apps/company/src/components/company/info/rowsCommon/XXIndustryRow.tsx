@@ -22,6 +22,8 @@ export const corpInfoXXIndustryRow = (fromShfic: boolean): HorizontalTableCol<IC
             onClick={() => {
               window.open(strategicIndustriesUrl)
             }}
+            data-uc-id="U_QM3dIJAn"
+            data-uc-ct="link"
           >
             {strategicText}
           </Link>

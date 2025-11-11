@@ -10,23 +10,27 @@ import { axiosInstance } from '@/api/axios'
 import { ChatMessageBase } from '@/components/ChatBase'
 import { ChatConversationBase } from '@/components/Conversation/base'
 import { FavoritesList } from '@/components/Favorites/FavoritesList'
-import { needsBrowserCompat } from '@/utils/common/navigator'
+import { HistoryList } from '@/components/History/HistoryList'
 import { legacyLogicalPropertiesTransformer, StyleProvider } from '@ant-design/cssinjs'
 import {
   ChatRoomProvider,
   ConversationsBaseProvider,
   FavoritesProvider,
+  HistoryProvider,
   PresetQuestionBaseProvider,
   useChatRoomContext,
   useFavorites,
+  useHistory,
   usePresetQuestionBaseContext,
 } from 'ai-ui'
+import { getGapCompatTransformer, needsBrowserCompat } from 'gel-ui'
 
 const ChatContent: React.FC<{ resizable?: boolean }> = ({ resizable = true }) => {
   const { roomId } = useChatRoomContext()
   const { setChatQuestions } = usePresetQuestionBaseContext()
   const { initialMessage, initialDeepthink } = useInitialMessage()
   const { showFavorites } = useFavorites()
+  const { showHistory } = useHistory()
 
   const handleResize: ResizerProps['onResize'] = (_evt, { folded }) => {
     if (folded) {
@@ -62,6 +66,8 @@ const ChatContent: React.FC<{ resizable?: boolean }> = ({ resizable = true }) =>
         <Suspense fallback={<Loading />}>
           {showFavorites ? (
             <FavoritesList />
+          ) : showHistory ? (
+            <HistoryList />
           ) : (
             <ChatMessageBase
               key={`chat-messages-${roomId}`}
@@ -78,45 +84,13 @@ const ChatContent: React.FC<{ resizable?: boolean }> = ({ resizable = true }) =>
 const Chat: React.FC = () => {
   // 获取是否需要兼容性修复的标志
   const isLegacyBrowser = needsBrowserCompat()
-  console.log('🚀 ~ isLegacyBrowser:', isLegacyBrowser)
+  // console.log('🚀 ~ isLegacyBrowser:', isLegacyBrowser)
 
   /**
    * 自定义 CSS 转换器，解决 Chrome 83 兼容性问题
    * 将 gap 属性替换为 margin
    */
-  const gapCompatTransformer: Transformer = {
-    // @ts-expect-error 1111
-    visit: (cssObj) => {
-      // 如果不是旧版浏览器，直接返回原对象
-      if (!isLegacyBrowser) {
-        return cssObj
-      }
-
-      // 创建一个新对象，避免修改原对象
-      const newCssObj = { ...cssObj }
-
-      // 处理 gap 属性不兼容问题
-      if (newCssObj.gap !== undefined || newCssObj.rowGap !== undefined || newCssObj.columnGap !== undefined) {
-        const gapValue = newCssObj.gap || newCssObj.rowGap || newCssObj.columnGap
-        delete newCssObj.gap
-        delete newCssObj.rowGap
-        delete newCssObj.columnGap
-
-        // 根据 flex 方向添加替代样式
-        if (newCssObj.flexDirection === 'column' || newCssObj.columnGap) {
-          newCssObj['& > *:not(:last-child)'] = {
-            marginBottom: gapValue,
-          }
-        } else {
-          newCssObj['& > *:not(:last-child)'] = {
-            marginRight: gapValue,
-          }
-        }
-      }
-
-      return newCssObj
-    },
-  }
+  const gapCompatTransformer = getGapCompatTransformer()
 
   return (
     <StyleProvider
@@ -128,7 +102,9 @@ const Chat: React.FC = () => {
         <PresetQuestionBaseProvider>
           <ConversationsBaseProvider>
             <FavoritesProvider axiosInstance={axiosInstance}>
-              <ChatContent resizable={false} />
+              <HistoryProvider>
+                <ChatContent resizable={false} />
+              </HistoryProvider>
             </FavoritesProvider>
           </ConversationsBaseProvider>
         </PresetQuestionBaseProvider>

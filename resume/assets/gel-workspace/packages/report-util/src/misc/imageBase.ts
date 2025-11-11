@@ -7,7 +7,7 @@ import { usedInClient } from './env'
  * @param _srcId
  * @param imgType
  */
-export const getImageUrl = (tableId, srcId, wsid) => {
+export const getImageUrl = (tableId: string | undefined, srcId: string, wsid: string | undefined) => {
   let url = window.location.protocol + '//news.windin.com/ns/imagebase/' + tableId + '/' + srcId
 
   if (!tableId) {

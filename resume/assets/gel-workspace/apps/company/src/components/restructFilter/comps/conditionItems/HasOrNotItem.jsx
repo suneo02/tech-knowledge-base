@@ -54,9 +54,10 @@ const HasOrNotItem = ({ item }) => {
           itemOption={itemOption}
           defaultValue={filter ? filter.value[0] : ''}
           changeOptionCallback={changeOptionCallback}
+          data-uc-id="48YLei-A27"
+          data-uc-ct="hasornotoption"
         />
       </ConditionItem>
-
       {item.hasExtra && filter && filter.value[0] === 'true'
         ? item.extraConfig.map((extra) => {
             const Component = filterItemTypeConfig[extra.itemType]

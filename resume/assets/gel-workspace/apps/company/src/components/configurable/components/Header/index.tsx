@@ -51,10 +51,18 @@ const Header = (props: HeaderProps) => {
           onSearch={props?.onSearch}
           filterList={props.filterList}
           style={props.filterList?.length ? { marginBlockEnd: token.paddingXS } : {}}
+          data-uc-id="Fl6dSnp3k"
+          data-uc-ct="wfilter"
         />
         {/* ) : null} */}
         {props.downDocType ? (
-          <Button style={{ marginInlineStart: 12 }} size="small" icon={<DownloadOutlined />}>
+          <Button
+            style={{ marginInlineStart: 12 }}
+            size="small"
+            icon={<DownloadOutlined />}
+            data-uc-id="w5eJvb2DEa"
+            data-uc-ct="button"
+          >
             导出
           </Button>
         ) : null}

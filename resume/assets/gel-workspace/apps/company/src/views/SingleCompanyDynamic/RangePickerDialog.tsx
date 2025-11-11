@@ -1,7 +1,7 @@
 import { useClickOutside } from '@/utils/hooks'
 import intl from '@/utils/intl'
 import { Button, DatePicker } from '@wind/wind-ui'
-import { Moment } from 'moment'
+import { Dayjs } from 'dayjs'
 import React, { useEffect, useRef, useState } from 'react'
 import './RangePickerDialog.less'
 
@@ -33,7 +33,7 @@ const RangePickerDialog = ({
   onClose: () => void
 }): JSX.Element => {
   const pickerRef = useRef<HTMLDivElement | null>(null)
-  const [dateRaw, setDateRaw] = useState<[Moment, Moment]>([null, null])
+  const [dateRaw, setDateRaw] = useState<[Dayjs, Dayjs]>([null, null])
 
   // 点击其他区域 picker 收起
   useClickOutside(pickerRef, onClose, ['w-picker-dropdown'])
@@ -42,10 +42,12 @@ const RangePickerDialog = ({
     <div className="custom-dialog" ref={pickerRef}>
       <RangePicker
         value={dateRaw}
-        onChange={(value: [Moment, Moment]) => {
+        onChange={(value: [Dayjs, Dayjs]) => {
           console.log('🚀 ~ CompanyDynamic ~ value:', value)
           setDateRaw(value)
         }}
+        data-uc-id="qU4aPNHpD0q"
+        data-uc-ct="rangepicker"
       />
       <div className="custom-dialog-footer">
         <Button
@@ -70,10 +72,12 @@ const RangePickerDialog = ({
             onChoose(dateObj)
             onClose()
           }}
+          data-uc-id="dghtjVagQlt"
+          data-uc-ct="button"
         >
           {intl('19482', '确认')}
         </Button>
-        <Button style={{ marginRight: '12px' }} onClick={onClose}>
+        <Button style={{ marginRight: '12px' }} onClick={onClose} data-uc-id="gdRoF856pW2" data-uc-ct="button">
           {intl('19405', '取消')}
         </Button>
       </div>

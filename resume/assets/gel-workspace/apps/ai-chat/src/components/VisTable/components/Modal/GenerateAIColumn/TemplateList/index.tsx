@@ -5,15 +5,54 @@ import classNames from 'classnames'
 import React from 'react'
 import { superListTemplates } from '../index.json'
 import styles from './index.module.less'
+import { t } from 'gel-util/intl'
+import {
+  ArchiveO,
+  CalculatorO,
+  CompanyProfilesO,
+  FileEditO,
+  GiftO,
+  IndustryO,
+  LikeO,
+  MessageO,
+  UserGroupO,
+} from '@wind/icons'
+
+/**
+ * 企业画像 -CompanyProfilesO
+ * 个性化触达内容 - MessageO
+ * 自定义行业分类 - IndustryO
+ * 企业产品及服务 - GiftO
+ * 企业上下游生态 - UserGroupO
+ * 营销优先级评分 - CalculatorO
+ * 企业融资产品分析 - FileEditO
+ * 企业评估报告 - ArchiveO
+ */
+const ICON_MAP = {
+  CompanyProfilesO: (
+    <CompanyProfilesO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} style={{ fontSize: 24 }} />
+  ),
+  MessageO: <MessageO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} style={{ fontSize: 24 }} />,
+  IndustryO: <IndustryO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} style={{ fontSize: 24 }} />,
+  GiftO: <GiftO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} style={{ fontSize: 24 }} />,
+  UserGroupO: <UserGroupO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} style={{ fontSize: 24 }} />,
+  CalculatorO: (
+    <CalculatorO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} style={{ fontSize: 24 }} />
+  ),
+  FileEditO: <FileEditO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} style={{ fontSize: 24 }} />,
+  ArchiveO: <ArchiveO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} style={{ fontSize: 24 }} />,
+}
 
 const PREFIX = 'template-list'
 
 const STRINGS = {
-  BACK_BUTTON: '返回配置',
-  USE_TEMPLATE_BUTTON: '使用此模板',
-  NO_TEMPLATES_FOUND: '未找到可用模板',
+  BACK_BUTTON: t('464209', '返回配置'),
+  USE_TEMPLATE_BUTTON: t('464100', '使用此模板'),
+  NO_TEMPLATES_FOUND: t('464163', '未找到可用模板'),
   DESCRIPTION_LABEL: '描述:',
-  PROMPT_LABEL: '提示语:',
+  PROMPT_LABEL: '提示词:',
+  RECOMMEND_TEMPLATE: t('464154', '推荐模板'),
+  RECOMMEND: t('271634', '推荐'),
 }
 
 // Define a more specific type for the raw template data from JSON
@@ -46,7 +85,7 @@ interface TemplateData {
 }
 
 const TemplateTypeMap = {
-  [TemplateType.RECOMMEND]: '推荐',
+  [TemplateType.RECOMMEND]: STRINGS.RECOMMEND,
   [TemplateType.CUSTOM]: '自定义',
   [TemplateType.AGENT]: 'agent',
 }
@@ -81,7 +120,7 @@ const DEFAULT_TEMPLATE = [
   // },
   {
     id: 'recommend',
-    name: '推荐模板',
+    name: STRINGS.RECOMMEND_TEMPLATE,
     children: originalTemplates,
     icon: 'recommend',
   },
@@ -165,7 +204,11 @@ export const TemplateList: React.FC<InjectedRouteProps> = ({ navigate, location 
     content: (
       <div>
         <div className={styles[`${PREFIX}-card-title-icon`]}>
-          <img src={`src/assets/icon/super/menu/${template.icon}.svg`} alt={template.name} />
+          <LikeO
+            style={{ fontSize: 16, marginInlineEnd: 4 }}
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          />
           {template.name}
         </div>
         <div className={styles[`${PREFIX}-card`]}>
@@ -180,17 +223,7 @@ export const TemplateList: React.FC<InjectedRouteProps> = ({ navigate, location 
               >
                 {TemplateTypeMap[child.type!]}
               </div>
-              {child.icon && (
-                <div className={styles[`${PREFIX}-card-icon`]}>
-                  <img
-                    src={`src/assets/icon/super/template/${child.icon}.svg`}
-                    alt={child.name}
-                    onError={(e) => {
-                      e.currentTarget.src = 'src/assets/icon/super/template/default.svg'
-                    }}
-                  />
-                </div>
-              )}
+              {child.icon && <div className={styles[`${PREFIX}-card-icon`]}>{ICON_MAP[child.icon]}</div>}
               <div className={styles[`${PREFIX}-card-content`]}>
                 <div className={styles[`${PREFIX}-card-content-title`]}>{child.name}</div>
                 <p>{child.description}</p>

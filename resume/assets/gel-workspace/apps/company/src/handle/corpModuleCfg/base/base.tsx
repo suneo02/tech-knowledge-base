@@ -9,7 +9,7 @@ import { CHART_HASH } from '@/components/company/intro/charts'
 import { CorpOrPersonLinkWithTag, LinkByRowCompatibleCorpPerson } from '@/components/company/link/CorpOrPersonLink.tsx'
 import { ICorpPrimaryModuleCfg } from '@/components/company/type'
 import LongTxtLabel from '@/components/LongTxtLabel.tsx'
-import { ECorpDetailTable } from '@/handle/corp/detail/module/type.ts'
+import { ECorpDetailTable } from 'gel-types'
 import {
   CompanyDetailShareholderAnnouncementReportCfg,
   CompanyDetailShareholderAnnouncementUnRegularCfg,
@@ -38,7 +38,9 @@ import { TooltipMap } from '@/utils/TooltipUtil.ts'
 import { wftCommon } from '@/utils/utils.tsx'
 import { wftCommonType } from '@/utils/WFTCommonWithType'
 import { ArrowDownO, ArrowUpO, DownloadO } from '@wind/icons'
-import { Button, Tag } from '@wind/wind-ui'
+import { Button } from '@wind/wind-ui'
+import { ActualControllerGroupTag } from 'gel-ui'
+import { t } from 'gel-util/intl'
 import React from 'react'
 import { CompanyDetailBJEEShareholderCfg } from '../Shareholder/bjee'
 import { getIndustryColumns } from './baseIndustry/renderIndustry'
@@ -125,20 +127,7 @@ export const base: ICorpPrimaryModuleCfg = {
               return (
                 <>
                   <Links module={module} id={row.ActControId} title={txt} />
-                  {row.actor?.length
-                    ? row.actor.map((num) => (
-                        // @ts-expect-error ttt
-                        <Tag
-                          size="mini"
-                          key={num}
-                          color="color-1"
-                          type="primary"
-                          style={{ margin: 0, marginInlineStart: 6 }}
-                        >
-                          一致行动人{num}
-                        </Tag>
-                      ))
-                    : null}
+                  {row.actor?.length ? row.actor.map((num) => <ActualControllerGroupTag num={num} intl={t} />) : null}
                 </>
               )
             },
@@ -242,7 +231,16 @@ export const base: ICorpPrimaryModuleCfg = {
                 data.companyCode
               )
             }}
-            icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+            icon={
+              <DownloadO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="9bHScdG9LO"
+                data-uc-ct="downloado"
+              />
+            }
+            data-uc-id="eWDi2pgugV"
+            data-uc-ct="button"
           >
             {intl('4698', '导出数据')}
           </Button>
@@ -357,6 +355,7 @@ export const base: ICorpPrimaryModuleCfg = {
   /* 股东穿透 */
   showShareSearch: {
     cmd: '/detail/company/getshareholdertrace',
+    f9cmd: '/detail/wft/getshareholdertrace',
     modelNum: undefined,
     needNoneTable: true,
     title: intl('228894', '股东穿透'),
@@ -624,6 +623,7 @@ export const base: ICorpPrimaryModuleCfg = {
   /* 控股企业 */
   showControllerCompany: {
     cmd: '/detail/company/getcontrolledcorplistnew',
+    f9cmd: '/detail/wft/getcontrolledcorplistnew',
     title: intl('451208', '控股企业'),
     hint: `<i><div><span>${intl(TooltipMap.CompanyDetailHoldingCompanies.intlId, TooltipMap.CompanyDetailHoldingCompanies.default)}</span></div></i>`,
     needNoneTable: true,
@@ -743,6 +743,8 @@ export const base: ICorpPrimaryModuleCfg = {
                     onClick={(_e) => {
                       code && wftCommon.linkCompany('Bu3', code)
                     }}
+                    data-uc-id="iXpZkiYdY3"
+                    data-uc-ct="span"
                   >
                     {nameR}
                   </span>
@@ -857,20 +859,7 @@ export const base: ICorpPrimaryModuleCfg = {
               return (
                 <>
                   <LinkByRowCompatibleCorpPerson nameKey={'name'} idKey={'beneficiaryId'} row={row} />
-                  {row.actor?.length
-                    ? row.actor.map((num) => (
-                        // @ts-expect-error ttt
-                        <Tag
-                          size="mini"
-                          key={num}
-                          color="color-1"
-                          type="primary"
-                          style={{ margin: 0, marginInlineStart: 6 }}
-                        >
-                          一致行动人{num}
-                        </Tag>
-                      ))
-                    : null}
+                  {row.actor?.length ? row.actor.map((num) => <ActualControllerGroupTag num={num} intl={t} />) : null}
                 </>
               )
             },
@@ -885,7 +874,7 @@ export const base: ICorpPrimaryModuleCfg = {
                 return (
                   <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     {/*// @ts-expect-error ttt*/}
-                    <div style={{ width: 140 }}>{shareRate ? (shareRate == 0 ? '--' : shareRate) : '--'}</div>
+                    <div style={{ flex: 1 }}>{shareRate ? (shareRate == 0 ? '--' : shareRate) : '--'}</div>
                     <div
                       className="share-route"
                       onClick={() => {
@@ -895,6 +884,8 @@ export const base: ICorpPrimaryModuleCfg = {
                         pointBuriedNew(moduleId, { opActive, opEntity: describe })
                         wftCommon.showRoute(row.shareRoute)
                       }}
+                      data-uc-id="eqkjp-3fPq"
+                      data-uc-ct="div"
                     ></div>
                   </div>
                 )
@@ -932,20 +923,7 @@ export const base: ICorpPrimaryModuleCfg = {
               return (
                 <>
                   <LinkByRowCompatibleCorpPerson nameKey={'name'} idKey={'beneficiaryId'} row={row} />
-                  {row.actor?.length
-                    ? row.actor.map((num) => (
-                        // @ts-expect-error ttt
-                        <Tag
-                          size="mini"
-                          key={num}
-                          color="color-1"
-                          type="primary"
-                          style={{ margin: 0, marginInlineStart: 6 }}
-                        >
-                          一致行动人{num}
-                        </Tag>
-                      ))
-                    : null}
+                  {row.actor?.length ? row.actor.map((num) => <ActualControllerGroupTag num={num} intl={t} />) : null}
                 </>
               )
             },
@@ -960,8 +938,13 @@ export const base: ICorpPrimaryModuleCfg = {
                 return (
                   <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     {/*// @ts-expect-error ttt*/}
-                    <div style={{ width: 140 }}>{shareRate ? (shareRate == 0 ? '--' : shareRate) : '--'}</div>
-                    <div className="share-route" onClick={() => wftCommon.showRoute(row.shareRoute)}></div>
+                    <div style={{ flex: 1 }}>{shareRate ? (shareRate == 0 ? '--' : shareRate) : '--'}</div>
+                    <div
+                      className="share-route"
+                      onClick={() => wftCommon.showRoute(row.shareRoute)}
+                      data-uc-id="4EIuf-mY85"
+                      data-uc-ct="div"
+                    ></div>
                   </div>
                 )
               } else {
@@ -997,20 +980,7 @@ export const base: ICorpPrimaryModuleCfg = {
               return (
                 <>
                   {txt}
-                  {row.actor?.length
-                    ? row.actor.map((num) => (
-                        // @ts-expect-error ttt
-                        <Tag
-                          size="mini"
-                          key={num}
-                          color="color-1"
-                          type="primary"
-                          style={{ margin: 0, marginInlineStart: 6 }}
-                        >
-                          一致行动人{num}
-                        </Tag>
-                      ))
-                    : null}
+                  {row.actor?.length ? row.actor.map((num) => <ActualControllerGroupTag num={num} intl={t} />) : null}
                 </>
               )
             },
@@ -1041,7 +1011,7 @@ export const base: ICorpPrimaryModuleCfg = {
         modelNum: corpDetailLastNotice.modelNum,
         downDocType: 'download/createtempfile/getprimarymembers',
         thWidthRadio: ['5.2%', '40%', '36%', '20%'],
-        thName: [intl('28846', '序号'), intl('34979', '姓名'), intl('210032', '职务'), intl('138691', '任职日期')],
+        thName: [intl('28846', '序号'), intl('34979', '姓名'), intl('210032', '职务'), intl('34232', '任职日期')],
         columns: [
           null,
           {
@@ -1229,21 +1199,24 @@ export const base: ICorpPrimaryModuleCfg = {
       intl('138416', '经营状态'),
       intl('2823', '成立日期'),
     ],
-    // FIXME 待后端接口更新后，万元->万
-    // columns: [
-    //   null,
-    //   null,
-    //   null,
-    //   {
-    //     render: (txt, row, idx) => {
-    //       return formatCurrency(row.reg_capital, row.reg_capitalUnit)
-    //     },
-    //   },
-    //   null,
-    //   null,
-    // ],
     align: [1, 0, 0, 2, 0, 0],
     fields: ['NO.', 'corp_name', 'legal_name', 'reg_capital|formatMoneyComma', 'reg_status', 'reg_date|formatTime'],
+    columns: [
+      null,
+      {
+        render: (txt, row) => {
+          return <Links id={row.corpId} module={LinksModule.COMPANY} title={txt} />
+        },
+      },
+      {
+        render: (_txt, row) => {
+          return <LinkByRowCompatibleCorpPerson nameKey="legal_name" idKey="legal_id" row={row} />
+        },
+      },
+      null,
+      null,
+      null,
+    ],
   },
   /* 竞争对手 */
   getcomparable: {
@@ -1564,12 +1537,16 @@ export const base: ICorpPrimaryModuleCfg = {
                     style={{ color: '#c91818', marginInlineStart: 4 }}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
+                    data-uc-id="vAf3egCShn"
+                    data-uc-ct="arrowupo"
                   />
                 ) : diff < 0 ? (
                   <ArrowDownO
                     style={{ color: '#107f3a', marginInlineStart: 4 }}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
+                    data-uc-id="8-oQInLJ6"
+                    data-uc-ct="arrowdowno"
                   />
                 ) : null
               return (

@@ -1,11 +1,13 @@
+import { HomeO } from '@wind/icons'
 import styles from './index.module.less'
 import { Breadcrumb } from '@wind/wind-ui'
+import { useNavigateWithLangSource } from '@/hooks/useLangSource'
 
 const PREFIX = 'page-breadcrumb'
 
 // 定义面包屑项的接口
 interface BreadcrumbItem {
-  name: string
+  name: React.ReactNode
   href?: string
 }
 
@@ -22,9 +24,16 @@ interface PageBreadcrumbProps {
 }
 
 // 默认的首页项
-const DEFAULT_HOME_ITEM: BreadcrumbItem = { name: '首页', href: '#/super' }
+const DEFAULT_HOME_ITEM: BreadcrumbItem = {
+  name: (
+    // @ts-expect-error Wind-ui
+    <HomeO />
+  ),
+  href: '/super',
+}
 
 const PageBreadcrumb = ({ items = [], customHomeItem }: PageBreadcrumbProps) => {
+  const navigate = useNavigateWithLangSource()
   let finalItems: BreadcrumbItem[] = []
 
   // 根据 customHomeItem 决定如何处理首页
@@ -49,7 +58,7 @@ const PageBreadcrumb = ({ items = [], customHomeItem }: PageBreadcrumbProps) => 
       <Breadcrumb>
         {finalItems.map((item, index) =>
           item.href ? (
-            <Breadcrumb.Item key={index} href={item.href}>
+            <Breadcrumb.Item key={index} onClick={() => navigate(item.href!)} style={{ cursor: 'pointer' }}>
               {item.name}
             </Breadcrumb.Item>
           ) : (

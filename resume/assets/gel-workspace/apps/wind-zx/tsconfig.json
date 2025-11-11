@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "files": ["src/types/global.d.ts", "src/module.d.ts"],
+  "include": ["src/**/*", "src/types/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

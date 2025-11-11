@@ -69,6 +69,8 @@ const CompanyLink: FC<{
           gotoFun()
         }}
         dangerouslySetInnerHTML={{ __html: name ? name : '--' }}
+        data-uc-id="6XtJ105as"
+        data-uc-ct="a"
       ></a>
       {benifciaryStr}
       {actCtrlStr}

@@ -1,6 +1,6 @@
-import { createPayOrder } from '@/api/pay.ts'
-import { THKModuleType } from '@/api/corp/info/otherInfo.ts'
 import { myWfcAjax } from '@/api/common.ts'
+import { createPayOrder } from '@/api/pay.ts'
+import { THKModuleType } from 'gel-types'
 
 export interface IHKSearcherInfo {
   userName?: string // 用户名称

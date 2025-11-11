@@ -1,21 +1,22 @@
-import { ApiResponseForWFC } from '@/wfc'
-import { getCorpListPresearchResponse, WindSecureApiResponse } from '..'
+import { ApiResponseForWFC } from '@/types'
+import { WindSecureApiResponse } from '../unionTypes'
+import { getCorpListPresearchResponse } from './corpListPresearch'
 import { CDEFilterCategory } from './getFilterCfg'
 import { CDEFilterResResponse } from './getFilterRes'
 import { CDEIndicatorItem } from './getIndicator'
 
 // 类型守卫
-export function isCDEFilterCategories(response: WindSecureApiResponse): response is CDEFilterCategory[] {
+export function isCDEFilterCategories(response: WindSecureApiResponse | undefined): response is CDEFilterCategory[] {
   if (!Array.isArray(response)) return false
   return response.length > 0 && 'categoryType' in response[0]
 }
 
-export function isCDEFilterResResponse(response: WindSecureApiResponse): response is CDEFilterResResponse {
+export function isCDEFilterResResponse(response: WindSecureApiResponse | undefined): response is CDEFilterResResponse {
   if (Array.isArray(response)) return false
-  return 'data' in response
+  return 'data' in (response || {})
 }
 
-export function isCDEIndicatorItem(response: WindSecureApiResponse): response is CDEIndicatorItem[] {
+export function isCDEIndicatorItem(response: WindSecureApiResponse | undefined): response is CDEIndicatorItem[] {
   if (!Array.isArray(response)) return false
   return response.length > 0 && 'indicator' in response[0]
 }

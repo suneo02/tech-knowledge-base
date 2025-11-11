@@ -4,7 +4,7 @@ import { HKCorpInfoCtxProvider, HKCorpInfoState } from './ctx.tsx'
 import styles from './style/container.module.less'
 
 import { CorpBasicInfo } from '@/api/corp/info/basicInfo.ts'
-import { ICorpPurchaseData } from '@/api/corp/info/otherInfo.ts'
+import { CorpPurchaseData } from 'gel-types'
 
 /**
  * 香港代查 table
@@ -21,7 +21,7 @@ export const HKCorpInfoInner: FC = () => {
 export const HKCorpInfo: FC<{
   corpCode: string
   corpName: string
-  bussStatusData: ICorpPurchaseData
+  bussStatusData: CorpPurchaseData
   baseInfo: CorpBasicInfo
   tableReady: boolean
   refreshHKCorpBussStatus: () => void

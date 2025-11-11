@@ -112,6 +112,8 @@ export interface SectionHeadingOptions {
   hideNumber?: boolean
   /** 标题级别 (1-5)，对应 h2-h6 */
   headingLevel: SectionHeadingLevel | number
+  /** 后缀 */
+  suffix?: any
 }
 /**
  * 根据标题级别获得 h 标签

@@ -46,6 +46,8 @@ const IndustryCellRenderer: React.FC<ColumnRenderProps> = ({ list, column, total
             }}
             type="link"
             style={{ padding: 0 }}
+            data-uc-id="n7PDVOYGMm"
+            data-uc-ct="button"
           >
             {STRINGS.MORE} ({total})
           </Button>
@@ -61,7 +63,12 @@ const TagListCellRenderer: React.FC<ColumnRenderProps> = ({ list, column }) => {
   const { dataIndex } = column || {}
   const flattenedList = list.reduce((acc, curr) => acc.concat(curr.list), [])
   return (
-    <CopyContainer copyText={flattenedList.map((cellData) => cellData.name).join('、')} buttonType="link">
+    <CopyContainer
+      copyText={flattenedList.map((cellData) => cellData.name).join('、')}
+      buttonType="link"
+      data-uc-id="qd2HuWlkMc"
+      data-uc-ct="copycontainer"
+    >
       <div className={styles[`${PREFIX}-container`]}>
         {flattenedList.map((cellData, index) => (
           <React.Fragment key={cellData.id || `${dataIndex}-taglist-cell-${index}`}>
@@ -72,6 +79,8 @@ const TagListCellRenderer: React.FC<ColumnRenderProps> = ({ list, column }) => {
               onClick={() => {
                 column.cellOnClick?.(cellData)
               }}
+              data-uc-id="KA_UfE_emT"
+              data-uc-ct="a"
             >
               {cellData.name}
             </a>
@@ -89,7 +98,11 @@ export const getIndustryColumns = () => {
     return columnDefinitionGroup.map((res) => {
       res.title = window.en_access_config ? res.enTitle : res.title
       if (res?.onClick) {
-        res.title = <a onClick={res.onClick}>{res.title}</a>
+        res.title = (
+          <a onClick={res.onClick} data-uc-id="D4hsrI6eko" data-uc-ct="a">
+            {res.title}
+          </a>
+        )
       }
       if (tagList.includes(res?.dataIndex)) {
         return {

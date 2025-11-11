@@ -1,6 +1,6 @@
 import { IHKSearcherInfo } from '@/api/corp/HKCorp/pay.ts'
 import { CorpBasicInfo } from '@/api/corp/info/basicInfo.ts'
-import { ICorpPurchaseData } from '@/api/corp/info/otherInfo.ts'
+import { CorpPurchaseData } from 'gel-types'
 import React, { createContext, Dispatch, ReactNode, useContext, useEffect, useReducer } from 'react'
 
 // 1. 定义 State 结构
@@ -8,8 +8,8 @@ export interface HKCorpInfoState {
   modalType?: 'pay' | 'instruction' | 'processing' // 弹窗类型
   showModalClose?: boolean // 显示弹窗的关闭函数
 
-  bussStatus?: ICorpPurchaseData['processingStatus'] // 业务的状态
-  lastedProcessTime?: ICorpPurchaseData['lastedProcessTime'] // 数据的最后更新时间
+  bussStatus?: CorpPurchaseData['processingStatus'] // 业务的状态
+  lastedProcessTime?: CorpPurchaseData['lastedProcessTime'] // 数据的最后更新时间
   refreshBussStatus?: () => void // 刷新业务状态的函数
 
   tableReady?: boolean // 表格是否准备好

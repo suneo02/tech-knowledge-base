@@ -1,9 +1,11 @@
 import { CoinsIcon } from '@/assets/icon'
 import { aiModels } from '../../index.json'
 import { Select } from '@wind/wind-ui'
+import { Form } from 'antd'
+import { t } from 'gel-util/intl'
 
 const STRINGS = {
-  SELECT_MODEL_PLACEHOLDER: '请选择模型',
+  SELECT_MODEL_PLACEHOLDER: t('464205', '请选择模型')
 }
 const ModelSelector = () => {
   return (
@@ -21,6 +23,9 @@ const ModelSelector = () => {
                   alignItems: 'center',
                   width: '30px',
                   marginInlineStart: 8,
+                  color: 'var(--orange-6)',
+                  fontWeight: 700,
+                  fontSize: 13,
                 }}
               >
                 <CoinsIcon style={{ width: 12, height: 12, marginInlineEnd: 2 }} />

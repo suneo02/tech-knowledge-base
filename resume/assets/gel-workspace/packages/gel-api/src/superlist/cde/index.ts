@@ -1,6 +1,6 @@
-import { ApiResponseForSuperlist, ApiResponseForSuperlistWithPage } from '@/superlist/config'
 import { CDESubscribeItem } from '@/wfc'
 import { CDEFilterResItem, getCDEFilterResPayload } from '@/windSecure'
+import { ApiResponseForSuperlist, ApiResponseForSuperlistWithPage } from '../types'
 
 export interface SuperListCdeMonitor extends Omit<CDESubscribeItem, 'subMail'> {
   // 更新的企业数量

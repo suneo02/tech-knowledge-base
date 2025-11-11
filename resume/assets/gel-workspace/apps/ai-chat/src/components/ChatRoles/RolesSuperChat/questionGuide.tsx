@@ -1,13 +1,15 @@
-import { RoleTypeSuper } from './type'
+import { AntRoleType, QuestionGuideMessage } from 'gel-ui'
 
-export const QuestionGuideRole: RoleTypeSuper = {
+export const QuestionGuideRole: AntRoleType<QuestionGuideMessage['content']> = {
   placement: 'end',
   style: {
-    marginBlock: 24,
+    marginBlockStart: 24,
+    marginBlockEnd: 24,
   },
   styles: {
     content: {
-      marginBlock: 12,
+      marginBlockStart: 12,
+      marginBlockEnd: 12,
       paddingBlock: 8,
       paddingInline: 12,
       minHeight: 32,

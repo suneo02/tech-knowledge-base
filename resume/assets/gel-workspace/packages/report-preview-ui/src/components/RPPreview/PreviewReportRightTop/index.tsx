@@ -1,10 +1,10 @@
 import { Button, Layout, message } from '@wind/wind-ui'
 import { useRequest } from 'ahooks'
 import classNames from 'classnames'
-import { requestToWFCWithAxios } from 'gel-api'
+import { createWFCRequestWithAxios, requestToWFCWithAxios } from 'gel-api'
 import { CorpBasicInfo } from 'gel-types'
-import { CorpPresearch } from 'gel-ui'
-import { getLang, isEn, t } from 'gel-util/intl'
+import { CorpPresearch, useIntl } from 'gel-ui'
+import { getLang, isEn } from 'gel-util/intl'
 import React, { useState } from 'react'
 import { getCorpName } from 'report-util/misc'
 import { encodeHiddenNodes } from 'report-util/url'
@@ -28,6 +28,7 @@ export const PreviewReportRightTop: React.FC<PreviewReportRightTopProps> = ({
   initialZoom = 100,
   className,
 }) => {
+  const t = useIntl()
   const { run: downloadReport, loading } = useRequest(requestToWFCWithAxios, {
     manual: true,
     onSuccess: handleDownloadReport,
@@ -59,13 +60,14 @@ export const PreviewReportRightTop: React.FC<PreviewReportRightTopProps> = ({
         <div className={styles['content-container']}>
           {isSearchMode ? (
             <CorpPresearch
-              axiosInstance={axiosInstance}
-              placeholder="输入公司名称搜索"
+              requestAction={createWFCRequestWithAxios(axiosInstance, 'search/company/getGlobalCompanyPreSearch')}
               initialValue={getCorpName(corpBaseInfo, isEn())}
-              onChange={(corpId) => {
-                onCorpSwitch(corpId)
+              onClickItem={(item) => {
+                onCorpSwitch(item.corpId)
                 setIsSearchMode(false)
               }}
+              widthAuto={true}
+              searchMode="auto"
             />
           ) : (
             <div className={styles['corp-name-display']}>{getCorpName(corpBaseInfo, isEn())}</div>

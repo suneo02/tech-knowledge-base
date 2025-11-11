@@ -1,4 +1,4 @@
-import { BaseFunctionConfig, currentPage } from './misc'
+import { BaseFunctionConfig, currentPage } from './types'
 
 // functionCode功能点  opEntity功能名称  currentId当前id  opActive触发类型  currentPage当前页面 opSystem终端类型
 export const functionCodesMap: Record<string, BaseFunctionConfig> = {
@@ -32,6 +32,11 @@ export const functionCodesMap: Record<string, BaseFunctionConfig> = {
   },
   '922610370006': {
     opEntity: '复制',
+    opActive: 'click',
+    currentPage: currentPage.CHAT,
+  },
+  '922610370015': {
+    opEntity: '点击查看参考资料详情',
     opActive: 'click',
     currentPage: currentPage.CHAT,
   },
@@ -74,13 +79,6 @@ export const functionCodesMap: Record<string, BaseFunctionConfig> = {
   },
   '922610370014': {
     opEntity: '点击招投标卡片',
-    opActive: 'click',
-    currentPage: currentPage.CHAT,
-  },
-
-  //
-  '922610370015': {
-    opEntity: '点击查看参考资料详情',
     opActive: 'click',
     currentPage: currentPage.CHAT,
   },
@@ -140,5 +138,62 @@ export const functionCodesMap: Record<string, BaseFunctionConfig> = {
     opEntity: '我的收藏中点击对话跳转',
     opActive: 'click',
     currentPage: currentPage.HISTORY,
+  },
+
+  // 详情页
+  '922610370027': {
+    opEntity: '完成一次普通回答',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370028': {
+    opEntity: '点赞',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370029': {
+    opEntity: '点踩',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370030': {
+    opEntity: '复制',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370031': {
+    opEntity: '点击查看参考资料详情',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370032': {
+    opEntity: '点击企业名称/卡片',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370033': {
+    opEntity: '点击人物名称/卡片',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370034': {
+    opEntity: '点击图谱',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370035': {
+    opEntity: '点开AI对话',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370036': {
+    opEntity: '收起AI对话',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
+  },
+  '922610370037': {
+    opEntity: '调整AI对话宽度',
+    opActive: 'click',
+    currentPage: currentPage.DETAIL,
   },
 }

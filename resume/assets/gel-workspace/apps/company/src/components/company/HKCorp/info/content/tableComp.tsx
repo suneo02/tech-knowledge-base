@@ -168,6 +168,8 @@ export const TableForHKCorp: FC<ICfgDetailTableJson> = (props) => {
             empty={<NoData />}
             rowKey="key"
             title={() => titleRender?.(pagination.total)}
+            data-uc-id="xFsjfGtxFn"
+            data-uc-ct="table"
           />
         )
       case TableType.Horizontal:
@@ -182,6 +184,8 @@ export const TableForHKCorp: FC<ICfgDetailTableJson> = (props) => {
             empty={<NoData />}
             // @ts-expect-error ttt
             title={() => titleRender?.(pagination.total)}
+            data-uc-id="pg1juroFcO"
+            data-uc-ct="table"
           />
         )
       default:
@@ -228,6 +232,8 @@ export const TableForHKCorp: FC<ICfgDetailTableJson> = (props) => {
             searchFilter={searchFilter}
             num={pagination.total}
             onSearchChange={handleSearchChanged}
+            data-uc-id="r-Or2Xq7Dc"
+            data-uc-ct="tabletitle"
           />
         </div>
       ) : null}

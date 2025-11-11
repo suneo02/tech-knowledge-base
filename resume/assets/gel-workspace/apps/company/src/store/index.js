@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import { shallow } from 'zustand/shallow'
 
 // 提供给类组件连接zustand

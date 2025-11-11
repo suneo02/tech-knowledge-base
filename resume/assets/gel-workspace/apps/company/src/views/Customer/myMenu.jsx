@@ -20,6 +20,9 @@ function MyMenu(props) {
             onClick={() => {
               onSelect(item)
             }}
+            data-uc-id="BwkB_1GdFo4"
+            data-uc-ct="div"
+            data-uc-x={index}
           >
             {item?.name || ''}
           </div>

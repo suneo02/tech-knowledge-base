@@ -31,7 +31,7 @@ const DatePickerOption = ({ className, value, changeOptionCallback = () => null 
     // if (dateString?.some((i) => !i) && dateString?.some((i) => i)) return
     console.log('🚀 ~ onChange ~  date, dateString:', date, dateString)
     changeOptionCallback(date, dateString)
-    // moment(item).format('YYYYMMDD'))
+    // dayjs(item).format('YYYYMMDD'))
   }
 
   value = typeof value === 'string' ? value.split('-').map((i) => dayjs(formatDate(i), dateFormat)) : value
@@ -44,6 +44,8 @@ const DatePickerOption = ({ className, value, changeOptionCallback = () => null 
         format={dateFormat}
         onChange={onChange}
         placeholder={[window.en_access_config ? 'Start' : '开始时间', window.en_access_config ? 'End' : '截止时间']}
+        data-uc-id="AVpUuDbMeO2"
+        data-uc-ct="datepicker"
       />
     </Box>
   )

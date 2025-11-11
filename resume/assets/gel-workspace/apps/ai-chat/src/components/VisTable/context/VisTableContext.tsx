@@ -1,17 +1,17 @@
-import { ListTable, ColumnDefine } from '@visactor/vtable'
+import { ColumnDefine, ListTable } from '@visactor/vtable'
+import { CellRange, ColumnsDefine, SortState } from '@visactor/vtable/es/ts-types'
+import { useUpdateEffect } from 'ahooks'
+import { CellMetadata, RowData } from 'gel-api'
 import {
   createContext,
-  useContext,
-  useRef,
-  ReactNode,
   MutableRefObject,
+  ReactNode,
   useCallback,
-  useReducer,
+  useContext,
   useEffect,
+  useReducer,
+  useRef,
 } from 'react'
-import { CellRange, ColumnsDefine, SortState } from '@visactor/vtable/es/ts-types'
-import { CellMetadata, RowData } from 'gel-api'
-import { useUpdateEffect } from 'ahooks'
 
 // 定义表格操作类型
 export enum TableActionType {
@@ -107,6 +107,7 @@ interface VisTableContextType {
     }>
   ) => void
   getSelectedCellInfos: ListTable['getSelectedCellInfos']
+  getRecordsCount: () => number
 }
 
 // 创建 Context
@@ -123,7 +124,7 @@ export const useVisTableContext = () => {
 
 // 创建表格操作的reducer
 const tableReducer = (state: ListTable | null, action: TableAction): ListTable | null => {
-  console.log('🚀 ~ tableReducer执行 action:', action.type, action.payload)
+  // console.log('🚀 ~ tableReducer执行 action:', action.type, action.payload)
 
   if (!state) {
     console.warn('表格实例不存在，无法执行操作:', action.type)
@@ -148,7 +149,7 @@ const tableReducer = (state: ListTable | null, action: TableAction): ListTable |
         return state
 
       case TableActionType.ADD_RECORD:
-        state.addRecord(action.payload.record, action.payload.recordIndex)
+        state.addRecord(action.payload.record, action.payload.recordIndex) // @ts-expect-error ttt
         state.selectCell(0, action.payload.recordIndex + 1)
         return state
 
@@ -173,7 +174,7 @@ const tableReducer = (state: ListTable | null, action: TableAction): ListTable |
         return state
 
       case TableActionType.UPDATE_COLUMNS:
-        console.log('🚀 ~ tableReducer执行 action:', action.type, action.payload)
+        // console.log('🚀 ~ tableReducer执行 action:', action.type, action.payload)
         state.updateColumns(action.payload.columns)
         return state
 
@@ -210,7 +211,7 @@ export const VisTableContextProvider: React.FC<{
     refresh: (params?: RefreshParams) => void
   }>({
     refresh: (params?: RefreshParams) => {
-      console.log('refresh method not implemented yet, refreshing with params:', params)
+      // console.log('refresh method not implemented yet, refreshing with params:', params)
       // 如果提供了onRefresh回调，则调用它
       if (onRefresh) {
         onRefresh(params)
@@ -223,7 +224,7 @@ export const VisTableContextProvider: React.FC<{
     executeMethod: (params?: CustomMethodParams) => void
   }>({
     executeMethod: (params?: CustomMethodParams) => {
-      console.log('executeMethod not implemented yet, called with params:', params)
+      // console.log('executeMethod not implemented yet, called with params:', params)
     },
   })
 
@@ -235,19 +236,19 @@ export const VisTableContextProvider: React.FC<{
   // 当refreshTime改变时，触发表格刷新
   useUpdateEffect(() => {
     if (refreshTime) {
-      console.log('refreshTime changed, triggering refresh:', refreshTime)
+      // console.log('refreshTime changed, triggering refresh:', refreshTime)
       refreshRef.current.refresh()
     }
   }, [refreshTime])
 
   // 表格实例改变时更新reducer状态
   useEffect(() => {
-    console.log('visTableRef.current changed:', visTableRef.current)
+    // console.log('visTableRef.current changed:', visTableRef.current)
   }, [visTableRef.current])
 
   const setVisTableInstance = (instance: ListTable | null) => {
     if (instance) {
-      console.log('设置表格实例setVisTableInstance:', instance)
+      // console.log('设置表格实例setVisTableInstance:', instance)
       visTableRef.current = instance
     }
   }
@@ -277,7 +278,7 @@ export const VisTableContextProvider: React.FC<{
   // 获取单元格元数据
   const getCellMeta = useCallback(<T = unknown,>(col: number, row: number, ranges?: CellRange[]): T | false => {
     const table = visTableRef.current
-    console.log('🚀 ~ table:', table)
+    // console.log('🚀 ~ table:', table)
     if (!table) return false
 
     if (ranges && (ranges.length > 1 || ranges[0].start.row === 0)) {
@@ -298,7 +299,7 @@ export const VisTableContextProvider: React.FC<{
 
   const getAllColumns = useCallback(() => {
     const table = visTableRef.current
-    if (!table) return []
+    if (!table) return []// @ts-expect-error
     return visTableRef.current.columns
   }, [])
 
@@ -306,6 +307,7 @@ export const VisTableContextProvider: React.FC<{
     const table = visTableRef.current
     if (!table) return []
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // @ts-expect-error
     const dataSource = (visTableRef.current.dataSource as any)._recordCache
     return dataSource.map((record) => record.rowId)
   }, [])
@@ -314,6 +316,7 @@ export const VisTableContextProvider: React.FC<{
     const table = visTableRef.current
     if (!table) return []
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // @ts-expect-error
     const dataSource = (visTableRef.current.dataSource as any)._recordCache
     return dataSource
   }, [])
@@ -336,12 +339,14 @@ export const VisTableContextProvider: React.FC<{
   // 编辑单元格
   const startEditCell = useCallback((col: number, row: number, value?: string): void => {
     const table = visTableRef.current
+    // @ts-expect-error
     if (!table) return null
 
     try {
       return table.startEditCell(col, row, value)
     } catch (error) {
       console.error('获取单元格元信息失败:', error)
+      // @ts-expect-error
       return null
     }
   }, [])
@@ -361,6 +366,7 @@ export const VisTableContextProvider: React.FC<{
 
   const getRecordByCell = useCallback((col: number, row: number): RowData => {
     const table = visTableRef.current
+    // @ts-expect-error
     if (!table) return null
     return table.getRecordByCell(col, row)
   }, [])
@@ -369,6 +375,12 @@ export const VisTableContextProvider: React.FC<{
     const table = visTableRef.current
     if (!table) return null
     return table.getSelectedCellInfos()
+  }, [])
+
+  const getRecordsCount = useCallback(() => {
+    const table = visTableRef.current
+    if (!table) return 0
+    return table.recordsCount
   }, [])
 
   return (
@@ -393,6 +405,7 @@ export const VisTableContextProvider: React.FC<{
         customMethodRef,
         setCustomMethodRef,
         getSelectedCellInfos,
+        getRecordsCount,
       }}
     >
       {children}

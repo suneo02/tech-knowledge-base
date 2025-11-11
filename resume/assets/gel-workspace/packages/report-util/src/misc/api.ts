@@ -1,10 +1,24 @@
-import { ApiResponseForWFC } from '@/types'
-import { TCorpDetailNodeKey } from 'gel-types'
+import { ApiResponseForBaifen, ApiResponseForWFC } from '@/types'
+import { TCorpDetailNodeKey, TCorpDetailSectionKey } from 'gel-types'
 
-export function parseTableApiResponse(data: ApiResponseForWFC<any>, key: TCorpDetailNodeKey) {
+export function parseTableApiResponse(
+  data: ApiResponseForWFC<any> | ApiResponseForBaifen<any> | string,
+  key: TCorpDetailNodeKey | TCorpDetailSectionKey
+) {
+  /**
+   * 百分的接口返回的是 字符串，所以需要考虑这种情况
+   */
+  if (typeof data === 'string') {
+    return data
+  }
+
   if (data == null || typeof data !== 'object') {
     console.error('API响应数据为空或不是对象', data)
     return
+  }
+
+  if ('data' in data) {
+    return data.data
   }
 
   if (String(data.ErrorCode) != '0') {

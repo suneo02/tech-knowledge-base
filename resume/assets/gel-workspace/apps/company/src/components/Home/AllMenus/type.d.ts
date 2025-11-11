@@ -6,6 +6,8 @@ export interface IFuncMenuItem {
   hot?: boolean
   new?: boolean
   icon?: string
+  svgStyle?: React.CSSProperties
+  iconComponent?: React.ReactNode
   // 自定义跳转方法，如果不提供则使用默认的url跳转
   buryFunc?: () => void
   navigate?: (item: IFuncMenuItem) => void

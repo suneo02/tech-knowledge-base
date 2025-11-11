@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { InfoCircleButton } from '@/components/icons/InfoCircle'
 import { DownloadO, FilterO, SearchO } from '@wind/icons'
 import Table from '@wind/wind-ui-table'
@@ -22,8 +21,6 @@ import {
 import { SpecialStatisticsSection } from './comp/SpecialStatisticsSection'
 import { SpecialStatisticsConfigId } from './config/specialStatistics'
 
-import queryString from 'qs'
-import CompanyLink from '../../components/company/CompanyLink'
 import { getVipInfo } from '../../lib/utils'
 import intl from '../../utils/intl'
 import { debounce, wftCommon } from '../../utils/utils'
@@ -41,15 +38,27 @@ import {
   getCorpListOfLists,
   getCorpListOfRanks,
   ranklistaggselect,
-} from '../../api/feturedcompany.js'
+} from '../../api/feturedcompany.ts'
 import { VipPopup } from '../../lib/globalModal'
 import { globalAreaTree } from '../../utils/areaTree'
 import './feturedcompany.less'
 
+import { Links } from '@/components/common/links/index.ts'
+import { GELSearchParam, getUrlByLinkModule, LinksModule, SearchLinkEnum } from '@/handle/link/index.ts'
+import { isTestSite } from '@/utils/env/index.ts'
+import { hashParams } from '@/utils/links/index.ts'
+import classNames from 'classnames'
+import { getRimeOrganizationUrl, isFromRime } from 'gel-util/link'
 import { myWfcAjax } from '../../api/companyApi'
 import { pointBuriedByModule } from '../../api/pointBuried/bury'
 import { usePageTitle } from '../../handle/siteTitle'
 import { useFeturedListStore } from '../../store/feturedlist'
+import {
+  getCorpListColumnsBase,
+  getCorpListColumnsBaseForOversea,
+  getCorpListColumnsBaseForPerson,
+} from '../FeaturedCompany/config/corpListColumns.tsx'
+import { routerToFeaturedList } from '../SearchFetured.tsx'
 import CascaderSelect from './comp/CascaderSelect'
 import { buryFunctionCode, dateFormat, defaultArea, qualificationStatus, tabBuryList } from './config'
 import { getFeaturedCompanyParam } from './handle'
@@ -68,9 +77,13 @@ const Search = Input.Search
 
 const { RangePicker } = DatePicker
 
-function Feturedcompany(props: any) {
-  const { location } = props
-  const { id = '2010202098' } = queryString.parse(location.search, { ignoreQueryPrefix: true })
+const DEFAULT_OFFSET = 22 // 有数据时会显示pagination，需要调整 当前筛选条件下共找到%家企业 和 pagination 对齐的偏移量
+
+function Feturedcompany() {
+  // 用来获取链接上是否有来觅，来觅没有导出数据功能
+  const { getParamValue } = hashParams()
+  const id = getParamValue('id') || '2010202098'
+  const linksource = getParamValue('linksource')
 
   const [dataSource, setDataSource] = useState([])
   const [columns, setColumns] = useState([])
@@ -83,12 +96,12 @@ function Feturedcompany(props: any) {
   const [originDate, setOriginDate] = useState([])
   const [expireDate, setExpireDate] = useState([])
 
-  const [columnParam, setColumnParam] = useState({})
+  const [columnParam, setColumnParam] = useState<any>({})
 
   const [corpName, setCorpName] = useState('')
   const [includingExpired, setIncludingExpired] = useState(true)
 
-  const [selectConfig, setSelectConfig] = useState() // 筛选项配置
+  const [selectConfig, setSelectConfig] = useState<any>() // 筛选项配置
   const [pageNo, setPageNo] = useState(0)
   const [pageSize, setPageSize] = useState(20)
   const [tableLoading, setTableLoading] = useState(false)
@@ -187,7 +200,7 @@ function Feturedcompany(props: any) {
         key: 'No.',
         width: '76px',
         align: 'center',
-        render: (txt, row, index) => pageNo * pageSize + index + 1,
+        render: (_txt, _row, index) => pageNo * pageSize + index + 1,
       }
     }
 
@@ -221,7 +234,7 @@ function Feturedcompany(props: any) {
       }
       return name
     }
-    let obj = {
+    let obj: any = {
       title: rendertitle(i),
       dataIndex: i.field,
       align: i.fieldType === 'money' || i.fieldType === 'num' || i.fieldType === 'radio' ? 'right' : 'left',
@@ -234,7 +247,16 @@ function Feturedcompany(props: any) {
         } else if (i.fieldType === 'radio') {
           return wftCommon.formatPercent(txt, [4, ' ']) || '--'
         } else if (i.jumpType === 'company' && txt && row[i.jumpField]) {
-          return <CompanyLink name={txt} id={row[i.jumpField]}></CompanyLink>
+          let link = ''
+          const id = String(row[i.jumpField])
+          if (isFromRime()) {
+            link = getRimeOrganizationUrl({ id, isTestSite: isTestSite() })
+          } else {
+            link = getUrlByLinkModule(LinksModule.COMPANY, {
+              id,
+            })
+          }
+          return <Links url={link} title={txt}></Links>
         }
         if (i.field == 'certificationYear') {
           return txt + intl('31342', '年') || '--'
@@ -247,7 +269,15 @@ function Feturedcompany(props: any) {
       case 'checkbox':
         obj = {
           ...obj,
-          filterIcon: <FilterO style={{ color: checkedList[i.selectValue]?.length ? '#0093AD' : '#999' }} />,
+          filterIcon: (
+            <FilterO
+              style={{ color: checkedList[i.selectValue]?.length ? '#0093AD' : '#999' }}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              data-uc-id="wI3nAaIoJO"
+              data-uc-ct="filtero"
+            />
+          ),
           filterDropdown: (
             <div
               style={{
@@ -261,7 +291,7 @@ function Feturedcompany(props: any) {
                 value={''}
                 indeterminate={indeterminate[i.selectValue]}
                 onChange={(e) => {
-                  let arr = selectConfig && selectConfig[i.selectValue]?.map((k) => k.value)
+                  let arr: any = selectConfig && selectConfig[i.selectValue]?.map((k) => k.value)
                   arr = e.target.checked ? arr : []
                   setCheckedList((j) => ({
                     ...j,
@@ -277,6 +307,8 @@ function Feturedcompany(props: any) {
                   }))
                 }}
                 checked={checkAll[i.selectValue]}
+                data-uc-id="PLUlQ8WrAX"
+                data-uc-ct="checkbox"
               >
                 {intl('19498', '全部')}
               </Checkbox>
@@ -304,6 +336,9 @@ function Feturedcompany(props: any) {
                     [i.selectValue]: !!(value?.length < selectConfig[i.selectValue]?.length),
                   }))
                 }}
+                data-uc-id="c1ETR586I"
+                data-uc-ct="checkbox"
+                data-uc-x={i.field}
               >
                 <br />
                 {/* {selectConfig ? (
@@ -335,6 +370,8 @@ function Feturedcompany(props: any) {
                     [i.selectValue]: false,
                   }))
                 }}
+                data-uc-id="sU4f1LsZ8t"
+                data-uc-ct="button"
               >
                 {intl('257693', '应用筛选')}
               </Button>
@@ -357,6 +394,10 @@ function Feturedcompany(props: any) {
             filterIcon: (
               <FilterO
                 style={{ color: originDate && originDate.length && originDate.every((i) => i) ? '#0093AD' : '#999' }}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="EccuxSA1ci"
+                data-uc-ct="filtero"
               />
             ),
             filterDropdown: (
@@ -386,6 +427,8 @@ function Feturedcompany(props: any) {
                     setFilterDropdownVisibleStart(() => false)
                     return {}
                   }}
+                  data-uc-id="Ln866LQhiNe"
+                  data-uc-ct="rangepicker"
                 />
               </div>
             ),
@@ -401,6 +444,10 @@ function Feturedcompany(props: any) {
             filterIcon: (
               <FilterO
                 style={{ color: expireDate && expireDate.length && expireDate.every((i) => i) ? '#0093AD' : '#999' }}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="1Bhy16kK_8"
+                data-uc-ct="filtero"
               />
             ),
             filterDropdown: (
@@ -431,6 +478,8 @@ function Feturedcompany(props: any) {
                     setFilterDropdownVisibleEnd(() => false)
                     return {}
                   }}
+                  data-uc-id="0i1qcAsFjxF"
+                  data-uc-ct="rangepicker"
                 />
               </div>
             ),
@@ -443,7 +492,15 @@ function Feturedcompany(props: any) {
         } else {
           obj = {
             ...obj,
-            filterIcon: <FilterO style={{ color: columnParam[i.selectInput] ? '#0093AD' : '#999' }} />,
+            filterIcon: (
+              <FilterO
+                style={{ color: columnParam[i.selectInput] ? '#0093AD' : '#999' }}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="kqUNdSw4nr"
+                data-uc-ct="filtero"
+              />
+            ),
             filterDropdown: (
               <div
                 style={{
@@ -469,6 +526,8 @@ function Feturedcompany(props: any) {
                     setFilterDropdownVisible(() => false)
                     return {}
                   }}
+                  data-uc-id="TsFrJ9orUVG"
+                  data-uc-ct="rangepicker"
                 />
               </div>
             ),
@@ -484,7 +543,15 @@ function Feturedcompany(props: any) {
       case 'industry':
         obj = {
           ...obj,
-          filterIcon: <FilterO style={{ color: industrySelect?.length ? '#0093AD' : '#999' }} />,
+          filterIcon: (
+            <FilterO
+              style={{ color: industrySelect?.length ? '#0093AD' : '#999' }}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              data-uc-id="nIOShzdMmq"
+              data-uc-ct="filtero"
+            />
+          ),
           filterDropdown: (
             <div
               style={{
@@ -496,6 +563,7 @@ function Feturedcompany(props: any) {
             >
               <div className="filterDropdown_cascader">
                 <CascaderSelect
+                  // @ts-expect-error
                   style={{}}
                   fieldNames={{
                     label: window.en_access_config ? 'nameEn' : 'name',
@@ -532,6 +600,8 @@ function Feturedcompany(props: any) {
                     },
                   }}
                   data={globalIndustryOfNationalEconomy2}
+                  data-uc-id="Bdl3b4tnXyT"
+                  data-uc-ct="cascaderselect"
                 />
               </div>
             </div>
@@ -547,7 +617,15 @@ function Feturedcompany(props: any) {
       case 'area':
         obj = {
           ...obj,
-          filterIcon: <FilterO style={{ color: areaSelect?.length ? '#0093AD' : '#aaa' }} />,
+          filterIcon: (
+            <FilterO
+              style={{ color: areaSelect?.length ? '#0093AD' : '#aaa' }}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              data-uc-id="inynd37gwm"
+              data-uc-ct="filtero"
+            />
+          ),
           filterDropdown: (
             <div
               style={{
@@ -560,6 +638,7 @@ function Feturedcompany(props: any) {
               <div className="filterDropdown_cascader">
                 <CascaderSelect
                   // value={areaSelect}
+                  // @ts-expect-error
                   fieldNames={{
                     label: window.en_access_config ? 'nameEn' : 'name',
                     value: 'code',
@@ -594,6 +673,8 @@ function Feturedcompany(props: any) {
                       }, 100)
                     },
                   }}
+                  data-uc-id="Xld5lPnOcst"
+                  data-uc-ct="cascaderselect"
                 />
               </div>
             </div>
@@ -723,7 +804,7 @@ function Feturedcompany(props: any) {
         .finally(() => setAreaTableLoading(false))
       // 榜单的区域分布统计table和list不一样
       if (type == 'rank') {
-        const p = {
+        const p: any = {
           id,
           area: area,
           date: dateValue,
@@ -806,7 +887,7 @@ function Feturedcompany(props: any) {
           const resPie = []
           const resPie02 = []
           for (let i = 0; i < originData.length; i++) {
-            const tmp = {}
+            const tmp: any = {}
             tmp.doc_count = type == 'rank' ? originData[i].docCount : originData[i].doc_count
             tmp.key = featuredCompany.switchZhEn[originData[i].key]
               ? featuredCompany.switchZhEn[originData[i].key]
@@ -815,7 +896,7 @@ function Feturedcompany(props: any) {
             resPie.push(tmp)
             if (originData[i].board && originData[i].board.length > 0) {
               for (let j = 0; j < originData[i].board.length; j++) {
-                const tmp2 = {}
+                const tmp2: any = {}
                 tmp2.doc_count = type == 'rank' ? originData[i].board[j].docCount : originData[i].board[j].doc_count
                 tmp2.key = featuredCompany.switchZhEn[originData[i].board[j].key]
                   ? featuredCompany.switchZhEn[originData[i].board[j].key]
@@ -916,7 +997,7 @@ function Feturedcompany(props: any) {
             const resPie = []
 
             for (let i = 0; i < originData.length; i++) {
-              const tmp = {}
+              const tmp: any = {}
               if (originData[i].key == '5000-') {
                 tmp.key = featuredCompany.switchZhEn['5000万元以上']
               } else if (originData[i].key == '其他') {
@@ -952,6 +1033,7 @@ function Feturedcompany(props: any) {
             ]
             setMoneyTable(tablePieData)
             setMoneyColumns(column)
+            // @ts-expect-error
             featuredCompany.drawBarStatistics(moneyChartRef.current, tablePieData, total)
           }
         })
@@ -968,7 +1050,7 @@ function Feturedcompany(props: any) {
             const resPie = []
 
             for (let i = 0; i < originData.length; i++) {
-              const tmp = {}
+              const tmp: any = {}
               if (originData[i].key == '10000-') {
                 tmp.key = featuredCompany.switchZhEn['10000人以上']
               } else if (originData[i].key == '其他') {
@@ -1005,6 +1087,7 @@ function Feturedcompany(props: any) {
             ]
             setPersonTable(tablePieData)
             setPersonColumns(column)
+            // @ts-expect-error
             featuredCompany.drawBarStatistics(personChartRef.current, tablePieData, total)
           }
         })
@@ -1029,6 +1112,7 @@ function Feturedcompany(props: any) {
         }
 
         if (!includingExpired) {
+          // @ts-expect-error
           param.includingExpired = includingExpired
         }
         if (listColumnConfig) {
@@ -1038,9 +1122,8 @@ function Feturedcompany(props: any) {
             setTableLoading(false)
             wftCommon.zh2enAlwaysCallback(result.Data?.list || [], (newData) => {
               if (!selectConfig) {
-                const { aggs_remarks, ...rest } = result.Data?.selectConfig || {}
-                console.log('🚀 ~ wftCommon.zh2enAlwaysCallback ~ aggs_remarks:', aggs_remarks)
-                wftCommon.pureTranslateService(wftCommon.deepClone(rest) || {}, (enConfig) => {
+                const config = result.Data?.selectConfig || {}
+                wftCommon.pureTranslateService(wftCommon.deepClone(config) || {}, (enConfig) => {
                   if (window.en_access_config) {
                     setTimeout(() => {
                       setSelectConfig(() => enConfig)
@@ -1070,99 +1153,11 @@ function Feturedcompany(props: any) {
           }).then((result) => {
             setTableLoading(false)
             setDataSource(result.Data?.list || [])
-            let column = [
-              {
-                width: '76px',
-                title: intl('30635', '排名'),
-                dataIndex: 'rank',
-                render: (txt) => {
-                  return txt || '--'
-                },
-              },
-
-              {
-                title: intl('437804', '排名对象'),
-                dataIndex: 'rankItem',
-                render: (txt) => {
-                  return txt || '--'
-                },
-              },
-              {
-                title: intl('138677', '企业名称'),
-                dataIndex: showOriginalName ? 'originalCompName' : 'corpName',
-                render: (txt, row) => {
-                  return <CompanyLink name={txt} id={row['corpId']}></CompanyLink>
-                },
-              },
-              {
-                title: intl('32674', '地区'),
-                dataIndex: 'province',
-                render: (txt) => {
-                  return txt || '--'
-                },
-              },
-              {
-                title: intl('312254', '国民经济行业'),
-                dataIndex: 'industryGb1',
-                render: (txt) => {
-                  return txt || '--'
-                },
-              },
-            ]
+            let column = getCorpListColumnsBase(showOriginalName)
             if (isPersonFetured) {
-              column = [
-                {
-                  width: '176px',
-                  title: intl('30635', '排名'),
-                  dataIndex: 'rank',
-                  // align:'center',
-                  render: (txt) => {
-                    return txt || '--'
-                  },
-                },
-
-                {
-                  title: intl('437804', '排名对象'),
-                  dataIndex: 'rankItem',
-                  render: (txt) => {
-                    return txt || '--'
-                  },
-                },
-              ]
+              column = getCorpListColumnsBaseForPerson()
             } else if (isOverseaFetured) {
-              column = [
-                {
-                  width: '100px',
-                  title: intl('30635', '排名'),
-                  dataIndex: 'rank',
-                  // align:'center',
-                  render: (txt) => {
-                    return txt || '--'
-                  },
-                },
-
-                {
-                  title: intl('437804', '排名对象'),
-                  dataIndex: 'rankItem',
-                  render: (txt) => {
-                    return txt || '--'
-                  },
-                },
-                {
-                  title: intl('138677', '企业名称'),
-                  dataIndex: showOriginalName ? 'originalCompName' : 'corpName',
-                  render: (txt, row) => {
-                    return <CompanyLink name={txt} id={row['corpId']}></CompanyLink>
-                  },
-                },
-                {
-                  title: intl('32674', '地区'),
-                  dataIndex: 'province',
-                  render: (txt) => {
-                    return txt || '--'
-                  },
-                },
-              ]
+              column = getCorpListColumnsBaseForOversea(showOriginalName)
             }
             const config = result.data.config || []
             column = column.concat(
@@ -1266,15 +1261,19 @@ function Feturedcompany(props: any) {
     if (type === 'rank') {
       parameter = {
         ...parameter,
+        // @ts-expect-error
         corpName,
         area: area,
         rankDate: dateValue,
       }
       if (isPersonFetured) {
+        // @ts-expect-error
         parameter.type = 1
       } else if (isOverseaFetured) {
+        // @ts-expect-error
         parameter.type = 2
       } else {
+        // @ts-expect-error
         parameter.type = 0
       }
       createtaskRank(parameter).then(fn)
@@ -1291,6 +1290,7 @@ function Feturedcompany(props: any) {
       }
 
       if (!includingExpired) {
+        // @ts-expect-error
         param.includingExpired = includingExpired
       }
       parameter = {
@@ -1341,9 +1341,18 @@ function Feturedcompany(props: any) {
         onChange={(value) => {
           setDateValue(value || '')
         }}
+        data-uc-id="SoIKLx2ivC"
+        data-uc-ct="select"
       >
         {dateOptions.map(({ name, key, title, disabled }) => (
-          <Option key={key} title={title} disabled={disabled}>
+          <Option
+            key={key}
+            title={title}
+            disabled={disabled}
+            data-uc-id={`zJFs6x5JFwb${key}`}
+            data-uc-ct="option"
+            data-uc-x={key}
+          >
             {name}
           </Option>
         ))}
@@ -1363,6 +1372,8 @@ function Feturedcompany(props: any) {
             onChange={(e) => {
               setIncludingExpired(e.target.checked)
             }}
+            data-uc-id="-iy0VcRQbX"
+            data-uc-ct="checkbox"
           >
             {intl('437914', '包含已失效')}
           </Checkbox>
@@ -1370,6 +1381,7 @@ function Feturedcompany(props: any) {
       ) : (
         <></>
       )}
+      {/* @ts-expect-error */}
       {tabKey == 1 ? (
         <>
           {type == 'rank' ? (
@@ -1384,9 +1396,18 @@ function Feturedcompany(props: any) {
                   value={value}
                   style={{ width: 121, marginRight: 10 }}
                   onChange={handleChange}
+                  data-uc-id="PjbwjkBfAN"
+                  data-uc-ct="select"
                 >
                   {options.map(({ name, key, title, disabled }) => (
-                    <Option key={key} title={title} disabled={disabled}>
+                    <Option
+                      key={key}
+                      title={title}
+                      disabled={disabled}
+                      data-uc-id={`F2-S0Fs-w8H${key}`}
+                      data-uc-ct="option"
+                      data-uc-x={key}
+                    >
                       {name}
                     </Option>
                   ))}
@@ -1404,9 +1425,18 @@ function Feturedcompany(props: any) {
                   onChange={(val) => {
                     handleChange(val)
                   }}
+                  data-uc-id="eQhpsOyosP"
+                  data-uc-ct="select"
                 >
                   {options.map(({ name, key, title, disabled }) => (
-                    <Option key={key} title={title} disabled={disabled}>
+                    <Option
+                      key={key}
+                      title={title}
+                      disabled={disabled}
+                      data-uc-id={`VEnGJ-oDIsR${key}`}
+                      data-uc-ct="option"
+                      data-uc-x={key}
+                    >
                       {name}
                     </Option>
                   ))}
@@ -1419,10 +1449,18 @@ function Feturedcompany(props: any) {
           <Search
             style={{
               width: '200px',
+              marginInlineEnd: '12px',
             }}
             // value={corpName}
             placeholder={isPersonFetured ? intl('299573', '请输入搜索内容') : intl('225183', '请输入公司名称')}
-            suffix={<SearchO />}
+            suffix={
+              <SearchO
+                data-uc-id="5eAQz9vv1r"
+                data-uc-ct="searcho"
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
+            }
             onChange={() => {
               debounce((e) => {
                 setCorpName(e.targrt.value)
@@ -1439,13 +1477,23 @@ function Feturedcompany(props: any) {
                 })
               }
             }}
+            data-uc-id="f1BOMcdwAGC"
+            data-uc-ct="search"
           />
-          {wftCommon.is_overseas_config ? null : (
+
+          {wftCommon.is_overseas_config || linksource === 'rime' ? null : (
             <Button
               style={{
-                margin: '0 12px',
+                marginInlineEnd: '12px',
               }}
-              icon={<DownloadO />}
+              icon={
+                <DownloadO
+                  data-uc-id="kd3CnCapo"
+                  data-uc-ct="downloado"
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
+              }
               onClick={() => {
                 if (!isSvip) {
                   return VipPopup({ onlySvip: true })
@@ -1454,6 +1502,8 @@ function Feturedcompany(props: any) {
                 setRightVal('')
                 setVisible(true)
               }}
+              data-uc-id="UXDCY9VDjm"
+              data-uc-ct="button"
             >
               {intl('4698', '导出数据')}
             </Button>
@@ -1472,9 +1522,18 @@ function Feturedcompany(props: any) {
                 placeholder="请选择"
                 style={{ width: 121, marginRight: 10 }}
                 onChange={handleStatusChange}
+                data-uc-id="COyMsIJmBJ"
+                data-uc-ct="select"
+                data-uc-x={tabKey}
               >
                 {qualificationStatus.map(({ value, key }) => (
-                  <Option key={value} title={key}>
+                  <Option
+                    key={value}
+                    title={key}
+                    data-uc-id={`EPAqVew-wuK${value}`}
+                    data-uc-ct="option"
+                    data-uc-x={value}
+                  >
                     {key}
                   </Option>
                 ))}
@@ -1489,9 +1548,18 @@ function Feturedcompany(props: any) {
             value={value}
             style={{ width: 121, marginRight: 10 }}
             onChange={handleChange}
+            data-uc-id="TKP7XUeh__"
+            data-uc-ct="select"
           >
             {options.map(({ name, key, title, disabled }) => (
-              <Option key={key} title={title} disabled={disabled}>
+              <Option
+                key={key}
+                title={title}
+                disabled={disabled}
+                data-uc-id={`uJjYvGv3EQE${key}`}
+                data-uc-ct="option"
+                data-uc-x={key}
+              >
                 {name}
               </Option>
             ))}
@@ -1506,7 +1574,9 @@ function Feturedcompany(props: any) {
     setAreaSelect([]) //级联地区
     setIndustrySelect([]) //行业
     setCheckedList([]) //多选
+    // @ts-expect-error
     setOriginDate() //起始日
+    // @ts-expect-error
     setExpireDate() // 到期日
     setValue('') //年份多选
     setArea('') // 多选地区
@@ -1533,6 +1603,8 @@ function Feturedcompany(props: any) {
             setValue(oldNameCodeMap[oldCode] || '')
             setArea(oldNameCodeMap[oldCode] || '')
           }}
+          data-uc-id="NZe0ExozBlt"
+          data-uc-ct="twolayermap"
         ></TwolayerMap>
       </Suspense>
     )
@@ -1544,39 +1616,69 @@ function Feturedcompany(props: any) {
       return null
     }
     // 直接使用枚举值，不需要查找配置
-    return <SpecialStatisticsSection configId={SpecialStatisticsConfigId.ELDERLY_CARE} param={param} />
+    return (
+      <SpecialStatisticsSection
+        configId={SpecialStatisticsConfigId.ELDERLY_CARE}
+        param={param}
+        data-uc-id="-9mTllgztu3"
+        data-uc-ct="specialstatisticssection"
+      />
+    )
   }, [param, id])
 
   return (
-    <div className="feturecompany-body">
+    <div className={classNames('feturecompany-body', { 'from-rime': isFromRime() })}>
       <div className="fetured-inner-bg"></div>
-      <Affix target={() => document.querySelector('.page-container')}>
+      {/* @ts-expect-error */}
+      <Affix target={() => document.querySelector('.page-container')} data-uc-id="E3V5VF4viM" data-uc-ct="affix">
         <div className="fetured-toolbar" id="fetured-toolbar">
-          {!wftCommon.isBaiFenTerminalOrWeb() ? (
+          {!wftCommon.isBaiFenTerminalOrWeb() && !isFromRime() ? (
             <div className="fetured-toolbar-content">
               <span>
-                <Breadcrumb>
-                  <Breadcrumb.Item>
-                    <a href="index.html#/searchPlatform/SearchFetured?nosearch=1">{intl('252965', '企业榜单名录')}</a>
+                <Breadcrumb data-uc-id="aEilDyq-c4" data-uc-ct="breadcrumb">
+                  <Breadcrumb.Item data-uc-id="Xw7FzH8AXG" data-uc-ct="breadcrumb">
+                    <a
+                      onClick={() => {
+                        const url = getUrlByLinkModule(LinksModule.SEARCH, {
+                          subModule: SearchLinkEnum.FeaturedFront,
+                          params: { linksource, [GELSearchParam.NoSearch]: 1 },
+                        })
+                        window.location.href = url
+                      }}
+                      data-uc-id="PuQ5Cjh5jbB"
+                      data-uc-ct="a"
+                    >
+                      {intl('252965', '企业榜单名录')}
+                    </a>
                   </Breadcrumb.Item>
                   {type == 'list' ? (
                     <>
-                      <Breadcrumb.Item>
-                        <a href={`#feturedlist?id=${categoryId}`}>{category}</a>
+                      <Breadcrumb.Item data-uc-id="P64aXQ7zcX" data-uc-ct="breadcrumb">
+                        <a href={`#feturedlist?id=${categoryId}`} data-uc-id="FyGLVuEKqxe" data-uc-ct="a">
+                          {category}
+                        </a>
                       </Breadcrumb.Item>
-                      <Breadcrumb.Item>
-                        <a onClick={() => {}}>{objectName}</a>
+                      <Breadcrumb.Item data-uc-id="COe1IG8b0F" data-uc-ct="breadcrumb">
+                        <a onClick={() => {}} data-uc-id="h-JWexqDIKh" data-uc-ct="a">
+                          {objectName}
+                        </a>
                       </Breadcrumb.Item>
                     </>
                   ) : (
                     <>
-                      <Breadcrumb.Item>
-                        <a href={`#feturedlist?id=${parentLinkNodes && parentLinkNodes[0]?.childNode?.nodeId}`}>
+                      <Breadcrumb.Item data-uc-id="uS7oYsQt9P" data-uc-ct="breadcrumb">
+                        <a
+                          href={`#feturedlist?id=${parentLinkNodes && parentLinkNodes[0]?.childNode?.nodeId}`}
+                          data-uc-id="QX9cViqgQ4e"
+                          data-uc-ct="a"
+                        >
                           {parentLinkNodes && parentLinkNodes[0]?.childNode?.nodeName}
                         </a>
                       </Breadcrumb.Item>
-                      <Breadcrumb.Item>
-                        <a onClick={() => {}}>{objectName}</a>
+                      <Breadcrumb.Item data-uc-id="WivmbVrSFj" data-uc-ct="breadcrumb">
+                        <a onClick={() => {}} data-uc-id="UPg0_9-wyTq" data-uc-ct="a">
+                          {objectName}
+                        </a>
                       </Breadcrumb.Item>
                     </>
                   )}
@@ -1584,7 +1686,14 @@ function Feturedcompany(props: any) {
               </span>
 
               <span className="link-fetured">
-                <a href="#feturedlist?id=01010100"> {intl('437750', '查看全部榜单名录')}</a>
+                <a
+                  onClick={() => routerToFeaturedList({ id: '01010100', linksource })}
+                  data-uc-id="NARMvzSe-BJ"
+                  data-uc-ct="a"
+                >
+                  {' '}
+                  {intl('437750', '查看全部榜单名录')}
+                </a>
               </span>
             </div>
           ) : null}
@@ -1640,8 +1749,16 @@ function Feturedcompany(props: any) {
               console.error(e)
             }
           }}
+          data-uc-id="19GfOvvPpl"
+          data-uc-ct="tabs"
         >
-          <TabPane tab={isPersonFetured ? intl('421582', '人物列表') : intl('138216', '企业列表')} key="1">
+          <TabPane
+            tab={isPersonFetured ? intl('421582', '人物列表') : intl('138216', '企业列表')}
+            key="1"
+            data-uc-id="mNJvF_ZFZe4"
+            data-uc-ct="tabpane"
+          >
+            {/* @ts-expect-error */}
             {tabKey == 1 ? (
               <Table
                 loading={tableLoading}
@@ -1665,6 +1782,8 @@ function Feturedcompany(props: any) {
                     setPageSize(pagesize)
                   },
                 }}
+                data-uc-id="B3n8VWMQPn"
+                data-uc-ct="table"
               />
             ) : (
               <div></div>
@@ -1672,14 +1791,13 @@ function Feturedcompany(props: any) {
             <span
               style={{
                 position: 'relative',
-                top: '-22px',
+                // 有数据时会显示pagination，需要调整位置对齐，没有数据时不需要调整
+                top: dataSource?.length > 0 ? `-${DEFAULT_OFFSET}px` : '0',
               }}
             >
               {isFilter ? (
-                <span>
-                  {intl('358394', '当前筛选条件下共找到%家企业').replace('%', filterCount) +
-                    (window.en_access_config ? ',' : '，')}
-                </span>
+                // @ts-expect-error
+                <span>{intl('358394', '当前筛选条件下共找到%家企业').replace('%', filterCount)}</span>
               ) : (
                 <></>
               )}
@@ -1687,7 +1805,7 @@ function Feturedcompany(props: any) {
           </TabPane>
           {/* 人物榜和海外榜没有地区分布、行业分析、更多统计 */}
           {!(isPersonFetured || isOverseaFetured) && (
-            <TabPane tab={intl('216301', '地区分布')} key="2">
+            <TabPane tab={intl('216301', '地区分布')} key="2" data-uc-id="vesgwP48QIL" data-uc-ct="tabpane">
               <div className="statistics-map">
                 <div
                   className="top"
@@ -1702,6 +1820,7 @@ function Feturedcompany(props: any) {
                       display: 'inline-block',
                     }}
                   >
+                    {/* @ts-expect-error */}
                     {tabKey == 2 ? renderDemoMap() : <></>}
                   </div>
 
@@ -1734,13 +1853,15 @@ function Feturedcompany(props: any) {
                     empty={intl('17235', '暂无数据')}
                     pagination={false}
                     dataSource={areaTableData}
+                    data-uc-id="zedhM-7_HS"
+                    data-uc-ct="table"
                   />
                 </div>
               </div>
             </TabPane>
           )}
           {!(isPersonFetured || isOverseaFetured) && (
-            <TabPane tab={intl('98629', '行业分析')} key="3">
+            <TabPane tab={intl('98629', '行业分析')} key="3" data-uc-id="3qFMgX50mN6" data-uc-ct="tabpane">
               <div className="statistics-map">
                 <div className="header-statistics">{intl('437772', '国民经济行业分布(更新至最近一期)')}</div>
 
@@ -1752,6 +1873,8 @@ function Feturedcompany(props: any) {
                     pagination={false}
                     dataSource={industryTable}
                     empty={intl('17235', '暂无数据')}
+                    data-uc-id="hTPzJY_9yn"
+                    data-uc-ct="table"
                   />
                 </div>
               </div>
@@ -1759,7 +1882,7 @@ function Feturedcompany(props: any) {
           )}
 
           {!(isPersonFetured || isOverseaFetured) && (
-            <TabPane tab={intl('437762', '更多统计')} key="4">
+            <TabPane tab={intl('437762', '更多统计')} key="4" data-uc-id="i0F3f6-OOKk" data-uc-ct="tabpane">
               {/* 特殊统计组件 */}
               {MemoizedSpecialStatisticsSection}
               <div className="header-statistics">{intl('66287', '上市状态')}</div>
@@ -1776,6 +1899,8 @@ function Feturedcompany(props: any) {
                         pagination={false}
                         dataSource={ipoTable}
                         empty={intl('17235', '暂无数据')}
+                        data-uc-id="yf9x1QdqfO"
+                        data-uc-ct="table"
                       />
                     </div>
                   </div>
@@ -1797,6 +1922,8 @@ function Feturedcompany(props: any) {
                         pagination={false}
                         dataSource={typeTable}
                         empty={intl('17235', '暂无数据')}
+                        data-uc-id="LjDRmv3ft-"
+                        data-uc-ct="table"
                       />
                     </div>
                   </div>
@@ -1818,6 +1945,8 @@ function Feturedcompany(props: any) {
                         pagination={false}
                         dataSource={moneyTable}
                         empty={intl('17235', '暂无数据')}
+                        data-uc-id="1IF8yZhDCI_"
+                        data-uc-ct="table"
                       />
                     </div>
                   </div>
@@ -1839,6 +1968,8 @@ function Feturedcompany(props: any) {
                         pagination={false}
                         dataSource={personTable}
                         empty={intl('17235', '暂无数据')}
+                        data-uc-id="vSy-XNK20QR"
+                        data-uc-ct="table"
                       />
                     </div>
                   </div>
@@ -1854,19 +1985,25 @@ function Feturedcompany(props: any) {
         title={intl('4698', '导出数据')}
         visible={visible}
         onOk={() => {
+          // @ts-expect-error
           if (/^\d+\.?\d*$/.test(leftVal) && 0 <= leftVal) {
+            console.log(leftVal)
           } else {
             setIsError(true)
             return false
           }
+          // @ts-expect-error
           if (/^\d+\.?\d*$/.test(rightVal) && 0 < rightVal) {
+            console.log(rightVal)
           } else {
             setIsError(true)
             return false
           }
+          // @ts-expect-error
           if (rightVal - leftVal + 1 > 50 || (leftVal - 1) * 20 > filterCount) {
             setIsError(true)
             return false
+            // @ts-expect-error
           } else if (rightVal - leftVal < 0 || rightVal - leftVal + 1 > 50) {
             setIsError(true)
             return false
@@ -1874,12 +2011,15 @@ function Feturedcompany(props: any) {
           pointBuriedByModule(922602100892, {
             listName: objectName,
           })
+          // @ts-expect-error
           exportList((leftVal - 1) * 20, rightVal * 20)
           setVisible(false)
         }}
         onCancel={() => {
           setVisible(false)
         }}
+        data-uc-id="nRww9Va5Tn"
+        data-uc-ct="modal"
       >
         <p>{intl('355863', '每次最多导出1000条（50页），请选择导出的页码数')}</p>
 
@@ -1897,6 +2037,8 @@ function Feturedcompany(props: any) {
                 onChange={(e) => {
                   setLeftVal(e.target.value)
                 }}
+                data-uc-id="-IqIWpqgL"
+                data-uc-ct="input"
               ></Input>{' '}
               to{' '}
               <Input
@@ -1908,6 +2050,8 @@ function Feturedcompany(props: any) {
                   width: '52px',
                 }}
                 size="mini"
+                data-uc-id="8v5PZrj1kU"
+                data-uc-ct="input"
               ></Input>
             </p>
           </>
@@ -1924,6 +2068,8 @@ function Feturedcompany(props: any) {
               onChange={(e) => {
                 setLeftVal(e.target.value)
               }}
+              data-uc-id="vp30_5YrXB"
+              data-uc-ct="input"
             ></Input>{' '}
             ~{' '}
             <Input
@@ -1935,6 +2081,8 @@ function Feturedcompany(props: any) {
                 width: '52px',
               }}
               size="mini"
+              data-uc-id="Bs1eVbl783"
+              data-uc-ct="input"
             ></Input>{' '}
             {intl('32047', '页')}
           </p>

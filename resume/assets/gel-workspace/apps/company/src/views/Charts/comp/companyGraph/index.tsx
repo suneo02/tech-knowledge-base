@@ -1,6 +1,7 @@
 import WindBDGraph from '@wind/Wind.Base.Enterprise.Graph'
 import React, { useState, useEffect, useMemo } from 'react'
-import { WIND_BDG_GRAPH_TYPE, getWindBDGraphData } from '@/api/graph'
+import { getWindBDGraphData } from '@/api/graph'
+import { WIND_BDG_GRAPH_TYPE } from '@/views/Charts/types'
 import { Spin } from '@wind/wind-ui'
 import SpinLoading from '../spin-loading'
 import { translateGraphData } from '../extra'
@@ -8,6 +9,7 @@ import { useUpdateEffect } from 'ahooks'
 import intl from '@/utils/intl'
 import { getUrlByLinkModule, handleJumpTerminalCompatibleAndCheckPermission, LinksModule } from '@/handle/link'
 import { CompanyMapTarget } from './extra'
+import { pointBuriedByModule } from '@/api/pointBuried/bury'
 
 interface CompanyGraphProps {
   companyCode: string
@@ -104,6 +106,10 @@ const CompanyGraph: React.FC<CompanyGraphProps> = ({
 
   useEffect(() => {
     getData(companyCode, filter)
+    pointBuriedByModule(922602100360, {
+      currentId: companyCode,
+      opId: companyCode,
+    })
   }, [companyCode, filter])
 
   const config = useMemo(() => {
@@ -121,6 +127,8 @@ const CompanyGraph: React.FC<CompanyGraphProps> = ({
           handleJumpToDetail={handleJumpToDetail}
           handleJumpToProfile={handleJumpToProfile}
           emptyText={intl('421499', '暂无数据')}
+          data-uc-id="4OJTZD1mK8Y"
+          data-uc-ct="windbdgraph"
         />
       ) : null}
     </div>

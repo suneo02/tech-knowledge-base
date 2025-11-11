@@ -32,8 +32,8 @@ export const industry = [
       dataIndex: 'strategicEmergingIndustry',
       enTitle: 'Strategic Emerging Industry',
       download: {
-        fileName: '战略性新兴产业分类（2018）.doc',
-        filePath: 'ClassificationOfStrategicEmergingIndustries(2018).doc',
+        fileName: '战略性新兴产业分类（2018）.pdf',
+        filePath: 'ClassificationOfStrategicEmergingIndustries(2018).pdf',
       },
       onClick: () => {
         BaiFenSites().jumpToBaiFenUrl(BaiFenSites().strategicIndustries)
@@ -50,8 +50,8 @@ export const industry = [
       dataIndex: 'highTechManufacturing',
       enTitle: 'Hightech Manufacturing Industry',
       download: {
-        fileName: '高技术产业（制造业）分类（2017）.doc',
-        filePath: 'ClassificationOfHighTechIndustries(Manufacturing)(2017).doc',
+        fileName: '高技术产业（制造业）分类（2017）.pdf',
+        filePath: 'ClassificationOfHighTechIndustries(Manufacturing)(2017).pdf',
       },
       onClick: () => {
         BaiFenSites().jumpToBaiFenUrl(BaiFenSites().highTechManufacturing)
@@ -68,8 +68,8 @@ export const industry = [
       dataIndex: 'highTechService',
       enTitle: 'Hightech Service Industry',
       download: {
-        fileName: '高技术产业（服务业）分类（2018）.doc',
-        filePath: 'ClassificationOfHighTechIndustries(Services)(2018).doc',
+        fileName: '高技术产业（服务业）分类（2018）.pdf',
+        filePath: 'ClassificationOfHighTechIndustries(Services)(2018).pdf',
       },
       onClick: () => {
         BaiFenSites().jumpToBaiFenUrl(BaiFenSites().highTechService)
@@ -86,8 +86,8 @@ export const industry = [
       dataIndex: 'intellectualPropertyIndustry',
       enTitle: 'Intellectual Property(IP)-Intensive Industries',
       download: {
-        fileName: '知识产权（专利）密集型产业统计分类（2019）.doc',
-        filePath: 'StatisticalClassificationOfIntellectualProperty(Patent)IntensiveIndustries(2019).doc',
+        fileName: '知识产权（专利）密集型产业统计分类（2019）.pdf',
+        filePath: 'StatisticalClassificationOfIntellectualProperty(Patent)IntensiveIndustries(2019).pdf',
       },
       onClick: () => {
         BaiFenSites().jumpToBaiFenUrl(BaiFenSites().intellectualPropertyIndustry)
@@ -122,8 +122,8 @@ export const industry = [
       dataIndex: 'agricultureRelatedIndustry',
       enTitle: 'Agriculture and Related Industries',
       download: {
-        fileName: '农业及相关产业统计分类（2020）.doc',
-        filePath: 'StatisticalClassificationOfAgricultureAndRelatedIndustries(2020).doc',
+        fileName: '农业及相关产业统计分类（2020）.pdf',
+        filePath: 'StatisticalClassificationOfAgricultureAndRelatedIndustries(2020).pdf',
       },
       onClick: () => {
         BaiFenSites().jumpToBaiFenUrl(BaiFenSites().agricultureRelatedIndustry)
@@ -139,8 +139,8 @@ export const industry = [
       dataIndex: 'elderlyIndustry',
       enTitle: 'Aging Industry',
       download: {
-        fileName: '养老产业统计分类（2020）.docx',
-        filePath: 'StatisticalClassificationOfElderlyCareIndustry(2020).docx',
+        fileName: '养老产业统计分类（2020）.pdf',
+        filePath: 'StatisticalClassificationOfElderlyCareIndustry(2020).pdf',
       },
       onClick: () => {
         BaiFenSites().jumpToBaiFenUrl(BaiFenSites().elderlyIndustry)
@@ -157,8 +157,8 @@ export const industry = [
       dataIndex: 'digitalEconomyIndustry',
       enTitle: 'Digital Economy Core Industry',
       download: {
-        fileName: '数字经济及核心产业统计分类（2021）.docx',
-        filePath: 'StatisticalClassificationOfDigitalEconomyAndCoreIndustries(2021).doc',
+        fileName: '数字经济及核心产业统计分类（2021）.pdf',
+        filePath: 'StatisticalClassificationOfDigitalEconomyAndCoreIndustries(2021).pdf',
       },
       onClick: () => {
         BaiFenSites().jumpToBaiFenUrl(BaiFenSites().digitalEconomyIndustry)

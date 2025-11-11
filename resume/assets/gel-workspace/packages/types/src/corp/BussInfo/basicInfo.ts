@@ -53,6 +53,10 @@ export interface CorpBasicInfo {
   bus_address?: string
   business_scope?: string
   cancel_date?: string
+  /**
+   * 似乎是企业名称
+   */
+  chinese_abbr?: string
   configType: CorpOrganizationType
   corp_id: string
   corp_name: string

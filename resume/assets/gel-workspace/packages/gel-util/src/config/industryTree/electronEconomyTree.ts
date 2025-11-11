@@ -1,5 +1,7 @@
+import { IndustryTreeNode } from './type'
+
 // 数字经济核心产业
-export const globalElectronEconomy = [
+export const globalElectronEconomy: IndustryTreeNode[] = [
   {
     code: '8914977652',
     level: 1,

@@ -1,0 +1,85 @@
+@import 'gel-ui/variables.less';
+@import '../../styles/mixins.less';
+
+.outline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 1.5em;
+  padding: 2px 0;
+  line-height: @line-height-base;
+  transition: background-color 0.2s ease;
+
+  // 聚焦状态
+  &--focused {
+    background-color: #e6f7ff;
+  }
+
+  // 空项状态
+  &--empty {
+    opacity: 0.6;
+  }
+
+  // 有子项状态
+  &--has-children {
+    font-weight: 500;
+  }
+
+  // 只读状态
+  &--readonly {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  // 鼠标悬停时的背景反馈
+  &:hover {
+    border-radius: @outline-border-radius;
+  }
+
+  // 层级缩进 - 基于 data-level 属性
+  @indent-base: 16px;
+
+  // 一级标题 - 无缩进
+  &[data-level='1'] {
+    padding-left: 0;
+  }
+
+  // 二级标题 - 一个基础缩进
+  &[data-level='2'] {
+    padding-left: @indent-base;
+  }
+
+  // 三级标题 - 两个基础缩进
+  &[data-level='3'] {
+    padding-left: @indent-base * 2;
+  }
+
+  // 四级标题 - 三个基础缩进
+  &[data-level='4'] {
+    padding-left: @indent-base * 3;
+  }
+
+  // 五级标题 - 四个基础缩进
+  &[data-level='5'] {
+    padding-left: @indent-base * 4;
+  }
+
+  // 六级标题 - 五个基础缩进
+  &[data-level='6'] {
+    padding-left: @indent-base * 5;
+  }
+
+  // 拖拽状态
+  &--dragging {
+    opacity: 0.5;
+    transform: scale(0.98);
+    z-index: 1000;
+  }
+
+  // 拖拽目标
+  &--drag-over {
+    background-color: #e6f7ff;
+    border: 2px dashed #1890ff;
+  }
+}

@@ -72,5 +72,5 @@ const getStrformLangkey = (lankey) => {
 
 module.exports = {
   getStrformLangkey,
-  langkeys
-} 
+  langkeys,
+}

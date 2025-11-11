@@ -75,8 +75,8 @@ export const ModalFooter = ({
       .filter(([, fieldConfig]) => fieldConfig.required)
       .map(([, field]) => field.title)
 
-    console.log('Required fields:', requiredFields)
-    console.log('Current mappings:', columnMappings)
+    // console.log('Required fields:', requiredFields)
+    // console.log('Current mappings:', columnMappings)
 
     // 检查所有必填字段是否都已映射
     return requiredFields.every((fieldName) => !!columnMappings[fieldName])

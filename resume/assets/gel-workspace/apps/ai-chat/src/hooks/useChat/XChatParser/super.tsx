@@ -1,5 +1,6 @@
 import { AIFooterSuper } from '@/components/ChatRoles/RolesSuperChat/AI'
 import { XChatConfig } from '@ant-design/x/es/use-x-chat'
+import { AgentIdentifiers, ChatThinkSignal } from 'gel-api'
 import {
   createAIContentMessage,
   createAIHeaderMessage,
@@ -7,20 +8,19 @@ import {
   createSubQuestionMessage,
   createSuggestionMessage,
   createUserMessage,
-  MessageParsedSuper,
-  MessageRaw,
-  MessageRawSuper,
-} from 'ai-ui'
+  SPAgentMsg,
+  SPMsgParsed,
+} from 'gel-ui'
 
 export const useXChatParserSuper = (
-  sendMessage?: (message: string, agentId?: MessageRaw['agentId'], think?: MessageRaw['think']) => void
+  sendMessage?: (message: string, agentId?: AgentIdentifiers['agentId'], think?: ChatThinkSignal['think']) => void
 ) => {
-  return useCallback<NonNullable<XChatConfig<MessageRawSuper, MessageParsedSuper>['parser']>>((agentMessage) => {
+  return useCallback<NonNullable<XChatConfig<SPAgentMsg, SPMsgParsed>['parser']>>((agentMessage) => {
     if (agentMessage.role === 'user') {
-      return createUserMessage(agentMessage) as MessageParsedSuper
+      return createUserMessage(agentMessage) as SPMsgParsed
     }
 
-    const messageList: MessageParsedSuper[] = [createAIHeaderMessage(agentMessage)]
+    const messageList: SPMsgParsed[] = [createAIHeaderMessage(agentMessage)]
 
     // 处理子问题
     const subQuestionMessage = createSubQuestionMessage(agentMessage)

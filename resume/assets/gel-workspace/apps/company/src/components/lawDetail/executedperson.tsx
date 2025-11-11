@@ -54,6 +54,8 @@ function ExecutePerson(props) {
         // @ts-expect-error ttt
         rows={rows}
         dataSource={info}
+        data-uc-id="c6AdGdeFnT"
+        data-uc-ct="horizontaltable"
       ></HorizontalTable>
     </Card>
   )

@@ -3,9 +3,11 @@ import { Switch } from '@wind/wind-ui'
 import { Form } from 'antd' // Form.Item is used for layout consistency with Home.tsx
 import { CoinsIcon } from '@/assets/icon'
 import styles from './index.module.less'
+import { t } from 'gel-util/intl'
 
 const STRINGS = {
-  LIMITED_FREE_TAG: '限时免费',
+  LIMITED_FREE_TAG: t('283654', '限时免费'),
+  LIMITED_EXPERIENCE_TAG: t('464223', '限量体验')
 }
 
 // Define SuperListTool interface based on index.json and Home.tsx usage
@@ -34,10 +36,13 @@ export const ToolsDisplay: React.FC<ToolsDisplayProps> = ({ toolsData, values, i
             <div className={styles[`${PREFIX}-tool-info`]}>
               <span className={styles[`${PREFIX}-tool-name`]}>{tool.name}</span>
               {tool.credits > 0 ? (
-                <span className={styles[`${PREFIX}-tool-credits`]}>
-                  <CoinsIcon style={{ width: 16, height: 16, marginInlineStart: 8, marginInlineEnd: 4 }} />
-                  {tool.credits}
-                </span>
+                <>
+                  <span className={styles[`${PREFIX}-tool-credits`]}>
+                    <CoinsIcon style={{ width: 16, height: 16, marginInlineStart: 8, marginInlineEnd: 4 }} />
+                    {tool.credits}
+                  </span>
+                  <span className={styles[`${PREFIX}-limited-free-tag`]}>{STRINGS.LIMITED_EXPERIENCE_TAG}</span>
+                </>
               ) : (
                 <span className={styles[`${PREFIX}-limited-free-tag`]}>{STRINGS.LIMITED_FREE_TAG}</span>
               )}

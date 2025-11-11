@@ -1,13 +1,13 @@
 // 导入所需依赖
 
-import { CreditRPPrintRenderer } from '@/handle/creditRP/print'
+import { RPPrintRenderer } from '@/comp/RPPrintRenderer'
 import { initCorpInit } from '@/handle/misc/corpInit'
 import { corpBaseInfoStore, rpPrintStore, userPackageStore } from '@/store'
 import { corpBaseNumStore } from '@/store/corpBaseNumStore'
 import { corpOtherInfoStore } from '@/store/corpOtherInfoStore'
 import { initLanguageControl, t } from '@/utils/lang'
 import { getCreditRPConfig } from 'detail-page-config'
-import { getCreditRPLocale } from 'report-util/constants'
+import { getCreditRPDisclaimer, getCreditRPLocale, getRPCoverComment } from 'report-util/constants'
 import '../styles/reset.less'
 
 // 输出加载成功消息
@@ -28,7 +28,7 @@ function initReportRenderer(): void {
 
     const { reportTitle = '' } = getCreditRPLocale(t)
 
-    // 获取报告配置，这需要在 TableSectionsPrinter 实例化之前
+    // 获取报告配置，这需要在 TableSectionsGenerator 实例化之前
     const reportConfigRaw = getCreditRPConfig(
       corpBaseInfoStore.getData(),
       corpBaseNumStore.getData(),
@@ -37,9 +37,11 @@ function initReportRenderer(): void {
     )
 
     rpPrintStore.updateField('reportTitle', reportTitle)
+    rpPrintStore.updateField('getRpDisclaimer', getCreditRPDisclaimer)
+    rpPrintStore.updateField('getRpCoverComment', getRPCoverComment)
     rpPrintStore.initReportConfig(reportConfigRaw)
 
-    const renderer = new CreditRPPrintRenderer($reportContainer)
+    const renderer = new RPPrintRenderer($reportContainer)
 
     renderer.initialize()
   } catch (e) {

@@ -133,7 +133,15 @@ const SimpleHorizontalTable: React.FC<SimpleHorizontalTableProps> = (props) => {
     })
   )
 
-  return <Table.HorizontalTable {...restProps} rows={processedRows} dataSource={dataSource} />
+  return (
+    <Table.HorizontalTable
+      {...restProps}
+      rows={processedRows}
+      dataSource={dataSource}
+      data-uc-id="pa88T27gle"
+      data-uc-ct="table"
+    />
+  )
 }
 
 export default SimpleHorizontalTable

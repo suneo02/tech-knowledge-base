@@ -18,6 +18,7 @@ export default {
   // 配置多入口
   entry: {
     credit: './src/pages/creditEntry.ts',
+    creditEvaluation: './src/pages/creditEvaluationEntry.ts',
   },
   output: {
     filename: 'js/[name].[contenthash].js', // 使用contenthash代替简单的bundle.js
@@ -58,12 +59,8 @@ export default {
           test: /[\\/]node_modules[\\/]/,
           name(module) {
             // 获取包名，如node_modules/packageName/...
-            const packageName = module.context.match(
-              /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
-            )?.[1]
-            return packageName
-              ? `vendor.${packageName.replace('@', '')}`
-              : 'vendor'
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)?.[1]
+            return packageName ? `vendor.${packageName.replace('@', '')}` : 'vendor'
           },
           priority: 10,
         },
@@ -169,15 +166,20 @@ export default {
     // Add DefinePlugin to inject only non-dotenv environment variables
     new DefinePlugin({
       // Only define NODE_ENV, let Dotenv handle the rest
-      'process.env.NODE_ENV': JSON.stringify(
-        process.env.NODE_ENV || 'development',
-      ),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     }),
-    // 打印报告页面
+    // 企业深度信用报告页面
     new HtmlWebpackPlugin({
-      template: './public/print.html',
+      template: './public/creditTemplate.html',
       filename: 'creditrp.html',
       chunks: ['credit', 'common'], // 只包含主入口和common依赖
+      minify: false, // 不压缩HTML
+    }),
+    // 授信报告页面
+    new HtmlWebpackPlugin({
+      template: './public/creditEvaluationTemplate.html',
+      filename: 'creditevaluationrp.html',
+      chunks: ['creditEvaluation', 'common'], // 只包含主入口和common依赖
       minify: false, // 不压缩HTML
     }),
     // 提取CSS到单独文件
@@ -195,7 +197,7 @@ export default {
           globOptions: {
             dot: true, // Important to copy dotfiles like .htaccess if any
             gitignore: true, // Respects .gitignore if you have one in public/
-            ignore: ['**/index.html', '**/preview.html', '**/print.html'], // Example: if your HtmlWebpackPlugin handles index.html
+            ignore: ['**/creditTemplate.html', '**/creditEvaluationTemplate.html'], // Example: if your HtmlWebpackPlugin handles index.html
           },
           noErrorOnMissing: true, // Prevents error if public directory doesn't exist
         },

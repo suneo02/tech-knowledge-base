@@ -37,6 +37,7 @@ export type SearchJobState = {
   queryHisShow: string
   recommend: boolean
   companyHis: SearchHistoryParsed
+  mainCorp: string[]
 }
 
 export type SearchJobProps = {

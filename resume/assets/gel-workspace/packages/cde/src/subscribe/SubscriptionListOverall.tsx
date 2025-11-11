@@ -104,7 +104,6 @@ export const CDESubscriptionListOverallModal: FC<
   }
 > = ({ open, setOpen, ...props }) => {
   return (
-    // @ts-expect-error wind ui
     <Modal title={intl(272478, '我的保存')} width={900} visible={open} onCancel={() => setOpen(false)} footer={false}>
       <CDESubscriptionListOverall {...props} />
     </Modal>

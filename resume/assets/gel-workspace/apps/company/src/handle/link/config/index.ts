@@ -29,4 +29,5 @@ export const GelHashMap: Partial<Record<LinksModule, string>> = {
   [LinksModule.HOMEAI]: 'homeai',
   [LinksModule.CompanyDetailAI]: 'companyDetailAIRight',
   [LinksModule.IC_LAYOUT]: 'icLayout',
+  [LinksModule.GRAPH_AI]: 'aigraph',
 }

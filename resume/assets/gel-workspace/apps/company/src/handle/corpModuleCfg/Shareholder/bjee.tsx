@@ -1,11 +1,12 @@
 import { ICorpTableCfg } from '@/components/company/type'
 import intl from '@/utils/intl'
-import { ECorpDetailTable } from '../../corp/detail/module/type.ts'
+import { ECorpDetailTable } from 'gel-types'
 import { AnnouncementDataCallback, AnnouncementExtraParams } from './announcement/comp.tsx'
 
 import { LinkByRowCompatibleCorpPerson } from '@/components/company/link/CorpOrPersonLink.tsx'
 import { ActCtrlTag, BeneficiaryTag } from 'gel-ui'
 import { formatNumber, formatPercent } from 'gel-util/format'
+import { t } from 'gel-util/intl'
 import React from 'react'
 import { CorpDetailNoColumn } from '../common/columns.ts'
 
@@ -18,8 +19,8 @@ const ShareholderNameColumn = {
   render: (_txt, row) => (
     <>
       <LinkByRowCompatibleCorpPerson nameKey={'shareholder'} row={row} />
-      {row?.benifciary ? <BeneficiaryTag /> : null}
-      {row?.actContrl ? <ActCtrlTag ctrlType={'actual'} /> : null}
+      {row?.benifciary ? <BeneficiaryTag intl={t} /> : null}
+      {row?.actContrl ? <ActCtrlTag ctrlType={'actual'} intl={t} /> : null}
     </>
   ),
 }

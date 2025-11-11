@@ -1,5 +1,7 @@
+import { IndustryTreeNode } from './type'
+
 // 绿色低碳技术
-export const globalLowCarbon = [
+export const globalLowCarbon: IndustryTreeNode[] = [
   {
     code: '8915359018',
     level: 1,

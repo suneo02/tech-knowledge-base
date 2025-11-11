@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import type { IndicatorTreeIndicator } from 'gel-api'
 import { UseIndicatorCheckResult } from './useIndicatorCheck'
 
 export interface IndicatorTreeOverallRef
@@ -6,12 +7,28 @@ export interface IndicatorTreeOverallRef
     UseIndicatorCheckResult,
     'checkedIndicators' | 'setCheckedIndicators' | 'resetCheckedIndicators' | 'handleIndicatorCheck'
   > {
+  // 兼容性方法：返回选中的指标ID集合
   getCheckedIndicators: () => Set<number>
+  // 新方法：返回选中的指标Map
+  getCheckedIndicatorsMap: () => Map<number, IndicatorTreeIndicator>
+  // 新方法：返回选中的指标对象数组
+  getCheckedIndicatorsList: () => IndicatorTreeIndicator[]
   scrollToClassification: (classificationKey: string) => void
   getCurrentVisibleClassification: () => string | null
 }
 
-export interface IndicatorTreeOverallInstance extends Omit<IndicatorTreeOverallRef, 'checkedIndicators'> {
+export interface IndicatorTreeOverallInstance {
+  // 兼容性方法：返回选中的指标ID集合
+  getCheckedIndicators: () => Set<number>
+  // 新方法：返回选中的指标Map
+  getCheckedIndicatorsMap: () => Map<number, IndicatorTreeIndicator>
+  // 新方法：返回选中的指标对象数组
+  getCheckedIndicatorsList: () => IndicatorTreeIndicator[]
+  setCheckedIndicators: (indicators: Map<number, IndicatorTreeIndicator>) => void
+  resetCheckedIndicators: () => void
+  handleIndicatorCheck: (indicator: number, checked: boolean) => void
+  scrollToClassification: (classificationKey: string) => void
+  getCurrentVisibleClassification: () => string | null
   getTreeRef: () => React.RefObject<IndicatorTreeOverallRef>
 }
 
@@ -23,11 +40,17 @@ export interface IndicatorTreeOverallInstance extends Omit<IndicatorTreeOverallR
  * ```tsx
  * const indicatorTreeRef = useIndicatorTreeOverall()
  *
- * // 获取选中的指标
+ * // 获取选中的指标ID集合（兼容性方法）
  * const checkedIndicators = indicatorTreeRef.getCheckedIndicators()
  *
+ * // 获取选中的指标Map（新方法）
+ * const checkedIndicatorsMap = indicatorTreeRef.getCheckedIndicatorsMap()
+ *
+ * // 获取选中的指标对象数组（新方法）
+ * const checkedIndicatorsList = indicatorTreeRef.getCheckedIndicatorsList()
+ *
  * // 设置选中的指标
- * indicatorTreeRef.setCheckedIndicators(['indicator-1', 'indicator-2'])
+ * indicatorTreeRef.setCheckedIndicators(new Map())
  *
  * // 重置选择
  * indicatorTreeRef.resetCheckedIndicators()
@@ -55,12 +78,29 @@ export const useIndicatorTreeOverall = (): IndicatorTreeOverallInstance => {
 
   // 确保实例只创建一次
   const treeInstance = useRef<IndicatorTreeOverallInstance>({
+    // 兼容性方法：返回选中的指标ID集合
     getCheckedIndicators() {
       if (!treeRef.current) {
         warnIfNotReady()
         return new Set()
       }
       return treeRef.current.getCheckedIndicators() || new Set()
+    },
+    // 新方法：返回选中的指标Map
+    getCheckedIndicatorsMap() {
+      if (!treeRef.current) {
+        warnIfNotReady()
+        return new Map()
+      }
+      return treeRef.current.getCheckedIndicatorsMap() || new Map()
+    },
+    // 新方法：返回选中的指标对象数组
+    getCheckedIndicatorsList() {
+      if (!treeRef.current) {
+        warnIfNotReady()
+        return []
+      }
+      return treeRef.current.getCheckedIndicatorsList() || []
     },
     setCheckedIndicators: (indicators) => {
       if (!treeRef.current) {

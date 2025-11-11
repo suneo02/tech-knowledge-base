@@ -193,7 +193,7 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
     (wftCommon.is_overseas_config && !userVipInfo.isSvip)
   ) {
     // 禁止用户
-    return <VipForbidden title={title} description={description} />
+    return <VipForbidden title={title} description={description} data-uc-id="7aPMIJI-0l" data-uc-ct="vipforbidden" />
   }
 
   const ActivityTag = isActivityUser ? (
@@ -203,13 +203,14 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
         position: 'absolute',
       }}
     >
-      {/* @ts-expect-error wind ui */}
       <Tag
         color="color-1"
-        type="secondary"
+        type="primary"
         style={{
           borderTopLeftRadius: '4px',
         }}
+        data-uc-id="F_whPtO5nr"
+        data-uc-ct="tag"
       >
         {intl('394293', '买一年送3个月')}
       </Tag>
@@ -228,11 +229,12 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
           onClick={() => {
             setIsActivityUser(!isActivityUser)
           }}
+          data-uc-id="aNHXHsrjj"
+          data-uc-ct="button"
         >
           切换活动用户（开发站）:{isActivityUser ? '活动用户' : '非活动用户'}
         </Button>
       )}
-
       <Row gutter={12} className="gel-vip-header">
         <Col className="gel-vip-title">{title}</Col>
         <Col className="gel-vip-tips">
@@ -240,7 +242,6 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
         </Col>
         <Col className="gel-vip-tips-third">{intl('437745', '该数据由第三方提供')}</Col>
       </Row>
-
       <div className="gel-vip-content">
         {onlySvip ? (
           <>
@@ -367,6 +368,8 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
                 style={{
                   padding: 0,
                 }}
+                data-uc-id="7xAQgbwYFS"
+                data-uc-ct="button"
               >
                 {intl('394313', '规则说明')}
               </Button>
@@ -381,6 +384,8 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
               onClick={() => {
                 agreeBuyAction()
               }}
+              data-uc-id="1aXnnvLc1g"
+              data-uc-ct="div"
             >
               {' '}
               {vipPopupSel == 'ep' ? intl('149772', '立即联系') : intl('392560', '立即支付')}
@@ -392,6 +397,8 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
               onChange={() => {
                 onChangeUserAgree()
               }}
+              data-uc-id="LdPxbqg6IB"
+              data-uc-ct="checkbox"
             ></Checkbox>
             {intl('150315', '我已阅读并同意')} <UserAgreementBtn /> {intl('437761', '和')} <PrivacyPolicyBtn />
           </Col>
@@ -405,8 +412,6 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
           </Col>
         </Row>
       </div>
-
-      {/* @ts-expect-error wind ui */}
       <Modal
         visible={showModal}
         onCancel={() => {
@@ -420,10 +425,14 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
             onClick={() => {
               setShowModal(false)
             }}
+            data-uc-id="f8V9wAiiBI"
+            data-uc-ct="button"
           >
             {intl('209713', '我知道了')}
           </Button>,
         ]}
+        data-uc-id="2hNH4NP39F"
+        data-uc-ct="modal"
       >
         <p>
           （1）
@@ -447,7 +456,10 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
         </p>
         <p>
           （4）{intl('394297', '万得对本次活动拥有最终解释权。如有任何疑问，请联系万得客服，联系方式为')}
-          <a href="mailto://GELSUPPORT@wind.com.cn">GELSupport@wind.com.cn</a>。
+          <a href="mailto://GELSUPPORT@wind.com.cn" data-uc-id="kdJEDgqD0V" data-uc-ct="a">
+            GELSupport@wind.com.cn
+          </a>
+          。
         </p>
       </Modal>
     </div>

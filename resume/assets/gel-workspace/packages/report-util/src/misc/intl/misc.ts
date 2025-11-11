@@ -2,12 +2,12 @@
  * 处理报告节点数据翻译的一些特殊处理
  */
 
-import { CorpBasicInfo, TCorpDetailNodeKey } from 'gel-types'
+import { CorpBasicInfo, TCorpDetailNodeKey, TCorpDetailSectionKey } from 'gel-types'
 
 export const processReportNodeDataTranslation = (
   rawData: any | CorpBasicInfo,
   translatedData: any | CorpBasicInfo,
-  key: TCorpDetailNodeKey
+  key: TCorpDetailNodeKey | TCorpDetailSectionKey
 ) => {
   // 如果是公司基本信息
   if (key === 'BussInfo') {

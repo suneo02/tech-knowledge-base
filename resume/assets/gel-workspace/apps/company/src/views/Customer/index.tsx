@@ -12,32 +12,34 @@ import MyMenu from './myMenu'
 import warningIcon from '@/assets/imgs/wx_wo.png'
 import { ModalSafeType } from '@/components/modal/ModalSafeType'
 import { PrivacyPolicyIframe } from '@/components/user/PrivacyPolicyIframe'
-import Table, { TableProps } from '@wind/wind-ui-table'
-import { HorizontalTableProps } from '@wind/wind-ui-table/es/HorizontalTable'
+import Table from '@wind/wind-ui-table'
 import * as HomeActions from '../../actions/home'
 import { pointBuriedByModule } from '../../api/pointBuried/bury'
-import { getBarCode, getdoctasklist, getPayInvoice, listPayOrder } from '../../api/userApi'
+import { getBarCode, getdoctasklist } from '../../api/userApi'
 import { applyTrail } from '../../lib/globalModal'
 import store from '../../store/store'
+import { isDeveloper, staffBetaFeature } from '../../utils/common'
 import { customerMenus, useCustomerPageTitle } from './handle'
 import { TCustomerMenuKey } from './handle/menu'
 import { MyAccount } from './MyAccount'
 import { getMyListColumn } from './MyList'
-import { UserNoteTextCN, UserNoteTextEN } from './UserNote'
-
-const { HorizontalTable } = Table
+import { MyOrders } from './MyOrder'
+import { UserNoteTextCN } from './UserNote/cn'
+import { UserNoteTextEN } from './UserNote/en'
+import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 
 const pageSize = 10
 
 const Customer = ({ userPackageinfo }) => {
   const type = wftCommon.getQueryString('type') // page type
   useCustomerPageTitle(type)
-  const { phone, packageName, expireDate, isTrailed, isbuy = false } = userPackageinfo || {}
+  const { phone, packageName, expireDate, isTrailed, isbuy = false, packageNameList } = userPackageinfo || {}
   let isShowTime = false // 是否展示到期时间
   let isgotovip = false // 是否升级VIP/SVIP
   let isApplySVIP = false // 是否申请试用SVIP会员
   let showfreephone = false // 是否显示Free的手机号
   let vipType
+  let isShowStaffBetaFeature = false // 是否展示员工权限beta功能体验开关
 
   // 中文6秒刷一次 4分钟，英文12秒刷一次 12分钟
   const maxNum = window.en_access_config ? 60 : 40
@@ -51,10 +53,11 @@ const Customer = ({ userPackageinfo }) => {
       type = window.en_access_config ? 'SVIP For Trail' : 'SVIP试用版'
       isShowTime = true
     }
-    if (type && type == 'EQ_APL_GEL_FORSTAFF') {
+    if (packageNameList?.includes('EQ_APL_GEL_FORSTAFF')) {
       // 员工权限
       type = 'SVIP (STAFF)'
       isShowTime = true
+      isShowStaffBetaFeature = true
     }
     if (type && type == 'EQ_APL_GEL_SVIP') {
       type = 'SVIP'
@@ -99,18 +102,14 @@ const Customer = ({ userPackageinfo }) => {
   }, [])
   const [currentMenu, setCurrentMenu] = useState(defaultMenu)
   const [visible, setVisible] = useState(false)
-  const [orderVisible, setOrderVisible] = useState(false)
   const [cancelVisible, setCancelVisible] = useState(false)
 
   const [listDatas, setListDatas] = useState([]) // 我的数据
-  const [orderDatas, setOrderDatas] = useState([]) // 我的订单
   const [pageNo, setPageNo] = useState(1)
   const [total, setTotal] = useState(0)
 
   const [loading, setLoading] = useState(false)
 
-  // 发票详情
-  const [dataSource, setDataSource] = useState<any>({})
   // 现场签到
   const [checkInVisible, setCheckInVisible] = useState(false)
   // 倒计时
@@ -179,29 +178,12 @@ const Customer = ({ userPackageinfo }) => {
     })
   }
 
-  const getMyOrders = () => {
-    listPayOrder({
-      pageNo: pageNo - 1,
-      pageSize: pageSize,
-    })
-      .then((res) => {
-        wftCommon.zh2enAlwaysCallback(res.Data, (newData) => {
-          setOrderDatas(newData || [])
-        })
-        setTotal(res.Page?.Records || 0)
-      })
-      .catch(() => {})
-  }
-
   useEffect(() => {
     // 清除定时器
     IntervalRef.current && clearInterval(IntervalRef.current)
     switch (type) {
       case 'mylist':
         getMyList()
-        break
-      case 'myorders':
-        getMyOrders()
         break
       default:
         break
@@ -234,11 +216,11 @@ const Customer = ({ userPackageinfo }) => {
         if (wftCommon.usedInClient()) {
           return Myaccounts
         }
-        return <MyAccount userPhone={phone} />
+        return <MyAccount userPhone={phone} data-uc-id="r9NgJBT7dP" data-uc-ct="myaccount" />
       case 'mylist':
         return MyList
       case 'myorders':
-        return MyOrders
+        return <MyOrders />
       case 'userpolicy':
         // TODO !!! 样式更合理一些
         return <PrivacyPolicyIframe style={{ height: '100%' }} />
@@ -253,6 +235,16 @@ const Customer = ({ userPackageinfo }) => {
     }
   }
 
+  // 员工权限beta功能体验开关
+  const handleStaffBetaFeature = () => {
+    if (isDeveloper) {
+      staffBetaFeature.clear()
+    } else {
+      staffBetaFeature.set()
+    }
+    window.location.reload()
+  }
+
   // 账号信息
   const Myaccounts = (
     <>
@@ -264,12 +256,28 @@ const Customer = ({ userPackageinfo }) => {
             {window.en_access_config ? ':' : '：'}
           </span>
           <span className="myorder-type">{vipType}</span>
+
+          {/* 员工权限beta功能体验开关 */}
+          {isShowStaffBetaFeature ? (
+            <Tag
+              type="secondary"
+              className="cursor-pointer w-tag-color-2 checkin-tag"
+              onClick={handleStaffBetaFeature}
+              data-uc-id="jKBB-qYuLM"
+              data-uc-ct="tag"
+            >
+              {isDeveloper ? 'Disable Beta Features' : 'Try Beta Features'}
+            </Tag>
+          ) : null}
+
           {isgotovip && (
             <span
               className="wi-secondary-color"
               onClick={() => {
                 wftCommon.jumpJqueryPage('index.html#/versionPrice?nosearch=1')
               }}
+              data-uc-id="lATUVGvdqP"
+              data-uc-ct="span"
             >
               升级为VIP/SVIP
             </span>
@@ -280,6 +288,8 @@ const Customer = ({ userPackageinfo }) => {
               onClick={() => {
                 setVisible(true)
               }}
+              data-uc-id="HjQwax2WCZ"
+              data-uc-ct="span"
             >
               申请试用SVIP会员
             </span>
@@ -314,7 +324,13 @@ const Customer = ({ userPackageinfo }) => {
                   </>
                 )}
               </span>
-              <a href="https://gel.wind.com.cn" target="__blank" onClick={() => pointBuriedByModule(922602101047)}>
+              <a
+                href="https://gel.wind.com.cn"
+                target="__blank"
+                onClick={() => pointBuriedByModule(922602101047)}
+                data-uc-id="vDYkk9mcV9"
+                data-uc-ct="a"
+              >
                 https://gel.wind.com.cn
               </a>
             </p>
@@ -339,6 +355,8 @@ const Customer = ({ userPackageinfo }) => {
           onCancel={() => {
             setVisible(false)
           }}
+          data-uc-id="SSBi3ywcSI"
+          data-uc-ct="modalsafetype"
         >
           <Row type="flex" justify="space-between" gutter={16}>
             <Col>
@@ -374,367 +392,18 @@ const Customer = ({ userPackageinfo }) => {
   const MyList = (
     <>
       <div className="customer-title">{intl('141995', '我的数据')}</div>
-      <Table loading={loading} columns={listColumn} dataSource={listDatas} size="large" pagination={pagination}></Table>
-    </>
-  )
-
-  // 我的订单
-  const tickPopup = (tick) => {
-    setOrderVisible(true)
-    setDataSource(tick)
-
-    if (!tick?.status || tick.status?.code !== 2) {
-      // 开票中
-      if (tick?.invoiceType && tick.invoiceType?.code == 1) {
-      } else {
-      }
-    }
-    setTimeout(function () {
-      const canvas = document.querySelector('.tick-code')
-      console.log('🚀 ~canvas:', canvas)
-      if (canvas) {
-        QRCode.toCanvas(canvas, tick?.downLoadUrl, { width: 169 }, function (error) {
-          if (error) {
-            console.error('qcode error', tick?.downLoadUrl)
-            console.error(error)
-            window.layer.msg('二维码生成异常!(-4)')
-          } else {
-            console.log('success!')
-          }
-        })
-      }
-    }, 200)
-  }
-
-  // 订单列表Column
-  const orderColumn: TableProps['columns'] = [
-    {
-      title: intl('28846', '序号'),
-      dataIndex: '',
-      width: '8%',
-      render: (_data, _row, index) => {
-        return (pageNo - 1) * pageSize + index + 1
-      },
-    },
-    {
-      title: intl('437754', '订单类型'),
-      dataIndex: 'name',
-      width: '23%',
-      render: (data) => {
-        return data || '--'
-      },
-    },
-    {
-      title: intl('437756', '订单时间'),
-      dataIndex: 'date',
-      width: '13%',
-      render: (data) => {
-        return data || '--'
-      },
-    },
-    {
-      title: intl('437755', '支付金额（元）'),
-      dataIndex: 'priceYuan',
-      width: '14%',
-      align: 'right',
-      render: (data) => {
-        return data.toFixed(2) || '--'
-      },
-    },
-    {
-      title: intl('437732', '支付方式'),
-      dataIndex: 'type',
-      width: '12%',
-      render: (data) => {
-        return data?.desc || '--'
-      },
-    },
-    {
-      title: intl('32098', '状态'),
-      dataIndex: 'status',
-      width: '12%',
-      render: (data) => {
-        if (data?.code == 2) {
-          return data?.desc
-        }
-        return data?.desc || '--'
-      },
-    },
-    {
-      title: intl('36348', '操作'),
-      dataIndex: 'applyInvoice',
-      width: '18%',
-      render: (_data, full) => {
-        const status = full.applyInvoice
-        const orderId = full.orderId || ''
-        const state = status ? intl('307843', '发票信息') : '--' // 1 已开 0 未开
-        const id = status ? orderId : ''
-        const css = status ? ' gel-vip-tick-create ' : ''
-        return (
-          <span
-            onClick={() => {
-              if (orderId) {
-                getPayInvoice(orderId).then((res) => {
-                  res.Data && (res.Data.orderId = orderId)
-                  tickPopup(res.Data || {})
-                })
-              }
-            }}
-            className={css}
-            data-status={status}
-            data-orderId={orderId}
-            data-id={id}
-          >
-            {state}
-          </span>
-        )
-      },
-    },
-  ]
-  // 公司发票详情
-  const corpRows: HorizontalTableProps['rows'] = [
-    [
-      {
-        title: intl('416976', '发票类型'),
-        dataIndex: 'type',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => {
-          return data || '增值税普通发票'
-        },
-      },
-    ],
-    [
-      {
-        title: intl('416977', '付款金额'),
-        dataIndex: 'price',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => {
-          return wftCommon.formatMoney(data, [2, '元']) || ' '
-        },
-      },
-    ],
-    [
-      {
-        title: intl('416961', '发票抬头'),
-        dataIndex: 'invoiceType',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => {
-          return data?.desc || '--'
-        },
-      },
-    ],
-    [
-      {
-        title: intl('32914', '公司名称'),
-        dataIndex: 'taxpayerName',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('416978', '公司税号'),
-        dataIndex: 'identificationNumber',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('438015', '公司地址'),
-        dataIndex: 'companyAddress',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('438034', '公司电话'),
-        dataIndex: 'receiverTel',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('416962', '开户银行'),
-        dataIndex: 'bankName',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('416979', '银行账号'),
-        dataIndex: 'bankAccount',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('10057', '联系电话'),
-        dataIndex: 'companyTel',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('140100', '联系邮箱'),
-        dataIndex: 'receiverEmail',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('416980', '开票备注'),
-        dataIndex: 'remark',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-  ]
-  // 个人发票详情
-  const personRows: HorizontalTableProps['rows'] = [
-    [
-      {
-        title: intl('416976', '发票类型'),
-        dataIndex: 'type',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => {
-          return data || '增值税普通发票'
-        },
-      },
-    ],
-    [
-      {
-        title: intl('416977', '付款金额'),
-        dataIndex: 'price',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => {
-          return wftCommon.formatMoney(data, [2, '元']) || ' '
-        },
-      },
-    ],
-    [
-      {
-        title: intl('416961', '发票抬头'),
-        dataIndex: 'invoiceType',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => {
-          return data?.desc || '--'
-        },
-      },
-    ],
-    [
-      {
-        title: intl('416981', '个人名称'),
-        dataIndex: 'taxpayerName',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('10057', '联系电话'),
-        dataIndex: 'companyTel',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('140100', '联系邮箱'),
-        dataIndex: 'receiverEmail',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-    [
-      {
-        title: intl('416980', '开票备注'),
-        dataIndex: 'remark',
-        titleWidth: '130px',
-        titleAlign: 'left',
-        render: (data) => data || '--',
-      },
-    ],
-  ]
-  const MyOrders = (
-    <>
-      <div className="customer-title">{intl('153389', '我的订单')}</div>
-      <div className="customer-orderList-header">
-        <div className="customer-orderList-header-title">
-          {' '}
-          {intl('358873', '订单和发票须知')} {window.en_access_config ? ':' : '：'}{' '}
-        </div>
-        <div>1. {intl('358874', '“我的订单”页面仅展示在线支付的订单信息')}</div>
-        {/* <div>2. {intl('358893', '线上开票仅支持增值税电子普通发票，若需增值税专用发票，请联系客户经理')}</div> */}
-        {/* 上述文案2等支持补开发票后调整回来 2024.08.22 */}
-        <div>
-          2.{' '}
-          {window.en_access_config
-            ? 'Currently, invoices can only be issued when doing online payments. If you did not request an invoice at the time of payment, please contact your customer manager to have the invoice reissued.'
-            : '当前仅支持在线支付时开具发票，如果支付时未申请发票，请联系专属客户经理补开发票'}
-        </div>
-        <div>3. {intl('358875', '发票开具后会自动发送到您的邮箱，同时您也可以点击“查看发票”重新扫码获取发票文件')}</div>
+      {/*  wind UI table 写的抽风逻辑，高度 100% 会撑满元素，这里需要限制一下高度 */}
+      <div>
+        <Table
+          loading={loading}
+          columns={listColumn}
+          dataSource={listDatas}
+          size="large"
+          pagination={pagination}
+          data-uc-id="cOALM-Lyrk"
+          data-uc-ct="table"
+        ></Table>
       </div>
-      <Table
-        columns={orderColumn}
-        dataSource={orderDatas}
-        size="large"
-        pagination={total > pageSize ? pagination : null}
-      ></Table>
-      {/* @ts-expect-error */}
-      <Modal
-        title={intl('416983', '发票详情')}
-        visible={orderVisible}
-        onOk={() => {
-          setOrderVisible(false)
-        }}
-        onCancel={() => {
-          setOrderVisible(false)
-        }}
-        footer={null}
-      >
-        <HorizontalTable
-          rows={dataSource?.invoiceType?.code == 1 ? corpRows : personRows}
-          dataSource={dataSource}
-        ></HorizontalTable>
-        {dataSource?.status?.code == 2 ? (
-          <>
-            <div className="tab-tickdetail-bottom">{intl('419894', '扫描下方链接可下载发票：')}</div>
-            <div style={{ textAlign: 'center' }}>
-              {' '}
-              <canvas className="tick-code"></canvas>{' '}
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="tab-tickdetail-bottom">{intl('419788', '发票开具中，开具完成后可在此处查看二维码')}</div>
-          </>
-        )}
-      </Modal>
     </>
   )
 
@@ -748,11 +417,13 @@ const Customer = ({ userPackageinfo }) => {
         width={400}
         onOk={() => {
           setCancelVisible(false)
-          window.location.href = '../windLogin.html'
+          window.location.href = getUrlByLinkModule(LinksModule.LOGIN)
         }}
         onCancel={() => {
           setCancelVisible(false)
         }}
+        data-uc-id="owUp-q17rz"
+        data-uc-ct="modalsafetype"
       >
         确认撤销协议吗？
       </ModalSafeType>
@@ -774,7 +445,7 @@ const Customer = ({ userPackageinfo }) => {
   // 免责声明
   const Exceptions = (
     <>
-      <div className="customer-title" onClick={handleDebugClick}>
+      <div className="customer-title" onClick={handleDebugClick} data-uc-id="-ZxCYzbnM9" data-uc-ct="div">
         {intl('23348', '免责声明')}
       </div>
       <div className="user-note-page">
@@ -822,14 +493,18 @@ const Customer = ({ userPackageinfo }) => {
       <div className="customer-title">
         {intl('26588', '联系我们')}
         {wftCommon.usedInClient() ? null : (
-          // @ts-expect-error ttt
-          <Tag type="primary" className="cursor-pointer w-tag-color-1 checkin-tag" onClick={checkIn}>
+          <Tag
+            type="secondary"
+            className="cursor-pointer w-tag-color-1 checkin-tag"
+            onClick={checkIn}
+            data-uc-id="slZ8PLI0hd"
+            data-uc-ct="tag"
+          >
             {intl('428166', '现场签到')}
           </Tag>
         )}
       </div>
 
-      {/* @ts-expect-error ttt*/}
       <Modal
         title={intl('428166', '现场签到')}
         visible={checkInVisible}
@@ -838,6 +513,8 @@ const Customer = ({ userPackageinfo }) => {
           setCheckInVisible(false)
         }}
         footer={null}
+        data-uc-id="Xrbh2lnr05"
+        data-uc-ct="modal"
       >
         <>
           <div>
@@ -848,7 +525,7 @@ const Customer = ({ userPackageinfo }) => {
             {checkInSeconds < 1 ? (
               <div className="checkin-tips">
                 {intl('437994', '二维码已失效，请重新加载')}
-                <Button type="primary" onClick={checkIn}>
+                <Button type="primary" onClick={checkIn} data-uc-id="TtV_hcgHC" data-uc-ct="button">
                   {intl('438016', '刷新')}
                 </Button>
               </div>
@@ -862,10 +539,16 @@ const Customer = ({ userPackageinfo }) => {
           <p>Address：3/F Wind Plaza, No.1500 Puming Road, Shanghai </p>
           <p>Service Hotline：400-820-9463</p>
           <p>
-            Service Email：<a href="mailto:GELSupport@wind.com.cn">GELSupport@wind.com.cn </a>{' '}
+            Service Email：
+            <a href="mailto:GELSupport@wind.com.cn" data-uc-id="1ZsrmfD2Mly" data-uc-ct="a">
+              GELSupport@wind.com.cn{' '}
+            </a>{' '}
           </p>
           <p>
-            Report Email：<a href="mailto:jubao@wind.com.cn">jubao@wind.com.cn </a>
+            Report Email：
+            <a href="mailto:jubao@wind.com.cn" data-uc-id="MF0PnXufN16" data-uc-ct="a">
+              jubao@wind.com.cn{' '}
+            </a>
           </p>
           <p>Zip Code：200127</p>
         </div>
@@ -874,10 +557,16 @@ const Customer = ({ userPackageinfo }) => {
           <p>公司地址：上海浦东新区浦明路1500号万得大厦3层</p>
           <p>客服电话：400-820-9463</p>
           <p>
-            服务邮箱：<a href="mailto:GELSupport@wind.com.cn">GELSupport@wind.com.cn </a>{' '}
+            服务邮箱：
+            <a href="mailto:GELSupport@wind.com.cn" data-uc-id="EuZcqJcJ1Gw" data-uc-ct="a">
+              GELSupport@wind.com.cn{' '}
+            </a>{' '}
           </p>
           <p>
-            举报邮箱：<a href="mailto:jubao@wind.com.cn">jubao@wind.com.cn </a>
+            举报邮箱：
+            <a href="mailto:jubao@wind.com.cn" data-uc-id="WD-6pSJqfaf" data-uc-ct="a">
+              jubao@wind.com.cn{' '}
+            </a>
           </p>
           <p>邮政编码：200127</p>
         </div>
@@ -888,7 +577,6 @@ const Customer = ({ userPackageinfo }) => {
   return (
     <div className="customer">
       <BreadCrumb subTitle={intl('210156', '用户中心')} width="1280px"></BreadCrumb>
-
       <div className="container">
         <MyMenu
           style={{
@@ -909,6 +597,8 @@ const Customer = ({ userPackageinfo }) => {
             window.location.replace(`#/customer?type=${menu?.key}`)
             setCurrentMenu(menu)
           }}
+          data-uc-id="Hlt3DYj9w73"
+          data-uc-ct="mymenu"
         />
         <div className="content">{renderContent(currentMenu?.key)}</div>
       </div>

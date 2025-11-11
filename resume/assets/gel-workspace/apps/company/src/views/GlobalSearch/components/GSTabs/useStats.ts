@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { getServerApi } from '@/api/serverApi'
 import { CHINA_FULL, GLOBAL_FULL, OTHER_STATS_API } from './index'
 import { GSTabsEnum } from '../../types'
+import { outCompanyParam } from '@/handle/searchConfig'
+import { hashParams } from '@/utils/links'
 
 interface OtherStats {
   group?: string
@@ -20,6 +22,14 @@ interface Stats {
 const TEMP_CONFIG = { version: 1 }
 
 const useStats = (queryText: string, type: GSTabsEnum) => {
+  const { getParamValue } = hashParams()
+  const areaType = getParamValue('areaType')
+
+  let initialValues
+  if (areaType) {
+    const code = outCompanyParam.find((c) => c.param === areaType)?.code
+    initialValues = { areaCode: code ? code : [] }
+  }
   const [chinaStats, setChinaStats] = useState<Stats>(null)
   const [globalStats, setGlobalStats] = useState<Stats>(null)
   const [otherStats, setOtherStats] = useState<OtherStats>(null)
@@ -40,8 +50,10 @@ const useStats = (queryText: string, type: GSTabsEnum) => {
         queryText,
         pageIndex: 0,
         pageSize: 10,
+        sort: '-1',
         // !后续删除
         ...TEMP_CONFIG,
+        ...initialValues,
       },
     })
     updateStats(api, data)
@@ -73,10 +85,14 @@ const useStats = (queryText: string, type: GSTabsEnum) => {
           setLoading(false)
         })
     } else if (type === GSTabsEnum.GLOBAL) {
-      await getStatsByServerApi(GLOBAL_FULL).finally(() => {
-        setLoading(false)
-      })
-      getStatsByServerApi(CHINA_FULL)
+      Promise.all([getStatsByServerApi(GLOBAL_FULL), getStatsByServerApi(CHINA_FULL)])
+        .then(([globalCount, chinaCount]) => {
+          updateStats(GLOBAL_FULL, globalCount)
+          updateStats(CHINA_FULL, chinaCount)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
     }
   }
 

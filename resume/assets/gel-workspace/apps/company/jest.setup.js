@@ -1,22 +1,22 @@
 // 添加 Jest DOM 扩展
-require('@testing-library/jest-dom');
+require('@testing-library/jest-dom')
 
 // Mock URLSearchParams
 global.URLSearchParams = class URLSearchParams {
   constructor() {
-    this.params = new Map();
+    this.params = new Map()
   }
 
   append(key, value) {
-    this.params.set(key, value);
+    this.params.set(key, value)
   }
 
   toString() {
     return Array.from(this.params.entries())
       .map(([key, value]) => `${key}=${value}`)
-      .join('&');
+      .join('&')
   }
-};
+}
 
 // Mock window.location
 Object.defineProperty(window, 'location', {
@@ -24,7 +24,7 @@ Object.defineProperty(window, 'location', {
     href: 'http://test.com',
   },
   writable: true,
-});
+})
 
 // Mock window.en_access_config
-window.en_access_config = false; 
+window.en_access_config = false

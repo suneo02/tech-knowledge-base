@@ -27,7 +27,7 @@ export const getKeyParksItem = (): IFuncMenuItem => {
     }),
     disabled: isOversea,
     icon: 'ZDYQ',
-    new: true,
+    //     new: true,
   }
 }
 
@@ -50,7 +50,7 @@ export const getStrategicIndustriesItem = ({ isTerminal }: IEnvParams): IFuncMen
     url: BaiFenSites().strategicIndustries,
     buryFunc: pointClickZlxxcy,
     icon: 'ZLXXXCY',
-    new: true,
+    //     new: true,
     disabled: !isTerminal || isOversea,
   }
 }
@@ -63,7 +63,7 @@ export const getPrimaryMarketTrackItem = ({ isTerminal }: IEnvParams): IFuncMenu
     zh: '一级市场来觅赛道',
     url: '//RIME/rime/frontend/web/vertical/all',
     icon: 'TZSD',
-    new: true,
+    //     new: true,
     disabled: !isTerminal || isOversea,
   }
 }

@@ -1,12 +1,9 @@
+import { Links } from '@/components/common/links'
 import { Card, Col, Divider, Pagination, Row } from '@wind/wind-ui'
 import React, { useEffect, useState } from 'react'
 import { LinkGroupsData } from './data'
-import './index.less'
-import { LinksTable } from './table'
-import { Links } from '@/components/common/links'
-import { LinksTableDataSource } from '@/views/Dev/LinksPage/mock.ts'
-import { LinksTableColumns } from '@/views/Dev/LinksPage/cfg.ts'
 import { printLinks } from './handle/generateLinks'
+import './index.less'
 
 /**
  * 跳转table组件，旨在测试Links组件在table里面的适用性
@@ -74,17 +71,12 @@ const LinksPage = () => {
                 return { ...pagination }
               })
             }}
+            data-uc-id="eM2Iq430c"
+            data-uc-ct="pagination"
           />
         </Col>
       </Row>
-
       <Divider />
-      <LinksTable
-        columns={LinksTableColumns || []}
-        dataSource={LinksTableDataSource || []}
-        pagination={{ ...pagination }}
-        useLinks={true}
-      />
     </div>
   )
 }

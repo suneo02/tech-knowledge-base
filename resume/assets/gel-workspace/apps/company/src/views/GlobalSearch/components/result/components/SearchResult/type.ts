@@ -1,4 +1,5 @@
 import { GSTabsEnum } from '@/views/GlobalSearch/types'
+import { CorpTag } from 'gel-api/*'
 import React from 'react'
 
 export enum OrgTypeEnum {
@@ -36,8 +37,13 @@ export interface SearchResultItem {
   corpName: string
   /** 企业英文名称 */
   corpNameEng?: string
-  /** 企业标签 */
+  /**
+   * @deprecated 企业标签
+   * 企业标签
+   */
   corporationTags3?: string[]
+  /** 企业标签 */
+  tags: CorpTag[]
   /** 境内运营实体 */
   domesticEntity?: string
   /** 境内运营实体id  */

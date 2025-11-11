@@ -298,8 +298,20 @@ const InputWithSearch = ({ item }) => {
   return (
     <ConditionItem>
       <ConditionTitle filter={filter} isVip={isVip} itemName={itemName} hoverHint={hoverHint} />
-      {isCorpLists ? <LogicOption defaultOption={logic} changeOptionCallback={changeOptionCallback} /> : null}
-      <Box style={{ maxWidth: widthAuto ? 'auto' : '320px', marginTop: '5px' }} onClick={(e) => {}}>
+      {isCorpLists ? (
+        <LogicOption
+          defaultOption={logic}
+          changeOptionCallback={changeOptionCallback}
+          data-uc-id="fvkd0T-Bi7"
+          data-uc-ct="logicoption"
+        />
+      ) : null}
+      <Box
+        style={{ maxWidth: widthAuto ? 'auto' : '320px', marginTop: '5px' }}
+        onClick={(e) => {}}
+        data-uc-id="wqW5mNsp6h"
+        data-uc-ct="box"
+      >
         {selectList.length ? (
           <div className={isCorpLists ? 'select-corplist-cont' : 'select-div'}>
             {selectList.map((t, i) => {
@@ -308,7 +320,7 @@ const InputWithSearch = ({ item }) => {
                 return (
                   <span className="select-span" key={i}>
                     {selectObj[t].objectName}
-                    <img onClick={() => delSelect(t, i)} src={closeImg} />
+                    <img onClick={() => delSelect(t, i)} src={closeImg} data-uc-id="IMo5U3zgs-" data-uc-ct="img" />
                   </span>
                 )
               }
@@ -317,7 +329,7 @@ const InputWithSearch = ({ item }) => {
                 <div className="select-corplist-div">
                   <span className="select-span select-corplist-span" key={i}>
                     {selectObj[t].objectName}
-                    <img onClick={() => delSelect(t, i)} src={closeImg} />
+                    <img onClick={() => delSelect(t, i)} src={closeImg} data-uc-id="rDrMsWpR4d" data-uc-ct="img" />
                   </span>
                   {isCorpLists && selectObj[t].validDate ? (
                     <div className="select-corplist-option">
@@ -329,6 +341,8 @@ const InputWithSearch = ({ item }) => {
                           let value = date?.map((i) => i?.format('YYYYMMDD')).join('-')
                           customDateChange(value, selectObj[t])
                         }}
+                        data-uc-id="qesRTHJorr"
+                        data-uc-ct="datepickeroption"
                       />
                     </div>
                   ) : null}
@@ -346,6 +360,8 @@ const InputWithSearch = ({ item }) => {
                         changeOptionCallback={(val) => {
                           customYearChange(val, selectObj[t])
                         }}
+                        data-uc-id="zOXrUx60mA"
+                        data-uc-ct="singleoption"
                       />
                     </div>
                   ) : null}
@@ -375,6 +391,8 @@ const InputWithSearch = ({ item }) => {
             }, 200)
             setEmpty(false)
           }}
+          data-uc-id="F2BL9yz4nl"
+          data-uc-ct="search"
         />
 
         {(inputVal && searchList.length) || (isCorpLists && corpListShow) ? (
@@ -391,6 +409,8 @@ const InputWithSearch = ({ item }) => {
                       SearchRef.current.input.state.value = ''
                     }
                   }}
+                  data-uc-id="dPXeDGOeyQ"
+                  data-uc-ct="span"
                 >
                   {' '}
                   {t.objectName}{' '}

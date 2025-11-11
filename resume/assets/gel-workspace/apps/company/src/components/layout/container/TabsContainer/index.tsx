@@ -17,7 +17,6 @@ const TabsContainer = ({ tabs, children }) => {
     return null
   }
   return (
-    // @ts-expect-error ttt
     <Tabs
       className="calvin-tab-box-4"
       onChange={(v) => {
@@ -29,9 +28,10 @@ const TabsContainer = ({ tabs, children }) => {
           pointBuriedByModule(id, rest)
         }
       }}
+      data-uc-id="y4PgZxuk2w"
+      data-uc-ct="tabs"
     >
       {tabs?.map((res) => (
-        //  @ts-expect-error ttt
         <Tabs.TabPane
           tab={
             <span>
@@ -41,6 +41,9 @@ const TabsContainer = ({ tabs, children }) => {
           }
           key={res.title}
           disabled={checkComponentHidden(res)}
+          data-uc-id="LGW7BGEZTw"
+          data-uc-ct="tabs"
+          data-uc-x={res.title}
         >
           {children({ ...res, hiddenTxt: true })}
         </Tabs.TabPane>

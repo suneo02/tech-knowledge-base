@@ -9,7 +9,7 @@ import global from '../global'
  * @type {React.JSX.Element}
  */
 export const LimitExceedHint = (
-	<div className="no-data">{'您的查询数量已超限，请明日再试。若有疑问，请联系客户经理。'}</div>
+  <div className="no-data">{'您的查询数量已超限，请明日再试。若有疑问，请联系客户经理。'}</div>
 )
 /**
  * VIP 权益限制 处理
@@ -17,17 +17,17 @@ export const LimitExceedHint = (
  * @constructor
  */
 export const vipLimitInterceptor = (code) => {
-	if (String(code) !== String(global.VIP_OUT_LIMIT)) {
-		return
-	}
-	const vipInfo = getVipInfo()
+  if (String(code) !== String(global.VIP_OUT_LIMIT)) {
+    return
+  }
+  const vipInfo = getVipInfo()
 
-	if (vipInfo.isVip) {
-		Modal.info({
-			content: LimitExceedHint,
-		})
-	} else {
-		// 付费窗口
-		VipPopup()
-	}
+  if (vipInfo.isVip) {
+    Modal.info({
+      content: LimitExceedHint,
+    })
+  } else {
+    // 付费窗口
+    VipPopup()
+  }
 }

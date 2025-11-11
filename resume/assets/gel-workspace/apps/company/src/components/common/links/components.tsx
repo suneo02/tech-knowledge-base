@@ -16,6 +16,8 @@ export const LinksComponent: FC<{
       onClick={onClick}
       target="_blank"
       rel="noreferrer"
+      data-uc-id="cQMiF3sLdy"
+      data-uc-ct="a"
     >
       {children}
     </a>

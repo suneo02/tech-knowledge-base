@@ -49,7 +49,7 @@ export const useExpandable = (column: Record<string, any>) => {
       columnWidth: column.width && `${column.width}px`,
       expandedRowRender: (record) => (column?.componentId ? <ExpandedRow column={column} record={record} /> : null),
       expandIcon: ({ record, expanded, onExpand }) => (
-        <Typography.Link onClick={(e) => onExpand(record, e)}>
+        <Typography.Link onClick={(e) => onExpand(record, e)} data-uc-id="aDd4KYMQUI" data-uc-ct="">
           {expanded
             ? '收起'
             : column?.info?.showInfoKey

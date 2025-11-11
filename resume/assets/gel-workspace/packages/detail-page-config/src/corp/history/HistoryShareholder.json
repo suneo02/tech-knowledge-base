@@ -1,0 +1,55 @@
+{
+  "api": "/detail/company/gethisshareholder",
+  "countKey": "his_shareholder_num",
+  "downDocType": "download/createtempfile/gethisshareholder",
+  "downDocTypeName": "新的导出",
+  "id": "11-3",
+  "key": "11-3",
+  "level": 2,
+  "title": "历史股东信息",
+  "titleIntl": "348171",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "sharehold_name",
+      "title": "股东",
+      "titleIntl": "32959",
+      "width": ""
+    },
+    {
+      "align": "left",
+      "dataIndex": "start_date|formatTime",
+      "title": "首次参股日期",
+      "titleIntl": "417638",
+      "width": "12%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "shareholding_radio|formatPercent",
+      "title": "退出时持股比例",
+      "titleIntl": "348185",
+      "width": "12%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "exit_date|formatTime",
+      "title": "退出日期",
+      "titleIntl": "63486",
+      "width": "12%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "",
+      "title": "操作",
+      "titleIntl": "36348",
+      "width": "8%"
+    }
+  ]
+}

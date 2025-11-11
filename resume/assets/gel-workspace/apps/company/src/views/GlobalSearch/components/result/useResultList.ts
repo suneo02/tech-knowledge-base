@@ -1,6 +1,7 @@
 import { getcorpiscollect } from '@/api/companyDynamic'
 import { getServerApi } from '@/api/serverApi'
 import { wftCommon } from '@/utils/utils.tsx'
+import { isEn } from 'gel-util/intl'
 import { useRef, useState } from 'react'
 
 // !临时给后端加的，为了个体工商户，后续删除
@@ -65,7 +66,7 @@ const useResultListData = <T extends Record<string, any>>(
       },
     })
       .finally(() => reset && setLoading(false))
-      .catch((err) => {
+      .catch(() => {
         setForceEnd(true)
       })
     if (!res || res.Data?.length === 0) {
@@ -78,7 +79,7 @@ const useResultListData = <T extends Record<string, any>>(
     const _data = Data?.search || Data || []
     if (_data?.length < pagination.pageSize) setForceEnd(true)
     setData((prevData) => (reset ? _data : [...(prevData || []), ..._data]))
-    if (window.en_access_config) {
+    if (isEn()) {
       wftCommon.zh2en(_data, (enData: T[]) => {
         console.log('🚀 ~ wftCommon.zh2en ~ enData:', enData)
         setData((prevData) => {
@@ -100,8 +101,6 @@ const useResultListData = <T extends Record<string, any>>(
               orgType: item?.orgType,
               corpName: item?.corpName,
               corpNameEng: item?.corpNameEng || enItem?.corpNameEng || enItem?.corpName,
-              corporationTags3: item.corporationTags3,
-
               // 其他需要更新的英文字段...
             }
           })

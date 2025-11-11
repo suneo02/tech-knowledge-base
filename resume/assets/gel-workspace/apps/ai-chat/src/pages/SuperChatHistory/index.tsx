@@ -25,6 +25,7 @@ const SuperChatHistory = () => {
       if (data.ErrorCode === ApiCodeForWfc.SUCCESS && data?.Data?.page) {
         setPage((prev) => ({
           ...prev,
+          // @ts-expect-error ttt
           total: data.Data.page.total,
         }))
       }

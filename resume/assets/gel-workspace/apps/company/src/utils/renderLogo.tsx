@@ -1,4 +1,5 @@
 import React from 'react'
+import { isChineseName } from './utils'
 
 /** Logo组件属性类型 */
 export interface RenderLogoProps {
@@ -19,22 +20,6 @@ export interface RenderLogoProps {
  */
 const removeHtmlTags = (str: string): string => {
   return str.replace(/<\/?[^>]+(>|$)/g, '')
-}
-
-/**
- * 判断字符串是否为英文名称
- */
-const isEnglishName = (str: string): boolean => {
-  const firstCharIsEnglish = /^[a-zA-Z]/.test(str)
-  const onlyEnglishChars = /^[a-zA-Z0-9\s.,&()'\-]+$/.test(str)
-  return firstCharIsEnglish && onlyEnglishChars
-}
-
-/**
- * 判断字符串是否为中文名称
- */
-const isChineseName = (str: string): boolean => {
-  return /[\u4e00-\u9fa5]/.test(str)
 }
 
 /**
@@ -83,24 +68,16 @@ export const renderLogo = ({ name, width, height, backgroundColor = 'rgb(209, 21
   }
   const displayText6 = getCharacters(cleanName, 6)
 
-  if (isEnglishName(displayText6)) {
-    // 英文处理: 取第一个单词，最多6个字符，超过3个字符换行
-    if (displayText6.length > 3) {
-      const firstPart = getCharacters(displayText6, 3)
-      const secondPart = getCharacters(displayText6.slice(3), 3)
-      displayText = [firstPart, secondPart].filter(Boolean).join('\n')
-    }
-  } else if (isChineseName(displayText6)) {
+  if (isChineseName(displayText6)) {
     // 中文处理: 最多显示4个字，2x2排列
     const displayText4 = getCharacters(displayText6, 4)
     if (displayText4.length > 2) {
       displayText = getCharacters(displayText4, 2) + '\n' + getCharacters(displayText4.slice(2), 2)
     }
   } else {
-    console.log('其他语言', displayText)
-    // 其他情况：直接显示
-    displayText = getCharacters(displayText6, 4)
-    DEFAULT_TIMES = 3
+    // 其他情况：显示1个字母
+    displayText = getCharacters(displayText6, 1)
+    DEFAULT_TIMES = 1
   }
   return (
     <div

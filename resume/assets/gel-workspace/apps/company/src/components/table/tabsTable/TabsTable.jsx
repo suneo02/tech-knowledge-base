@@ -12,7 +12,12 @@ const TabsTable = ({ tabs, tableProps }) => {
   const tab = tabs?.find((res) => res.key === activeKey)
   const operations = tab?.downDocType ? <CardHeader hiddenTxt={true} {...tab} /> : null
   return (
-    <Tabs tabBarExtraContent={operations} onTabClick={(key) => setActiveKey(key)}>
+    <Tabs
+      tabBarExtraContent={operations}
+      onTabClick={(key) => setActiveKey(key)}
+      data-uc-id="LGPtAvcYF2"
+      data-uc-ct="tabs"
+    >
       {tabs?.map((res, index) => (
         <Tabs.TabPane
           tab={
@@ -23,6 +28,9 @@ const TabsTable = ({ tabs, tableProps }) => {
           }
           key={res.treeKey || res.key || `tabs-${index}`}
           disabled={(!res.num || res.num === '0') && !res.display}
+          data-uc-id="aVUG3G59HF"
+          data-uc-ct="tabs"
+          data-uc-x={res.treeKey || res.key || `tabs-${index}`}
         >
           <TableNew nodes={tableProps} {...res} key={res.treeKey || res.key || `tabs-table-${index}`} />
         </Tabs.TabPane>

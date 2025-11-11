@@ -30,21 +30,22 @@
       "types": "./dist/types/validation/index.d.ts"
     }
   },
-  "sideEffects": false,
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
+    "clean": "node ../../scripts/clean.cjs dist",
+    "build": "npm run clean && vite build",
     "dev": "vite build --watch --mode development --minify false --sourcemap",
+    "build:staging": "npm run clean && vite build --mode staging",
     "typecheck": "tsc --noEmit",
-    "tsc": "npm run typecheck"
+    "tsc": "npm run typecheck",
+    "check:circular": "madge --circular --extensions ts,tsx src/"
   },
   "dependencies": {},
   "devDependencies": {
     "gel-types": "workspace:*",
-    "typescript": "^5.0.0",
-    "vite": "^5.0.0",
-    "vite-plugin-dts": "^3.0.0"
-  }
+    "typescript": "^5.0.0"
+  },
+  "sideEffects": false
 }

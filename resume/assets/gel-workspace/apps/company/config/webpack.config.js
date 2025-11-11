@@ -85,7 +85,8 @@ const otherPages = ['SearchHome', 'Company', 'SearchHomeList', 'BankingWorkbench
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function (webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development'
-  const isEnvProduction = webpackEnv === 'production'
+  const isEnvStaging = webpackEnv === 'staging'
+  const isEnvProduction = webpackEnv === 'production' || isEnvStaging
 
   // Variable used for enabling profiling in Production
   // passed into alias object. Uses a flag if passed into the build command
@@ -351,10 +352,77 @@ module.exports = function (webpackEnv) {
             minSize: 200 * 1024,
             minRemainingSize: 0,
             minChunks: 1,
-            maxAsyncRequests: 20,
-            maxInitialRequests: 20,
+            maxAsyncRequests: 30, // 增加以支持更多样式文件合并
+            maxInitialRequests: 30, // 增加以支持多entry样式合并
             enforceSizeThreshold: 50000,
+            // 限制单个 chunk 的最大大小，避免文件过大
+            maxSize: 800 * 1024, // 800KB
             cacheGroups: {
+              // 高优先级：提取 normalize.css 和基础样式到单独 chunk 2025.09.30
+              // 优化原因：多个三方组件中都有 normalize.css 和基础样式，提取到单独 chunk 中，避免重复加载
+              // 2025.09.30 bcheng
+              normalize: {
+                name: 'normalize',
+                test: (module) => {
+                  // 匹配包含 normalize 相关内容的 CSS 模块
+                  if (module.type === 'css/mini-extract') {
+                    return (
+                      module.identifier().includes('normalize') ||
+                      (module._source && module._source._value && module._source._value.includes('normalize'))
+                    )
+                  }
+                  return false
+                },
+                chunks: 'all',
+                priority: 30,
+                reuseExistingChunk: true,
+                enforce: true,
+              },
+              // 高优先级：提取WindUI样式 - 强制跨entry合并，解决多文件重复问题
+              windUiStyles: {
+                name: 'wind-ui-styles', // 固定名称，强制所有entry的WindUI样式合并到同一文件
+                test: (module) => {
+                  if (module.type === 'css/mini-extract') {
+                    const identifier = module.identifier()
+                    const source = module._source && module._source._value
+
+                    // 更精确的WindUI样式匹配
+                    return (
+                      identifier.includes('@wind/wind-ui') || identifier.includes('/wind-ui/')
+                      // 以下判断过于激进，先不开启，需要充分验证
+                      // ||
+                      // (source &&
+                      //   (source.includes('.w-row') ||
+                      //     source.includes('.w-col') ||
+                      //     source.includes('.w-menu') ||
+                      //     source.includes('.w-dropdown') ||
+                      //     source.includes('.w-steps') ||
+                      //     source.includes('.w-theme-') ||
+                      //     source.includes('.w-img-') ||
+                      //     source.includes('.w-text-') ||
+                      //     source.includes('.w-mark') ||
+                      //     source.includes('.w-small') ||
+                      //     source.includes('.w-hoverable')))
+                    )
+                  }
+                  return false
+                },
+                chunks: 'all', // 包含所有chunks
+                priority: 35, // 提高优先级，确保优先匹配
+                reuseExistingChunk: true,
+                enforce: true, // 强制执行
+                minChunks: 1, // 只要出现1次就提取
+                maxAsyncRequests: 30, // 增加异步请求限制
+                maxInitialRequests: 30, // 增加初始请求限制
+              },
+              // // 中高优先级：提取其他UI库样式
+              // uiLibStyles: {
+              //   name: 'ui-lib-styles',
+              //   test: /[\\/]node_modules[\\/](antd|@ant-design|ai-ui|gel-ui)[\\/].*\.css$/,
+              //   chunks: 'all',
+              //   priority: 25,
+              //   reuseExistingChunk: true,
+              // },
               defaultVendors: {
                 test: /[\\/]node_modules[\\/]/,
                 priority: -10,
@@ -493,7 +561,7 @@ module.exports = function (webpackEnv) {
                   //   ['import', { libraryName: 'antd', libraryDirectory: "es", style: "css" }, 'antd'], // `style: "css"` 会加载 全量 css 文件
 
                   ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }, 'antd'],
-                  ['import', { libraryName: '@wind/wind-ui', style: true }], // `style: "css"` 会加载 全量 css 文件
+                  ['import', { libraryName: '@wind/wind-ui', libraryDirectory: 'es', style: true }], // `style: "css"` 会加载 全量 css 文件
                   [
                     'import',
                     {
@@ -666,6 +734,12 @@ module.exports = function (webpackEnv) {
             // Make sure to add the new loader(s) before the "file" loader.
           ],
         },
+        {
+          test: /@wind[\\/]wind-ui[\\/](es|lib)[\\/]result[\\/]theme-bg-component[\\/](light|dark)[\\/].+\.js$/,
+          use: ['null-loader'],
+          // 只处理 src/ 目录下的内容，也即company目录下
+          include: path.resolve(__dirname, '../src'),
+        },
       ].filter(Boolean),
     },
     plugins: [
@@ -675,153 +749,6 @@ module.exports = function (webpackEnv) {
             analyzerMode: 'static',
           })
         : null,
-
-      // isEnvProduction ? new HtmlWebpackPlugin(
-      //     Object.assign(
-      //       {},
-      //       {
-      //         inject: true,
-      //         template: paths.appHtml,
-      //         filename: 'AdvancedSearch04.html',
-      //         chunks: ['browser'],
-      //       },
-      //       isEnvProduction
-      //         ? {
-      //           minify: {
-      //             removeComments: true,
-      //             collapseWhitespace: true,
-      //             removeRedundantAttributes: true,
-      //             useShortDoctype: true,
-      //             removeEmptyAttributes: true,
-      //             removeStyleLinkTypeAttributes: true,
-      //             keepClosingSlash: true,
-      //             minifyJS: true,
-      //             minifyCSS: true,
-      //             minifyURLs: true,
-      //           },
-      //         }
-      //         : undefined
-      //     )
-      //   ) : null,
-
-      // isEnvProduction ? new HtmlWebpackPlugin(
-      //     Object.assign(
-      //       {},
-      //       {
-      //         inject: true,
-      //         template: paths.appHtml,
-      //         filename: 'SearchBid.html',
-      //         chunks: ['searchBid'],
-      //       },
-      //       isEnvProduction
-      //         ? {
-      //           minify: {
-      //             removeComments: true,
-      //             collapseWhitespace: true,
-      //             removeRedundantAttributes: true,
-      //             useShortDoctype: true,
-      //             removeEmptyAttributes: true,
-      //             removeStyleLinkTypeAttributes: true,
-      //             keepClosingSlash: true,
-      //             minifyJS: true,
-      //             minifyCSS: true,
-      //             minifyURLs: true,
-      //           },
-      //         }
-      //         : undefined
-      //     )
-      //   ) : null,
-
-      // 自定义 2023-09-21
-      // isEnvProduction
-      //   ? new HtmlWebpackPlugin(
-      //       Object.assign(
-      //         {},
-      //         {
-      //           inject: true,
-      //           template: paths.appHtml,
-      //           filename: 'Company.html',
-      //           chunks: ['company'],
-      //         },
-      //         isEnvProduction
-      //           ? {
-      //               minify: {
-      //                 removeComments: true,
-      //                 collapseWhitespace: true,
-      //                 removeRedundantAttributes: true,
-      //                 useShortDoctype: true,
-      //                 removeEmptyAttributes: true,
-      //                 removeStyleLinkTypeAttributes: true,
-      //                 keepClosingSlash: true,
-      //                 minifyJS: true,
-      //                 minifyCSS: true,
-      //                 minifyURLs: true,
-      //               },
-      //             }
-      //           : undefined
-      //       )
-      //     )
-      //   : null,
-
-      // isEnvProduction
-      //   ? new HtmlWebpackPlugin(
-      //       Object.assign(
-      //         {},
-      //         {
-      //           inject: true,
-      //           template: paths.appHtml,
-      //           filename: 'SearchHomeList.html',
-      //           chunks: ['searchHomeList'],
-      //         },
-      //         isEnvProduction
-      //           ? {
-      //               minify: {
-      //                 removeComments: true,
-      //                 collapseWhitespace: true,
-      //                 removeRedundantAttributes: true,
-      //                 useShortDoctype: true,
-      //                 removeEmptyAttributes: true,
-      //                 removeStyleLinkTypeAttributes: true,
-      //                 keepClosingSlash: true,
-      //                 minifyJS: true,
-      //                 minifyCSS: true,
-      //                 minifyURLs: true,
-      //               },
-      //             }
-      //           : undefined
-      //       )
-      //     )
-      //   : null,
-
-      // isEnvProduction
-      //   ? new HtmlWebpackPlugin(
-      //       Object.assign(
-      //         {},
-      //         {
-      //           inject: true,
-      //           template: paths.appHtml,
-      //           filename: 'BankingWorkbench.html',
-      //           chunks: ['bankWorkBench'],
-      //         },
-      //         isEnvProduction
-      //           ? {
-      //               minify: {
-      //                 removeComments: true,
-      //                 collapseWhitespace: true,
-      //                 removeRedundantAttributes: true,
-      //                 useShortDoctype: true,
-      //                 removeEmptyAttributes: true,
-      //                 removeStyleLinkTypeAttributes: true,
-      //                 keepClosingSlash: true,
-      //                 minifyJS: true,
-      //                 minifyCSS: true,
-      //                 minifyURLs: true,
-      //               },
-      //             }
-      //           : undefined
-      //       )
-      //     )
-      //   : null,
 
       ...otherPageOuts,
 

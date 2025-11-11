@@ -19,6 +19,8 @@ export type CDEFilterItemType =
   | '9'
   // 名录控件
   | '91'
+  // 还不知道是干嘛的
+  | '10'
 
 export type CDEFilterOption = {
   value?: string | string[]
@@ -70,6 +72,16 @@ export interface CDEFilterItem {
   multiCbx?: 1
 
   extraConfig?: CDEFilterItem[]
+
+  // 不知道干嘛的
+  categoryType?: string
+
+  extraOptions?: CDEFilterOption[] | { value: string; label: string }[]
+
+  /**
+   * 所属行业产业
+   */
+  confidence?: 'lenient' | 'strict' | 'moderate' // lenient: 宽，strict: 严，moderate: 较严
 }
 
 export interface CategoryOptionNode {

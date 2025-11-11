@@ -8,8 +8,8 @@
 import { ConfigTableCellJsonConfig } from 'gel-types'
 import { isEn } from 'gel-util/intl'
 import { renderDateRange, reportTableCellSimpleRenderMap } from 'report-util/table'
+import { TIntl } from 'report-util/types'
 import { HorizontalTableColProps } from '../../../../types/table'
-import { tForRPPreview } from '../../../../utils'
 import { handleConfigTableColCustomRender } from '../custom'
 import { parseConfigTableCellTitleConfig } from '../title'
 import { renderCaseParty } from './caseParty'
@@ -29,12 +29,13 @@ export * from './textRenderers'
  * @returns 返回表格列配置对象
  */
 export const parseConfigTableCellConfig = (
+  t: TIntl,
   config: ConfigTableCellJsonConfig,
   getWsid: () => string | undefined
 ): HorizontalTableColProps | undefined => {
   try {
     // 处理标题
-    const title = parseConfigTableCellTitleConfig(config.title, config.titleIntl, config.titleRenderConfig)
+    const title = parseConfigTableCellTitleConfig(config.title, config.titleIntl, config.titleRenderConfig, t)
 
     // 基础表格列配置
     const baseColumn: HorizontalTableColProps = {
@@ -50,7 +51,7 @@ export const parseConfigTableCellConfig = (
         ...baseColumn,
         render: (value, record) =>
           render(value, record, config, {
-            t: tForRPPreview,
+            t,
             isEn: isEn(),
           }),
       }
@@ -62,7 +63,7 @@ export const parseConfigTableCellConfig = (
           ...baseColumn,
           render: (txt, record) =>
             renderDateRange(txt, record, config, {
-              t: tForRPPreview,
+              t,
               isEn: isEn(),
             }),
         }
@@ -77,13 +78,13 @@ export const parseConfigTableCellConfig = (
           render: (txt, record) => renderCaseParty(txt, record, config),
         }
       case 'custom':
-        return handleConfigTableColCustomRender(baseColumn, config)
+        return handleConfigTableColCustomRender(baseColumn, config, t)
 
       // 如果没有指定渲染类型，默认为普通文本
       default:
         return {
           ...baseColumn,
-          render: (txt, record) => renderText(txt, record, config),
+          render: (txt, record) => renderText(t, txt, record, config),
         }
     }
   } catch (e) {

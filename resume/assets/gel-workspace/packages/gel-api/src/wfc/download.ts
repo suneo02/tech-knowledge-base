@@ -1,5 +1,5 @@
+import { ApiResponseForWFC } from '@/types'
 import { AxiosRequestConfig } from 'axios'
-import { ApiResponseForWFC } from './type'
 
 export interface wfcDownloadApiPath {
   /**

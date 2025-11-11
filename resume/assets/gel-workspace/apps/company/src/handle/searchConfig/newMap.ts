@@ -1,5 +1,4 @@
-import { areaTreeNewMap } from "gel-util/config"
+import { globalAreaTreeCn } from 'gel-util/config'
 
-const newMap = areaTreeNewMap
+const newMap = globalAreaTreeCn
 export { newMap }
-

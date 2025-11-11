@@ -10,11 +10,13 @@ export const pointHomepageLoad = () => {
 }
 
 // 首页加载查企业埋点
-export const pointClickCompanyTab = () => {
+// 参数fromField用于区分来源: 切换Tab or 菜单Click(顶部菜单点击)
+export const pointClickCompanyTab = (fromField: '切换Tab' | '菜单Click' = '切换Tab') => {
   pointBuriedGel('922602100125', '首页查企业', 'searchBtnCk', {
     opActive: 'loading',
     funcType: 'searchBtnCk',
     opEntity: '企业',
+    fromField,
   })
 }
 

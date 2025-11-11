@@ -8,9 +8,8 @@ import { Button, Modal } from '@wind/wind-ui'
 import React, { FC, useState } from 'react'
 import { Agreement } from '../agreement/Agreement'
 import styles from './styles.module.less'
-import { ModalSafeType } from '@/components/modal/ModalSafeType'
 
-export const HKInfoQueryAggreBtn: FC<{ title?: string }> = ({ title }) => {
+export const HKInfoQueryAggreBtn: FC<{ title?: React.ReactNode }> = ({ title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const showModal = () => {
@@ -25,20 +24,22 @@ export const HKInfoQueryAggreBtn: FC<{ title?: string }> = ({ title }) => {
 
   return (
     <>
-      <Button type="link" onClick={showModal} className={tipBtnClassNames}>
+      <Button type="link" onClick={showModal} className={tipBtnClassNames} data-uc-id="ZWlh1jjKWB" data-uc-ct="button">
         {title ? title : `《${intl(0, '企业信用信息查询委托协议')}》`}
       </Button>
       {isModalOpen && (
-        <ModalSafeType
+        <Modal
           visible={isModalOpen}
           onCancel={handleCancel}
           footer={null}
           width={900}
           title={intl(0, '企业信用信息查询委托协议')}
           wrapClassName={styles.modal}
+          data-uc-id="YY3G_RzYCT"
+          data-uc-ct="modalsafetype"
         >
           {modalContent}
-        </ModalSafeType>
+        </Modal>
       )}
     </>
   )

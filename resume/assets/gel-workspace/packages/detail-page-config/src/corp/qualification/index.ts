@@ -1,5 +1,5 @@
-import { validateReportDetailNodeJson } from '@/validation'
-import { ReportDetailNodeJson } from 'gel-types'
+import { validateReportDetailNodeOrNodesJson } from '@/validation'
+import { ReportDetailNodeOrNodesJson } from 'gel-types'
 import corpAdministrativeLicenseBureauJson from './AdministrativeLicenseBureau.json' assert { type: 'json' }
 import corpAdministrativeLicenseJson from './AdministrativeLicenseCreditChina.json' assert { type: 'json' }
 import corpAExcellentTaxpayerJson from './AExcellentTaxpayer.json' assert { type: 'json' }
@@ -18,44 +18,52 @@ import corpRankedCompanyListJson from './RankedCompanyList.json' assert { type: 
 import corpRealEstateDevelopmentQualificationJson from './RealEstateDevelopmentQualification.json' assert { type: 'json' }
 import corpTelecomLicenseJson from './TelecomLicense.json' assert { type: 'json' }
 
-export const corpAExcellentTaxpayer: ReportDetailNodeJson = validateReportDetailNodeJson(corpAExcellentTaxpayerJson)
+export const corpAExcellentTaxpayer: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpAExcellentTaxpayerJson)
 
-export const corpBuildingQualification: ReportDetailNodeJson =
-  validateReportDetailNodeJson(corpBuildingQualificationJson)
+export const corpBuildingQualification: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpBuildingQualificationJson)
 
-export const corpImportExportCredit: ReportDetailNodeJson = validateReportDetailNodeJson(corpImportExportCreditJson)
+export const corpImportExportCredit: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpImportExportCreditJson)
 
-export const corpLogisticsRating: ReportDetailNodeJson = validateReportDetailNodeJson(corpLogisticsRatingJson)
+export const corpLogisticsRating: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpLogisticsRatingJson)
 
-export const corpRealEstateDevelopmentQualification: ReportDetailNodeJson = validateReportDetailNodeJson(
+export const corpRealEstateDevelopmentQualification: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(
   corpRealEstateDevelopmentQualificationJson
 )
 
-export const corpTelecomLicense: ReportDetailNodeJson = validateReportDetailNodeJson(corpTelecomLicenseJson)
+export const corpTelecomLicense: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpTelecomLicenseJson)
 
-export const corpAdministrativeLicenseBureau: ReportDetailNodeJson = validateReportDetailNodeJson(
+export const corpAdministrativeLicenseBureau: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(
   corpAdministrativeLicenseBureauJson
 )
 
-export const corpAdministrativeLicenseCreditChina: ReportDetailNodeJson =
-  validateReportDetailNodeJson(corpAdministrativeLicenseJson)
+export const corpAdministrativeLicenseCreditChina: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpAdministrativeLicenseJson)
 
-export const corpCreditRecord: ReportDetailNodeJson = validateReportDetailNodeJson(corpCreditRecordJson)
+export const corpCreditRecord: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpCreditRecordJson)
 
-export const corpFinancialRecord: ReportDetailNodeJson = validateReportDetailNodeJson(corpFinancialRecordJson)
+export const corpFinancialRecord: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpFinancialRecordJson)
 
-export const corpCommercialFranchise: ReportDetailNodeJson = validateReportDetailNodeJson(corpCommercialFranchiseJson)
+export const corpCommercialFranchise: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpCommercialFranchiseJson)
 
-export const corpFinancialLicense: ReportDetailNodeJson = validateReportDetailNodeJson(corpFinancialLicenseJson)
+export const corpFinancialLicense: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpFinancialLicenseJson)
 
-export const corpGameApproval: ReportDetailNodeJson = validateReportDetailNodeJson(corpGameApprovalJson)
+export const corpGameApproval: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpGameApprovalJson)
 
-export const corpCertification: ReportDetailNodeJson = validateReportDetailNodeJson(corpCertificationJson)
+export const corpCertification: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpCertificationJson)
 
-export const corpCosmeticsProductionLicense: ReportDetailNodeJson = validateReportDetailNodeJson(
+export const corpCosmeticsProductionLicense: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(
   corpCosmeticsProductionLicenseJson
 )
 
-export const corpDirectoryList: ReportDetailNodeJson = validateReportDetailNodeJson(corpDirectoryListJson)
+export const corpDirectoryList: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpDirectoryListJson)
 
-export const corpRankedCompanyList: ReportDetailNodeJson = validateReportDetailNodeJson(corpRankedCompanyListJson)
+export const corpRankedCompanyList: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpRankedCompanyListJson)

@@ -1,4 +1,4 @@
-import { ApiPageForSuperlist } from '..'
+import { ApiPageForSuperlist } from '../types'
 
 export enum PointsChangeType {
   ALL = 0, // 全部

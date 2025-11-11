@@ -9,8 +9,8 @@ import { renderIntegrityInformationPenaltyStatus } from './IntegrityInformationP
 import { renderOverseasBusinessScope } from './overseasBusinessScope'
 import { renderUsedNames } from './renderUsedNames'
 import { corpInfoXXIndustryRender } from './xxIndustryRender'
-
 export * from './bondIssueRating'
+export { renderBussChangeInfoAsHtml } from './bussChangeInfo'
 export * from './dateCustom'
 export * from './hkCorpName'
 export * from './industrySector'

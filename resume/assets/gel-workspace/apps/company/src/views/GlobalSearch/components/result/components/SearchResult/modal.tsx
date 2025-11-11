@@ -80,7 +80,6 @@ export const SearchResultCollectModal = React.forwardRef<
   }))
 
   return (
-    // @ts-expect-error ttt
     <Modal
       title={intl('437320', '选择分组')}
       visible={visible}
@@ -88,11 +87,19 @@ export const SearchResultCollectModal = React.forwardRef<
       width="400px"
       onCancel={close}
       loading={loading}
+      data-uc-id="KASx0ehmvw"
+      data-uc-ct="modal"
     >
       <div className="warn-layer-msg">
         <div style={{ marginBlockEnd: 12 }}>{intl('437299', '将所选企业收藏至')}</div>
-        {/* @ts-expect-error ttt */}
-        <CheckboxGroup value={checkboxValue} options={options} onChange={setCheckboxValue} />
+
+        <CheckboxGroup
+          value={checkboxValue}
+          options={options}
+          onChange={setCheckboxValue}
+          data-uc-id="YTIF-9m0FG"
+          data-uc-ct="checkboxgroup"
+        />
       </div>
     </Modal>
   )

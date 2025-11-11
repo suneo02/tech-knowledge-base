@@ -2,8 +2,8 @@ import { useEmbedMode, usePresetQuestionBaseContext } from '@/context'
 import { useResponsive } from 'ahooks'
 import { Space } from 'antd'
 import { ChatQuestion } from 'gel-api'
+import { WelcomeSection } from 'gel-ui'
 import React from 'react'
-import { WelcomeSection } from '../Welcome'
 import { PromptsSection } from './PromptsSection'
 import styles from './style/base.module.less'
 import promptsSectionStyles from './style/promptsSection.module.less'
@@ -50,7 +50,7 @@ export const PlaceholderBase: PlaceholderPromptsComp = ({ handleSendPresetMsg })
   }
 
   const handleItemClick = ({ data }: { data: ChatQuestion }) => {
-    handleSendPresetMsg(data.questions)
+    handleSendPresetMsg?.(data.questions)
   }
 
   const getOtherParams = (question: ChatQuestion) => {
@@ -63,7 +63,7 @@ export const PlaceholderBase: PlaceholderPromptsComp = ({ handleSendPresetMsg })
       direction="vertical"
       size={16}
     >
-      <WelcomeSection isLargeScreen={responsive.lg} size={isEmbedMode ? 'small' : 'normal'} />
+      <WelcomeSection size={isEmbedMode ? 'small' : 'normal'} />
       <PromptsSection
         onItemClick={handleItemClick}
         questions={chatQuestions}

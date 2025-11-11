@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as FindCustomerActions from '../../actions/findCustomer'
 import { pointBuried, pointBuriedGel } from '../../api/configApi'
-import { getCustomerSubList } from '../../api/findCustomer'
+import { getCustomerSubList } from '../../api/findCustomer.ts'
 import global from '../../lib/global'
 import { getVipInfo } from '../../lib/utils'
 
@@ -18,6 +18,7 @@ import intl from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import './index.less'
 
+import { checkIfCDESearchFilter } from 'gel-ui'
 import { namelistAdd, namelistDelete, namelistEdit } from '../../api/collect&namelist'
 import { setPageTitle } from '../../handle/siteTitle'
 import { getMenuKeyFromUrl } from './handle'
@@ -47,6 +48,8 @@ export const ShowAllSubModelDiv = (props) => {
                       }
                       props.openOrClosePush(t, idx, mySusList, setMySusList)
                     }}
+                    data-uc-id="2PZdFd7bba"
+                    data-uc-ct="button"
                   >
                     {' '}
                     {subEmail && t.subPush ? '取消推送' : '推送'}{' '}
@@ -62,6 +65,8 @@ export const ShowAllSubModelDiv = (props) => {
                         }
                       })
                     }
+                    data-uc-id="N0E03Xu55s"
+                    data-uc-ct="button"
                   >
                     {intl('19853', '删除')}
                   </Button>
@@ -84,6 +89,8 @@ export const ShowAllSubModelDiv = (props) => {
                         }
                       )
                     }}
+                    data-uc-id="K1MHIDcSvb"
+                    data-uc-ct="button"
                   >
                     {intl('174265', '编辑')}
                   </Button>
@@ -92,6 +99,8 @@ export const ShowAllSubModelDiv = (props) => {
                       store.dispatch(globalActions.clearGolbalModal())
                       props.gotoFilterRes(t, 1)
                     }}
+                    data-uc-id="ffVBiMviR5"
+                    data-uc-ct="button"
                   >
                     {intl('16576', '应用')}
                   </Button>
@@ -227,131 +236,140 @@ class FindCustomer extends React.Component<any, any> {
   }
 
   getFilterContent = (item, long) => {
-    const { getPreItemInfo } = this.props
-
-    let txtLength = long ? long : 14
-    console.log(item.superQueryLogic, 'item.superQueryLogic')
-    let filters
     try {
-      filters = item.superQueryLogic ? JSON.parse(item.superQueryLogic).filters : ''
-    } catch (error) {
-      console.log(error, 'error')
-    }
-    filters = filters || []
-    let geoFilter = item.condition?.geoFilter || []
-    let strArr = filters.map((filter) => {
-      const { logic, title, value, itemId, field } = filter
-      // 包含已删除的筛选项
-      if (!getPreItemInfo(itemId)) {
-        console.log(`包含已删除的筛选项: ${title}, 模板名称：${item.templateName}`)
-        return
-      }
-      const itemOption = getPreItemInfo(itemId)?.itemOption
-      let str = ''
-      switch (logic) {
-        case 'prefix':
-          // 地区/行业
+      const { getPreItemInfo } = this.props
 
-          // str = `${title} - ${value.map(a => a.split('|')[0]).join('/')}`;
-          str = `${title} - ${value.map((a) => this.props.codeMap[a]).join('/')}`
-          break
-        case 'bool':
-          if (itemOption?.length > 0) {
-            itemOption.forEach((item) => {
-              if (item.value === value[0]) {
-                str = `${title} - ${item.name}`
-              }
-            })
-          } else {
-            // 测试
-            str = `${title} - ${value[0] ? '有' : '无'}`
+      const txtLength = long ? long : 14
+      let filters
+      try {
+        filters = item.superQueryLogic ? JSON.parse(item.superQueryLogic).filters : ''
+      } catch (error) {
+        console.log(error, 'error')
+      }
+      try {
+        filters = filters || []
+        const geoFilter = item.condition?.geoFilter || []
+        const strArr = filters.map((filter) => {
+          const { logic, title, value, itemId, field } = filter
+          // 包含已删除的筛选项
+          if (!getPreItemInfo(itemId)) {
+            console.log(`包含已删除的筛选项: ${title}, 模板名称：${item.templateName}`)
+            return
           }
-          break
-        default:
-          let range
-          switch (field) {
-            case 'register_capital':
-              let values = value.map((value) => {
-                range = value.split('-')
-                if (!range[0]) {
-                  str = `0至${range[1]}万`
-                } else if (!range[1]) {
-                  str = `${range[0]}万以上`
-                } else {
-                  str = `${range[0]}至${range[1]}万`
-                }
-                return str
-              })
-              str = `${title} - ${values.join('/')}`
+          const itemOption = getPreItemInfo(itemId)?.itemOption
+          let str = ''
+          switch (logic) {
+            case 'prefix':
+              // 地区/行业
+
+              // str = `${title} - ${value.map(a => a.split('|')[0]).join('/')}`;
+              str = `${title} - ${value.map((a) => this.props.codeMap[a]).join('/')}`
               break
-            case 'endowment_num':
-              range = value[0].split('-')
-              if (!range[0]) {
-                str = `0至${range[1]}人`
-              } else if (!range[1]) {
-                str = `${range[0]}人以上`
+            case 'bool':
+              if (itemOption?.length > 0) {
+                itemOption.forEach((item) => {
+                  if (item.value === value[0]) {
+                    str = `${title} - ${item.name}`
+                  }
+                })
               } else {
-                str = `${range[0]}至${range[1]}人`
+                // 测试
+                str = `${title} - ${value[0] ? '有' : '无'}`
               }
-              str = `${title} - ${str}`
-              break
-            case 'established_time':
-              if (value[0] === '30') {
-                str = '一个月内'
-              } else if (value[0] === '180') {
-                str = '六个月内'
-              } else {
-                str = `${value[0]}`
-              }
-              str = `${title} - ${str}`
               break
             default:
-              if (filter.itemType == '9') {
-                let values = filter.search
-                values.map((t) => {
-                  str = str ? t.objectName : '、' + t.objectName
-                })
-                str = `${title} - ${str}`
-                return str
-              }
-              if (logic === 'range' && value[0].indexOf('-') >= 0) {
-                let values = value.map((value) => {
-                  range = value.split('-')
-                  if (!range[0]) {
-                    str = `0至${range[1]}个`
-                  } else if (!range[1]) {
-                    str = `${range[0]}个以上`
-                  } else {
-                    str = `${range[0]}至${range[1]}个`
-                  }
-                  return str
-                })
-                str = `${title} - ${values.join('/')}`
-              } else if (itemOption?.length > 0) {
-                let values = value.map((value) => {
-                  itemOption.forEach((item) => {
-                    if (item.value === value) {
-                      str = `${item.name}`
+              let range
+              switch (field) {
+                case 'register_capital':
+                  const values = value.map((value) => {
+                    range = value.split('-')
+                    if (!range[0]) {
+                      str = `0至${range[1]}万`
+                    } else if (!range[1]) {
+                      str = `${range[0]}万以上`
+                    } else {
+                      str = `${range[0]}至${range[1]}万`
                     }
+                    return str
                   })
-                  return str
-                })
-                str = `${title} - ${values.join('/')}`
-              } else {
-                str = `${title} - ${value.join('/')}`
+                  str = `${title} - ${values.join('/')}`
+                  break
+                case 'endowment_num':
+                  range = value[0].split('-')
+                  if (!range[0]) {
+                    str = `0至${range[1]}人`
+                  } else if (!range[1]) {
+                    str = `${range[0]}人以上`
+                  } else {
+                    str = `${range[0]}至${range[1]}人`
+                  }
+                  str = `${title} - ${str}`
+                  break
+                case 'established_time':
+                  if (value[0] === '30') {
+                    str = '一个月内'
+                  } else if (value[0] === '180') {
+                    str = '六个月内'
+                  } else {
+                    str = `${value[0]}`
+                  }
+                  str = `${title} - ${str}`
+                  break
+                default:
+                  if (checkIfCDESearchFilter(filter)) {
+                    const values = filter.search
+                    values.map((t) => {
+                      str = str ? t.objectName : '、' + t.objectName
+                    })
+                    str = `${title} - ${str}`
+                    return str
+                  }
+                  if (logic === 'range' && value[0].indexOf('-') >= 0) {
+                    const values = value.map((value) => {
+                      range = value.split('-')
+                      if (!range[0]) {
+                        str = `0至${range[1]}个`
+                      } else if (!range[1]) {
+                        str = `${range[0]}个以上`
+                      } else {
+                        str = `${range[0]}至${range[1]}个`
+                      }
+                      return str
+                    })
+                    str = `${title} - ${values.join('/')}`
+                  } else if (itemOption?.length > 0) {
+                    const values = value.map((value) => {
+                      itemOption.forEach((item) => {
+                        if (item.value === value) {
+                          str = `${item.name}`
+                        }
+                      })
+                      return str
+                    })
+                    str = `${title} - ${values.join('/')}`
+                  } else {
+                    str = `${title} - ${value.join('/')}`
+                  }
+                  break
               }
-              break
           }
+          return str.length > txtLength ? `${str.substring(0, txtLength)}...` : str
+        })
+        // 添加位置信息
+        const geoStrArr = geoFilter.map((item) => {
+          const str = item.territoryName
+          return str.length > txtLength ? `${str.substring(0, txtLength)}...` : str
+        })
+        ;[].unshift.apply(strArr, geoStrArr)
+        return strArr.join(' · ')
+      } catch (error) {
+        console.error(error, item, filters)
+        return ''
       }
-      return str.length > txtLength ? `${str.substring(0, txtLength)}...` : str
-    })
-    // 添加位置信息
-    let geoStrArr = geoFilter.map((item) => {
-      let str = item.territoryName
-      return str.length > txtLength ? `${str.substring(0, txtLength)}...` : str
-    })
-    ;[].unshift.apply(strArr, geoStrArr)
-    return strArr.join(' · ')
+    } catch (error) {
+      console.error(error, item)
+      return ''
+    }
   }
 
   onLoadMore1 = async () => {
@@ -363,7 +381,7 @@ class FindCustomer extends React.Component<any, any> {
   // 处理路由拦截
   handleRouterHoldUp = (location) => {
     // let fliters = this.filterEl.getCheckFilterItems();
-    let fliters = this.props.filters
+    const fliters = this.props.filters
     if (fliters.length === 0) {
       return
     }
@@ -545,7 +563,7 @@ class FindCustomer extends React.Component<any, any> {
     this.state.title = title
     if (this.state.subscribeVisible) {
       if (this.state.subscribeId || this.props.subscribeId) {
-        let params = {
+        const params = {
           id: this.state.subscribeId || this.props.subscribeId,
           name: title,
         }
@@ -560,14 +578,14 @@ class FindCustomer extends React.Component<any, any> {
   }
 
   generFilterJson = (values) => {
-    let tmpData = []
-    let _filters = JSON.parse(JSON.stringify(values))
+    const tmpData = []
+    const _filters = JSON.parse(JSON.stringify(values))
     _filters.map((filter) => {
       delete filter.info
     })
     _filters.forEach((el) => {
-      let itemList = []
-      let keysList = Object.keys(el).sort()
+      const itemList = []
+      const keysList = Object.keys(el).sort()
       keysList.forEach((kl) => {
         itemList.push(el[kl])
       })
@@ -588,7 +606,7 @@ class FindCustomer extends React.Component<any, any> {
       message.error(intl(286738, '"还未选择有效的过滤条件！"'))
       return false
     }
-    let _filters = JSON.parse(JSON.stringify(filters))
+    const _filters = JSON.parse(JSON.stringify(filters))
     _filters.map((filter) => {
       delete filter.info
     })
@@ -688,8 +706,8 @@ class FindCustomer extends React.Component<any, any> {
   }
 
   showAllSubModel = () => {
-    let { mySusList, subEmail } = this.props.findCustomer
-    let self = this
+    const { mySusList, subEmail } = this.props.findCustomer
+    const self = this
 
     store.dispatch(
       globalActions.setGolbalModal({
@@ -709,6 +727,8 @@ class FindCustomer extends React.Component<any, any> {
             changeSubscribeVisible={this.changeSubscribeVisible}
             gotoFilterRes={this.gotoFilterRes}
             getFilterContent={this.getFilterContent}
+            data-uc-id="iNQDtVVCH15"
+            data-uc-ct="showallsubmodeldiv"
           ></ShowAllSubModelDiv>
         ),
         footer: null,
@@ -729,8 +749,13 @@ class FindCustomer extends React.Component<any, any> {
         title: '温馨提示',
         content: <div>是否删除订阅，确认将删除保存的条件以及不再收到推送邮件。</div>,
         footer: [
-          // @ts-expect-error ttt
-          <Button type="grey" onClick={() => store.dispatch(globalActions.clearGolbalModal())}>
+          <Button
+            // @ts-expect-error ttt
+            type="grey"
+            onClick={() => store.dispatch(globalActions.clearGolbalModal())}
+            data-uc-id="MVz2V8LcCI"
+            data-uc-ct="button"
+          >
             {intl('19405', '取消')}
           </Button>,
           <Button
@@ -740,6 +765,8 @@ class FindCustomer extends React.Component<any, any> {
               okCall && okCall()
               store.dispatch(globalActions.clearGolbalModal())
             }}
+            data-uc-id="kvIC-eJ8Jz"
+            data-uc-ct="button"
           >
             {intl('138836', '确定')}
           </Button>,
@@ -771,7 +798,7 @@ class FindCustomer extends React.Component<any, any> {
 
   render() {
     const { isShowSavePromptModal, rightChangeWidth, subscribeVisible, title } = this.state
-    let { mySusList } = this.props.findCustomer
+    const { mySusList } = this.props.findCustomer
     const { location } = this.props
 
     const rightSusList = mySusList && mySusList.length && mySusList.length > 10 ? mySusList.slice(0, 10) : mySusList
@@ -781,12 +808,14 @@ class FindCustomer extends React.Component<any, any> {
     return (
       <React.Fragment>
         <div className="breadcrumb-box">
-          <Breadcrumb>
+          <Breadcrumb data-uc-id="uyBn5e1gFm" data-uc-ct="breadcrumb">
             <Breadcrumb.Item
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 wftCommon.jumpJqueryPage('SearchHome.html')
               }}
+              data-uc-id="De92KQM9bP"
+              data-uc-ct="breadcrumb"
             >
               {' '}
               {intl('19475', '首页')}{' '}
@@ -799,20 +828,25 @@ class FindCustomer extends React.Component<any, any> {
                   onClick={() => {
                     this.props.history.push('/findCustomer?')
                   }}
+                  data-uc-id="peI11ZLM7u"
+                  data-uc-ct="breadcrumb"
                 >
                   {intl('259750', '企业数据浏览器')}
                 </Breadcrumb.Item>
-                <Breadcrumb.Item>结果列表</Breadcrumb.Item>
+                <Breadcrumb.Item data-uc-id="WLduuhtaei" data-uc-ct="breadcrumb">
+                  结果列表
+                </Breadcrumb.Item>
               </React.Fragment>
             ) : (
-              <Breadcrumb.Item>{intl('259750', '企业数据浏览器')}</Breadcrumb.Item>
+              <Breadcrumb.Item data-uc-id="fDLVrPvW2r" data-uc-ct="breadcrumb">
+                {intl('259750', '企业数据浏览器')}
+              </Breadcrumb.Item>
             )}
           </Breadcrumb>
         </div>
-
         <div className="findCustomer">
           {/* 页面的任何地方加上Prompt组件都生效 */}
-          {/* @ts-expect-error ttt */}
+
           <Modal
             title={intl(31041, '提示')}
             closable={false}
@@ -820,20 +854,27 @@ class FindCustomer extends React.Component<any, any> {
             onOk={this.handleSaveModelOK}
             onCancel={this.handleSaveModelCancel}
             footer={[
-              // @ts-expect-error ttt
-              <Button type="grey" onClick={this.handleSaveModelOK}>
+              <Button
+                // @ts-expect-error ttt
+                type="grey"
+                onClick={this.handleSaveModelOK}
+                data-uc-id="aHkOElm8ReE"
+                data-uc-ct="button"
+              >
                 {intl(283270, '仍要离开')}
               </Button>,
-              <Button type="primary" onClick={this.handleSaveModelCancel}>
+              <Button type="primary" onClick={this.handleSaveModelCancel} data-uc-id="u4tl7XhSRzI" data-uc-ct="button">
                 {intl(283271, '留在此页')}
               </Button>,
             ]}
+            data-uc-id="SlHnbI7AYD7"
+            data-uc-ct="modal"
           >
             <span style={{ marginLeft: '10px' }}>{intl(283272, '离开页面将丢失已选条件，是否仍要离开？')}</span>
           </Modal>
           <Row gutter={16}>
             <Col className="main_content">
-            <RestructFilter
+              <RestructFilter
                 isShow={true}
                 currentDefault={this.state.selectedMenuKeyFromUrl}
                 changeSubscribeVisible={() => {
@@ -856,12 +897,14 @@ class FindCustomer extends React.Component<any, any> {
                           this.onLoadMore1()
                           e.stopPropagation()
                         }}
+                        data-uc-id="DUSTXREBY4e"
+                        data-uc-ct="span"
                       >
                         {intl(138650, '查看全部')}
                       </span>
                     }
                     renderItem={(item: any, idx) => (
-                      <List.Item onClick={() => this.gotoFilterRes(item, 1)}>
+                      <List.Item onClick={() => this.gotoFilterRes(item, 1)} data-uc-id="dWIAhU2oXWQ" data-uc-ct="">
                         <List.Item.Meta
                           title={
                             <>
@@ -874,6 +917,8 @@ class FindCustomer extends React.Component<any, any> {
                               <span>{this.getFilterContent(item)}</span>
                             </p>
                           }
+                          data-uc-id="9JV17RlK5W-"
+                          data-uc-ct=""
                         />
                         <span
                           onClick={(e) => {
@@ -883,11 +928,15 @@ class FindCustomer extends React.Component<any, any> {
                             })
                             e.stopPropagation()
                           }}
+                          data-uc-id="fjP_uNSpMK1"
+                          data-uc-ct="span"
                         >
                           <CloseO
                             className={'list-item-del'}
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
+                            data-uc-id="l7kyppciOTY"
+                            data-uc-ct="closeo"
                           />
                         </span>
                       </List.Item>
@@ -898,7 +947,6 @@ class FindCustomer extends React.Component<any, any> {
             ) : null}
           </Row>
         </div>
-
         {/* 订阅 */}
         <Subscribe
           type={1}

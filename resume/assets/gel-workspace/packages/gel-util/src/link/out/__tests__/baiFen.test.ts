@@ -1,36 +1,60 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { usedInClient } from '../../../env'
-import { BaiFenHost, BaiFenSites } from '../baiFen'
+import { getCurrentEnv, usedInClient } from '../../../env'
+import { BaiFenSites, getBaiFenHost } from '../baiFen'
 
 // Mock dependencies
 vi.mock('../../../env', () => ({
   usedInClient: vi.fn(),
+  getCurrentEnv: vi.fn(),
 }))
 
 vi.mock('../../handle', () => ({
   getUrlByLinkModule: vi.fn(),
 }))
 
+// Mock window.location
+Object.defineProperty(window, 'location', {
+  value: {
+    host: 'test.wind.com.cn',
+  },
+  writable: true,
+})
+
 describe('baiFen module', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  describe('BaiFenHost', () => {
+  describe('getBaiFenHost', () => {
+    beforeEach(() => {
+      vi.mocked(getCurrentEnv).mockReturnValue('web')
+    })
+
     it('should return terminal host when isTerminal is true', () => {
-      expect(BaiFenHost(true)).toBe('govwebsite')
+      expect(getBaiFenHost({ isTerminal: true })).toBe('govwebsite')
     })
 
     it('should return web host when isTerminal is false', () => {
-      expect(BaiFenHost(false)).toBe('dgov.wind.com.cn')
+      vi.mocked(getCurrentEnv).mockReturnValue('web')
+      expect(getBaiFenHost({ isTerminal: false })).toBe('wx.wind.com.cn')
     })
 
     it('should use usedInClient when isTerminal is not provided', () => {
       vi.mocked(usedInClient).mockReturnValue(true)
-      expect(BaiFenHost()).toBe('dgov.wind.com.cn')
+      vi.mocked(getCurrentEnv).mockReturnValue('web')
+      expect(getBaiFenHost()).toBe('govwebsite')
 
       vi.mocked(usedInClient).mockReturnValue(false)
-      expect(BaiFenHost()).toBe('dgov.wind.com.cn')
+      vi.mocked(getCurrentEnv).mockReturnValue('web')
+      expect(getBaiFenHost()).toBe('wx.wind.com.cn')
+    })
+
+    it('should return window.location.host in dev mode', () => {
+      expect(getBaiFenHost({ isTerminal: false, isDev: true })).toBe('test.wind.com.cn')
+    })
+
+    it('should return window.location.host in staging mode', () => {
+      expect(getBaiFenHost({ isTerminal: false, isStaging: true })).toBe('test.wind.com.cn')
     })
   })
 
@@ -82,9 +106,13 @@ describe('baiFen module', () => {
     })
 
     describe('Web version', () => {
+      beforeEach(() => {
+        vi.mocked(getCurrentEnv).mockReturnValue('web')
+      })
+
       it('should return login URL for all links when isTerminal is false', () => {
         const sites = BaiFenSites({ isTerminal: false })
-        const host = 'dgov.wind.com.cn'
+        const host = 'wx.wind.com.cn'
         const loginUrl = `https://${host}/baifenweb/`
 
         expect(sites.download).toBe(loginUrl)
@@ -108,13 +136,31 @@ describe('baiFen module', () => {
 
       it('should use usedInClient when isTerminal is not provided', () => {
         vi.mocked(usedInClient).mockReturnValue(false)
+        vi.mocked(getCurrentEnv).mockReturnValue('web')
 
         const sites = BaiFenSites()
-        const host = 'dgov.wind.com.cn'
+        const host = 'wx.wind.com.cn'
         const loginUrl = `https://${host}/baifenweb/`
 
         expect(sites.download).toBe(loginUrl)
         expect(sites.home).toBe(loginUrl)
+      })
+    })
+
+    describe('Report Analysis Process', () => {
+      it('should generate correct report analysis process URL with id parameter', () => {
+        const sites = BaiFenSites({ isTerminal: true })
+        const params = { id: 'report123' }
+        const expectedUrl = 'https://govwebsite/govbusiness?id=report123#/report-analysis/process-for-gel'
+        expect(sites.getReportAnalysisProcessForGel(params)).toBe(expectedUrl)
+      })
+
+      it('should return login URL for report analysis process in web mode', () => {
+        vi.mocked(getCurrentEnv).mockReturnValue('web')
+        const sites = BaiFenSites({ isTerminal: false })
+        const params = { id: 'report123' }
+        const loginUrl = 'https://wx.wind.com.cn/baifenweb/'
+        expect(sites.getReportAnalysisProcessForGel(params)).toBe(loginUrl)
       })
     })
   })

@@ -2,8 +2,7 @@ import { WCBChart } from '@wind/chart-builder'
 import { Tabs } from '@wind/wind-ui'
 import React, { useEffect, useState } from 'react'
 import { getCorpModuleInfo, myWfcAjax } from '../../api/companyApi'
-import intl from '../../utils/intl'
-import { wftCommon } from '../../utils/utils'
+import intl, { translateComplexHtmlData } from '../../utils/intl'
 
 const TabPane = Tabs.TabPane
 
@@ -31,10 +30,16 @@ function StatisticalChart(props) {
       getCorpModuleInfo('gettrademarkstatistics', param).then((res) => {
         if (res && Number(res.ErrorCode) == 0 && res.Data) {
           Object.entries(res.Data).map(([key, value]) => {
-            wftCommon.zh2en(value, (result) => {
-              if (key === 'aggs_trademark_classify') setTrademarkClassify(result)
-              if (key === 'aggs_trademark_status') setTrademarkStatus(result)
-            })
+            translateComplexHtmlData(value)
+              .then((result) => {
+                // @ts-expect-error
+                if (key === 'aggs_trademark_classify') setTrademarkClassify(result)
+                // @ts-expect-error
+                if (key === 'aggs_trademark_status') setTrademarkStatus(result)
+              })
+              .catch((e) => {
+                console.error(e)
+              })
           })
         }
       })
@@ -46,8 +51,10 @@ function StatisticalChart(props) {
           }
           let result = res.Data
 
-          result.agg_patentType && wftCommon.zh2en(result.agg_patentType, (result) => setPatentTypeDetail(result))
-          result.agg_lawStatusCode && wftCommon.zh2en(result.agg_lawStatusCode, (result) => setStatusDetail(result))
+          result.agg_patentType &&
+            translateComplexHtmlData(result.agg_patentType).then((result) => setPatentTypeDetail(result))
+          result.agg_lawStatusCode &&
+            translateComplexHtmlData(result.agg_lawStatusCode).then((result) => setStatusDetail(result))
         })
         .catch(console.error)
     }
@@ -114,16 +121,14 @@ function StatisticalChart(props) {
   if (type === 'brand') {
     return (
       <div>
-        {/* @ts-expect-error */}
-        <Tabs defaultActiveKey="2" onChange={callback1}>
-          {/* @ts-expect-error */}
-          <TabPane tab={intl('232556', '商标分类分布')} key="2">
+        <Tabs defaultActiveKey="2" onChange={callback1} data-uc-id="4kXDI3Ngx" data-uc-ct="tabs">
+          <TabPane tab={intl('232556', '商标分类分布')} key="2" data-uc-id="AynOJ5O8OP" data-uc-ct="tabpane">
             <div style={{ height: 500 }}>
               {tcOption ? <WCBChart waterMark={false} data={tcOption} /> : <div>{intl('132725', '暂无数据')}</div>}
             </div>
           </TabPane>
-          {/* @ts-expect-error */}
-          <TabPane tab={intl('232557', '商标状态分布')} key="3">
+
+          <TabPane tab={intl('232557', '商标状态分布')} key="3" data-uc-id="ywkB7hQpA9" data-uc-ct="tabpane">
             <div style={{ height: 500 }}>
               {tsOption ? <WCBChart waterMark={false} data={tsOption} /> : <div>{intl('132725', '暂无数据')}</div>}
             </div>
@@ -134,10 +139,8 @@ function StatisticalChart(props) {
   } else {
     return (
       <div>
-        {/* @ts-expect-error */}
-        <Tabs defaultActiveKey="2" onChange={callback2}>
-          {/* @ts-expect-error */}
-          <TabPane tab={intl('232559', '专利类型分布')} key="2">
+        <Tabs defaultActiveKey="2" onChange={callback2} data-uc-id="wYUk_WK9zo" data-uc-ct="tabs">
+          <TabPane tab={intl('232559', '专利类型分布')} key="2" data-uc-id="GocHjP3v8K" data-uc-ct="tabpane">
             <div style={{ height: 500 }}>
               {patentTypeDetailOption ? (
                 <WCBChart waterMark={false} data={patentTypeDetailOption} />
@@ -146,8 +149,8 @@ function StatisticalChart(props) {
               )}
             </div>
           </TabPane>
-          {/* @ts-expect-error */}
-          <TabPane tab={intl('232560', '专利状态分布')} key="3">
+
+          <TabPane tab={intl('232560', '专利状态分布')} key="3" data-uc-id="0Tz1uPwSpZ" data-uc-ct="tabpane">
             <div style={{ height: 500 }}>
               {statusDetailOption ? (
                 <WCBChart waterMark={false} data={statusDetailOption} />

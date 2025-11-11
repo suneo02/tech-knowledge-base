@@ -41,6 +41,8 @@ export const CheckBoxNode: FC<{
             onChange={(newlySelected) => {
               handleGroupChange(newlySelected.map(String), getCheckBoxItemValue(item))
             }}
+            data-uc-id="e_efvh95dP"
+            data-uc-ct="checkbox"
           />
         ) : (
           // 分支节点：递归渲染 CheckBoxNode

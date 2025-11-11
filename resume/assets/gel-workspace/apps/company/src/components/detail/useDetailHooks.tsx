@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from '../../api'
 import { wftCommon } from '../../utils/utils'
 
@@ -7,6 +7,7 @@ function useDetailHooks(props) {
   const [loading, setLoading] = useState(false)
   const [pagination, setPagination] = useState<any>(false)
   const [paginationParam, setPaginationParam] = useState({})
+  const prevInfo = useRef(props.info)
 
   const getData = (params = {}) => {
     const { info } = props
@@ -75,14 +76,15 @@ function useDetailHooks(props) {
   }
 
   useEffect(() => {
-    getData(paginationParam)
-  }, [paginationParam])
-
-  //获取数据
-
-  useEffect(() => {
-    getData()
-  }, [props.info])
+    if (prevInfo.current !== props.info) {
+      prevInfo.current = props.info
+      // info 改变，重置分页并获取数据
+      setPaginationParam({})
+      getData({})
+    } else {
+      getData(paginationParam)
+    }
+  }, [props.info, paginationParam])
 
   return {
     dataSource,

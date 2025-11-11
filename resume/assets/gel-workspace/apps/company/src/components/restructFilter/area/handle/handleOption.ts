@@ -1,6 +1,6 @@
 import intl from '@/utils/intl'
+import { TCascadeOptionNode } from 'gel-ui'
 import { cloneDeep } from 'lodash'
-import { TCascadeOptionItem } from '@/components/cascade/type'
 
 export interface IRegionCascadeOptionCfg {
   hasLocation?: boolean
@@ -14,11 +14,11 @@ export interface IRegionCascadeOptionCfg {
     id: string
   }[]
 
-  regions?: TCascadeOptionItem[]
+  regions?: TCascadeOptionNode[]
 }
 
 export const convertRegionCascadeOptionByCfg = (
-  optionsProp: TCascadeOptionItem[] | null,
+  optionsProp: TCascadeOptionNode[] | null,
   { hasLocation, hasTerritory, current_location = [], territoryList, regions }: IRegionCascadeOptionCfg
 ) => {
   const options = optionsProp || cloneDeep(regions)

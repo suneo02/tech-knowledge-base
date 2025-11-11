@@ -3,7 +3,7 @@ import React from 'react'
 import { intlNoIndex } from '@/utils/intl'
 import CompanyLink from '@/components/company/CompanyLink.tsx'
 import { ICorpPrimaryModuleCfg } from '@/components/company/type'
-import { ECorpDetailTable } from '@/handle/corp/detail/module/type.ts'
+import { ECorpDetailTable } from 'gel-types'
 import {
   corpDetailIndustrialRegist,
   corpDetailLastNotice,
@@ -88,7 +88,7 @@ export const englandRowConfig: ICorpPrimaryModuleCfg = {
           intl('28846', '序号'),
           intl('34979', '姓名'),
           intl('210032', '职务'),
-          intl('138691', '任职日期'),
+          intl('34232', '任职日期'),
           intl('149538', '联系地址'),
         ],
         align: [1, 0, 0, 0, 0],
@@ -109,7 +109,7 @@ export const englandRowConfig: ICorpPrimaryModuleCfg = {
           intl('28846', '序号'),
           intl('34979', '姓名'),
           intl('210032', '职务'),
-          intl('138691', '任职日期'),
+          intl('34232', '任职日期'),
           intl('149538', '联系地址'),
         ],
         align: [1, 0, 0, 0, 0],
@@ -135,7 +135,7 @@ export const englandRowConfig: ICorpPrimaryModuleCfg = {
       intl('28846', '序号'),
       intl('34979', '姓名'),
       intl('138728', '职务'),
-      intl('138691', '任职日期'),
+      intl('34232', '任职日期'),
       window.en_access_config ? intl('259985') : '卸任日期',
       intl('149538', '联系地址'),
     ],

@@ -1,5 +1,5 @@
 import { Button, message } from '@wind/wind-ui'
-import React, { FC } from 'react'
+import React, { FC, lazy, Suspense } from 'react'
 import * as globalActions from '../actions/global'
 import { applytrailsvip } from '../api/homeApi'
 import { clearAndLogout } from '../lib/utils'
@@ -10,7 +10,10 @@ import global from './global'
 // 需要替换成下载的二维码
 import { InfoCircleButton } from '@/components/icons/InfoCircle'
 import { ModalSafeType } from '@/components/modal/ModalSafeType.tsx'
-import VipModule from '../components/company/VipModule'
+
+// 懒加载 VipModule 组件 - 优化弹窗加载性能
+// 只有在用户触发VIP弹窗时才会动态加载该组件
+const VipModule = lazy(() => import('../components/company/VipModule'))
 
 // 基础toast
 export const toast = (msg) => {
@@ -37,11 +40,16 @@ export const tryVip = (content) => {
       title: intl(237485, '温馨提示'),
       content: <p className="content">{content}</p>,
       footer: [
-        // @ts-expect-error ttt
-        <Button type="grey" onClick={() => store.dispatch(globalActions.clearGolbalModal())}>
+        <Button
+          // @ts-expect-error ttt
+          type="grey"
+          onClick={() => store.dispatch(globalActions.clearGolbalModal())}
+          data-uc-id="aHX58HhsS"
+          data-uc-ct="button"
+        >
           残忍放弃
         </Button>,
-        <Button type="primary" onClick={() => applyTrail()}>
+        <Button type="primary" onClick={() => applyTrail()} data-uc-id="n1m6KD_Pro" data-uc-ct="button">
           立即试用
         </Button>,
       ],
@@ -63,8 +71,13 @@ export const overVip = (content, className) => {
       title: intl(237485, '温馨提示'),
       content: <p className="content">{content}</p>,
       footer: [
-        // @ts-expect-error ttt
-        <Button type="grey" onClick={() => store.dispatch(globalActions.clearGolbalModal())}>
+        <Button
+          // @ts-expect-error wind ui
+          type="grey"
+          onClick={() => store.dispatch(globalActions.clearGolbalModal())}
+          data-uc-id="dkK8Wv0tuu"
+          data-uc-ct="button"
+        >
           {intl('209713', '我知道了')}
         </Button>,
       ],
@@ -90,11 +103,11 @@ export const updateAlert = () => {
           </p>
           <p>
             点击“同意”即表示您已阅读并同意
-            <a href="/superlist/useragreement.html" target="_blank">
+            <a href="/superlist/useragreement.html" target="_blank" data-uc-id="V0VIo0lJYb" data-uc-ct="a">
               {intl(248084, '用户服务协议')}
             </a>
             <span>{intl(257661, '及')}</span>
-            <a href="/superlist/privacypolicy.html" target="_blank">
+            <a href="/superlist/privacypolicy.html" target="_blank" data-uc-id="J2n7RK5jGH" data-uc-ct="a">
               {intl(242146, '隐私政策')}
             </a>
             <span>的全部条款，可以继续使用我们的产品和服务。</span>
@@ -109,16 +122,20 @@ export const updateAlert = () => {
             store.dispatch(globalActions.clearGolbalModal())
             clearAndLogout()
           }}
+          data-uc-id="72aSLrxyUb"
+          data-uc-ct="button"
         >
           不同意并退出
         </Button>,
         <Button
-          type="primary"
           //   onClick={() => agree().then(res => {
           //     if (res.code === global.SUCCESS) {
           //       window.location.reload();
           //     }
           //   })}
+          type="primary"
+          data-uc-id="LFgvYK7gxk"
+          data-uc-ct="button"
         >
           同 意
         </Button>,
@@ -182,7 +199,11 @@ export const overseaTipsSimple = (closable = false) => {
               <tr>
                 <td>E-mail: </td>
                 <td>
-                  <a href="mailto:GelSupport@wind.com.cn?subject=中国大陆以外地区访问商业数据咨询">
+                  <a
+                    href="mailto:GelSupport@wind.com.cn?subject=中国大陆以外地区访问商业数据咨询"
+                    data-uc-id="2hMjllIgx_"
+                    data-uc-ct="a"
+                  >
                     GELSupport@wind.com.cn
                   </a>
                 </td>
@@ -203,6 +224,8 @@ export const overseaTipsSimple = (closable = false) => {
               console.error(e)
             }
           }}
+          data-uc-id="SKfi9tFHjl"
+          data-uc-ct="button"
         >
           OK
         </Button>,
@@ -233,7 +256,9 @@ export const MessagePopup = (msg, onJump, onClose?) => {
 }
 
 /**
- * vip付费弹框
+ * vip付费弹框 - 懒加载优化版本
+ * @author bcheng<bcheng@wind.com.cn>
+ * 只有在show为true时才会动态加载VipModule组件，优化首屏加载性能
  */
 export const VipPopupModal: FC<{
   show?: boolean
@@ -242,11 +267,17 @@ export const VipPopupModal: FC<{
   onlySvip?: boolean
   description?: string
 }> = ({ show = false, disabled, title, onlySvip, description }) => {
+  // 只有在需要显示时才渲染模态框
+  if (!show) {
+    return null
+  }
+
   let overseaModalCss = ''
   if (wftCommon.is_overseas_config) {
     // 海外无权用户
     overseaModalCss = 'gel-vip-model-oversea'
   }
+
   return (
     <ModalSafeType
       className={`gel-vip-model ${overseaModalCss} `}
@@ -263,8 +294,18 @@ export const VipPopupModal: FC<{
       width={wftCommon.is_overseas_config ? 760 : 858}
       title={wftCommon.is_overseas_config ? '申请购买【全球企业库】' : null}
       maskClosable={wftCommon.is_overseas_config ? false : true}
+      data-uc-id="e-oZHex8ON"
+      data-uc-ct="modalsafetype"
     >
-      <VipModule title={title} onlySvip={onlySvip} description={description}></VipModule>
+      <Suspense fallback={<div></div>}>
+        <VipModule
+          title={title}
+          onlySvip={onlySvip}
+          description={description}
+          data-uc-id="tqAsI8ymHs"
+          data-uc-ct="vipmodule"
+        />
+      </Suspense>
     </ModalSafeType>
   )
 }

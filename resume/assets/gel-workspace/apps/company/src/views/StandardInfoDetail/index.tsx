@@ -44,7 +44,12 @@ const StandardInfoDetail = () => {
   const breadCrumb = wftCommon.isBaiFenTerminalOrWeb() ? null : (
     <div className="bread-crumb">
       <div className="bread-crumb-content">
-        <span className="last-rank" onClick={() => wftCommon.jumpJqueryPage('SearchHome.html')}>
+        <span
+          className="last-rank"
+          onClick={() => wftCommon.jumpJqueryPage('SearchHome.html')}
+          data-uc-id="mkRQ997O7cU"
+          data-uc-ct="span"
+        >
           {intl('19475', '首页')}
         </span>
         <i></i>
@@ -100,6 +105,9 @@ const StandardInfoDetail = () => {
             key={i}
             icon={<span className={end >= index ? 'step__icon--finished' : 'step__icon--unfinished'} />}
             title={i}
+            data-uc-id="CQ4PuqzLqvf"
+            data-uc-ct="step"
+            data-uc-x={i}
           />
         ))}
       </Steps>
@@ -161,6 +169,8 @@ const StandardInfoDetail = () => {
           <Step
             icon={<span className={end >= index ? 'step__icon--finished' : 'step__icon--unfinished'} />}
             title={i}
+            data-uc-id="i1_QKerqYlP"
+            data-uc-ct="step"
           />
         ))}
       </Steps>
@@ -178,7 +188,6 @@ const StandardInfoDetail = () => {
         <p className="standardinfo-title">{standardDataIntl?.standardName}</p>
         <StandardDetailTags standardData={standardDataIntl} />
       </div>
-
       {/**标准状态 */}
       <div className="each-div logo__steps">
         <p className="standardinfo-title">
@@ -186,7 +195,6 @@ const StandardInfoDetail = () => {
         </p>
         {type == 'standardPlan' ? processSteps : statusSteps}
       </div>
-
       {/**标准信息和备案信息和起草单位表格 */}
       {Object.keys(rows).map((i) => (
         <Tables
@@ -198,9 +206,11 @@ const StandardInfoDetail = () => {
           isLoading={false}
           columns={rows[i].columns}
           hideTableConstruct={true}
+          data-uc-id="YvrWOfPpCsY"
+          data-uc-ct="tables"
+          data-uc-x={i}
         />
       ))}
-
       {/**起草人 */}
       {isArray(standardData?.drafter) && standardData?.drafter.length > 0 && (
         <div className="each-div">
@@ -208,7 +218,6 @@ const StandardInfoDetail = () => {
           <p>{standardData?.drafter?.map((i) => i.drafterName).join(',')}</p>
         </div>
       )}
-
       {/**文件下载 */}
       {standardData?.file && (
         <div className="each-div">
@@ -218,7 +227,7 @@ const StandardInfoDetail = () => {
           </span>
           <div className="downloadAppend">
             <button id="downloadAppend">
-              <a href={standardData?.file} target="_blank" rel="noreferrer">
+              <a href={standardData?.file} target="_blank" rel="noreferrer" data-uc-id="nS9yI9mBE-x" data-uc-ct="a">
                 {intl('328191', '下载附件')}
               </a>
             </button>

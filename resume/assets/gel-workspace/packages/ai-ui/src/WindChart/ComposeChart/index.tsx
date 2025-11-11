@@ -2,7 +2,7 @@ import { WCBChart } from '@wind/chart-builder'
 import defaultThemeObj from '@wind/chart-builder/lib/themes/standard/wind.characteristic.theme.json'
 import { isEn } from 'gel-util/intl'
 import { memo } from 'react'
-import { ChartProps } from '..'
+import { ChartProps } from '../type'
 
 const ComposeChart = memo(function ({ indicators, ...rest }: ChartProps) {
   const defaultData = {

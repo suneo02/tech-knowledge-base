@@ -36,7 +36,14 @@ export const corpTechScoreIndustryRender = (_txt, backData) => {
     return (
       <Row className="techScoreRankRow" key={k}>
         <Col span={16}>
-          <Tree className="corp-industry-tree" showLine={true} defaultExpandedKeys={[tmp.key]} treeData={treeStr} />
+          <Tree
+            className="corp-industry-tree"
+            showLine={true}
+            defaultExpandedKeys={[tmp.key]}
+            treeData={treeStr}
+            data-uc-id="bO1DEtYjpb"
+            data-uc-ct="tree"
+          />
         </Col>
         <Col span={8}>
           <span>{intl('30635', '排名')}：</span>
@@ -73,6 +80,8 @@ export const TechScoreHint = () => {
             )
           }}
           underline
+          data-uc-id="CkgKg60l3f"
+          data-uc-ct="link"
         >
           {intl('400794', '点击下载模型说明')}
         </Link>

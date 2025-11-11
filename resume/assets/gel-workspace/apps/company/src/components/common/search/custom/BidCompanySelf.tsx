@@ -32,6 +32,8 @@ export const CustomSelectBidCompanySelf: FC<{
         alignItems: 'center',
         marginRight: '0',
       }}
+      data-uc-id="0H9tHo3cab"
+      data-uc-ct="checkbox"
     >
       <span
         title={content}

@@ -24,7 +24,6 @@ export const LogicOption = ({ value, onChange, className }: LogicOptionProps) =>
       options={OPTIONS}
       value={value}
       defaultValue={CDELogicDefault}
-      // @ts-expect-error wind ui
       onChange={onChange}
       className={classNames('prefixLogic', styles.box, className)}
     />

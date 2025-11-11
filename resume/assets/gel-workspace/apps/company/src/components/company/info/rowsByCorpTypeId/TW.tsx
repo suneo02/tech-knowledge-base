@@ -81,7 +81,7 @@ export const TWrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   ],
   [
     {
-      title: intl('138276', '公司英文名'),
+      title: intl('448329', '公司英文名'),
       dataIndex: 'eng_name',
       colSpan: 5,
     },
@@ -92,7 +92,7 @@ export const TWrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       dataIndex: 'reg_address',
       colSpan: 5,
       render: (title, row) => (
-        <ParkBox title={title} parkTitle={row?.officePark} row={row} parkId={row?.officeParkId} />
+        <ParkBox title={title} parkTitle={row?.officePark} row={row} parkId={row?.officeParkId} isBusAddress={false} />
       ),
     },
   ],

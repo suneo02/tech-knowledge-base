@@ -1,6 +1,7 @@
 import { BaiFenSites } from '@/handle/link'
 import { Breadcrumb, message, Modal, Popconfirm, Spin } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
+import { convertCdeFilter2Query } from 'cde'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as FilterResActions from '../actions/filterRes'
@@ -200,6 +201,8 @@ class FilterRes extends React.Component {
                 // });
               }}
               rel="noreferrer"
+              data-uc-id="u-xVDQXdFB"
+              data-uc-ct="a"
             >
               {text}
             </a>
@@ -544,7 +547,7 @@ class FilterRes extends React.Component {
       } else {
         this.setState({ loading: true, searchBusy: true })
       }
-      this.props.clearDatas()
+      // 不要立刻清空数据，等请求完成后由结果替换，避免空态闪烁
     } else {
       this.setState({
         searchBusy: true,
@@ -567,17 +570,7 @@ class FilterRes extends React.Component {
 
     this.setState({ subscribeId: this.props.filterRes.subscribeId || this.state.subscribeId })
     let isChangeFilter = this.state.subFilterJson !== this.generFilterJson(filters)
-    let filtersParam = []
-
-    filters &&
-      filters.length &&
-      filters.map((t) => {
-        if (t.itemType == '9') {
-          t.search = t.search ? t.search : t.value
-          delete t.value
-        }
-        filtersParam.push(t)
-      })
+    let filtersParam = convertCdeFilter2Query(filters)
 
     this.props
       .search(
@@ -604,7 +597,13 @@ class FilterRes extends React.Component {
         dataCall(res)
       })
       .catch((_error) => {
-        this.setState({ loading: false, searchBusy: false })
+        // 请求失败：置空数据并展示空态
+        this.props.clearDatas()
+        this.setState({
+          loading: false,
+          searchBusy: false,
+          emptyNode: window.en_access_config ? intl('132725', '暂无数据') : Table.emptyNode,
+        })
       })
 
     const _this = this
@@ -640,7 +639,7 @@ class FilterRes extends React.Component {
     let tip = !window.en_access_config ? (
       <span>
         该查询条件的数据浏览量已超限，请更换查询条件或联系客户经理咨询更多数据获取方式，或点击
-        <a href={BaiFenSites().advancedFilter} target="_blank" rel="noreferrer">
+        <a href={BaiFenSites().advancedFilter} target="_blank" rel="noreferrer" data-uc-id="f--ztLLjRq" data-uc-ct="a">
           申请试用
         </a>
         百分企业，满足更多数据导出需求。
@@ -1160,6 +1159,8 @@ class FilterRes extends React.Component {
               //   });
             }}
             rel="noreferrer"
+            data-uc-id="A5eTVy1Hh0"
+            data-uc-ct="a"
           >
             {text}
           </a>
@@ -1176,7 +1177,7 @@ class FilterRes extends React.Component {
             this.state.columns.push({
               key: item2.indicator,
               title: (
-                <span onClick={(e) => this.checkColumn(item, e)}>
+                <span onClick={(e) => this.checkColumn(item, e)} data-uc-id="ydlgKe9Jv1" data-uc-ct="span">
                   {item2.name}
                   {item2.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
                 </span>
@@ -1202,7 +1203,7 @@ class FilterRes extends React.Component {
             this.state.columns.push({
               key: item2.indicator,
               title: (
-                <span onClick={(e) => this.checkColumn(item, e)}>
+                <span onClick={(e) => this.checkColumn(item, e)} data-uc-id="6WRyh90Loi" data-uc-ct="span">
                   {item2.name}
                   {item2.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
                 </span>
@@ -1219,7 +1220,7 @@ class FilterRes extends React.Component {
             this.state.columns.push({
               key: item2.indicator,
               title: (
-                <span onClick={(e) => this.checkColumn(item, e)}>
+                <span onClick={(e) => this.checkColumn(item, e)} data-uc-id="hGCVGl1ARE" data-uc-ct="span">
                   {item2.name}
                   {item2.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
                 </span>
@@ -1244,7 +1245,7 @@ class FilterRes extends React.Component {
             this.state.columns.push({
               key: item2.indicator,
               title: (
-                <p onClick={(e) => this.checkColumn(item, e)}>
+                <p onClick={(e) => this.checkColumn(item, e)} data-uc-id="fYW8r6Kch-" data-uc-ct="p">
                   {item2.name}
                   {item2.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
                 </p>
@@ -1262,6 +1263,8 @@ class FilterRes extends React.Component {
                     //     params: [],
                     //   });
                   }}
+                  data-uc-id="ZfK3KeMrQs_"
+                  data-uc-ct="p"
                 >
                   {text}
                 </p>
@@ -1271,7 +1274,7 @@ class FilterRes extends React.Component {
             this.state.columns.push({
               key: item2.indicator,
               title: (
-                <p onClick={(e) => this.checkColumn(item, e)}>
+                <p onClick={(e) => this.checkColumn(item, e)} data-uc-id="V_6GByBQygA" data-uc-ct="p">
                   {item2.name}
                   {item2.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
                 </p>
@@ -1289,6 +1292,8 @@ class FilterRes extends React.Component {
                     //     params: [],
                     //   });
                   }}
+                  data-uc-id="yebttVgn8L4"
+                  data-uc-ct="p"
                 >
                   {text}
                 </p>
@@ -1298,7 +1303,7 @@ class FilterRes extends React.Component {
             this.state.columns.push({
               key: item2.indicator,
               title: (
-                <p onClick={(e) => this.checkColumn(item, e)}>
+                <p onClick={(e) => this.checkColumn(item, e)} data-uc-id="WoNzIKMg9tr" data-uc-ct="p">
                   {item2.name}
                   {item2.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
                 </p>
@@ -1316,7 +1321,7 @@ class FilterRes extends React.Component {
             this.state.columns.push({
               key: item2.indicator,
               title: (
-                <p onClick={(e) => this.checkColumn(item, e)}>
+                <p onClick={(e) => this.checkColumn(item, e)} data-uc-id="mn31-yqeHLp" data-uc-ct="p">
                   {item2.name}
                   {item2.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
                 </p>
@@ -1332,7 +1337,7 @@ class FilterRes extends React.Component {
             this.state.columns.push({
               key: item2.indicator,
               title: (
-                <span onClick={(e) => this.checkColumn(item, e)}>
+                <span onClick={(e) => this.checkColumn(item, e)} data-uc-id="AtMeW1xqG1c" data-uc-ct="span">
                   {item2.name}
                   {item2.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
                 </span>
@@ -1356,7 +1361,7 @@ class FilterRes extends React.Component {
             this.state.columns.push({
               key: item2.indicator,
               title: (
-                <p onClick={(e) => this.checkColumn(item, e)}>
+                <p onClick={(e) => this.checkColumn(item, e)} data-uc-id="ePUBExM2OgG" data-uc-ct="p">
                   {item2.name}
                   {item2.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
                 </p>
@@ -1781,12 +1786,14 @@ class FilterRes extends React.Component {
     return (
       <React.Fragment>
         <div className="breadcrumb-box">
-          <Breadcrumb>
+          <Breadcrumb data-uc-id="yaS4xH-zvW" data-uc-ct="breadcrumb">
             <Breadcrumb.Item
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 wftCommon.jumpJqueryPage('SearchHome.html')
               }}
+              data-uc-id="7lp5WKdZf"
+              data-uc-ct="breadcrumb"
             >
               {' '}
               {intl('19475', '首页')}{' '}
@@ -1799,17 +1806,22 @@ class FilterRes extends React.Component {
                   onClick={() => {
                     this.props.history.push('/findCustomer?')
                   }}
+                  data-uc-id="KbQYlUyKRE"
+                  data-uc-ct="breadcrumb"
                 >
                   {intl('259750', '企业数据浏览器')}
                 </Breadcrumb.Item>
-                <Breadcrumb.Item>{window.en_access_config ? 'Results' : '结果列表'}</Breadcrumb.Item>
+                <Breadcrumb.Item data-uc-id="FIBMi7POwN" data-uc-ct="breadcrumb">
+                  {window.en_access_config ? 'Results' : '结果列表'}
+                </Breadcrumb.Item>
               </React.Fragment>
             ) : (
-              <Breadcrumb.Item>{intl('259750', '企业数据浏览器')}</Breadcrumb.Item>
+              <Breadcrumb.Item data-uc-id="wxqaa-PMvN" data-uc-ct="breadcrumb">
+                {intl('259750', '企业数据浏览器')}
+              </Breadcrumb.Item>
             )}
           </Breadcrumb>
         </div>
-
         <div
           className={filterVisible ? 'home modal-show' : 'home-filter-res'}
           ref={(el) => {
@@ -1840,7 +1852,14 @@ class FilterRes extends React.Component {
                             ? subInfo.subName
                             : intl('140237', '未命名')}
                       </span>
-                      {!hideEditTitle && <MyIcon name="rename" onClick={this.toggleSubscribe} />}
+                      {!hideEditTitle && (
+                        <MyIcon
+                          name="rename"
+                          onClick={this.toggleSubscribe}
+                          data-uc-id="aciL1044JCK"
+                          data-uc-ct="myicon"
+                        />
+                      )}
                     </div>
                   ) : null}
                 </div>
@@ -1855,6 +1874,8 @@ class FilterRes extends React.Component {
                           this.toggleSubscribe()
                         }
                       }}
+                      data-uc-id="QNGl6WYkjVT"
+                      data-uc-ct="span"
                     >
                       {subInfo && !subInfo.fromAdd ? (
                         <>
@@ -1873,21 +1894,30 @@ class FilterRes extends React.Component {
                   <a
                     disabled={(filters.length === 0 && geoFilter.length === 0) || (data && data.length === 0)}
                     onClick={this.changeLimitNoticeVisible}
+                    data-uc-id="xzLp85WUlAY"
+                    data-uc-ct="a"
                   >
                     {' '}
                     <MyIcon name="save" /> {intl(4698, '导出数据')}
                   </a>
-                  <a className="grey-border" onClick={this.changeTransferVisible}>
+                  <a
+                    className="grey-border"
+                    onClick={this.changeTransferVisible}
+                    data-uc-id="yJI9T8AjAg8"
+                    data-uc-ct="a"
+                  >
                     {' '}
                     <MyIcon name="addColumn" /> {intl(257742, '新增列指标')}
                   </a>
                   <Popconfirm
                     className="tool"
-                    title={intl(283407, '你确定要删除此列吗？此操作无法撤销，但可以通过“新增列指标”重新添加列。')}
+                    title={intl(472314, '确认删除？后续可通过 “新增列指标” 恢复。')}
                     onConfirm={this.deleteColumn}
                     okText={intl(272476, '确定')}
                     cancelText={intl(19405, '取消')}
                     disabled={checkColumns.length < 1}
+                    data-uc-id="990bdahKec"
+                    data-uc-ct="popconfirm"
                   >
                     <a disabled={checkColumns.length < 1}>
                       {' '}
@@ -1910,6 +1940,8 @@ class FilterRes extends React.Component {
                     pagination={pageProps}
                     onChange={this.handleTableChange}
                     empty={this.state.emptyNode}
+                    data-uc-id="R4EWROEYui"
+                    data-uc-ct="table"
                   />
                   {this.state.pageNum === Math.ceil(this.state.total / this.state.pageSize) && (
                     <p>{intl(286685, '没有更多了')}</p>
@@ -1927,6 +1959,8 @@ class FilterRes extends React.Component {
               dataSource={indicators}
               targetKeys={targetKeys}
               onChange={this.handleChange}
+              data-uc-id="iVUoinjyuwJ"
+              data-uc-ct="treetransfer"
             />
           )}
 
@@ -1934,6 +1968,7 @@ class FilterRes extends React.Component {
           <RestructFilterModal
             modal={filterModal}
             setModal={this.setFilterModal}
+            //   leftCurrent = {1}
             onSearch={() => {
               this.setState(
                 {
@@ -1944,7 +1979,8 @@ class FilterRes extends React.Component {
                 }
               )
             }}
-            //   leftCurrent = {1}
+            data-uc-id="3RRMbuE-40b"
+            data-uc-ct="restructfiltermodal"
           />
           {/* 订阅 */}
           <Subscribe
@@ -1983,6 +2019,8 @@ class FilterRes extends React.Component {
               }}
               cancelText={intl(257729, '仍要查看')}
               okText={intl(257640, '添加条件')}
+              data-uc-id="Je98OUY4aF"
+              data-uc-ct="modal"
             >
               <span style={{ margin: '22px 0 24px 0', display: 'inline-block' }}>
                 {intl(257740, '您要找的客户范围似乎太大了，是否添加更多筛选条件，让获客更精准！')}
@@ -2004,6 +2042,8 @@ class FilterRes extends React.Component {
             }}
             cancelText={intl(286745, '放弃投稿')}
             okText={intl(286746, '修改地区')}
+            data-uc-id="wM66_uro9f"
+            data-uc-ct="modal"
           >
             <span style={{ margin: '22px 0 24px 0', display: 'inline-block' }}>
               {intl(

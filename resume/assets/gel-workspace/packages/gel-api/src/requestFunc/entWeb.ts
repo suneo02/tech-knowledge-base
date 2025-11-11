@@ -36,4 +36,3 @@ export async function requestToEntWebWithAxios<P extends keyof ApiPaths[typeof W
     return res.data
   }
 }
-

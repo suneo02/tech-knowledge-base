@@ -1,5 +1,7 @@
+import { IndustryTreeNode } from './type'
+
 // 战略新兴产业
-export const globalStrategicEmergingIndustry = [
+export const globalStrategicEmergingIndustry: IndustryTreeNode[] = [
   {
     code: '142614869',
     level: 1,

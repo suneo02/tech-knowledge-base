@@ -2,6 +2,7 @@ import { ICorpTableCfg } from '@/components/company/type'
 import intl from '@/utils/intl'
 import { FC } from 'react'
 import { wftCommon } from '../../../../utils/utils'
+import { getEmptyFinanceTableColumns } from './handleFinanceTableEmpty'
 
 interface ProfitBasicInfoProps {
   _businessProfit: number
@@ -62,7 +63,9 @@ export const renderFinanceProfit: FC<FinanceProfitProps> = ({
   ]
 
   if (!res?.length) {
-    setProfitBasicInfo((prev) => ({ ...prev, defaultList: [], list: [] }))
+    const columns = getEmptyFinanceTableColumns()
+    setProfitBasicInfo((prev) => ({ ...prev, columns, defaultList: [], list: [] }))
+    setDataLoaded(true)
     return null
   }
 

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "271633",
+    "title": "招投标",
+    "titleIntl": "271633",
+    "moduleId": "features-title-2",
+    "url": {
+      "target": "module",
+      "module": "BID_SEARCH"
+    },
+    "iconKey": "BidC"
+  },
+  {
+    "id": "138356",
+    "title": "招聘",
+    "titleIntl": "138356",
+    "moduleId": "features-title-2",
+    "url": {
+      "target": "module",
+      "module": "JOB_SEARCH"
+    },
+    "iconKey": "RtC"
+  },
+  {
+    "id": "124585",
+    "title": "专利",
+    "titleIntl": "124585",
+    "moduleId": "features-title-2",
+    "url": {
+      "target": "module",
+      "module": "PATENT_SEARCH"
+    },
+    "iconKey": "PatentC"
+  },
+  {
+    "id": "138799",
+    "title": "商标",
+    "titleIntl": "138799",
+    "moduleId": "features-title-2",
+    "url": {
+      "target": "module",
+      "module": "TRADEMARK_SEARCH"
+    },
+    "iconKey": "TmC"
+  }
+]

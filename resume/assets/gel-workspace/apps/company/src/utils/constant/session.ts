@@ -1,1 +1,1 @@
-export const DEFAULT_WSID = '1fe3084b15024f828e86604964ff71c1'
+export const DEFAULT_WSID = '53d94dbe0c19447d80cb262ced3acf45'

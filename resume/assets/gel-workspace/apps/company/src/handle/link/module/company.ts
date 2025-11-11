@@ -1,3 +1,4 @@
+import { EIsSeparate } from 'gel-util/link'
 import { generateCommonLink } from '../handle'
 import { LinksModule } from './linksModule'
 
@@ -15,6 +16,7 @@ export const getCompanyLink = ({ id, target, params, env }) => {
       ...params,
       ...(target != null && { grid: target }),
       CompanyCode: id,
+      isSeparate: EIsSeparate.True,
     },
     env,
   })

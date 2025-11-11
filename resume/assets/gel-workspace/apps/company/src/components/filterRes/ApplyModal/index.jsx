@@ -16,5 +16,13 @@ export default function ApplyModal() {
     }
   }, [])
 
-  return <MainContent visible={modalVisible} onCancel={() => setModalVisible(false)} maskClosable={false}></MainContent>
+  return (
+    <MainContent
+      visible={modalVisible}
+      onCancel={() => setModalVisible(false)}
+      maskClosable={false}
+      data-uc-id="XNfhAeJhs7W"
+      data-uc-ct="maincontent"
+    ></MainContent>
+  )
 }

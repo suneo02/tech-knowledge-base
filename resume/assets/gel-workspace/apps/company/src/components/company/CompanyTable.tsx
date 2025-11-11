@@ -5,7 +5,6 @@ import {
   isProfitResponse,
 } from '@/api/corp/buss/financial'
 import { createRequest } from '@/api/request.ts'
-import { multiTabIds } from '@/components/company/corpCompMisc.tsx'
 import { listDetailConfig } from '@/components/company/listDetailConfig.tsx'
 import { CorpTableModelNum } from '@/components/company/table/ModelNumComp.tsx'
 import { ICorpTableCfg } from '@/components/company/type'
@@ -19,10 +18,11 @@ import { LinksModule } from '@/handle/link'
 import { getIfBondCorpByBasicNum, getIfIPOCorpByBasicNum } from '@/views/Company/handle/corpBasicNum.ts'
 import { DownloadO, InfoCircleO } from '@wind/icons'
 import { Button, Card, Checkbox, Input, Select, Tooltip } from '@wind/wind-ui'
-import Table from '@wind/wind-ui-table'
+import Table, { TableProps } from '@wind/wind-ui-table'
 import { Cascader, ConfigProvider } from 'antd'
 import enUS from 'antd/locale/en_US'
 import zhCN from 'antd/locale/zh_CN'
+import { multiTabIds } from 'gel-util/corpConfig'
 import { isEqual, isString } from 'lodash'
 import React, { FC, useEffect, useMemo, useState } from 'react'
 import { getCorpModuleInfo, getCorpModuleInfoFromRisk } from '../../api/companyApi'
@@ -34,7 +34,7 @@ import { useTranslateService } from '../../hook'
 import global from '../../lib/global'
 import { VipPopup } from '../../lib/globalModal'
 import { getVipInfo } from '../../lib/utils'
-import intl from '../../utils/intl'
+import intl, { translateComplexHtmlData, translateToEnglish } from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import Links from '../common/links/Links.tsx'
 import { InfoCircleButton } from '../icons/InfoCircle/index.tsx'
@@ -45,18 +45,20 @@ import renderCashFlowSheet from './buss/financial/CashFlowSheet.tsx'
 import FinancialTable from './buss/financial/comp'
 import renderFinanceProfit from './buss/financial/FinanceProfit.tsx'
 import renderFinanceanalysis from './buss/financial/FinancialAnalysis.tsx'
+import { getEmptyFinanceTableColumns } from './buss/financial/handleFinanceTableEmpty.tsx'
+import { isShowCompanyTableRightFilterByMultiTableData } from './handle/rightFilter.ts'
 import './style/CompanyTable.less'
 import { CorpTableAggregation, useCorpTableAggApiCmd } from './table/aggregation'
 import { getTableLocale } from './table/handle.ts'
 import { CompanyTechScore } from './techScore/CompanyTechScore'
 import VipModule from './VipModule'
+import { isLinkSourceF9 } from 'gel-util/env'
 
 const { Search } = Input
 const { HorizontalTable } = Table
 const Option = Select.Option
 
 const GqctChartComp = () => React.lazy(() => import('./ShareAndInvest'))
-
 const WCBChartComp = () => React.lazy(() => import('./WcbChartDiv'))
 
 /**
@@ -134,20 +136,20 @@ const CompanyTable: FC<{
   const [profitBasicInfo, setProfitBasicInfo] = useState<{
     defaultList: ProfitBasicInfoProps[]
     list: ProfitBasicInfoProps[]
-    columns?: Record<string, any>[]
-  }>({ defaultList: [], list: [] }) // 利润表模块
+    columns?: TableProps['columns']
+  }>({ defaultList: [], list: [], columns: getEmptyFinanceTableColumns() }) // 利润表模块
 
   const [balanceInfo, setBalanceInfo] = useState<{
     defaultList: any[]
     list: any[]
-    columns?: Record<string, any>[]
-  }>({ defaultList: [], list: [] }) // 利润表模块
+    columns?: TableProps['columns']
+  }>({ defaultList: [], list: [], columns: getEmptyFinanceTableColumns() }) // 利润表模块
 
   const [cashflowInfo, setCashflowInfo] = useState<{
     defaultList: any[]
     list: any[]
-    columns?: Record<string, any>[]
-  }>({ defaultList: [], list: [] }) // 利润表模块
+    columns?: TableProps['columns']
+  }>({ defaultList: [], list: [], columns: getEmptyFinanceTableColumns() }) // 利润表模块
 
   const [finacialindicatorList, setFinacialindicatorList] = useState([]) // 财务指标模块
   const [finacialindicatorColumn, setFinacialindicatorColumn] = useState([])
@@ -201,6 +203,18 @@ const CompanyTable: FC<{
     eachTable.searchOptionDataType
   )
 
+  // 是否来自 F9单独模块访问（走f9的fuse和权限控制逻辑，如股权穿透图）
+  const linkSourceF9 = isLinkSourceF9()
+  // 注意，如果来自 F9单独模块访问，则不走普通fuse和权限控制逻辑，此模块访问需要满足2个条件
+  // 1. 配置f9cmd (无cmd配置的模块如股权穿透图，则直接判断linkSourceF9)
+  // 2. 来自 F9单独模块访问（目前通过url参数  linksource=f9 标识）
+  const linkSourceF9ModuleAccess = linkSourceF9 && eachTable.f9cmd ? true : false
+  if (linkSourceF9ModuleAccess) {
+    eachTable.cmd = eachTable.f9cmd
+    eachTable.notVipTitle = ''
+    eachTable.notVipTips = ''
+  }
+
   useEffect(() => {
     // if (!ready) return 如果加了会出现拿不到的情况，很吃屎
     if (isString(aggApiCmd) && aggApiCmd !== '') {
@@ -232,32 +246,30 @@ const CompanyTable: FC<{
           delete t[arrKey]
         })
       if (!eachTable.noTranslate) {
-        wftCommon.zh2en(
-          data,
-          (res) => {
-            res.map((t) => {
-              t[arrKey] = []
-              if (t['_roleLength'] > 0) {
-                for (let i = 0; i < t['_roleLength']; i++) {
-                  if (typeofArrisStr) {
-                    t[arrKey].push(t[i])
-                  } else {
-                    const tt = {}
-                    strkey1 && (tt[strkey1] = t[strkey1 + i])
-                    strkey2 && (tt[strkey2] = t[strkey2 + i])
-                    strkey3 && (tt[strkey3] = t[strkey3 + i])
-                    t[arrKey].push(tt)
-                  }
+        translateToEnglish(data).then((res) => {
+          if (!res.success) {
+            resolve(data)
+            return
+          }
+          const dataTransed = res.data
+          dataTransed.map((t) => {
+            t[arrKey] = []
+            if (t['_roleLength'] > 0) {
+              for (let i = 0; i < t['_roleLength']; i++) {
+                if (typeofArrisStr) {
+                  t[arrKey].push(t[i])
+                } else {
+                  const tt = {}
+                  strkey1 && (tt[strkey1] = t[strkey1 + i])
+                  strkey2 && (tt[strkey2] = t[strkey2 + i])
+                  strkey3 && (tt[strkey3] = t[strkey3 + i])
+                  t[arrKey].push(tt)
                 }
               }
-            })
-            resolve(res)
-          },
-          null,
-          () => {
-            resolve(data)
-          }
-        )
+            }
+          })
+          resolve(dataTransed)
+        })
       }
     })
   }
@@ -275,18 +287,6 @@ const CompanyTable: FC<{
         frequency: row.frequency,
       })
     }
-  }
-
-  eachTable.medicineFresh = () => {
-    const params = {
-      pageNo: 0,
-      pageSize,
-      companycode,
-      ...ajaxExtras,
-      windCode: companycode,
-    }
-
-    fetchCorpModuleData(params)
   }
 
   eachTable.financialDataFilterFunc = (x: number | string) => {
@@ -361,7 +361,7 @@ const CompanyTable: FC<{
   }
 
   const pageChange = (page) => {
-    if (!userVipInfo.isSvip && !userVipInfo.isVip) {
+    if (!userVipInfo.isSvip && !userVipInfo.isVip && !linkSourceF9ModuleAccess) {
       VipPopup()
       return
     }
@@ -576,10 +576,6 @@ const CompanyTable: FC<{
   }
 
   const handleFinanceSheet = (res) => {
-    if (!res?.length) {
-      setBalanceInfo({ defaultList: [], list: [], columns: [] })
-      return null
-    }
     return renderFinanceSheet({
       data: res,
       setBalanceInfo,
@@ -914,6 +910,8 @@ const CompanyTable: FC<{
             title={expandDetail.title || null}
             rows={[expandDetail.itemKey]}
             dataSource={Object.keys(expandDetailData).length !== 0 ? [expandDetailData[arrIndex][index]] : [[]]}
+            data-uc-id="3V-nHEqpYy"
+            data-uc-ct="horizontaltable"
           ></HorizontalTable>
         )
       } else if (
@@ -931,6 +929,8 @@ const CompanyTable: FC<{
             dataSource={
               expandDetailData[record.key] ? expandDetailData[record.key][index] : expandDetailData[record.key]
             }
+            data-uc-id="KxKStg7a3C"
+            data-uc-ct="horizontaltable"
           ></HorizontalTable>
         )
       } else if (expandDetail.cmd == 'getlandannsdetail') {
@@ -1089,6 +1089,8 @@ const CompanyTable: FC<{
               loading={false}
               rows={rows1}
               dataSource={expandDetailData[record.key]}
+              data-uc-id="RAhlAou_Yk"
+              data-uc-ct="horizontaltable"
             ></HorizontalTable>
           </>
         )
@@ -1198,6 +1200,8 @@ const CompanyTable: FC<{
               loading={false}
               rows={rows1}
               dataSource={expandDetailData[record.key]}
+              data-uc-id="NyZB5PcsZv"
+              data-uc-ct="horizontaltable"
             ></HorizontalTable>
             <div style={{ padding: '5px 0 5px 0' }}>{intl('138188', '案件信息')}</div>
             <HorizontalTable
@@ -1206,6 +1210,8 @@ const CompanyTable: FC<{
               loading={false}
               rows={rows2}
               dataSource={expandDetailData[record.key]}
+              data-uc-id="qDiSv6P7oT"
+              data-uc-ct="horizontaltable"
             ></HorizontalTable>
             <div style={{ padding: '5px 0 5px 0' }}>{intl('138487', '相关人员及公司')}</div>
             <HorizontalTable
@@ -1214,6 +1220,8 @@ const CompanyTable: FC<{
               loading={false}
               rows={rows3}
               dataSource={expandDetailData[record.key]}
+              data-uc-id="qcj1qNlDd7"
+              data-uc-ct="horizontaltable"
             ></HorizontalTable>
           </>
         )
@@ -1268,6 +1276,8 @@ const CompanyTable: FC<{
             title={expandDetail.title || null}
             rows={rows}
             dataSource={expandDetailData[record.key]}
+            data-uc-id="8ji6MnokZh7"
+            data-uc-ct="horizontaltable"
           ></HorizontalTable>
         )
       }
@@ -1443,9 +1453,13 @@ const CompanyTable: FC<{
                     }))
                     selListCallback(selList)
                   } else if (window.en_access_config) {
-                    wftCommon.zh2en(selList_En, (endata) => {
-                      selListCallback(endata)
-                    })
+                    translateComplexHtmlData(selList_En)
+                      .then((endata) => {
+                        selListCallback(endata)
+                      })
+                      .catch((e) => {
+                        console.error(e)
+                      })
                   } else {
                     selListCallback(selList)
                   }
@@ -1762,7 +1776,7 @@ const CompanyTable: FC<{
 
   useEffect(() => {
     if (!ready) return
-    if (!userVipInfo.isSvip && !userVipInfo.isVip) {
+    if (!userVipInfo.isSvip && !userVipInfo.isVip && !linkSourceF9ModuleAccess) {
       if (eachTable.notVipTitle || eachTable.notVipTips) {
         return
       }
@@ -1824,7 +1838,7 @@ const CompanyTable: FC<{
 
     let remark = null
     if (Data.subjectType === '上市主体') {
-      const remarkRaw = intl('437443', '该企业为境外上市主体的境内运营主体，此处为其境外上市主体%的对应上市信息')
+      const remarkRaw = intl('437177', '该企业为境外上市主体的境内运营主体，此处为其境外上市主体%的对应上市信息')
       // 百分号前
       const remarkBefore = remarkRaw.split('%')[0]
       // 百分号后
@@ -2091,6 +2105,8 @@ const CompanyTable: FC<{
           companyCode={companycode}
           aggDataProp={aggData}
           onChange={handleDynamicSelectChange}
+          data-uc-id="RjXvPThvxiv"
+          data-uc-ct="corptableaggregation"
         />
       )
     }
@@ -2137,6 +2153,9 @@ const CompanyTable: FC<{
                   }
                   penetrationType(item)
                 }}
+                data-uc-id="RYEQyTxNAQ7"
+                data-uc-ct="span"
+                data-uc-x={item.value}
               >
                 {item.name}
               </span>
@@ -2166,7 +2185,7 @@ const CompanyTable: FC<{
         )
       ) : null}
 
-      {eachTable.new && <span className="new-flag"></span>}
+      {/* {eachTable.new && <span className="new-flag"></span>} */}
 
       <div className="header-utils">
         {businessScope && !window.en_access_config ? (
@@ -2196,6 +2215,8 @@ const CompanyTable: FC<{
                   alignItems: 'center',
                   marginRight: '0',
                 }}
+                data-uc-id="472jNb4Yl"
+                data-uc-ct="checkbox"
               >
                 <span
                   title={content}
@@ -2232,11 +2253,17 @@ const CompanyTable: FC<{
               const params = { pageNo: 0, pageSize, companycode, ...ajaxExtras }
               fetchCorpModuleData(params)
             }}
+            data-uc-id="AP-LpkMr5h"
+            data-uc-ct="search"
           />
         ) : null}
 
         {/* 右侧筛选等操作 */}
-        {eachTable.rightFilters && eachTable.rightFilters.length
+        {isShowCompanyTableRightFilterByMultiTableData(eachTable, {
+          balanceInfo,
+          profitBasicInfo,
+          cashflowInfo,
+        })
           ? eachTable.rightFilters.map((t, index) => {
               // 投标公告-本企业投标 单独处理
               if (t?.isCheckBox || t.type === 'tag') {
@@ -2255,6 +2282,9 @@ const CompanyTable: FC<{
                   onChange={(val) => {
                     handleSelectChange(val, t, index)
                   }}
+                  data-uc-id="FXCNakypfL"
+                  data-uc-ct="select"
+                  data-uc-x={index}
                 >
                   {selOption && selOption.length
                     ? selOption.map((tt, idx) => {
@@ -2266,7 +2296,15 @@ const CompanyTable: FC<{
                               // 本企业投标单独处理 相当于 全部筛选项，但有计数
                               const disabled = item.doc_count === 0 && item.key !== '本企业投标' ? true : false
                               return (
-                                <Option onChange key={item.key} value={item.value} disabled={disabled}>
+                                <Option
+                                  onChange
+                                  key={item.key}
+                                  value={item.value}
+                                  disabled={disabled}
+                                  data-uc-id={`X2YFHkWlsXf${item.key}`}
+                                  data-uc-ct="option"
+                                  data-uc-x={item.key}
+                                >
                                   {item.key +
                                     (item.doc_count ? `(${result && result.length ? item.doc_count : 0})` : '')}
                                 </Option>
@@ -2307,6 +2345,8 @@ const CompanyTable: FC<{
                     placeholder={intl('357413', '全部资质')}
                     popupPlacement="bottomRight"
                     maxTagCount={1}
+                    data-uc-id="ave6zQgE3D9"
+                    data-uc-ct="cascader"
                   ></Cascader>
                 </ConfigProvider>
               )
@@ -2324,12 +2364,21 @@ const CompanyTable: FC<{
                   onChange={(val) => {
                     handleSelectChangeShareTrace(val, 'level')
                   }}
+                  data-uc-id="LMwnoK90Is"
+                  data-uc-ct="select"
                 >
                   {selOption && selOption.length
                     ? selOption.map((tt) => {
                         const item = tt
                         return (
-                          <Option onChange key={item.key} value={item.value}>
+                          <Option
+                            onChange
+                            key={item.key}
+                            value={item.value}
+                            data-uc-id={`YX9CcdinRGG${item.key}`}
+                            data-uc-ct="option"
+                            data-uc-x={item.key}
+                          >
                             {item.key} {item.doc_count ? `(${item.doc_count})` : ''}
                           </Option>
                         )
@@ -2351,6 +2400,8 @@ const CompanyTable: FC<{
               value={penetrationInputVal}
               placeholder=""
               onChange={(e) => setPenetrationInputVal(e.target.value)}
+              data-uc-id="6SR_sOOsuM"
+              data-uc-ct="search"
             />{' '}
             <span className="header-utils-tip-tit">{' %'} </span>{' '}
           </>
@@ -2384,6 +2435,8 @@ const CompanyTable: FC<{
               const params = { pageNo: 0, pageSize, companycode, ...ajaxExtras }
               fetchCorpModuleData(params)
             }}
+            data-uc-id="z_dDP0Nqtw"
+            data-uc-ct="search"
           />
         ) : null}
 
@@ -2403,7 +2456,16 @@ const CompanyTable: FC<{
                   ajaxExtras,
                 })
               }}
-              icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+              icon={
+                <DownloadO
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="fX8C_fpGA"
+                  data-uc-ct="downloado"
+                />
+              }
+              data-uc-id="qZXizANh5B"
+              data-uc-ct="button"
             >
               {intl('4698', '导出数据')}
             </Button>
@@ -2444,6 +2506,8 @@ const CompanyTable: FC<{
                 onChange={(value, check) => {
                   handleChange(value, check, t, index)
                 }}
+                data-uc-id="cS6FJ_TPreW"
+                data-uc-ct="products"
               />
             </div>
           )
@@ -2466,6 +2530,9 @@ const CompanyTable: FC<{
           title={eachTable.titleStr}
           columns={eachTable.columns}
           locale={locale}
+          data-uc-id="7iIPPHVMBz"
+          data-uc-ct="table"
+          data-uc-x={eachTableKey}
         />
       </div>
     )
@@ -2485,14 +2552,23 @@ const CompanyTable: FC<{
         <SmartHorizontalTable
           bordered={'dotted'}
           title={
-            <div className="test-asdasd">
+            <div>
               {eachTable.title}
               {eachTable.tooltips ? (
                 <Tooltip title={eachTable.tooltips}>
                   <Button
                     type="text"
-                    icon={<InfoCircleO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                    icon={
+                      <InfoCircleO
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                        data-uc-id="LzoakxqCVo"
+                        data-uc-ct="infocircleo"
+                      />
+                    }
                     style={{ marginInlineStart: 4 }}
+                    data-uc-id="8cnIszNjjn"
+                    data-uc-ct="button"
                   />
                 </Tooltip>
               ) : null}
@@ -2542,6 +2618,9 @@ const CompanyTable: FC<{
               locale={locale}
               dataSource={hisBasicInfoListIntl}
               style={{ width: '100%' }}
+              data-uc-id="Nb3sZWgm3H"
+              data-uc-ct="table"
+              data-uc-x={eachTableKey}
             />
           </div>
         )}
@@ -2611,7 +2690,7 @@ const CompanyTable: FC<{
         divider={'none'}
         title={intl('138279', '股权穿透图')}
       >
-        {!userVipInfo.isVip ? (
+        {!userVipInfo.isVip && !linkSourceF9 ? (
           <VipModule
             modelInstanceNum={global.VIP_MODEL_COUNT++}
             show={true}
@@ -2685,6 +2764,8 @@ const CompanyTable: FC<{
         columns={eachTable.columns}
         loading={false}
         locale={locale}
+        data-uc-id="H6wNoedRhg"
+        data-uc-ct="table"
       />
     </div>
   )
@@ -2713,7 +2794,6 @@ const CompanyTable: FC<{
       {resultIntl.length && eachTable.chartCmd ? (
         <React.Suspense fallback={<div></div>}>{<WCBChartCss data={chartData}> </WCBChartCss>}</React.Suspense>
       ) : null}
-
       {dataLoaded && !resultIntl.length && pageProps.current == 1 && !singleModuleId ? (
         NoneData
       ) : (
@@ -2766,6 +2846,9 @@ const CompanyTable: FC<{
             }}
             locale={locale}
             bordered="dotted"
+            data-uc-id="w8toXVlZl8"
+            data-uc-ct="table"
+            data-uc-x={eachTableKey}
           />
         </div>
       )}

@@ -1,14 +1,9 @@
-import * as globalActions from '@/actions/global'
-import store from '@/store/store'
-import intl from '@/utils/intl'
+import { useFeedbackModal } from '@/components/company/feedback/useFeedbackModal'
 import { wftCommon } from '@/utils/utils'
 import { HomeO, NoteO, QuestionCircleO } from '@wind/icons'
-import { Button } from '@wind/wind-ui'
 import { FloatButton } from 'antd'
 import React from 'react'
 import './index.less'
-
-const LazyCompanyFloatingWindow = () => React.lazy(() => import('@/components/company/CompanyFloatingWindow'))
 
 const FloatBar = ({ target, scrollToTopFinish }) => {
   const backToHome = () => {
@@ -17,73 +12,68 @@ const FloatBar = ({ target, scrollToTopFinish }) => {
   const help = () => {
     window.open('//UnitedWebServer/helpcenter/helpCenter/redirect/document?id=30', '_blank')
   }
-  const showFeedParam = (fn) => {
-    // console.log(fn)
-    // console.log(props.feedParam)
-    // if (props.feedParam.message.length == 0) {
-    //   message.warning('请填写反馈描述!', 2)
-    // } else {
-    //   myWfcAjax('addfeedback', props.feedParam).then((res) => {
-    //     if (res.Data.ErrorCode == 0) {
-    //       message.success('感谢您的反馈!', 2)
-    //       fn()
-    //     } else {
-    //       message.warning('提交失败，请稍后重试!', 2)
-    //     }
-    //   })
-    // }
-  }
+  const { openFeedbackModal } = useFeedbackModal()
 
-  /** 老代码抄的，太恶心了 */
+  /** 统一复用反馈弹窗逻辑 */
   const showFeedBackModel = () => {
-    const CompanyFloatingWindowComp = LazyCompanyFloatingWindow()
-    store.dispatch(
-      globalActions.setGolbalModal({
-        className: 'companyIntroductionTagModal',
-        width: 720,
-        visible: true,
-        onCancel: () => store.dispatch(globalActions.clearGolbalModal()),
-        title: intl('97058', '意见反馈'),
-        content: <React.Suspense fallback={<div></div>}>{<CompanyFloatingWindowComp />}</React.Suspense>,
-        footer: [
-          // @ts-expect-error ttt
-          <Button type="grey" onClick={() => store.dispatch(globalActions.clearGolbalModal())}>
-            {intl('19405', '取消')}
-          </Button>,
-          <Button type="primary" onClick={() => showFeedParam(store.dispatch(globalActions.clearGolbalModal()))}>
-            {intl('14108', '提交')}
-          </Button>,
-        ],
-      })
-    )
+    openFeedbackModal()
   }
   return (
     <>
       <FloatButton.Group className="wind-float" shape="square" style={{ bottom: 100 }}>
         <FloatButton
-          icon={<HomeO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+          icon={
+            <HomeO
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              data-uc-id="7Nxw_BQLYtl"
+              data-uc-ct="homeo"
+            />
+          }
           // @ts-expect-error ttt
           title="返回首页"
           onClick={backToHome}
+          data-uc-id="Sw0gJQWuraW"
+          data-uc-ct="floatbutton"
         />
         <FloatButton
-          icon={<QuestionCircleO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+          icon={
+            <QuestionCircleO
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              data-uc-id="57ORrBz8EEH"
+              data-uc-ct="questioncircleo"
+            />
+          }
           // @ts-expect-error ttt
           title="帮助"
           onClick={help}
+          data-uc-id="isXod9zCs3a"
+          data-uc-ct="floatbutton"
         />
         {/* <FloatButton icon={<StarO />} title="点击收藏" /> */}
         <FloatButton
-          icon={<NoteO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+          icon={
+            <NoteO
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              data-uc-id="dYP9r_ZkJNM"
+              data-uc-ct="noteo"
+            />
+          }
           // @ts-expect-error ttt
           title="点击反馈"
           onClick={showFeedBackModel}
+          data-uc-id="XJhQUvkhCVT"
+          data-uc-ct="floatbutton"
         />
       </FloatButton.Group>
       <FloatButton.BackTop
         target={() => target}
         onClick={() => setTimeout(() => scrollToTopFinish(), 500)}
         duration={500}
+        data-uc-id="y7yrOTkK0xB"
+        data-uc-ct=""
       />
     </>
   )

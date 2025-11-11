@@ -1,7 +1,7 @@
-import { ApiResponseForChat } from '@/chat'
+import { ApiResponseForWFC } from '@/types'
 import { GetPointsChangeListRequest, GetPointsChangeListResponse, GetUserPointsInfoResponse } from './type'
 
-export * from '../../wfc/super/addDataToSheet'
+export * from '../../wfc/super/domains/sheet/addDataToSheet'
 export * from './type'
 
 /** 积分管理 */
@@ -11,13 +11,13 @@ export interface superlistCreditsApiPathMap {
    */
   'points/getPointsChangeList': {
     data: GetPointsChangeListRequest
-    response: ApiResponseForChat<GetPointsChangeListResponse>
+    response: ApiResponseForWFC<GetPointsChangeListResponse>
   }
   /**
    * 用户剩余积分
    */
   'points/getUserPointsInfo': {
     data: {}
-    response: ApiResponseForChat<GetUserPointsInfoResponse>
+    response: ApiResponseForWFC<GetUserPointsInfoResponse>
   }
 }

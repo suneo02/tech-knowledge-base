@@ -1,5 +1,5 @@
 import { ALICE_CHART_TYPE, DPU_STOCK_CODE, DPU_STOCK_NAME, TB_SRCTYPE } from '@/constants'
-import { toNumber } from 'lodash'
+import { toNumber } from 'lodash-es'
 import DEFAULT_CONFIG, { DEFAULT_YAXIS } from './basicConfig'
 
 const NUMBER_TYPES = ['double', 'int', 'int32', 'int64', 'float', 'ushort']

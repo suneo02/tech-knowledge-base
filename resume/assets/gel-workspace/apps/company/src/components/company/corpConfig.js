@@ -46,6 +46,8 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
                   window.open(getCompanyUrl(corp_id))
                 }}
                 rel="noreferrer"
+                data-uc-id="gl50WE4iXX2"
+                data-uc-ct="a"
               >
                 {text}
               </a>
@@ -92,6 +94,8 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
                   reFresh()
                 }
               }}
+              data-uc-id="OPd6Z0fF_0W"
+              data-uc-ct="a"
             >
               {text}
             </a>
@@ -124,7 +128,14 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
           dataIndex: 'contactValue',
           align: 'left',
           width: 336,
-          render: (text, record) => (text && isMail(text) ? <a href={`mailto:${text}`}>{text}</a> : text || '--'),
+          render: (text, record) =>
+            text && isMail(text) ? (
+              <a href={`mailto:${text}`} data-uc-id="x0zATYlymKi" data-uc-ct="a">
+                {text}
+              </a>
+            ) : (
+              text || '--'
+            ),
         },
         // {
         //   title: translation(69149),
@@ -161,6 +172,8 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
                   window.open(getCompanyUrl(branchId))
                 }}
                 rel="noreferrer"
+                data-uc-id="mJD8qTSOg97"
+                data-uc-ct="a"
               >
                 {text}
               </a>
@@ -181,7 +194,14 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
           dataIndex: 'tel',
           align: 'left',
           width: 200,
-          render: (text, record) => (text && isMail(text) ? <a href={`mailto:${text}`}>{text}</a> : text || '--'),
+          render: (text, record) =>
+            text && isMail(text) ? (
+              <a href={`mailto:${text}`} data-uc-id="kLwmpI_M5Ei" data-uc-ct="a">
+                {text}
+              </a>
+            ) : (
+              text || '--'
+            ),
         },
       ]
     case 'getofficcorp': // 门店办事处
@@ -206,6 +226,8 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
                   window.open(getCompanyUrl(corp_id))
                 }}
                 rel="noreferrer"
+                data-uc-id="gNiD47MiK_3"
+                data-uc-ct="a"
               >
                 {text}
               </a>
@@ -225,7 +247,14 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
           dataIndex: 'contact',
           align: 'left',
           width: 200,
-          render: (text, record) => (text && isMail(text) ? <a href={`mailto:${text}`}>{text}</a> : text || '--'),
+          render: (text, record) =>
+            text && isMail(text) ? (
+              <a href={`mailto:${text}`} data-uc-id="b4PGfijg0wF" data-uc-ct="a">
+                {text}
+              </a>
+            ) : (
+              text || '--'
+            ),
         },
       ]
     case 'getTendering': // 招标信息
@@ -257,6 +286,8 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
                   )
                   window.open(`/superlist/tenderingDetail`)
                 }}
+                data-uc-id="tyLSXV9hBXO"
+                data-uc-ct="a"
               >
                 {showHighLight(text, keyword)}
               </a>
@@ -287,6 +318,8 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
                         window.open(getCompanyUrl(purchasing[1]))
                         return false
                       }}
+                      data-uc-id="cfJbjOjyt_H"
+                      data-uc-ct="a"
                     >
                       {purchasing[0]}
                     </a>
@@ -337,6 +370,8 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
                   )
                   window.open(`/superlist/tenderingDetail`)
                 }}
+                data-uc-id="-pYagcW6keu"
+                data-uc-ct="a"
               >
                 {showHighLight(text, keyword)}
               </a>
@@ -367,6 +402,8 @@ export function columsMapFunc(cmd, funcInfo, translation, pagination, keyword, t
                         window.open(getCompanyUrl(purchasing[1]))
                         return false
                       }}
+                      data-uc-id="gwMGRqeJalF"
+                      data-uc-ct="a"
                     >
                       {purchasing[0]}
                     </a>

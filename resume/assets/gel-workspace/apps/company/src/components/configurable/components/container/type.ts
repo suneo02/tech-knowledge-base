@@ -33,6 +33,11 @@ export interface HeaderProps extends WFilterProps, HeaderConfigProps {
   integrationParent?: boolean // 是否是组件集内部的组件
   total?: number // 多数是列表场景，获取总数
   isTab?: boolean // 是否是标签页形式 需要用在 <SearchList /> 因为tabs的标签样式需要重构
+  search?: { columns: any[] } // 用于渲染搜索的功能
+  filterList?: any[] // 用于添加筛选过滤的功能
+  style?: React.CSSProperties // 集成style
+  initialValues?: any // 初始化参数
+  align?: 'left' | 'right' // 对齐方式
 }
 
 /** wind 组件传参 */

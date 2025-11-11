@@ -1,0 +1,50 @@
+---
+globs: *.ts,*.tsx
+---
+
+# TypeScript 约定
+
+## 函数声明
+
+- 使用 `const` + 箭头函数，避免 `function` 声明：
+
+```ts
+const doSomething = (input: string): string => {
+  return input.trim()
+}
+```
+
+## 枚举替代方案
+
+- 禁止 `enum`。使用字面量对象 + `as const`：
+
+```ts
+export const Role = {
+  Admin: 'Admin',
+  User: 'User',
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]
+```
+
+## 字面量与不可变
+
+- 常量对象、配置使用 `as const` 缩小类型域：
+
+```ts
+const STATUS = {
+  Idle: 'idle',
+  Loading: 'loading',
+  Success: 'success',
+  Error: 'error',
+} as const
+```
+
+## 类型与接口
+
+- 模型与外部可复用结构使用 `interface`，内部组合/工具类型用 `type`。
+- 避免 `any`，优先精确类型或泛型约束。
+
+## 导出
+
+- 优先使用具名导出；默认导出用于页面/顶层组件。

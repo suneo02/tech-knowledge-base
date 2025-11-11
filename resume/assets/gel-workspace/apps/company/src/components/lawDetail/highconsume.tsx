@@ -22,7 +22,13 @@ function Highconsume(props) {
         titleAlign: 'left',
         render: (text, record) => {
           return (
-            <a target="_blank" href={'../../Company/Company.html?companycode=' + record.companyCode} rel="noreferrer">
+            <a
+              target="_blank"
+              href={'../../Company/Company.html?companycode=' + record.companyCode}
+              rel="noreferrer"
+              data-uc-id="8Dd-SXthV9"
+              data-uc-ct="a"
+            >
               {text}
             </a>
           )
@@ -64,8 +70,13 @@ function Highconsume(props) {
         colSpan: 2,
         render: (text) => {
           return (
-            <a href={text} target="_blank" rel="noreferrer">
-              <FilePdfO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            <a href={text} target="_blank" rel="noreferrer" data-uc-id="0gMHELLesV" data-uc-ct="a">
+              <FilePdfO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="CcOd3kAosF"
+                data-uc-ct="filepdfo"
+              />
             </a>
           )
         },
@@ -84,6 +95,8 @@ function Highconsume(props) {
         // @ts-expect-error ttt
         rows={rows}
         dataSource={info}
+        data-uc-id="hPNs8QBJBD"
+        data-uc-ct="horizontaltable"
       ></HorizontalTable>
     </Card>
   )

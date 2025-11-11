@@ -78,6 +78,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                     }
                     IpoBusinessData['showIpoYield'].children[0].chartCallback(row)
                   }}
+                  data-uc-id="Dh5dBsItvE"
+                  data-uc-ct="span"
                 >
                   {' '}
                   {txt}
@@ -92,6 +94,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                       }}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
+                      data-uc-id="HgdO08edf"
+                      data-uc-ct="charto"
                     />
                   }
                 </span>
@@ -159,6 +163,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                     }
                     IpoBusinessData['showIpoYield'].children[1].chartCallback(row)
                   }}
+                  data-uc-id="cgBX0NQZ7e"
+                  data-uc-ct="span"
                 >
                   {' '}
                   {txt}
@@ -173,6 +179,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                       }}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
+                      data-uc-id="TIQibD5x8h"
+                      data-uc-ct="charto"
                     />
                   }
                 </span>
@@ -254,6 +262,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                     }
                     IpoBusinessData['showIpoSales'].children[0].chartCallback(row)
                   }}
+                  data-uc-id="9HfXuHQpnt"
+                  data-uc-ct="span"
                 >
                   {' '}
                   {txt}
@@ -268,6 +278,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                       }}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
+                      data-uc-id="QcwCUupFgg"
+                      data-uc-ct="charto"
                     />
                   }
                 </span>
@@ -326,6 +338,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                     }
                     IpoBusinessData['showIpoSales'].children[1].chartCallback(row)
                   }}
+                  data-uc-id="X1AqBeAj3Q"
+                  data-uc-ct="span"
                 >
                   {' '}
                   {txt}
@@ -340,6 +354,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                       }}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
+                      data-uc-id="jJAClPqleu"
+                      data-uc-ct="charto"
                     />
                   }
                 </span>
@@ -413,6 +429,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                     }
                     IpoBusinessData['showIpoBusiness'].children[0].chartCallback(row)
                   }}
+                  data-uc-id="mkViw_cUN8_"
+                  data-uc-ct="span"
                 >
                   {' '}
                   {txt}
@@ -427,6 +445,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                       }}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
+                      data-uc-id="F3bC82M3qj"
+                      data-uc-ct="charto"
                     />
                   }
                 </span>
@@ -492,6 +512,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                     }
                     IpoBusinessData['showIpoBusiness'].children[1].chartCallback(row)
                   }}
+                  data-uc-id="fIeTp3VuwjU"
+                  data-uc-ct="span"
                 >
                   {' '}
                   {txt}
@@ -506,6 +528,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                       }}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
+                      data-uc-id="H64lu_gUIP"
+                      data-uc-ct="charto"
                     />
                   }
                 </span>
@@ -578,6 +602,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                     }
                     IpoBusinessData['showIpoStock'].children[0].chartCallback(row)
                   }}
+                  data-uc-id="-VSsrMAG3ip"
+                  data-uc-ct="span"
                 >
                   {' '}
                   {txt}
@@ -592,6 +618,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                       }}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
+                      data-uc-id="8osZhpiBmU"
+                      data-uc-ct="charto"
                     />
                   }
                 </span>
@@ -657,6 +685,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                     }
                     IpoBusinessData['showIpoStock'].children[1].chartCallback(row)
                   }}
+                  data-uc-id="Bl-xD8ejL7Z"
+                  data-uc-ct="span"
                 >
                   {' '}
                   {txt}
@@ -671,6 +701,8 @@ export const IpoBusinessData: ICorpPrimaryModuleCfg = {
                       }}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
+                      data-uc-id="PQPjPXptTa"
+                      data-uc-ct="charto"
                     />
                   }
                 </span>

@@ -1,4 +1,11 @@
-import { ApiPageParamForSuperlist, ApiResponseForSuperlist, ApiResponseForSuperlistWithPage } from '@/superlist/config'
+import { ChatRawSentenceIdentifier } from '@/chat'
+import type {
+  AiRenameConversationRequest,
+  AiRenameConversationResponse,
+  ApiPageParamForSuperlist,
+  ApiResponseForSuperlist,
+  ApiResponseForSuperlistWithPage,
+} from '@/superlist/types'
 import { SuperListAddConversationPayload, SuperListAddConversationResponse } from './addConversation'
 export * from './addConversation'
 
@@ -6,6 +13,7 @@ export interface SuperChatHistoryItem {
   conversationId: string
   conversationName: string
   updateTime: string
+  companySheetFromCde: boolean
 }
 
 export interface superlistChatApiPathMap {
@@ -44,11 +52,15 @@ export interface superlistChatApiPathMap {
     }
     response: ApiResponseForSuperlist
   }
+  // 获取 会话/表格 的AI生成的结果
+  'chat/aiRenameConversation': {
+    data: AiRenameConversationRequest
+    response: ApiResponseForSuperlist<AiRenameConversationResponse>
+  }
   'chat/questionGuide': {
     data: {
-      rawSentence: string
       text: string
-    }
+    } & ChatRawSentenceIdentifier
     response: ApiResponseForSuperlistWithPage<string>
   }
 }

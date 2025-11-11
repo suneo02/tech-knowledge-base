@@ -1,4 +1,4 @@
-import { createCaseParty } from '@/comp/corp/risk/CaseParty'
+import { createCaseParty } from '@/comp/corp/CaseParty'
 import { ConfigTableCellRenderConfig } from 'gel-types'
 import { handleConfigTableArray, handleConfigTableObjectKey } from './shared'
 

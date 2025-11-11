@@ -79,9 +79,8 @@ export const isArrayAndNotEmpty = (value: unknown): value is unknown[] & { lengt
  */
 export const isObjectAndNotEmpty = (value: unknown): value is Record<string, unknown> => {
   return (
-    typeof value === 'object' &&
-    value !== null &&
-    !Array.isArray(value) && // 确保不是数组
-    Object.keys(value).length > 0 // 检查是否有属性
+    // 检查是否有属性
+    // 确保不是数组
+    typeof value === 'object' && value !== null && !Array.isArray(value) && Object.keys(value).length > 0
   )
 }

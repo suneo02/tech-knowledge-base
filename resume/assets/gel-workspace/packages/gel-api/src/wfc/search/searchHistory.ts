@@ -4,6 +4,8 @@ export type SearchHistoryType =
   | 'HOME_HEADER_SEARCH'
   // 企业搜索
   | 'COMPANY_SEARCH'
+  // 集团搜索
+  | 'GROUP_SEARCH'
 
   // 招聘搜索
   | 'RECRUITMENT_SEARCH_POSITION'

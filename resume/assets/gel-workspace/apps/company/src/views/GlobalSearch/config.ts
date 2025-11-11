@@ -1,4 +1,4 @@
-import { SelectOptionProps } from './components/forrm/common/select/type'
+import { SelectOptionProps } from './components/form/common/select/type'
 import intl from '@/utils/intl'
 
 export const globalSearchList = [

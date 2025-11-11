@@ -1,9 +1,8 @@
 import TextExpandable from '@/components/common/expandable/textExpandable/TextExpandable'
 import Links from '@/components/common/links/Links'
-import { TagSafe } from '@/components/windUISafe'
 import { LinksModule } from '@/handle/link'
 import intl from '@/utils/intl'
-import { Card, Col, Row, Skeleton } from '@wind/wind-ui'
+import { Card, Col, Row, Skeleton, Tag } from '@wind/wind-ui'
 import { isArray } from 'lodash'
 import React from 'react'
 import default_company from '../../../assets/imgs/default_company.png'
@@ -24,13 +23,13 @@ const GroupInfo = ({ basicInfo }) => {
     return (
       <span>
         {basicInfo.coreMainCompanyTagList.join().indexOf('国有') > -1 ? (
-          <TagSafe size="small" style={{ marginBlockEnd: 4 }} color="color-2" type="primary">
+          <Tag style={{ marginBlockEnd: 4 }} color="color-2" type="secondary" data-uc-id="_4XcDOE6_K" data-uc-ct="tag">
             {intl('33052', '国有')}
-          </TagSafe>
+          </Tag>
         ) : basicInfo.coreMainCompanyTagList.join().indexOf('民营') > -1 ? (
-          <TagSafe size="small" style={{ marginBlockEnd: 4 }} color="color-2" type="primary">
+          <Tag style={{ marginBlockEnd: 4 }} color="color-2" type="secondary" data-uc-id="U2BnzSbFiq" data-uc-ct="tag">
             {intl('152722', '民营')}
-          </TagSafe>
+          </Tag>
         ) : null}
       </span>
     )
@@ -46,6 +45,8 @@ const GroupInfo = ({ basicInfo }) => {
               // @ts-expect-error ttt
               e.target.src = default_company
             }}
+            data-uc-id="l42nOL--zu"
+            data-uc-ct="img"
           />
         </div>
 
@@ -102,7 +103,14 @@ const CharacterInfo = ({ basicInfo }) => {
         <div>
           <div className="title">{basicInfo.personName}</div>
           {/* 海外用户不显示人物简介 */}
-          {!ifOversea && <TextExpandable content={personIntroduce} maxLines={3} />}
+          {!ifOversea && (
+            <TextExpandable
+              content={personIntroduce}
+              maxLines={3}
+              data-uc-id="gR-vtjGKeL"
+              data-uc-ct="textexpandable"
+            />
+          )}
         </div>
       </div>
     </Card>

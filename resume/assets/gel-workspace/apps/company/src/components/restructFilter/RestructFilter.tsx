@@ -1,5 +1,6 @@
 import { AliceBitmapAnimation } from '@wind/alice-bitmap-animation'
 import { Button } from '@wind/wind-ui'
+import { t } from 'gel-util/intl'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
@@ -10,9 +11,10 @@ import svipex from '../../assets/imgs/svip-ex.png'
 import { VipPopup } from '../../lib/globalModal'
 import { getVipInfo } from '../../lib/utils'
 import { useConditionFilterStore } from '../../store/cde/useConditionFilterStore'
-import intl from '../../utils/intl'
 import { MyIcon } from '../Icon'
 import FilterBox from './comps/FilterBox'
+import { generateUrlByModule, LinkModule } from 'gel-util/link'
+import { isDeveloper } from '@/utils/common'
 
 const RestructFilter: FC<{
   fromModal?: boolean
@@ -22,6 +24,7 @@ const RestructFilter: FC<{
   onSearch?: () => void
   currentDefault?: number
   changeSubscribeVisible?: () => void
+  inModal?: boolean // 是否在弹窗中
 }> = ({
   fromModal = false,
   onClose = () => null,
@@ -30,6 +33,7 @@ const RestructFilter: FC<{
   onSearch,
   currentDefault = 0, // 查找
   changeSubscribeVisible = () => null,
+  inModal = false,
 }) => {
   // 获取筛选项配置
   const { filters, geoFilters, resetFilters, getFiltersVipCount } = useConditionFilterStore()
@@ -83,10 +87,36 @@ const RestructFilter: FC<{
   return (
     <Box width={width} fromModal={fromModal}>
       <Head>
-        <h1 className="h1"> {intl('259750', '企业数据浏览器')} </h1>
+        <h1 className="h1"> {t('259750', '企业数据浏览器')} </h1>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {
-            <div style={{ cursor: 'pointer' }} onClick={() => history.push('/queryEnterpriseInOneSentence')}>
+          <div
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              const url = generateUrlByModule({ module: LinkModule.SUPER })
+              window.open(url, '_blank')
+            }}
+            data-uc-id="yk7sOuRDBTi"
+            data-uc-ct="div"
+          >
+            <AliceBitmapAnimation
+              imageSrc={f5_header_animation_1}
+              frameWidth={94}
+              frameHeight={36}
+              fps={10}
+              reactNode={
+                <div className="animation-content-div" style={{ paddingLeft: '10px' }}>
+                  <span>{t('464234', '一句话找企业')}</span>
+                </div>
+              }
+            ></AliceBitmapAnimation>
+          </div>
+          {isDeveloper ? (
+            <div
+              style={{ cursor: 'pointer' }}
+              onClick={() => history.push('/queryEnterpriseInOneSentence')}
+              data-uc-id="yk7sOuRDBTi"
+              data-uc-ct="div"
+            >
               <AliceBitmapAnimation
                 imageSrc={f5_header_animation_1}
                 frameWidth={94}
@@ -94,18 +124,17 @@ const RestructFilter: FC<{
                 fps={10}
                 reactNode={
                   <div className="animation-content-div" style={{ paddingLeft: '10px' }}>
-                    <span>一句话查企业</span>
+                    <span>{t('455036', '一句话查企业')}</span>
                   </div>
                 }
               ></AliceBitmapAnimation>
             </div>
-          }
-          <span className="tips">{intl('355864', '仅限中国大陆企业筛选')}</span>
-          {!isShow && <img src={closeImg} onClick={onClose} />}
+          ) : null}
+          <span className="tips">{t('355864', '仅限中国大陆企业筛选')}</span>
+          {!isShow && <img src={closeImg} onClick={onClose} data-uc-id="xZNMMRR6N5R" data-uc-ct="img" />}
         </div>
       </Head>
-      <FilterBox currentChange={setCurrent} leftCurrent={current} fromModal={fromModal} />
-
+      <FilterBox currentChange={setCurrent} leftCurrent={current} fromModal={fromModal} inModal={inModal} />
       <Bottom>
         <div className="filter-occupy"></div>
         <div className="filter-button-box">
@@ -113,9 +142,9 @@ const RestructFilter: FC<{
             {cannotSubmit && (
               <p className="vipAlert">
                 {window.en_access_config ? 'Only For Svip' : '您已选中高级筛选项，仅限SVIP使用'}
-                <a onClick={shop}>
+                <a onClick={shop} data-uc-id="ckiJsFMGHGH" data-uc-ct="a">
                   {' '}
-                  {window.en_access_config ? intl('204669', '立即开通') : '点击开通'}
+                  {window.en_access_config ? t('204669', '立即开通') : '点击开通'}
                   <MyIcon name="ToRight_small_Pri" />
                 </a>
               </p>
@@ -128,9 +157,11 @@ const RestructFilter: FC<{
               type="default"
               disabled={filters.length === 0 && geoFilters.length === 0 ? true : false}
               onClick={reset}
+              data-uc-id="FgCj--8vuFi"
+              data-uc-ct="button"
             >
               {' '}
-              {intl('138490', '重置条件')}
+              {t('138490', '重置条件')}
             </Button>
 
             {!fromModal ? (
@@ -139,9 +170,11 @@ const RestructFilter: FC<{
                 type="default"
                 disabled={filters.length === 0 && geoFilters.length === 0 ? true : false}
                 onClick={showSubscribe}
+                data-uc-id="_NfvNvgXzzE"
+                data-uc-ct="button"
               >
                 {' '}
-                {intl('261051', '保存条件')}
+                {t('261051', '保存条件')}
               </Button>
             ) : null}
 
@@ -151,9 +184,11 @@ const RestructFilter: FC<{
                 cannotSubmit || (filters.length === 0 && geoFilters.length === 0 && current >= 0) ? true : false
               }
               onClick={submit}
+              data-uc-id="du43wJjU7ND"
+              data-uc-ct="button"
             >
               {' '}
-              {intl('138500', '立即搜索')}{' '}
+              {t('138500', '立即搜索')}{' '}
             </Button>
           </div>
         </div>
@@ -185,7 +220,7 @@ const Head = styled.div`
     color: #000;
     margin: 0;
     position: relative;
-    min-width: 60%;
+    min-width: 40%;
   }
   .h1:after {
     content: '';

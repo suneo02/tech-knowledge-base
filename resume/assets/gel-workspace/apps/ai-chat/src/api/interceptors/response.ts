@@ -1,34 +1,91 @@
-import { KnownError } from '../types/response'
-import { message } from 'antd'
+import { store } from '@/store'
+import { VipStatusEnum } from '@/store/user'
+import { isDev, isStaging } from '@/utils/env'
+import { message as WindMessage } from '@wind/wind-ui'
 import { AxiosError, AxiosResponse } from 'axios'
 import {
   ApiCodeForIndicator,
   ApiCodeForWfc,
   ApiResponseForChat,
   ApiResponseForIndicator,
+  ApiResponseForTable,
   ApiResponseForWFC,
 } from 'gel-api'
-import { handleAxiosError } from '../error/error-handling'
-import { ERROR_TEXT } from '../error/errorCode'
-import { ApiResponseForTable } from '../types/response'
+import { ERROR_TEXT } from 'gel-util/config'
+import { usedInClient } from 'gel-util/env'
 import { t } from 'gel-util/intl'
+import { showMessage } from '../../utils/message'
+import { handleAxiosError } from '../error/error-handling'
+import { KnownError } from '../types/response'
+const STRINGS = {
+  INSUFFICIENT_POINTS_SVIP: t('464192', '积分不足，如需更多积分，请联系客户经理~'),
+  INSUFFICIENT_POINTS_NORMAL: (operationPoints: string) =>
+    t('464127', '当前积分不足，本次操作需要{{operationPoints}}，可购买 SVIP 享受每日赠送', {
+      operationPoints,
+    }),
+  INSUFFICIENT_POINTS_BUY: t('464120', '去购买'),
+  USE_OUT_LIMIT_GATEWAY: t('464098', '今天查询机会用完啦，明天再来试试吧~'),
+  POINTS: t('', '积分'),
+}
+
+const VIP_URL = usedInClient()
+  ? 'https://wx.wind.com.cn/Wind.WFC.Enterprise.Web/PC.Front/Company/index.html?nosearch=1#/versionPrice'
+  : 'https://gel.wind.com.cn/web/Company/index.html?nosearch=1#/versionPrice'
+
+// 针对积分不足的定制化处理
+const handleInsufficientPoints = (_errorCode: string, errorMessage: string) => {
+  const state = store.getState()
+  const { vipStatus } = state.user
+  const isSVIP = vipStatus === VipStatusEnum.SVIP
+
+  if (isSVIP) {
+    // SVIP 用户的处理逻辑
+    WindMessage.error(STRINGS.INSUFFICIENT_POINTS_SVIP)
+  } else {
+    // 普通及 VIP 用户的处理逻辑
+    // const userPoints = selectPointsCount(state)
+    let operationPoints = '0积分'
+    try {
+      const parsedError = JSON.parse(errorMessage)
+      operationPoints =
+        parsedError.consumptionPoint && parsedError.consumptionPoint > 0
+          ? parsedError.consumptionPoint.toLocaleString() + STRINGS.POINTS
+          : '0' + STRINGS.POINTS
+    } catch {
+      // 如果解析失败，则不显示操作所需积分
+    }
+
+    const messageContent = STRINGS.INSUFFICIENT_POINTS_NORMAL(operationPoints)
+
+    showMessage({
+      content: messageContent,
+      duration: 5,
+      showActionButton: true,
+      okText: STRINGS.INSUFFICIENT_POINTS_BUY,
+      onOk: () => window.open(VIP_URL),
+    })
+  }
+}
 
 // Type guard functions
-function isIndicatorResponse(data: any): data is ApiResponseForIndicator<any> {
-  return 'code' in data && 'msg' in data
+function isIndicatorResponse(data: unknown): data is ApiResponseForIndicator<unknown> {
+  return !!data && typeof data === 'object' && 'code' in data && 'msg' in data
 }
 
-function isWFCResponse(data: any): data is ApiResponseForWFC<any> {
-  return 'ErrorCode' in data && 'ErrorMessage' in data
+function isWFCResponse(data: unknown): data is ApiResponseForWFC<unknown> {
+  return !!data && typeof data === 'object' && 'ErrorCode' in data && 'ErrorMessage' in data
 }
 
-function isStandardResponse(data: any): data is ApiResponseForChat<any> {
-  return 'status' in data && 'message' in data
+function isStandardResponse(data: unknown): data is ApiResponseForChat<unknown> {
+  return !!data && typeof data === 'object' && 'status' in data && 'message' in data
 }
 
 export const responseInterceptor = (
   response: AxiosResponse<
-    ApiResponseForChat<any> | ApiResponseForWFC<any> | ApiResponseForIndicator<any> | ApiResponseForTable<any>
+    | ApiResponseForChat<unknown>
+    | ApiResponseForWFC<unknown>
+    | ApiResponseForIndicator<unknown>
+    | ApiResponseForTable<unknown>
   >
 ) => {
   // 如果是流式请求，直接返回响应
@@ -39,9 +96,9 @@ export const responseInterceptor = (
   // 处理普通请求
   const { data } = response
 
-  if ('ErrorCode' in data) {
+  if (isWFCResponse(data)) {
     // 统一转换为字符串，后端也不能保证返回类型
-    data.ErrorCode = String(data.ErrorCode)
+    ;(data as { ErrorCode: string }).ErrorCode = String(data.ErrorCode)
   }
 
   // Success conditions for different response types
@@ -62,10 +119,30 @@ export const responseInterceptor = (
     errorMessage = data.msg
   } else if (isWFCResponse(data)) {
     errorCode = String(data.ErrorCode)
-    errorMessage = data.ErrorMessage
+    errorMessage = data.ErrorMessage || ''
   } else if (isStandardResponse(data)) {
     errorCode = String(data.status)
-    errorMessage = data.message
+    errorMessage = data.message || ''
+  }
+
+  // 针对积分不足的定制化处理
+  if (errorCode === ApiCodeForWfc.INSUFFICIENT_POINTS) {
+    handleInsufficientPoints(errorCode, errorMessage)
+    return Promise.reject(new Error(errorMessage))
+  }
+
+  if (errorCode === ApiCodeForWfc.USE_OUT_LIMIT_GATEWAY) {
+    message.error(STRINGS.USE_OUT_LIMIT_GATEWAY)
+    return Promise.reject()
+  }
+
+  if (errorCode === ApiCodeForWfc.INSERT_OUT_LIMIT) {
+    message.error(ERROR_TEXT[errorCode])
+    return Promise.reject()
+  }
+  if (errorCode === ApiCodeForWfc.INSERT_OUT_LIMIT) {
+    message.error(ERROR_TEXT[errorCode])
+    return Promise.reject()
   }
   if (errorCode === ApiCodeForWfc.INSUFFICIENT_POINTS) {
     const message = JSON.parse(errorMessage) ?? errorMessage
@@ -74,26 +151,25 @@ export const responseInterceptor = (
         consumptionPoint: message.consumptionPoint || 0,
         residualPoint: message.residualPoint || 0,
       })
-      Modal.warning({
-        title: '提示',
+      showMessage({
         content: errorMessage,
       })
     } else {
       errorMessage = ERROR_TEXT[errorCode] || errorMessage || ERROR_TEXT.DEFAULT
       if (errorMessage) {
-        message.error(errorMessage)
+        WindMessage.error(errorMessage)
       }
     }
   } else {
     errorMessage = ERROR_TEXT[errorCode] || errorMessage || ERROR_TEXT.DEFAULT
     if (errorMessage) {
-      message.error(errorMessage)
+      WindMessage.error(errorMessage)
     }
   }
 
   if (ERROR_TEXT[errorCode]) {
     // 如果错误码在ERROR_TEXT中，则返回错误信息
-    const knownError: KnownError<any> = {
+    const knownError: KnownError<unknown> = {
       errorCode,
       errorMessage,
       data,
@@ -106,7 +182,12 @@ export const responseInterceptor = (
 
 export const responseErrorInterceptor = (error: AxiosError) => {
   if (error.response?.status === 403) {
-    message.error(error.message)
+    if (!usedInClient() && !isDev && !isStaging) {
+      localStorage.setItem('gelLastUrl', window.location.href)
+      window.location.href = 'https://gel.wind.com.cn/web/windLogin.html?nosearch=1'
+    }
+    WindMessage.error(error.message)
+    return Promise.reject(error)
   }
   return Promise.reject(handleAxiosError(error))
 }

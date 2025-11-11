@@ -1,5 +1,4 @@
-import { local } from '@/utils'
-import { ApiOptions, ApiPaths, GetApiData, SUPERLIST_API_PATH, WIND_ENT_CHAT_PATH, WFC_API_PATH } from 'gel-api'
+import { ApiOptions, ApiPaths, GetApiData, SUPERLIST_API_PATH, WFC_API_PATH, WIND_ENT_CHAT_PATH } from 'gel-api'
 import { requestAuto } from '.'
 
 /**
@@ -24,7 +23,6 @@ export function requestToChatFcs<P extends keyof ApiPaths[typeof WIND_ENT_CHAT_P
   return requestAuto<typeof WIND_ENT_CHAT_PATH, P>(api, {
     server: WIND_ENT_CHAT_PATH,
     data,
-    baseURL: local.get('devEnv')?.proxy || local.get('mainEnv')?.proxy,
     ...options,
   })
 }
@@ -51,7 +49,6 @@ export function requestToSuperlistFcs<P extends keyof ApiPaths[typeof SUPERLIST_
   return requestAuto<typeof SUPERLIST_API_PATH, P>(api, {
     server: SUPERLIST_API_PATH,
     data,
-    baseURL: local.get('devEnv')?.proxy || local.get('mainEnv')?.proxy,
     ...options,
   })
 }
@@ -78,7 +75,6 @@ export function requestToDownloadFcs<P extends keyof ApiPaths[typeof WFC_API_PAT
   return requestAuto<typeof WFC_API_PATH, P>(api, {
     server: WFC_API_PATH,
     data,
-    baseURL: local.get('mainEnv')?.proxy,
     ...options,
   })
 }
@@ -100,12 +96,11 @@ export function requestToDownloadFcs<P extends keyof ApiPaths[typeof WFC_API_PAT
 export function requestToWFCSuperlistFcs<P extends keyof ApiPaths[typeof WFC_API_PATH]>(
   api: P,
   data?: GetApiData<typeof WFC_API_PATH, P>,
-  options: Omit<ApiOptions<typeof WFC_API_PATH, P>, 'server'> = {}
+  options: Omit<ApiOptions<typeof WFC_API_PATH, P>, 'server'> & { signal?: AbortSignal } = {}
 ) {
   return requestAuto<typeof WFC_API_PATH, P>(api, {
     server: WFC_API_PATH,
     data,
-    baseURL: local.get('mainEnv')?.proxy,
     ...options,
   })
 }

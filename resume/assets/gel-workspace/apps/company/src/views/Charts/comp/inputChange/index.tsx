@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PreInput from '@/components/common/search/PreInput'
 import intl from '@/utils/intl'
-import { getCompanyName } from '@/api/searchListApi.ts'
+import { getCompanyName } from '@/api/searchListApi'
 import { wftCommon } from '@/utils/utils'
 import { SwapO } from '@wind/icons'
 import './index.less'
@@ -12,10 +12,9 @@ const InputChangeComp = ({ type, companyCode, onChangeCorpAction }) => {
   const [companyInfo, setCompanyInfo]: any = useState({})
 
   useEffect(() => {
-    console.log('companyCode', companycode)
     if (!companycode) return
     const fn = async () => {
-      const res = await getCompanyName({
+      let res = await getCompanyName({
         companycode: companycode,
       })
 
@@ -68,6 +67,8 @@ const InputChangeComp = ({ type, companyCode, onChangeCorpAction }) => {
                 cursor: 'pointer',
                 marginLeft: '50px',
               }}
+              data-uc-id="0z_vo4fCNq"
+              data-uc-ct="span"
             >
               {intl('19405', '取消')}
             </span>
@@ -80,6 +81,8 @@ const InputChangeComp = ({ type, companyCode, onChangeCorpAction }) => {
             onClick={() => {
               wftCommon.linkCompany('Bu3', companycode)
             }}
+            data-uc-id="w_--0GLYoG"
+            data-uc-ct="span"
           >
             {companyInfo?.companyName}
           </span>
@@ -88,8 +91,15 @@ const InputChangeComp = ({ type, companyCode, onChangeCorpAction }) => {
               setShowInput(true)
             }}
             className="switch"
+            data-uc-id="5YurXLJNay"
+            data-uc-ct="span"
           >
-            <SwapO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            <SwapO
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              data-uc-id="gjT7mZoeT"
+              data-uc-ct="swapo"
+            />
             {intl('367453', '切换企业')}
           </span>
         </div>

@@ -17,6 +17,7 @@ interface PreSearchInputProps {
   placeholder: string
   state?: string[]
   onRef?: (ref: any) => void
+  style?: React.CSSProperties
 }
 
 interface PreSearchInputState {
@@ -206,6 +207,8 @@ class PreSearchInput extends React.Component<PreSearchInputProps, PreSearchInput
         dangerouslySetInnerHTML={{ __html: corp_name }}
         className="prelist-item"
         onClick={() => this.addPre(item.name, item.id)}
+        data-uc-id="YPz1LzECef"
+        data-uc-ct="div"
       ></div>
     )
   }
@@ -252,15 +255,23 @@ class PreSearchInput extends React.Component<PreSearchInputProps, PreSearchInput
     const { historySearch, queryHisShow, queryPreShow } = this.state
 
     return (
-      <div className="">
+      <div className="" style={this.props?.style || {}}>
         <div className="preSeachResult">
           <div className="searchResult">
             {this.state.showPre && this.state.showPre.length > 0
               ? this.state.showPre.map((item, index) => {
                   return (
                     <span ref={this.preRef} className="pre-company" key={index}>
-                      <span onClick={() => wftCommon.linkCompany('Bu3', item.split('|')[1])}>{item.split('|')[0]}</span>
-                      <i onClick={() => this.deletePre(item)}>X</i>
+                      <span
+                        onClick={() => wftCommon.linkCompany('Bu3', item.split('|')[1])}
+                        data-uc-id="PL35JkMyXd"
+                        data-uc-ct="span"
+                      >
+                        {item.split('|')[0]}
+                      </span>
+                      <i onClick={() => this.deletePre(item)} data-uc-id="e3SWEOpaWy" data-uc-ct="i">
+                        X
+                      </i>
                     </span>
                   )
                 })
@@ -281,8 +292,10 @@ class PreSearchInput extends React.Component<PreSearchInputProps, PreSearchInput
                   queryHisShow: 'none',
                   queryPreShow: 'none',
                 })
-              }, 150)
+              }, 500)
             }}
+            data-uc-id="UjcLpYe9a"
+            data-uc-ct="input"
           />
           <div className="historySearch" style={{ display: queryHisShow }}>
             {historySearch && historySearch.length > 0 ? <div>{intl('437396', '历史搜索')}</div> : null}
@@ -294,6 +307,9 @@ class PreSearchInput extends React.Component<PreSearchInputProps, PreSearchInput
                       onClick={() => {
                         this.pushHis2Show(item)
                       }}
+                      data-uc-id="FgAjZ7tUUK"
+                      data-uc-ct="div"
+                      data-uc-x={index}
                     >
                       {item.split('|')[0]}
                     </div>

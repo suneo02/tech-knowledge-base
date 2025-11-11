@@ -1,32 +1,47 @@
-import { PointsChangeType } from 'gel-api'
-import styles from './index.module.less'
-import { Tabs, List, Result, Pagination, Tag } from '@wind/wind-ui'
-import { useState } from 'react'
 import { requestToSuperlistFcs } from '@/api'
+import { postPointBuried } from '@/utils/common/bury'
+import { List, Pagination, Radio, Result } from '@wind/wind-ui'
 import { usePagination } from 'ahooks'
 import dayjs from 'dayjs'
+import { PointsChangeType } from 'gel-api'
+import { t } from 'gel-util/intl'
+import { useState } from 'react'
+import styles from './index.module.less'
+
+const RadioButton = Radio.Button
+const RadioGroup = Radio.Group
 
 const PREFIX = 'credits-records'
+
+const STRINGS = {
+  ALL: t('420196', '全部'),
+  CONSUME: t('464232', '消耗'),
+  GIVE: t('464233', '赠送'),
+  RECHARGE: t('464239', '充值'),
+  NO_DATA: t('422032', '暂无数据'),
+  EFFECTIVE_TIME: t('454242', '有效期至'),
+}
+
 const tabs = [
   {
-    label: '全部',
+    label: STRINGS.ALL,
     key: PointsChangeType.ALL,
   },
   {
-    label: '消耗',
+    label: STRINGS.CONSUME,
     key: PointsChangeType.CONSUME,
   },
   {
-    label: '赠送',
+    label: STRINGS.GIVE,
     key: PointsChangeType.GIVE,
   },
   {
-    label: '充值',
+    label: STRINGS.RECHARGE,
     key: PointsChangeType.RECHARGE,
   },
 ]
 const CreditsRecords = () => {
-  const [activeTab, setActiveTab] = useState<PointsChangeType>(PointsChangeType.ALL)
+  const [activeTab, setActiveTab] = useState<string>(String(PointsChangeType.ALL))
 
   const getPointsChangeList = async ({
     current,
@@ -49,6 +64,7 @@ const CreditsRecords = () => {
   }
 
   const { data, loading, pagination } = usePagination(
+    // @ts-expect-error
     ({ current, pageSize }) => getPointsChangeList({ current, pageSize, changeType: activeTab }),
     {
       defaultPageSize: 10,
@@ -56,48 +72,64 @@ const CreditsRecords = () => {
     }
   )
 
-  const getTypeTag = (type: PointsChangeType) => {
-    switch (type) {
-      case PointsChangeType.ADMIN_CONSUME:
-      case PointsChangeType.CONSUME:
-        return (
-          // @ts-expect-error wind-ui Tag 似乎不支持 label，尝试使用 children
-          <Tag color="color-4" type="primary">
-            消耗
-          </Tag>
-        )
-      case PointsChangeType.ADMIN_GIVE:
-      case PointsChangeType.GIVE:
-        return (
-          // @ts-expect-error wind-ui Tag 似乎不支持 label，尝试使用 children
-          <Tag color="color-2" type="primary">
-            赠送
-          </Tag>
-        )
-      case PointsChangeType.RECHARGE:
-        return (
-          // @ts-expect-error wind-ui Tag 似乎不支持 label，尝试使用 children
-          <Tag color="color-2" type="primary">
-            充值
-          </Tag>
-        )
-      default:
-        return <Tag>未知</Tag>
-    }
-  }
+  // const getTypeTag = (type: PointsChangeType) => {
+  //   switch (type) {
+  //     case PointsChangeType.ADMIN_CONSUME:
+  //     case PointsChangeType.CONSUME:
+  //       return (
+  //         <Tag color="color-4" type="primary">
+  //           消耗
+  //         </Tag>
+  //       )
+  //     case PointsChangeType.ADMIN_GIVE:
+  //     case PointsChangeType.GIVE:
+  //       return (
+  //         <Tag color="color-2" type="primary">
+  //           赠送
+  //         </Tag>
+  //       )
+  //     case PointsChangeType.RECHARGE:
+  //       return (
+  //         <Tag color="color-2" type="primary">
+  //           充值
+  //         </Tag>
+  //       )
+  //     default:
+  //       return <Tag>未知</Tag>
+  //   }
+  // }
 
   return (
     <div className={styles[`${PREFIX}-container`]}>
-      {/* @ts-expect-error wind-ui */}
-      <Tabs
+      {/* <Tabs
         className={styles[`${PREFIX}-tabs`]}
         activeKey={String(activeTab)}
-        onChange={(key) => setActiveTab(Number(key) as PointsChangeType)}
+        onChange={(key) => {
+          postPointBuried('922604570320', { click: tabs.find((res) => res.key === Number(key))?.label })
+          setActiveTab(Number(key) as PointsChangeType)
+        }}
       >
         {tabs.map((res) => {
           return <Tabs.TabPane key={String(res.key)} tab={res.label} />
         })}
-      </Tabs>
+      </Tabs> */}
+      <RadioGroup
+        defaultValue={activeTab}
+        size="large"
+        onChange={(ev) => {
+          const key = ev.target.value
+          postPointBuried('922604570320', { click: tabs.find((res) => res.key === Number(key))?.label })
+          setActiveTab(String(key))
+        }}
+      >
+        {tabs.map((res) => {
+          return (
+            <RadioButton key={String(res.key)} value={String(res.key)} style={{ padding: '0 20px' }}>
+              {res.label}
+            </RadioButton>
+          )
+        })}
+      </RadioGroup>
 
       {data?.list?.length ? (
         <>
@@ -117,7 +149,7 @@ const CreditsRecords = () => {
                   <List.Item key={item.id} className={styles[`${PREFIX}-list-item`]}>
                     <div className={styles[`${PREFIX}-left-column`]}>
                       <div className={styles[`${PREFIX}-left-line-1`]}>
-                        {getTypeTag(item.changeType)}
+                        {/* {getTypeTag(item.changeType)} */}
                         <span title={item.changeInfo} className={styles[`${PREFIX}-change-info`]}>
                           {item.changeInfo}
                         </span>
@@ -131,7 +163,7 @@ const CreditsRecords = () => {
                       <span className={changeCountClassName}>{changeCountText}</span>
                       {!!item.endTime && (
                         <span className={styles[`${PREFIX}-right-line-1`]}>
-                          有效期至：{dayjs(item.endTime).format('YYYY-MM-DD')}
+                          {STRINGS.EFFECTIVE_TIME}：{dayjs(item.endTime).format('YYYY-MM-DD HH:mm')}
                         </span>
                       )}
                     </div>
@@ -151,7 +183,7 @@ const CreditsRecords = () => {
           )}
         </>
       ) : (
-        <Result className={styles[`${PREFIX}-result`]} status={'no-data'} title={'暂无数据'} />
+        <Result className={styles[`${PREFIX}-result`]} status={'no-data'} title={STRINGS.NO_DATA} />
       )}
     </div>
   )

@@ -22,7 +22,12 @@ const InputKeys = ({ item }) => {
   return (
     <ConditionItem>
       <ConditionTitle filter={filter} isVip={isVip} itemName={itemName} hoverHint={hoverHint} />
-      <InputKeyWords defalutValue={filter ? filter.value : []} onChangeCallback={onChangeCallback} />
+      <InputKeyWords
+        defalutValue={filter ? filter.value : []}
+        onChangeCallback={onChangeCallback}
+        data-uc-id="XF4BjzCZq"
+        data-uc-ct="inputkeywords"
+      />
     </ConditionItem>
   )
 }

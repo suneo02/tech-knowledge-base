@@ -1,12 +1,11 @@
-import { DEV_WSID, isDev } from '@/utils/env'
+import { getWsid } from '@/utils/env'
 import type { InternalAxiosRequestConfig } from 'axios'
 import { WindSessionHeader } from 'gel-api'
-import { getWsidProd } from 'gel-util/env'
 
 // 请求拦截器
 export const requestInterceptor = (config: InternalAxiosRequestConfig) => {
   // 动态获取 session ID
-  const wsid = isDev ? DEV_WSID : getWsidProd()
+  const wsid = getWsid()
   if (wsid) {
     config.headers[WindSessionHeader] = wsid
   }

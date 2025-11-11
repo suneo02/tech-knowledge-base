@@ -20,11 +20,11 @@ export const useCDESubscribeApi = (): useCDESubscribeApiReturn => {
   })
 
   const subscriptions = useMemo(() => {
-    return subscriptionsData?.Data.records || []
+    return subscriptionsData?.Data?.records || []
   }, [subscriptionsData])
 
   const subEmail = useMemo(() => {
-    return subscriptionsData?.Data.mail || ''
+    return subscriptionsData?.Data?.mail || ''
   }, [subscriptionsData])
 
   return {

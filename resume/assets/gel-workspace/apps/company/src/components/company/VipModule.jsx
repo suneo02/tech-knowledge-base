@@ -1,13 +1,10 @@
 import { connect } from 'react-redux'
 
 import * as HomeActions from '../../actions/home'
-import {
-  getPayGoods
-} from '../../api/homeApi'
+import { getPayGoods } from '../../api/homeApi'
 
 import { VipModule as VipModuleNew } from './VipModuleNew'
 // 需要替换成下载的二维码
-
 
 const mapStateToProps = (state) => {
   return {

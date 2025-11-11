@@ -1,9 +1,9 @@
+import { CorpCardInfo } from 'gel-types'
 import { createContext } from 'react'
-import { ICorpCardInfo } from '@/api/corp/info/cardInfo.ts'
 
 export interface ICompanyDetailCtx {
   corpCode?: string
-  basicInfo: Partial<ICorpCardInfo>
+  basicInfo: Partial<CorpCardInfo>
 }
 // 创建上下文
 export const CompanyDetailContext = createContext<ICompanyDetailCtx>({

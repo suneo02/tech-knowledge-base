@@ -196,6 +196,18 @@ type corpDetailIntellectualKey =
   | 'PatentOutboundInvestment'
   // 软件著作权
   | 'SoftwareCopyright'
+  // 作品著作权
+  | 'WorkCopyright'
+  // 标准信息
+  | 'StandardInfo'
+  // 网站备案
+  | 'WebsiteRegistration'
+  // 微信公众号
+  | 'WechatPublic'
+  // 微博账号
+  | 'MicroblogAccount'
+  // 头条号
+  | 'TodayHeadline'
 
 // 行政许可
 type corpDetailQualificationKey =
@@ -237,8 +249,8 @@ type corpDetailRiskKey =
   | 'CourtNotice'
   // 送达公告
   | 'DeliveryAnnouncement'
-  // 违规处罚
-  | 'ViolationPunishment'
+  // 诚信信息
+  | 'IntegrityInformation'
   // 担保信息
   | 'WarrantyInformation'
   // 税收违法
@@ -289,6 +301,36 @@ type corpDetailBusinessRiskKey =
   | 'IntellectualPropertyPledgeNational'
   // 知识产权出质-知识产权质押（工商局）
   | 'IntellectualPropertyPledgeBusiness'
+
+type corpDetailHistoryKey =
+  // 历史工商信息
+  | 'HistoryBusinessInfo'
+  // 历史股东
+  | 'HistoryShareholder'
+  // 历史法人与高管
+  | 'HistoryLegalRepresentative'
+  // 历史对外投资
+  | 'HistoryOverseasInvestment'
+  // 历史行政许可[工商局]
+  | 'HistoryAdministrativeLicenseBureau'
+  // 历史行政许可[信用中国]
+  | 'HistoryAdministrativeLicenseCreditChina'
+  // 历史网站备案
+  | 'HistoryWebsiteRegistration'
+  // 历史股权出质
+  | 'HistoryEquityPledge'
+  // 历史股权出质-出质人
+  | 'HistoryEquityPledgePledgor'
+  // 历史股权出质-质权人
+  | 'HistoryEquityPledgePledgee'
+  // 历史股权出质-出质股权标的企业
+  | 'HistoryEquityPledgePledgeeTarget'
+  // 历史土地抵押
+  | 'HistoryLandMortgage'
+  // 多证合一
+  | 'MultiCertificate'
+  // 营业执照作废声明
+  | 'BusinessLicenseInvalidDeclaration'
 /**
  * 定义企业详情各节点的 key，有可能是 表格，有可能是图
  * 也有可能是多个表格的 父节点的 key ，父节点内部的多个表格一般是上下排列
@@ -303,3 +345,4 @@ export type TCorpDetailNodeKey =
   | corpDetailQualificationKey
   | corpDetailRiskKey
   | corpDetailBusinessRiskKey
+  | corpDetailHistoryKey

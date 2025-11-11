@@ -1,9 +1,13 @@
+import {
+  mockCDECorpOwnershipCfg,
+  mockCDECorpOwnershipCfgDepre,
+  mockCDEFinanceCodeCfg,
+} from '@/__mocks__/cde/cdeConfig.mock'
 import { findCDEItemOptionByValue } from '@/components/filterOptions/OptionViewPort/hook'
 import type { Meta, StoryObj } from '@storybook/react'
 import { CDEFilterItem } from 'gel-api/*'
 import React, { useState } from 'react'
 import { CheckBoxMulti } from '../../components/restructFilter/comps/filterOptions/CheckBoxMulti'
-import { mockCDECorpOwnershipCfg, mockCDECorpOwnershipCfgDepre, mockCDEFinanceCodeCfg } from './mock'
 
 /**
  * @description CheckBoxMulti组件用于展示多级复选框选项，支持全选和部分选择
@@ -55,9 +59,16 @@ export const Ownership: Story = {
             setSelectedValues(value)
           }}
           value={selectedValues}
+          data-uc-id="ILd6iGPFf"
+          data-uc-ct="checkboxmulti"
         />
         <div style={{ marginTop: '20px' }}>
-          <SelectedValuesComp selectedValues={selectedValues} optionCfg={mockCDECorpOwnershipCfg} />
+          <SelectedValuesComp
+            selectedValues={selectedValues}
+            optionCfg={mockCDECorpOwnershipCfg}
+            data-uc-id="glMwmTfWiK"
+            data-uc-ct="selectedvaluescomp"
+          />
         </div>
       </div>
     )
@@ -77,9 +88,16 @@ export const OwnershipDeprecated: Story = {
             setSelectedValues(value)
           }}
           value={selectedValues}
+          data-uc-id="enW7IEhdTU"
+          data-uc-ct="checkboxmulti"
         />
         <div style={{ marginTop: '20px' }}>
-          <SelectedValuesComp selectedValues={selectedValues} optionCfg={mockCDECorpOwnershipCfgDepre} />
+          <SelectedValuesComp
+            selectedValues={selectedValues}
+            optionCfg={mockCDECorpOwnershipCfgDepre}
+            data-uc-id="EF4Rg0zIwY"
+            data-uc-ct="selectedvaluescomp"
+          />
         </div>
       </div>
     )
@@ -99,9 +117,16 @@ export const FinanceCode: Story = {
             setSelectedValues(value)
           }}
           value={selectedValues}
+          data-uc-id="Lc7FtHIxPU"
+          data-uc-ct="checkboxmulti"
         />
         <div style={{ marginTop: '20px' }}>
-          <SelectedValuesComp selectedValues={selectedValues} optionCfg={mockCDEFinanceCodeCfg} />
+          <SelectedValuesComp
+            selectedValues={selectedValues}
+            optionCfg={mockCDEFinanceCodeCfg}
+            data-uc-id="3zBA9KNiBV"
+            data-uc-ct="selectedvaluescomp"
+          />
         </div>
       </div>
     )
@@ -124,9 +149,16 @@ export const WithInitialValue: Story = {
             setSelectedValues(value)
           }}
           value={selectedValues}
+          data-uc-id="WVVddieMqZ"
+          data-uc-ct="checkboxmulti"
         />
         <div style={{ marginTop: '20px' }}>
-          <SelectedValuesComp selectedValues={selectedValues} optionCfg={mockCDECorpOwnershipCfg} />
+          <SelectedValuesComp
+            selectedValues={selectedValues}
+            optionCfg={mockCDECorpOwnershipCfg}
+            data-uc-id="5gL2HLm4Ml"
+            data-uc-ct="selectedvaluescomp"
+          />
         </div>
       </div>
     )

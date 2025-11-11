@@ -1,6 +1,4 @@
-import { EnvConfigItemProps } from '@/config/env'
-import { CDEFilterCategory } from 'gel-api'
-import { MessageRaw } from 'ai-ui'
+import { CDEFilterCategory, ChatThinkSignal } from 'gel-api'
 
 /**
  * Storage 的 key 定义
@@ -8,8 +6,6 @@ import { MessageRaw } from 'ai-ui'
 export interface LocalStorageKeys {
   wsid: string
   lan: string
-  mainEnv: EnvConfigItemProps
-  devEnv: EnvConfigItemProps
   /**
    * 这个 key 不能随意改！，有别的应用靠这个传递消息
    */
@@ -17,7 +13,7 @@ export interface LocalStorageKeys {
     | string
     | {
         message: string
-        think?: MessageRaw['think']
+        think?: ChatThinkSignal['think']
       }
 
   // TODO: 添加具体的 key

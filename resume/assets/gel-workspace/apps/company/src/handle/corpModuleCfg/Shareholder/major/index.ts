@@ -2,7 +2,7 @@ import intl from '@/utils/intl'
 import { AnnouncementColumns } from './columns.tsx'
 import { AnnouncementDataCallback, AnnouncementExtraParams } from '../announcement/comp.tsx'
 import { ICorpTableCfg } from '@/components/company/type'
-import { ECorpDetailTable } from '../../../corp/detail/module/type.ts'
+import { ECorpDetailTable } from 'gel-types'
 
 // 企业详情/股东信息/公告披露 海外、香港企业-股东信息接股票的大股东报表
 export const CompanyDetailMajorShareholderCfg: ICorpTableCfg = {

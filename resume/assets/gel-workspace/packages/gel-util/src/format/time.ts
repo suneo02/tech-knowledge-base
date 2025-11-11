@@ -1,9 +1,10 @@
 import { isEn } from '@/intl'
+import { EMPTY_PLACEHOLDER } from './text'
 
 export const formatTime = (timeStr: string | number | undefined) => {
   if (timeStr == null) return '--'
 
-  let time = timeStr?.toString()
+  const time = timeStr?.toString()
   if (/^\d{4}$/.test(time)) {
     // 2010 格式, 直接返回
     return time
@@ -28,8 +29,8 @@ export const formatTime = (timeStr: string | number | undefined) => {
     // 202002 格式, 返回 2020-02
     return time.replace(/(\d{4})(\d{2})/, '$1-$2')
   }
-  if (time === '0') return '--'
-  return time || '--'
+  if (time === '0') return EMPTY_PLACEHOLDER
+  return time || EMPTY_PLACEHOLDER
 }
 
 export const formatTimeIntl = (data: string) => {
@@ -40,6 +41,6 @@ export const formatTimeIntl = (data: string) => {
     const dayStr = isEn() ? '' : '日'
     return timeArr[0] + yearStr + timeArr[1] + monthStr + timeArr[2] + dayStr
   } else {
-    return '--'
+    return EMPTY_PLACEHOLDER
   }
 }

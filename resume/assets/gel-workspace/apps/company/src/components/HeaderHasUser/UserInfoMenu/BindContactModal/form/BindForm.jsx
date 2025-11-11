@@ -103,7 +103,7 @@ export const BindContactForm = ({ onSuccess, isOversea }) => {
             },
           ]}
         >
-          <Input placeholder={intl('417570', '请输入邮箱')} />
+          <Input placeholder={intl('417570', '请输入邮箱')} data-uc-id="BfR-_vYXSx" data-uc-ct="input" />
         </Form.Item>
       ) : (
         <Form.Item
@@ -120,10 +120,9 @@ export const BindContactForm = ({ onSuccess, isOversea }) => {
             },
           ]}
         >
-          <Input placeholder={intl('254955', '请输入手机号')} />
+          <Input placeholder={intl('254955', '请输入手机号')} data-uc-id="CA4KQF6Gkr" data-uc-ct="input" />
         </Form.Item>
       )}
-
       <Form.Item
         name="verificationCode"
         label={intl('417586', '验证码')}
@@ -142,6 +141,8 @@ export const BindContactForm = ({ onSuccess, isOversea }) => {
           className={`${StylePrefix}--captcha-input`}
           placeholder={intl('417205', '请输入验证码')}
           addonAfter={<CaptchaBtn />}
+          data-uc-id="5VeUM5kWou"
+          data-uc-ct="input"
         />
       </Form.Item>
     </Form>

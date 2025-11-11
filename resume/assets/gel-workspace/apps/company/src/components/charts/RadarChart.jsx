@@ -1,23 +1,24 @@
-import React, { useEffect, useRef } from 'react'
-import * as echarts from 'echarts/core'
 import { RadarChart } from 'echarts/charts'
 import { GraphicComponent, TooltipComponent } from 'echarts/components'
+import * as echarts from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
+import { useEffect, useRef } from 'react'
 
 echarts.use([TooltipComponent, CanvasRenderer, GraphicComponent, RadarChart])
 
-const RadarChartComponent = ({ opts }) => {
+export const RadarChartComponent = ({ opts }) => {
   const chartRef = useRef(null)
+  const chart = useRef(null)
   const { data, indicator, style, tooltipHide, tooltipPos, centerTxt, centerTxtFontSize, radarClick } = opts
   useEffect(() => {
-    const chart = echarts.init(chartRef.current)
+    chart.current = echarts.init(chartRef.current)
     const radar = {
       indicator,
       ...opts.radarExtras,
     }
 
     if (data?.length && indicator?.length) {
-      chart.setOption({
+      chart.current.setOption({
         color: style?.color || '#00aec7',
         tooltip: {
           cursorStyle: 'default',
@@ -53,24 +54,27 @@ const RadarChartComponent = ({ opts }) => {
       })
     }
 
-    chart.on('click', (params) => {
+    chart.current.on('click', (params) => {
       if (params?.componentType === 'series') {
         radarClick && radarClick.call()
       }
     })
 
     return () => {
-      chart.dispose()
+      chart.current.dispose()
     }
   }, [data, indicator])
 
   return (
     <div
       ref={chartRef}
-      style={{ width: '120px', height: '100%', background: '#fff', ...style }}
+      style={{
+        width: '120px',
+        height: '100%',
+        background: '#fff',
+        ...style,
+      }}
       className={` chart-radar ${opts.css || ''} `}
     ></div>
   )
 }
-
-export default RadarChartComponent

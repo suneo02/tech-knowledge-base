@@ -1,10 +1,10 @@
 import { Attachments } from '@ant-design/x'
 import { Flex, GetProp } from 'antd'
+import { AntRoleType, FileMessage } from 'gel-ui'
 import { ReactNode } from 'react'
-import { RoleTypeCore } from '../type'
 import { RoleAvatarHidden } from './misc'
 
-export const FileRole: RoleTypeCore = {
+export const FileRole: AntRoleType<FileMessage['content']> = {
   placement: 'start',
   avatar: RoleAvatarHidden,
   variant: 'borderless',

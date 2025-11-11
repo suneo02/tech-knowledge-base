@@ -95,6 +95,8 @@ const Avatar: React.FC<AvatarProps> = (props) => {
             objectFit: 'contain',
           }}
           onError={() => setImgError(true)}
+          data-uc-id="mOeAwE1HkT"
+          data-uc-ct="img"
         />
       </div>
     )
@@ -115,6 +117,8 @@ const Avatar: React.FC<AvatarProps> = (props) => {
               objectFit: 'contain',
             }}
             onError={() => setImgError(true)}
+            data-uc-id="9WNH4BIv_A"
+            data-uc-ct="img"
           />
         }
       >
@@ -128,6 +132,8 @@ const Avatar: React.FC<AvatarProps> = (props) => {
             objectFit: 'contain',
           }}
           onError={() => setImgError(true)}
+          data-uc-id="uKkEbmi4GG"
+          data-uc-ct="img"
         />
       </Tooltip>
     </div>

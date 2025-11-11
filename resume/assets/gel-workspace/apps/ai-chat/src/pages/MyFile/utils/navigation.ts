@@ -19,7 +19,7 @@ export const navigateToFolder = (navigate: NavigateFunction, folderId: string) =
     if (window.location.hash.includes('/super/')) {
       basePath = '/super/my-file'
     }
-    console.log('使用 Hash 路由导航:', { basePath, folderId })
+    // console.log('使用 Hash 路由导航:', { basePath, folderId })
   }
 
   navigate(`${basePath}?folder=${folderId}`)

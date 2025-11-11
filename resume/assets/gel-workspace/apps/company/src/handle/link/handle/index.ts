@@ -1,11 +1,12 @@
+export {
+  GEL_WEB,
+  GEL_WEB_TEST,
+  getGeneralPrefixUrl,
+  getPrefixUrl,
+  PC_Front,
+  WFC_Enterprise_Web,
+} from '@/handle/link/handle/prefixUrl.ts'
 export * from './common.ts'
-export * from './jump.ts'
 export * from './generateOverall.ts'
+export * from './jump.ts'
 export * from './type.ts'
-export { getPrefixUrl } from '@/handle/link/handle/prefixUrl.ts'
-export { getGeneralPrefixUrl } from '@/handle/link/handle/prefixUrl.ts'
-export { GELService } from '@/handle/link/handle/prefixUrl.ts'
-export { GEL_WEB } from '@/handle/link/handle/prefixUrl.ts'
-export { GEL_WEB_TEST } from '@/handle/link/handle/prefixUrl.ts'
-export { PC_Front } from '@/handle/link/handle/prefixUrl.ts'
-export { WFC_Enterprise_Web } from '@/handle/link/handle/prefixUrl.ts'

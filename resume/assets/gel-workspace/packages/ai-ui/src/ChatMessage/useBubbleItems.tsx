@@ -1,8 +1,6 @@
-import { createAIContentMessage, createAIHeaderMessage, useXChatParser } from '@/hooks'
-import { MessageParsedBase } from '@/types'
 import { BubbleListProps } from '@ant-design/x/es/bubble/BubbleList'
 import { MessageInfo, MessageStatus } from '@ant-design/x/es/use-x-chat'
-import { AxiosInstance } from 'axios'
+import { createAIContentMessage, createAIHeaderMessage } from 'gel-ui'
 import { t } from 'gel-util/intl'
 import { useCallback, useMemo, useRef } from 'react'
 import { PlaceholderPromptsComp } from './PlaceholderPrompts/type'
@@ -24,16 +22,13 @@ export const createBubbleItemsByParsedMessages = <T extends object>(
   const result: any[] = []
   const newCache = new Map<string, any>()
 
-
-
   parsedMessages.forEach((item: MessageInfo<T>) => {
-    const { id, message,status } = item
+    const { id, message, status } = item
     // @ts-expect-error ttt
     const cacheKey = `${id}-${message?.role}-${status}`
 
     // 检查缓存中是否存在相同的消息
     if (cacheRef?.current.has(cacheKey)) {
-
       result.push(cacheRef.current.get(cacheKey))
     } else {
       // 创建新的气泡项
@@ -58,7 +53,10 @@ export const createDefaultMessages = () => {
   let agentMessage = {
     agentId: undefined,
     chatId: '',
-    content: t('454597', `Hi，我是您的商业查询智能助手！全维度企业尽调、股权穿透和关联关系、经营信息动态监测...这些我都在行，欢迎向我提问！`),
+    content: t(
+      '454597',
+      `Hi，我是您的商业查询智能助手！全维度企业尽调、股权穿透和关联关系、经营信息动态监测...这些我都在行，欢迎向我提问！`
+    ),
     role: 'ai',
     status: 'finish',
     think: undefined,
@@ -81,15 +79,12 @@ export const createDefaultMessages = () => {
  * 处理聊天气泡的创建和渲染逻辑
  */
 export const useBubbleItems = <T extends object>(
-  axiosInstance: AxiosInstance,
-  entWebAxiosInstance: AxiosInstance,
   parsedMessages: MessageInfo<T>[],
   chatId: string,
   showPlaceholderWhenEmpty: boolean,
-  PlaceholderNode: PlaceholderPromptsComp,
-  sendMessage: (message: string) => void,
-  isEmbedMode?: boolean,
-  roleName?: string
+  PlaceholderNode?: PlaceholderPromptsComp,
+  sendMessage?: (message: string) => void,
+  isEmbedMode?: boolean
 ) => {
   // 使用 useRef 来缓存气泡项，避免不必要的重新创建
   const bubbleCacheRef = useRef<Map<string, any>>(new Map())
@@ -103,7 +98,7 @@ export const useBubbleItems = <T extends object>(
     () => [
       {
         // 当没有消息时显示占位内容
-        content: <PlaceholderNode handleSendPresetMsg={sendMessage} />,
+        content: PlaceholderNode ? <PlaceholderNode handleSendPresetMsg={sendMessage} /> : null,
         variant: 'borderless' as const,
         styles: {
           content: {
@@ -142,8 +137,10 @@ export const useBubbleItems = <T extends object>(
         // 有会话ID且无消息时显示空数组
         newBubbleItems = []
       } else {
-        // 无会话ID且无消息时显示占位内容
-        newBubbleItems = createPlaceholderBubble()
+        if (PlaceholderNode) {
+          // 无会话ID且无消息时显示占位内容
+          newBubbleItems = createPlaceholderBubble()
+        }
       }
     }
 

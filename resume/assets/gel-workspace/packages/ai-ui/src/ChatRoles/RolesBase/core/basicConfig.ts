@@ -7,9 +7,9 @@ export const DEFAULT_YAXIS = {
     },
   },
   axisTick: {
-    length: 0
-  }
-};
+    length: 0,
+  },
+}
 
 export default {
   title: {
@@ -26,7 +26,7 @@ export default {
       lineHeight: 22,
       overflow: 'truncate',
       ellipsis: '...',
-    }
+    },
   },
   defaultPadding: {
     top: 0,
@@ -38,7 +38,7 @@ export default {
     ellipsis: '...',
   },
   tooltip: {
-    show: false
+    show: false,
   },
   background: {
     color: 'transparent',
@@ -53,7 +53,7 @@ export default {
       fontSize: 12,
       padding: [0, 8],
       color: '#333333',
-    }
+    },
   },
   xAxis: {
     '0:0-xAxis-0': {
@@ -64,8 +64,8 @@ export default {
         length: 4,
         lineStyle: {
           width: 1,
-          color: '#3E4149'
-        }
+          color: '#3E4149',
+        },
       },
       // 轴标签：12px / 常规体 / #666666 / 距x轴刻度4px，距y轴刻度8px /轴标签最小间距8px
       axisLabel: {
@@ -84,7 +84,7 @@ export default {
         lineStyle: {
           width: 1,
           color: '#3E4149',
-        }
+        },
       },
       splitLine: {
         show: false,
@@ -94,7 +94,7 @@ export default {
   },
   yAxis: {
     '0:0-yAxis-0': {
-      ...DEFAULT_YAXIS
+      ...DEFAULT_YAXIS,
     },
   },
-};
+}

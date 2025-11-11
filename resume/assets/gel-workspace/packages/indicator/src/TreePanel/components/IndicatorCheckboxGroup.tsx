@@ -37,18 +37,13 @@ export const IndicatorCheckboxGroup: React.FC<IndicatorCheckboxGroupProps> = ({
   const indicatorOptions = useMemo(() => getIndicatorOptions(classification.indicators), [classification.indicators])
   const [hoveredItem, setHoveredItem] = useState<number | null>(null)
 
-  // 如果没有指标，不渲染任何内容
-  if (!classification.indicators || classification.indicators.length === 0) {
-    return null
-  }
-
-  // 获取当前分类下已选中的指标
+  // 获取当前分类下已选中的指标（从 Map 中获取）
   const checkedValues = useMemo(() => {
-    const combinedFromProps = new Set<number>(checkedIndicators)
+    const checkedIds = new Set<number>(checkedIndicators.keys())
     if (initialCheckedIndicators) {
-      initialCheckedIndicators.forEach((key) => combinedFromProps.add(key))
+      initialCheckedIndicators.forEach((key) => checkedIds.add(key))
     }
-    return Array.from(combinedFromProps).filter((key) =>
+    return Array.from(checkedIds).filter((key) =>
       classification.indicators?.some((indicator) => indicator.spId === key)
     )
   }, [checkedIndicators, initialCheckedIndicators, classification.indicators])
@@ -59,28 +54,35 @@ export const IndicatorCheckboxGroup: React.FC<IndicatorCheckboxGroupProps> = ({
     handleIndicatorCheck(value, !isCurrentlyChecked)
   }
 
+  // 如果没有指标，不渲染任何内容
+  if (!classification.indicators || classification.indicators.length === 0) {
+    return null
+  }
+
   return (
-    // @ts-expect-error WindUI
     <CheckboxGroup
       className={styles.indicatorCheckboxGroup}
       // options={indicatorOptions}
       value={checkedValues}
-      onChange={(newCheckedValues) => {
+      onChange={(newCheckedValues: number[]) => {
         // 找出变化的那个选项
         const changedValue =
           newCheckedValues.length > checkedValues.length
-            ? newCheckedValues.find((value) => !checkedValues.includes(value as number)) // 新增的选项
-            : checkedValues.find((value) => !newCheckedValues.includes(value)) // 移除的选项
+            ? newCheckedValues.find((value: number) => !checkedValues.includes(value)) // 新增的选项
+            : checkedValues.find((value: number) => !newCheckedValues.includes(value)) // 移除的选项
 
         if (changedValue) {
-          handleIndicatorCheck(changedValue as number, newCheckedValues.length > checkedValues.length)
+          handleIndicatorCheck(changedValue, newCheckedValues.length > checkedValues.length)
         }
       }}
     >
       {indicatorOptions.map((option) => (
         <div
           key={option.value}
-          className={checkedValues.includes(option.value) ? styles.checked : ''}
+          className={classNames({
+            [styles.checked]: checkedValues.includes(option.value) && !initialCheckedIndicators?.has(option.value),
+            [styles.disabled]: initialCheckedIndicators?.has(option.value),
+          })}
           onClick={(e: React.MouseEvent) => {
             // 阻止事件冒泡，避免触发两次
             e.stopPropagation()

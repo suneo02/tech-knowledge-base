@@ -106,6 +106,29 @@ function getAllNodesGlobal(data, obj, fn) {
   }
 }
 
+// Node节点字体大小在不同场景下的设置
+// 1. 当节点深度为0时，根据是否为英文节点和节点名称长度来设置字体大小
+// 2. 当节点为多行时，根据节点名称长度来设置字体大小，超长10则设置为11，否则设置为14
+// 3. 当节点为单行时，根据节点名称长度来设置字体大小，超长20则设置为11，如果全大写则超出9则设置为11，否则设置为13
+function nodeFontSizeSet(d) {
+  if (!d) return 14
+  if (d.depth == 0) return window.en_access_config || d._nameIsEn ? (d._namelen >= 9 ? 12 : 13) : 15
+  if (d._multiline) {
+    if (d._namelen > 10) {
+      return 11
+    } else {
+      return 14
+    }
+  } else {
+    if (d._namelen > 20) {
+      return 11
+    } else if (d._nameIsUpper) {
+      return d._namelen >= 9 ? 11 : 13
+    }
+  }
+  return 14
+}
+
 function ShareAndInvestTree(props) {
   const [loading, setLoaded] = useState(true)
   const domRef = useRef(null)
@@ -1324,23 +1347,7 @@ function ShareAndInvestTree(props) {
 
       labelTxts
         .append('tspan')
-        .style('font-size', (d) => {
-          if (d.depth == 0) return window.en_access_config || d._nameIsEn ? (d._namelen >= 9 ? 12 : 13) : 15
-          if (d._multiline) {
-            if (d._namelen > 10) {
-              return 11
-            } else {
-              return 14
-            }
-          } else {
-            if (d._namelen > 20) {
-              return 11
-            } else if (d._nameIsUpper) {
-              return d._namelen >= 9 ? 12 : 13
-            }
-          }
-          return 14
-        })
+        .style('font-size', nodeFontSizeSet)
         .style('cursor', 'pointer')
         .style('font-weight', (d) => (!d.depth ? 'bold' : 'normal'))
         .on('click', function (d) {
@@ -1360,23 +1367,7 @@ function ShareAndInvestTree(props) {
           }
         })
         .append('tspan')
-        .style('font-size', (d) => {
-          if (d.depth == 0) return window.en_access_config || d._nameIsEn ? (d._namelen >= 9 ? 12 : 13) : 15
-          if (d._multiline) {
-            if (d._namelen > 10) {
-              return 11
-            } else {
-              return 14
-            }
-          } else {
-            if (d._namelen > 20) {
-              return 11
-            } else if (d._nameIsUpper) {
-              return d._namelen >= 9 ? 12 : 13
-            }
-          }
-          return 14
-        })
+        .style('font-size', nodeFontSizeSet)
         .style('cursor', 'pointer')
         .style('font-weight', (d) => (!d.depth ? 'bold' : 'normal'))
         .on('click', function (d) {
@@ -1864,23 +1855,7 @@ function ShareAndInvestTree(props) {
 
       labelTxts
         .append('tspan')
-        .style('font-size', (d) => {
-          if (d.depth == 0) return window.en_access_config || d._nameIsEn ? (d._namelen >= 9 ? 12 : 13) : 15
-          if (d._multiline) {
-            if (d._namelen > 10) {
-              return 11
-            } else {
-              return 14
-            }
-          } else {
-            if (d._namelen > 20) {
-              return 11
-            } else if (d._nameIsUpper) {
-              return d._namelen >= 9 ? 12 : 13
-            }
-          }
-          return 14
-        })
+        .style('font-size', nodeFontSizeSet)
         .style('cursor', 'pointer')
         .style('font-weight', (d) => (!d.depth ? 'bold' : 'normal'))
         .on('click', function (d) {
@@ -1900,23 +1875,7 @@ function ShareAndInvestTree(props) {
           }
         })
         .append('tspan')
-        .style('font-size', (d) => {
-          if (d.depth == 0) return window.en_access_config || d._nameIsEn ? (d._namelen >= 9 ? 12 : 13) : 15
-          if (d._multiline) {
-            if (d._namelen > 10) {
-              return 11
-            } else {
-              return 14
-            }
-          } else {
-            if (d._namelen > 20) {
-              return 11
-            } else if (d._nameIsUpper) {
-              return d._namelen >= 9 ? 12 : 13
-            }
-          }
-          return 14
-        })
+        .style('font-size', nodeFontSizeSet)
         .style('cursor', 'pointer')
         .style('font-weight', (d) => (!d.depth ? 'bold' : 'normal'))
         .on('click', function (d) {
@@ -2426,23 +2385,7 @@ function ShareAndInvestTree(props) {
 
       labelTxts
         .append('tspan')
-        .style('font-size', (d) => {
-          if (d.depth == 0) return window.en_access_config || d._nameIsEn ? (d._namelen >= 9 ? 12 : 13) : 15
-          if (d._multiline) {
-            if (d._namelen > 10) {
-              return 11
-            } else {
-              return 14
-            }
-          } else {
-            if (d._namelen > 20) {
-              return 11
-            } else if (d._nameIsUpper) {
-              return d._namelen >= 9 ? 12 : 13
-            }
-          }
-          return 14
-        })
+        .style('font-size', nodeFontSizeSet)
         .style('cursor', 'pointer')
         .style('font-weight', (d) => (!d.depth ? 'bold' : 'normal'))
         .on('click', function (d) {
@@ -2458,23 +2401,7 @@ function ShareAndInvestTree(props) {
           }
         })
         .append('tspan')
-        .style('font-size', (d) => {
-          if (d.depth == 0) return window.en_access_config || d._nameIsEn ? (d._namelen >= 9 ? 12 : 13) : 15
-          if (d._multiline) {
-            if (d._namelen > 10) {
-              return 11
-            } else {
-              return 14
-            }
-          } else {
-            if (d._namelen > 20) {
-              return 11
-            } else if (d._nameIsUpper) {
-              return d._namelen >= 9 ? 12 : 13
-            }
-          }
-          return 14
-        })
+        .style('font-size', nodeFontSizeSet)
         .style('cursor', 'pointer')
         .style('font-weight', (d) => (!d.depth ? 'bold' : 'normal'))
         .on('click', function (d) {
@@ -2890,23 +2817,7 @@ function ShareAndInvestTree(props) {
 
       labelTxts
         .append('tspan')
-        .style('font-size', (d) => {
-          if (d.depth == 0) return window.en_access_config || d._nameIsEn ? (d._namelen >= 9 ? 12 : 13) : 15
-          if (d._multiline) {
-            if (d._namelen > 10) {
-              return 11
-            } else {
-              return 14
-            }
-          } else {
-            if (d._namelen > 20) {
-              return 11
-            } else if (d._nameIsUpper) {
-              return d._namelen >= 9 ? 12 : 13
-            }
-          }
-          return 14
-        })
+        .style('font-size', nodeFontSizeSet)
         .style('cursor', 'pointer')
         .style('font-weight', (d) => (!d.depth ? 'bold' : 'normal'))
         .on('click', function (d) {
@@ -2923,23 +2834,7 @@ function ShareAndInvestTree(props) {
           }
         })
         .append('tspan')
-        .style('font-size', (d) => {
-          if (d.depth == 0) return window.en_access_config || d._nameIsEn ? (d._namelen >= 9 ? 12 : 13) : 15
-          if (d._multiline) {
-            if (d._namelen > 10) {
-              return 11
-            } else {
-              return 14
-            }
-          } else {
-            if (d._namelen > 20) {
-              return 11
-            } else if (d._nameIsUpper) {
-              return d._namelen >= 9 ? 12 : 13
-            }
-          }
-          return 14
-        })
+        .style('font-size', nodeFontSizeSet)
         .style('cursor', 'pointer')
         .style('font-weight', (d) => (!d.depth ? 'bold' : 'normal'))
         .on('click', function (d) {
@@ -3284,13 +3179,14 @@ function ShareAndInvestTree(props) {
                 }
                 exportFn(companyName)
               }}
+              data-uc-id="JY9vowjlu"
+              data-uc-ct="filetexto"
             />
           ) : null}
-          <SaveO onClick={thirdSaveEvent} />
-          <RefreshO onClick={freshChart} />
+          <SaveO onClick={thirdSaveEvent} data-uc-id="b6Bzz4flZG" data-uc-ct="saveo" />
+          <RefreshO onClick={freshChart} data-uc-id="jVK-htmWWg" data-uc-ct="refresho" />
         </div>
       )}
-
       <div
         className={` gqct-graph-content ${waterMask ? 'chart-content-watermask' : ''}`}
         style={!loading && !data ? { height: '100%', borderLeft: 'none', borderRight: 'none' } : null}
@@ -3310,6 +3206,8 @@ function ShareAndInvestTree(props) {
                     height="1em"
                     fill="currentColor"
                     aria-hidden="true"
+                    data-uc-id="nuBdD1yYpp"
+                    data-uc-ct="svg"
                   >
                     <path
                       d="M9 .9a8.1 8.1 0 110 16.2A8.1 8.1 0 019 .9zm0 1.2a6.9 6.9 0 100 13.8A6.9 6.9 0 009 2.1zm0 7.8a3.1 3.1 0 013.09 2.86v.17c.01.1-.06.17-.15.17h-.87c-.07 0-.13-.04-.16-.12l-.01-.05a1.9 1.9 0 00-3.79-.14v.14c-.01.1-.09.17-.18.17h-.86a.17.17 0 01-.17-.17l.01-.18A3.1 3.1 0 019 9.9zm-3-4a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2zm6 0a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"

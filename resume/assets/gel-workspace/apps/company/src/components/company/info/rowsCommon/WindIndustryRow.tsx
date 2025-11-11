@@ -28,6 +28,8 @@ export const corpInfoWindIndustryRow = (fromShfic: boolean): HorizontalTableCol<
         showLine={true}
         defaultExpandedKeys={fromShfic ? [] : [tmp.key]}
         treeData={treeStr}
+        data-uc-id="DbF76egsDQ"
+        data-uc-ct="tree"
       />
     )
   },

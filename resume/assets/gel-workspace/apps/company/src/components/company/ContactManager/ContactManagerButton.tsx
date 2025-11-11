@@ -1,10 +1,10 @@
-import React from 'react'
 import { Button } from '@wind/wind-ui'
+import React from 'react'
 import { useContactManager } from '.'
 import intl from '../../../utils/intl'
 
 interface ContactManagerButtonProps {
-  title?: string
+  title?: React.ReactNode
   className?: string
 }
 
@@ -15,7 +15,13 @@ export const ContactManagerButton: React.FC<ContactManagerButtonProps> = ({ titl
   const { handleContactManager } = useContactManager()
 
   return (
-    <Button className={className} type="link" onClick={handleContactManager}>
+    <Button
+      className={className}
+      type="link"
+      onClick={handleContactManager}
+      data-uc-id="w_rcaFUjjO"
+      data-uc-ct="button"
+    >
       {title || intl('234937', '联系客户经理')}
     </Button>
   )
@@ -29,6 +35,13 @@ export const withContactManager = (WrappedComponent: React.ComponentType<any>) =
   return function WithContactManagerComponent(props: any) {
     const { handleContactManager } = useContactManager()
 
-    return <WrappedComponent {...props} onContactManager={handleContactManager} />
+    return (
+      <WrappedComponent
+        {...props}
+        onContactManager={handleContactManager}
+        data-uc-id="NJpEDBtC1h"
+        data-uc-ct="wrappedcomponent"
+      />
+    )
   }
 }

@@ -7,6 +7,7 @@ import accountPerson from '../../../assets/imgs/logo/account-person.png'
 import { CaptchaComp } from '../../../components/common/captcha'
 import intl from '../../../utils/intl'
 import { wftCommon } from '../../../utils/utils'
+import { WindSessionHeader } from 'gel-util/env'
 
 const AccountTypeToName = {
   S23: '企业账户',
@@ -58,7 +59,7 @@ export const MyAccount = ({ userPhone }) => {
   const tipsZh = (
     <div>
       {`${intl('419821', '您可通过手机号')} ${userPhone || '--'} ${intl('419969', '使用全球企业库，网址: ')}`}
-      <a href="https://gel.wind.com.cn" target="_blank">
+      <a href="https://gel.wind.com.cn" target="_blank" data-uc-id="Sp9Ox_ViMh" data-uc-ct="a">
         https://gel.wind.com.cn
       </a>
       <p>
@@ -112,7 +113,7 @@ export const MyAccount = ({ userPhone }) => {
     loginBySwitch(curTab, code).then(
       (res) => {
         if (res.ErrorCode == '0' && res.Data && res.Data.wsid && res.Data.isSucceed) {
-          sessionStorageManager.set('GEL-wsid', res.Data.wsid)
+          res?.Data?.wsid && localStorage.setItem(WindSessionHeader, res?.Data?.wsid)
           setVisible(false)
           message.success('切换用户成功，正在为您重新跳转...', 1.5)
           setTimeout(() => {
@@ -166,6 +167,8 @@ export const MyAccount = ({ userPhone }) => {
                   onClick={() => {
                     return tabClickEvent(t)
                   }}
+                  data-uc-id="imTsGVJsnE"
+                  data-uc-ct="div"
                 >
                   <div className="account-item-tag">
                     <span>当前</span>
@@ -201,7 +204,6 @@ export const MyAccount = ({ userPhone }) => {
         ) : null}
         <div className="account-tips">{window.en_access_config ? tipsEn : tipsZh}</div>
 
-        {/* @ts-expect-error */}
         <Modal
           wrapClassName={'account-change-modal'}
           title={'账号切换'}
@@ -210,14 +212,23 @@ export const MyAccount = ({ userPhone }) => {
             setVisible(false)
           }}
           footer={[
-            <Button key="confirm" type="primary" onClick={onOk}>
+            <Button key="confirm" type="primary" onClick={onOk} data-uc-id="jLtT9mA9o" data-uc-ct="button">
               {intl('19482', '确认')}
             </Button>,
           ]}
+          data-uc-id="h8GhU2sMJQ"
+          data-uc-ct="modal"
         >
           <div>
             <div style={{ marginBottom: '12px' }}>切换账号时需要进行手机验证：</div>
-            <Input className={`account-captcha-input`} value={phone} readOnly disabled />
+            <Input
+              className={`account-captcha-input`}
+              value={phone}
+              readOnly
+              disabled
+              data-uc-id="d5pqaZ0OfU"
+              data-uc-ct="input"
+            />
 
             <div className="account-code-input">
               <Input
@@ -225,8 +236,15 @@ export const MyAccount = ({ userPhone }) => {
                 value={code}
                 placeholder={intl('', '请输入验证码')}
                 onChange={onChangeEvent}
+                data-uc-id="RD8oPizvrZ"
+                data-uc-ct="input"
               />
-              <Button onClick={onGetCode} disabled={time < timeout ? true : false}>
+              <Button
+                onClick={onGetCode}
+                disabled={time < timeout ? true : false}
+                data-uc-id="Hp32Sk43Pt"
+                data-uc-ct="button"
+              >
                 {time > timeout - 1 ? intl('343424', '获取验证码') : time + 'S ' + intl('343424', '重新获取')}
               </Button>
               <CaptchaComp
@@ -234,6 +252,8 @@ export const MyAccount = ({ userPhone }) => {
                 onSuccess={onCaptchaSunccess}
                 onClose={onCloseCaptcha}
                 appName={'wind.ent.web'}
+                data-uc-id="DEnj9Cj1eQ"
+                data-uc-ct="captchacomp"
               />
             </div>
           </div>

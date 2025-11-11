@@ -1,10 +1,10 @@
 import { RPPreviewComp } from '@/components/RPPreview'
 import { useRPPreviewRequest } from '@/hooks'
-import { tForRPPreview } from '@/utils'
+import { getTForRPPreview } from '@/utils'
 import { AxiosInstance } from 'axios'
 import { getDDRPConfig } from 'detail-page-config'
-import { isDev } from 'gel-api'
 import { UserPackageInfo } from 'gel-types'
+import { useIntl } from 'gel-ui'
 import { generateUrlByModule, LinkModule } from 'gel-util/link'
 import { useMemo } from 'react'
 import { getDDRPLocale } from 'report-util/constants'
@@ -19,6 +19,7 @@ export const DDRPPreviewComp: React.FC<{
   isDev: boolean
   getWsid: () => string
 }> = (props) => {
+  const t = useIntl()
   const {
     corpBasicNum,
     corpOtherInfo,
@@ -46,7 +47,7 @@ export const DDRPPreviewComp: React.FC<{
       params: {
         companyCode: corpCode,
       },
-      isDev,
+      isDev: props.isDev,
     })
     if (!url) {
       return
@@ -54,7 +55,7 @@ export const DDRPPreviewComp: React.FC<{
     window.location.href = url
   }
 
-  const { reportTitle = '' } = getDDRPLocale(tForRPPreview)
+  const { reportTitle = '' } = getDDRPLocale(getTForRPPreview(t))
 
   return (
     <RPPreviewComp

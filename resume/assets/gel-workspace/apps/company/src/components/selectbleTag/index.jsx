@@ -39,9 +39,12 @@ const Products = ({ data, type, selectedTags, onChange: handleChange, maxLines =
                     }
                   }}
                   key={index}
+                  data-uc-id="w3Q8fL-Nwp"
+                  data-uc-ct="tag"
+                  data-uc-x={index}
                 >
                   #{t?.key || ''}
-                  {/* <FireO style={{ color: '#832728', fontSize: '16px' }} /> */} ({doc_count})
+                  {/* <FireO style={{ color: '#832728', fontSize: '16px' }} /> */}({doc_count})
                 </Tag.CheckableTag>
               )
             )
@@ -53,7 +56,13 @@ const Products = ({ data, type, selectedTags, onChange: handleChange, maxLines =
   if (type === 'filter') {
     return !window.en_access_config && data && data.length && data.some((i) => i.doc_count) ? (
       <div className="selected-tag-box">
-        <TextExpandable content={content} maxLines={1} marginBottom="-23px"></TextExpandable>
+        <TextExpandable
+          content={content}
+          maxLines={1}
+          marginBottom="-23px"
+          data-uc-id="rIFgMjHsRO"
+          data-uc-ct="textexpandable"
+        ></TextExpandable>
       </div>
     ) : null
   }

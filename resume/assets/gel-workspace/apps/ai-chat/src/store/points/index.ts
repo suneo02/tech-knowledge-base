@@ -43,6 +43,7 @@ const initialState: PointsState = {
   count: 0,
   loading: false,
   error: null,
+  initialized: false,
 }
 
 const pointsSlice = createSlice({
@@ -58,6 +59,7 @@ const pointsSlice = createSlice({
       .addCase(fetchPoints.fulfilled, (state, action: PayloadAction<number>) => {
         state.count = action.payload
         state.loading = false
+        state.initialized = true
       })
       .addCase(fetchPoints.rejected, (state, action) => {
         state.loading = false
@@ -77,5 +79,6 @@ const pointsSlice = createSlice({
 export const selectPointsCount = (state: RootState) => state.points.count
 export const selectPointsLoading = (state: RootState) => state.points.loading
 export const selectPointsError = (state: RootState) => state.points.error
+export const selectPointsInitialized = (state: RootState) => state.points.initialized
 
 export default pointsSlice.reducer

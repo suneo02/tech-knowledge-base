@@ -2,34 +2,24 @@
 
 @box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
 
-@box-shadow-sm: 0 2px 4px 1px rgb(0 0 0 / 5%),
+@box-shadow-sm:
+  0 2px 4px 1px rgb(0 0 0 / 5%),
   0 1px 2px -1px rgb(0 0 0 / 10%);
 
 @global-space: 12px; // standard space
 @global-space-lg: 24px; // standard space
 
 // windui 黄金分割渐变蓝
-@primary-gradient: linear-gradient(90deg,
-    #3862ed,
-    #274cda 11%,
-    #00aec7 47%,
-    #17d9cb 62%,
-    #b388e8 94%);
+@primary-gradient: linear-gradient(90deg, #3862ed, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
 
 // 渐变边框
 @--alice-border-1: linear-gradient(90deg, #fff, #fff),
-  linear-gradient(90deg,
-    #3862ed 0%,
-    #274cda 25%,
-    #00aec7 50%,
-    #12cbbe 75%,
-    #9d9ae3 100%);
+  linear-gradient(90deg, #3862ed 0%, #274cda 25%, #00aec7 50%, #12cbbe 75%, #9d9ae3 100%);
 // 渐变边框 灰色
 // 边框颜色
 @border-color-base: #c3c5c9;
 @border-color-split: #ecedee;
-@--alice-border-gray: linear-gradient(90deg, #fff, #fff),
-  linear-gradient(90deg, @border-color-base, @border-color-base);
+@--alice-border-gray: linear-gradient(90deg, #fff, #fff), linear-gradient(90deg, @border-color-base, @border-color-base);
 
 // 间距
 @spacing-xs: 8px;
@@ -112,9 +102,11 @@
 @border-radius-circle: 50%; // 圆角
 
 // 阴影
-@shadow-hover: 0 4px 8px 1px rgba(0, 0, 0, 0.1),
+@shadow-hover:
+  0 4px 8px 1px rgba(0, 0, 0, 0.1),
   0 2px 3px -2px rgba(0, 0, 0, 0.2); // BackTop回到顶部；Card卡片；Message全局提示；Popconfirm气泡确认框；Popover气泡卡片；Tooltip文字提示；
-@shadow-normal: 0 3px 14px -2px rgb(0 0 0 / 10%),
+@shadow-normal:
+  0 3px 14px -2px rgb(0 0 0 / 10%),
   0 8px 10px 1px rgb(0 0 0 / 6%),
   0 2px 5px -2px rgb(0 0 0 / 10%); // AutoComplete自动完成；Cascader级联选择；DatePicker日期选择框；Dropdown下拉菜单；Mention提及；Menu导航菜单；Modal对话框；Notification通知确认框；Select选择器；TimePicker时间选择框；TreeSelect树选择；
 @shadow-focus: 0 0 3px rgba(9, 147, 174, 1); // 输入框-选中
@@ -255,10 +247,9 @@
   --color-bg-3: var(--basic-15);
   --color-bg-4: var(--basic-16);
   --color-bg-5: var(--basic-13);
-  --shadow-hover: 0 4px 8px 1px rgba(0, 0, 0, 0.1),
-    0 2px 3px -2px rgba(0, 0, 0, 0.2);
-  --shadow-normal: 0 2px 5px -2px rgba(0, 0, 0, 0.1),
-    0 8px 10px 1px rgba(0, 0, 0, 0.06), 0 3px 14px 2px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 4px 8px 1px rgba(0, 0, 0, 0.1), 0 2px 3px -2px rgba(0, 0, 0, 0.2);
+  --shadow-normal:
+    0 2px 5px -2px rgba(0, 0, 0, 0.1), 0 8px 10px 1px rgba(0, 0, 0, 0.06), 0 3px 14px 2px rgba(0, 0, 0, 0.05);
   --shadow-focus: 0 0 3px #0993ae;
   --shadow-active: 0 0 3px #05809e;
   --shadow-border: var(--border-color-split);

@@ -8,7 +8,8 @@
  * import { something } from 'gel-util/[module]'
  *
  * 子模块列表：
- * - env: 环境相关函数 (getWSID, isDev, usedInClient, WindSessionHeader 等)
+ * - common: 通用函数 (isEmpty 等)
+ * - env: 环境相关函数  isDev, usedInClient, WindSessionHeader 等)
  * - intl: 国际化相关 (i18n, t, getLocale, SupportedLocale 等)
  * - link: 链接生成 (generateUrlByModule, LinkModule 等)
  * - format: 格式化函数 (formatTime, formatMoney, numberFormat 等)
@@ -19,9 +20,10 @@
  * - download: 下载相关函数 (downloadFileToLocal 等)
  * - typeUtil: 类型工具
  * - hooks: React Hooks (useUrlState 等)
+ * - errorLogger: 错误日志相关函数 (buildErrorReason, eaglesError 等)
  *
  * 如果不确定某个函数属于哪个模块，请查看相应模块的index.ts文件
  */
 
 // 抛出明确的错误，防止误用
-throw new Error('不能再从主入口导入 gel-util，请使用子模块导入方式。例如: import { getWSID } from "gel-util/env"')
+throw new Error('不能再从主入口导入 gel-util，请使用子模块导入方式。例如: import { usedInClient } from "gel-util/env"')

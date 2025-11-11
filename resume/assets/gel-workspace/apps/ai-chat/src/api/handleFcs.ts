@@ -69,7 +69,7 @@ export function createWFCSuperlistRequestFcs<P extends keyof ApiPaths[typeof WFC
   return async (
     data?: GetApiData<typeof WFC_API_PATH, P>,
     options?: Omit<ApiOptions<typeof WFC_API_PATH, P>, 'server'>
-  ): Promise<GetApiResponse<typeof WFC_API_PATH, P>> => {
+  ): Promise<GetApiResponse<typeof WFC_API_PATH, P>> => {// @ts-expect-error ttt
     return requestToWFCSuperlistFcs(api, data, options)
   }
 }

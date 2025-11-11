@@ -1,0 +1,93 @@
+/**
+ * @author 张文浩<suneo@wind.com.cn>
+ * @description 价格表其他行样式 - 用于特殊行的样式处理
+ */
+
+.price-table-other-row {
+  // 设置表格行高度，与其他表格行保持一致
+  td {
+    min-height: 50px;
+    height: auto !important;
+    vertical-align: middle;
+  }
+
+  td:last-child:before {
+    background: transparent !important;
+  }
+
+  td:last-child:after {
+    background: transparent !important;
+  }
+
+  td:last-child {
+    border-left: 2px solid #fff !important;
+    border-right: 2px solid #fff !important;
+    border-top: 2px solid #fff !important;
+    border-top-right-radius: 0px !important;
+  }
+
+  .w-btn {
+    cursor: pointer;
+    color: #333;
+    font-size: 16px;
+    border-bottom: 1px solid #c5c5c5;
+    padding: 0;
+    display: block;
+
+    &:hover {
+      color: #00aec7;
+      border-bottom: 1px solid #00aec7;
+    }
+
+    &:active {
+      color: #05809e;
+      border-bottom: 1px solid #05809e;
+    }
+
+    &:focus {
+      color: #05809e;
+      border-bottom: 1px solid #05809e;
+    }
+  }
+
+  .default {
+    cursor: default;
+    line-height: 1.1;
+    color: #333 !important;
+
+    &:hover {
+      color: #333 !important;
+      cursor: default;
+      background-color: transparent;
+    }
+  }
+
+  .link {
+    cursor: pointer;
+    color: #333;
+    font-size: 16px;
+    border-bottom: 1px solid #c5c5c5;
+    line-height: 1;
+  }
+
+  .w-btn:hover {
+    .link {
+      color: #00aec7;
+      border-bottom: 1px solid #00aec7;
+
+      &:active {
+        color: #05809e;
+        border-bottom: 1px solid #05809e;
+      }
+
+      &:focus {
+        color: #05809e;
+        border-bottom: 1px solid #05809e;
+      }
+    }
+  }
+
+  .contact-manager-table-td .w-btn {
+    margin-top: 0;
+  }
+}

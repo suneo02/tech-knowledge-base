@@ -1,10 +1,11 @@
-import { t } from 'gel-util/intl'
+import { useIntl } from 'gel-ui'
 import { FC } from 'react'
 import styles from './index.module.less'
 
 export const RPComment: FC<{
   content: string[]
 }> = ({ content }) => {
+  const t = useIntl()
   return (
     <div className={styles['report-comment']}>
       <div className="report-comment-title">

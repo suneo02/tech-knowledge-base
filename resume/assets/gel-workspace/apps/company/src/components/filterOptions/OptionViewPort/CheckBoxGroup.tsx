@@ -22,5 +22,13 @@ export const CheckBoxGroupForOptionViewport: FC<{
         value: Array.isArray(item.value) ? item.value.join(',') : item.value,
       }))
   }, [itemOptions])
-  return <Checkbox.Group value={value} options={optionsFiltered} onChange={() => onChange()} />
+  return (
+    <Checkbox.Group
+      value={value}
+      options={optionsFiltered}
+      onChange={() => onChange()}
+      data-uc-id="CWem7zesM8"
+      data-uc-ct="checkbox"
+    />
+  )
 }

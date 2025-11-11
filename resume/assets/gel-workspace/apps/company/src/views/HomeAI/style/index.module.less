@@ -1,44 +1,74 @@
-@import "./variable.module.less";
+@import './variable.module.less';
 
+@first-screen-height: 902px - 36px;
+body {
+  overflow: overlay;
+}
 .searchHome {
   height: 100%;
   overflow: overlay;
-  background: #fff;
+  // background: #fff;
   margin: 0 auto;
+
+  position: relative;
 
   * {
     box-sizing: border-box;
   }
 
-  &>* {
+  & > * {
     max-width: 1266px;
     width: 100%;
+    margin: 0 auto;
   }
 
   .homeTopContainer {
-    // width: 100vw;
-    max-width: 100vw;
-    padding: 36px 42px 40px;
-    background: url(~@/assets/imgs/home_bg_ai.png) no-repeat center/cover;
+    padding-top: 80px;
+    // height: @first-screen-height;
+
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      width: 100%;
+      height: @first-screen-height;
+      background: linear-gradient(
+        49deg,
+        rgba(39, 76, 218, 0.2) 0%,
+        rgba(0, 174, 199, 0.2) 68%,
+        rgba(5, 150, 179, 0.2) 97%
+      );
+      z-index: 0;
+    }
+
+    &::after {
+      @top: 258px;
+      content: '';
+      position: absolute;
+      left: 0;
+      top: @top;
+      width: 100%;
+      height: calc(@first-screen-height - @top);
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #f6f6f6 100%);
+      z-index: 0;
+    }
+
     .homeTop {
       width: 100%;
-      margin: 0 auto;
-      max-width: 1266px;
-      min-width: 1266px;
+      height: 100%;
+      position: relative;
+      z-index: 1;
     }
   }
 
   .homeBottomContainer {
-    padding-top: 12px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+    position: relative;
     .aiMainContainer {
       // margin-top: 40px;
 
@@ -47,12 +77,12 @@
       height: 248px;
       min-height: 248px;
 
-      &> :first-child {
-        width: calc((100% - @home-display-column-gap * 4) / 5 * 2 + @home-display-column-gap );
+      & > :first-child {
+        width: calc((100% - @home-display-column-gap * 4) / 5 * 2 + @home-display-column-gap);
         margin-right: @home-display-column-gap;
       }
 
-      &> :last-child {
+      & > :last-child {
         width: calc((100% - @home-display-column-gap * 4) / 5 * 3 + @home-display-column-gap * 2);
       }
     }

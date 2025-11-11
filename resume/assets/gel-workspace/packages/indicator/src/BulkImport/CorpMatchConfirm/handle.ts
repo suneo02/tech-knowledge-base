@@ -40,7 +40,7 @@ export const useCompanyMatch = (matchCompanies: IndicatorBulkImportApi['matchCom
   })
 
   useEffect(() => {
-    if (!res) return
+    if (!res || !res.Data) return
     const { companyMatchList, cnNum, errorNum, hongkongNum, twNum } = res.Data
 
     // 使用对象一次性更新所有计数

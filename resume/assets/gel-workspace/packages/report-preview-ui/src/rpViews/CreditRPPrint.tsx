@@ -1,10 +1,10 @@
 import { RPPrintComp } from '@/components/RPPreview'
 import { useRPPreviewRequest } from '@/hooks'
-import { tForRPPreview } from '@/utils'
+import { getTForRPPreview } from '@/utils'
 import { AxiosInstance } from 'axios'
 import { getCreditRPConfig } from 'detail-page-config'
-import { isDev } from 'gel-api'
 import { UserPackageInfo } from 'gel-types'
+import { useIntl } from 'gel-ui'
 import { generateUrlByModule, LinkModule } from 'gel-util/link'
 import React from 'react'
 import { getCreditRPLocale } from 'report-util/constants'
@@ -19,6 +19,7 @@ export const CreditRPPrintComp: React.FC<{
   isDev: boolean
   getWsid: () => string
 }> = (props) => {
+  const t = useIntl()
   const {
     corpBasicNum,
     corpOtherInfo,
@@ -44,7 +45,7 @@ export const CreditRPPrintComp: React.FC<{
       params: {
         companyCode: corpCode,
       },
-      isDev,
+      isDev: props.isDev,
     })
     if (!url) {
       return
@@ -52,7 +53,7 @@ export const CreditRPPrintComp: React.FC<{
     window.location.href = url
   }
 
-  const { reportTitle = '' } = getCreditRPLocale(tForRPPreview)
+  const { reportTitle = '' } = getCreditRPLocale(getTForRPPreview(t))
 
   return (
     <RPPrintComp

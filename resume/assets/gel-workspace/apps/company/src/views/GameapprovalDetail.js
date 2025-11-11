@@ -140,7 +140,6 @@ function GameapprovalDetail(props) {
       <div className="breadcrumb-box">
         <BreadCrumbT subTitle={intl('354853', '游戏审批')} />
       </div>
-
       <div className="gameapproval">
         {/* 页面的任何地方加上Prompt组件都生效 */}
         {/* <Prompt when={isHoldUpRouter} message={this.handleRouterHoldUp} /> */}
@@ -151,6 +150,8 @@ function GameapprovalDetail(props) {
             loading={false}
             rows={itemKey}
             dataSource={dataSource}
+            data-uc-id="MgL1gdwfi"
+            data-uc-ct="horizontaltable"
           ></HorizontalTable>
         </Card>
         {dataSource?.changeInfoList &&
@@ -163,6 +164,8 @@ function GameapprovalDetail(props) {
                 loading={false}
                 rows={changeInfoKey}
                 dataSource={changeInfo}
+                data-uc-id="g7WU100WF9"
+                data-uc-ct="horizontaltable"
               ></HorizontalTable>
             </Card>
           ))}

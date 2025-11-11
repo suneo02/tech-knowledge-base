@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useMemo, useState } from 'react'
 import NoData from '@/components/common/noData/NoData'
+import intl from '@/utils/intl'
 import Table from '@wind/wind-ui-table'
+import { every, isArray } from 'lodash'
+import React, { FC, useEffect, useMemo, useState } from 'react'
+import { useTranslateService } from '../../../hook'
 import { usePreprocessingData } from '../utils/processing'
 import './index.less'
-import { every, isArray } from 'lodash'
-import { useTranslateService } from '../../../hook'
-import intl from '@/utils/intl'
 
 function isTwoDimensionalArr(val) {
   if (!isArray(val)) {
@@ -36,20 +36,23 @@ const HorizontalTable: FC<{
 
   const { getTableData } = usePreprocessingData()
 
-  // @ts-expect-error ttt
-  useEffect(async () => {
-    const tableData: any = await getTableData({
-      columns,
-      dataSource,
-      preprocessing,
-      api,
-    }).finally(() => setLoading(false))
-    setTableRowsApi(tableData.columns || [])
-    if (Array.isArray(tableData.dataSource)) {
-      setTableData(tableData.dataSource[0])
-      return
+  useEffect(() => {
+    const fetchData = async () => {
+      const tableData: any = await getTableData({
+        columns,
+        dataSource,
+        preprocessing,
+        api,
+      }).finally(() => setLoading(false))
+      setTableRowsApi(tableData.columns || [])
+      if (Array.isArray(tableData.dataSource)) {
+        setTableData(tableData.dataSource[0])
+        return
+      }
+      setTableData(tableData.dataSource)
     }
-    setTableData(tableData.dataSource)
+
+    fetchData()
   }, [])
 
   const tableRows = useMemo(() => {
@@ -77,6 +80,8 @@ const HorizontalTable: FC<{
             <NoData title={intl('132725', '暂无数据')} />
           ),
         }}
+        data-uc-id="Udira0b6r"
+        data-uc-ct="table"
       />
     </div>
   )

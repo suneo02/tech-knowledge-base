@@ -1,6 +1,6 @@
-import * as actionTypes from "./actionTypes";
+import * as actionTypes from './actionTypes'
 
-export const collectQuery = data => {
+export const collectQuery = (data) => {
   return {
     type: actionTypes.COLLECT_QUERY,
     data,
@@ -19,4 +19,3 @@ export const getContactByCropid = (data) => {
     data,
   }
 }
-

@@ -29,32 +29,28 @@ export const usedInClient = () => {
  * @returns WSID
  */
 export const getWsidProd = () => {
-  // 1. 优先从 query string 获取
+  try {
+    // 1. 优先从 query string 获取
 
-  let wsid = getUrlSearch('wind.sessionid')
-  if (wsid) {
-    return wsid
+    let wsid = getUrlSearch('wind.sessionid')
+    if (wsid) {
+      return wsid
+    }
+
+    // 2. 其次从 cookie 获取
+    const cookies = document.cookie.split('; ')
+    for (let i = 0; i < cookies.length; i++) {
+      if (cookies[i].indexOf('wind.sessionid=') === 0) {
+        wsid = cookies[i].split('=')[1]
+        break
+      }
+    }
+
+    return wsid || ''
+  } catch (e) {
+    console.error(e)
+    return ''
   }
-
-  // 2. 其次从 cookie 获取
-  if (!wsid) {
-    wsid = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('wind.sessionid='))
-      ?.split('=')[1]
-  }
-
-  // 3. 其次从 localStorage 获取
-  if (!wsid) {
-    wsid = localStorage.getItem('wsid') || undefined
-  }
-
-  // 4. 再其次从 window.global_wsid 获取
-  if (!wsid) {
-    wsid = window.global_wsid
-  }
-
-  return wsid || ''
 }
 
 /**

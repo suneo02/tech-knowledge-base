@@ -123,7 +123,7 @@ export const getCompanyQualificationItem = (): IFuncMenuItem => {
     }),
     css: 'qualification-icon top-beta-icon',
     icon: 'ZZDQ',
-    new: true,
+    //     new: true,
     disabled: isOversea,
   }
 }

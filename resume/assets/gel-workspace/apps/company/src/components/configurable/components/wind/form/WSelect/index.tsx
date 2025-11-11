@@ -13,6 +13,8 @@ const WSelect = (props: SelectProps) => {
       onClear={() => setValue(defaultValue)}
       onChange={(value, options) => _onChange?.(value === undefined ? defaultValue : value, options)}
       {...rest}
+      data-uc-id="o4kBG33How"
+      data-uc-ct="select"
     ></Select>
   )
 }

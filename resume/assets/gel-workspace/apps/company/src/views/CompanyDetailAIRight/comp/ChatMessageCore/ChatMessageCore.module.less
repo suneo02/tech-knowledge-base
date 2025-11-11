@@ -99,91 +99,6 @@
   .chatActionsContainer {
     padding: 0 16px;
     margin: 12px auto 0px;
-
-    // 单独的 sender 模式，即 actions 只有 sender
-    .sender-alone,
-    .chatActions {
-      max-width: @chat-message-max-width;
-      min-width: @chat-message-min-width;
-      margin: 0 auto;
-    }
-
-    // 发送框样式
-    .sender {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-
-      color: @primary;
-      transition: none;
-      border-color: transparent;
-      background-color: #f3f5f7;
-
-      box-sizing: border-box;
-
-      &:focus-within,
-      &:hover {
-        background-color: #f3f5f7;
-        box-shadow: @shadow-normal;
-      }
-
-      :global {
-        .ant-input:hover {
-          border-color: transparent !important;
-        }
-
-        .ant-input:focus,
-        .ant-input-focused {
-          border-color: transparent !important;
-          box-shadow: none !important;
-        }
-        .ant-sender-content {
-          // 容器底部渐变蓝
-          &::after {
-            content: '';
-            -webkit-transition: all 0.2s;
-            -o-transition: all 0.2s;
-            transition: all 0.2s;
-            display: block;
-            opacity: 0;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 4px;
-            background-image: -webkit-gradient(
-              linear,
-              left top,
-              right top,
-              from(#3862ed),
-              color-stop(11%, #274cda),
-              color-stop(47%, #00aec7),
-              color-stop(62%, #17d9cb),
-              color-stop(94%, #b388e8)
-            );
-            background-image: -webkit-linear-gradient(
-              left,
-              #3862ed,
-              #274cda 11%,
-              #00aec7 47%,
-              #17d9cb 62%,
-              #b388e8 94%
-            );
-            background-image: -o-linear-gradient(left, #3862ed 0, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
-            background-image: linear-gradient(90deg, #3862ed, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
-            background-size: 100%;
-            background-repeat: no-repeat;
-            background-position: bottom;
-          }
-          &:focus-within {
-            background-color: #f3f5f7;
-            &::after {
-              opacity: 1;
-            }
-          }
-        }
-      }
-    }
   }
 
   .footer {
@@ -200,6 +115,10 @@
   overflow: auto;
 
   :global {
+    .w-spin-container {
+      flex-direction: column;
+      display: flex;
+    }
     .ant-spin-container {
       height: 100%;
     }

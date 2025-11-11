@@ -1,4 +1,4 @@
-import { getDefaultImage } from '@/utils/misc/imageBase'
+import { getDefaultImage } from 'report-util/misc'
 import styles from './index.module.less'
 /**
  * Create image element

@@ -1,7 +1,7 @@
-import { tForRPPreview } from '@/utils'
 import { AxiosInstance } from 'axios'
 import { ApiResponseForWFC } from 'gel-api'
 import { CorpBasicNumFront, ReportDetailTableJson, TCorpDetailNodeKey } from 'gel-types'
+import { useIntl } from 'gel-ui'
 import { isEn } from 'gel-util/intl'
 import React from 'react'
 import { getNoDataLocaleAuto } from 'report-util/constants'
@@ -38,6 +38,7 @@ export const ConfigTable: React.FC<ConfigTableProps> = ({
   axiosInstance,
   getWsid,
 }) => {
+  const t = useIntl()
   const { loading, tableProps, finalDataSource } = useConfigTableData({
     config,
     corpBasicNum,
@@ -74,7 +75,7 @@ export const ConfigTable: React.FC<ConfigTableProps> = ({
 
     if (tableProps.type === 'crossTable' && finalDataSource) {
       const { tableProps: verticalTableProps, dataSource: processedDataSource } =
-        transformCrossTablePropsToVerticalTableProps(tableProps, finalDataSource, tForRPPreview)
+        transformCrossTablePropsToVerticalTableProps(tableProps, finalDataSource, t)
 
       return <BasicTable {...commonProps} dataSource={processedDataSource} options={verticalTableProps} />
     }

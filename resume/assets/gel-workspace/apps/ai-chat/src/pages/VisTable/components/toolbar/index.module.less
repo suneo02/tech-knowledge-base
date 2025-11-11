@@ -5,10 +5,14 @@
     margin-bottom: 8px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    > div {
+      display: flex;
+      align-items: center;
+    }
   }
 
   &-ai-generate-button {
-    margin-right: 8px;
     background: white;
     border: none;
     padding: 1px;
@@ -31,7 +35,6 @@
     }
   }
   &-action-button {
-    margin-inline-end: 8px;
     .button-content {
       display: flex;
       align-items: center;
@@ -40,6 +43,11 @@
     .icon {
       width: 16px;
       height: 16px;
+    }
+  }
+  &-actions {
+    > * {
+      margin-inline-start: 8px;
     }
   }
 }

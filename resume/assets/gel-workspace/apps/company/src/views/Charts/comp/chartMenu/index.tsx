@@ -4,7 +4,10 @@ const { Header, Sider } = Layout
 import { ToggleCorpDetailMenu } from '@/views/Company/comp/menu/ExpandAll'
 import { getDefaultExpandedKeys } from './altasMenus'
 import intl from '@/utils/intl'
+import { pointBuriedByModule } from '@/api/pointBuried/bury'
 import './index.less'
+import { getAIGraphLink } from '@/handle/link/module/KG'
+import { localStorageManager } from '@/utils/storage'
 
 const TreeNode = Tree.TreeNode
 
@@ -28,7 +31,7 @@ const ChartMenu: React.FC<ChartMenuProps> = ({
   companyName,
   onCollapse,
 }) => {
-  const expandedAllKeys = ['gqltp', 'gxltp', 'chart_glgx', 'rzltp', 'cgx', 'chart_qysyr']
+  const expandedAllKeys = ['gqltp', 'gxltp', 'chart_glgx', 'rzltp', 'cgx', 'chart_qysyr', 'ai_graph']
   // 寻找默认展开的菜单
   // const defaultExpanded =
   //   defaultActiveKey && defaultActiveKey !== 'atlasplatform'
@@ -56,7 +59,22 @@ const ChartMenu: React.FC<ChartMenuProps> = ({
   // 选中菜单
   const onSelect = (selectedKeys, info) => {
     const key = info.node.key
+    // 跳转至AI图谱
+    if (!info.node.parentNode && key.includes('ai_graph')) {
+      const link = getAIGraphLink()
+      localStorageManager.set('gel_ai_graph_content', JSON.stringify({ [key]: 'true' }))
+      window.open(link)
+      return
+    }
     if (selectedKeys.length > 0) {
+      // 切菜单埋点
+      pointBuriedByModule(922602100299, {
+        currentPage: selectedKeys[0],
+      })
+      // 具体节点埋点
+      if (info?.node?.buryId) {
+        pointBuriedByModule(info?.node?.buryId)
+      }
       if (key === 'chart_jztp') {
         window.open(`/windkg/index.html#/competitors?companyname=${companyName}&id=${companyCode}`)
         return
@@ -97,12 +115,28 @@ const ChartMenu: React.FC<ChartMenuProps> = ({
     data.map((item) => {
       if (item?.children?.length > 0) {
         return (
-          <TreeNode title={item.title} key={item.key}>
+          <TreeNode
+            title={item.title}
+            key={item.key}
+            {...item}
+            data-uc-id="wEvRa0uMcAG"
+            data-uc-ct="treenode"
+            data-uc-x={item.key}
+          >
             {loop(item.children)}
           </TreeNode>
         )
       } else {
-        return <TreeNode title={item.title} key={item.key} />
+        return (
+          <TreeNode
+            title={item.title}
+            key={item.key}
+            {...item}
+            data-uc-id="AF1037D2VbT"
+            data-uc-ct="treenode"
+            data-uc-x={item.key}
+          />
+        )
       }
     })
 
@@ -125,7 +159,6 @@ const ChartMenu: React.FC<ChartMenuProps> = ({
         <ToggleCorpDetailMenu expandedKeys={expandedKeys} setExpandedKeys={setExpandedKeys} treeData={treeData} />
       </Header>
       <Divider className="f-m0" />
-
       <Tree
         size="small"
         className="f-oya"
@@ -133,6 +166,8 @@ const ChartMenu: React.FC<ChartMenuProps> = ({
         onExpand={onExpand}
         selectedKeys={selectedKeys}
         expandedKeys={expandedKeys}
+        data-uc-id="4boNunXtK7D"
+        data-uc-ct="tree"
       >
         {loop(treeData)}
       </Tree>

@@ -1,7 +1,15 @@
+export { bidType2EnStage, bidType2Stage } from './bid'
 export { generatePageTitle } from './siteTitle'
-export type { PageLocation } from './siteTitle/config'
-export { getPublicSentimentTagColorAndType, TagCfgByModuleMap, TagsModule } from './tag'
-export type { TagColors, TagSizes, TagTypes } from './tag'
+export { DEFAULT_SITE_TITLE_WEB_CN, type PageLocation } from './siteTitle/config'
+export {
+  detectChinese,
+  detectEnglish,
+  getDetectorByLocale,
+  translateDataWithApi,
+  type TranslateResult,
+  type TranslateServiceOptions,
+} from './translate'
+
 /**
  * 通用的复制文本方法
  * @param text 要复制的文本

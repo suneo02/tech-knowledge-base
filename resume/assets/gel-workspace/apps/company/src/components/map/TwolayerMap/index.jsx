@@ -35,14 +35,34 @@ const TwolayerMap = (props) => {
       <div style={{ marginBlockEnd: 20 }}>
         {selectedArea.oldCode ? (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            {loading ? <LoadingO size="small" /> : <LeftO onClick={() => !loading && onChange({ oldCode: '', name: '', code: '' })} fontSize={12} />}
+            {loading ? (
+              <LoadingO size="small" data-uc-id="HFkH_9jZHI" data-uc-ct="loadingo" />
+            ) : (
+              <LeftO
+                onClick={() => !loading && onChange({ oldCode: '', name: '', code: '' })}
+                fontSize={12}
+                data-uc-id="eUHV38V5c8"
+                data-uc-ct="lefto"
+              />
+            )}
             <p style={{ paddingInlineStart: 4, fontSize: 14, fontWeight: 'bolder' }}>{selectedArea.name}</p>
           </div>
         ) : (
           <p style={{ paddingInlineStart: 4, fontSize: 14, fontWeight: 'bolder' }}>{intl('51886', '全国')}</p>
         )}
       </div>
-      {data?.length ? <Map area={selectedArea} data={data} loading={loading} onChange={onChange}></Map> : ''}
+      {data?.length ? (
+        <Map
+          area={selectedArea}
+          data={data}
+          loading={loading}
+          onChange={onChange}
+          data-uc-id="jyVn5JJ45w"
+          data-uc-ct="map"
+        ></Map>
+      ) : (
+        ''
+      )}
     </div>
   )
 }

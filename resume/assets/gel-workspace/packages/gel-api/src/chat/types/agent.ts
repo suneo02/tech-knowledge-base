@@ -26,5 +26,11 @@ export interface AgentIdentifiers {
   agentId?: AgentId
   /** 重写智能体ID */
   reAgentId?: AgentId
+}
 
+/**
+ * 智能体参数
+ */
+export interface AgentParam {
+  agentId?: AgentId
 }

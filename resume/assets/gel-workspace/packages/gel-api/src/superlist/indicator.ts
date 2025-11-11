@@ -1,6 +1,6 @@
 import { IndicatorCorpMatchPayload, IndicatorCorpMatchResponse, IndicatorCorpSearchRes } from '@/indicator'
 import { IndicatorTreeResponse } from '@/indicator/paths/tree'
-import { ApiResponseForSuperlist, ApiResponseForSuperlistWithPage } from './config'
+import { ApiResponseForSuperlist, ApiResponseForSuperlistWithPage } from './types'
 
 export type SuperListIndicatorCorpMatchPayload = IndicatorCorpMatchPayload
 

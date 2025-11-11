@@ -3,6 +3,8 @@ import React, { FC, Fragment, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { useConditionFilterStore } from '../../../store/cde/useConditionFilterStore'
 
+import classNames from 'classnames'
+import { isEn } from 'gel-util/intl'
 import { isParentHasChild } from '../../../store/cde/helpers/isParentHasChild'
 import { filterItemTypeConfig } from './conditionItems'
 
@@ -10,8 +12,9 @@ const FilterBox: FC<{
   leftCurrent?: number
   currentChange?: (index: number) => void
   fromModal?: boolean
+  inModal?: boolean // 是否在弹窗中
 }> = (props) => {
-  const { fromModal = false } = props
+  const { fromModal = false, inModal = false } = props
   const [current, setCurrent] = useControllableValue(props, {
     defaultValue: 0,
     valuePropName: 'leftCurrent',
@@ -36,7 +39,6 @@ const FilterBox: FC<{
 
         num = 1
       }
-      console.log('🚀 ~ figureParentNum ~ num:', filters)
       return num
     },
     [filters, geoFilters]
@@ -44,25 +46,25 @@ const FilterBox: FC<{
 
   return (
     <Box>
-      <ParentList className="filterbox-lbox" style={window.en_access_config ? { width: '172px' } : null}>
+      <ParentList className="filterbox-lbox" style={isEn() ? { width: '172px' } : null}>
         {/* 左侧大类 */}
 
         {filterConfigList.map((item, i) => (
           <div
             key={i}
-            className={`${i === current ? 'selected' : ''} ${figureParentNum(item) > 0 ? ' hasValue' : ''}`}
+            className={classNames('filter-box-left-item', {
+              selected: i === current,
+              'has-value': figureParentNum(item) > 0,
+            })}
             onClick={() => {
               setCurrent(i)
             }}
+            data-uc-id="AV8rsfJyL"
+            data-uc-ct="div"
+            data-uc-x={i}
           >
-            {item.category}
-            {figureParentNum(item) > 0 ? (
-              <span className="num-icon">{figureParentNum(item)}</span>
-            ) : item.category === '所属行业/产业' ? (
-              <div className="new-icon">
-                <span>NEW</span>
-              </div>
-            ) : null}
+            <span className="filter-box-left-item-title">{item.category}</span>
+            {figureParentNum(item) > 0 ? <span className="num-icon">{figureParentNum(item)}</span> : null}
           </div>
         ))}
       </ParentList>
@@ -74,7 +76,7 @@ const FilterBox: FC<{
             {filterConfigList[current].newFilterItemList.map((item) => {
               const Component = filterItemTypeConfig[item.itemType]
               if (!Component) return null
-              return <Component key={item.itemId} item={item} parent={filterConfigList[current]} />
+              return <Component key={item.itemId} item={item} parent={filterConfigList[current]} inModal={inModal} />
             })}
           </Fragment>
         ) : (
@@ -103,24 +105,32 @@ const ParentList = styled.div`
   overflow-y: scroll;
   background-color: #f2f2f2;
   padding-top: 16px;
+  overflow-x: hidden;
+  flex-shrink: 0;
 
   &::-webkit-scrollbar {
     width: 0px !important;
   }
 
-  div {
+  .filter-box-left-item {
     padding: 8px 16px;
     white-space: nowrap;
+    width: 100%;
     display: flex;
-    word-break: break-all;
+    overflow: hidden;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 24px;
     height: 40px;
     align-items: center;
     color: #666;
-    line-height: 24px;
     cursor: pointer;
     position: relative;
+
+    .filter-box-left-item-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     .num-icon {
       width: 16px;
@@ -133,10 +143,12 @@ const ParentList = styled.div`
       margin-left: 4px;
       text-align: center;
       margin-left: 15px;
+      flex-shrink: 0;
     }
     .new-icon {
       padding: 0;
-      padding-left: 6%;
+      padding-left: 3%;
+      flex-shrink: 0;
       color: #fff;
       span {
         font-size: 12px;

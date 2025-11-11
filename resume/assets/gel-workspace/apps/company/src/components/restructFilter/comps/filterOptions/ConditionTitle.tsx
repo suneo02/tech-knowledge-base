@@ -14,9 +14,8 @@ const ConditionTitle: FC<{
     <Box className={`subTitle ${filter ? 'hasVal' : ''}`}>
       {itemName}
       {isVip ? <img className="vip-logo" src={vipLogo} /> : null}
-
       {hoverHint ? (
-        <Popover content={hoverHint} style={{ width: 400 }}>
+        <Popover content={hoverHint} style={{ width: 400 }} data-uc-id="cwTVcPJWNG" data-uc-ct="popover">
           <InfoCircleButton />
         </Popover>
       ) : null}

@@ -1,5 +1,8 @@
+import { downLoadCorpExcel } from '@/handle/corp/download.ts'
 import { VipPopup } from '@/lib/globalModal'
 import { getVipInfo } from '@/lib/utils'
+import { isDev } from '@/utils/env'
+import { CompanyDetailContext } from '@/views/Company/ctx.ts'
 import { DownloadO, LoadingO } from '@wind/icons'
 import { Button, Tooltip } from '@wind/wind-ui'
 import React, { FC, useContext, useState } from 'react'
@@ -7,10 +10,8 @@ import { getGroupDataApi } from '../../../api/groupApi'
 import { ACTION_DOWNLOAD, DOWNLOAD_FILE_URL, getServerApi, SERVER_URL } from '../../../api/serverApi'
 import { TreeModuleName, useGroupStore } from '../../../store/group'
 import intl from '../../../utils/intl'
-import './exportDoc.less'
 import { ConfigDetailContext } from '../../layout/ctx'
-import { downLoadCorpExcel } from '@/handle/corp/download.ts'
-import { CompanyDetailContext } from '@/views/Company/ctx.ts'
+import './exportDoc.less'
 
 export const ExportDoc: FC<{
   downDocTypeApi?: string
@@ -73,7 +74,12 @@ export const ExportDoc: FC<{
         138587
       )}${Data.total}${intl(149186)}`
       console.log(downloadUrl)
-      window.open(downloadUrl)
+      if (isDev) {
+        window.open(downloadUrl)
+      } else {
+        // @ts-expect-error ttt
+        window.location = downloadUrl
+      }
     } catch (e) {
       console.error(e)
     } finally {
@@ -108,12 +114,24 @@ export const ExportDoc: FC<{
             size="large"
             icon={
               !loading ? (
-                <DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                <DownloadO
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="rMKRcJuPOfH"
+                  data-uc-ct="downloado"
+                />
               ) : (
-                <LoadingO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                <LoadingO
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="0YREhqaGIjl"
+                  data-uc-ct="loadingo"
+                />
               )
             }
             onClick={() => downLoadExcel()}
+            data-uc-id="ySf25u1OJdw"
+            data-uc-ct="button"
           >
             {intl('4698', '导出数据')}
           </Button>

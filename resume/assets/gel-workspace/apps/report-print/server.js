@@ -18,26 +18,42 @@ app.get('/creditrp', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'creditrp.html'))
 })
 
+app.get('/creditevaluationrp', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'creditevaluationrp.html'))
+})
+
 // API代理设置
 app.use(
-  '/xprod',
+  '/api/xsh',
   createProxyMiddleware({
-    target: 'https://wx.wind.com.cn',
+    target: 'https://114.80.154.45',
     changeOrigin: true,
     pathRewrite: {
-      '^/xprod': '',
+      '^/api/xsh': '',
     },
     secure: false,
   })
 )
 
 app.use(
-  '/xtest',
+  '/api/xnj',
+  createProxyMiddleware({
+    target: 'https://180.96.8.44',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/xnj': '',
+    },
+    secure: false,
+  })
+)
+
+app.use(
+  '/api/xtest',
   createProxyMiddleware({
     target: 'https://test.wind.com.cn',
     changeOrigin: true,
     pathRewrite: {
-      '^/xtest': '',
+      '^/api/xtest': '',
     },
     secure: false,
   })

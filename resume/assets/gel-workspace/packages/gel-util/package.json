@@ -7,6 +7,12 @@
   "types": "./dist/types/env/index.d.ts",
   "typesVersions": {
     "*": {
+      "biz": [
+        "./dist/types/biz/index.d.ts"
+      ],
+      "common": [
+        "./dist/types/common/index.d.ts"
+      ],
       "config": [
         "./dist/types/config/index.d.ts"
       ],
@@ -16,11 +22,11 @@
       "corpConfig": [
         "./dist/types/corpConfig/index.d.ts"
       ],
-      "download": [
-        "./dist/types/download/index.d.ts"
-      ],
       "env": [
         "./dist/types/env/index.d.ts"
+      ],
+      "errorLogger": [
+        "./dist/types/errorLogger/index.d.ts"
       ],
       "format": [
         "./dist/types/format/index.d.ts"
@@ -42,10 +48,24 @@
       ],
       "storage": [
         "./dist/types/storage/index.d.ts"
+      ],
+      "types": [
+        "./dist/types/types.d.ts"
+      ],
+      "locales": [
+        "./dist/types/locales/index.d.ts"
       ]
     }
   },
   "exports": {
+    "./biz": {
+      "types": "./dist/types/biz/index.d.ts",
+      "import": "./dist/biz.mjs"
+    },
+    "./common": {
+      "types": "./dist/types/common/index.d.ts",
+      "import": "./dist/common.mjs"
+    },
     "./config": {
       "types": "./dist/types/config/index.d.ts",
       "import": "./dist/config.mjs"
@@ -58,13 +78,13 @@
       "types": "./dist/types/corpConfig/index.d.ts",
       "import": "./dist/corpConfig.mjs"
     },
-    "./download": {
-      "types": "./dist/types/download/index.d.ts",
-      "import": "./dist/download.mjs"
-    },
     "./env": {
       "types": "./dist/types/env/index.d.ts",
       "import": "./dist/env.mjs"
+    },
+    "./errorLogger": {
+      "types": "./dist/types/errorLogger/index.d.ts",
+      "import": "./dist/errorLogger.mjs"
     },
     "./format": {
       "types": "./dist/types/format/index.d.ts",
@@ -94,32 +114,56 @@
       "types": "./dist/types/storage/index.d.ts",
       "import": "./dist/storage.mjs"
     },
-    "./locales/*": "./dist/locales/*"
+    "./types": {
+      "types": "./dist/types/types.d.ts",
+      "import": "./dist/types.mjs"
+    },
+    "./user": {
+      "types": "./dist/types/user/index.d.ts",
+      "import": "./dist/user.mjs"
+    },
+    "./locales": {
+      "types": "./dist/types/locales/index.d.ts",
+      "import": "./dist/locales.mjs"
+    },
+    "./locales/*": "./dist/locales/*",
+    "./intl/createNamespaceI18n": {
+      "types": "./dist/types/intl/createNamespaceI18n.d.ts",
+      "import": "./dist/intl/createNamespaceI18n.mjs"
+    },
+    "./intl/dynamicI18n": {
+      "types": "./dist/types/intl/dynamicI18n.d.ts",
+      "import": "./dist/intl/dynamicI18n.mjs"
+    }
   },
   "files": [
     "dist"
   ],
   "scripts": {
+    "clean": "node ../../scripts/clean.cjs dist",
     "dev": "vite build --watch --mode development --minify false --sourcemap",
-    "build": "vite build",
+    "build": "npm run clean && vite build",
+    "build:staging": "npm run clean && vite build --mode staging",
     "typecheck": "tsc --noEmit",
     "tsc": "npm run typecheck",
-    "lint": "eslint src --ext .ts,.tsx",
+    "lint": "pnpm -s eslint src --ext .ts,.tsx",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "prepublishOnly": "npm run clean && npm run build",
     "intl:entry2json": "node scripts/intlTools/entry2Json.js",
-    "intl:migrate-locale": "node scripts/migrate-locale-to-json.js src/intl/locales/iml_en.js src/intl/locales/iml_cn.js"
-  },
-  "dependencies": {
-    "i18next": "^24.2.2"
+    "intl:migrate-locale": "node scripts/migrate-locale-to-json.js src/intl/locales/iml_en.js src/intl/locales/iml_cn.js",
+    "intl:split": "node scripts/jsonTools/split-locale-json.js",
+    "rime:prune2-to-en": "node scripts/jsonTools/rime-prune2-to-en.js",
+    "check:circular": "madge --circular --extensions ts,tsx src/"
   },
   "peerDependencies": {
     "axios": "^1.7.9",
+    "gel-api": "workspace:*",
     "gel-types": "workspace:*",
+    "i18next": "^24.2.2",
     "js-cookie": "^3.0.5",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "path-browserify": "^1.0.1",
     "qs": "^6.14.0",
     "react": ">=16.8.0",
@@ -127,16 +171,15 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
-    "@types/node": "^20.0.0",
+    "@types/node": "^20.19.2",
     "@types/path-browserify": "^1.0.3",
     "@types/qs": "^6.9.18",
     "@types/react": "^18.2.48",
-    "eslint": "^8.0.0",
+    "gel-api": "workspace:*",
+    "gel-types": "workspace:*",
     "jsdom": "^26.1.0",
     "rollup-plugin-copy": "^3.5.0",
-    "typescript": "^5.0.0",
-    "vite": "^6.1.0",
-    "vite-plugin-dts": "^3.9.1"
+    "typescript": "^5.0.0"
   },
   "publishConfig": {
     "access": "restricted"
@@ -149,5 +192,9 @@
   ],
   "author": "",
   "license": "UNLICENSED",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "i18next-browser-languagedetector": "^8.2.0",
+    "react-i18next": "^11.18.6"
+  }
 }

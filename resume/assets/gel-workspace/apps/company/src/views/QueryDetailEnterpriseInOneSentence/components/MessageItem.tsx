@@ -6,6 +6,7 @@ import { Button, Modal, Radio, Input, message as messageApi } from '@wind/wind-u
 import { LikeO, DisLikeO } from '@wind/icons'
 import axios from '@/api'
 import { pointBuriedGel } from '@/api/configApi'
+import { t } from 'gel-util/intl'
 
 const { TextArea } = Input
 const RadioGroup = Radio.Group
@@ -16,26 +17,31 @@ const radioStyle = {
   lineHeight: '34px',
 }
 
-const allErrType = ['没有理解我的问题', '理解了我的问题，但是结果不准确', '答案是有害或者不安全的', '隐私相关']
+const allErrType = [
+  t('421495', '没有理解我的问题'),
+  t('421496', '理解了我的问题，但是结果不准确'),
+  t('421497', '答案是有害或者不安全的'),
+  t('453651', '隐私相关'),
+]
 
 interface MessageItemProps {
   message: {
-    id: string;
-    role: string;
-    content: string;
-    extraInfo?: string;
-    error?: boolean;
-    data?: any[];
-  };
-  isLoading: boolean;
-  handleCopyMessage: (content: string) => void;
-  handleRetry: (id: string) => void;
+    id: string
+    role: string
+    content: string
+    extraInfo?: string
+    error?: boolean
+    data?: any[]
+  }
+  isLoading: boolean
+  handleCopyMessage: (content: string) => void
+  handleRetry: (id: string) => void
 }
 
 const MessageItem: React.FC<MessageItemProps> = ({ message, isLoading, handleCopyMessage, handleRetry }) => {
   const [state, setState] = useState(0) //0:无状态 1：点赞 2：踩
   const [visible, setVisible] = useState(false)
-  const [errType, setErrType] = useState('没有理解我的问题')
+  const [errType, setErrType] = useState(allErrType[0])
   const textAreaRef = useRef(null)
 
   const getExtraInfo = (extraInfo: string) => {
@@ -61,7 +67,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, isLoading, handleCop
     })
     setVisible(false)
     setState(2)
-    messageApi.success('反馈成功')
+    messageApi.success(t('455063', '反馈成功'))
   }, [state, errType])
 
   return (
@@ -72,6 +78,8 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, isLoading, handleCop
             className="message-content"
             onClick={() => handleCopyMessage(message.content)}
             style={{ cursor: 'pointer' }}
+            data-uc-id="e2btM8izhNF"
+            data-uc-ct="div"
           >
             {message.content}
           </div>
@@ -89,8 +97,8 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, isLoading, handleCop
             {message.extraInfo && <div className="message-extra-info">{getExtraInfo(message.extraInfo)}</div>}
             {message.error && (
               <div className="message-feedback">
-                <Button onClick={() => handleRetry(message.id)} type="link">
-                  <SyncOutlined /> 重新提问
+                <Button onClick={() => handleRetry(message.id)} type="link" data-uc-id="d33Lz3vC7t" data-uc-ct="button">
+                  <SyncOutlined /> {t('421474', '重新提问')}
                 </Button>
               </div>
             )}
@@ -101,10 +109,16 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, isLoading, handleCop
                     if (state == 1) {
                       setState(0)
                     } else {
-                      pointBuriedGel('922602101143', '数据浏览器', 'cdeExport', {
-                        token: message.id,
-                      }, '10KXD')
-                      messageApi.success('感谢您的支持')
+                      pointBuriedGel(
+                        '922602101143',
+                        '数据浏览器',
+                        'cdeExport',
+                        {
+                          token: message.id,
+                        },
+                        '10KXD'
+                      )
+                      messageApi.success(t('455064', '感谢您的支持'))
                       //TODO
                       setState(1)
                     }
@@ -117,13 +131,22 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, isLoading, handleCop
                         onPointerEnterCapture={() => {}}
                         onPointerLeaveCapture={() => {}}
                         style={{ color: '#0596b3' }}
+                        data-uc-id="x9QoOZeQY5"
+                        data-uc-ct="likeo"
                       />
                     ) : (
-                      <LikeO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} />
+                      <LikeO
+                        onPointerEnterCapture={() => {}}
+                        onPointerLeaveCapture={() => {}}
+                        data-uc-id="PPhKCCYPA5"
+                        data-uc-ct="likeo"
+                      />
                     )
                   }
+                  data-uc-id="n7RJfFGdfm"
+                  data-uc-ct="button"
                 >
-                  {state == 1 ? <span style={{ color: '#0596b3' }}>点赞</span> : '点赞'}
+                  {state == 1 ? <span style={{ color: '#0596b3' }}>{t('454595', '点赞')}</span> : t('454595', '点赞')}
                 </Button>
                 <Button
                   onClick={() => {
@@ -136,13 +159,26 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, isLoading, handleCop
                         style={{ color: '#0596b3' }}
                         onPointerEnterCapture={() => {}}
                         onPointerLeaveCapture={() => {}}
+                        data-uc-id="PipD7lVXXK"
+                        data-uc-ct="dislikeo"
                       />
                     ) : (
-                      <DisLikeO onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} />
+                      <DisLikeO
+                        onPointerEnterCapture={() => {}}
+                        onPointerLeaveCapture={() => {}}
+                        data-uc-id="zuTta_u8po"
+                        data-uc-ct="dislikeo"
+                      />
                     )
                   }
+                  data-uc-id="8DSy3zMMSa"
+                  data-uc-ct="button"
                 >
-                  {state == 2 ? <span style={{ color: '#0596b3' }}>踩一下</span> : '踩一下'}
+                  {state == 2 ? (
+                    <span style={{ color: '#0596b3' }}>{t('455065', '踩一下')}</span>
+                  ) : (
+                    t('455065', '踩一下')
+                  )}
                 </Button>
               </div>
             )}
@@ -151,20 +187,24 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, isLoading, handleCop
       )}
       {/**@ts-ignore */}
       <Modal
-        title="反馈"
+        title={t('142975', '反馈')}
         visible={visible}
         destroyOnClose={true}
         onOk={handleFeedback}
         onCancel={() => setVisible(false)}
+        data-uc-id="jMvPW6B1_M"
+        data-uc-ct="modal"
       >
         <RadioGroup
           onChange={(e: any) => {
             setErrType(e.target.value)
           }}
           value={errType}
+          data-uc-id="PIzn5ba_9q0"
+          data-uc-ct="radiogroup"
         >
           {allErrType.map((i) => (
-            <Radio style={radioStyle} value={i} key={i}>
+            <Radio style={radioStyle} value={i} key={i} data-uc-id="MXo0wV_iCr" data-uc-ct="radio" data-uc-x={i}>
               {i}
             </Radio>
           ))}
@@ -174,11 +214,13 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, isLoading, handleCop
           ref={textAreaRef}
           style={{ marginTop: 10 }}
           rows={4}
-          placeholder="输入详细反馈，例如缺失数据、数据有误、或优化建议等，便于我们进一步核实完善。"
+          placeholder={t('386255', '输入详细反馈，例如缺失数据、数据有误、或优化建议等，便于我们进一步核实完善。')}
+          data-uc-id="Z7c8e0hOfj"
+          data-uc-ct="textarea"
         />
       </Modal>
     </div>
   )
 }
 
-export default MessageItem 
+export default MessageItem

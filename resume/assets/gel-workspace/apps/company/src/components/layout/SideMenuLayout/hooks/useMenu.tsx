@@ -1,13 +1,13 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react'
-import { MenuItemProps, MenuParams } from '../types'
+import { ReportTemplate } from '@/api/paths'
+import { createRequest } from '@/api/request'
 import { IframeMessageProps } from '@/utils/iframe/index'
 import { ReportHomeIframeAction } from '@/utils/iframe/paths/report'
-import { createRequest } from '@/api/request'
-import { ReportTemplate } from '@/api/paths'
-import { Modal, Input, Button, message } from '@wind/wind-ui'
+import { Button, Input, message, Modal } from '@wind/wind-ui'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { MenuItemProps, MenuParams } from '../types'
 // import { Button, Input, Modal } from '@wind/wind-ui'
+import { ApiCodeForWfc } from '@/api/types'
 import Form from '@wind/wind-ui-form'
-import { ErrorCodeEnum } from '@/api/types'
 
 interface UseMenuOptions {
   initialMenu: MenuItemProps[]
@@ -163,12 +163,12 @@ export const useMenu = ({
       const { ErrorCode, Data } = await api('download/common/saveReportTemplate', {
         params: data,
       })
-      if (ErrorCode === ErrorCodeEnum.OVER_LIMIT) {
+      if (ErrorCode === ApiCodeForWfc.OVER_LIMIT) {
         Modal.error({
           content: '保存失败, 模板已上限',
         })
         return
-      } else if (ErrorCode !== ErrorCodeEnum.SUCCESS) {
+      } else if (ErrorCode !== ApiCodeForWfc.SUCCESS) {
         Modal.error({
           content: '保存失败',
         })
@@ -251,9 +251,15 @@ export const useMenu = ({
                 }}
               >
                 <Form.Item name="name">
-                  <Input placeholder="请输入模板名称" />
+                  <Input placeholder="请输入模板名称" data-uc-id="4iymueZkAE" data-uc-ct="input" />
                 </Form.Item>
-                <Button type="primary" htmlType="submit" style={{ float: 'right' }}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ float: 'right' }}
+                  data-uc-id="VaP9vHIYeR"
+                  data-uc-ct="button"
+                >
                   确定
                 </Button>
               </Form>

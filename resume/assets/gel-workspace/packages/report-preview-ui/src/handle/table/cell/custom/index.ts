@@ -1,8 +1,8 @@
 import { ConfigTableCellJsonConfig } from 'gel-types'
 import { isEn } from 'gel-util/intl'
 import { reportTableCellCustomSimpleRenderMap } from 'report-util/table'
+import { TIntl } from 'report-util/types'
 import { HorizontalTableColProps } from '../../../../types/table'
-import { tForRPPreview } from '../../../../utils'
 import { renderText } from '../renderers'
 import { renderBussChangeInfo } from './bussChangeInfo'
 import { corpInfoBussStateRender } from './bussState'
@@ -21,7 +21,8 @@ import { renderStockChange } from './stockChange'
  */
 export function handleConfigTableColCustomRender(
   baseColumn: HorizontalTableColProps,
-  config: ConfigTableCellJsonConfig
+  config: ConfigTableCellJsonConfig,
+  t: TIntl
 ): HorizontalTableColProps {
   const { renderConfig } = config
   const customRenderName = renderConfig?.customRenderName
@@ -32,7 +33,7 @@ export function handleConfigTableColCustomRender(
       ...baseColumn,
       render: (txt, record) =>
         render(txt, record, config, {
-          t: tForRPPreview,
+          t,
           isEn: isEn(),
         }),
     }
@@ -42,13 +43,13 @@ export function handleConfigTableColCustomRender(
     case 'announcementShareholderName':
       return {
         ...baseColumn,
-        render: (txt, record) => corpInfoAnouncementShareholderNameRender(txt, record, config),
+        render: (txt, record) => corpInfoAnouncementShareholderNameRender(t, txt, record, config),
       }
 
     case 'bussInfoShareholderName':
       return {
         ...baseColumn,
-        render: (txt, record) => corpInfoBussInfoShareholderNameRender(txt, record, config),
+        render: (txt, record) => corpInfoBussInfoShareholderNameRender(t, txt, record, config),
       }
     case 'stockChange':
       return {
@@ -58,12 +59,12 @@ export function handleConfigTableColCustomRender(
     case 'bussStatus':
       return {
         ...baseColumn,
-        render: (txt, record) => corpInfoBussStateRender(txt, record, config),
+        render: (txt, record) => corpInfoBussStateRender(t, txt, record, config),
       }
     case 'bussChangeInfo':
       return {
         ...baseColumn,
-        render: (_txt, record) => renderBussChangeInfo(record),
+        render: (value, record) => renderBussChangeInfo(value, record),
       }
     case 'hkUsedNames':
       return {
@@ -81,7 +82,7 @@ export function handleConfigTableColCustomRender(
       console.warn(`Unknown customRenderName: ${customRenderName}, using default renderer`, baseColumn, config)
       return {
         ...baseColumn,
-        render: (txt, record) => renderText(txt, record, config),
+        render: (txt, record) => renderText(t, txt, record, config),
       }
   }
 }

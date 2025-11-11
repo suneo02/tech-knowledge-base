@@ -1,6 +1,7 @@
 import { DataRangeValue } from 'gel-ui'
 import { TemplateFormData } from './components'
 import { AiModelEnum } from 'gel-api'
+// @ts-expect-error
 import { ExtendedColumnDefine } from '@/components/MultiTable/utils/columnsUtils'
 
 /**
@@ -67,7 +68,7 @@ export interface SmartFillModalProps {
    */
   columns: ExtendedColumnDefine[]
   /**
-   * 提交模板的回调函数，返回最终的提示语和列映射
+   * 提交模板的回调函数，返回最终的提示词和列映射
    */
   onSubmitTemplate?: (
     finalPrompt: string,

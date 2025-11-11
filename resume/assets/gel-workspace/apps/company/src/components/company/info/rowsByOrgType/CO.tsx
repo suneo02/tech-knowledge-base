@@ -21,15 +21,15 @@ import {
   corpInfoRegAddressRow,
   corpInfoRegAuthorityRow,
   corpInfoRegCapitalRow,
-  corpInfoScaleRow,
   corpInfoStartDateRow,
   corpInfoTaxIdRow,
   corpInfoTaxpayerQualificationRow,
   corpInfoTypeRow,
   corpInfoUsedNamesRow,
+  getCorpInfoScaleRow,
 } from '../rowsCommon'
 
-export const corpInfoCORows = (baseInfo: ICorpBasicInfoFront, onCorpScaleClick: () => void): HorizontalTableColumns => [
+export const corpInfoCORows = (baseInfo: ICorpBasicInfoFront, onClickFeedback: () => void): HorizontalTableColumns => [
   [corpInfoNameRow, corpInfoCreditCodeRow],
   [corpInfoEngNameRow, corpInfoBizRegNoRow],
   [corpInfoUsedNamesRow(baseInfo), corpInfoOrgCodeRow],
@@ -38,7 +38,7 @@ export const corpInfoCORows = (baseInfo: ICorpBasicInfoFront, onCorpScaleClick: 
   [corpInfoRegCapitalRow, corpInfoPaidInCapitalRow, corpInfoStartDateRow],
   [corpInfoOperPeriodBeginRow, corpInfoOperPeriodEndRow, corpInfoBussStateRow],
   [corpInfoProvinceRow, corpInfoRegAuthorityRow, corpInfoIssueDateRow],
-  [corpInfoScaleRow(onCorpScaleClick), corpInfoEmployeeScaleRow, corpInfoEndowmentNumRow],
+  [getCorpInfoScaleRow(onClickFeedback), corpInfoEmployeeScaleRow, corpInfoEndowmentNumRow],
   [corpInfoIndustryRow()],
   [corpInfoRegAddressRow],
   [corpInfoBusAddressRow],

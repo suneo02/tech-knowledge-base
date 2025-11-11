@@ -78,7 +78,6 @@ export const useTableColumns = () => {
                   <Links module={LinksModule.COMPANY} title={res} id={row?.companyCode} />
                   {` ${window.en_access_config ? 'and' : '等'} `}
                   <strong>{row.total}</strong>
-
                   {` ${intl('417532', '家企业，点击查看')}`}
                   <SimpleModal
                     width={800}
@@ -90,7 +89,11 @@ export const useTableColumns = () => {
                         {` ${collaborateCorpTxt}`}
                       </>
                     }
-                    trigger={<a onClick={() => pointBuriedByModule(922602101110)}>{intl('40513', '详情')}</a>}
+                    trigger={
+                      <a onClick={() => pointBuriedByModule(922602101110)} data-uc-id="SmL_S7s5P7" data-uc-ct="a">
+                        {intl('40513', '详情')}
+                      </a>
+                    }
                   >
                     {renderT(column, row)}
                   </SimpleModal>
@@ -293,6 +296,8 @@ export const useTableColumns = () => {
               )
             }
           }}
+          data-uc-id="iQbXiDJ1sf"
+          data-uc-ct="a"
         >
           {txt}
         </a>
@@ -358,7 +363,7 @@ export const useTableColumns = () => {
   }
 
   const handleLongText = (col) => {
-    col.render = (txt) => <Expandable content={txt} maxLines={2} />
+    col.render = (txt) => <Expandable content={txt} maxLines={2} data-uc-id="3XLW4Sjjam" data-uc-ct="expandable" />
   }
 
   /** @deprecated */
@@ -450,6 +455,8 @@ export const useTableColumns = () => {
                 wftCommon.showRoute(row.shareRoute || [])
               }
             }}
+            data-uc-id="yGhSiE0qxT"
+            data-uc-ct="div"
           ></div>
         </div>
       )
@@ -508,7 +515,12 @@ export const useTableColumns = () => {
         >
           <span>{txt}</span>
           {row.shareRoute?.length ? (
-            <span className="share-route" onClick={() => wftCommon.showRoute(row.shareRoute || [])}></span>
+            <span
+              className="share-route"
+              onClick={() => wftCommon.showRoute(row.shareRoute || [])}
+              data-uc-id="pC_uhxO0zD"
+              data-uc-ct="span"
+            ></span>
           ) : null}
         </div>
       )
@@ -535,7 +547,15 @@ export const useTableColumns = () => {
       if (!res) return null
       const treeData = buildTree(col, res)
       // // console.log(treeData);
-      return <Tree className="table-tree" treeData={treeData} defaultExpandAll={true} />
+      return (
+        <Tree
+          className="table-tree"
+          treeData={treeData}
+          defaultExpandAll={true}
+          data-uc-id="HQk_NbTyA6"
+          data-uc-ct="tree"
+        />
+      )
     }
   }
 
@@ -596,6 +616,8 @@ export const useTableColumns = () => {
             wftCommon.jumpJqueryPage(`index.html?nosearch=1#/biddingDetail?detailid=${row[id_key]}`)
           }}
           rel="noreferrer"
+          data-uc-id="kF7pTkC2z0"
+          data-uc-ct="a"
         >
           {row[name_key] || txt}
         </a>
@@ -612,6 +634,8 @@ export const useTableColumns = () => {
             wftCommon.jumpJqueryPage(`showItemDetail.html?type=product&detailid=${row[id_key]}`)
           }}
           rel="noreferrer"
+          data-uc-id="Z6CsYDRwtei"
+          data-uc-ct="a"
         >
           {row[name_key] || txt}
         </a>
@@ -647,8 +671,12 @@ export const useTableColumns = () => {
                   // @ts-expect-error ttt
                   e.target.src = defaultSrc
                 }}
+                data-uc-id="YkmrhEWtgmX"
+                data-uc-ct="img"
               />
             }
+            data-uc-id="g0SfolCAHM"
+            data-uc-ct="popover"
           >
             <img
               src={res}
@@ -656,6 +684,8 @@ export const useTableColumns = () => {
                 // @ts-expect-error ttt
                 e.target.src = defaultSrc
               }}
+              data-uc-id="6XgbU02w5e1"
+              data-uc-ct="img"
             />
           </Popover>
         </div>

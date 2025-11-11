@@ -1,10 +1,11 @@
 import { useResetState } from 'ahooks'
-import type { IndicatorTreeClassification } from 'gel-api'
+import type { IndicatorTreeClassification, IndicatorTreeIndicator } from 'gel-api'
 import { useCallback } from 'react'
+import { findIndicatorById } from '../handle'
 
 export interface UseIndicatorCheckResult {
-  // 选中的指标 id 集合
-  checkedIndicators: Set<number>
+  // 选中的指标 Map（新的 newMap 数据结构）
+  checkedIndicators: Map<number, IndicatorTreeIndicator>
   // 处理分类的选中/取消选中
   handleClassificationCheck: (checked: boolean, classification: IndicatorTreeClassification) => void
   // 处理单个指标变化
@@ -16,14 +17,25 @@ export interface UseIndicatorCheckResult {
   // 检查分类是否部分选中
   isClassificationIndeterminate: (classification: IndicatorTreeClassification) => boolean
   // 设置选中的指标
-  setCheckedIndicators: React.Dispatch<React.SetStateAction<Set<number>>>
+  setCheckedIndicators: React.Dispatch<React.SetStateAction<Map<number, IndicatorTreeIndicator>>>
   // 重置选中的指标
   resetCheckedIndicators: () => void
+  // 获取选中的指标数量
+  getCheckedCount: () => number
+  // 获取选中的指标ID集合（兼容性方法）
+  getCheckedIds: () => Set<number>
+  // 获取选中的指标对象数组
+  getCheckedIndicators: () => IndicatorTreeIndicator[]
 }
 
-export function useIndicatorCheck(initialCheckedIndicators?: Set<number>): UseIndicatorCheckResult {
-  // 使用 Set 存储选中的指标 id
-  const [checkedIndicators, setCheckedIndicators, resetCheckedIndicators] = useResetState<Set<number>>(new Set())
+export function useIndicatorCheck(
+  indicatorTree: IndicatorTreeClassification[],
+  initialCheckedIndicators?: Set<number>
+): UseIndicatorCheckResult {
+  // 使用 Map 存储选中的指标完整信息（newMap）
+  const [checkedIndicators, setCheckedIndicators, resetCheckedIndicators] = useResetState<
+    Map<number, IndicatorTreeIndicator>
+  >(new Map())
 
   /**
    * 获取分类及其所有子分类下的所有指标 key
@@ -96,13 +108,16 @@ export function useIndicatorCheck(initialCheckedIndicators?: Set<number>): UseIn
       const indicatorKeys = getIndicatorKeys(classification)
 
       setCheckedIndicators((prev) => {
-        const next = new Set(prev)
+        const next = new Map(prev)
 
         if (checked) {
           // 选中操作：将所有相关指标添加到选中集合中，除非它在 initialCheckedIndicators 中
           indicatorKeys.forEach((key) => {
             if (!initialCheckedIndicators?.has(key)) {
-              next.add(key)
+              const indicator = findIndicatorById(indicatorTree, key)
+              if (indicator) {
+                next.set(key, indicator)
+              }
             }
           })
         } else {
@@ -117,7 +132,7 @@ export function useIndicatorCheck(initialCheckedIndicators?: Set<number>): UseIn
         return next
       })
     },
-    [getIndicatorKeys, initialCheckedIndicators, setCheckedIndicators]
+    [getIndicatorKeys, initialCheckedIndicators, setCheckedIndicators, indicatorTree]
   )
 
   /**
@@ -130,26 +145,50 @@ export function useIndicatorCheck(initialCheckedIndicators?: Set<number>): UseIn
         return
       }
       setCheckedIndicators((prev) => {
-        const next = new Set<number>()
+        const next = new Map<number, IndicatorTreeIndicator>()
 
-        // If adding, first add all existing indicators, then add the new one
+        // 先复制所有现有的指标
+        prev.forEach((indicator, k) => {
+          next.set(k, indicator)
+        })
+
         if (checked) {
-          prev.forEach((k) => next.add(k))
-          next.add(key)
+          // 添加指标：查找完整的指标对象并添加到 Map 中
+          const indicator = findIndicatorById(indicatorTree, key)
+          if (indicator) {
+            next.set(key, indicator)
+          }
         } else {
-          // If removing, add all except the one being removed
-          prev.forEach((k) => {
-            if (k !== key) {
-              next.add(k)
-            }
-          })
+          // 移除指标
+          next.delete(key)
         }
 
         return next
       })
     },
-    [initialCheckedIndicators, setCheckedIndicators]
+    [initialCheckedIndicators, setCheckedIndicators, indicatorTree]
   )
+
+  /**
+   * 获取选中的指标数量
+   */
+  const getCheckedCount = useCallback(() => {
+    return checkedIndicators.size
+  }, [checkedIndicators])
+
+  /**
+   * 获取选中的指标ID集合（兼容性方法）
+   */
+  const getCheckedIds = useCallback(() => {
+    return new Set(checkedIndicators.keys())
+  }, [checkedIndicators])
+
+  /**
+   * 获取选中的指标对象数组
+   */
+  const getCheckedIndicators = useCallback(() => {
+    return Array.from(checkedIndicators.values())
+  }, [checkedIndicators])
 
   return {
     checkedIndicators,
@@ -160,5 +199,8 @@ export function useIndicatorCheck(initialCheckedIndicators?: Set<number>): UseIn
     isClassificationIndeterminate,
     setCheckedIndicators,
     resetCheckedIndicators,
+    getCheckedCount,
+    getCheckedIds,
+    getCheckedIndicators,
   }
 }

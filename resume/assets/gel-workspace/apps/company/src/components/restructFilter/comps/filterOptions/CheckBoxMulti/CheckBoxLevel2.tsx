@@ -33,6 +33,8 @@ export const CheckBoxLevel2: FC<{
           onChange={(newlySelected) => {
             handleGroupChange(newlySelected.map(String), getCheckBoxItemValue(item))
           }}
+          data-uc-id="zHpDyKRst"
+          data-uc-ct="checkbox"
         />
       )}
     </>

@@ -2,6 +2,15 @@ import { Button, Tooltip } from '@wind/wind-ui'
 import classNames from 'classnames'
 import { FC } from 'react'
 import styles from './style/modalFooters.module.less'
+import { t } from 'gel-util/intl'
+
+const STRINGS = {
+  RESET: t('', '重置筛选'),
+  SEARCH: t('', '立即搜索'),
+  NO_VALID_FILTER: t('', '请至少选择一个筛选项'),
+  RETURN: t('', '返回'),
+  ADD_TO_TABLE: t('', '添加至表格'),
+}
 
 // 筛选模式下的底部按钮
 export const CDEFilterFooter: FC<{
@@ -16,12 +25,12 @@ export const CDEFilterFooter: FC<{
     <div style={style} className={classNames(styles['cde-filter-footer'], className)}>
       {/* 重置筛选 */}
       <Button key="reset" onClick={resetFilters}>
-        重置筛选
+        {STRINGS.RESET}
       </Button>
       {/* 立即搜索 */}
-      <Tooltip title={!hasValidFilter ? '请至少选择一个筛选项' : ''}>
+      <Tooltip title={!hasValidFilter ? STRINGS.NO_VALID_FILTER : ''}>
         <Button key="submit" type="primary" loading={loading} onClick={handleSearch} disabled={!hasValidFilter}>
-          立即搜索
+          {STRINGS.SEARCH}
         </Button>
       </Tooltip>
     </div>
@@ -40,7 +49,7 @@ export const CDEDisplayFooter: FC<{
   return (
     <div className={className}>
       <Button key="return" type="link" disabled={confirmLoading || fetchResLoading} onClick={handleReturn}>
-        返回
+        {STRINGS.RETURN}
       </Button>
       {/* 添加至表格 */}
       <Button
@@ -50,7 +59,7 @@ export const CDEDisplayFooter: FC<{
         loading={confirmLoading}
         onClick={handleAddToTable}
       >
-        添加至表格
+        {STRINGS.ADD_TO_TABLE}
       </Button>
     </div>
   )

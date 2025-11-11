@@ -1,47 +1,26 @@
 import { isDev } from '@/utils/env'
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { ApiOptions, ApiPaths, GetApiData, GetApiResponse, requestToEntWebWithAxios, WIND_ENT_WEB_PATH } from 'gel-api'
-import { usedInClient } from 'gel-util/env'
-import { API_TIMEOUT, CONTENT_TYPES } from '../config'
+import {
+  ApiOptions,
+  ApiPaths,
+  createEntWebAxiosInstance,
+  GetApiData,
+  GetApiResponse,
+  requestToEntWebWithAxios,
+  WIND_ENT_WEB_PATH,
+} from 'gel-api'
 import { setErrorLogger } from '../error/error-handling'
 import { requestErrorInterceptor, requestInterceptor } from '../interceptors/request'
 import { responseErrorInterceptor, responseInterceptor } from '../interceptors/response'
 
 /**
- * 创建用于EntWeb的axios实例
- * @param config 自定义配置
- * @returns AxiosInstance
- */
-const createEntWebAxiosInstance = (config?: AxiosRequestConfig): AxiosInstance => {
-  const host = window.location.host
-  const isClient = usedInClient()
-  const isTestEnvironment = host.indexOf('8.173') > -1 || host.indexOf('test.wind.') > -1
-
-  // 根据环境构建baseURL
-  const baseUrl = isClient
-    ? `https://${isTestEnvironment ? 'test' : 'gel'}.wind.com.cn`
-    : `https://${isDev ? 'wx.wind.com.cn' : host}`
-
-  const instance = axios.create({
-    baseURL: baseUrl,
-    timeout: API_TIMEOUT,
-    headers: {
-      'Content-Type': CONTENT_TYPES.JSON,
-    },
-    ...config,
-  })
-
-  // 注册拦截器
-  instance.interceptors.request.use(requestInterceptor, requestErrorInterceptor)
-  instance.interceptors.response.use(responseInterceptor, responseErrorInterceptor)
-
-  return instance
-}
-
-/**
  * 创建默认EntWeb实例
  */
-export const entWebAxiosInstance = createEntWebAxiosInstance()
+export const entWebAxiosInstance = createEntWebAxiosInstance(undefined, {
+  requestInterceptor: requestInterceptor,
+  responseInterceptor: responseInterceptor,
+  requestErrorInterceptor: requestErrorInterceptor,
+  responseErrorInterceptor: responseErrorInterceptor,
+})
 
 /**
  * 请求EntWeb服务的方法

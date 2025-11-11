@@ -19,14 +19,15 @@ import {
   corpInfoOrgCodeRow,
   corpInfoPaidInCapitalRow,
   corpInfoProvinceRow,
+  corpInfoRegAddressRow,
   corpInfoRegAuthorityRow,
   corpInfoRegCapitalRow,
-  corpInfoScaleRow,
   corpInfoStartDateRow,
   corpInfoTaxIdRow,
   corpInfoTaxpayerQualificationRow,
   corpInfoTypeRow,
   corpInfoUsedNamesRow,
+  getCorpInfoScaleRow,
 } from '../rowsCommon'
 
 /**
@@ -35,7 +36,7 @@ import {
  */
 export const corpInfoPERows = (
   baseInfo: ICorpBasicInfoFront,
-  onCorpScaleClick
+  onClickFeedback
 ): HorizontalTableColumns<ICorpBasicInfoFront> => [
   [corpInfoNameRow, corpInfoCreditCodeRow],
   [corpInfoEngNameRow, corpInfoBizRegNoRow],
@@ -79,13 +80,14 @@ export const corpInfoPERows = (
     corpInfoRegAuthorityRow,
     corpInfoIssueDateRow,
   ],
-  [corpInfoScaleRow(onCorpScaleClick), corpInfoEmployeeScaleRow, corpInfoEndowmentNumRow],
+  [getCorpInfoScaleRow(onClickFeedback), corpInfoEmployeeScaleRow, corpInfoEndowmentNumRow],
   [corpInfoIndustryRow()],
   [
     {
-      ...corpInfoBusAddressRow,
+      ...corpInfoRegAddressRow,
       title: intl(411314, '主要经营场所'),
     },
   ],
+  [corpInfoBusAddressRow],
   [corpInfoBussScopeRow],
 ]

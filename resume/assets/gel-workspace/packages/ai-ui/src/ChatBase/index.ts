@@ -1,3 +1,3 @@
 export * from './AddConversationBtn'
-export * from './Logo'
+export * from './HistoryBtn'
 export * from './MyCollectBtn'

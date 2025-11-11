@@ -1,4 +1,5 @@
 import { ApiResponseForChat } from '@/chat'
+import { ApiResponseForWFC } from '@/types'
 import {
   GenerateColumnNameRequest,
   GenerateColumnNameResponse,
@@ -8,7 +9,7 @@ import {
   RunColumnResponse,
 } from './type'
 
-export * from '../../wfc/super/addDataToSheet'
+export * from '../../wfc/super/domains/sheet/addDataToSheet'
 export * from './type'
 // 基础类型定义
 
@@ -33,6 +34,6 @@ export interface superlistExcelApiPathMap {
    */
   'intelligentFill/generateColumnName': {
     data: GenerateColumnNameRequest
-    response: ApiResponseForChat<GenerateColumnNameResponse>
+    response: ApiResponseForWFC<GenerateColumnNameResponse>
   }
 }

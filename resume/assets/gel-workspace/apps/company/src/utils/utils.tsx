@@ -1,10 +1,10 @@
 import { IUltimateBeneficiaryShareRoute } from '@/handle/corpModuleCfg/base/ultimateBeneficiary'
-import { wftCommonType } from '@/utils/WFTCommonWithType'
-import { formatTime } from '@/utils/format/time.ts'
 import { translateService } from '@/utils/intl/translateService.ts'
-import { message, Modal, Tooltip } from '@wind/wind-ui'
+import { wftCommonType } from '@/utils/WFTCommonWithType'
+import { Modal, Tooltip } from '@wind/wind-ui'
 import axios from 'axios'
-import { formatMoneyFromWftCommon, formatMoneyTempFromWftCommon } from 'gel-util/format'
+import { formatMoneyFromWftCommon, formatMoneyTempFromWftCommon, formatText, formatTime } from 'gel-util/format'
+import { bidType2EnStage, bidType2Stage } from 'gel-util/misc'
 import { default as React, ReactNode } from 'react'
 import * as globalActions from '../actions/global'
 import { getCorpModuleInfo } from '../api/companyApi'
@@ -14,13 +14,19 @@ import no_photo_list from '../assets/imgs/no_photo_list.png'
 import CompanyLink from '../components/company/CompanyLink'
 import { overseaTipsSimple, tryVip, VipPopup } from '../lib/globalModal'
 import store from '../store/store'
-import axiosRequest from './../api/index'
 import { getWsid } from './env'
 import { isBaiFenTerminal, isBaiFenTerminalOrWeb } from './env/baifen'
 import { isDev, isDevDebugger, isWebTest, usedInClient } from './env/misc'
 import intl from './intl'
+import { translateDivHtml } from './intl/translateDivHtml'
+import { translateHtml } from './intl/translateHtml'
+import { translateLoadManager } from './intl/translateLoadManager'
+import { translateTabHtml } from './intl/translateTabHtml'
+import { translateTable } from './intl/translateTable'
 import { wftCommonGetUrlSearch } from './links/url'
 import { localStorageManager, sessionStorageManager } from './storage'
+import { pureTranslateService } from './intl/pureTranslateService'
+import { convertArrayObjectKeys, zh2en, zh2enAlwaysCallback, zh2enFlattened, zh2enNestedPart, zh2enResult } from './intl/zh2enFlattened'
 
 /**
  * 创建一个防抖函数，该函数在一定时间内只会执行一次，并且在该时间段内再次触发时，会重新计算时间。
@@ -248,19 +254,6 @@ export const wftCommon = {
     const formattedAmount = numericAmount.toLocaleString('zh-CN', options)
     return `${formattedAmount}${currencyUnit}`
   },
-  formatNumberWithLocale(num, toFixed = 0, locale = 'en-US') {
-    try {
-      if (isNaN(num)) {
-        console.error(`not a number ${num}`)
-        return
-      }
-      // @ts-expect-error ttt
-      return Number(num)?.toFixed(toFixed)?.toLocaleString(locale)
-    } catch (e) {
-      console.error(` ~ 格式化失败：${e?.message}`)
-      return '--'
-    }
-  },
   formatDate: (data) => {
     if (!data) return '--'
     // 对筛选条件的时间戳进行转换
@@ -344,14 +337,7 @@ export const wftCommon = {
     }
     return '--'
   },
-  formatCont: function (str) {
-    str = str + ''
-    if (str && str.toLowerCase() != 'null' && str.toLowerCase() != 'undefined') {
-      return str
-    } else {
-      return '--'
-    }
-  },
+  formatCont: formatText,
   getPinyinMaps: function (_successFun, _errorFun) {
     const is_terminal = wftCommon.usedInClient()
     const is_dev = wftCommon.isDevDebugger()
@@ -507,7 +493,7 @@ export const wftCommon = {
     }
   },
   addWsidForImg: (str) => {
-    const wsidStr = sessionStorageManager.get('GEL-wsid')
+    const wsidStr = getWsid()
     if (str && wsidStr) {
       if ((str + '').indexOf('sessionid') > -1) {
         //如果处理过了，就不要再处理
@@ -1153,6 +1139,8 @@ export const wftCommon = {
               onClick={() => {
                 item[0]['nodeId'] && wftCommon.linkCompany('Bu3', item[0]['nodeId'])
               }}
+              data-uc-id="lFtRgjvjm"
+              data-uc-ct="span"
             >
               {nameL}
             </span>
@@ -1183,6 +1171,8 @@ export const wftCommon = {
               onClick={(_e) => {
                 nodeId1 && wftCommon.linkCompany('Bu3', nodeId1)
               }}
+              data-uc-id="r0GYWFsZ5x"
+              data-uc-ct="span"
             >
               {nameR}
             </span>
@@ -1230,7 +1220,12 @@ export const wftCommon = {
     if (usedInClient) {
       str = '!Page[Minute,' + code + ']'
       linkStr = (
-        <a className="go2f5 underline wi-secondary-color wi-link-color" href={str}>
+        <a
+          className="go2f5 underline wi-secondary-color wi-link-color"
+          href={str}
+          data-uc-id="cS2FZIpWYn"
+          data-uc-ct="a"
+        >
           {name}
         </a>
       )
@@ -1247,7 +1242,12 @@ export const wftCommon = {
     if (usedInClient) {
       str = `!COMMANDPARAM[155,url=https://fundresearchserver/FundStaticWeb/newF9/Insurance/#/Introduct/?fundCode=${code}&lan=cn,IsSingleton=true,disableuppercase=true]`
       linkStr = (
-        <a className="go2inf underline wi-secondary-color wi-link-color" href={str}>
+        <a
+          className="go2inf underline wi-secondary-color wi-link-color"
+          href={str}
+          data-uc-id="2RuJkaL_Ar"
+          data-uc-ct="a"
+        >
           {name}
         </a>
       )
@@ -1265,7 +1265,12 @@ export const wftCommon = {
     if (usedInClient) {
       str = '!CommandParam[1400,windcode=' + code + ']'
       linkStr = (
-        <a className="go2f9 underline wi-secondary-color wi-link-color" href={str}>
+        <a
+          className="go2f9 underline wi-secondary-color wi-link-color"
+          href={str}
+          data-uc-id="16O4ErJFPt"
+          data-uc-ct="a"
+        >
           {name}
         </a>
       )
@@ -2072,6 +2077,8 @@ export const wftCommon = {
               // @ts-expect-error ttt
               e.target.src = defaultImg
             }}
+            data-uc-id="x4Y0fTaHJB"
+            data-uc-ct="img"
           />
         }
       >
@@ -2083,6 +2090,8 @@ export const wftCommon = {
             // @ts-expect-error ttt
             e.target.src = defaultImg
           }}
+          data-uc-id="kOhiH3DMF0"
+          data-uc-ct="img"
         />
       </Tooltip>
     ) : (
@@ -2094,6 +2103,8 @@ export const wftCommon = {
           // @ts-expect-error ttt
           e.target.src = defaultImg
         }}
+        data-uc-id="B5LXdmBlD8"
+        data-uc-ct="img"
       />
     )
   },
@@ -2391,82 +2402,16 @@ export const wftCommon = {
     })
     return formData
   },
-  type2enStage: (type) => {
-    switch (type) {
-      case '资格预审公告':
-        return intl('228621', '资格预审公告')
-      case '公开招标公告':
-        return intl('228622', '公开招标公告')
-      case '询价公告':
-        return intl('228623', '询价公告')
-      case '竞争性谈判公告':
-        return intl('228624', '竞争性谈判公告')
-      case '单一来源公告':
-        return intl('228625', '单一来源公告')
-      case '邀请招标公告':
-        return intl('228626', '邀请招标公告')
-      case '竞争性磋商公告':
-        return intl('228627', '竞争性磋商公告')
-      case '竞价招标公告':
-        return intl('228628', '竞价招标公告')
-      case '中标公告':
-        return intl('228629', '中标公告')
-      case '成交公告':
-        return intl('228630', '成交公告')
-      case '竞价结果公告':
-        return intl('228631', '竞价结果公告')
-      case '废标流标公告':
-        return intl('228632', '废标流标公告')
-      case '更正公告':
-        return intl('271972', '更正公告')
-      case '开标公告':
-        return intl('333033', '开标公告')
-      case '意向公告':
-        return intl('333034', '意向公告')
-      case '合同及验收公告':
-        return intl('336673', '合同及验收')
-      default:
-        return ''
-    }
-  },
-  type2Stage: (type) => {
-    switch (type) {
-      case '资格预审公告':
-        return ' | ' + intl('257809', '预审')
-      case '公开招标公告':
-        return ' | ' + intl('100969', '招标')
-      case '询价公告':
-        return ' | ' + intl('100969', '招标')
-      case '竞争性谈判公告':
-        return ' | ' + intl('100969', '招标')
-      case '单一来源公告':
-        return ' | ' + intl('100969', '招标')
-      case '邀请招标公告':
-        return ' | ' + intl('100969', '招标')
-      case '竞争性磋商公告':
-        return ' | ' + intl('100969', '招标')
-      case '竞价招标公告':
-        return ' | ' + intl('100969', '招标')
-      case '意向公告':
-        return ' | ' + intl('100969', '招标')
-      case '中标公告':
-        return ' | ' + intl('315493', '结果')
-      case '成交公告':
-        return ' | ' + intl('315493', '结果')
-      case '竞价结果公告':
-        return ' | ' + intl('315493', '结果')
-      case '废标流标公告':
-        return ' | ' + intl('315493', '结果')
-      case '更正公告':
-        return ''
-      case '开标公告':
-        return ' | ' + intl('315493', '结果')
-      case '合同及验收公告':
-        return ' | ' + intl('315493', '结果')
-      default:
-        return ''
-    }
-  },
+  /**
+   * @deprecated
+   * 直接使用 gel util 中方法
+   */
+  type2enStage: bidType2EnStage,
+  /**
+   * @deprecated
+   * 直接使用 gel util 中方法
+   */
+  type2Stage: bidType2Stage,
   validateEmail: (email) => {
     const reg = /^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-]+)*\.[a-zA-Z0-9_-]+$/
     return reg.test(email)
@@ -2526,288 +2471,28 @@ export const wftCommon = {
     traverse(curkey, [], data)
     return result
   },
-  translateDivHtml: function (id, dom, successFun?) {
-    const params = {}
-    const translated = []
-    let flag = true
-    for (let i = 0; i < dom.length; i++) {
-      if (window.$(dom[i]).children().length) {
-        wftCommon.translateDivHtml(id, window.$(dom[i]).children(), successFun)
-        flag = false
-      } else {
-        const txt = window.$(dom[i])[0].innerText
-        params[i] = txt
-        translated.push(i)
-      }
-    }
-    wftCommon.translateService(params, function (data) {
-      for (let i = 0; i < dom.length; i++) {
-        if (translated.indexOf(i) > -1 && window.$(dom[i])[0].innerText) {
-          window.$(dom[i]).text(data[i])
-        }
-      }
-      if (flag) {
-        successFun && successFun()
-        const tbody = window.$(id).find('tbody')
-        window.$(tbody).closest('table').find('.translate-loading').remove()
-        window.$(tbody).show()
-      }
-    })
-  },
-  translateTabHtml: function (id, successFun, noNeedLoading) {
-    const tbody = window.$(id).find('tbody')
-    const tds = window.$(tbody).find('td')
-    const params = {}
-    for (let i = 0; i < tds.length; i++) {
-      let txt = window.$(tds[i])[0].innerText
-      if (window.$(tds[i]).find('a').length) {
-        txt = window.$(tds[i]).find('a')[0].innerText
-      }
-      params[i] = txt
-    }
-    if (!noNeedLoading) {
-      // 不需要loading样式
-      if (!window.$(tbody).closest('table').find('.translate-loading').length) {
-        window.$(tbody).closest('table').append('<div class="translate-loading">loading</div>')
-        window.$(tbody).hide()
-      } else {
-        // 如果正在翻译，直接返回
-        return
-      }
-    }
-    wftCommon.translateService(params, function (data) {
-      for (let i = 0; i < tds.length; i++) {
-        if (window.$(tds[i]).find('a').length) {
-          window.$(tds[i]).find('a').text(data[i])
-        } else {
-          if (window.$(tds[i])[0].innerText) {
-            window.$(tds[i]).text(data[i])
-          }
-        }
-      }
-      successFun && successFun()
-      window.$(tbody).closest('table').find('.translate-loading').remove()
-      window.$(tbody).show()
-    })
-  },
-  translateTable: function ($sel, force) {
-    if (!window.en_access_config) return // 中文模式不翻译，直接返回
-    try {
-      let id = window.$($sel).attr('href') ? window.$($sel).attr('href') : '' // 来源左侧目录树
-      if (!id) {
-        // 单独的模块
-        id = window.$($sel).attr('id') || ''
-        id = id ? '#' + id : ''
-      }
-      if (id) {
-        if (id == '#showCompanyInfo') {
-          window.$($sel).attr('wi-lang-use', 'en')
-        }
-        if (!force) {
-          // 强制翻译
-          if (window.$($sel).attr('wi-lang-use')) return
-        }
-        if (['#showFinalBeneficiary', '#showShareSearch'].indexOf(id) > -1) {
-          wftCommon.translateDivHtml(id, window.$(id).find('tbody').find('td'), function () {
-            window.$($sel).attr('wi-lang-use', 'en')
-          })
-        } else {
-          wftCommon.translateTabHtml(id, function () {
-            window.$($sel).attr('wi-lang-use', 'en')
-          })
-        }
-      }
-    } catch (e) {}
-  },
-  translateHTML: async (htmlStr) => {
-    if (!htmlStr || !window.en_access_config) return htmlStr || ''
-    let matchedlist = htmlStr.match(/[\u4e00-\u9fff]+/g)
-    if (matchedlist && matchedlist.length) {
-      matchedlist = matchedlist.sort((a, b) => b.length - a.length)
-    }
-    wftCommon.addLoadTask(htmlStr)
-
-    const result = await axiosRequest
-      .request({
-        method: 'post',
-        cmd: 'apitranslates',
-        data: {
-          transText: `{x:'${matchedlist.join('|')}'}`,
-          sourceLang: 1,
-          targetLang: 2,
-          source: 'gel',
-        },
-      })
-      .finally(() => {
-        wftCommon.removeLoadTask(htmlStr)
-      })
-    let transText = htmlStr
-    if (result?.Data?.translateResult?.x) {
-      const translatedList = result.Data.translateResult.x.split('|')
-      translatedList.map((res, index) => (transText = transText.replace(matchedlist[index], res)))
-    }
-    return transText
-  },
-  globalTranslating: new Map(),
-  loadMsgCB: null,
-  isLoading: false,
-
-  addLoadTask: (data) => {
-    if (!wftCommon.globalTranslating.size && wftCommon.loadMsgCB == null && !wftCommon.isLoading) {
-      wftCommon.isLoading = true
-      wftCommon.loadMsgCB = message.loading('Translate in progress', 0)
-    }
-    wftCommon.globalTranslating.set(data, true)
-  },
-  removeLoadTask: (data) => {
-    wftCommon.globalTranslating.delete(data)
-    if (!wftCommon.globalTranslating.size) {
-      wftCommon.loadMsgCB && wftCommon.loadMsgCB()
-      wftCommon.loadMsgCB = null
-      wftCommon.isLoading = false
-    }
-  },
+  translateDivHtml: translateDivHtml,
+  translateTabHtml: translateTabHtml,
+  translateTable: translateTable,
+  translateHTML: translateHtml,
+  isLoading: translateLoadManager.isTranslating(),
+  addLoadTask: translateLoadManager.addLoadTask,
+  removeLoadTask: translateLoadManager.removeLoadTask,
 
   translateService: translateService, // 纯函数 深拷贝后翻译， 不改变原对象
-  pureTranslateService: function (param, successFun) {
-    function errCallback() {
-      if (successFun) {
-        return successFun(param)
-      }
-      return param
-    }
-
-    if (!param) return
-    if (!window.en_access_config || window.$.isEmptyObject(param)) {
-      // 中文模式不翻译，直接返回
-      errCallback()
-      return
-    }
-    const newpPram = wftCommon.deepClone(param)
-    wftCommon.translateService(newpPram, successFun)
-  } /*
+  pureTranslateService: pureTranslateService,/*
    * 中文翻译为英文
    * zhWords，中文词条 arr格式； successCallback，翻译成功后的回调，参数中返回了英文词条arr， extraFun，需要对中文词条做的一些额外处理方法
-   */,
-  zh2enFlattened: function (vrParam, obj, parentKey) {
-    for (const k in obj) {
-      if (obj[k] && typeof obj[k] === 'object') {
-        wftCommon.zh2enFlattened(vrParam, obj[k], parentKey + '$$' + k + '$$')
-      } else {
-        if (wftCommon.checkCh(obj[k])) {
-          vrParam[parentKey + '$$' + k] = obj[k]
-        }
-      }
-    }
-    return vrParam
-  },
+   */
+  zh2enFlattened: zh2enFlattened,
   checkCh: function (str) {
     const reg = /[\u4e00-\u9fa5]+/
     return reg.test(str)
   },
-  zh2enResult: function (vrParam, obj, parentKey) {
-    for (const k in obj) {
-      if (obj[k] && typeof obj[k] === 'object') {
-        wftCommon.zh2enResult(vrParam, obj[k], parentKey + '$$' + k + '$$')
-      } else {
-        if (vrParam[parentKey + '$$' + k]) {
-          obj[k] = vrParam[parentKey + '$$' + k]
-        }
-      }
-    }
-    return obj
-  },
-  zh2enNestedPart: function (zhWords, successCallback, extraFun) {
-    if (!zhWords || !zhWords.length) return []
-    let vrData = []
-    let vrParam = {}
-    if (extraFun) {
-      vrData = extraFun(zhWords)
-    } else {
-      vrData = zhWords
-    }
-    vrParam = wftCommon.zh2enFlattened(vrParam, vrData, '')
-    wftCommon.translateService(vrParam, function (newData) {
-      let newRes = []
-      newRes = wftCommon.zh2enResult(newData, vrData, '')
-      successCallback(newRes)
-    })
-  },
+  zh2enResult: zh2enResult,
+  zh2enNestedPart: zh2enNestedPart,
 
-  zh2enAlwaysCallback: function (zhWords, successCallback, extraFun, errorCallback, unfoldField) {
-    if (!zhWords || !zhWords.length || !window.en_access_config) {
-      if (successCallback) successCallback(zhWords)
-      return []
-    }
-    let vrData = []
-    const vrParam = {}
-    if (extraFun) {
-      vrData = extraFun(zhWords)
-    } else {
-      vrData = zhWords
-    }
-    if (unfoldField) {
-      vrData.forEach(function (t, idx) {
-        unfoldField.forEach(function (k) {
-          vrParam[idx + '$$' + k] = t[k]
-          if (t[k] === 0) {
-            vrParam[idx + '$$' + k] = 0
-          } else if (t[k] === '0') {
-            vrParam[idx + '$$' + k] = '0'
-          } else if (!t[k]) {
-            vrParam[idx + '$$' + k] = ''
-          } else if (t[k] === true) {
-            vrParam[idx + '$$' + k] = 1
-          }
-        })
-      })
-    } else {
-      vrData.forEach(function (t, idx) {
-        for (const k in t) {
-          vrParam[idx + '$$' + k] = t[k]
-          if (t[k] === 0) {
-            vrParam[idx + '$$' + k] = 0
-          } else if (t[k] === '0') {
-            vrParam[idx + '$$' + k] = '0'
-          } else if (!t[k]) {
-            vrParam[idx + '$$' + k] = ''
-          } else if (t[k] === true) {
-            vrParam[idx + '$$' + k] = 1
-          }
-        }
-      })
-    }
-    wftCommon.translateService(
-      vrParam,
-      function (newData) {
-        let newRes = []
-        const resObj = {}
-        if (unfoldField) {
-          newRes = zhWords
-          for (var k in newData) {
-            var t = k.split('$$')[0]
-            resObj[t] = resObj[t] || {}
-            var key = k.split('$$')[1]
-            newRes[t][key] = newData[k]
-          }
-        } else {
-          for (var k in newData) {
-            var t = k.split('$$')[0]
-            resObj[t] = resObj[t] || {}
-            var key = k.split('$$')[1]
-            resObj[t][key] = newData[k]
-          }
-          for (var k in resObj) {
-            newRes.push(resObj[k])
-          }
-        }
-        successCallback(newRes)
-      },
-      function () {
-        errorCallback && errorCallback()
-      }
-    )
-  },
+  zh2enAlwaysCallback: zh2enAlwaysCallback,
 
   /**
    * 处理 zh2en 翻译后的数组对象格式转换
@@ -2838,124 +2523,8 @@ export const wftCommon = {
    *
    * @returns {Array} 转换后的数据数组，保持原有的数组结构，同时将特殊格式的 key 转换回数组对象格式
    */
-  convertArrayObjectKeys(dataArray) {
-    if (!Array.isArray(dataArray)) return dataArray
-    return dataArray.map((data) => {
-      const result = { ...data }
-      const arrayObjPattern = /^(.+)##arrobj##(\d+)##(.+)$/ // 匹配 key##arrobj##index##field 格式
-      const keysToConvert = new Map()
-
-      // 第一步：收集所有需要转换的信息
-      Object.keys(data).forEach((key) => {
-        const match = key.match(arrayObjPattern)
-        if (match) {
-          const [, baseKey, index, field] = match
-          if (!keysToConvert.has(baseKey)) {
-            keysToConvert.set(baseKey, { indexes: new Set(), fields: new Set() })
-          }
-          const info = keysToConvert.get(baseKey)
-          info.indexes.add(Number(index))
-          info.fields.add(field)
-          // 删除原始的 key
-          delete result[key]
-        }
-      })
-
-      // 第二步：转换为数组对象格式
-      keysToConvert.forEach((info, baseKey) => {
-        const arrayResult = Array.from(info.indexes)
-          // @ts-expect-error ttt
-          .sort((a, b) => a - b)
-          .map((index) => {
-            const obj = {}
-            info.fields.forEach((field) => {
-              const originalKey = `${baseKey}##arrobj##${index}##${field}`
-              obj[field] = data[originalKey]
-            })
-            return obj
-          })
-        result[baseKey] = arrayResult
-      })
-
-      return result
-    })
-  },
-  zh2en: function (zhWords, successCallback, extraFun?, errorCallback?, unfoldField?) {
-    if (!zhWords || !Array.isArray(zhWords) || !zhWords.length) {
-      if (errorCallback) errorCallback('🚀 ~ zh2en zh words is null or not an array')
-      return []
-    }
-    let vrData = []
-    const vrParam = {}
-    if (extraFun) {
-      vrData = extraFun(zhWords)
-    } else {
-      vrData = zhWords
-    }
-    if (unfoldField) {
-      vrData.forEach(function (t, idx) {
-        unfoldField.forEach(function (k) {
-          vrParam[idx + '$$' + k] = t[k]
-          if (t[k] === 0) {
-            vrParam[idx + '$$' + k] = 0
-          } else if (t[k] === '0') {
-            vrParam[idx + '$$' + k] = '0'
-          } else if (!t[k]) {
-            vrParam[idx + '$$' + k] = ''
-          } else if (t[k] === true) {
-            vrParam[idx + '$$' + k] = 1
-          }
-        })
-      })
-    } else {
-      vrData.forEach(function (t, idx) {
-        for (const k in t) {
-          vrParam[idx + '$$' + k] = t[k]
-          if (t[k] === 0) {
-            vrParam[idx + '$$' + k] = 0
-          } else if (t[k] === '0') {
-            vrParam[idx + '$$' + k] = '0'
-          } else if (!t[k]) {
-            vrParam[idx + '$$' + k] = ''
-          } else if (t[k] === true) {
-            vrParam[idx + '$$' + k] = 1
-          }
-        }
-      })
-    }
-    wftCommon.translateService(
-      vrParam,
-      function (newData) {
-        let newRes = []
-        const resObj = {}
-        if (unfoldField) {
-          newRes = zhWords
-          for (var k in newData) {
-            var t = k.split('$$')[0]
-            resObj[t] = resObj[t] || {}
-            var key = k.split('$$')[1]
-            newRes[t][key] = newData[k]
-          }
-        } else {
-          for (var k in newData) {
-            var t = k.split('$$')[0]
-            resObj[t] = resObj[t] || {}
-            var key = k.split('$$')[1]
-            resObj[t][key] = newData[k]
-          }
-          for (var k in resObj) {
-            newRes.push(resObj[k])
-          }
-        }
-        // 这里添加针对数组的优化
-        const result = wftCommon.convertArrayObjectKeys(newRes)
-        successCallback(result)
-      },
-      function () {
-        errorCallback && errorCallback()
-      }
-    )
-  },
+  convertArrayObjectKeys :convertArrayObjectKeys,
+  zh2en: zh2en,
 
   replaceScript: (str) => {
     if (str) {
@@ -3343,4 +2912,16 @@ export function getUserInfo() {
   }
 
   return userInfo
+}
+
+/**
+ * 判断字符串是否为中文名称，含繁体
+ * /[\u4e00-\u9fff]/.test('汉') true
+ * /[\u4e00-\u9fff]/.test('。') false
+ * /[\u4e00-\u9fff]/.test('a') false
+ * /[\u4e00-\u9fff]/.test('주식') false
+ * /[\u4e00-\u9fff]/.test('華') true
+ */
+export const isChineseName = (name: string) => {
+  return /[\u4e00-\u9fff]/.test(name)
 }

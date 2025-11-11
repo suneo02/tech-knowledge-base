@@ -72,6 +72,8 @@ function Discredit(props) {
         // @ts-expect-error ttt
         rows={rows}
         dataSource={info}
+        data-uc-id="Rj-cIgPso1"
+        data-uc-ct="horizontaltable"
       ></HorizontalTable>
     </Card>
   )

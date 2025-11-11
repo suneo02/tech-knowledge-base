@@ -4,9 +4,10 @@ import {
   CorpModuleNumTotal,
 } from '@/components/company/detail/comp/CorpNum.tsx'
 import { ICorpTableCfg } from '@/components/company/type'
-import { TCorpDetailSubModule } from '@/handle/corp/detail/module/type.ts'
+
 import React, { FC, ReactNode } from 'react'
 import { ICorpBasicNumFront } from '../../../handle/corp/basicNum/type.ts'
+import { TCorpDetailSubModule } from 'gel-types'
 
 /**
  * 企业详情 table 统计数字展示组件

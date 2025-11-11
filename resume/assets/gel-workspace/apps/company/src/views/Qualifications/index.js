@@ -99,7 +99,14 @@ function QualificationsIndex(props) {
 
   const children = result.map((i) => {
     return (
-      <Option key={i.name} className="option" data-code={i.code}>
+      <Option
+        key={i.name}
+        className="option"
+        data-code={i.code}
+        data-uc-id={`Egn6XjobBEj${i.name}`}
+        data-uc-ct="option"
+        data-uc-x={i.name}
+      >
         <span
           className="optName"
           dangerouslySetInnerHTML={{
@@ -124,6 +131,8 @@ function QualificationsIndex(props) {
             // placeholder={intl('', '搜索企业或资质许可名称')}
             dataSource={children}
             onSelect={handleSelect}
+            data-uc-id="9vNiEMHQk"
+            data-uc-ct="autocomplete"
           >
             <Input
               className="search_input"
@@ -133,11 +142,13 @@ function QualificationsIndex(props) {
                 boxShadow: '0 4px 20px 0 rgba(0, 0, 0, 0.10)',
               }}
               placeholder={intl('364556', '搜索资质许可名称')}
+              data-uc-id="9hEcFDHDsm"
+              data-uc-ct="input"
             />
             {/* {children} */}
           </AutoComplete>
           {/* <Input className="searchInput" placeholder={intl('', '搜索企业或资质许可名称')} /> */}
-          <Button size="default" onClick={handleSearchBtn} type="primary">
+          <Button size="default" onClick={handleSearchBtn} type="primary" data-uc-id="-8Vp8iHW0i" data-uc-ct="button">
             {intl('121124', '搜一下')}
           </Button>
         </div>
@@ -156,8 +167,8 @@ function QualificationsIndex(props) {
                         }} />  */}
               <span className="hot_Group">{intl('364554', '热门资质许可')}</span>
 
-              <a className="change" onClick={handleChange}>
-                {intl('437752', '换一换')} <SynO />
+              <a className="change" onClick={handleChange} data-uc-id="KoOBBRn97s" data-uc-ct="a">
+                {intl('437752', '换一换')} <SynO data-uc-id="aQY_4DwND6" data-uc-ct="syno" />
               </a>
             </Row>
             <Spin spinning={spinning}>
@@ -172,7 +183,7 @@ function QualificationsIndex(props) {
                           <a>
                             {wftCommon.formatMoney(i.total, [4, ' ']) || '--'}{' '}
                             {window.en_access_config ? '' : intl('', '条')}
-                            <RightO />
+                            <RightO data-uc-id="12S0WO5JA9" data-uc-ct="righto" />
                           </a>{' '}
                         </span>
                       }
@@ -204,6 +215,8 @@ function QualificationsIndex(props) {
                     })
                   )
                 }
+                data-uc-id="uVX6zKpjq8"
+                data-uc-ct="a"
               >
                 {intl('415793', '查看全部资质').replace('%', numberFormat(records, true))}
               </a>

@@ -1,14 +1,14 @@
 import { useResetState } from 'ahooks'
-import { useUrlState } from 'gel-util/hooks'
 
 /**
  * 聊天室状态接口
- * 包含：chatId（后端接口返回的对话ID）、roomId（前端聊天室ID）、isChating（是否正在聊天中）
+ * 包含：chatId（后端接口返回的对话ID）、roomId（前端聊天室ID）、isChating（是否正在聊天中）、index（历史对话索引）
  */
 export interface ChatRoomState {
   chatId: string
   roomId: string
   isChating: boolean
+  index?: number
 }
 
 /**
@@ -50,6 +50,9 @@ export interface ChatRoomStateReturn extends ChatRoomState {
   // 更新聊天状态，控制是否处于聊天中
   setIsChating: (isChating: boolean) => void
   resetIsChating: () => void
+  // 设置历史对话索引
+  setIndex: (index: number) => void
+  resetIndex: () => void
 }
 
 /**
@@ -71,6 +74,7 @@ export const useChatRoomState = (initialRoomId?: string): ChatRoomStateReturn =>
   const [chatId, setChatId, resetChatId] = useResetState<string>('')
   const [roomId, setRoomId] = useResetState<string>(initialRoomId || initRandomRoomId())
   const [isChating, setIsChating, resetIsChating] = useResetState<boolean>(false)
+  const [index, setIndex, resetIndex] = useResetState<number | undefined>(undefined)
 
   return {
     chatId,
@@ -81,5 +85,8 @@ export const useChatRoomState = (initialRoomId?: string): ChatRoomStateReturn =>
     isChating,
     setIsChating,
     resetIsChating,
+    index,
+    setIndex,
+    resetIndex,
   }
 }

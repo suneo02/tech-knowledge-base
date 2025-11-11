@@ -32,8 +32,15 @@ export const industryTdRender = (txt, row) => {
             onClick={() => {
               if (txt.clickFn) txt.clickFn(txt)
             }}
+            data-uc-id="hSvM20a7Ik"
+            data-uc-ct="div"
           >
-            <UnfoldDefaultO style={{ fontSize: 18, color: '#00aec7' }} /> {intl('12095', '全部展开')}
+            <UnfoldDefaultO
+              style={{ fontSize: 18, color: '#00aec7' }}
+              data-uc-id="hBSpJ40BXi"
+              data-uc-ct="unfolddefaulto"
+            />{' '}
+            {intl('12095', '全部展开')}
           </div>
         ) : (
           <div
@@ -41,8 +48,15 @@ export const industryTdRender = (txt, row) => {
             onClick={() => {
               if (txt.clickFn) txt.clickFn(txt)
             }}
+            data-uc-id="3lxEluG7pQ"
+            data-uc-ct="div"
           >
-            <PackUpDefaultO style={{ fontSize: 18, color: '#00aec7' }} /> {intl('119102', '收起')}
+            <PackUpDefaultO
+              style={{ fontSize: 18, color: '#00aec7' }}
+              data-uc-id="3ezfNaJSG"
+              data-uc-ct="packupdefaulto"
+            />{' '}
+            {intl('119102', '收起')}
           </div>
         )
       ) : null}

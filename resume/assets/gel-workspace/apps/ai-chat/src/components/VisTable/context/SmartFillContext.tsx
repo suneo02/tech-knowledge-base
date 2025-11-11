@@ -29,6 +29,8 @@ interface SmartFillContextType {
   clearTemplate: (columnId: string) => void
   // 判断是否应该显示模板
   shouldShowTemplate: boolean
+  // 是否是编辑模式
+  columnId: string | null
 }
 
 // 创建上下文
@@ -48,8 +50,12 @@ export const SmartFillProvider: React.FC<{ children: ReactNode }> = ({ children 
   // 是否显示之前的模板
   const [shouldShowTemplate, setShouldShowTemplate] = useState(true)
 
+  // 是否是编辑模式
+  const [columnId, setColumnId] = useState<string | null>(null)
+
   // 打开模态框
   const openSmartFillModal = (columnId?: string, clearPrevious = false) => {
+    setColumnId(columnId || null)
     if (clearPrevious && columnId) {
       // 如果需要清除之前的模板，则从缓存中删除
       templateCache.delete(columnId)
@@ -96,6 +102,7 @@ export const SmartFillProvider: React.FC<{ children: ReactNode }> = ({ children 
     getTemplate,
     clearTemplate,
     shouldShowTemplate,
+    columnId,
   }
 
   return <SmartFillContext.Provider value={contextValue}>{children}</SmartFillContext.Provider>

@@ -1,4 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite'
+import { readdirSync } from 'fs'
+import { resolve } from 'path'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -14,10 +16,34 @@ const config: StorybookConfig = {
   },
   async viteFinal(config, { configType }) {
     if (configType === 'DEVELOPMENT') {
+      // 获取项目根目录路径
+      const rootPath = resolve(__dirname, '../../../')
+      const gelUtilPath = resolve(rootPath, 'packages/gel-util')
+      const gelUtilSrcPath = resolve(gelUtilPath, 'src')
+      const gelUtilSubmodules = readdirSync(gelUtilSrcPath, { withFileTypes: true })
+        .filter((dirent) => dirent.isDirectory() && dirent.name !== '__test__')
+        .map((dirent) => `gel-util/${dirent.name}`) // 获取 gel-util 的子模块
       return {
         ...config,
         optimizeDeps: {
-          include: ['gel-ui'], // Adjust package name if needed
+          include: [...gelUtilSubmodules, 'gel-ui'], // Adjust package name if needed
+        },
+        resolve: {
+          ...(config.resolve || {}),
+          alias: [
+            {
+              find: '@',
+              replacement: resolve(__dirname, '../src'),
+            },
+            {
+              find: /^~/,
+              replacement: '',
+            },
+            {
+              find: /^gel-util\/(.*)/,
+              replacement: resolve(gelUtilPath, 'dist/$1.mjs'),
+            },
+          ],
         },
       }
     }

@@ -1,9 +1,8 @@
 import { Tag } from '@wind/wind-ui'
 import { ConfigTableCellRenderConfig } from 'gel-types'
-import { t } from 'gel-util/intl'
 import { getTagPropsByModule } from 'report-util/misc'
 import { safeToStringRender } from 'report-util/table'
-import { tForRPPreview } from '../../../../utils'
+import { TIntl } from 'report-util/types'
 import styles from './shareholderName.module.less'
 
 /**
@@ -14,13 +13,14 @@ import styles from './shareholderName.module.less'
  * @returns
  */
 export const corpInfoAnouncementShareholderNameRender = (
+  t: TIntl,
   txt: any,
   record: any,
   config: ConfigTableCellRenderConfig
 ) => {
   return (
     <div className={styles['corp-info-shareholder-name']}>
-      <span>{safeToStringRender(tForRPPreview, txt, config?.renderConfig)}</span>
+      <span>{safeToStringRender(t, txt, config?.renderConfig)}</span>
       {record.benifciary && <Tag {...getTagPropsByModule('ultimateBeneficiary')}>{t('138180', '最终受益人')}</Tag>}
       {record.act_ctrl && (
         <Tag {...getTagPropsByModule('actualController')}>

@@ -20,7 +20,7 @@ export const HeaderChart: React.FC<HeaderChartProps> = ({ text, isFirstRow = fal
   const isWidthLessThan985 = useCompanyTabWidth()
   return (
     <Col className="gutter-row corp-intro-chart-col" span={4} key={text}>
-      <div className={chartClassName} onClick={onClick}>
+      <div className={chartClassName} onClick={onClick} data-uc-id="ZcgCE3ybcz" data-uc-ct="div">
         <span>{text}</span>
         <div className={isWidthLessThan985 ? 'kg-bg-container kg-bg-container-small' : 'kg-bg-container'}></div>
       </div>

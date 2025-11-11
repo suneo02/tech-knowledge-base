@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react'
-import { useCorpStore } from '@/store/company.ts'
-import { getCorpCodeByUrl } from '../../handle/corp/misc.ts'
-import { debounce } from 'lodash'
-import { CorpContent } from '@/views/Company/comp/content.tsx'
 import '@/components/layout/styles/layoutNavAndScrollContent.less'
+import { useCorpStore } from '@/store/company.ts'
+import { CorpContent } from '@/views/Company/comp/content.tsx'
 import { CompanyDetailContext } from '@/views/Company/ctx.ts'
+import { debounce } from 'lodash'
+import React, { useEffect, useRef } from 'react'
+import { getCorpCodeByUrl } from '../../handle/corp/misc'
 import styles from './style/index.module.less'
 
 const Company = () => {

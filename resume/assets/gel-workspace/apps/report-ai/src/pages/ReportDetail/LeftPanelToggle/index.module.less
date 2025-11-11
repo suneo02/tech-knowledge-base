@@ -1,0 +1,83 @@
+@import '../../../styles/variables.less';
+
+.left-panel-toggle {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.toggle-button {
+  width: 24px;
+  height: 80px;
+  background: linear-gradient(180deg, #3862ed 0%, #274cda 25%, #00aec7 50%, #12cbbe 75%, #9d9ae3 100%);
+  border-radius: 0 12px 12px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+  /* 替代 gap: 8px */
+  > * + * {
+    margin-top: 8px;
+  }
+
+  &:hover {
+    opacity: 1;
+    width: 28px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transform: translateX(2px);
+  }
+
+  &:active {
+    transform: translateX(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.toggle-icon {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(90deg);
+
+  .toggle-button:hover & {
+    transform: rotate(90deg) translateX(1px);
+  }
+}
+
+.toggle-text {
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 2px;
+  user-select: none;
+}
+
+// 响应式适配
+@media (max-width: @screen-md) {
+  .toggle-button {
+    width: 20px;
+    height: 60px;
+
+    &:hover {
+      width: 24px;
+    }
+  }
+
+  .toggle-icon {
+    font-size: 14px;
+  }
+
+  .toggle-text {
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+}

@@ -45,14 +45,20 @@ const RelationshipMap = (props) => {
       <div className="widget-chart-header">
         <div className="title">{intl(props.titleId, props.title)}</div>
         <div className="options">
-          <Button className="chart-header-redirect btn-default-normal">{intl('437439', '全屏查看')}</Button>
-          <Button className="chart-header-reload btn-default-normal">{intl('138765', '还原')}</Button>
+          <Button className="chart-header-redirect btn-default-normal" data-uc-id="R7YQjElMSZ_" data-uc-ct="button">
+            {intl('437439', '全屏查看')}
+          </Button>
+          <Button className="chart-header-reload btn-default-normal" data-uc-id="G_0JmBWwBkP" data-uc-ct="button">
+            {intl('138765', '还原')}
+          </Button>
           <Button
             className="chart-header-save btn-default-normal buryClick"
             data-bury="shareAndInvestSaveImgBury"
             data-buryoptype="click"
             data-buryfunctype="picEx"
             data-buryentity="getShareAndInvest"
+            data-uc-id="heOysKjrlAt"
+            data-uc-ct="button"
           >
             {intl('421570', '保存图片')}
           </Button>

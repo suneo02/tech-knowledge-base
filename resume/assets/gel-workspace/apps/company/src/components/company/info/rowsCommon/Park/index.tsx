@@ -1,7 +1,8 @@
-import React from 'react'
-import './index.less'
-import intl from '@/utils/intl'
 import { AddrComp } from '@/components/company/info/comp/AddrComp.tsx'
+import intl from '@/utils/intl'
+import React from 'react'
+import { ICorpBasicInfoFront } from '../../handle'
+import './index.less'
 
 export const Park: React.FC<{ title: string; id: string }> = ({ title, id }) => {
   return (
@@ -15,6 +16,8 @@ export const Park: React.FC<{ title: string; id: string }> = ({ title, id }) => 
             href={`${window.location.protocol}//wx.wind.com.cn/govweb/?pageId=SKJTDJM&parkId=${id}#/GeneralPage`}
             target="_blank"
             rel="noreferrer"
+            data-uc-id="-aU103bn3G"
+            data-uc-ct="a"
           >
             {title}
           </a>
@@ -26,15 +29,18 @@ export const Park: React.FC<{ title: string; id: string }> = ({ title, id }) => 
   )
 }
 
-export const ParkBox: React.FC<{ title: string; row: Record<string, any>; parkId: string; parkTitle: string }> = ({
-  title,
-  row,
-  parkId,
-  parkTitle,
-}) => {
+export const ParkBox: React.FC<{
+  title: string
+  row: ICorpBasicInfoFront
+  parkId: string
+  parkTitle: string
+  isBusAddress: boolean
+}> = ({ title, row, parkId, parkTitle, isBusAddress }) => {
   return (
     <div className="address park">
-      <span>{AddrComp(title, row, 1)}</span>
+      <span>
+        <AddrComp address={title} corpId={row?.corp_id} isBusinessAddress={isBusAddress} />
+      </span>
       {parkTitle ? <Park title={parkTitle} id={parkId} /> : null}
     </div>
   )

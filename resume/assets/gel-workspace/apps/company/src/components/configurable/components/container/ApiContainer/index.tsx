@@ -166,6 +166,8 @@ export const ApiContainer = memo(
                   false
                 )
               }
+              data-uc-id="zedT55PP9b"
+              data-uc-ct="empty"
             />
           </div>
         )
@@ -177,7 +179,7 @@ export const ApiContainer = memo(
             title="500"
             subTitle="Sorry, something went wrong."
             extra={
-              <Button type="primary" onClick={() => refreshServer()}>
+              <Button type="primary" onClick={() => refreshServer()} data-uc-id="Cxf8aZGf9R" data-uc-ct="button">
                 点击重新获取数据
               </Button>
             }

@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
-import { ConversationCore, ConversationCoreProps } from '../../components/Conversation/core'
-import { conversationsMock } from './conversationsMock'
+import React from 'react'
+import { ChatConversationBase } from '../../components/Conversation/base'
 
 const meta = {
   title: 'Conversation/Core',
-  component: ConversationCore,
+  component: ChatConversationBase,
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -16,49 +15,20 @@ const meta = {
   },
   tags: ['autodocs'],
   decorators: [
-    (Story, context) => {
-      const [items] = useState(context.args.items || conversationsMock)
-
-      return (
-        <div style={{ height: '100vh' }}>
-          <Story items={items} hasMore={false} {...context.args} />
-        </div>
-      )
-    },
+    (Story) => (
+      <div style={{ height: '100vh' }}>
+        <Story />
+      </div>
+    ),
   ],
-  argTypes: {
-    roomId: {
-      control: { type: 'text' },
-      description: 'Active conversation ID',
-    },
-    isChating: {
-      control: { type: 'boolean' },
-      description: 'Whether user is currently chatting',
-    },
-    collapse: {
-      control: { type: 'boolean' },
-      description: 'Whether the conversation sidebar is collapsed',
-    },
-    loading: {
-      control: { type: 'boolean' },
-      description: 'Whether items are loading',
-    },
-  },
-} satisfies Meta<typeof ConversationCore>
+  argTypes: {},
+} satisfies Meta<typeof ChatConversationBase>
 
 export default meta
-type Story = StoryObj<typeof ConversationCore>
+type Story = StoryObj<typeof ChatConversationBase>
 
 // Define default args that provide all required props
-const defaultArgs: ConversationCoreProps = {
-  roomId: '1',
-  isChating: false,
-  onRoomIdChange: () => {},
-  onDeleteConversation: () => {},
-  onAddConversation: () => {},
-  items: conversationsMock,
-  loadMoreItems: () => {},
-}
+const defaultArgs = {}
 
 export const Default: Story = {
   args: {

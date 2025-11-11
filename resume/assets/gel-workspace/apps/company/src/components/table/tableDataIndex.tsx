@@ -40,7 +40,10 @@ export const useDataIndex = () => {
   const handleSplit = (col) => {
     const splitColumns = col.dataIndex.split('|')
     // console.log('handleSplit', handleSplit)
-    col.render = (_, row) => (row[splitColumns[0]] && wftCommon[splitColumns[1]] ? wftCommon[splitColumns[1]](row[splitColumns[0]]) : col.noDataIndex || '--')
+    col.render = (_, row) =>
+      row[splitColumns[0]] && wftCommon[splitColumns[1]]
+        ? wftCommon[splitColumns[1]](row[splitColumns[0]])
+        : col.noDataIndex || '--'
   }
 
   /** 是否是多参数数据 */

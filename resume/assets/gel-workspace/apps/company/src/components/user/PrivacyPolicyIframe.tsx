@@ -1,9 +1,9 @@
-import { handleWebLogout } from '@/handle/user/login'
 import { wftCommon } from '@/utils/utils'
 import { Button } from '@wind/wind-ui'
 import classNames from 'classnames'
 import React from 'react'
 import styles from './styles.module.less'
+import { gotoLogin } from '@/lib/logout'
 
 interface PrivacyPolicyIframeProps {
   className?: string
@@ -25,7 +25,7 @@ export const PrivacyPolicyIframe: React.FC<PrivacyPolicyIframeProps> = ({ classN
     <div className={styles.container}>
       <iframe src={url} className={classNames(styles.iframe, className)} style={style} />
       {!usedInClient && (
-        <Button className={styles.logoutButton} onClick={handleWebLogout}>
+        <Button className={styles.logoutButton} onClick={gotoLogin} data-uc-id="3C3NBBLu_h" data-uc-ct="button">
           撤销同意隐私政策并退出登录
         </Button>
       )}

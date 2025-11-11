@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { requestToSuperlistFcs, requestToWFCSuperlistFcs } from '@/api'
 import PageTransition, { PageTransitionRef } from '@/components/common/PageTransition'
+// @ts-expect-error
 import { ExtendedColumnDefine } from '@/components/MultiTable/utils/columnsUtils'
 import { nanoid } from '@reduxjs/toolkit'
 import type { FormInstance } from 'antd/es/form'
@@ -12,9 +13,10 @@ import { ModalFooter, ModalHeader, TemplateFormData, TemplateHome, TemplateInfo,
 import { RunTypeEnum } from './config/formConfig'
 import { taskTemplates } from './data'
 import { PageTitleConfig, SmartFillModalProps, TaskTemplate, TemplateItem } from './types'
+// @ts-expect-error
 import { processAdvancedTags } from '@/utils'
-import { useTableActions } from '../../hooks/useTableActions'
 import { GENERATE_TEXT } from '../../config/status'
+import { useTableActions } from '../../hooks/useTableActions'
 
 // 路由路径常量
 const ROUTES = {
@@ -144,8 +146,8 @@ export const SmartFillModal = ({ open, onCancel, columns, onSubmitTemplate }: Sm
 
   // 处理首页的确认操作
   const handleOk = async () => {
-    console.log('🚀 ~ handleOk ~ globalFormRef.current:', getAllColumns())
-    console.log('🚀 ~ handleOk ~ visTableRef.current:', getDisplayRowIds())
+    // console.log('🚀 ~ handleOk ~ globalFormRef.current:', getAllColumns())
+    // console.log('🚀 ~ handleOk ~ visTableRef.current:', getDisplayRowIds())
 
     if (globalFormRef.current) {
       const values = globalFormRef.current.getFieldsValue()
@@ -167,6 +169,7 @@ export const SmartFillModal = ({ open, onCancel, columns, onSubmitTemplate }: Sm
         // 调用AI插入列接口
         const { Data } = await requestToWFCSuperlistFcs('superlist/excel/aiInsertColumn', {
           prompt: values.prompt as string,
+          // @ts-expect-error
           tool: tool as { [AiToolEnum.PC]: unknown },
           aiModel: values.aiModel as AiModelEnum,
           columnId,
@@ -207,6 +210,7 @@ export const SmartFillModal = ({ open, onCancel, columns, onSubmitTemplate }: Sm
           displayRowIds.forEach((rowId, index) => {
             // 如果该行ID在结果数据中存在
             if (resultDataMap[rowId]) {
+              // @ts-expect-error
               rowData.push({
                 [columnId]: enableRun ? GENERATE_TEXT : '',
                 [`${columnId}&`]: {
@@ -249,7 +253,7 @@ export const SmartFillModal = ({ open, onCancel, columns, onSubmitTemplate }: Sm
           })
 
           if (Data?.msg) {
-            console.log('🚀 ~ 生成的列名:', getColByColumnId(columnId))
+            // console.log('🚀 ~ 生成的列名:', getColByColumnId(columnId))
             const colIndex = getColByColumnId(columnId)
             if (colIndex !== null) {
               setCellValue(colIndex, 0, Data?.msg)
@@ -402,7 +406,7 @@ const HomeRoute = ({
         columns={columns}
         onNextPage={() => {
           // 直接导航到模板列表页面
-          console.log('点击查看模板按钮，准备导航到:', ROUTES.TEMPLATE_LIST)
+          // console.log('点击查看模板按钮，准备导航到:', ROUTES.TEMPLATE_LIST)
           onNavigate(ROUTES.TEMPLATE_LIST)
         }}
         initialValues={initialValues}

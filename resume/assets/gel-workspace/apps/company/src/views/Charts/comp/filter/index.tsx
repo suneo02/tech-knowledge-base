@@ -199,11 +199,20 @@ const Filter: React.FC<FilterProps> = (props) => {
                 }}
                 value={val}
                 style={{ display: 'flex', flexWrap: 'wrap' }}
+                data-uc-id="B12SVJ7BQ6"
+                data-uc-ct="radiogroup"
               >
                 {item.map((t, index) => {
                   if (idx === 2) {
                     return (
-                      <Radio key={index} style={radioStyle} value={t.value}>
+                      <Radio
+                        key={index}
+                        style={radioStyle}
+                        value={t.value}
+                        data-uc-id="n4Un1H5i1i"
+                        data-uc-ct="radio"
+                        data-uc-x={index}
+                      >
                         {t.txt}
                         {t.value === 4 && rateVal === 4 ? (
                           <>
@@ -225,6 +234,8 @@ const Filter: React.FC<FilterProps> = (props) => {
                                 onChangeRateLeft(e)
                               }}
                               style={{ marginLeft: 4 }}
+                              data-uc-id="pdpsR9FreG"
+                              data-uc-ct="inputnumber"
                             />
                             -
                             <InputNumber
@@ -244,6 +255,8 @@ const Filter: React.FC<FilterProps> = (props) => {
                               onChange={(e) => {
                                 onChangeRateRight(e)
                               }}
+                              data-uc-id="w_aT63PDIA"
+                              data-uc-ct="inputnumber"
                             />
                           </>
                         ) : null}
@@ -254,7 +267,14 @@ const Filter: React.FC<FilterProps> = (props) => {
                     return null
                   }
                   return (
-                    <Radio key={index} style={radioStyle} value={t.value}>
+                    <Radio
+                      key={index}
+                      style={radioStyle}
+                      value={t.value}
+                      data-uc-id="ePsIhhOhM6"
+                      data-uc-ct="radio"
+                      data-uc-x={index}
+                    >
                       {t.txt}
                     </Radio>
                   )

@@ -45,3 +45,6 @@
   }
 }
 
+.w-modal-wrap {
+  z-index: 1050 !important;
+}

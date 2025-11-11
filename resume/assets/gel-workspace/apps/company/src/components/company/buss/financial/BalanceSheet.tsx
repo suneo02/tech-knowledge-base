@@ -2,6 +2,7 @@ import { ICorpTableCfg } from '@/components/company/type'
 import { Dispatch, FC, SetStateAction } from 'react'
 import intl from '../../../../utils/intl'
 import { wftCommon } from '../../../../utils/utils'
+import { getEmptyFinanceTableColumns } from './handleFinanceTableEmpty'
 
 interface BalanceInfo {
   defaultList: any[]
@@ -26,7 +27,9 @@ export const renderFinanceSheet: FC<FinancialSheetProps> = ({ data, setBalanceIn
   ]
 
   if (!data?.length) {
-    setBalanceInfo({ defaultList: [], list: [], columns: [] })
+    const columns = getEmptyFinanceTableColumns()
+    setBalanceInfo({ defaultList: defaultData, list: [], columns })
+    setDataLoaded(true)
     return null
   }
 

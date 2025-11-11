@@ -1,6 +1,8 @@
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 import { LoadingO } from '@wind/icons'
 import { Spin, Tag } from '@wind/wind-ui'
+import { BidTypeTag } from 'gel-ui'
+import { t } from 'gel-util/intl'
 import React, { useEffect, useState } from 'react'
 import { Links } from '../../components/common/links'
 import Tables from '../../components/detail/singleTable'
@@ -12,45 +14,6 @@ import { BIDDERSANDDYNAMICS, biddingColumns, DETAILS, PARTICIPATINGANDCONTACT } 
 import ProgressTimeline from './components/progressTimeline'
 import './index.less'
 import useBiddingDetail from './useStandardInfoDetail'
-
-function type2Stage(type) {
-  switch (type) {
-    case '资格预审公告':
-      return ' | ' + intl('257809', '预审')
-    case '公开招标公告':
-      return ' | ' + intl('100969', '招标')
-    case '询价公告':
-      return ' | ' + intl('100969', '招标')
-    case '竞争性谈判公告':
-      return ' | ' + intl('100969', '招标')
-    case '单一来源公告':
-      return ' | ' + intl('100969', '招标')
-    case '邀请招标公告':
-      return ' | ' + intl('100969', '招标')
-    case '竞争性磋商公告':
-      return ' | ' + intl('100969', '招标')
-    case '竞价招标公告':
-      return ' | ' + intl('100969', '招标')
-    case '意向公告':
-      return ' | ' + intl('100969', '招标')
-    case '中标公告':
-      return ' | ' + intl('315493', '结果')
-    case '成交公告':
-      return ' | ' + intl('315493', '结果')
-    case '竞价结果公告':
-      return ' | ' + intl('315493', '结果')
-    case '废标流标公告':
-      return ' | ' + intl('315493', '结果')
-    case '更正公告':
-      return ''
-    case '开标公告':
-      return ' | ' + intl('315493', '结果')
-    case '合同及验收公告':
-      return ' | ' + intl('315493', '结果')
-    default:
-      return ' '
-  }
-}
 
 const BiddingDetail = () => {
   const { data1, data2, detail, navData, jumpAttach } = useBiddingDetail()
@@ -69,7 +32,12 @@ const BiddingDetail = () => {
   const breadCrumb = wftCommon.isBaiFenTerminalOrWeb() ? null : (
     <div className="bread-crumb">
       <div className="bread-crumb-content">
-        <span className="last-rank" onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}>
+        <span
+          className="last-rank"
+          onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}
+          data-uc-id="g3Y6RV8zGo"
+          data-uc-ct="span"
+        >
           {intl('19475', '首页')}
         </span>
         <i></i>
@@ -97,10 +65,7 @@ const BiddingDetail = () => {
               <div>{wftCommon.formatCont(data1.data.bidName)}</div>
               <div>
                 <span className="type-bid">
-                  {/* @ts-expect-error ttt */}
-                  <Tag color="color-1" type="primary">
-                    {data1.data.bidType ? `${data1.data.bidType}${type2Stage(data1.data.bidType)}` : `--`}
-                  </Tag>
+                  <BidTypeTag bidType={data1.data.bidType} intl={t} />
                 </span>
               </div>
             </span>
@@ -128,6 +93,7 @@ const BiddingDetail = () => {
             <div className="each-div" style={{ marginTop: 16 }}>
               <Tables
                 key={DETAILS}
+                // @ts-expect-error ttt
                 title={biddingColumns[DETAILS].name}
                 horizontal={biddingColumns[DETAILS].horizontal}
                 info={data1.data}
@@ -137,6 +103,9 @@ const BiddingDetail = () => {
                   data1.data.subjectMatter,
                   data1.data.projContactPhone && data1.data.projContactPerson
                 )}
+                data-uc-id="dtJqEq42bL"
+                data-uc-ct="tables"
+                data-uc-x={DETAILS}
               />
             </div>
             <div className="each-div">
@@ -146,6 +115,9 @@ const BiddingDetail = () => {
                 horizontal={biddingColumns[PARTICIPATINGANDCONTACT].horizontal}
                 info={data2.data}
                 columns={biddingColumns[PARTICIPATINGANDCONTACT].columns}
+                data-uc-id="ZPSUDW_q6i"
+                data-uc-ct="tables"
+                data-uc-x={PARTICIPATINGANDCONTACT}
               />
             </div>
             {data1.data.bidCorpInfos &&
@@ -163,6 +135,9 @@ const BiddingDetail = () => {
                     info={data1.data.bidCorpInfos}
                     isLoading={data1.loading}
                     columns={biddingColumns[BIDDERSANDDYNAMICS].columns}
+                    data-uc-id="1jVyXrFtKw"
+                    data-uc-ct="tables"
+                    data-uc-x={BIDDERSANDDYNAMICS}
                   />
                 </div>
               ) : (
@@ -171,6 +146,8 @@ const BiddingDetail = () => {
                   onClick={() => {
                     setShow(true)
                   }}
+                  data-uc-id="yj3ubqcsLv"
+                  data-uc-ct="p"
                 >
                   <span className="down-show"></span>
                   {intl('308673')}
@@ -183,15 +160,17 @@ const BiddingDetail = () => {
               <div>
                 {intl('272147', '招标公告正文')}{' '}
                 {detail?.attachment && !detail.copyrightDeclare && (
-                  // @ts-expect-error ttt
                   <Tag
                     color="color-1"
-                    type="primary"
+                    type="secondary"
+                    size="large"
                     style={{ fontWeight: 400, cursor: 'pointer' }}
                     onClick={() => {
                       const ele = window.document.getElementById('attachment')
                       ele.scrollIntoView()
                     }}
+                    data-uc-id="e59fLmrGMQ"
+                    data-uc-ct="tag"
                   >
                     {intl('309242') + `(${detail?.attachment?.length})`}
                   </Tag>
@@ -205,6 +184,8 @@ const BiddingDetail = () => {
                       style={{ marginInlineStart: 12 }}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
+                      data-uc-id="lfbMpJz88W"
+                      data-uc-ct="loadingo"
                     />
                   </span>
                 ) : // <Button size="small" icon={<TranslateO />}></Button>
@@ -266,7 +247,9 @@ const BiddingDetail = () => {
               <div>
                 {detail.attachment.map((i) => (
                   <p>
-                    <a href={i.attchAddress}>{i.title}</a>
+                    <a href={i.attchAddress} data-uc-id="is9Z_1y8lIo" data-uc-ct="a">
+                      {i.title}
+                    </a>
                   </p>
                 ))}
               </div>

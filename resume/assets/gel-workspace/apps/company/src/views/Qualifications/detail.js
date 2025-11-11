@@ -17,7 +17,7 @@ import {
 import Form from '@wind/wind-ui-form'
 import Table from '@wind/wind-ui-table'
 import queryString from 'qs'
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { pointBuriedGel } from '../../api/configApi'
 import { pointBuriedByModule } from '../../api/pointBuried/bury'
@@ -28,20 +28,20 @@ import {
   getqualificationtree,
 } from '../../api/qualificationsApi'
 import CompanyLink from '../../components/company/CompanyLink'
+import { usePageTitle } from '../../handle/siteTitle'
 import { getVipInfo } from '../../lib/utils'
 import intl from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import VipModule from './../../components/company/VipModule'
-import './qualifications_detail.less'
 import { qualificationBury } from './qualificationBury'
-import { usePageTitle } from '../../handle/siteTitle'
+import './qualifications_detail.less'
 
 const { SubMenu } = Menu
-const { Header, Content, Footer, Sider, Operator } = Layout
+const { Header, Content, Sider, Operator } = Layout
 const TreeNode = Tree.TreeNode
 const Search = Input.Search
 const Option = Select.Option
-const { MonthPicker, RangePicker, MonthRangePicker } = DatePicker
+const { RangePicker, MonthRangePicker } = DatePicker
 const TabPane = Tabs.TabPane
 const { HorizontalTable } = Table
 
@@ -144,6 +144,7 @@ const old = {
 const qualificationCode2funcPoint = Object.assign(old, qualificationBury)
 // 主表格 res.Data.config字段map函数，生成columns
 
+// 自定义字段表格宽度
 const mapParam2Width = (field) => {
   let width = ''
   switch (field) {
@@ -153,15 +154,14 @@ const mapParam2Width = (field) => {
     // 游戏审批
     case 'gameLicenseIsbn': // 出版物号
     case 'adminApprNumber': // 文号
-
     case 'regCap': // 注册资本
       width = '200px'
       break
 
     // 日期
     case 'apprDate': //审批时间-行政审批
-
     case 'cancelDate':
+    case 'recordDayData': // 备案时间
 
     //状态
     case 'corpState': // 企业状态
@@ -187,6 +187,7 @@ const mapParam2Width = (field) => {
     case 'adminApprValid':
     case 'adminLicenseValid':
     case 'quaVaild':
+    case 'processStatus': //备案状态
       width = window.en_access_config ? '120px' : '80px'
       break
 
@@ -418,7 +419,7 @@ function QualificationsDetail(props) {
         })
         // setFilterData(res.Data || [])
       } else {
-        return setFilterData(res.Data || [])
+        setFilterData(res.Data || [])
       }
     })
   }, [id])
@@ -530,7 +531,7 @@ function QualificationsDetail(props) {
                   setTableLoading(false)
                 }
               })
-              .catch((err) => {
+              .catch(() => {
                 isRequestingData = false
               })
           }
@@ -549,7 +550,7 @@ function QualificationsDetail(props) {
       dataIndex: i.field,
       width: mapParam2Width(i.field),
       align: i.fieldType === 'money' || i.fieldType === 'num' ? 'right' : 'left',
-      render: (txt, row, index) => {
+      render: (txt) => {
         if (i.fieldType === 'date') {
           return wftCommon.formatTime(txt) || '--'
         } else if (i.fieldType === 'money' && txt) {
@@ -575,7 +576,7 @@ function QualificationsDetail(props) {
     return obj
   }
   // 搜索确认
-  const handleSearch = (value) => {
+  const handleSearch = () => {
     return {}
   }
 
@@ -612,7 +613,6 @@ function QualificationsDetail(props) {
   }
 
   // 导出
-  const handleExport = () => {}
   let isRequestingData = false
 
   // 添加防抖函数
@@ -641,6 +641,8 @@ function QualificationsDetail(props) {
                 width: '160px',
               }}
               placeholder={intl('437794', '请输入关键字')}
+              data-uc-id="MdmfAUTtv"
+              data-uc-ct="input"
             />
           </Form.Item>
         )
@@ -652,11 +654,19 @@ function QualificationsDetail(props) {
             key={itemId}
             name={itemField}
           >
-            <RadioGroup>
-              <Radio value={1}>A</Radio>
-              <Radio value={2}>B</Radio>
-              <Radio value={3}>C</Radio>
-              <Radio value={4}>D</Radio>
+            <RadioGroup data-uc-id="cVxO4514DJ" data-uc-ct="radiogroup">
+              <Radio value={1} data-uc-id="7jifUx3dRR" data-uc-ct="radio">
+                A
+              </Radio>
+              <Radio value={2} data-uc-id="Qpz8inIBsw" data-uc-ct="radio">
+                B
+              </Radio>
+              <Radio value={3} data-uc-id="GtLDRSWk0C" data-uc-ct="radio">
+                C
+              </Radio>
+              <Radio value={4} data-uc-id="-KPy_6l2u0" data-uc-ct="radio">
+                D
+              </Radio>
             </RadioGroup>
           </Form.Item>
         )
@@ -679,6 +689,8 @@ function QualificationsDetail(props) {
                   }
                 })
               }}
+              data-uc-id="5pgRkPnWy"
+              data-uc-ct="rangepicker"
             />
           </Form.Item>
         )
@@ -711,6 +723,8 @@ function QualificationsDetail(props) {
                   }
                 })
               }}
+              data-uc-id="NL7xeonN7x"
+              data-uc-ct="monthrangepicker"
             />
           </Form.Item>
         )
@@ -719,9 +733,17 @@ function QualificationsDetail(props) {
         if (itemField === 'corpState') {
           ret = (
             <Form.Item label={itemName} key={itemId} name={itemField}>
-              <Select placeholder={intl('11835', '请选择')} style={{ width: 100 }} allowClear>
+              <Select
+                placeholder={intl('11835', '请选择')}
+                style={{ width: 100 }}
+                allowClear
+                data-uc-id="xfCZUfliZ_"
+                data-uc-ct="select"
+              >
                 {companyState.map((i) => (
-                  <Option value={i.key}>{i.value}</Option>
+                  <Option value={i.key} data-uc-id="LrPRITvpdg6" data-uc-ct="option">
+                    {i.value}
+                  </Option>
                 ))}
               </Select>
             </Form.Item>
@@ -734,9 +756,19 @@ function QualificationsDetail(props) {
               name={itemField}
               // style={{ width: 80 }}
             >
-              <Select placeholder={intl('11835', '请选择')} style={{ width: 100 }} allowClear>
-                {itemValue.map((obj) => {
-                  return <Option value={obj.value}>{obj.key}</Option>
+              <Select
+                placeholder={intl('11835', '请选择')}
+                style={{ width: 100 }}
+                allowClear
+                data-uc-id="ji4QDb8UZJ"
+                data-uc-ct="select"
+              >
+                {itemValue?.map((obj) => {
+                  return (
+                    <Option value={obj.value} data-uc-id="5c3_2SM_q8N" data-uc-ct="option">
+                      {obj.key}
+                    </Option>
+                  )
                 })}
               </Select>
             </Form.Item>
@@ -871,6 +903,9 @@ function QualificationsDetail(props) {
                       onClick={() => {
                         handleClick(j.key, j.code)
                       }}
+                      data-uc-id="JwfO9db4V1"
+                      data-uc-ct="div"
+                      data-uc-x={j.name}
                     >
                       <div
                         className="optTitle"
@@ -917,11 +952,11 @@ function QualificationsDetail(props) {
               j.title = j.titleCN
               j.dataIndex = j.field
               j.titleAlign = 'left'
-              let render = (txt, row, index) => txt || '--'
+              let render = (txt) => txt || '--'
               if (j.jumpType && j.jumpValue) {
                 switch (j.jumpType) {
                   case 'company':
-                    render = (txt, row, index) => {
+                    render = (txt) => {
                       return <CompanyLink name={txt || ''} id={j.jumpValue} />
                     }
                     break
@@ -932,7 +967,7 @@ function QualificationsDetail(props) {
               if (j.fieldType) {
                 switch (j.fieldType) {
                   case 'date':
-                    render = (txt, row, index) => {
+                    render = (txt) => {
                       return wftCommon.formatTime(txt) || '--'
                     }
                     break
@@ -979,17 +1014,27 @@ function QualificationsDetail(props) {
             data-code={item.key}
             data-id={item.code}
             data-isleaf={item.isLeaf}
+            data-uc-id="oKAXSVBMLD"
+            data-uc-ct="treenode"
+            data-uc-x={item.key}
           >
             {loop(item.children)}
           </TreeNode>
         )
       }
-      return <TreeNode key={item.key} title={item.title} />
+      return (
+        <TreeNode
+          key={item.key}
+          title={item.title}
+          data-uc-id="Pe5WxEyDR_"
+          data-uc-ct="treenode"
+          data-uc-x={item.key}
+        />
+      )
     })
 
   const handleResize = (evt, opt) => {
-    const { node, deltaX, deltaY, folded } = opt
-    const Element = document.querySelector('.content .w-resizer-sibling')
+    const { node, folded } = opt
     // console.log("🚀 ~handleResize ~ height:", Element, [Element])
     if (evt.type === 'click') {
       setIsFolded(!isFolded)
@@ -1077,6 +1122,8 @@ function QualificationsDetail(props) {
                   color: '#fff',
                 }}
                 href="#/qualifications?nosearch=1"
+                data-uc-id="rAqyoW16Pi"
+                data-uc-ct="a"
               >
                 {intl('364555', '资质大全')}
               </a>
@@ -1096,6 +1143,8 @@ function QualificationsDetail(props) {
                 paddingBottom: '50px',
                 maxHeight: 'calc(100vh - 120px)',
               }}
+              data-uc-id="_-2fX8Blb4"
+              data-uc-ct="tree"
             >
               {loop(treeData)}
             </Tree>
@@ -1119,6 +1168,8 @@ function QualificationsDetail(props) {
                   setIsShowInputOption(false)
                 }, 200)
               }}
+              data-uc-id="Gq-UGUhJWR"
+              data-uc-ct="search"
             />
           </Sider>
         </ThemeProvider>
@@ -1130,14 +1181,18 @@ function QualificationsDetail(props) {
           }}
         >
           {/* 面包屑 */}
-          <Operator>
+          <Operator data-uc-id="r6nrHBnw-7" data-uc-ct="operator">
             <div className="operation-main">
               <span>
-                <Breadcrumb>
-                  <Breadcrumb.Item>
-                    <a href="#/qualifications?nosearch=1">{intl('364555', '资质大全')}</a>
+                <Breadcrumb data-uc-id="an1cJ7RyiL" data-uc-ct="breadcrumb">
+                  <Breadcrumb.Item data-uc-id="XdMWBNKnP" data-uc-ct="breadcrumb">
+                    <a href="#/qualifications?nosearch=1" data-uc-id="o4a_2CVBTJ" data-uc-ct="a">
+                      {intl('364555', '资质大全')}
+                    </a>
                   </Breadcrumb.Item>
-                  <Breadcrumb.Item>{breadcrumb.split('-').pop()}</Breadcrumb.Item>
+                  <Breadcrumb.Item data-uc-id="8tz7bKsVLu" data-uc-ct="breadcrumb">
+                    {breadcrumb.split('-').pop()}
+                  </Breadcrumb.Item>
                 </Breadcrumb>
               </span>
               {/* <span className="export">
@@ -1171,10 +1226,18 @@ function QualificationsDetail(props) {
                     onClick={() => {
                       form.resetFields()
                     }}
+                    data-uc-id="VCl-4LVPWP"
+                    data-uc-ct="button"
                   >
                     {intl('138490', '重置条件')}
                   </Button>
-                  <Button type="primary" htmlType="submit" onClick={() => pointBuriedByModule(922602101080)}>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    onClick={() => pointBuriedByModule(922602101080)}
+                    data-uc-id="DP0UCr2SNu"
+                    data-uc-ct="button"
+                  >
                     {intl('257693', '应用筛选')}
                   </Button>
                 </div>
@@ -1185,7 +1248,7 @@ function QualificationsDetail(props) {
           </div>
           {/* 内容区 */}
           <Content className="content">
-            <Tabs>
+            <Tabs data-uc-id="lXS9oP1I2e" data-uc-ct="tabs">
               <TabPane
                 tab={
                   ['137025227', '137025486', '137025226'].indexOf(id) > -1
@@ -1193,6 +1256,8 @@ function QualificationsDetail(props) {
                     : intl('138216', '企业列表')
                 }
                 key="1"
+                data-uc-id="KrRrb-AAaA"
+                data-uc-ct="tabpane"
               >
                 <div
                   className="content_table"
@@ -1219,9 +1284,9 @@ function QualificationsDetail(props) {
                       emptyText: tableLoading ? '' : intl('17235', '暂无数据'),
                     }}
                     empty={tableLoading ? '' : intl('17235', '暂无数据')}
-                    onRow={(record, index) => {
+                    onRow={(record) => {
                       return {
-                        onClick: (event) => {
+                        onClick: () => {
                           handleRowClick(record)
                         }, // 点击行
                         style: {
@@ -1240,6 +1305,8 @@ function QualificationsDetail(props) {
                     loading={tableLoading}
                     pagination={false}
                     bordered="dotted"
+                    data-uc-id="Lfl4Ef976O"
+                    data-uc-ct="table"
                   ></Table>
 
                   {isDisplayVipBox ? (
@@ -1260,7 +1327,14 @@ function QualificationsDetail(props) {
                 </div>
                 {isShowDetail ? (
                   <>
-                    <Resizer direction="s" foldable={true} folded={isFolded} onResize={handleResize} />
+                    <Resizer
+                      direction="s"
+                      foldable={true}
+                      folded={isFolded}
+                      onResize={handleResize}
+                      data-uc-id="fyHZpPkKCV"
+                      data-uc-ct="resizer"
+                    />
                     <div style={{ height: '40%' }}>
                       <Card
                         title={currentDetail}
@@ -1275,6 +1349,8 @@ function QualificationsDetail(props) {
                           rows={horizonColumns}
                           dataSource={cardData}
                           empty={horizonTableLoading ? '' : intl('132725', '暂无数据')}
+                          data-uc-id="U2pbISRI4J"
+                          data-uc-ct="horizontaltable"
                         ></HorizontalTable>
                       </Card>
                     </div>

@@ -141,7 +141,6 @@ export const BulkImportModals: FC<BulkImportModalProps> = ({
   return (
     <ErrorBoundary>
       {/* 上传模态框 - 用于上传文件或输入文本 */}
-      {/* @ts-expect-error wind-ui */}
       <Modal
         className={styles['list-confirm--upload-modal']}
         visible={open && modalType === 'upload'}
@@ -155,7 +154,6 @@ export const BulkImportModals: FC<BulkImportModalProps> = ({
       </Modal>
 
       {/* 确认模态框 - 用于确认匹配的企业信息 */}
-      {/* @ts-expect-error wind-ui */}
       <Modal
         title={t('', '企业匹配结果')} // 使用国际化文本作为标题
         visible={open && modalType === 'confirm'}

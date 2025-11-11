@@ -112,7 +112,6 @@ export const CheckBoxOption: FC<CheckBoxOptionProps> = ({
     />
   ) : (
     // 普通复选框组模式
-    // @ts-expect-error wind ui
     <Checkbox.Group
       className={styles.checkboxGroupNormal}
       // options={checkboxOptions}

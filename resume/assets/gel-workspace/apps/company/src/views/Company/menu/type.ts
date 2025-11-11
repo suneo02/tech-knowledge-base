@@ -1,16 +1,13 @@
 import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type.ts'
-import { TCorpDetailModuleValue, TCorpDetailSubModule } from '@/handle/corp/detail/module/type.ts'
+import { TCorpDetailModuleValue, TCorpDetailSubModule } from 'gel-types'
 
-export interface ICorpMenuData {
+export interface CorpMenuData {
   key: string // 菜单项名称
   title: string // 菜单显示文本
-  children?: {
-    key: string // 子菜单项名称（可选）
-    title: string // 子菜单显示文本
-    titleStr?: string // 子菜单文字描述字符串（可选）
-    titleNum?: string | number | undefined // 子菜单编号（可选）
-    parentMenuKey?: string | undefined // 父级菜单键名（可选）
-  }[]
+  titleStr?: string // 菜单文字描述字符串（可选）
+  titleNum?: string | number | undefined // 菜单编号（可选）
+  parentMenuKey?: string | undefined // 父级菜单键名（可选）
+  children?: CorpMenuData[]
 }
 
 export type ICorpMenuModuleCfg = {

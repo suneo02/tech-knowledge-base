@@ -1,0 +1,102 @@
+@import 'gel-ui/variables.less';
+
+@menu-width-collapsed: 72px;
+@menu-width-expanded: 338px;
+
+@menu-item-width-collapsed: @menu-width-collapsed;
+@menu-item-width-expanded: @menu-width-expanded;
+@menu-item-height: 48px;
+
+@menu-icon-size: 24px;
+.sider {
+  transition: width 0.15s ease;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: @menu-width-expanded;
+}
+
+.left-menu {
+  :global {
+    .w-menu-item {
+      height: @menu-item-height;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+    }
+    .w-menu-item.w-menu-item-selected {
+      background-color: @gray-4;
+
+      .wicon-svg {
+        color: @primary;
+      }
+    }
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .menu-icon {
+    svg {
+      width: @menu-icon-size;
+      height: @menu-icon-size;
+    }
+    &.collapsed {
+      margin-right: 0;
+    }
+  }
+
+  .menu-label {
+    margin-left: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // 折叠状态
+  &.collapsed {
+    width: @menu-width-collapsed;
+
+    :global {
+      .w-menu-item {
+        width: @menu-item-width-collapsed;
+        justify-content: center;
+      }
+    }
+  }
+
+  // 展开状态
+  &.expanded {
+    width: @menu-width-expanded;
+
+    :global {
+      .w-menu-item {
+        width: @menu-item-width-expanded;
+        justify-content: flex-start;
+        padding-left: 24px;
+
+        &.w-menu-item-selected {
+          background-color: #fff;
+          color: @primary;
+        }
+      }
+    }
+
+    .menu-label {
+      display: block;
+    }
+  }
+}
+
+.conversation {
+  width: 100%;
+  margin-top: 8px;
+  flex: 1;
+  overflow: hidden;
+}

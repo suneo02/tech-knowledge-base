@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #ededed;
-  padding-block-end: 12px;
+  height: 40px;
   .padding();
   position: sticky;
   top: 0;
@@ -36,7 +36,7 @@
     min-width: 100%;
   }
   &-coins {
-    background-color: #ededed;
+    // background-color: #ededed;
     padding: 4px;
     width: 140px;
     display: flex;
@@ -45,6 +45,9 @@
     border-radius: 4px;
     &-text {
       margin-inline-end: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
   &-total-coins {

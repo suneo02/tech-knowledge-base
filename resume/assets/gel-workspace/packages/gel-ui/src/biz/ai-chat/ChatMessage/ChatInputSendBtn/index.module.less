@@ -1,0 +1,24 @@
+@import '../../../../styles/shared/variables.less';
+
+.send-icon {
+  width: 34px;
+  height: 34px;
+
+  background: #f8f9fa;
+
+  border-radius: 6px;
+  color: #292b31;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  font-size: 20px;
+}
+.send-icon--active,
+.send-icon--loading {
+  background: @basic-4;
+  svg {
+    filter: brightness(0) invert(1);
+  }
+}

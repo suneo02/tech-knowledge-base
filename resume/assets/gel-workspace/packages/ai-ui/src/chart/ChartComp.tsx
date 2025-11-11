@@ -1,8 +1,15 @@
-import { FC, useMemo, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import styles from './style/chartBase.module.less'
 
 import { GelCardTypeEnum, WindSessionHeader } from 'gel-api'
-import { generateUrlByModule, KGLinkActiveKeyEnum, LinkModule } from 'gel-util/link'
+import {
+  EIsSeparate,
+  ENoToolbar,
+  generateUrlByModule,
+  KGLinkActiveKeyEnum,
+  KGLinkExternalParamsCommon,
+  LinkModule,
+} from 'gel-util/link'
 
 interface ChartUrlResult {
   url: string | undefined
@@ -11,10 +18,10 @@ interface ChartUrlResult {
 }
 
 // 基础参数配置
-const getBaseParams = (companyCode: string, wsid: string) => ({
-  snapshot: '1' as const,
-  linksource: 'pcai' as const,
-  notoolbar: '1' as const,
+const getBaseParams = (companyCode: string, wsid: string): KGLinkExternalParamsCommon => ({
+  snapshot: '1',
+  linksource: 'pcai',
+  notoolbar: ENoToolbar.True,
   companycode: companyCode,
   [WindSessionHeader]: wsid,
 })
@@ -41,7 +48,7 @@ export const useChartUrl = (
           module: LinkModule.KG_PLATFORM,
           params: {
             activeKey: KGLinkActiveKeyEnum.chart_gqct,
-            isSeparate: '1',
+            isSeparate: EIsSeparate.True,
             ...baseParams,
           },
           isDev,
@@ -60,7 +67,7 @@ export const useChartUrl = (
           module: LinkModule.KG_PLATFORM,
           params: {
             activeKey: KGLinkActiveKeyEnum.chart_yskzr,
-            isSeparate: '1',
+            isSeparate: EIsSeparate.True,
             ...baseParams,
           },
           isDev,
@@ -79,7 +86,7 @@ export const useChartUrl = (
           module: LinkModule.KG_PLATFORM,
           params: {
             activeKey: KGLinkActiveKeyEnum.chart_qysyr,
-            isSeparate: '1',
+            isSeparate: EIsSeparate.True,
             ...baseParams,
           },
           isDev,
@@ -97,7 +104,7 @@ export const useChartUrl = (
           module: LinkModule.KG_PLATFORM,
           params: {
             activeKey: KGLinkActiveKeyEnum.chart_glgx,
-            isSeparate: '1',
+            isSeparate: EIsSeparate.True,
             ...baseParams,
           },
           isDev,
@@ -126,8 +133,7 @@ export const ChartComp: FC<{
 
     // 创建 ResizeObserver 监听容器宽度变化
     const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const { width } = entry.contentRect
+      for (const {} of entries) {
         // 当宽度变化时，通过改变key来刷新iframe
         setKey((prev) => prev + 1)
       }

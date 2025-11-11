@@ -1,5 +1,6 @@
 import { AIIcon } from '@/assets/icon'
 import CompanyIcon from '@/assets/icon/company.svg?react'
+// @ts-expect-error
 import { ExtendedColumnDefine } from '@/components/MultiTable/utils/columnsUtils'
 import { IconTypeEnum } from '@/components/VisTable/types/iconTypes'
 import { Divider, Radio, Select, Switch } from '@wind/wind-ui'
@@ -124,7 +125,7 @@ export const ConfigurableForm = ({
 
   // 渲染表单字段
   const renderField = (config: FieldConfig) => {
-    console.log('🚀 ~ renderField ~ config:', config, initialValues[config.name as keyof TemplateFormData])
+    // console.log('🚀 ~ renderField ~ config:', config, initialValues[config.name as keyof TemplateFormData])
     const isDisabled = readOnly || config.disabled
 
     switch (config.type) {
@@ -137,7 +138,7 @@ export const ConfigurableForm = ({
             disabled={isDisabled}
             defaultValue={initialValues[config.name as keyof TemplateFormData]}
             optionRender={(option) => {
-              console.log('🚀 ~ option:', option)
+              // console.log('🚀 ~ option:', option)
               return (
                 <div style={{ display: 'div', alignItems: 'center' }}>
                   {option?.data?.icon === IconTypeEnum.COMPANY ? (
@@ -157,6 +158,7 @@ export const ConfigurableForm = ({
           //   <span>{config.label}</span>
           <Switch
             size="small"
+            // @ts-expect-error
             id={config.name}
             disabled={isDisabled}
             defaultChecked={initialValues[config.name as keyof TemplateFormData] as boolean}
@@ -183,6 +185,7 @@ export const ConfigurableForm = ({
       case 'radio':
         return (
           <Radio.Group disabled={isDisabled}>
+            {/* @ts-expect-error */}
             {config.options.map((res) => (
               <Radio
                 style={{
@@ -248,6 +251,7 @@ export const ConfigurableForm = ({
                       <Form.Item name={config.name} style={{ marginBottom: 0 }}>
                         <Switch
                           size="small"
+                          // @ts-expect-error
                           id={config.name}
                           disabled={config.disabled}
                           defaultChecked={initialValues[config.name as keyof TemplateFormData] as boolean}
@@ -273,7 +277,9 @@ export const ConfigurableForm = ({
                 </div>
               ))}
 
-              {groupIndex < Object.keys(groupedFields).length - 1 && <Divider style={{ marginBlock: 12 }} />}
+              {groupIndex < Object.keys(groupedFields).length - 1 && (
+                <Divider style={{ marginBlockStart: 12, marginBlockEnd: 12 }} />
+              )}
             </div>
           )
         })}

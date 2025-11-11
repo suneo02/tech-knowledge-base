@@ -1,0 +1,35 @@
+@import 'gel-ui/variables.less';
+
+/**
+ * 引用资料视图组件样式
+ */
+
+.reference-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: @color-bg-2;
+  border-radius: @border-radius-base;
+
+  &__header {
+    flex-shrink: 0;
+    font-size: @font-size-base;
+    font-weight: 600;
+    color: @font-color-1;
+    line-height: 1.4;
+    background: @color-bg-2;
+    border-radius: @border-radius-base @border-radius-base 0 0;
+    margin-bottom: @component-space;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  &__content {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; // 确保flex子元素可以收缩
+  }
+}

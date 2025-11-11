@@ -42,6 +42,8 @@ export const CorpCaseInfoTooltip: FC<{ caseId: string; defaultValue?: string }> 
           hasFetched.current = true
         }
       }}
+      data-uc-id="LTjkykQFK2U"
+      data-uc-ct="div"
     >
       <Tooltip overlayClassName="corp-tooltip" title={info}>
         <InfoCircleButton />

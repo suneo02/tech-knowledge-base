@@ -1,12 +1,14 @@
+import { message } from '@wind/wind-ui'
+import { CellMetadata, Column, ProgressStatusEnum } from 'gel-api'
+import { ERROR_TEXT } from 'gel-util/config'
 import { useCallback } from 'react'
+import { useSmartFill } from '../context/SmartFillContext'
 import { useVisTableContext } from '../context/VisTableContext'
 import { IconTypeEnum } from '../types/iconTypes'
 import { MenuKey } from '../types/menuTypes'
 import { DropDownMenuHandlerProps, IconClickHandlerProps } from '../types/operationHandler'
 import { OperationType, OperationValue } from '../utils/OperationTypes'
 import { useTableHistoryActions } from './withTableHistory'
-import { Column } from 'gel-api'
-import { useSmartFill } from '../context/SmartFillContext'
 // import { VisTableOperationType } from '../types/operationTypes'
 
 /**
@@ -50,7 +52,7 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (operationType: OperationType, value: any) => {
       // TODO 使用map去推导类型
-      console.log(`执行默认操作处理: ${operationType}`, value, 'title')
+      // console.log(`执行默认操作处理: ${operationType}`, value, 'title')
 
       // 根据操作类型执行不同的逻辑
       switch (operationType) {
@@ -62,21 +64,21 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
         //   addRecord(value as Record<string, unknown>, value.recordIndex as number)
         //   break
         // case OperationType.ADD_RECORDS:
-        //   console.log('通用处理方法：addRecords', value)
+        //   // console.log('通用处理方法：addRecords', value)
         //   break
         // case OperationType.DELETE_RECORDS:
-        //   console.log('通用处理方法：deleteRecords', value)
+        //   // console.log('通用处理方法：deleteRecords', value)
         //   break
         // case OperationType.UPDATE_RECORDS:
-        //   console.log('通用处理方法：updateRecords', value)
+        //   // console.log('通用处理方法：updateRecords', value)
         //   break
 
         // // 表格操作
         // case OperationType.REFRESH:
-        //   console.log('通用处理方法：refresh', value)
+        //   // console.log('通用处理方法：refresh', value)
         //   break
         // case OperationType.REFRESH_WITH_RECREATE_CELLS:
-        //   console.log('通用处理方法：refreshWithRecreateCells', value)
+        //   // console.log('通用处理方法：refreshWithRecreateCells', value)
         //   break
 
         case OperationType.COLUMN_RENAME:
@@ -105,13 +107,13 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
           getIconClickHandler(value as IconClickHandlerProps)
           break
 
-        case OperationType.COLUMN_ADD:
+        case OperationType.COLUMN_ADD: // @ts-expect-error ttt
           addColumn(value.col - 1, { editor: 'input', headerEditor: 'input' })
           break
 
         // 其他操作，仅记录日志不执行默认行为
         default:
-          console.log(`未实现的默认操作: ${operationType}`, value)
+        // console.log(`未实现的默认操作: ${operationType}`, value)
       }
     },
     [dispatch, getCellMeta]
@@ -122,7 +124,28 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
       case IconTypeEnum.RUN:
         {
           const { col, row } = value
-          runCell(col, row)
+          const cellMeta = getCellMeta<CellMetadata>(col, row)
+          console.log('🚀 ~ getIconClickHandler ~ col, row:', col, row, cellMeta)
+
+          if (cellMeta) {
+            const shouldRun =
+              (cellMeta.status !== ProgressStatusEnum.PENDING && cellMeta.status !== ProgressStatusEnum.RUNNING) ||
+              !cellMeta.processedValue ||
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              !(cellMeta as any).value ||
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (cellMeta as any).value === ERROR_TEXT ||
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (cellMeta as any).processedValue === ERROR_TEXT
+
+            if (!shouldRun) {
+              message.error('当前单元格正在运行中，请稍后再试')
+              return
+            }
+            runCell(col, row)
+          } else {
+            message.error('当前单元格不存在')
+          }
         }
 
         break
@@ -136,15 +159,17 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
     switch (value.menuKey) {
       case MenuKey.COLUMN_DELETE:
         {
-          console.log('MenuKey.COLUMN_DELETE', value)
+          // console.log('MenuKey.COLUMN_DELETE', value)
           const column = getAllColumns().find((res) => res.field === value.field)
           deleteColumn(value.col, column as Column)
         }
         break
       case MenuKey.COLUMN_INSERT_LEFT:
+        // @ts-expect-error
         addColumn(value.col - 1, { editor: 'input', headerEditor: 'input' })
         break
       case MenuKey.COLUMN_INSERT_RIGHT:
+        // @ts-expect-error
         addColumn(value.col, { editor: 'input', headerEditor: 'input' })
         break
       case MenuKey.COLUMN_RENAME:
@@ -154,7 +179,7 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
       //   getCopyValue()
       //   break
       case MenuKey.COLUMN_TOGGLE_DISPLAY:
-        console.log('🚀 ~ getDropMenuClickHandler ~ COLUMN_TOGGLE_DISPLAY:', value)
+        // console.log('🚀 ~ getDropMenuClickHandler ~ COLUMN_TOGGLE_DISPLAY:', value)
         // toggleDisplayColumn()
         break
       case MenuKey.ROW_INSERT_ABOVE:
@@ -168,13 +193,13 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
         }
         break
       case MenuKey.COLUMN_ADD_AI:
-        console.log('🚀 ~ getDropMenuClickHandler ~ COLUMN_SMART_FILL:', value)
+        // console.log('🚀 ~ getDropMenuClickHandler ~ COLUMN_SMART_FILL:', value)
         // 使用Context钩子打开模态框，不传递列ID表示新增模式
         // 不显示之前的模板
         openSmartFillModal()
         break
       case MenuKey.COLUMN_EDIT_AI:
-        console.log('🚀 ~ getDropMenuClickHandler ~ COLUMN_EDIT_AI:', value)
+        // console.log('🚀 ~ getDropMenuClickHandler ~ COLUMN_EDIT_AI:', value)
         // 使用Context钩子打开模态框，传递列ID表示编辑模式
         // 这里传递true作为第二个参数表示清除之前的模板
         if (value.field) {
@@ -182,7 +207,10 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
         }
         break
       case MenuKey.COLUMN_RUN_ALL:
-        runColumn({ col: value.col })
+        runColumn({ col: value.col, mode: 'all' })
+        break
+      case MenuKey.COLUMN_RUN_PENDING:
+        runColumn({ col: value.col, mode: 'pending' })
         break
       case MenuKey.ROW_DELETE:
         {
@@ -194,7 +222,7 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
       case MenuKey.CHAT_ADD:
         {
           const selectedCellInfos = getSelectedCellInfos()
-          console.log(selectedCellInfos)
+          // console.log(selectedCellInfos)
 
           if (
             selectedCellInfos &&
@@ -218,9 +246,9 @@ export const useOperationHandler = (sheetId?: number, onOperation?: OperationHan
               markdownTable += `| ${rowValues.join(' | ')} |
 `
             })
-            console.log('Generated Markdown Table:\n', markdownTable)
+            // console.log('Generated Markdown Table:\n', markdownTable)
           } else {
-            console.log('selectedCellInfos为空或格式不正确，无法生成Markdown表格。')
+            // console.log('selectedCellInfos为空或格式不正确，无法生成Markdown表格。')
           }
 
           // deleteRecords(records)

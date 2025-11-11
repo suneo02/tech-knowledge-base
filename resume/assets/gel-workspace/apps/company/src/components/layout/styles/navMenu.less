@@ -27,6 +27,13 @@
   .num {
     color: var(--font-color-4);
   }
+
+  .layout-tree-node-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .nav-vip {
     position: absolute;
     left: -10px;
@@ -52,5 +59,16 @@
     min-height: 28px;
     line-height: 26px;
     height: auto;
+  }
+
+  .w-tree .w-tree-node-content-wrapper {
+    overflow: hidden;
+    .w-tree-title {
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
   }
 }

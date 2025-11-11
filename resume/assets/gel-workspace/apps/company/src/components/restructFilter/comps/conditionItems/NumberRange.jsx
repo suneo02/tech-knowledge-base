@@ -26,7 +26,13 @@ const NumberRange = ({ item, left }) => {
   return (
     <ConditionItem className={` range-box-absolute `} style={{ left }}>
       <ConditionTitle filter={filter} isVip={isVip} itemName={itemName} hoverHint={hoverHint} />
-      <NumberRangeOption min={min} max={max} changeOptionCallback={changeOptionCallback} />
+      <NumberRangeOption
+        min={min}
+        max={max}
+        changeOptionCallback={changeOptionCallback}
+        data-uc-id="Zk_HQKbszd"
+        data-uc-ct="numberrangeoption"
+      />
     </ConditionItem>
   )
 }

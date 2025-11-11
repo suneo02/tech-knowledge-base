@@ -217,7 +217,13 @@ function BankingWorkbench(props) {
 
   const children = result.map((i) => {
     return (
-      <Option key={i.corp_id} value={i.corp_id}>
+      <Option
+        key={i.corp_id}
+        value={i.corp_id}
+        data-uc-id={`p3XrzcVffRb${i.corp_id}`}
+        data-uc-ct="option"
+        data-uc-x={i.corp_id}
+      >
         {i.corp_name} <span className="comIntro"> {intl('138677', '企业名称') + ' ' + intl('233028', '匹配')}</span>
       </Option>
     )
@@ -234,22 +240,34 @@ function BankingWorkbench(props) {
               onSelect={handleSelect}
               onSearch={handleAutoChange}
               dataSource={children}
+              data-uc-id="KX4KxIGkHg"
+              data-uc-ct="autocomplete"
             >
-              <Input.Search placeholder={intl('225183', '请输入公司名称')} />
+              <Input.Search placeholder={intl('225183', '请输入公司名称')} data-uc-id="HwC5ovNQas" data-uc-ct="input" />
             </AutoComplete>
             {!selType ? (
               <div className="title-all">
-                <Radio.Group value={route} onChange={handleChange}>
-                  <Radio.Button value="report" style={{ height: '32px', lineHeight: '32px' }}>
+                <Radio.Group value={route} onChange={handleChange} data-uc-id="acyXrSKNVE" data-uc-ct="radio">
+                  <Radio.Button
+                    value="report"
+                    style={{ height: '32px', lineHeight: '32px' }}
+                    data-uc-id="3FiYcP4mrV"
+                    data-uc-ct="radio"
+                  >
                     {intl('421605', '尽职调查报告')}
                   </Radio.Button>
-                  <Radio.Button value="detail" style={{ height: '32px', lineHeight: '32px' }}>
+                  <Radio.Button
+                    value="detail"
+                    style={{ height: '32px', lineHeight: '32px' }}
+                    data-uc-id="x1ApeO_FCO"
+                    data-uc-ct="radio"
+                  >
                     {intl('451245', '企业详情')}
                   </Radio.Button>
                 </Radio.Group>
               </div>
             ) : null}
-            <a href="SearchHome.html" target="_blank" className="go2home">
+            <a href="SearchHome.html" target="_blank" className="go2home" data-uc-id="UiURooSJMcm" data-uc-ct="a">
               {intl('358755', '进入企业库')}
             </a>
           </div>
@@ -269,6 +287,9 @@ function BankingWorkbench(props) {
                 companycode={companycode}
                 onlyCompanyIntroduction={true}
                 companyid={companyid}
+                data-uc-id={`TiB0GVdfRXl${companycode}`}
+                data-uc-ct="companyintroduction"
+                data-uc-x={companycode}
               />
             </div>
             <div className="contentb">
@@ -276,9 +297,18 @@ function BankingWorkbench(props) {
                 title={intl('313233', '尽调报告')}
                 extra={
                   <Button
-                    icon={<FolderO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                    icon={
+                      <FolderO
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                        data-uc-id="BtkSaL5--GG"
+                        data-uc-ct="foldero"
+                      />
+                    }
                     type="text"
                     onClick={() => wftCommon.jumpJqueryPage('index.html#/customer?type=mylist')}
+                    data-uc-id="E88-nWuj8u"
+                    data-uc-ct="button"
                   >
                     {intl('358753', '我的历史尽调报告')}
                   </Button>
@@ -291,8 +321,14 @@ function BankingWorkbench(props) {
                       <h3>{intl('338873', '企业深度信用报告')}</h3>
                       <p>{intl('265688', '快速了解企业基本信用情况')}</p>
                     </div>
-                    <Button className="download-area" type="primary" onClick={() => downloadReport('creditReport')}>
-                      {intl('265689', '导出报告')}
+                    <Button
+                      className="download-area"
+                      type="primary"
+                      onClick={() => downloadReport('creditReport')}
+                      data-uc-id="ZDn2wCoTLc"
+                      data-uc-ct="button"
+                    >
+                      {intl('440315', '导出报告')}
                     </Button>
                   </div>
                   <div className="each-report">
@@ -305,8 +341,10 @@ function BankingWorkbench(props) {
                       className="download-area"
                       type="primary"
                       onClick={() => downloadReport('stockReport', 'svip')}
+                      data-uc-id="8vclaGwdoN"
+                      data-uc-ct="button"
                     >
-                      {intl('265689', '导出报告')}
+                      {intl('440315', '导出报告')}
                     </Button>
                   </div>
                   <div className="each-report shareDepthReport">
@@ -315,8 +353,14 @@ function BankingWorkbench(props) {
                       <h3 className="each-report-h3-new">{intl('273233', '股东深度穿透报告')}</h3>
                       <p>{intl('358774', '深度核查股东结构，无限层级穿透数据')}</p>
                     </div>
-                    <Button className="download-area" type="primary" onClick={() => downloadReport('share', 'svip')}>
-                      {intl('265689', '导出报告')}
+                    <Button
+                      className="download-area"
+                      type="primary"
+                      onClick={() => downloadReport('share', 'svip')}
+                      data-uc-id="vV6OIxrzvv"
+                      data-uc-ct="button"
+                    >
+                      {intl('440315', '导出报告')}
                     </Button>
                   </div>
                   <div className="each-report">
@@ -330,8 +374,14 @@ function BankingWorkbench(props) {
                       <p>{intl('358754', '快速生成股东调查确认函')}</p>
                     </div>
 
-                    <Button className="download-area" type="primary" onClick={() => handleClickPic('', 'Shareholder')}>
-                      {intl('265689', '导出报告')}
+                    <Button
+                      className="download-area"
+                      type="primary"
+                      onClick={() => handleClickPic('', 'Shareholder')}
+                      data-uc-id="5vl8LPHWzy"
+                      data-uc-ct="button"
+                    >
+                      {intl('440315', '导出报告')}
                     </Button>
                   </div>
                   <div className="each-report ddreport">
@@ -347,8 +397,14 @@ function BankingWorkbench(props) {
                         {window.en_access_config ? '' : '限时免费'}
                       </span>
                     </span>
-                    <Button className="download-area" type="primary" onClick={() => handleClickPic('', 'ddreport')}>
-                      {intl('265689', '导出报告')}
+                    <Button
+                      className="download-area"
+                      type="primary"
+                      onClick={() => handleClickPic('', 'ddreport')}
+                      data-uc-id="QZRZNxQ8cc"
+                      data-uc-ct="button"
+                    >
+                      {intl('440315', '导出报告')}
                     </Button>
                   </div>
                 </div>
@@ -368,6 +424,8 @@ function BankingWorkbench(props) {
                       className="download-area"
                       type="primary"
                       onClick={() => handleClickPic('chart_newtzct', 'pic')}
+                      data-uc-id="dY7naylH-I"
+                      data-uc-ct="button"
                     >
                       {intl('222886', '查看图谱')}
                     </Button>
@@ -382,6 +440,8 @@ function BankingWorkbench(props) {
                       className="download-area"
                       type="primary"
                       onClick={() => handleClickPic('chart_gqct', 'pic')}
+                      data-uc-id="JrGJ5yhDt6"
+                      data-uc-ct="button"
                     >
                       {intl('222886', '查看图谱')}
                     </Button>
@@ -398,6 +458,8 @@ function BankingWorkbench(props) {
                       className="download-area"
                       type="primary"
                       onClick={() => handleClickPic('chart_qysyr', 'pic')}
+                      data-uc-id="uTSViNGXXd"
+                      data-uc-ct="button"
                     >
                       {intl('222886', '查看图谱')}
                     </Button>
@@ -414,6 +476,8 @@ function BankingWorkbench(props) {
                       className="download-area"
                       type="primary"
                       onClick={() => handleClickPic('chart_ysgx', 'pic')}
+                      data-uc-id="-kNs939OaG3"
+                      data-uc-ct="button"
                     >
                       {intl('222886', '查看图谱')}
                     </Button>

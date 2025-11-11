@@ -17,11 +17,5 @@
     "outDir": "./dist"
   },
   "include": ["src/**/*", "public/resource/js"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/__tests__/**",
-    "**/*.test.*",
-    "**/storybook/**"
-  ]
+  "exclude": ["node_modules", "dist", "**/storybook/**"]
 }

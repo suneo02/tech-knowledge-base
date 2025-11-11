@@ -6,8 +6,8 @@ export interface TranslateParams {
 export interface TranslatePayload {
   transText: string
   // 1: 中文 2: 英文
-  sourceLang: 1
-  targetLang: 2
+  sourceLang: 1 | 2
+  targetLang: 1 | 2
   // 来源
   source: 'gel'
 }

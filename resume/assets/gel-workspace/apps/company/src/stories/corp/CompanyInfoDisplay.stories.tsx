@@ -7,8 +7,8 @@ import { CorpBasicInfo } from '@/api/corp/info/basicInfo'
 import { Meta, StoryObj } from '@storybook/react'
 import axios from 'axios'
 import React, { FC, useEffect, useState } from 'react'
+import { mockCorpBasicInfoCO } from '../../__mocks__/corp/bussInfo/mockCO'
 import { CompanyInfoDisplay, CompanyInfoDisplayProps } from '../../components/company/info/CompanyInfoDisplay'
-import { mockCorpBasicInfoCO } from './mockCO'
 
 const WFC_PATH = '/Wind.WFC.Enterprise.Web'
 

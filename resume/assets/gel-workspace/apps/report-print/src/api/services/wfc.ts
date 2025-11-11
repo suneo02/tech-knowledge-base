@@ -1,7 +1,7 @@
 import { normalizePath } from '@/utils/url'
+import { ApiResponseForWFC } from 'report-util/types'
 import { wfcGelPath } from '../config'
 import { RequestConfig } from '../types/request'
-import { ApiResponseForWFC } from '../types/response'
 import { request } from './base'
 
 export const requestWfcGel = <R = ApiResponseForWFC>(
@@ -15,7 +15,6 @@ export const requestWfcGel = <R = ApiResponseForWFC>(
     }
     return
   }
-
   try {
     // Build WFC GEL URL with company code
     const fullPath = `${normalizePath(wfcGelPath)}${normalizePath(path)}`

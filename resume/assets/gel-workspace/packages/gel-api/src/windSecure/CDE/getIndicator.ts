@@ -110,6 +110,10 @@ export const CDEIndicatorOverall = [
     indicator: 'count.trademark_num',
     name: '商标数量',
   },
+  {
+    indicator: 'domain',
+    name: '网址',
+  },
 ] as const
 
 type ExtractIndicator<T> = T extends { indicator: infer U } ? U : never

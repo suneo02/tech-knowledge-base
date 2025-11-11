@@ -1,0 +1,1 @@
+export { createSuggestionRole } from './role'

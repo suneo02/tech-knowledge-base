@@ -26,6 +26,11 @@ export const IdentityCardField: React.FC<{ maskedFields: { [key: string]: boolea
       },
     ]}
   >
-    <Input placeholder={intl(414537, '请输入查册人中国大陆身份证号码')} allowClear />
+    <Input
+      placeholder={intl(414537, '请输入查册人中国大陆身份证号码')}
+      allowClear
+      data-uc-id="etRtDV62J3"
+      data-uc-ct="input"
+    />
   </Form.Item>
 )

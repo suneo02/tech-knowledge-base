@@ -15,95 +15,113 @@ import styled from 'styled-components'
  * @returns {React.ReactNode} 返回一个数字范围输入组件。
  */
 const NumberRangeOption = memo(
-	({
-		min = '',
-		max = '',
-		changeOptionCallback = () => null,
-		changeInputAlert = () => {},
-		fromBid,
-		className,
-		unit,
-		maxVal,
-	}) => {
-		const [_min, setMin] = useState(min)
-		const [_max, setMax] = useState(max)
+  ({
+    min = '',
+    max = '',
+    changeOptionCallback = () => null,
+    changeInputAlert = () => {},
+    fromBid,
+    className,
+    unit,
+    maxVal,
+  }) => {
+    const [_min, setMin] = useState(min)
+    const [_max, setMax] = useState(max)
 
-		useEffect(() => {
-			// if (min) {
-			setMin(min)
-			// }
-		}, [min])
+    useEffect(() => {
+      // if (min) {
+      setMin(min)
+      // }
+    }, [min])
 
-		useEffect(() => {
-			// if (max) {
-			setMax(max)
-			// }
-		}, [max])
-		const inputHandle = (e) => {
-			const isMin = e.target.name === 'min' // 是否是min
-			const val = parseInt(e.target.value)
-			isMin ? setMin(val) : setMax(val)
-			if (fromBid) {
-				changeInputAlert()
-			}
-		}
+    useEffect(() => {
+      // if (max) {
+      setMax(max)
+      // }
+    }, [max])
+    const inputHandle = (e) => {
+      const isMin = e.target.name === 'min' // 是否是min
+      const val = parseInt(e.target.value)
+      isMin ? setMin(val) : setMax(val)
+      if (fromBid) {
+        changeInputAlert()
+      }
+    }
 
-		// 失去焦点处理
-		const onBlur = () => {
-			if (maxVal) {
-				if (_max - _min > maxVal) {
-					// setMin(1)
-					// setMax(_min)
-					let value = `${_min}-${_max}`
-					changeOptionCallback(value)
-					return
-				}
-			}
+    // 失去焦点处理
+    const onBlur = () => {
+      if (maxVal) {
+        if (_max - _min > maxVal) {
+          // setMin(1)
+          // setMax(_min)
+          let value = `${_min}-${_max}`
+          changeOptionCallback(value)
+          return
+        }
+      }
 
-			if (_min && _max && _min > _max) {
-				//   setMin(_max)
-				let value = `${_min}-${_max}`
-				changeOptionCallback(value)
-				return
-			}
-			let value = `${_min ? _min : ''}-${_max ? _max : ''}`
+      if (_min && _max && _min > _max) {
+        //   setMin(_max)
+        let value = `${_min}-${_max}`
+        changeOptionCallback(value)
+        return
+      }
+      let value = `${_min ? _min : ''}-${_max ? _max : ''}`
 
-			changeOptionCallback(value)
-		}
+      changeOptionCallback(value)
+    }
 
-		return (
-			<Box className={className}>
-				<input name="min" onBlur={onBlur} value={_min} onChange={inputHandle} type="number" />
-				&nbsp;-&nbsp;
-				<input name="max" onBlur={onBlur} value={_max} onChange={inputHandle} type="number" />
-				&nbsp;{unit ? unit : ''}
-			</Box>
-		)
-	}
+    return (
+      <Box className={className}>
+        <input
+          name="min"
+          onBlur={onBlur}
+          value={_min}
+          onChange={inputHandle}
+          type="number"
+          data-uc-id="6wGw7LOK3S"
+          data-uc-ct="input"
+        />
+        &nbsp;- &nbsp;
+        <input
+          name="max"
+          onBlur={onBlur}
+          value={_max}
+          onChange={inputHandle}
+          type="number"
+          data-uc-id="wpBvXozeyz"
+          data-uc-ct="input"
+        />
+        &nbsp;{unit ? unit : ''}
+      </Box>
+    )
+  }
 )
 
+NumberRangeOption.displayName = 'NumberRangeOption'
+
 const Box = styled.div`
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 
-	input {
-		width: 63px;
-		height: 30px;
-		outline: none;
-		padding: 0 8px;
-		font-size: 14px;
-		border: 1px solid #d9d9d9;
-		border-radius: 2px;
+  input {
+    width: 63px;
+    height: 30px;
+    outline: none;
+    padding: 0 8px;
+    font-size: 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
 
-		&:focus {
-			border: 1px solid #3dc1d4;
-		}
+    &:focus {
+      border: 1px solid #3dc1d4;
+    }
 
-		&[type='number']::-webkit-inner-spin-button,
-		&[type='number']::-webkit-outer-spin-button {
-			-webkit-appearance: none;
-		}
-	}
+    &[type='number']::-webkit-inner-spin-button,
+    &[type='number']::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+  }
 `
 
 export default NumberRangeOption

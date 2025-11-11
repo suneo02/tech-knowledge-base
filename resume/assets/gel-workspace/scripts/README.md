@@ -1,111 +1,55 @@
 # 脚本工具集
 
-## 更新说明
+项目构建、部署和开发管理的统一脚本工具集，提供从开发到部署的完整自动化支持。
 
-以下脚本已被迁移到 Turborepo 构建系统，不再推荐使用：
+## 目录结构
 
-- ~~build.js~~ - 替换为 `turbo build`
-- ~~dev.js~~ - 替换为 `turbo dev`
-- ~~build-with-deps.js~~ - 替换为 `turbo build --filter=package...`
-
-有关使用 Turborepo 的详细信息，请参考项目根目录的 [TURBOREPO.md](../TURBOREPO.md)。
-
-## TypeScript 类型检查脚本 (tsc-all.js)
-
-可运行 `pnpm tsc:all` 执行此脚本，它会对每个包进行 TypeScript 类型检查，并提供详细的错误报告。
-
-## 发布脚本 (publish.js)
-
-这个脚本会自动处理指定包及其依赖的构建和发布流程。它会按照依赖关系顺序先构建并发布依赖包，然后构建并发布指定的目标包。
-
-### 功能特点
-
-- 自动收集并解析目标包的依赖关系
-- 按正确的依赖顺序构建和发布包
-- 如果任何包构建或发布失败，会立即停止并报告错误
-- 详细的日志输出，清晰展示每个步骤的执行情况
-
-### 使用方法
-
-```bash
-node scripts/publish.js <包名称>
+```
+scripts/
+├── run-app.js                  # 应用管理统一入口 (dev/build/deploy)
+├── deploy.js                   # 统一部署脚本主入口
+├── build-and-deploy.js         # 构建部署一体化脚本
+├── local-ci.js                 # 本地CI模拟脚本
+├── process-area-json.js        # 地区JSON数据处理脚本
+├── jsonSort.cjs                # JSON文件排序工具
+├── jsonLikeFileIntl.cjs        # 类JSON国际化文件处理
+├── staging/                    # 预发布环境专用脚本集合
+│   ├── deployStaging.js        # 预发布部署主逻辑
+│   ├── deploy-tasks.js         # 部署任务模块化定义
+│   ├── deploy-config.js        # 预发布部署配置管理
+│   ├── env-config.js           # 环境配置动态加载
+│   ├── cli-helper.js           # CLI参数解析与帮助
+│   ├── git-updater.js          # Git仓库更新管理
+│   ├── deployNginxConfig.js    # Nginx配置部署脚本
+│   ├── troubleshooting.md      # 故障排查文档
+│   └── utils/                  # 预发布工具模块
+│       ├── logger.js           # 结构化日志记录
+│       └── executor.js         # 命令执行器封装
+└── utils/                      # 通用工具模块
+    └── fileProcessor.cjs       # 文件处理通用工具
 ```
 
-例如，发布 report-config 包:
+## 关键文件说明
 
-```bash
-node scripts/publish.js report-config
-```
+| 文件 | 作用 |
+|------|------|
+| `run-app.js` | 应用开发、构建、部署的统一入口，支持多应用管理 |
+| `deploy.js` | 本地和预发布环境部署核心逻辑 |
+| `build-and-deploy.js` | 构建部署一体化，支持自动化流程 |
+| `staging/deployStaging.js` | 预发布环境部署主控制器 |
+| `staging/deploy-tasks.js` | 模块化部署任务定义和执行 |
+| `utils/fileProcessor.cjs` | 文件类型检测、过滤等通用处理工具 |
 
-或使用 npm 脚本:
+## 依赖关系
 
-```bash
-npm run publish report-config
-```
+- **上游**: 项目源码、package.json、构建配置文件
+- **下游**: 本地SVN目录、预发布服务器、生产环境
+- **协作**: pnpm workspace、turbo monorepo、Node.js环境
 
-### 配置
+## 相关文档
 
-发布脚本使用 `common.js` 中的项目配置。要为包启用发布功能，需要在项目配置中添加 `publishCommand`。例如:
-
-```javascript
-{
-  name: 'report-config',
-  devCommand: 'pnpm --filter report-config dev',
-  buildCommand: 'pnpm --filter report-config build',
-  publishCommand: 'pnpm --filter report-config publish',
-  dependsOn: ['gel-types', 'detail-page-config'],
-  // ...其他配置
-}
-```
-
-## Git Auto-Sync Script
-
-这个脚本会自动同步`superlist`分支与所有配置的Git远程仓库。它会持续运行，从所有远程仓库获取更新并推送变更，确保所有仓库保持同步。
-
-### 功能特点
-
-- 自动从所有配置的Git远程仓库获取更新
-- 将所有远程仓库的变更拉取到本地`superlist`分支
-- 将合并后的变更推送回所有远程仓库
-- 使用时间戳记录每个步骤以便监控
-- 优雅地处理错误而不会崩溃
-- 保留你当前的工作分支
-
-### 使用方法
-
-#### 一次性运行:
-
-```bash
-node scripts/git-auto-sync.js
-```
-
-或使用npm脚本:
-
-```bash
-npm run git-sync
-```
-
-#### 后台进程运行:
-
-要在关闭终端后仍然继续运行，可以使用:
-
-```bash
-nohup node scripts/git-auto-sync.js > git-sync.log 2>&1 &
-```
-
-这将创建一个日志文件并返回一个进程ID，您可以稍后用它来停止该进程。
-
-### 配置
-
-您可以修改脚本顶部的以下变量:
-
-- `BRANCH`: 要同步的分支名称（默认: 'superlist'）
-- `INTERVAL_MINUTES`: 同步频率，以分钟为单位（默认: 30）
-
-脚本会自动检测和使用所有配置的Git远程仓库。
-
-### 前提条件
-
-- 必须安装并配置Git，且能够访问所有远程仓库
-- 必须安装Node.js
-- 必须至少配置一个Git远程仓库 
+- [预发布部署说明](./staging/README.md) - 预发布环境专用文档
+- [通用工具说明](./utils/README.md) - 工具模块详细说明
+- [前端开发规范](../docs/rule/) - TypeScript、React、样式等规范
+- [文档编写规范](../docs/rule/readme-rule.md) - README文档标准
+- [项目根目录](../README.md) - 项目整体介绍

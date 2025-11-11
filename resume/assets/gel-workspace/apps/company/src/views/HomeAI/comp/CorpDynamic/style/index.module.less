@@ -1,18 +1,11 @@
 @import '@/styles/variables.less';
+@import '@/views/HomeAI/style/mixin.module.less';
 
 .homeCurrent {
-  width: 100%;
+  .bottom-container();
+  margin: 32px 0;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  box-shadow: @box-shadow-sm;
-  border-radius: 8px;
-  margin-top: 12px;
-  padding: 12px 20px;
-
-  &>* {
+  & > * {
     width: 100%;
   }
 
@@ -21,7 +14,13 @@
     display: flex;
     justify-content: space-between;
 
+    .homeCurrentTopLeft {
+      display: flex;
+      align-items: center;
+    }
+
     .latest {
+      margin-left: 12px;
       font-size: 20px;
       line-height: 28px;
       font-weight: bold;
@@ -37,14 +36,12 @@
   }
 
   .homeCurrentBody {
-    padding: 24px;
-    padding-top: 28px;
     margin-top: 12px;
     border-radius: 12px;
     background: #fff;
 
     .corpDynamicTable {
-      font-size: 16px;
+      font-size: 14px;
       background: #fff;
 
       :global {
@@ -64,12 +61,13 @@
           }
         }
 
-        .wind-ui-table-thead>tr>th {
+        .wind-ui-table-thead > tr > th {
           background: #fff;
           padding: 7px 0;
+          opacity: 0.5;
         }
 
-        .wind-ui-table-tbody>tr>td {
+        .wind-ui-table-tbody > tr > td {
           padding: 7px 0;
         }
 

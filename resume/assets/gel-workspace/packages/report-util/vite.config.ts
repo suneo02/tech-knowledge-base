@@ -26,6 +26,7 @@ export default defineConfig(
       }),
     ],
     build: {
+      emptyOutDir: false, // 确保每次构建前清空目录
       minify: mode === 'development' ? false : 'esbuild',
       lib: {
         entry: entries,

@@ -13,9 +13,23 @@ export const CustomSelectByOption = memo<{
   // eslint-disable-next-line react/prop-types
   switch (searchOption.customId) {
     case 'bidProductWord':
-      return <CustomSelectBidProductWords searchOption={searchOption} onSearchChange={onSearchChange} />
+      return (
+        <CustomSelectBidProductWords
+          searchOption={searchOption}
+          onSearchChange={onSearchChange}
+          data-uc-id="EYgP9dlEkvE"
+          data-uc-ct="customselectbidproductwords"
+        />
+      )
     case 'bidCompanySelf':
-      return <CustomSelectBidCompanySelf searchOption={searchOption} onSearchChange={onSearchChange} />
+      return (
+        <CustomSelectBidCompanySelf
+          searchOption={searchOption}
+          onSearchChange={onSearchChange}
+          data-uc-id="HRnD2fBTQhg"
+          data-uc-ct="customselectbidcompanyself"
+        />
+      )
     default:
       return null
   }
@@ -32,7 +46,14 @@ export const CustomSelectByOptions: FC<{
   return (
     <>
       {options.map((option) => (
-        <CustomSelectByOption key={option.key} searchOption={option} onSearchChange={onSearchChange} />
+        <CustomSelectByOption
+          key={option.key}
+          searchOption={option}
+          onSearchChange={onSearchChange}
+          data-uc-id="uW__QtflAPF"
+          data-uc-ct="customselectbyoption"
+          data-uc-x={option.key}
+        />
       ))}
     </>
   )

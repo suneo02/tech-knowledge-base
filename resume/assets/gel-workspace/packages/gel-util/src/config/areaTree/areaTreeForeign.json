@@ -1,0 +1,1258 @@
+[
+  {
+    "code": "180101",
+    "nameNative": "Singapore",
+    "nameEn": "Singapore",
+    "name": "新加坡 (Singapore)"
+  },
+  {
+    "code": "180102",
+    "nameNative": "日本国",
+    "nameEn": "Japan (日本国)",
+    "name": "日本 (日本国)",
+    "node": [
+      {
+        "code": "18010201",
+        "nameNative": "北海道",
+        "nameEn": "Hokkaido (北海道)",
+        "name": "北海道"
+      },
+      {
+        "code": "18010202",
+        "nameNative": "本州",
+        "nameEn": "Honshu (本州)",
+        "name": "本州"
+      },
+      {
+        "code": "18010203",
+        "nameNative": "四国",
+        "nameEn": "Shikoku (四国)",
+        "name": "四国"
+      },
+      {
+        "code": "18010204",
+        "nameNative": "九州",
+        "nameEn": "Kyushu (九州)",
+        "name": "九州"
+      },
+      {
+        "code": "18010205",
+        "nameNative": "琉球諸島",
+        "nameEn": "Ryukyu Islands (琉球諸島)",
+        "name": "琉球群岛 (琉球諸島)"
+      }
+    ]
+  },
+  {
+    "code": "180104",
+    "nameNative": "Cộng hòa Xã hội Chủ nghĩa Việt Nam",
+    "nameEn": "Vietnam (Cộng hòa Xã hội Chủ nghĩa Việt Nam)",
+    "name": "越南 (Cộng hòa Xã hội Chủ nghĩa Việt Nam)",
+    "node": [
+      {
+        "code": "18010401",
+        "nameNative": "Tỉnh Lai Châu",
+        "nameEn": "Lai Chau Province (Tỉnh Lai Châu)",
+        "name": "莱州省 (Tỉnh Lai Châu)"
+      },
+      {
+        "code": "18010402",
+        "nameNative": "Tỉnh Lào Cai",
+        "nameEn": "Lao Cai Province (Tỉnh Lào Cai)",
+        "name": "老街省 (Tỉnh Lào Cai)"
+      },
+      {
+        "code": "18010403",
+        "nameNative": "Tỉnh Hà Giang",
+        "nameEn": "Ha Giang Province (Tỉnh Hà Giang)",
+        "name": "河江省 (Tỉnh Hà Giang)"
+      },
+      {
+        "code": "18010404",
+        "nameNative": "Tỉnh Lạng Sơn",
+        "nameEn": "Lang Son Province (Tỉnh Lạng Sơn)",
+        "name": "谅山省 (Tỉnh Lạng Sơn)"
+      },
+      {
+        "code": "18010405",
+        "nameNative": "Tỉnh Bắc Kạn",
+        "nameEn": "Bac Kan Province (Tỉnh Bắc Kạn)",
+        "name": "北件省 (Tỉnh Bắc Kạn)"
+      },
+      {
+        "code": "18010406",
+        "nameNative": "Tỉnh Tuyên Quang",
+        "nameEn": "Tuyen Quang Province (Tỉnh Tuyên Quang)",
+        "name": "宣光省 (Tỉnh Tuyên Quang)"
+      },
+      {
+        "code": "18010407",
+        "nameNative": "Tỉnh Yên Bái",
+        "nameEn": "Yen Bai Province (Tỉnh Yên Bái)",
+        "name": "安沛省 (Tỉnh Yên Bái)"
+      },
+      {
+        "code": "18010408",
+        "nameNative": "Tỉnh Điện Biên",
+        "nameEn": "Dien Bien Province (Tỉnh Điện Biên)",
+        "name": "奠边省 (Tỉnh Điện Biên)"
+      },
+      {
+        "code": "18010409",
+        "nameNative": "Tỉnh Sơn La",
+        "nameEn": "Son La Province (Tỉnh Sơn La)",
+        "name": "山罗省 (Tỉnh Sơn La)"
+      },
+      {
+        "code": "18010410",
+        "nameNative": "Tỉnh Phú Thọ",
+        "nameEn": "Phu Tho Province (Tỉnh Phú Thọ)",
+        "name": "福寿省 (Tỉnh Phú Thọ)"
+      },
+      {
+        "code": "18010411",
+        "nameNative": "Tỉnh Thái Nguyên",
+        "nameEn": "Thai Nguyen Province (Tỉnh Thái Nguyên)",
+        "name": "太原省 (Tỉnh Thái Nguyên)"
+      },
+      {
+        "code": "18010412",
+        "nameNative": "Tỉnh Bắc Giang",
+        "nameEn": "Bac Giang Province (Tỉnh Bắc Giang)",
+        "name": "北江省 (Tỉnh Bắc Giang)"
+      },
+      {
+        "code": "18010413",
+        "nameNative": "Tỉnh Quảng Ninh",
+        "nameEn": "Quang Ninh Province (Tỉnh Quảng Ninh)",
+        "name": "广宁省 (Tỉnh Quảng Ninh)"
+      },
+      {
+        "code": "18010414",
+        "nameNative": "Thành phố Hải Phòng",
+        "nameEn": "Hai Phong City (Thành phố Hải Phòng)",
+        "name": "海防市 (Thành phố Hải Phòng)"
+      },
+      {
+        "code": "18010415",
+        "nameNative": "Tỉnh Thái Bình",
+        "nameEn": "Thai Binh Province (Tỉnh Thái Bình)",
+        "name": "太平省 (Tỉnh Thái Bình)"
+      },
+      {
+        "code": "18010416",
+        "nameNative": "Tỉnh Nam Định",
+        "nameEn": "Nam Dinh Province (Tỉnh Nam Định)",
+        "name": "南定省 (Tỉnh Nam Định)"
+      },
+      {
+        "code": "18010417",
+        "nameNative": "Tỉnh Ninh Bình",
+        "nameEn": "Ninh Binh Province (Tỉnh Ninh Bình)",
+        "name": "宁平省 (Tỉnh Ninh Bình)"
+      },
+      {
+        "code": "18010418",
+        "nameNative": "Tỉnh Hoà Bình",
+        "nameEn": "Hoa Binh Province (Tỉnh Hoà Bình)",
+        "name": "和平省 (Tỉnh Hoà Bình)"
+      },
+      {
+        "code": "18010419",
+        "nameNative": "Tỉnh Thanh Hóa",
+        "nameEn": "Thanh Hoa Province (Tỉnh Thanh Hóa)",
+        "name": "青化省 (Tỉnh Thanh Hóa)"
+      },
+      {
+        "code": "18010420",
+        "nameNative": "Tỉnh Nghệ An",
+        "nameEn": "Nghe An Province (Tỉnh Nghệ An)",
+        "name": "义安省 (Tỉnh Nghệ An)"
+      },
+      {
+        "code": "18010421",
+        "nameNative": "Tỉnh Hà Tĩnh",
+        "nameEn": "Ha Tinh Province (Tỉnh Hà Tĩnh)",
+        "name": "河静省 (Tỉnh Hà Tĩnh)"
+      },
+      {
+        "code": "18010422",
+        "nameNative": "Tỉnh Quảng Bình",
+        "nameEn": "Quang Binh Province (Tỉnh Quảng Bình)",
+        "name": "广平省 (Tỉnh Quảng Bình)"
+      },
+      {
+        "code": "18010423",
+        "nameNative": "Tỉnh Quảng Trị",
+        "nameEn": "Quang Tri Province (Tỉnh Quảng Trị)",
+        "name": "广治省 (Tỉnh Quảng Trị)"
+      },
+      {
+        "code": "18010424",
+        "nameNative": "Tỉnh Thừa Thiên - Huế",
+        "nameEn": "Thua Thien Hue Province (Tỉnh Thừa Thiên - Huế)",
+        "name": "承天顺化省 (Tỉnh Thừa Thiên - Huế)"
+      },
+      {
+        "code": "18010425",
+        "nameNative": "Thành phố Đà Nẵng",
+        "nameEn": "Da Nang City (Thành phố Đà Nẵng)",
+        "name": "岘港市 (Thành phố Đà Nẵng)"
+      },
+      {
+        "code": "18010426",
+        "nameNative": "Tỉnh Quảng Nam",
+        "nameEn": "Quang Nam Province (Tỉnh Quảng Nam)",
+        "name": "广南省 (Tỉnh Quảng Nam)"
+      },
+      {
+        "code": "18010427",
+        "nameNative": "Tỉnh Kon Tum",
+        "nameEn": "Kon Tum Province (Tỉnh Kon Tum)",
+        "name": "昆嵩省 (Tỉnh Kon Tum)"
+      },
+      {
+        "code": "18010428",
+        "nameNative": "Tỉnh Quảng Ngãi",
+        "nameEn": "Quang Ngai Province (Tỉnh Quảng Ngãi)",
+        "name": "广义省 (Tỉnh Quảng Ngãi)"
+      },
+      {
+        "code": "18010429",
+        "nameNative": "Tỉnh Gia Lai",
+        "nameEn": "Gia Lai Province (Tỉnh Gia Lai)",
+        "name": "嘉莱省 (Tỉnh Gia Lai)"
+      },
+      {
+        "code": "18010430",
+        "nameNative": "Tỉnh Bình Định",
+        "nameEn": "Binh Dinh Province (Tỉnh Bình Định)",
+        "name": "平定省 (Tỉnh Bình Định)"
+      },
+      {
+        "code": "18010431",
+        "nameNative": "Tỉnh Đắk Lắk",
+        "nameEn": "Dak Lak Province (Tỉnh Đắk Lắk)",
+        "name": "得乐省 (Tỉnh Đắk Lắk)"
+      },
+      {
+        "code": "18010432",
+        "nameNative": "Tỉnh Phú Yên",
+        "nameEn": "Phu Yen Province (Tỉnh Phú Yên)",
+        "name": "富安省 (Tỉnh Phú Yên)"
+      },
+      {
+        "code": "18010433",
+        "nameNative": "Tỉnh Đắk Nông",
+        "nameEn": "Dak Nong Province (Tỉnh Đắk Nông)",
+        "name": "得农省 (Tỉnh Đắk Nông)"
+      },
+      {
+        "code": "18010434",
+        "nameNative": "Tỉnh Khánh Hòa",
+        "nameEn": "Khanh Hoa Province (Tỉnh Khánh Hòa)",
+        "name": "庆和省 (Tỉnh Khánh Hòa)"
+      },
+      {
+        "code": "18010435",
+        "nameNative": "Tỉnh Lâm Đồng",
+        "nameEn": "Lam Dong Province (Tỉnh Lâm Đồng)",
+        "name": "林同省 (Tỉnh Lâm Đồng)"
+      },
+      {
+        "code": "18010436",
+        "nameNative": "Tỉnh Ninh Thuận",
+        "nameEn": "Ninh Thuan Province (Tỉnh Ninh Thuận)",
+        "name": "宁顺省 (Tỉnh Ninh Thuận)"
+      },
+      {
+        "code": "18010437",
+        "nameNative": "Tỉnh Bình Thuận",
+        "nameEn": "Binh Thuan Province (Tỉnh Bình Thuận)",
+        "name": "平顺省 (Tỉnh Bình Thuận)"
+      },
+      {
+        "code": "18010438",
+        "nameNative": "Tỉnh Bình Phước",
+        "nameEn": "Binh Phuoc Province (Tỉnh Bình Phước)",
+        "name": "平福省 (Tỉnh Bình Phước)"
+      },
+      {
+        "code": "18010439",
+        "nameNative": "Tỉnh Đồng Nai",
+        "nameEn": "Dong Nai Province (Tỉnh Đồng Nai)",
+        "name": "同奈省 (Tỉnh Đồng Nai)"
+      },
+      {
+        "code": "18010440",
+        "nameNative": "Tỉnh Bà Rịa - Vũng Tàu",
+        "nameEn": "Ba Ria - Vung Tau Province (Tỉnh Bà Rịa - Vũng Tàu)",
+        "name": "巴地头顿省 (Tỉnh Bà Rịa - Vũng Tàu)"
+      },
+      {
+        "code": "18010441",
+        "nameNative": "Tỉnh Bình Dương",
+        "nameEn": "Binh Duong Province (Tỉnh Bình Dương)",
+        "name": "平阳省 (Tỉnh Bình Dương)"
+      },
+      {
+        "code": "18010442",
+        "nameNative": "Tỉnh Tây Ninh",
+        "nameEn": "Tay Ninh Province (Tỉnh Tây Ninh)",
+        "name": "西宁省 (Tỉnh Tây Ninh)"
+      },
+      {
+        "code": "18010443",
+        "nameNative": "Tỉnh Long An",
+        "nameEn": "Long An Province (Tỉnh Long An)",
+        "name": "隆安省 (Tỉnh Long An)"
+      },
+      {
+        "code": "18010444",
+        "nameNative": "Tỉnh Đồng Tháp",
+        "nameEn": "Dong Thap Province (Tỉnh Đồng Tháp)",
+        "name": "同塔省 (Tỉnh Đồng Tháp)"
+      },
+      {
+        "code": "18010445",
+        "nameNative": "Tỉnh An Giang",
+        "nameEn": "An Giang Province (Tỉnh An Giang)",
+        "name": "安江省 (Tỉnh An Giang)"
+      },
+      {
+        "code": "18010446",
+        "nameNative": "Tỉnh Kiên Giang",
+        "nameEn": "Kien Giang Province (Tỉnh Kiên Giang)",
+        "name": "建江省 (Tỉnh Kiên Giang)"
+      },
+      {
+        "code": "18010447",
+        "nameNative": "Tỉnh Cà Mau",
+        "nameEn": "Ca Mau Province (Tỉnh Cà Mau)",
+        "name": "金瓯省 (Tỉnh Cà Mau)"
+      },
+      {
+        "code": "18010448",
+        "nameNative": "Tỉnh Bạc Liêu",
+        "nameEn": "Bac Lieu Province (Tỉnh Bạc Liêu)",
+        "name": "白喉省 (Tỉnh Bạc Liêu)"
+      },
+      {
+        "code": "18010449",
+        "nameNative": "Tỉnh Sóc Trăng",
+        "nameEn": "Soc Trang Province (Tỉnh Sóc Trăng)",
+        "name": "朔庄省 (Tỉnh Sóc Trăng)"
+      },
+      {
+        "code": "18010450",
+        "nameNative": "Tỉnh Trà Vinh",
+        "nameEn": "Tra Vinh Province (Tỉnh Trà Vinh)",
+        "name": "茶荣省 (Tỉnh Trà Vinh)"
+      },
+      {
+        "code": "18010451",
+        "nameNative": "Tỉnh Vĩnh Phúc",
+        "nameEn": "Vinh Phuc Province (Tỉnh Vĩnh Phúc)",
+        "name": "永福省 (Tỉnh Vĩnh Phúc)"
+      },
+      {
+        "code": "18010452",
+        "nameNative": "Tỉnh Bắc Ninh",
+        "nameEn": "Bac Ninh Province (Tỉnh Bắc Ninh)",
+        "name": "北宁省 (Tỉnh Bắc Ninh)"
+      },
+      {
+        "code": "18010453",
+        "nameNative": "Tỉnh Hải Dương",
+        "nameEn": "Hai Duong Province (Tỉnh Hải Dương)",
+        "name": "海阳省 (Tỉnh Hải Dương)"
+      },
+      {
+        "code": "18010454",
+        "nameNative": "Tỉnh Hưng Yên",
+        "nameEn": "Hung Yen Province (Tỉnh Hưng Yên)",
+        "name": "兴安省 (Tỉnh Hưng Yên)"
+      },
+      {
+        "code": "18010455",
+        "nameNative": "Tỉnh Hà Nam",
+        "nameEn": "Ha Nam Province (Tỉnh Hà Nam)",
+        "name": "和安省 (Tỉnh Hà Nam)"
+      },
+      {
+        "code": "18010456",
+        "nameNative": "Thành phố Hồ Chí Minh",
+        "nameEn": "Ho Chi Minh City (Thành phố Hồ Chí Minh)",
+        "name": "胡志明市 (Thành phố Hồ Chí Minh)"
+      },
+      {
+        "code": "18010457",
+        "nameNative": "Tỉnh Tiền Giang",
+        "nameEn": "Tien Giang Province (Tỉnh Tiền Giang)",
+        "name": "前江省 (Tỉnh Tiền Giang)"
+      },
+      {
+        "code": "18010458",
+        "nameNative": "Tỉnh Vĩnh Long",
+        "nameEn": "Vinh Long Province (Tỉnh Vĩnh Long)",
+        "name": "永隆省 (Tỉnh Vĩnh Long)"
+      },
+      {
+        "code": "18010459",
+        "nameNative": "Thành phố Cần Thơ",
+        "nameEn": "Can Tho City (Thành phố Cần Thơ)",
+        "name": "芹苴市 (Thành phố Cần Thơ)"
+      },
+      {
+        "code": "18010460",
+        "nameNative": "Tỉnh Hậu Giang",
+        "nameEn": "Hau Giang Province (Tỉnh Hậu Giang)",
+        "name": "后江省 (Tỉnh Hậu Giang)"
+      },
+      {
+        "code": "18010461",
+        "nameNative": "Tỉnh Bến Tre",
+        "nameEn": "Ben Tre Province (Tỉnh Bến Tre)",
+        "name": "槟椥省 (Tỉnh Bến Tre)"
+      },
+      {
+        "code": "18010462",
+        "nameNative": "Tỉnh Cao Bằng",
+        "nameEn": "Cao Bang Province (Tỉnh Cao Bằng)",
+        "name": "高平省 (Tỉnh Cao Bằng)"
+      },
+      {
+        "code": "18010463",
+        "nameNative": "Thành phố Hà Nội",
+        "nameEn": "Hanoi City (Thành phố Hà Nội)",
+        "name": "河内市 (Thành phố Hà Nội)"
+      }
+    ]
+  },
+  {
+    "code": "180111",
+    "nameNative": "Republic of India",
+    "nameEn": "India (Republic of India)",
+    "name": "印度 (Republic of India)",
+    "node": [
+      {
+        "code": "18011101",
+        "nameNative": "Andhra Pradesh Government",
+        "nameEn": "Andhra Pradesh Government",
+        "name": "安得拉邦政府 (Andhra Pradesh Government)"
+      },
+      {
+        "code": "18011102",
+        "nameNative": "Arunachal Pradesh",
+        "nameEn": "Arunachal Pradesh",
+        "name": "阿鲁纳恰尔邦 (Arunachal Pradesh)"
+      },
+      {
+        "code": "18011103",
+        "nameNative": "Assam Government",
+        "nameEn": "Assam Government",
+        "name": "阿萨姆邦政府 (Assam Government)"
+      },
+      {
+        "code": "18011104",
+        "nameNative": "Bihar Government",
+        "nameEn": "Bihar Government",
+        "name": "比哈尔邦政府 (Bihar Government)"
+      },
+      {
+        "code": "18011105",
+        "nameNative": "Chhattisgarh State Government",
+        "nameEn": "Chhattisgarh State Government",
+        "name": "恰蒂斯加尔邦政府 (Chhattisgarh State Government)"
+      },
+      {
+        "code": "18011106",
+        "nameNative": "Goa",
+        "nameEn": "Goa",
+        "name": "果阿 (Goa)"
+      },
+      {
+        "code": "18011107",
+        "nameNative": "Gujarat",
+        "nameEn": "Gujarat",
+        "name": "古吉拉特邦 (Gujarat)"
+      },
+      {
+        "code": "18011108",
+        "nameNative": "Haryana",
+        "nameEn": "Haryana",
+        "name": "哈里亚纳邦 (Haryana)"
+      },
+      {
+        "code": "18011109",
+        "nameNative": "Himachal Pradesh",
+        "nameEn": "Himachal Pradesh",
+        "name": "喜马偕尔邦 (Himachal Pradesh)"
+      },
+      {
+        "code": "18011110",
+        "nameNative": "Jharkhand",
+        "nameEn": "Jharkhand",
+        "name": "贾坎德邦 (Jharkhand)"
+      },
+      {
+        "code": "18011111",
+        "nameNative": "Karnataka Government",
+        "nameEn": "Karnataka Government",
+        "name": "卡纳塔克邦政府 (Karnataka Government)"
+      },
+      {
+        "code": "18011112",
+        "nameNative": "Kerala Government",
+        "nameEn": "Kerala Government",
+        "name": "喀拉拉邦政府 (Kerala Government)"
+      },
+      {
+        "code": "18011113",
+        "nameNative": "Madhya Pradesh",
+        "nameEn": "Madhya Pradesh",
+        "name": "中央邦 (Madhya Pradesh)"
+      },
+      {
+        "code": "18011114",
+        "nameNative": "Maharashtra State Government",
+        "nameEn": "Maharashtra State Government",
+        "name": "马哈拉施特拉邦政府 (Maharashtra State Government)"
+      },
+      {
+        "code": "18011115",
+        "nameNative": "Manipur",
+        "nameEn": "Manipur",
+        "name": "曼尼普尔邦 (Manipur)"
+      },
+      {
+        "code": "18011116",
+        "nameNative": "Meghalaya",
+        "nameEn": "Meghalaya",
+        "name": "梅加拉亚邦 (Meghalaya)"
+      },
+      {
+        "code": "18011117",
+        "nameNative": "Mizoram",
+        "nameEn": "Mizoram",
+        "name": "米佐拉姆邦 (Mizoram)"
+      },
+      {
+        "code": "18011118",
+        "nameNative": "Nagaland",
+        "nameEn": "Nagaland",
+        "name": "那加兰邦 (Nagaland)"
+      },
+      {
+        "code": "18011119",
+        "nameNative": "Odisha state government",
+        "nameEn": "Odisha state government",
+        "name": "奥里萨邦政府 (Odisha state government)"
+      },
+      {
+        "code": "18011120",
+        "nameNative": "Punjab Government",
+        "nameEn": "Punjab Government",
+        "name": "旁遮普邦政府 (Punjab Government)"
+      },
+      {
+        "code": "18011121",
+        "nameNative": "Rajasthan",
+        "nameEn": "Rajasthan",
+        "name": "拉贾斯坦邦 (Rajasthan)"
+      },
+      {
+        "code": "18011122",
+        "nameNative": "Government of Sikkim",
+        "nameEn": "Government of Sikkim",
+        "name": "锡金政府 (Government of Sikkim)"
+      },
+      {
+        "code": "18011123",
+        "nameNative": "Tamil Nadu",
+        "nameEn": "Tamil Nadu",
+        "name": "泰米尔纳德邦 (Tamil Nadu)"
+      },
+      {
+        "code": "18011124",
+        "nameNative": "Telangana State Government",
+        "nameEn": "Telangana State Government",
+        "name": "特伦甘纳邦政府 (Telangana State Government)"
+      },
+      {
+        "code": "18011125",
+        "nameNative": "Tripura",
+        "nameEn": "Tripura",
+        "name": "特里普拉邦 (Tripura)"
+      },
+      {
+        "code": "18011126",
+        "nameNative": "Uttar Pradesh Government",
+        "nameEn": "Uttar Pradesh Government",
+        "name": "北方邦政府 (Uttar Pradesh Government)"
+      },
+      {
+        "code": "18011127",
+        "nameNative": "Uttarakhand Government",
+        "nameEn": "Uttarakhand Government",
+        "name": "北阿坎德邦政府 (Uttarakhand Government)"
+      },
+      {
+        "code": "18011128",
+        "nameNative": "West Bengal",
+        "nameEn": "West Bengal",
+        "name": "西孟加拉邦 (West Bengal)"
+      },
+      {
+        "code": "18011129",
+        "nameNative": "Andaman and Nicobar administration",
+        "nameEn": "Andaman and Nicobar administration",
+        "name": "安达曼和尼科巴行政管理区 (Andaman and Nicobar administration)"
+      },
+      {
+        "code": "18011130",
+        "nameNative": "Union Territory of Chandigarh",
+        "nameEn": "Union Territory of Chandigarh",
+        "name": "昌迪加尔联邦直辖区 (Union Territory of Chandigarh)"
+      },
+      {
+        "code": "18011131",
+        "nameNative": "Union Territory of Dadra and Nagar Haveli",
+        "nameEn": "Union Territory of Dadra and Nagar Haveli",
+        "name": "达德拉-纳加尔哈维利联合直辖区 (Union Territory of Dadra and Nagar Haveli)"
+      },
+      {
+        "code": "18011132",
+        "nameNative": "Union Territory of Daman and Diu",
+        "nameEn": "Union Territory of Daman and Diu",
+        "name": "达曼和第乌联合直辖区 (Union Territory of Daman and Diu)"
+      },
+      {
+        "code": "18011133",
+        "nameNative": "Union Territory of Jammu and Kashmir",
+        "nameEn": "Union Territory of Jammu and Kashmir",
+        "name": "查谟和克什米尔联邦直辖区 (Union Territory of Jammu and Kashmir)"
+      },
+      {
+        "code": "18011134",
+        "nameNative": "Union Territory of Ladakh",
+        "nameEn": "Union Territory of Ladakh",
+        "name": "拉达克联邦直辖区 (Union Territory of Ladakh)"
+      },
+      {
+        "code": "18011135",
+        "nameNative": "Union Territory of Lakshadweep",
+        "nameEn": "Union Territory of Lakshadweep",
+        "name": "拉克沙群岛联邦直辖区 (Union Territory of Lakshadweep)"
+      },
+      {
+        "code": "18011136",
+        "nameNative": "National Capital Territory of Delhi",
+        "nameEn": "National Capital Territory of Delhi",
+        "name": "德里国家首都直辖区 (National Capital Territory of Delhi)"
+      },
+      {
+        "code": "18011137",
+        "nameNative": "Puducherry Government",
+        "nameEn": "Puducherry Government",
+        "name": "本地治里政府 (Puducherry Government)"
+      }
+    ]
+  },
+  {
+    "code": "180114",
+    "nameNative": "대한민국",
+    "nameEn": "Korea (대한민국)",
+    "name": "韩国 (대한민국)"
+  },
+  {
+    "code": "180117",
+    "nameNative": "Malaysia",
+    "nameEn": "Malaysia",
+    "name": "马来西亚 (Malaysia)"
+  },
+  {
+    "code": "180120",
+    "nameNative": "ราชอาณาจักรไทย",
+    "nameEn": "Thailand (ราชอาณาจักรไทย)",
+    "name": "泰国 (ราชอาณาจักรไทย)"
+  },
+  {
+    "code": "180201",
+    "nameNative": "United Kingdom",
+    "nameEn": "United Kingdom",
+    "name": "英国 (United Kingdom)",
+    "node": [
+      {
+        "code": "18020101",
+        "nameNative": "England",
+        "nameEn": "England",
+        "name": "英格兰 (England)"
+      },
+      {
+        "code": "18020102",
+        "nameNative": "Wales",
+        "nameEn": "Wales",
+        "name": "威尔士 (Wales)"
+      },
+      {
+        "code": "18020103",
+        "nameNative": "Scotland",
+        "nameEn": "Scotland",
+        "name": "苏格兰 (Scotland)"
+      },
+      {
+        "code": "18020104",
+        "nameNative": "Northern Ireland",
+        "nameEn": "Northern Ireland",
+        "name": "北爱尔兰 (Northern Ireland)"
+      },
+      {
+        "code": "18020105",
+        "nameNative": "British Overseas Territories",
+        "nameEn": "British Overseas Territories",
+        "name": "英属海外领土 (British Overseas Territories)"
+      }
+    ]
+  },
+  {
+    "code": "180202",
+    "nameNative": "Bundesrepublik Deutschland",
+    "nameEn": "Germany (Bundesrepublik Deutschland)",
+    "name": "德国 (Bundesrepublik Deutschland)",
+    "node": [
+      {
+        "code": "18020201",
+        "nameNative": "Baden-Württemberg",
+        "nameEn": "Baden-Württemberg",
+        "name": "巴登-符腾堡 (Baden-Württemberg)"
+      },
+      {
+        "code": "18020202",
+        "nameNative": "Bayern",
+        "nameEn": "Bavaria (Bayern)",
+        "name": "巴伐利亚 (Bayern)"
+      },
+      {
+        "code": "18020203",
+        "nameNative": "Berlin",
+        "nameEn": "Berlin",
+        "name": "柏林 (Berlin)"
+      },
+      {
+        "code": "18020204",
+        "nameNative": "Brandenburg",
+        "nameEn": "Brandenburg",
+        "name": "勃兰登堡 (Brandenburg)"
+      },
+      {
+        "code": "18020205",
+        "nameNative": "Bremen",
+        "nameEn": "Bremen",
+        "name": "不莱梅 (Bremen)"
+      },
+      {
+        "code": "18020206",
+        "nameNative": "Hamburg",
+        "nameEn": "Hamburg",
+        "name": "汉堡 (Hamburg)"
+      },
+      {
+        "code": "18020207",
+        "nameNative": "Hessen",
+        "nameEn": "Hessen",
+        "name": "黑森 (Hessen)"
+      },
+      {
+        "code": "18020208",
+        "nameNative": "Mecklenburg-Vorpommern",
+        "nameEn": "Mecklenburg-Western Pomerania (Mecklenburg-Vorpommern)",
+        "name": "梅克伦堡-前波美拉尼亚 (Mecklenburg-Vorpommern)"
+      },
+      {
+        "code": "18020209",
+        "nameNative": "Niedersachsen",
+        "nameEn": "Lower Saxony (Niedersachsen)",
+        "name": "下萨克森 (Niedersachsen)"
+      },
+      {
+        "code": "18020210",
+        "nameNative": "Nordrhein-Westfalen",
+        "nameEn": "North Rhine-Westphalia (Nordrhein-Westfalen)",
+        "name": "北莱茵-威斯特法伦 (Nordrhein-Westfalen)"
+      },
+      {
+        "code": "18020211",
+        "nameNative": "Rheinland-Pfalz",
+        "nameEn": "Rhineland-Palatinate (Rheinland-Pfalz)",
+        "name": "莱茵兰-普法尔茨 (Rheinland-Pfalz)"
+      },
+      {
+        "code": "18020212",
+        "nameNative": "Saarland",
+        "nameEn": "Saarland",
+        "name": "萨尔州 (Saarland)"
+      },
+      {
+        "code": "18020213",
+        "nameNative": "Sachsen",
+        "nameEn": "Saxony (Sachsen)",
+        "name": "萨克森 (Sachsen)"
+      },
+      {
+        "code": "18020214",
+        "nameNative": "Sachsen-Anhalt",
+        "nameEn": "Saxony-Anhalt (Sachsen-Anhalt)",
+        "name": "萨克森-安哈尔特 (Sachsen-Anhalt)"
+      },
+      {
+        "code": "18020215",
+        "nameNative": "Schleswig-Holstein",
+        "nameEn": "Schleswig-Holstein",
+        "name": "施勒斯维希-霍尔斯坦 (Schleswig-Holstein)"
+      },
+      {
+        "code": "18020216",
+        "nameNative": "Thüringen",
+        "nameEn": "Thuringia (Thüringen)",
+        "name": "图林根 (Thüringen)"
+      }
+    ]
+  },
+  {
+    "code": "180203",
+    "nameNative": "République Française",
+    "nameEn": "France (République Française)",
+    "name": "法国 (République Française)"
+  },
+  {
+    "code": "180204",
+    "nameNative": "Repubblica Italiana",
+    "nameEn": "Italy (Repubblica Italiana)",
+    "name": "意大利 (Repubblica Italiana)"
+  },
+  {
+    "code": "180205",
+    "nameNative": "Grand-Duché de Luxembourg",
+    "nameEn": "Luxembourg (Grand-Duché de Luxembourg)",
+    "name": "卢森堡 (Grand-Duché de Luxembourg)"
+  },
+  {
+    "code": "180208",
+    "nameNative": "Koninkrijk België",
+    "nameEn": "Belgium (Koninkrijk België)",
+    "name": "比利时 (Koninkrijk België)"
+  },
+  {
+    "code": "180211",
+    "nameNative": "Schweizerische Eidgenossenschaft",
+    "nameEn": "Switzerland (Schweizerische Eidgenossenschaft)",
+    "name": "瑞士 (Schweizerische Eidgenossenschaft)"
+  },
+  {
+    "code": "180235",
+    "nameNative": "Российская Федерация",
+    "nameEn": "Russia (Российская Федерация)",
+    "name": "俄罗斯 (Российская Федерация)"
+  },
+  {
+    "code": "180236",
+    "nameNative": "Konungariket Sverige",
+    "nameEn": "Sweden (Konungariket Sverige)",
+    "name": "瑞典 (Konungariket Sverige)"
+  },
+  {
+    "code": "180401",
+    "nameNative": "United States of America",
+    "nameEn": "United States (United States of America)",
+    "name": "美国 (United States of America)",
+    "node": [
+      {
+        "code": "18040101",
+        "nameNative": "Arizona",
+        "nameEn": "Arizona",
+        "name": "亚利桑那州 (Arizona)"
+      },
+      {
+        "code": "18040102",
+        "nameNative": "Colorado",
+        "nameEn": "Colorado",
+        "name": "科罗拉多州 (Colorado)"
+      },
+      {
+        "code": "18040103",
+        "nameNative": "Georgia",
+        "nameEn": "Georgia",
+        "name": "佐治亚州  (Georgia)"
+      },
+      {
+        "code": "18040104",
+        "nameNative": "Delaware",
+        "nameEn": "Delaware",
+        "name": "特拉华州 (Delaware)"
+      },
+      {
+        "code": "18040105",
+        "nameNative": "Florida",
+        "nameEn": "Florida",
+        "name": "佛罗里达州 (Florida)"
+      },
+      {
+        "code": "18040106",
+        "nameNative": "Alaska",
+        "nameEn": "Alaska",
+        "name": "阿拉斯加州 (Alaska)"
+      },
+      {
+        "code": "18040107",
+        "nameNative": "Hawaii ",
+        "nameEn": "Hawaii ",
+        "name": "夏威夷州 (Hawaii )"
+      },
+      {
+        "code": "18040108",
+        "nameNative": "Connecticut",
+        "nameEn": "Connecticut",
+        "name": "康涅狄格州 (Connecticut)"
+      },
+      {
+        "code": "18040109",
+        "nameNative": "District of Columbia ",
+        "nameEn": "District of Columbia ",
+        "name": "哥伦比亚特区 (District of Columbia )"
+      },
+      {
+        "code": "18040110",
+        "nameNative": "California",
+        "nameEn": "California",
+        "name": "加利福尼亚州 (California)"
+      },
+      {
+        "code": "18040111",
+        "nameNative": "Arkansas",
+        "nameEn": "Arkansas",
+        "name": "阿肯色州 (Arkansas)"
+      },
+      {
+        "code": "18040112",
+        "nameNative": "Alabama",
+        "nameEn": "Alabama",
+        "name": "阿拉巴马州 (Alabama)"
+      },
+      {
+        "code": "18040113",
+        "nameNative": "Idaho",
+        "nameEn": "Idaho",
+        "name": "爱达荷州 (Idaho)"
+      },
+      {
+        "code": "18040114",
+        "nameNative": "Mississippi",
+        "nameEn": "Mississippi",
+        "name": "密西西比州 (Mississippi)"
+      },
+      {
+        "code": "18040115",
+        "nameNative": "Iowa",
+        "nameEn": "Iowa",
+        "name": "爱荷华州 (Iowa)"
+      },
+      {
+        "code": "18040116",
+        "nameNative": "Michigan",
+        "nameEn": "Michigan",
+        "name": "密歇根州 (Michigan)"
+      },
+      {
+        "code": "18040117",
+        "nameNative": "Kansas",
+        "nameEn": "Kansas",
+        "name": "堪萨斯州 (Kansas)"
+      },
+      {
+        "code": "18040118",
+        "nameNative": "Minnesota",
+        "nameEn": "Minnesota",
+        "name": "明尼苏达州 (Minnesota)"
+      },
+      {
+        "code": "18040119",
+        "nameNative": "Kentucky",
+        "nameEn": "Kentucky",
+        "name": "肯塔基州 (Kentucky)"
+      },
+      {
+        "code": "18040120",
+        "nameNative": "Illinois",
+        "nameEn": "Illinois",
+        "name": "伊利诺伊州 (Illinois)"
+      },
+      {
+        "code": "18040121",
+        "nameNative": "Massachusetts",
+        "nameEn": "Massachusetts",
+        "name": "马萨诸塞州 (Massachusetts)"
+      },
+      {
+        "code": "18040122",
+        "nameNative": "Indiana",
+        "nameEn": "Indiana",
+        "name": "印第安纳州 (Indiana)"
+      },
+      {
+        "code": "18040123",
+        "nameNative": "Maryland",
+        "nameEn": "Maryland",
+        "name": "马里兰州 (Maryland)"
+      },
+      {
+        "code": "18040124",
+        "nameNative": "Louisiana",
+        "nameEn": "Louisiana",
+        "name": "路易斯安那州 (Louisiana)"
+      },
+      {
+        "code": "18040125",
+        "nameNative": "Maine",
+        "nameEn": "Maine",
+        "name": "缅因州 (Maine)"
+      },
+      {
+        "code": "18040126",
+        "nameNative": "North Dakota",
+        "nameEn": "North Dakota",
+        "name": "北达科他州 (North Dakota)"
+      },
+      {
+        "code": "18040127",
+        "nameNative": "New Jersey",
+        "nameEn": "New Jersey",
+        "name": "新泽西州 (New Jersey)"
+      },
+      {
+        "code": "18040128",
+        "nameNative": "Oklahoma",
+        "nameEn": "Oklahoma",
+        "name": "俄克拉荷马州 (Oklahoma)"
+      },
+      {
+        "code": "18040129",
+        "nameNative": "Nebraska",
+        "nameEn": "Nebraska",
+        "name": "内布拉斯加州 (Nebraska)"
+      },
+      {
+        "code": "18040130",
+        "nameNative": "Oregon",
+        "nameEn": "Oregon",
+        "name": "俄勒冈州 (Oregon)"
+      },
+      {
+        "code": "18040131",
+        "nameNative": "North Carolina",
+        "nameEn": "North Carolina",
+        "name": "北卡罗来纳州 (North Carolina)"
+      },
+      {
+        "code": "18040132",
+        "nameNative": "Montana",
+        "nameEn": "Montana",
+        "name": "蒙大拿州 (Montana)"
+      },
+      {
+        "code": "18040133",
+        "nameNative": "New Hampshire",
+        "nameEn": "New Hampshire",
+        "name": "新罕布什尔州 (New Hampshire)"
+      },
+      {
+        "code": "18040134",
+        "nameNative": "New Mexico",
+        "nameEn": "New Mexico",
+        "name": "新墨西哥州 (New Mexico)"
+      },
+      {
+        "code": "18040135",
+        "nameNative": "Missouri",
+        "nameEn": "Missouri",
+        "name": "密苏里州 (Missouri)"
+      },
+      {
+        "code": "18040136",
+        "nameNative": "New York",
+        "nameEn": "New York",
+        "name": "纽约州 (New York)"
+      },
+      {
+        "code": "18040137",
+        "nameNative": "Ohio",
+        "nameEn": "Ohio",
+        "name": "俄亥俄州 (Ohio)"
+      },
+      {
+        "code": "18040138",
+        "nameNative": "Nevada",
+        "nameEn": "Nevada",
+        "name": "内华达州 (Nevada)"
+      },
+      {
+        "code": "18040139",
+        "nameNative": "Vermont",
+        "nameEn": "Vermont",
+        "name": "佛蒙特州 (Vermont)"
+      },
+      {
+        "code": "18040140",
+        "nameNative": "South Dakota",
+        "nameEn": "South Dakota",
+        "name": "南达科他州 (South Dakota)"
+      },
+      {
+        "code": "18040141",
+        "nameNative": "Wisconsin",
+        "nameEn": "Wisconsin",
+        "name": "威斯康星州 (Wisconsin)"
+      },
+      {
+        "code": "18040142",
+        "nameNative": "Pennsylvania",
+        "nameEn": "Pennsylvania",
+        "name": "宾夕法尼亚 (Pennsylvania)"
+      },
+      {
+        "code": "18040143",
+        "nameNative": "Washington",
+        "nameEn": "Washington",
+        "name": "华盛顿州 (Washington)"
+      },
+      {
+        "code": "18040144",
+        "nameNative": "Wyoming",
+        "nameEn": "Wyoming",
+        "name": "怀俄明州 (Wyoming)"
+      },
+      {
+        "code": "18040145",
+        "nameNative": "Utah",
+        "nameEn": "Utah",
+        "name": "犹他州 (Utah)"
+      },
+      {
+        "code": "18040146",
+        "nameNative": "Virginia",
+        "nameEn": "Virginia",
+        "name": "弗吉尼亚州 (Virginia)"
+      },
+      {
+        "code": "18040147",
+        "nameNative": "Rhode Island",
+        "nameEn": "Rhode Island",
+        "name": "罗德岛州 (Rhode Island)"
+      },
+      {
+        "code": "18040148",
+        "nameNative": "Tennessee",
+        "nameEn": "Tennessee",
+        "name": "田纳西州 (Tennessee)"
+      },
+      {
+        "code": "18040149",
+        "nameNative": "West Virginia",
+        "nameEn": "West Virginia",
+        "name": "西弗吉尼亚州 (West Virginia)"
+      },
+      {
+        "code": "18040150",
+        "nameNative": "South Carolina",
+        "nameEn": "South Carolina",
+        "name": "南卡罗来纳州 (South Carolina)"
+      },
+      {
+        "code": "18040151",
+        "nameNative": "Texas",
+        "nameEn": "Texas",
+        "name": "德克萨斯州 (Texas)"
+      },
+      {
+        "code": "18040152",
+        "nameNative": "U.S. Virgin Islands ",
+        "nameEn": "U.S. Virgin Islands ",
+        "name": "美属维尔京群岛 (U.S. Virgin Islands )"
+      },
+      {
+        "code": "18040153",
+        "nameNative": "Puerto Rico",
+        "nameEn": "Puerto Rico",
+        "name": "波多黎各 (Puerto Rico)"
+      },
+      {
+        "code": "18040154",
+        "nameNative": "American Samoa",
+        "nameEn": "American Samoa",
+        "name": "美属萨摩亚  (American Samoa)"
+      },
+      {
+        "code": "18040155",
+        "nameNative": "Guam",
+        "nameEn": "Guam",
+        "name": "关岛 (Guam)"
+      },
+      {
+        "code": "18040156",
+        "nameNative": "Northern Mariana Islands ",
+        "nameEn": "Northern Mariana Islands ",
+        "name": "北马里亚纳群岛 (Northern Mariana Islands )"
+      }
+    ]
+  },
+  {
+    "code": "180402",
+    "nameNative": "Canada",
+    "nameEn": "Canada",
+    "name": "加拿大 (Canada)"
+  },
+  {
+    "code": "180601",
+    "nameNative": "Australia",
+    "nameEn": "Australia",
+    "name": "澳大利亚 (Australia)"
+  },
+  {
+    "code": "180602",
+    "nameNative": "New Zealand",
+    "nameEn": "New Zealand",
+    "name": "新西兰 (New Zealand)",
+    "node": [
+      {
+        "code": "18060201",
+        "nameNative": "Cook Islands",
+        "nameEn": "Cook Islands",
+        "name": "库克群岛 (Cook Islands)"
+      },
+      {
+        "code": "18060202",
+        "nameNative": "Niue",
+        "nameEn": "Niue",
+        "name": "纽埃 (Niue)"
+      },
+      {
+        "code": "18060203",
+        "nameNative": "Tokelau",
+        "nameEn": "Tokelau",
+        "name": "托克劳 (Tokelau)"
+      },
+      {
+        "code": "18060204",
+        "nameNative": "Ross Dependency",
+        "nameEn": "Ross Dependency",
+        "name": "南极罗斯属地 (Ross Dependency)"
+      },
+      {
+        "code": "18060205",
+        "nameNative": "New Zealand Regions",
+        "nameEn": "New Zealand Regions",
+        "name": "新西兰区 (New Zealand Regions)"
+      }
+    ]
+  }
+]

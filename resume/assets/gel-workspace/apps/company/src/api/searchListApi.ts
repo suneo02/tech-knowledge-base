@@ -130,14 +130,6 @@ export const getGroupHotView = (data) => {
   })
 }
 
-export const getJobList = (data) => {
-  return axios.request({
-    method: 'post',
-    data,
-    cmd: 'getrecruitmentsearch',
-  })
-}
-
 export const getJobView = (data) => {
   return axios.request({
     method: 'post',

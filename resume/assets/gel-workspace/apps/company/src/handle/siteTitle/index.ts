@@ -1,13 +1,8 @@
-import { intl } from 'gel-util/intl'
-import { generatePageTitle as generatePageTitleUtil, PageLocation } from 'gel-util/misc'
+import { useIntl } from 'gel-ui'
+import { t } from 'gel-util/intl'
+import { generatePageTitle, PageLocation } from 'gel-util/misc'
 import { useEffect, useMemo } from 'react'
-
-export const SITE_TITLE_DEFAULT = intl('406815', 'Wind全球企业库')
-/**
- * 函数生成标题：替换模板中的占位符
- * @deprecated 使用 gel-util/misc 中的 generatePageTitle 代替
- */
-export const generatePageTitle = generatePageTitleUtil
+export { generatePageTitle }
 
 /**
  * function for class component to set the document title dynamically on page load.
@@ -15,7 +10,7 @@ export const generatePageTitle = generatePageTitleUtil
  * @param params
  */
 export function setPageTitle(location: PageLocation, params?: string[] | string): void {
-  const title = generatePageTitle(location, params)
+  const title = generatePageTitle(t, location, params)
   document.title = title
 }
 
@@ -25,9 +20,10 @@ export function setPageTitle(location: PageLocation, params?: string[] | string)
  * @param params - Optional parameters for the title template.
  */
 export function usePageTitle(location: PageLocation, params?: string[] | string): void {
+  const t = useIntl()
   const title = useMemo(() => {
     // Generate the title based on the location and parameters
-    return generatePageTitle(location, params)
+    return generatePageTitle(t, location, params)
   }, [location, params])
 
   useEffect(() => {

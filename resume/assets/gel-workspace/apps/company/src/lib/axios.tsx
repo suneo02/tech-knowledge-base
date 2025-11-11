@@ -1,10 +1,11 @@
 import { eaglesError } from '@/api/eagles'
 import { ApiResponse } from '@/api/types.ts'
 import { getWsid, isTestSite } from '@/utils/env'
-import { isDevDebugger, isTerminalAppPath, usedInClient } from '@/utils/env/misc'
+import { getApiPrefix, isDevDebugger, isTerminalAppPath, usedInClient } from '@/utils/env/misc'
 import { localStorageManager } from '@/utils/storage'
 import { Button, message, Modal, notification } from 'antd'
 import axios from 'axios'
+import { isEn } from 'gel-util/intl'
 import qs from 'qs'
 import React from 'react'
 import store from '../store/store'
@@ -61,7 +62,6 @@ class HttpRequest {
         !is_terminal && wsid
           ? {
               headers: {
-                // @ts-expect-error ttt
                 languageSet: store.getState().global.language === 'en' ? 'en_US' : 'zh_CN',
                 'wind.sessionid': wsid,
                 'client-type': 'web',
@@ -69,7 +69,6 @@ class HttpRequest {
             }
           : {
               headers: {
-                // @ts-expect-error ttt
                 languageSet: store.getState().global.language === 'en' ? 'en_US' : 'zh_CN',
                 'client-type': 'web',
               },
@@ -335,6 +334,8 @@ class HttpRequest {
             notification.destroy()
             this.limitContainer.style.display = 'none'
           }}
+          data-uc-id="GLVQoZXVI"
+          data-uc-ct="button"
         >
           {intl(257645)}
         </Button>
@@ -374,6 +375,8 @@ class HttpRequest {
             notification.destroy()
             this.limitContainer.style.display = 'none'
           }}
+          data-uc-id="nkE5K-azcT"
+          data-uc-ct="button"
         >
           {intl(257645)}
         </Button>
@@ -478,7 +481,7 @@ class HttpRequest {
    * @param {Boolean} [options.riskNew=false] - 是否使用新的风控数据。
    *  @returns {Promise<ResponseType>} 返回一个 Promise 对象，用于处理请求的结果。
    */
-  request(options): Promise<ApiResponse> {
+  request<T = any>(options): Promise<ApiResponse<T>> {
     options.url = options.url || ''
     options.noWarning = options.data?.noWarning || false // fuse等超限提示
     options.noForbiddenWarning = options.data?.noForbiddenWarning || false // 无权使用提示
@@ -521,7 +524,7 @@ class HttpRequest {
       options.url = window.location.protocol + '//' + window.location.host + options.url
     }
 
-    if (window.en_access_config) {
+    if (isEn()) {
       if (options.url.indexOf('?') > -1) {
         options.url = options.url + '&lang=en&gelmodule=gelpc'
       } else {
@@ -535,7 +538,9 @@ class HttpRequest {
       }
     }
     // options.url = options.url.indexOf('http') > -1 ? options.url : 'https://180.96.8.44' + options.url;
-    const instance = axios.create()
+    const instance = axios.create({
+      baseURL: getApiPrefix(),
+    })
     // 合并为一个对象、如果有相同的key、则覆盖
     options = Object.assign(this.getInsideConfig(options.url, options), options)
     this.interceptors(instance, options.url, options)
@@ -567,10 +572,8 @@ class HttpRequest {
     const host = window.location.host
     const isTestEnvironment = isTestSite()
     // 终端内使用、终端应用内使用、开发环境使用 的域名要做手动处理，其余情况使用当前域名
-    const baseUrl =
-      usedInClient() || isTerminalAppPath() || isDevDebugger()
-        ? `https://${isTestEnvironment ? 'test' : 'gel'}.wind.com.cn`
-        : `https://${host}`
+    // 后端已支持在终端内直接使用当前域名访问到 wind.ent.web 服务
+    const baseUrl = `https://${host}`
     const url = `${baseUrl}/wind.ent.web/${cmd}`
     const options = {
       url,

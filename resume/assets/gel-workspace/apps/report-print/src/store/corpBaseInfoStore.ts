@@ -1,6 +1,6 @@
 import { corpInfoApiExecutor } from '@/api/services/corp/baseInfo'
-import { ApiResponseForWFC } from '@/api/types/response'
 import { CorpBasicInfo } from 'gel-types'
+import { ApiResponseForWFC } from 'report-util/types'
 import { ApiStore, createApiStore } from './creator/apiStore'
 
 // Corp base info event name

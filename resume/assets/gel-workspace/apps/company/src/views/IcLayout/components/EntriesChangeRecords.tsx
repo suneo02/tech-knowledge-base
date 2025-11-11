@@ -96,6 +96,8 @@ const IcLayoutEntriesChangeRecords: React.FC<{
       pagination={false}
       bordered="vertical-horizontal"
       striped={false}
+      data-uc-id="snX_HGg5aef"
+      data-uc-ct="mergedtable"
     />
   )
 }

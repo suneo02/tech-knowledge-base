@@ -16,6 +16,8 @@ export const RimeIcon: FC<{
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      data-uc-id="bvx9y0Q6N3"
+      data-uc-ct="svg"
     >
       <title>RD LOGO</title>
       <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

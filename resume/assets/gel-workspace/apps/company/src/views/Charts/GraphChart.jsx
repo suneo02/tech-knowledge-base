@@ -1459,14 +1459,16 @@ function GraphChartComp({
                     setMoreFilter(checked)
                     getMapData(checked ? 3 : 1)
                   }}
+                  data-uc-id="25aG_VMJvQ"
+                  data-uc-ct="checkbox"
                 >
                   <span>{window.en_access_config ? 'More' : '探索更多路径'}</span>
                 </Checkbox>
               </div>
             ) : null}
             <div className="chart-graph-icons">
-              <SaveO onClick={saveAction} />
-              <RefreshO onClick={refreshAction} />
+              <SaveO onClick={saveAction} data-uc-id="iM53NVxiPh" data-uc-ct="saveo" />
+              <RefreshO onClick={refreshAction} data-uc-id="Nd8zuEIoL" data-uc-ct="refresho" />
             </div>
           </div>
         )

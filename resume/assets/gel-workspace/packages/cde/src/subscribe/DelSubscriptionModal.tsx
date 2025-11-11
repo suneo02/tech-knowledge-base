@@ -17,7 +17,6 @@ export const DeleteSubscriptionModal: FC<DeleteSubscriptionModalProps> = ({
   confirmLoading,
 }) => {
   return (
-    // @ts-expect-error wind ui
     <Modal
       title={intl(272478, '温馨提示')}
       visible={open}

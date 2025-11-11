@@ -17,3 +17,12 @@ export interface RPLinkParams {
     setting?: string
   } & CommonLinkParams
 }
+
+export interface AIReportLinkParams {
+  [LinkModule.AI_REPORT_OUTLINE_CHAT]: {
+    chatId: string
+  }
+  [LinkModule.AI_REPORT_DETAIL]: {
+    reportId: string
+  }
+}

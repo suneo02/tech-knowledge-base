@@ -4,6 +4,7 @@ import { useRequest } from 'ahooks'
 import { AxiosInstance } from 'axios'
 import { ApiResponseForWFC } from 'gel-api'
 import { CorpBasicNumFront, ReportDetailTableJson, TCorpDetailNodeKey } from 'gel-types'
+import { useIntl } from 'gel-ui'
 import { useEffect, useMemo, useState } from 'react'
 import { checkNodeApiSendable, parseTableApiResponse } from 'report-util/misc'
 import { getUrlParamCorpCode } from 'report-util/url'
@@ -29,11 +30,12 @@ export const useConfigTableData = ({
   axiosInstance,
   getWsid,
 }: UseConfigTableDataParams) => {
+  const t = useIntl()
   const [hasFetched, setHasFetched] = useState(false)
   const [untranslatedData, setUntranslatedData] = useState<any>()
 
   const tableProps = useMemo(() => {
-    return parseConfigTableConfig(config, getWsid)
+    return parseConfigTableConfig(t, config, getWsid)
   }, [config, getWsid])
 
   const handleApiResponse = (response: ApiResponseForWFC<any>) => {

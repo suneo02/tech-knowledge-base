@@ -45,7 +45,10 @@ export const buildAddDataToTableCondition = (
       filters: filtersValid,
       measures: measuresOverall,
     },
-    order: null,
+    order: {
+      orderBy: 'count.domain_num',
+      orderType: 0,
+    },
     largeSearch: false,
     fromTemplate: false,
   }

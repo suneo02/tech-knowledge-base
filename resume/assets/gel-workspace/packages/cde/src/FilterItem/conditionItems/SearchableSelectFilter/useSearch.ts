@@ -84,7 +84,7 @@ export const useSearch = (
       } else {
         const res = await getCorpListPresearch?.(value)
         console.log('🚀 ~ res:', res)
-        if (res) {
+        if (res && res.Data) {
           setOptions(
             res.Data.map((t) => ({
               label: t.objectName,

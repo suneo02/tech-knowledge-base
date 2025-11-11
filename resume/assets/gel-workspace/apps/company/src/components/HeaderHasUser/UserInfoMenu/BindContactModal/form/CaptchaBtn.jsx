@@ -46,10 +46,16 @@ export const CaptchaBtn = () => {
 
   return (
     <>
-      <Button onClick={onClick} loading={loading} disabled={buttonDisabled}>
+      <Button onClick={onClick} loading={loading} disabled={buttonDisabled} data-uc-id="vS0xFSL97" data-uc-ct="button">
         {content}
       </Button>
-      <CaptchaComp open={captchaOpen} onSuccess={onCaptchaSunccess} onClose={onCloseCaptcha} />
+      <CaptchaComp
+        open={captchaOpen}
+        onSuccess={onCaptchaSunccess}
+        onClose={onCloseCaptcha}
+        data-uc-id="Y90ih58l5D"
+        data-uc-ct="captchacomp"
+      />
     </>
   )
 }

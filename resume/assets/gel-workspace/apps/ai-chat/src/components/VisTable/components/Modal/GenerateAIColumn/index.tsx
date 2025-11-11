@@ -1,10 +1,11 @@
-import { AIIcon } from '@/assets/icon'
 import { RouteModal } from '@/components/common/RouteModal'
 import { AiModelEnum } from 'gel-api'
 import { RunTypeEnum } from '../../SmartFillModal/config/formConfig'
 import { GenerateAIColumnHome } from './Home'
 import { TemplateDetail } from './TemplateDetail'
 import { TemplateList } from './TemplateList'
+import { AIBox } from 'gel-ui'
+import { t } from 'gel-util/intl'
 
 interface ModalRoutesProps {
   columns: {
@@ -14,6 +15,10 @@ interface ModalRoutesProps {
   }[]
   mentionsOptions: { value: string; label: string; field: string }[]
   onClose: () => void
+}
+
+const STRINGS = {
+  MODAL_TITLE: t('464190', '生成列'),
 }
 const getModalRoutes = ({ columns, mentionsOptions, onClose }: ModalRoutesProps) => [
   {
@@ -32,8 +37,8 @@ const getModalRoutes = ({ columns, mentionsOptions, onClose }: ModalRoutesProps)
 
 const modalInternalTitle = (
   <div style={{ display: 'flex', alignItems: 'center' }}>
-    <AIIcon style={{ width: 20, height: 20 }} />
-    生成列
+    <AIBox size="small" />
+    <span>AI{STRINGS.MODAL_TITLE}</span>
   </div>
 )
 
@@ -67,7 +72,7 @@ const GenerateAIColumn = ({
   open,
   onCancel,
   onOk,
-  width = 1000,
+  // width = 1000,
   mentionsOptions,
   columns,
   initParams,
@@ -84,7 +89,7 @@ const GenerateAIColumn = ({
       initialRoutePath="/generate-ai-column/home"
       routes={getModalRoutes({ mentionsOptions, columns, onClose: handleClose })}
       modalTitle={modalInternalTitle}
-      style={width ? { minWidth: width } : undefined}
+      // style={width ? { minWidth: width, padding: 0 } : { padding: 0 }}
       contentStyle={{
         height: 600,
       }}

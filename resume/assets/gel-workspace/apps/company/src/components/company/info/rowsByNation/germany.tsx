@@ -64,7 +64,7 @@ export const germanyRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       },
     },
     {
-      title: CorpInfoHeaderComp(intl('259200', '公司地址'), 'Anschrift'),
+      title: CorpInfoHeaderComp(intl('438015', '公司地址'), 'Anschrift'),
       colSpan: 2,
       dataIndex: 'reg_address',
     },

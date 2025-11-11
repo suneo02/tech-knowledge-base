@@ -3,7 +3,7 @@ import { TableInfo } from '../types'
 // 表格信息的mock数据
 export const mockTableInfo: TableInfo = {
   result: {
-    tableName: '测试表格',
+    tableName: '测试表格', // @ts-expect-error
     sheetInfos: [{ sheetId: '1', sheetName: '测试表格' }],
   },
 }

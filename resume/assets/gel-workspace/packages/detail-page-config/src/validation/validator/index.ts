@@ -1,11 +1,11 @@
-import { ReportDetailNodeJson, ReportDetailTableJson } from 'gel-types'
+import { ReportDetailNodeOrNodesJson, ReportDetailTableJson } from 'gel-types'
 import { validateReportCrossTable } from './CrossTable'
 import { validateReportDetailCustomNodeJson } from './CustomNode'
 import { validateReportHorizontalTable } from './HorizontalTable'
 import { validateReportDetailNodeWithChildrenJson } from './NodeWithChildren'
 import { validateReportVerticalTable } from './VerticalTable'
 
-export const validateReportDetailNodeJson = (instance: any): ReportDetailNodeJson => {
+export const validateReportDetailNodeOrNodesJson = (instance: any): ReportDetailNodeOrNodesJson => {
   switch (instance.type) {
     case 'nodeWithChildren':
       return validateReportDetailNodeWithChildrenJson(instance)

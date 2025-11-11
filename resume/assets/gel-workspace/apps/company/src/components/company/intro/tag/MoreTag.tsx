@@ -1,21 +1,20 @@
 import intl from '@/utils/intl'
-import React, { FC, ReactNode } from 'react'
+import React, { FC } from 'react'
 import './styles/moreTag.less'
 
 import { ModalSafeType } from '@/components/modal/ModalSafeType.tsx'
-import { wftCommon } from '@/utils/utils.tsx'
-import { TagsModule } from 'gel-ui'
-import { CompanyCommonTagWithJump } from './index.tsx'
-import { IndustryTag } from './IndustryTag.tsx'
-import { CompanyTagArr } from './TagArr.tsx'
+import { CorpTag } from 'gel-api/*'
+import { CorpTagInDetail } from 'gel-ui'
+import { splitTags2MapByModule } from 'gel-util/biz'
+import { CorpTagTrans } from './type'
 
 const StylePrefix = 'company-more-tags-modal'
 
 const TagGroup: React.FC<{
   title: string // 模块标题
-  tagList: any[] // 标签数组
-  tagComp: ReactNode
-}> = ({ title, tagList, tagComp }) => {
+  tagList: CorpTagTrans[] // 标签数组
+  onTagClick: (corpTag: CorpTag) => void
+}> = ({ title, tagList, onTagClick }) => {
   if (!tagList || !tagList.length) return null
 
   return (
@@ -23,7 +22,16 @@ const TagGroup: React.FC<{
       <div className={`${StylePrefix}--title`}>
         {title}({tagList.length})
       </div>
-      <div className={`${StylePrefix}--tags`}>{tagComp}</div>
+      <div className={`${StylePrefix}--tags`}>
+        {tagList.map((tag) => (
+          <CorpTagInDetail
+            key={tag.id}
+            corpTag={tag}
+            tagNameOriginal={tag.nameOriginal}
+            onClick={onTagClick}
+          />
+        ))}
+      </div>
     </div>
   )
 }
@@ -31,22 +39,10 @@ const TagGroup: React.FC<{
 export const CompanyMoreTagsModal: FC<{
   open: boolean
   setOpen: (open: boolean) => void
-  companyTags: any
-  featureCompanyTagStrList: any
-  riskTags: any
-  corpTagStrList: any
-  industryTags: [{ title: string; id: string; confidence: number }]
-}> = ({ open, setOpen, companyTags, featureCompanyTagStrList, riskTags, corpTagStrList, industryTags }) => {
-  const productWords =
-    companyTags?.productWords?.map((item) => {
-      return (
-        <CompanyCommonTagWithJump
-          key={`more-tags-${item}`}
-          itemDestruct={{ content: item, type: '产品' }}
-          module={TagsModule.COMPANY_PRODUCT}
-        />
-      )
-    }) ?? []
+  tags: CorpTagTrans[]
+  onTagClick: (corpTag: CorpTag) => void
+}> = ({ open, setOpen, tags, onTagClick }) => {
+  const corpTagMap = splitTags2MapByModule(tags)
 
   const footer = (
     <div className={`${StylePrefix}--footer`}>
@@ -54,37 +50,26 @@ export const CompanyMoreTagsModal: FC<{
     </div>
   )
 
-  if (window.en_access_config) {
-    setTimeout(() => {
-      wftCommon.translateDivHtml(`.${StylePrefix}`, window.$(`.${StylePrefix}`))
-    }, 300)
-  }
-
   const tagConfigs = [
     {
       title: intl('272172', '企业标签'),
-      tagList: corpTagStrList,
-      tagComp: <CompanyTagArr tagArr={corpTagStrList} />,
+      tagList: corpTagMap.CORP,
     },
     {
       title: intl('449235', '所属行业/产业'),
-      tagList: industryTags,
-      tagComp: <IndustryTag tags={industryTags} />,
+      tagList: corpTagMap.INDUSTRY,
     },
     {
       title: intl('', '企业入选名录'),
-      tagList: featureCompanyTagStrList,
-      tagComp: <CompanyTagArr tagArr={featureCompanyTagStrList} />,
+      tagList: corpTagMap.LIST,
     },
     {
       title: intl('342113', '风险标签'),
-      tagList: riskTags,
-      tagComp: riskTags,
+      tagList: corpTagMap.RISK,
     },
     {
       title: intl('325333', '企业产品'),
-      tagList: productWords,
-      tagComp: productWords,
+      tagList: corpTagMap.PRODUCTION,
     },
   ]
 
@@ -96,10 +81,12 @@ export const CompanyMoreTagsModal: FC<{
       onCancel={() => setOpen(false)}
       width={560}
       footer={footer}
+      data-uc-id="Ihf5LKuoBNk"
+      data-uc-ct="modalsafetype"
     >
       <div className={`${StylePrefix}--body`}>
         {tagConfigs.map((config, index) => (
-          <TagGroup key={index} {...config} />
+          <TagGroup key={index} {...config} onTagClick={onTagClick} />
         ))}
       </div>
     </ModalSafeType>

@@ -1,8 +1,8 @@
 import * as envUtils from '@/utils/env'
+import { GELService } from 'gel-util/link'
 import {
   GEL_WEB,
   GEL_WEB_TEST,
-  GELService,
   getGeneralPrefixUrl,
   getPrefixUrl,
   PC_Front,

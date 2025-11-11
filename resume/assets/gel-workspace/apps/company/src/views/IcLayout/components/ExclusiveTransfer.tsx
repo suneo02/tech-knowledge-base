@@ -96,6 +96,8 @@ const IcLayoutExclusiveTransfer: React.FC<{
       pagination={false}
       bordered="vertical-horizontal"
       striped={false}
+      data-uc-id="Yy8WXLT41Fi"
+      data-uc-ct="mergedtable"
     />
   )
 }

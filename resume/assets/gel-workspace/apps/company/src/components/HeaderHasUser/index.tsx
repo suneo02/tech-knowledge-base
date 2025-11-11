@@ -1,23 +1,28 @@
 import { Col, Menu, Row, Tooltip } from '@wind/wind-ui'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { getVipInfo } from '../../lib/utils'
 import intl from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import '../Header.less'
-import MySearch from '../Search'
 import { UserInfoDropdown } from './UserInfoMenu/dropdown'
 
 import * as HomeActions from '@/actions/home'
 import { getHeaderAllFuncMenus } from '@/components/Home/AllMenus/HeaderDropdown.ts'
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
+import { EIsSeparate } from 'gel-util/link'
 import store from '@/store/store'
 import { isEn, switchLocaleInWeb } from 'gel-util/intl'
 import { pointBuriedByModule } from '../../api/pointBuried/bury'
 import { IFuncMenuItem } from '../Home/AllMenus/type'
 import { MenuSafe } from '../windUISafe'
-import { HeaderHasUserActionModal } from './ActionModal'
+import TopSearch from './TopSearch'
+import { getSearchCompanyItem } from '@/components/Home/AllMenus/config/ComprehensiveSearch'
+import { pointClickCompanyTab } from '@/lib/pointBuriedGel'
+
+// 懒加载 HeaderHasUserActionModal 组件
+const HeaderHasUserActionModal = React.lazy(() => import('./ActionModal'))
 
 interface HeaderHasUserProps extends RouteComponentProps {
   home?: {
@@ -114,6 +119,8 @@ class HeaderHasUser extends React.Component<HeaderHasUserProps, HeaderHasUserSta
     }
 
     const allMenus = getHeaderAllFuncMenus()
+    console.log('🚀 ~ HeaderHasUser ~ render ~ allMenus:', allMenus)
+    const searchCompany = getSearchCompanyItem()
 
     const isDevDebugger = wftCommon.isDevDebugger()
     const usedInClient = wftCommon.usedInClient()
@@ -128,24 +135,27 @@ class HeaderHasUser extends React.Component<HeaderHasUserProps, HeaderHasUserSta
               if (wftCommon.isDevDebugger()) {
                 return window.open('index.html#/searchHome')
               }
-              this.redirectUrl({ url: 'SearchHome.html' })
+              window.open(getUrlByLinkModule(LinksModule.HOME, { isSeparate: EIsSeparate.True }))
             }}
+            data-uc-id="fHO2zhnBS8"
+            data-uc-ct="a"
           >
             <div className="logo"></div>
           </a>
-
-          <MySearch hidden={this.props.nosearch} />
+          <TopSearch hidden={this.props.nosearch} />
 
           <div className="userinfo">
             <MenuSafe mode="horizontal" className="toolbar-menu">
-              <Menu.Item key="271837">
+              <Menu.Item key="271837" data-uc-id="fel_4hIK9A" data-uc-ct="menu">
                 <a
                   onClick={() => {
                     if (wftCommon.isDevDebugger()) {
                       return window.open('#/findCustomer')
                     }
-                    this.redirectUrl({ url: 'AdvancedSearch04.html' })
+                    window.open(getUrlByLinkModule(LinksModule.DATA_BROWSER))
                   }}
+                  data-uc-id="ZiVbrSPNFj"
+                  data-uc-ct="a"
                 >
                   {intl('259750', '企业数据浏览器')}
                 </a>
@@ -160,53 +170,67 @@ class HeaderHasUser extends React.Component<HeaderHasUserProps, HeaderHasUserSta
                 onMouseLeave={() => {
                   this.setState({ menuShow: false })
                 }}
+                data-uc-id="Xqinns1J1V"
+                data-uc-ct="menu"
               >
                 <a>{intl(437311, '全部功能')}</a>
               </Menu.Item>
 
-              {wftCommon.is_overseas_config || window.en_access_config || (!isDevDebugger && !usedInClient) ? null : (
-                <Menu.Item key="259758">
+              {wftCommon.is_overseas_config || (!isDevDebugger && !usedInClient) ? null : (
+                <Menu.Item key="259758" data-uc-id="flAjEubNEK" data-uc-ct="menu">
                   <a
                     onClick={() => {
                       const url = `//wx.wind.com.cn/wind.ent.openapi/index.html`
                       window.open(url)
                     }}
+                    data-uc-id="9ABMicMUdWG"
+                    data-uc-ct="a"
                   >
-                    {intl(259758, '数据API')}
+                    {window.en_access_config ? intl('', 'EAPI') : intl('', '数据API')}
                   </a>
                 </Menu.Item>
               )}
 
               {window.en_access_config || !usedInClient ? null : (
-                <Menu.Item key="|" className="toolbar-menu-line">
-                  <a onClick={() => {}}>{' | '}</a>
+                <Menu.Item key="|" className="toolbar-menu-line" data-uc-id="vmhI_H9U4k" data-uc-ct="menu">
+                  <a onClick={() => {}} data-uc-id="PUkpQ9Z836H" data-uc-ct="a">
+                    {' | '}
+                  </a>
                 </Menu.Item>
               )}
               {/*  vip */}
-              <Menu.Item key="222403">
+              <Menu.Item key="222403" data-uc-id="jFy3BhOlRX" data-uc-ct="menu">
                 <a
                   onClick={() => {
                     // 终端中 或者 海外版 都走 react 页面
                     window.open(getUrlByLinkModule(LinksModule.VIP))
                   }}
+                  data-uc-id="sMhm6EvGcWM"
+                  data-uc-ct="a"
                 >
                   {wftCommon.is_overseas_config ? intl('245502', '权限说明') : intl(222403, 'VIP服务')}
                 </a>
               </Menu.Item>
-              <Menu.Item key="210156">
+              <Menu.Item key="210156" data-uc-id="ZuhpopNq2Z" data-uc-ct="menu">
                 <UserInfoDropdown
                   accountCss={accountCss}
                   openUpdateContactModal={() => this.setActionModal('updateContact')}
+                  data-uc-id="E7AZAndlYVn"
+                  data-uc-ct="userinfodropdown"
                 />
               </Menu.Item>
             </MenuSafe>
           </div>
-          {usedInClient || isSeparate || lanxin_terminal ? null : (
-            <div className="tool-switch-lan" onClick={switchLocaleInWeb}>
+          {usedInClient || lanxin_terminal ? null : (
+            <div
+              className={isSeparate ? 'tool-switch-lan tool-switch-lan-separated' : 'tool-switch-lan'}
+              onClick={switchLocaleInWeb}
+              data-uc-id="a34J02VIX4E"
+              data-uc-ct="div"
+            >
               {isEn() ? '中文' : 'English'}
             </div>
           )}
-
           <Row
             className={!this.state.menuShow ? 'tool-top-home tool-top-home-hide' : 'tool-top-home'}
             // @ts-expect-error ttt
@@ -222,14 +246,7 @@ class HeaderHasUser extends React.Component<HeaderHasUserProps, HeaderHasUserSta
                 {allMenus.map((menuGroup, theid) => {
                   return (
                     <Col span={4} className="toolbar-list-ul" key={theid}>
-                      <span
-                        className="toobar-second-title second-t1"
-                        onDoubleClick={() =>
-                          window.open(
-                            `${window.location.host}/#/bgroup?companycode=${new URLSearchParams(window.location.search).get('companycode')}`
-                          )
-                        }
-                      >
+                      <span className="toobar-second-title second-t1" data-uc-id="ZpTsFkOBdu8" data-uc-ct="span">
                         <i>{intl(menuGroup.id, menuGroup.zh)}</i>
                       </span>
                       <div className="uitlFunc">
@@ -240,18 +257,27 @@ class HeaderHasUser extends React.Component<HeaderHasUserProps, HeaderHasUserSta
                                 {menuItem.icon ? (
                                   <span className={`icon ${menuItem.icon}`} style={{ marginInlineEnd: 6 }}></span>
                                 ) : null}
+                                {menuItem.iconComponent ? (
+                                  <span style={{ marginInlineEnd: 6 }}>{menuItem.iconComponent}</span>
+                                ) : null}
                                 <Tooltip>
                                   <span
                                     className="show-item-span"
                                     data-url={menuItem.url}
                                     onClick={() => {
                                       pointBuriedByModule(922602101029)
+                                      if (menuItem?.css === searchCompany?.css) {
+                                        // 查企业的点击单独添加额外埋点
+                                        pointClickCompanyTab('菜单Click')
+                                      }
                                       if (menuItem.navigate) {
                                         menuItem.navigate(menuItem)
                                       } else {
                                         this.redirectUrl(menuItem)
                                       }
                                     }}
+                                    data-uc-id="DsiRTgH28Gk"
+                                    data-uc-ct="span"
                                   >
                                     {intl(menuItem.id, menuItem.zh)}
                                   </span>
@@ -275,7 +301,16 @@ class HeaderHasUser extends React.Component<HeaderHasUserProps, HeaderHasUserSta
             </div>
           </Row>
         </div>
-        <HeaderHasUserActionModal setActionModal={this.setActionModal} modalType={actionModal} />
+        {actionModal && (
+          <Suspense fallback={<></>}>
+            <HeaderHasUserActionModal
+              setActionModal={this.setActionModal}
+              modalType={actionModal}
+              data-uc-id="ItDkGkQEOio"
+              data-uc-ct="headerhasuseractionmodal"
+            />
+          </Suspense>
+        )}
       </div>
     )
   }

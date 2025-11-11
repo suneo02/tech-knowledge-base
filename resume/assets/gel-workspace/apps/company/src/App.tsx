@@ -5,11 +5,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { renderRoutes } from 'react-router-config'
 import { HashRouter as Router } from 'react-router-dom'
-// 样式懒加载
+// 样式懒加载 (注释后会有影响，目前看主搜索页的国家地区筛选会异常)
 import '@wind/wind-ui/dist/wind-ui.min.css'
 import 'ai-ui/dist/index.css'
 import 'gel-ui/dist/index.css'
 
+import { DebugPanel } from 'gel-ui'
 import { removeAllDeprecatedStorage } from 'gel-util/storage'
 import * as globalActions from './actions/global'
 import { eaglesError } from './api/eagles'
@@ -27,9 +28,11 @@ import './index.less'
 import global from './lib/global'
 import store from './store/store'
 import './styles/helper/index.less'
+import { isDev, isStaging } from './utils/env'
 import intl, { getLang } from './utils/intl'
 import { localStorageManager, localStorageSafeSet, sessionStorageManager } from './utils/storage'
 import { wftCommon } from './utils/utils'
+import { message } from 'antd'
 
 const changeLanguage = (lang) => {
   if (lang === 'zh') {
@@ -128,6 +131,9 @@ class App extends React.Component {
       )
     } else {
       // 非终端内，需要接入lanxin sdk
+      if (isDev || isStaging) {
+        return
+      }
       wftCommon.importExternalScript('./lanxinsdk.js').then(() => {
         console.warn('import lanxin success')
         const is_lanxin_terminal = localStorageManager.get('lanxin_terminal')
@@ -160,6 +166,79 @@ class App extends React.Component {
 
   componentDidMount = () => {
     removeAllDeprecatedStorage()
+
+    // 全局颜色点击复制：匹配 hex 或 rgba，并提示成功
+    const isColorString = (text: string): boolean => {
+      if (!text) return false
+      const t = text.trim()
+      const hex = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/
+      const rgba = /^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(?:0|1|0?\.\d+))?\s*\)$/
+      return hex.test(t) || rgba.test(t)
+    }
+
+    const tryGetColorFromTarget = (target: HTMLElement): string | null => {
+      if (!target) return null
+      // 1) data 属性优先
+      const dataVal = target.getAttribute('data-copy-color')
+      if (dataVal && isColorString(dataVal)) return dataVal.trim()
+
+      // 2) 文本内容
+      const text = target.textContent || ''
+      const t = text.trim()
+      if (isColorString(t)) return t
+
+      // 3) title 或 aria-label
+      const title = target.getAttribute('title') || target.getAttribute('aria-label') || ''
+      if (isColorString(title)) return title.trim()
+
+      return null
+    }
+
+    const onGlobalClick = (e: MouseEvent) => {
+      const path = (e.composedPath && e.composedPath()) || []
+      // 从事件路径依次尝试提取颜色
+      for (const el of path as unknown as HTMLElement[]) {
+        if (!el || !(el as HTMLElement).getAttribute) continue
+        const color = tryGetColorFromTarget(el as HTMLElement)
+        if (color) {
+          // 使用 copy-to-clipboard 兼容方案
+          try {
+            // 优先使用 Clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard
+                .writeText(color)
+                .then(() => {
+                  message.success('已复制颜色：' + color)
+                })
+                .catch(() => {
+                  const input = document.createElement('input')
+                  input.value = color
+                  document.body.appendChild(input)
+                  input.select()
+                  document.execCommand('copy')
+                  document.body.removeChild(input)
+                  message.success('已复制颜色：' + color)
+                })
+            } else {
+              const input = document.createElement('input')
+              input.value = color
+              document.body.appendChild(input)
+              input.select()
+              document.execCommand('copy')
+              document.body.removeChild(input)
+              message.success('已复制颜色：' + color)
+            }
+          } catch (err) {
+            // 忽略失败，无提示
+          }
+          break
+        }
+      }
+    }
+
+    document.addEventListener('click', onGlobalClick)
+    // @ts-expect-error
+    this._cleanupColorCopy = () => document.removeEventListener('click', onGlobalClick)
   }
 
   componentDidCatch = (error, info) => {
@@ -214,6 +293,7 @@ class App extends React.Component {
 
     return (
       <div className="App" style={{ height: '100%' }}>
+        {isDev || isStaging ? <DebugPanel /> : null}
         <AppIntlProvider>
           {/* @ts-expect-error */}
           {!this.state.someError ? (

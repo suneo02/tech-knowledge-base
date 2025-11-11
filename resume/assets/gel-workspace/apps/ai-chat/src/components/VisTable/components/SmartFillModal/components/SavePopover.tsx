@@ -31,10 +31,10 @@ export const SavePopover = ({ onSubmit }: SavePopoverProps) => {
 
   return (
     <div style={{ width: 320 }}>
-      <Divider style={{ marginBlock: 12 }} />
+      <Divider style={{ marginBlockStart: 12, marginBlockEnd: 12 }} />
       <Form form={form} layout="vertical" onFinish={onSubmit}>
         <DataRange />
-        <Divider dashed style={{ marginBlock: 12 }} />
+        <Divider dashed style={{ marginBlockStart: 12, marginBlockEnd: 12 }} />
         <Form.Item name="targetSheet" label={targetSheetValue} initialValue="current">
           <Radio.Group>
             <Space direction="vertical" style={{ width: '100%' }}>

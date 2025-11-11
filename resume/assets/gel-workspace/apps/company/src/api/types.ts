@@ -1,22 +1,15 @@
+import { ApiCodeForWfc, ApiResponseForWFC } from 'gel-api/*'
 import { ApiPaths } from './paths'
-
-export enum ErrorCodeEnum {
-  SUCCESS = '0',
-  NOT_FOUND = '404',
-  UNAUTHORIZED = '401',
-  SERVER_ERROR = '500',
-  OVER_LIMIT = '200112', // 超出限制（模板超限）
-  AUTH_OPENING = '200012',
-}
+export { ApiCodeForWfc } from 'gel-api'
 
 // 基础响应类型
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = any> extends Pick<ApiResponseForWFC, 'status'> {
   Data: T
-  ErrorCode: ErrorCodeEnum | number | string
-  code: ErrorCodeEnum | number
+  ErrorCode: ApiCodeForWfc
+  code: ApiCodeForWfc
   data?: T
   ErrorMessage: string
-  Page: PageInfo
+  Page: PageInfo | null
   State?: number
 }
 
@@ -32,7 +25,6 @@ export interface PageInfo {
   Records: number
   TotalPage: number
 }
-
 
 // API路径字符串类型
 export type ApiPath = keyof ApiPaths

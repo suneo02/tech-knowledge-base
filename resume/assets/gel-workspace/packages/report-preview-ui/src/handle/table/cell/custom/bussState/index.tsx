@@ -2,9 +2,9 @@ import { ConfigTableCellRenderConfig, CorpBasicInfo } from 'gel-types'
 import { isEn } from 'gel-util/intl'
 import React from 'react'
 import { renderSimpleDate } from 'report-util/table'
-import { tForRPPreview } from '../../../../../utils'
 import { renderText } from '../../renderers'
 import styles from './index.module.less'
+import { TIntl } from 'report-util/types'
 /**
  * 工商信息的经营状态
  * @param _txt
@@ -12,12 +12,17 @@ import styles from './index.module.less'
  * @param config
  * @returns
  */
-export const corpInfoBussStateRender = (txt: any, record: CorpBasicInfo, config: ConfigTableCellRenderConfig) => {
-  const pre = renderText(txt, record, config)
+export const corpInfoBussStateRender = (
+  t: TIntl,
+  txt: any,
+  record: CorpBasicInfo,
+  config: ConfigTableCellRenderConfig
+) => {
+  const pre = renderText(t, txt, record, config)
   if (record.revokeOrCancelDate) {
     const date = renderSimpleDate(record.revokeOrCancelDate, record, config, {
       isEn: isEn(),
-      t: tForRPPreview,
+      t,
     })
     return (
       <div className={styles['buss-state-container']}>

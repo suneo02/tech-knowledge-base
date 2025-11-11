@@ -98,7 +98,14 @@ export const SpecialStatisticsSection: React.FC<SpecialStatisticsSectionProps> =
           <div className={`status-left-chart`} ref={(el) => (chartRefs.current[component.type] = el)} />
         </div>
         <div className="status-ipo-table">
-          <Table columns={data.columns} pagination={false} dataSource={data.tableData} empty={t('17235', '暂无数据')} />
+          <Table
+            columns={data.columns}
+            pagination={false}
+            dataSource={data.tableData}
+            empty={t('17235', '暂无数据')}
+            data-uc-id="5Pjd6GNrz2"
+            data-uc-ct="table"
+          />
         </div>
       </div>
     ),

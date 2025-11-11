@@ -13,7 +13,7 @@
  */
 import { ConfigTableCellRenderConfig } from 'gel-types'
 import { DEFAULT_EMPTY_TEXT, safeToStringRender } from 'report-util/table'
-import { tForRPPreview } from '../../../../utils'
+import { TIntl } from 'report-util/types'
 import { handleConfigTableArray, handleConfigTableObjectKey } from './shared'
 
 /**
@@ -25,11 +25,11 @@ import { handleConfigTableArray, handleConfigTableObjectKey } from './shared'
  * @param config 单元格渲染配置
  * @returns 渲染后的ReactNode
  */
-export function renderText(txt: any, _record: any, config: ConfigTableCellRenderConfig) {
+export function renderText(t: TIntl, txt: any, _record: any, config: ConfigTableCellRenderConfig) {
   try {
     const renderNotArray = (txt: any) => {
       const valueHandled = handleConfigTableObjectKey(txt, config.renderConfig?.objectKeyForArray)
-      return safeToStringRender(tForRPPreview, valueHandled, config.renderConfig)
+      return safeToStringRender(t, valueHandled, config.renderConfig)
     }
 
     return handleConfigTableArray(txt, config, renderNotArray)

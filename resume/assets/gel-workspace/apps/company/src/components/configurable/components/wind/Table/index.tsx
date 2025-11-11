@@ -160,6 +160,8 @@ const WindTable = (props: WindTableProps) => {
             '--odd-row-background': token.Table?.rowOddBg,
           } as any
         }
+        data-uc-id="JiTTKHb-n"
+        data-uc-ct="table"
       ></Table>
     </div>
   )

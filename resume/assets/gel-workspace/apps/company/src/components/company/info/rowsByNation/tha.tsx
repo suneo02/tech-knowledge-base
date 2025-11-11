@@ -60,13 +60,13 @@ export const thaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   ],
   [
     {
-      title: CorpInfoHeaderComp('最新财报商业类型', 'ประเภทธุรกิจที่ส่งงบการเงินปีล่าสุด'),
+      title: CorpInfoHeaderComp(intl('419629', '最新财报商业类型'), 'ประเภทธุรกิจที่ส่งงบการเงินปีล่าสุด'),
       dataIndex: 'overseasCorpIndustryList',
       colSpan: 2,
       render: industry_oversea_render,
     },
     {
-      title: CorpInfoHeaderComp('最新财报目的', 'วัตถุประสงค์'),
+      title: CorpInfoHeaderComp(intl('419630', '最新财报目的'), 'วัตถุประสงค์'),
       dataIndex: 'business_scope',
       colSpan: 2,
     },

@@ -117,9 +117,8 @@ export const CDEFilterPreviewModal: FC<CDEFilterPreviewModalProps> = ({
   }
   return (
     <>
-      {/* @ts-expect-error wind-ui */}
       <Modal
-        title={mode === 'filter' ? '企业数据浏览器' : '数据预览'}
+        title={mode === 'filter' ? '企业高级筛选' : '数据预览'}
         visible={open}
         onCancel={close}
         footer={null}

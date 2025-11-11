@@ -1,6 +1,6 @@
-import { ChatRestoreResponse } from 'gel-api'
+import { ChatDetailTurn } from 'gel-api'
 
-export const selectChatAiRecordRes2: ChatRestoreResponse[] = [
+export const chatDetailTurnList2: ChatDetailTurn[] = [
   {
     think: '',
     questionsID: '11a0d85b-a14a-415f-b728-1284b4dafe35',

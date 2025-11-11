@@ -1,5 +1,7 @@
-import axios from './index.ts'
 import { ApiResponse } from '@/api/types.ts'
+import { CorpTag } from 'gel-api/*'
+import { CorpCardInfo } from 'gel-types'
+import axios from './index.ts'
 
 /**
  * 获取企业详情头部信息
@@ -7,7 +9,7 @@ import { ApiResponse } from '@/api/types.ts'
  * @param id
  * @returns {Promise<ResponseType>}
  */
-export const getCorpHeaderInfo = (id) => {
+export const getCorpHeaderInfo = (id): Promise<ApiResponse<CorpCardInfo>> => {
   return axios.request({
     method: 'post',
     cmd: 'detail/company/getcorpbasicinfo_card',
@@ -70,10 +72,10 @@ export interface ICorpTagData {
  * 企业标签tags
  * 表示一家企业的详细信息和相关标签。
  */
-export const getCompanyTags = (id): Promise<ApiResponse<ICorpTagData>> => {
+export const getCompanyTags = (id): Promise<ApiResponse<CorpTag[]>> => {
   return axios.request({
     method: 'post',
-    cmd: 'detail/company/getcompanytagsv2',
+    cmd: 'detail/company/getcompanytagsv6',
     data: {
       __primaryKey: id,
       pageSize: 100,
@@ -232,7 +234,7 @@ export const getCompanyLogo = (url) => {
 }
 
 // 获取风险得分
-export const getNewsScore = (companyCode, data) => {
+export const getNewsScore = (_companyCode, data) => {
   return axios.request({
     cmd: '/detail/company/get_newsscore',
     method: 'post',

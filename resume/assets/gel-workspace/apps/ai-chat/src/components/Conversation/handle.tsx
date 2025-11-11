@@ -1,10 +1,9 @@
-import { ConversationTimeGroup, ConversationTimeGroupMap } from '@/components/Conversation/type'
-import { ConversationsProps } from '@ant-design/x'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import isBetween from 'dayjs/plugin/isBetween'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { ConversationTimeGroup, ConversationTimeGroupMap } from 'gel-ui'
 
 // 配置 dayjs
 dayjs.extend(relativeTime)
@@ -14,7 +13,7 @@ dayjs.locale('zh-cn')
 
 export const groupConversation = <
   T extends {
-    updateTime: string
+    updateTime?: string
     group?: ConversationTimeGroup
   },
 >(
@@ -45,29 +44,3 @@ export const groupConversation = <
     group,
   }
 }
-
-/**
- * 获取会话分组配置
- */
-export const getGroupableConfig = (): ConversationsProps['groupable'] => ({
-  sort(a: ConversationTimeGroup, b: ConversationTimeGroup) {
-    const order: ConversationTimeGroup[] = [
-      ConversationTimeGroupMap.TODAY,
-      ConversationTimeGroupMap.YESTERDAY,
-      ConversationTimeGroupMap.LAST_7_DAYS,
-      ConversationTimeGroupMap.LAST_30_DAYS,
-      ConversationTimeGroupMap.EARLIER,
-    ]
-    return order.indexOf(a) - order.indexOf(b)
-  },
-  title: (group: ConversationTimeGroup | undefined, { components: { GroupTitle } }) =>
-    group ? (
-      <GroupTitle>
-        <Space>
-          <span style={{ color: '#999' }}>{group}</span>
-        </Space>
-      </GroupTitle>
-    ) : (
-      <GroupTitle />
-    ),
-})

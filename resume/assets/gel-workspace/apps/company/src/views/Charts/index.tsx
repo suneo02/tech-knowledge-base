@@ -1,34 +1,46 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { Layout, ThemeProvider } from '@wind/wind-ui'
 import { parseQueryString } from '@/lib/utils'
+import intl from '@/utils/intl'
+import { Layout, ThemeProvider } from '@wind/wind-ui'
+import '@wind/Wind.Base.Enterprise.Graph/lib/index.css'
+import React, { useCallback, useEffect, useState } from 'react'
+import { BuildGraphItem } from '../AICharts/types'
 import {
-  OperatorRight,
-  InputChangeComp,
+  ChartContent,
+  ChartHome,
   ChartMenu,
+  InputChangeComp,
+  OperatorRight,
   atlasTreeData,
   findKeyInTree,
-  ChartHome,
-  ChartContent,
   findKeyInTreeByType,
 } from './comp'
+import { AIGRAPH_DEFAULT_COMPANY_CODE, RELATE_CHART_API_TYPE } from './comp/constants'
+import { GraphReportExport } from './comp/ReportExport'
+import { exportRelateChart, showExportReportModal } from './handle'
 import './index.less'
-import intl from '@/utils/intl'
-import '@wind/Wind.Base.Enterprise.Graph/lib/index.css'
-import { showExportReportModal, exportRelateChart } from './handle'
-import { GRAPH_MENU_TYPE, RELATE_CHART_API_TYPE } from './comp/constants'
-import { BuildGraphItem } from '../AICharts/types'
+import { GRAPH_LINKSOURCE, GRAPH_MENU_TYPE } from './types'
 const { Content, Operator } = Layout
 
 /**
  * @description 新版图谱平台
  * 支持从浏览器地址栏传入companycode/companyCode和activeKey参数
  */
-const Charts = ({ onBuildGraph }: { onBuildGraph?: (item: BuildGraphItem) => void }) => {
+const Charts = ({
+  onBuildGraph,
+  activeMenu = '',
+  hideMenu = false,
+  hideOperator = false,
+}: {
+  onBuildGraph?: (item: BuildGraphItem) => void
+  activeMenu?: string
+  hideMenu?: boolean
+  hideOperator?: boolean
+}) => {
   const qsParam = parseQueryString()
-  const code = qsParam.companycode ? qsParam.companycode : qsParam.companyCode || '1015343518' // 默认 融创
-  const activeKey = qsParam.activeKey || ''
+  const code = qsParam.companycode ? qsParam.companycode : qsParam.companyCode || AIGRAPH_DEFAULT_COMPANY_CODE // 默认 融创
+  const activeKey = qsParam.activeKey ? qsParam.activeKey : activeMenu
   const linksource = qsParam.linksource || ''
-  const linkSourceRIME = linksource === 'rime' ? true : false
+  const linkSourceRIME = linksource === GRAPH_LINKSOURCE.RIME ? true : false
 
   // 判断activeKey是否能够正确匹配，否则使用默认的atlasplatform
   const keyExists = activeKey ? findKeyInTree(atlasTreeData, activeKey) : false
@@ -61,6 +73,7 @@ const Charts = ({ onBuildGraph }: { onBuildGraph?: (item: BuildGraphItem) => voi
     },
   })
   const [menu, setMenu] = useState(null)
+  const [reportModalOpen, setReportModalOpen] = useState(false)
 
   useEffect(() => {
     window.document.title = intl('138167', '图谱平台')
@@ -156,6 +169,7 @@ const Charts = ({ onBuildGraph }: { onBuildGraph?: (item: BuildGraphItem) => voi
         corpName: companyName,
         onlyInvestTree: menu.type === GRAPH_MENU_TYPE.INVESTMENT ? true : false,
         linkSourceRIME,
+        openModal: () => setReportModalOpen(true),
       })
       return
     }
@@ -196,42 +210,56 @@ const Charts = ({ onBuildGraph }: { onBuildGraph?: (item: BuildGraphItem) => voi
   return (
     // @ts-ignore
     <Layout className="charts-layout">
-      <ThemeProvider pattern="normal">
-        <ChartMenu
-          treeData={atlasTreeData}
-          defaultActiveKey={selectedKeys}
-          onChangeMenu={handleChangeMenu}
-          companyCode={companyCode}
-          companyName={companyName}
-          onCollapse={(collapsed) => setMenuCollapsed(collapsed)}
-        />
-      </ThemeProvider>
-
+      {!hideMenu && (
+        <ThemeProvider pattern="gray">
+          <ChartMenu
+            treeData={atlasTreeData}
+            defaultActiveKey={selectedKeys}
+            onChangeMenu={handleChangeMenu}
+            companyCode={companyCode}
+            companyName={companyName}
+            onCollapse={(collapsed) => setMenuCollapsed(collapsed)}
+            data-uc-id="dI4ni-VTH4"
+            data-uc-ct="chartmenu"
+          />
+        </ThemeProvider>
+      )}
       {/* @ts-ignore */}
       <Layout className="charts-layout-content">
         {selectedKeys === 'atlasplatform' ? (
-          <ChartHome onSelectMenu={handleSelectMenu} onBuildGraph={onBuildGraph} />
+          <ChartHome
+            onSelectMenu={handleSelectMenu}
+            onBuildGraph={onBuildGraph}
+            data-uc-id="ZZflRWSW-b"
+            data-uc-ct="charthome"
+          />
         ) : (
           <>
             {/* 操作区 */}
-            {/* @ts-ignore */}
-            <Operator>
-              {menu?.noSearch ? (
-                <div className="charts-layout-content-title">{menu.title}</div>
-              ) : (
-                <InputChangeComp
-                  type={selectedKeys}
-                  companyCode={companyCode}
-                  onChangeCorpAction={handleChangeCorpAction}
-                ></InputChangeComp>
-              )}
-              <OperatorRight
-                menu={menu}
-                onOperatorAction={handleOperatorAction}
-                resetSize={actions.zoomFactor === 1 ? true : false}
-                zoomFactor={actions.zoomFactor}
-              />
-            </Operator>
+            {!hideOperator && (
+              // @ts-ignore
+              <Operator data-uc-id="BPxef7iDY" data-uc-ct="operator">
+                {menu?.noSearch ? (
+                  <div className="charts-layout-content-title">{menu.title}</div>
+                ) : (
+                  <InputChangeComp
+                    type={selectedKeys}
+                    companyCode={companyCode}
+                    onChangeCorpAction={handleChangeCorpAction}
+                    data-uc-id="1NazgEg0rb"
+                    data-uc-ct="inputchangecomp"
+                  ></InputChangeComp>
+                )}
+                <OperatorRight
+                  menu={menu}
+                  onOperatorAction={handleOperatorAction}
+                  resetSize={actions.zoomFactor === 1 ? true : false}
+                  zoomFactor={actions.zoomFactor}
+                  data-uc-id="u41qlN1Jhx"
+                  data-uc-ct="operatorright"
+                />
+              </Operator>
+            )}
 
             {/* 内容区 */}
             {/* @ts-ignore */}
@@ -246,12 +274,20 @@ const Charts = ({ onBuildGraph }: { onBuildGraph?: (item: BuildGraphItem) => voi
                   menuCollapsed={menuCollapsed}
                   isFinancial={isFinancial}
                   waterMask={waterMask}
+                  data-uc-id="M1J6kKGYgG"
+                  data-uc-ct="chartcontent"
                 />
               )}
             </Content>
           </>
         )}
       </Layout>
+      <GraphReportExport
+        companycode={companyCode}
+        corpName={companyName}
+        open={reportModalOpen}
+        setOpen={setReportModalOpen}
+      />
     </Layout>
   )
 }

@@ -1,21 +1,26 @@
 /** @format */
 
-import { ICorpCardInfo } from '@/api/corp/info/cardInfo'
-import { ICorpOtherInfo } from '@/api/corp/info/otherInfo.ts'
 import { ICorpBasicInfoFront } from '@/components/company/info/handle'
 import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type.ts'
 import { TCorpCategory } from '@/handle/corp/corpType/category.ts'
+import { CorpCardInfo, CorpOtherInfo } from 'gel-types'
 import * as actionTypes from '../actions/actionTypes'
 import global from '../lib/global'
 
-export interface ICorpState {
+export type FeedBackPara = {
+  type?: '数据纠错' | '功能提升' | '其他建议' | '异议处理'
+  companyname?: string
+  message?: string
+  tel?: string
+}
+export interface CorpState {
   baseInfo: Partial<
     ICorpBasicInfoFront & {
       basicNum?: ICorpBasicNumFront
     }
   >
-  corpHeaderInfo: Partial<ICorpCardInfo>
-  corpOtherInfo?: ICorpOtherInfo
+  corpHeaderInfo: Partial<CorpCardInfo>
+  corpOtherInfo?: CorpOtherInfo
   shareholder: any[]
   shareholderPagination: {
     pageNum: number
@@ -62,11 +67,11 @@ export interface ICorpState {
   scrollModuleIds: string[]
   basicnum: Record<string, any>
   corpCategory: TCorpCategory[]
-  feedBackPara: Record<string, any>
+  feedBackPara: FeedBackPara
   corpArea: string
 }
 
-const initialState: ICorpState = {
+const initialState: CorpState = {
   baseInfo: {},
   corpHeaderInfo: {},
   // 股东
@@ -134,7 +139,7 @@ const initialState: ICorpState = {
 export type TCorpAction =
   | {
       type: 'SET_CORP_OTHER_INFO'
-      data: ICorpOtherInfo
+      data: CorpOtherInfo
     }
   | {
       type: any

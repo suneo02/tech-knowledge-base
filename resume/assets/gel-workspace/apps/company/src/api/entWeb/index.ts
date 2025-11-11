@@ -7,17 +7,17 @@ import {
   requestToEntWebWithAxios,
   WIND_ENT_WEB_PATH,
 } from 'gel-api'
-import { requestInterceptor, requestErrorInterceptor } from '../interceptors/request'
-import { responseInterceptor, responseErrorInterceptor } from '../interceptors/response'
+import { requestErrorInterceptor, requestInterceptor } from '../interceptors/request'
+import { responseErrorInterceptor, responseInterceptor } from '../interceptors/response'
 
 /**
  * 创建默认EntWeb实例
  */
-export const entWebAxiosInstance = createEntWebAxiosInstance({
-  requestInterceptor: requestInterceptor as any,
-  responseInterceptor: responseInterceptor as any,
-  requestErrorInterceptor: requestErrorInterceptor as any,
-  responseErrorInterceptor: responseErrorInterceptor as any,
+export const entWebAxiosInstance = createEntWebAxiosInstance(undefined, {
+  requestInterceptor: requestInterceptor,
+  responseInterceptor: responseInterceptor,
+  requestErrorInterceptor: requestErrorInterceptor,
+  responseErrorInterceptor: responseErrorInterceptor,
 })
 
 /**

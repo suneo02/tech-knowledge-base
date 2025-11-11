@@ -87,7 +87,7 @@ function RelationshipChart(props) {
 
   const redirectToChart = () => {
     pointBuriedByModule(922602100984)
-    const url = `GroupChart.html?groupId=${groupId}&groupName=${groupName}#chart_newgqct`
+    const url = `index.html?groupId=${groupId}&groupName=${groupName}&target=groupchart#relatedlinks`
     wftCommon.jumpJqueryPage(url)
   }
 
@@ -326,7 +326,7 @@ function RelationshipChart(props) {
           .select('.gqct-graph-content')
           .append('svg')
           .attr('class', 'relatedsvg')
-          .attr('viewBox', [-widthFromLeftScreen / 2 + 200, -initH / 2 + 20, initW, initH])
+          .attr('viewBox', [-widthFromLeftScreen / 2 + 100, -initH / 2 + 40, initW, initH])
           .attr('xmlns', 'http://www.w3.org/2000/svg')
           .attr('width', initW)
           .attr('height', initH)
@@ -1688,7 +1688,7 @@ function RelationshipChart(props) {
   }
 
   function getThirdData(d, left) {
-    !loading && setLoaded(true)
+    setLoaded(true)
 
     /** 这个地方很特殊 */
     if (!d.Id) return
@@ -1714,6 +1714,8 @@ function RelationshipChart(props) {
               onClick={() => {
                 redirectToChart()
               }}
+              data-uc-id="88CSnAx3b"
+              data-uc-ct="button"
             >
               {intl('437439', '全屏查看')}
             </Button>
@@ -1721,6 +1723,8 @@ function RelationshipChart(props) {
               onClick={() => {
                 freshChart(1)
               }}
+              data-uc-id="ijH0lWcXxB"
+              data-uc-ct="button"
             >
               {intl('138765', '还原')}
             </Button>
@@ -1728,6 +1732,8 @@ function RelationshipChart(props) {
               onClick={(e) => {
                 thirdSaveEvent(e)
               }}
+              data-uc-id="NYGaedOS25"
+              data-uc-ct="button"
             >
               {intl('421570', '保存图片')}
             </Button>
@@ -1755,6 +1761,8 @@ function RelationshipChart(props) {
                       height="1em"
                       fill="currentColor"
                       aria-hidden="true"
+                      data-uc-id="8jT66CAHys"
+                      data-uc-ct="svg"
                     >
                       <path
                         d="M9 .9a8.1 8.1 0 110 16.2A8.1 8.1 0 019 .9zm0 1.2a6.9 6.9 0 100 13.8A6.9 6.9 0 009 2.1zm0 7.8a3.1 3.1 0 013.09 2.86v.17c.01.1-.06.17-.15.17h-.87c-.07 0-.13-.04-.16-.12l-.01-.05a1.9 1.9 0 00-3.79-.14v.14c-.01.1-.09.17-.18.17h-.86a.17.17 0 01-.17-.17l.01-.18A3.1 3.1 0 019 9.9zm-3-4a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2zm6 0a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"
@@ -1784,7 +1792,7 @@ const Box = styled.div`
     border-bottom: 1px solid #dfdfdf;
     border-left: 1px solid #dfdfdf;
     border-right: 1px solid #dfdfdf;
-    // background: rgba(0,0,0,0.05);
+    position: relative;
   }
   .gqct-chart {
     overflow: hidden !important;
@@ -1819,7 +1827,17 @@ const Box = styled.div`
   . window-locale-en-US {
   }
   .gqct-spin {
-    line-height: 400px;
+    position: absolute;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 20%;
+    text-align: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    opacity: 0.5 !important;
   }
 `
 export default RelationshipChart

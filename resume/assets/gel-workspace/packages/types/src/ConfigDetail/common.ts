@@ -11,7 +11,7 @@ export type ConfigDetailApiJSON = {
    * operation 即为 operation/get/...
    */
 
-  apiType?: 'operation'
+  apiType?: 'operation' | 'baifen'
   extraPayload?: Record<string, string>
   extraParams?: Record<string, string> & {
     // 公司 code 会做特殊处理
@@ -23,3 +23,11 @@ export type ConfigDetailApiJSON = {
 }
 
 export type TConfigDetailLayout = 'horizontal' | 'vertical' | 'tabs' | undefined | string
+
+export type ConfigDetailCommentCfg = {
+  commentPrefix?: string
+  commentPrefixIntl?: string
+
+  commentSuffix?: string
+  commentSuffixIntl?: string
+}

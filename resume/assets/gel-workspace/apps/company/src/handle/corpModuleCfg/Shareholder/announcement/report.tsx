@@ -1,7 +1,7 @@
 import intl from '@/utils/intl'
 import { AnnouncementColumns } from './columns.tsx'
 import { AnnouncementDataCallback, AnnouncementExtraParams } from './comp.tsx'
-import { ECorpDetailTable } from '@/handle/corp/detail/module/type.ts'
+import { ECorpDetailTable } from 'gel-types'
 import { ICorpTableCfg } from '@/components/company/type'
 
 // 企业详情/股东信息/公告披露 报告期 cfg

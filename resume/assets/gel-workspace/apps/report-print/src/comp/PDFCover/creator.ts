@@ -1,5 +1,6 @@
+import { rpPrintStore } from '@/store'
 import { isEnForRPPrint } from '@/utils/lang'
-import { getDisclaimerSecondary, getRPCoverComment, getTodayIntl } from 'report-util/constants'
+import { getTodayIntl } from 'report-util/constants'
 import styles from './index.module.less'
 import { PDFCoverOptions } from './type'
 
@@ -16,7 +17,6 @@ export function pdfCoverCreator(optionsProp: PDFCoverOptions): JQuery {
     ...getPdfCoverOptionsDefault(),
     ...optionsProp,
   }
-  const disclaimerSecondary = getDisclaimerSecondary(isEnForRPPrint())
   const $contentWrapper = $('<div>').addClass(styles['pdf-cover']) // Use a wrapper to build the content
 
   const $companyName = $('<h1>')
@@ -30,9 +30,13 @@ export function pdfCoverCreator(optionsProp: PDFCoverOptions): JQuery {
   const $reportDate = $('<h3>').addClass(styles['report-date']).text(getTodayIntl(isEnForRPPrint())) // Default if not provided
   $contentWrapper.append($reportDate)
 
-  const primaryDisclaimerText = getRPCoverComment(isEnForRPPrint())
-  const $disclaimer1 = $('<div>').addClass(styles['disclaimer']).text(primaryDisclaimerText)
-  const $disclaimer2 = $('<div>').addClass(styles['disclaimer']).text(disclaimerSecondary)
-  $contentWrapper.append($disclaimer1).append($disclaimer2)
+  const funcGetCoverComment = rpPrintStore.getData().getRpCoverComment
+  const disclaimerText = funcGetCoverComment({
+    isEn: isEnForRPPrint(),
+  })
+  disclaimerText.forEach((text) => {
+    const $disclaimer = $('<div>').addClass(styles['disclaimer']).text(text)
+    $contentWrapper.append($disclaimer)
+  })
   return $contentWrapper
 }

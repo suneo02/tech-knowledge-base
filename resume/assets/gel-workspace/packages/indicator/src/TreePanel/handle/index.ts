@@ -1,4 +1,4 @@
-import { IndicatorTreeClassification } from 'gel-api'
+import { IndicatorTreeClassification, IndicatorTreeIndicator } from 'gel-api'
 
 // Helper function to filter indicators - extracted as a separate utility
 export const filterIndicatorTree = (tree: IndicatorTreeClassification[]): IndicatorTreeClassification[] => {
@@ -37,6 +37,27 @@ export const findIndicatorName = (classifications: IndicatorTreeClassification[]
     // Recursively check child classifications
     if (classification.children) {
       const found = findIndicatorName(classification.children, key)
+      if (found) return found
+    }
+  }
+  return undefined
+}
+
+// Helper function to find complete indicator object by spId
+export const findIndicatorById = (
+  classifications: IndicatorTreeClassification[],
+  spId: number
+): IndicatorTreeIndicator | undefined => {
+  for (const classification of classifications) {
+    // Check current classification's indicators
+    if (classification.indicators) {
+      const indicator = classification.indicators.find((i) => i.spId === spId)
+      if (indicator) return indicator
+    }
+
+    // Recursively check child classifications
+    if (classification.children) {
+      const found = findIndicatorById(classification.children, spId)
       if (found) return found
     }
   }

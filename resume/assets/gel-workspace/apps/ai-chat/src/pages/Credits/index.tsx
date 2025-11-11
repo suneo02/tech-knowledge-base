@@ -1,10 +1,7 @@
 import { requestToSuperlistFcs } from '@/api'
 import coins from '@/assets/image/coins@3x.png'
-import avatar from '@/assets/image/user-avatar-default.png'
 import Page from '@/components/layout/Page'
 import PageBreadcrumb from '@/components/layout/Page/Breadcrumb'
-import { ExclamationCircleF } from '@wind/icons'
-import { Result } from '@wind/wind-ui'
 import { useRequest } from 'ahooks'
 import { Spin, StatisticProps } from 'antd'
 import dayjs from 'dayjs'
@@ -13,9 +10,16 @@ import CountUp from 'react-countup'
 import { useLocation } from 'react-router-dom'
 import styles from './index.module.less'
 import CreditsRecords from './Records'
+import { t } from 'gel-util/intl'
 
 const PREFIX = 'credits-home-page'
-
+const STRINGS = {
+  TITLE: t('464258', '我的积分'),
+  BANNER_TITLE: t('464238', '当前积分'),
+  REMARK: (surplus: string, date: string) =>
+    t('464257', '有 {{count}} 积分将于 {{date}} 到期，请尽快使用～', { count: surplus, date }),
+  RECORDS_TITLE: t('464231', '积分明细记录'),
+}
 const formatter: StatisticProps['formatter'] = (value) => <CountUp end={value as number} separator="," />
 const CreditsHomePage = () => {
   const location = useLocation()
@@ -30,39 +34,44 @@ const CreditsHomePage = () => {
     onError: () => setCreditsInfo({} as GetUserPointsInfoResponse),
   })
   useEffect(() => {
-    console.log('location.search', location.search)
     run()
   }, [location.search])
+  useEffect(() => {
+    document.title = STRINGS.TITLE
+  }, [])
   return (
-    <Spin spinning={loading}>
-      <Page
-        header={
-          <div className={styles[`${PREFIX}-header`]}>
-            <PageBreadcrumb items={[{ name: '我的积分' }]} />
+    <Page
+      header={
+        <div className={styles[`${PREFIX}-header`]}>
+          <PageBreadcrumb items={[{ name: STRINGS.TITLE }]} />
+        </div>
+      }
+      fixedHeader={true} // Header 不固定，会滚动
+      //   scrollable={false} // 整个内容区域（包括非固定 Header）不可滚动
+    >
+      {/* 主要内容 */}
+      <div className={styles[`${PREFIX}-container`]}>
+        <div className={styles[`${PREFIX}-banner`]}>
+          <div className={styles[`${PREFIX}-banner-left`]}>
+            <div className={styles[`${PREFIX}-banner-left-icon`]}>
+              <img src={coins} alt="" />
+            </div>
           </div>
-        }
-        fixedHeader={true} // Header 不固定，会滚动
-        //   scrollable={false} // 整个内容区域（包括非固定 Header）不可滚动
-      >
-        {/* 主要内容 */}
-        <div className={styles[`${PREFIX}-container`]}>
-          <div className={styles[`${PREFIX}-banner`]}>
-            <div className={styles[`${PREFIX}-banner-left`]}>
-              <div className={styles[`${PREFIX}-banner-left-icon`]}>
-                <img src={coins} alt="" />
-              </div>
-            </div>
-            <div className={styles[`${PREFIX}-banner-center`]}>
-              {formatter(creditsInfo?.pointTotal)}
-              <p>当前积分</p>
-            </div>
+          <div className={styles[`${PREFIX}-banner-center`]}>
+            {formatter(creditsInfo?.pointTotal)}
+            <p>{STRINGS.BANNER_TITLE}</p>
+          </div>
+          {creditsInfo?.latestExpiringPoints?.pointSurplus ? (
             <div className={styles[`${PREFIX}-banner-right`]}>
-              有<span>{creditsInfo?.latestExpiringPoints?.pointSurplus}</span>
-              积分将于{dayjs(creditsInfo?.latestExpiringPoints?.endTime).format('YYYY-MM-DD')}到期，请尽快使用～
+              {STRINGS.REMARK(
+                creditsInfo?.latestExpiringPoints?.pointSurplus.toLocaleString(),
+                dayjs(creditsInfo?.latestExpiringPoints?.endTime).format('YYYY-MM-DD')
+              )}
             </div>
-          </div>
-          {/* <Divider dashed /> */}
-          <h3>积分购买</h3>
+          ) : null}
+        </div>
+        {/* <Divider dashed /> */}
+        {/* <h3>积分购买</h3>
           <p>安全便捷的积分专业服务，助力您实现商业目标</p>
           <div className={styles[`${PREFIX}-buy`]}>
             <div className={styles[`${PREFIX}-buy-tip`]}>
@@ -81,13 +90,12 @@ const CreditsHomePage = () => {
                 subTitle={'如需充值请联系客户经理！'}
               />
             </div>
-          </div>
-          {/* <Divider dashed /> */}
-          <h3>积分明细记录</h3>
-          <CreditsRecords />
-        </div>
-      </Page>
-    </Spin>
+          </div> */}
+        {/* <Divider dashed /> */}
+        <h3>{STRINGS.RECORDS_TITLE}</h3>
+        <CreditsRecords />
+      </div>
+    </Page>
   )
 }
 

@@ -22,6 +22,6 @@ export const UserNameField: React.FC<{ maskedFields: { [key: string]: boolean } 
       },
     ]}
   >
-    <Input placeholder={intl(414539, '请输入查册人中文姓名')} allowClear />
+    <Input placeholder={intl(414539, '请输入查册人中文姓名')} allowClear data-uc-id="ZNmvUKy77J" data-uc-ct="input" />
   </Form.Item>
 )

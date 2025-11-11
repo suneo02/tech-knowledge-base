@@ -1,0 +1,84 @@
+[
+  {
+    "id": "421562",
+    "title": "查企业",
+    "titleIntl": "421562",
+    "moduleId": "features-title-1",
+    "url": {
+      "target": "module",
+      "module": "SEARCH_HOME"
+    },
+    "iconKey": "CompanyC",
+    "order": 1
+  },
+  {
+    "id": "437235",
+    "title": "查全球企业",
+    "titleIntl": "437235",
+    "moduleId": "features-title-1",
+    "url": {
+      "target": "module",
+      "module": "GLOBAL_SEARCH"
+    },
+    "iconKey": "GlobalC",
+    "order": 2
+  },
+  {
+    "id": "138432",
+    "title": "查人物",
+    "titleIntl": "138432",
+    "moduleId": "features-title-1",
+    "url": {
+      "target": "module",
+      "module": "SEARCH_HOME",
+      "params": {
+        "type": "people"
+      }
+    },
+    "hideInOverseas": true,
+    "disabled": false,
+    "iconKey": "UsergroupC",
+    "order": 3
+  },
+  {
+    "id": "422046",
+    "title": "查关系",
+    "titleIntl": "422046",
+    "moduleId": "features-title-1",
+    "url": {
+      "target": "module",
+      "module": "KG_PLATFORM",
+      "params": {
+        "activeKey": "chart_cgx"
+      }
+    },
+    "iconKey": "RelationC",
+    "order": 4
+  },
+  {
+    "id": "247482",
+    "title": "查集团",
+    "titleIntl": "247482",
+    "moduleId": "features-title-1",
+    "url": {
+      "target": "module",
+      "module": "GROUP_SEARCH"
+    },
+    "iconKey": "GcC",
+    "order": 5
+  },
+  {
+    "id": "222404",
+    "title": "查风险",
+    "titleIntl": "222404",
+    "moduleId": "features-title-1",
+    "url": {
+      "target": "risk",
+      "riskModule": "HOME"
+    },
+    "iconKey": "LegislationC",
+    "hideInWeb": true,
+    "hideInOverseas": true,
+    "order": 6
+  }
+]

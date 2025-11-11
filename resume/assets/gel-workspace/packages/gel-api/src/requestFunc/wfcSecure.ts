@@ -1,5 +1,5 @@
+import { ApiResponseForWFC } from '@/types'
 import { LowercaseRequestMethod } from '@/types/common'
-import { ApiResponseForWFC } from '@/wfc'
 import { WIND_SECURE_API_PATH, WindSecureApiParams, WindSecureApiPayload, WindSecureApiResponse } from '@/windSecure'
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
 import qs from 'qs'

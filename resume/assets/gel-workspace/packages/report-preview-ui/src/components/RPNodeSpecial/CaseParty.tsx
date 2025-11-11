@@ -1,4 +1,5 @@
-import { tForRPPreview } from '@/utils'
+import { getTForRPPreview } from '@/utils'
+import { useIntl } from 'gel-ui'
 import React from 'react'
 import { DEFAULT_EMPTY_TEXT, safeToStringRender } from 'report-util/table'
 
@@ -19,6 +20,8 @@ interface CasePartyProps {
 }
 
 export const CaseParty: React.FC<CasePartyProps> = ({ data: arrDataArr, nameKey = 'name', idKey = 'id' }) => {
+  const t = useIntl()
+
   if (!arrDataArr || !Array.isArray(arrDataArr) || arrDataArr.length === 0) {
     return <>{DEFAULT_EMPTY_TEXT}</>
   }
@@ -54,7 +57,7 @@ export const CaseParty: React.FC<CasePartyProps> = ({ data: arrDataArr, nameKey 
               {group.childs.map((child, childIndex) => (
                 <React.Fragment key={child[idKey] || childIndex}>
                   {childIndex > 0 && '、'}
-                  <span>{safeToStringRender(tForRPPreview, child[nameKey], undefined)}</span>
+                  <span>{safeToStringRender(getTForRPPreview(t), child[nameKey], undefined)}</span>
                 </React.Fragment>
               ))}
             </span>

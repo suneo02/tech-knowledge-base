@@ -1,4 +1,10 @@
-import { ReportDetailCustomNodeJson, ReportDetailTableJson, TCorpDetailNodeKey } from 'gel-types'
+import {
+  ReportDetailCustomNodeJson,
+  ReportDetailRawHtmlNodeJson,
+  ReportDetailTableJson,
+  TCorpDetailNodeKey,
+  TCorpDetailSectionKey,
+} from 'gel-types'
 import { SectionHeadingOptions } from './tableSection'
 
 export type ReportRenderItem =
@@ -15,11 +21,21 @@ export type ReportRenderItem =
       type: 'custom'
       id: TCorpDetailNodeKey
     }
+  | {
+      type: 'rawHtml'
+      id: TCorpDetailNodeKey | TCorpDetailSectionKey
+    }
+  | {
+      type: 'element'
+      element: any
+    }
 
-export interface ProcessedInitializationData {
+export interface FlattenedReportConfig {
   tableConfigsStore: Partial<Record<TCorpDetailNodeKey, ReportDetailTableJson>>
   sectionConfigStore: Partial<Record<string, SectionHeadingOptions>>
   // 自定义节点配置中心
   customNodeConfigStore: Partial<Record<TCorpDetailNodeKey, ReportDetailCustomNodeJson>>
+  // raw html 节点配置中心
+  rawHtmlNodeConfigStore: Partial<Record<TCorpDetailNodeKey, ReportDetailRawHtmlNodeJson>>
   renderOrder: Array<ReportRenderItem>
 }

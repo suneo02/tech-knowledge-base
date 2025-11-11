@@ -1,40 +1,37 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Table, Button, Tag, ConfigProvider } from "antd";
-import { WCBChart } from '@wind/chart-builder';
-import { rankingListStatistics } from '../../api/rankingListApi';
-import * as RankingListActions from "../../actions/rankingList";
-import { getMapHost, numberFormat, renderEmptyData } from '../../lib/utils';
+import { WCBChart } from '@wind/chart-builder'
+import { ConfigProvider, Table } from 'antd'
+import React from 'react'
+import { connect } from 'react-redux'
+import * as RankingListActions from '../../actions/rankingList'
+import { rankingListStatistics } from '../../api/rankingListApi'
+import { numberFormat, renderEmptyData } from '../../lib/utils'
 
 // 企业动态/最新资讯
 class TypeAnalysis extends React.Component {
-
   constructor(props) {
-    super(props);
-    this.state = {
-
-    };
+    super(props)
+    this.state = {}
     this.typeColumns = [
       {
         title: <p>{this.$translation(257673)}</p>,
-        dataIndex: "key",
+        dataIndex: 'key',
         width: 200,
       },
       {
         title: <p>{this.$translation(259906)}</p>,
-        dataIndex: "value",
+        dataIndex: 'value',
         width: 100,
-        render: (text, record) => numberFormat(text, true, 0),
+        render: (text) => numberFormat(text, true, 0),
       },
       {
         title: <p>{this.$translation(265576)}</p>,
-        dataIndex: "percent",
+        dataIndex: 'percent',
         width: 100,
-        render: (text, record) => {
-          return `${numberFormat(text * 100, true, 2, true)}%`;
-        }
+        render: (text) => {
+          return `${numberFormat(text * 100, true, 2, true)}%`
+        },
       },
-    ];
+    ]
   }
 
   componentDidMount = () => {
@@ -44,50 +41,51 @@ class TypeAnalysis extends React.Component {
       id: this.props.id,
       // topN: 10,
       type: 3,
-    });
+    })
   }
 
   componentWillReceiveProps = (newProps) => {
     // console.log(newProps);
-    newProps.area !== this.props.area && this.props.rankingListStatistics({
-      area: newProps.area,
-      id: this.props.id,
-      // topN: 10,
-      type: 3,
-    });
+    newProps.area !== this.props.area &&
+      this.props.rankingListStatistics({
+        area: newProps.area,
+        id: this.props.id,
+        // topN: 10,
+        type: 3,
+      })
   }
 
   getTypeOption = (dataList) => {
     // console.log(dataList)
-    let _dataList = JSON.parse(JSON.stringify(dataList));
+    let _dataList = JSON.parse(JSON.stringify(dataList))
     if (_dataList.length > 10) {
-      const { cropListByIndustryTotal } = this.props.rankingListDetail;
-      _dataList.splice(9, dataList.length - 9);
-      let prevNum = 0;
-      _dataList.forEach(item => {
-        prevNum += item.value;
-      });
+      const { cropListByIndustryTotal } = this.props.rankingListDetail
+      _dataList.splice(9, dataList.length - 9)
+      let prevNum = 0
+      _dataList.forEach((item) => {
+        prevNum += item.value
+      })
       _dataList.push({
-        key: "其他",
+        key: '其他',
         value: cropListByIndustryTotal - prevNum,
-      });
+      })
     }
     let indicators = [
       {
         meta: {
-          type: "pie",
-          unit: "%",
-          uuid: "0",
+          type: 'pie',
+          unit: '%',
+          uuid: '0',
         },
         data: {},
-      }
+      },
     ]
-    _dataList.forEach(item => {
-      indicators[0].data[item.key] = item.value;
-    });
+    _dataList.forEach((item) => {
+      indicators[0].data[item.key] = item.value
+    })
     return {
       chart: {
-        categoryAxisDataType: "category"
+        categoryAxisDataType: 'category',
       },
       config: {
         layoutConfig: {
@@ -95,45 +93,50 @@ class TypeAnalysis extends React.Component {
         },
         legend: { show: false },
         series: {
-          "0:0-series-0": {
+          '0:0-series-0': {
             pie: {
-              "radius": ['45%', '75%']
-            }
-          }
+              radius: ['45%', '75%'],
+            },
+          },
         },
       },
       indicators,
-    };
+    }
   }
 
-  render () {
-    const { cropListByArea, cropListByAreaTotal, cropListByType, cropListByTypeTotal } = this.props.rankingListDetail;
+  render() {
+    const { cropListByType, cropListByTypeTotal } = this.props.rankingListDetail
 
-    let _cropListByType = JSON.parse(JSON.stringify(cropListByType));
+    let _cropListByType = JSON.parse(JSON.stringify(cropListByType))
     if (_cropListByType.length > 6) {
-      _cropListByType.splice(5, _cropListByType.length - 5);
-      let prevNum = 0;
-      _cropListByType.forEach(item => {
-        prevNum += item.value;
-      });
+      _cropListByType.splice(5, _cropListByType.length - 5)
+      let prevNum = 0
+      _cropListByType.forEach((item) => {
+        prevNum += item.value
+      })
       _cropListByType.push({
-        key: "其他",
+        key: '其他',
         value: cropListByTypeTotal - prevNum,
         percent: (cropListByTypeTotal - prevNum) / cropListByTypeTotal,
-      });
+      })
     }
 
     return (
       <div className="rankingListAnalysis">
         <p>{this.$translation(257673)}</p>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: 'flex' }}>
           <WCBChart data={this.getTypeOption(_cropListByType)} waterMark={false} style={{ height: 400 }} />
           <ConfigProvider renderEmpty={() => renderEmptyData(0, this.$translation)}>
-            <Table size="small" rowKey="key"
+            <Table
+              size="small"
+              rowKey="key"
               rowClassName={this.props.setRow}
               columns={this.typeColumns}
               dataSource={_cropListByType}
-              pagination={false} />
+              pagination={false}
+              data-uc-id="zvgK38N8XE"
+              data-uc-ct="table"
+            />
           </ConfigProvider>
         </div>
       </div>
@@ -141,24 +144,20 @@ class TypeAnalysis extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     rankingListDetail: state.rankingListDetail,
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    rankingListStatistics: data => {
-      rankingListStatistics(data)
-        .then(res => {
-          dispatch(RankingListActions.rankingListStatistics({ ...res, ...data }));
-        })
+    rankingListStatistics: (data) => {
+      rankingListStatistics(data).then((res) => {
+        dispatch(RankingListActions.rankingListStatistics({ ...res, ...data }))
+      })
     },
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TypeAnalysis);
+export default connect(mapStateToProps, mapDispatchToProps)(TypeAnalysis)

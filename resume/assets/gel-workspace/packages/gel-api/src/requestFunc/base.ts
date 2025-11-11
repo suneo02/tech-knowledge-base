@@ -1,10 +1,10 @@
 import { ApiPaths } from '@/pathType'
 import { APIServer, ApiOptions, GetApiResponse, LowercaseRequestMethod } from '@/types/common'
 import { AxiosInstance } from 'axios'
-import { merge } from 'lodash'
+import { merge } from 'lodash-es'
 import path from 'path-browserify'
 import qs from 'qs'
-import { ApiCfg } from '..'
+import { ApiCfg } from '../apiConfig'
 
 /**
  * 智能API请求函数

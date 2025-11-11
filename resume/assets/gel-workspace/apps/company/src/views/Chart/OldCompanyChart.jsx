@@ -140,6 +140,8 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
                         cursor: 'pointer',
                         marginLeft: '50px',
                       }}
+                      data-uc-id="ye0-TSXMslD"
+                      data-uc-ct="span"
                     >
                       {intl('19405', '取消')}
                     </span>
@@ -152,6 +154,8 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
                     onClick={() => {
                       Common.linkCompany('Bu3', companycode)
                     }}
+                    data-uc-id="T-ovOyHC6tB"
+                    data-uc-ct="span"
                   >
                     {companyName}
                   </span>
@@ -165,6 +169,8 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
                       setShowInput(true)
                     }}
                     className="wi-demo-link wi-demo-link-switch"
+                    data-uc-id="cBnMojSjSz8"
+                    data-uc-ct="span"
                   >
                     {intl('367453', '切换企业')}
                   </span>
@@ -174,7 +180,14 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
               <div className="nav-tabs" style={{ display: 'none' }}>
                 <div className="nav-block">
                   <div className="menu-title">
-                    <a id="linkGQCT" href="#chart_gqct" className="wi-link-color" langkey="138279">
+                    <a
+                      id="linkGQCT"
+                      href="#chart_gqct"
+                      className="wi-link-color"
+                      langkey="138279"
+                      data-uc-id="7XR1cF-FeqQ"
+                      data-uc-ct="a"
+                    >
                       {intl('138279', '股权穿透')}
                     </a>
                     <div className="menu-title-underline " />
@@ -183,7 +196,14 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
 
                 <div className="nav-block">
                   <div className="menu-title">
-                    <a id="linkTZCT" langkey="345553" href="#chart_newtzct" className="wi-link-color">
+                    <a
+                      id="linkTZCT"
+                      langkey="345553"
+                      href="#chart_newtzct"
+                      className="wi-link-color"
+                      data-uc-id="bGdqPa4R6Mz"
+                      data-uc-ct="a"
+                    >
                       {intl('345553', '投资穿透图')}
                     </a>
                     <div className="menu-title-underline " />
@@ -192,7 +212,14 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
 
                 <div className="nav-block">
                   <div className="menu-title">
-                    <a id="linkYSKZR" href="#chart_yskzr" className="wi-link-color" langkey="261456">
+                    <a
+                      id="linkYSKZR"
+                      href="#chart_yskzr"
+                      className="wi-link-color"
+                      langkey="261456"
+                      data-uc-id="ZUwAVwbtkVN"
+                      data-uc-ct="a"
+                    >
                       {intl('261456', '疑似实控人')}
                     </a>
                     <div className="menu-title-underline " />
@@ -201,7 +228,14 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
 
                 <div className="nav-block">
                   <div className="menu-title">
-                    <a id="linkQYSYR" href="#chart_qysyr" className="wi-link-color" langkey="258886">
+                    <a
+                      id="linkQYSYR"
+                      href="#chart_qysyr"
+                      className="wi-link-color"
+                      langkey="258886"
+                      data-uc-id="1HtZhJA9J7r"
+                      data-uc-ct="a"
+                    >
                       {intl('214864', '企业受益人图')}
                     </a>
                     <div className="menu-title-underline " />
@@ -210,7 +244,14 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
 
                 <div className="nav-block">
                   <div className="menu-title">
-                    <a id="linkGLGX" href="#chart_glgx" className="wi-link-color" langkey="243685">
+                    <a
+                      id="linkGLGX"
+                      href="#chart_glgx"
+                      className="wi-link-color"
+                      langkey="243685"
+                      data-uc-id="jINunio-0py"
+                      data-uc-ct="a"
+                    >
                       {intl('243685', '关联方图谱')}
                     </a>
                     <div className="menu-title-underline " />
@@ -219,7 +260,14 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
 
                 <div className="nav-block">
                   <div className="menu-title">
-                    <a id="linkRZLC" href="#chart_rzlc" className="wi-link-color" langkey="260223">
+                    <a
+                      id="linkRZLC"
+                      href="#chart_rzlc"
+                      className="wi-link-color"
+                      langkey="260223"
+                      data-uc-id="JmmCMkuNigp"
+                      data-uc-ct="a"
+                    >
                       {intl('138297', '融资历程')}
                     </a>
                     <div className="menu-title-underline " />
@@ -228,7 +276,14 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
 
                 <div className="nav-block" id="navRZTP" style={{ display: 'none' }}>
                   <div className="menu-title">
-                    <a id="linkRZTP" href="#chart_rztp" className="wi-link-color" langkey="258887">
+                    <a
+                      id="linkRZTP"
+                      href="#chart_rztp"
+                      className="wi-link-color"
+                      langkey="258887"
+                      data-uc-id="GkUc81l-qKy"
+                      data-uc-ct="a"
+                    >
                       {intl('206370', '融资图谱')}
                     </a>
                     <div className="menu-title-underline " />
@@ -237,7 +292,14 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
 
                 <div className="nav-block">
                   <div className="menu-title">
-                    <a id="linkYSGX" href="#chart_ysgx" className="wi-link-color" langkey="138486">
+                    <a
+                      id="linkYSGX"
+                      href="#chart_ysgx"
+                      className="wi-link-color"
+                      langkey="138486"
+                      data-uc-id="Zb4AEPj6QdP"
+                      data-uc-ct="a"
+                    >
                       {intl('138486', '疑似关系')}
                     </a>
                     <div className="menu-title-underline " />
@@ -246,7 +308,14 @@ const OldCompanyChart = ({ type, companyCode, onlyChart = false, bottomMask = tr
 
                 <div className="nav-block">
                   <div className="menu-title">
-                    <a id="linkQYTP" href="#chart_qytp" className="wi-link-color" langkey="259132">
+                    <a
+                      id="linkQYTP"
+                      href="#chart_qytp"
+                      className="wi-link-color"
+                      langkey="259132"
+                      data-uc-id="lstw7UqJw39"
+                      data-uc-ct="a"
+                    >
                       {intl('138676', '企业图谱')}
                     </a>
                     <div className="menu-title-underline " />

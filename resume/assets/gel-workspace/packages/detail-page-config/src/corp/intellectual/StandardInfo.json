@@ -1,0 +1,63 @@
+{
+  "api": "detail/company/getstandardinfo",
+  "countKey": "standardInfo",
+  "downDocType": "download/createtempfile/getstandardinfo",
+  "downDocTypeName": "新的导出",
+  "id": "8-6",
+  "key": "8-6",
+  "level": 2,
+  "title": "标准信息",
+  "titleIntl": "326113",
+  "tooltips": "标准信息是指企业参与制定国家、行业、企业、团体、地方的标准。参与标准制定的意义在于提高企业在同行业和市场的知名度，引导同行业的发展方向，提高本企业产品的市场认可度。",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "standardName",
+      "title": "标准名称",
+      "titleIntl": "326133",
+      "width": "29%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "standardNo",
+      "title": "标准号",
+      "titleIntl": "326134",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "standardLevel",
+      "title": "标准级别",
+      "titleIntl": "326135",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "standardStatus",
+      "title": "标准状态",
+      "titleIntl": "326114",
+      "width": "12%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "standardNature",
+      "title": "标准性质",
+      "titleIntl": "326115",
+      "width": "13%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "releaseDate|formatTime",
+      "title": "发布日期",
+      "titleIntl": "138908",
+      "width": "13%"
+    }
+  ]
+}

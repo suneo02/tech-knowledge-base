@@ -1,11 +1,11 @@
 import React from 'react'
-import {  Radio, Input, Space, Checkbox, message, InputNumber } from 'antd'
+import { Radio, Input, Space, Checkbox, message, InputNumber } from 'antd'
 import { GlobalContext } from '../context/GlobalContext'
 
 import './Subscribe.less'
 import NumberRangeOption from '../components/restructFilter/comps/filterOptions/NumberRangeOption'
 import intl from '../utils/intl'
-import { Modal } from '@wind/wind-ui';
+import { Modal } from '@wind/wind-ui'
 
 // 下载超限提醒
 class LimitNotice extends React.Component {
@@ -114,6 +114,8 @@ class LimitNotice extends React.Component {
         cancelText={intl(286234, '取 消')}
         okText={intl(286235, '确 定')}
         onOk={this.OkHandle}
+        data-uc-id="q6BHf5IrV"
+        data-uc-ct="modal"
       >
         <p className="title">{intl('355863', '每次最多导出1000条（50页），请选择导出的页码数')}</p>
         {/* <Radio.Group onChange={this.radioChange} value={radioVal} style={{marginBottom: 28}}>
@@ -125,15 +127,15 @@ class LimitNotice extends React.Component {
             }
           </Space>
         </Radio.Group> */}
-
         <NumberRangeOption
           min={customValue ? customValue.split('-')[0] : ''}
           max={customValue ? customValue.split('-')[1] : ''}
           maxVal={50}
           changeOptionCallback={this.customValueChange}
-          unit={'页'}
+          unit={intl('32047', '页')}
+          data-uc-id="FgoOoEHh3S"
+          data-uc-ct="numberrangeoption"
         />
-
         {inputErr ? <p className="export-error"> {intl('355821', '输入有误，请重新输入！')} </p> : ''}
       </Modal>
     )

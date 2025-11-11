@@ -1,10 +1,25 @@
-export * from './areaTree'
-export * from './areaTreeMapOversea'
-export * from './areaTreeNewMap'
-export * from './areaTreeForPersonSearch'
-export * from './handle'
-export * from './type'
+import areaTreeCNMainlandJson from './areaTreeCNMainland.json'
+import areaTreeForeignJson from './areaTreeForeign.json'
+import areaTreeHKJson from './areaTreeHK.json'
+import areaTreeMacaoJson from './areaTreeMacao.json'
+import areaTreeTwJson from './areaTreeTw.json'
+import { AreaTreeNode } from './type'
 
-import areaTreeGlobalForSearch from './areaTreeGlobalForSearch.json'
+export { areaTreeMapOversea } from './areaTreeMapOversea'
 
-export { areaTreeGlobalForSearch }
+const areaTreeForeign: AreaTreeNode[] = areaTreeForeignJson
+const areaTreeGlobalCn: AreaTreeNode = areaTreeCNMainlandJson
+const areaTreeHK: AreaTreeNode = areaTreeHKJson
+const areaTreeMaco: AreaTreeNode = areaTreeMacaoJson
+const areaTreeTw: AreaTreeNode = areaTreeTwJson
+
+export const globalAreaTreeCn: AreaTreeNode[] = areaTreeGlobalCn.node || []
+export const globalAreaTree = [...globalAreaTreeCn, areaTreeHK, areaTreeMaco, areaTreeTw]
+
+export const areaTreeGlobalForSearch: AreaTreeNode[] = [
+  areaTreeGlobalCn,
+  areaTreeHK,
+  areaTreeMaco,
+  areaTreeTw,
+  ...areaTreeForeign,
+]

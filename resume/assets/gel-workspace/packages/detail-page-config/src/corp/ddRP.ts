@@ -25,10 +25,14 @@ import {
 } from './baseInfo'
 import {
   corpCancellationRecord,
+  corpDoubleRandomInspection,
   corpEquityPledge,
   corpInspectionCheck,
+  corpIntegrityInformation,
   corpIntellectualPropertyPledge,
   corpLiquidationInfo,
+  corpManageAbnormal,
+  corpProductRecall,
   corpSeriousViolation,
   corpStockPledge,
   corpTaxDebt,
@@ -58,15 +62,21 @@ import { getShareholderInfoByCorpArea } from './helper/getShareholderInfoByCorpA
 import { getShareholderReportByBasicNum } from './helper/getShareholderReportByBasicNum'
 import { handleHKBaseInfo } from './helper/handleHKBaseInfo'
 import {
+  corpMicroblogAccount,
   corpPatentBranch,
   corpPatentHoldCompany,
   corpPatentOutboundInvestment,
   corpPatentSelf,
   corpSoftwareCopyright,
+  corpStandardInfo,
+  corpTodayHeadline,
   corpTrademarkBranch,
   corpTrademarkHoldCompany,
   corpTrademarkOutboundInvest,
   corpTrademarkSelf,
+  corpWebsiteRegistration,
+  corpWechatPublic,
+  corpWorkCopyright,
 } from './intellectual'
 
 import {
@@ -86,6 +96,17 @@ import {
   corpTenderingAnnouncements,
 } from './business'
 import { filterReportConfigByBasicNum } from './helper/filterReportConfigByBasicNum'
+import {
+  corpBusinessLicenseInvalidDeclaration,
+  corpHistoryBusinessInfo,
+  corpHistoryEquityPledge,
+  corpHistoryLandMortgage,
+  corpHistoryLegalRepresentative,
+  corpHistoryOverseasInvestment,
+  corpHistoryShareholder,
+  corpHistoryWebsiteRegistration,
+  corpMultiCertificate,
+} from './history'
 import {
   corpBussDataBusinessCumulative,
   corpBussDataBusinessCurrent,
@@ -301,14 +322,19 @@ export const getDDRPConfig = (
           key: 'Patent',
           children: [corpPatentSelf, corpPatentHoldCompany, corpPatentOutboundInvestment, corpPatentBranch],
         },
+        corpWorkCopyright,
         corpSoftwareCopyright,
+        corpStandardInfo,
+        corpWebsiteRegistration,
+        corpWechatPublic,
+        corpMicroblogAccount,
+        corpTodayHeadline,
       ],
     },
     {
       type: 'section',
       key: 'JudicialRisk',
-      title: '企业法律诉讼',
-      titleIntl: '451117',
+      title: '司法风险',
       children: [
         corpJudicialDocument,
         corpFilingInfo,
@@ -327,19 +353,38 @@ export const getDDRPConfig = (
     {
       type: 'section',
       key: 'BusinessRisk',
-      title: '企业经营风险',
-      titleIntl: '451096',
+      title: '经营风险',
       children: [
-        corpInspectionCheck,
+        corpIntegrityInformation,
+        corpManageAbnormal,
+        corpCancellationRecord,
+        corpLiquidationInfo,
         corpTaxDebt,
         corpTaxViolation,
         corpSeriousViolation,
+        corpInspectionCheck,
+        corpDoubleRandomInspection,
+        corpProductRecall,
         corpWarrantyInformation,
         corpStockPledge,
         corpEquityPledge,
         corpIntellectualPropertyPledge,
-        corpLiquidationInfo,
-        corpCancellationRecord,
+      ],
+    },
+    {
+      type: 'section',
+      key: 'HistoryInfo',
+      title: '历史信息',
+      children: [
+        corpHistoryBusinessInfo,
+        corpHistoryShareholder,
+        corpHistoryLegalRepresentative,
+        corpHistoryOverseasInvestment,
+        corpHistoryWebsiteRegistration,
+        corpHistoryEquityPledge,
+        corpHistoryLandMortgage,
+        corpMultiCertificate,
+        corpBusinessLicenseInvalidDeclaration,
       ],
     },
   ]

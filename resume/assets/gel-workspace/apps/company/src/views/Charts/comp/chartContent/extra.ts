@@ -1,4 +1,4 @@
-import { GRAPH_MENU_TYPE } from '../constants'
+import { GRAPH_MENU_TYPE } from '../../types'
 
 // 根据菜单类型生成额外参数
 export const makeExtraParams = (type) => {

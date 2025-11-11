@@ -1,6 +1,5 @@
 import { AddrComp } from '@/components/company/info/comp/AddrComp.tsx'
-import { industry_gb_render, industry_name_wind_render } from '@/components/company/info/comp/industry.tsx'
-import { TitleAttachmentRender } from '@/components/company/info/comp/misc.tsx'
+import { industry_gb_render } from '@/components/company/info/comp/industry.tsx'
 import { corpInfoAnotherNameRow } from '@/components/company/info/rowsCommon/names.tsx'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
@@ -66,12 +65,6 @@ export const otherRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       colSpan: 5,
       render: industry_gb_render,
     },
-    // {
-    //   title: <TitleAttachmentRender />,
-    //   dataIndex: 'industry_name',
-    //   render: industry_name_wind_render,
-    //   colSpan: 2,
-    // },
   ],
   [{ title: intl('35776', '注册地址'), dataIndex: 'reg_address', colSpan: 5 }],
   [
@@ -79,8 +72,8 @@ export const otherRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       title: intl('1588', '办公地址'),
       dataIndex: 'bus_address',
       colSpan: 5,
-      render: (txt, row) => {
-        return AddrComp(txt, row, 1)
+      render: (txt, record) => {
+        return <AddrComp address={txt} corpId={record?.corp_id} isBusinessAddress={true} />
       },
     },
   ],

@@ -1,5 +1,5 @@
 import { CorpBasicNumFront, TCorpDetailNodeKey } from '@/src/corp'
-import { ConfigDetailApiJSON, ConfigDetailTitleJSON } from '../common'
+import { ConfigDetailApiJSON, ConfigDetailCommentCfg, ConfigDetailTitleJSON } from '../common'
 import { ConfigTableCellJsonConfig, ConfigTableCellRenderOptions, ConfigTableCellRenderTypeLiteral } from './cell'
 
 export * from './cell'
@@ -41,12 +41,6 @@ type TableJsonCommon = {
    */
   isRiskModule?: boolean
 
-  commentPrefix?: string
-  commentPrefixIntl?: string
-
-  commentSuffix?: string
-  commentSuffixIntl?: string
-
   /**
    * 注释后缀
    * 支持多语言
@@ -56,7 +50,8 @@ type TableJsonCommon = {
     en: string
   }[]
 } & Partial<ConfigDetailTitleJSON> &
-  ConfigDetailApiJSON
+  ConfigDetailApiJSON &
+  ConfigDetailCommentCfg
 
 /**
  * 详情表格配置

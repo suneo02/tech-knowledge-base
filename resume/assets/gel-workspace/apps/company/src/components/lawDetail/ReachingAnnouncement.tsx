@@ -1,8 +1,9 @@
-import React from 'react'
 import { Card } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
-import { wftCommon } from '../../utils/utils'
+import { generateUrlByModule, LinkModule } from 'gel-util/link'
+import React from 'react'
 import { usePageTitle } from '../../handle/siteTitle'
+import { wftCommon } from '../../utils/utils'
 
 const { HorizontalTable } = Table
 
@@ -46,8 +47,12 @@ function ReachingAnnouncement(props) {
             render: () => {
               return item.list.map((ele, index) => {
                 const text = index === item.list.length - 1 ? ele.name : ele.name + ','
-                return ele.id && ele.id.length ? (
-                  <a href={'../../Company/Company.html?companycode=' + item.id} target="_blank" rel="noreferrer">
+                const linkUrl = generateUrlByModule({
+                  module: LinkModule.COMPANY_DETAIL,
+                  params: { companycode: ele.id },
+                })
+                return linkUrl ? (
+                  <a href={linkUrl} target="_blank" rel="noreferrer" data-uc-id="GqKR4mPS7D" data-uc-ct="a">
                     {text}
                   </a>
                 ) : (
@@ -98,6 +103,8 @@ function ReachingAnnouncement(props) {
         // @ts-expect-error ttt
         rows={rows.concat(parties).concat(append)}
         dataSource={info}
+        data-uc-id="yMl8-CWJeR"
+        data-uc-ct="horizontaltable"
       ></HorizontalTable>
     </Card>
   )

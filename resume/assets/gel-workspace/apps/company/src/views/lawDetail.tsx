@@ -87,7 +87,12 @@ function LawDetail(props) {
   const breadCrumb = wftCommon.isBaiFenTerminalOrWeb() ? null : (
     <div className="bread-crumb">
       <div className="bread-crumb-content">
-        <span className="last-rank" onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}>
+        <span
+          className="last-rank"
+          onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}
+          data-uc-id="rku9x9MJnTL"
+          data-uc-ct="span"
+        >
           {intl('19475', '首页')}
         </span>
         <i></i>

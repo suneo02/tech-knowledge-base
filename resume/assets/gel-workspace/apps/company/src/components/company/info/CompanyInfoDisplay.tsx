@@ -19,7 +19,7 @@ export interface CompanyInfoDisplayProps {
     corp_update_time?: string
   }
   companycode?: string
-  onFeedbackClick?: () => void
+  onClickFeedback?: () => void
   isLoading?: boolean
   enCorpInfo?: any
 }
@@ -31,17 +31,12 @@ export interface CompanyInfoDisplayProps {
 export const CompanyInfoDisplay: React.FC<CompanyInfoDisplayProps> = ({
   baseInfo,
   corpHeaderInfo,
-  onFeedbackClick,
+  onClickFeedback,
   isLoading = false,
   enCorpInfo = {},
 }) => {
-  const showFeedBackModel = () => {
-    if (onFeedbackClick) {
-      onFeedbackClick()
-    }
-  }
 
-  let rows = getCorpInfoDefaultRows(baseInfo, showFeedBackModel)
+  let rows = getCorpInfoDefaultRows(baseInfo, onClickFeedback)
 
   const rowsByCorpTypeId = getCorpInfoRowsByCorpTypeId(baseInfo)
   if (rowsByCorpTypeId) {
@@ -58,7 +53,7 @@ export const CompanyInfoDisplay: React.FC<CompanyInfoDisplayProps> = ({
     rows = newRows
   }
 
-  const rowsByOrg = getCorpInfoRowsByOrg(baseInfo, showFeedBackModel)
+  const rowsByOrg = getCorpInfoRowsByOrg(baseInfo, onClickFeedback)
   if (rowsByOrg) {
     rows = rowsByOrg
   }
@@ -79,7 +74,6 @@ export const CompanyInfoDisplay: React.FC<CompanyInfoDisplayProps> = ({
       <div className="module-title module-title-overview" data-custom-id={'showCompanyInfo'}>
         {intl('138663', '基础信息')}
       </div>
-
       {corpArea ? (
         <HorizontalTable
           bordered={'default'}
@@ -87,6 +81,8 @@ export const CompanyInfoDisplay: React.FC<CompanyInfoDisplayProps> = ({
           title={headDiv}
           rows={rows}
           dataSource={baseInfo || {}}
+          data-uc-id="CDH06AEEY"
+          data-uc-ct="horizontaltable"
         />
       ) : (
         <HorizontalTable
@@ -97,6 +93,8 @@ export const CompanyInfoDisplay: React.FC<CompanyInfoDisplayProps> = ({
           title={headDiv}
           rows={rows}
           dataSource={displayData}
+          data-uc-id="klykSxjC1g"
+          data-uc-ct="horizontaltable"
         />
       )}
     </>

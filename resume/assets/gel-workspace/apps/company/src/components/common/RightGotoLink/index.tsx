@@ -16,10 +16,15 @@ export const RightGotoLink: React.FC<{
   style?: React.CSSProperties
 }> = ({ txt, func, style }) => {
   return (
-    <div onClick={func} className="rightGotoLink-container" style={style}>
+    <div onClick={func} className="rightGotoLink-container" style={style} data-uc-id="9w339hTW-e" data-uc-ct="div">
       <span className="rightGotoLink">
         {txt}
-        <RightO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+        <RightO
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          data-uc-id="U45VN7T94F"
+          data-uc-ct="righto"
+        />
       </span>
     </div>
   )

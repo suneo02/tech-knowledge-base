@@ -1,5 +1,5 @@
 import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type.ts'
-import { TCorpDetailTable } from '@/handle/corp/detail/module/type.ts'
+import { TCorpDetailTable } from 'gel-types'
 import { IAggResFrontType } from '@/handle/table/aggregation/type'
 import { ISearchOptionCfg } from '@/types/configDetail/search.ts'
 import { ReactNode } from 'react'
@@ -12,6 +12,7 @@ export interface ICorpTableCfg {
   enumKey?: TCorpDetailTable
   fn?: string // 不知道干嘛的
   cmd?: string
+  f9cmd?: string // f9版本的cmd接口，与cmd接口不同，该接口后端将单独控制fuse和权限等
   ajaxExtras?: any
   companyname?: string
   pageSize?: number
@@ -100,20 +101,13 @@ export interface ICorpTableCfg {
   /**
    * 导出数据前缀
    */
-  prefixDownDoc?: ({
-    companyCode,
-    companyName,
-  }: {
-    companyCode: string
-    companyName: string
-  }) => ReactNode
+  prefixDownDoc?: ({ companyCode, companyName }: { companyCode: string; companyName: string }) => ReactNode
   rightLink?: any
   typeMergence?: any
   titleStr?: ReactNode
   menuClickFunc?: any
   rightFilterCallback?: (params: any) => any
   rightCascader?: any
-  medicineFresh?: any
   new?: any
   balanceSheetListData?: any
   profitBasicInfoListData?: any
@@ -123,4 +117,8 @@ export interface ICorpTableCfg {
   cashflowData?: any
   apiSource?: string
   remark?: ReactNode
+  /**
+   * 表格数据为空时，隐藏右侧筛选
+   */
+  rightFilterHideWhenEmpty?: boolean
 }

@@ -4,9 +4,19 @@ import { useRequest } from 'ahooks'
 import classNames from 'classnames'
 import { ApiCodeForWfc, ApiPageForSuperlist, SuperChatHistoryItem } from 'gel-api'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigateWithLangSource } from '@/hooks/useLangSource'
 import { ConversationItem } from './ConversationItem'
 import styles from './style/index.module.less'
+import { t } from 'gel-util/intl'
+
+const STRINGS = {
+  HISTORY_TITLE: t('421520', '历史对话'),
+  HISTORY_EMPTY_TEXT: t('421521', '暂无历史对话'),
+  RENAME_SUCCESS: t('464210', '重命名成功'),
+  RENAME_FAILED: t('464222', '重命名失败'),
+  DELETE_SUCCESS: t('416956', '删除成功'),
+  DELETE_FAILED: t('315910', '删除失败'),
+}
 
 export interface HistoryConversationProps {
   className?: string
@@ -26,32 +36,32 @@ export const HistoryConversation: React.FC<HistoryConversationProps> = ({
   conversations,
   className,
 }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigateWithLangSource()
   const { run: runRename } = useRequest(renameFunc, {
     onSuccess: (data) => {
       if (data.ErrorCode === ApiCodeForWfc.SUCCESS) {
-        message.success('重命名成功')
+        message.success(STRINGS.RENAME_SUCCESS)
         onPageChange(page.pageNo, page.pageSize)
       } else {
-        message.error('重命名失败')
+        message.error(STRINGS.RENAME_FAILED)
       }
     },
     onError: () => {
-      message.error('重命名失败')
+      message.error(STRINGS.RENAME_FAILED)
     },
     manual: true,
   })
   const { run: runDelete } = useRequest(deleteFunc, {
     onSuccess: (data) => {
       if (data.ErrorCode === ApiCodeForWfc.SUCCESS) {
-        message.success('删除成功')
+        message.success(STRINGS.DELETE_SUCCESS)
         onPageChange(page.pageNo, page.pageSize)
       } else {
-        message.error('删除失败')
+        message.error(STRINGS.DELETE_FAILED)
       }
     },
     onError: () => {
-      message.error('删除失败')
+      message.error(STRINGS.DELETE_FAILED)
     },
     manual: true,
   })
@@ -72,7 +82,7 @@ export const HistoryConversation: React.FC<HistoryConversationProps> = ({
   }
 
   const handleRename = (item: SuperChatHistoryItem, newName: string) => {
-    console.log('🚀 ~ handleRename ~ newName:', newName)
+    // console.log('🚀 ~ handleRename ~ newName:', newName)
     setEditingId('')
     runRename({
       conversationId: item.conversationId,
@@ -82,13 +92,13 @@ export const HistoryConversation: React.FC<HistoryConversationProps> = ({
 
   return (
     <div className={classNames(styles['history-conversation'], className)}>
-      <h4 className={styles['history-conversation-title']}>历史对话</h4>
+      <h4 className={styles['history-conversation-title']}>{STRINGS.HISTORY_TITLE}</h4>
 
       <List
         className={styles['conversation-list']}
         loading={loading}
         dataSource={conversations}
-        locale={{ emptyText: <Empty description="暂无历史对话" /> }}
+        locale={{ emptyText: <Empty description={STRINGS.HISTORY_EMPTY_TEXT} /> }}
         renderItem={(item) => (
           <List.Item key={item.conversationId}>
             <ConversationItem

@@ -1,4 +1,4 @@
-import { isWebTest, usedInClient } from './misc'
+import { isTerminalApp, isWebTest, usedInClient } from './misc'
 import type { TGelEnv } from './type'
 
 export const getCurrentEnv = (isDev: boolean): TGelEnv => {
@@ -6,7 +6,7 @@ export const getCurrentEnv = (isDev: boolean): TGelEnv => {
 
   if (usedInClient()) {
     env = 'terminal'
-  } else if (/pc\.front/i.test(window.location.href?.toLocaleLowerCase())) {
+  } else if (isTerminalApp()) {
     env = 'terminalWeb'
   } else if (isWebTest()) {
     env = 'webTest'

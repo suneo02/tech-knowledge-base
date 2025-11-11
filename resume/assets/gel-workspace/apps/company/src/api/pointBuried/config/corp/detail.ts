@@ -2,7 +2,6 @@ import { IBuryPointConfig } from '@/api/pointBuried/config/type.ts'
 import { PageModuleEnum } from '@/api/pointBuried/module.ts'
 
 export const corpDetailBuryList: IBuryPointConfig[] = [
-
   {
     moduleId: 922602100187,
     pageId: PageModuleEnum.COMPANY_DETAILS,

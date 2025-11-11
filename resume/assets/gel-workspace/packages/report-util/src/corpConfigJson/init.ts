@@ -1,62 +1,23 @@
 import { TIntl } from '@/types'
-import { ReportDetailNodeJson, ReportDetailSectionJson, ReportPageJson } from 'gel-types'
+import { ReportDetailNodeOrNodesJson, ReportDetailSectionJson, ReportPageJson } from 'gel-types'
 import { configDetailIntlHelper } from './intlHelper'
+import { procssNodeTitle } from './procssNodeTitle'
 import { isTableConfig } from './table'
-import { SectionHeadingOptions, tableSectionsHelper } from './tableSection'
-import { ProcessedInitializationData, ReportRenderItem } from './type'
+import { FlattenedReportConfig } from './type'
 
-const procssNodeTitle = (
-  node: ReportDetailNodeJson | ReportDetailSectionJson,
-  t: TIntl,
-  level: number,
-  numbers: number[]
-):
-  | {
-      headingOptions: SectionHeadingOptions
-      renderOrder: ReportRenderItem
-    }
-  | undefined => {
-  if (!node.title) {
-    return undefined
-  }
-  const sectionId = tableSectionsHelper.generateSectionId(node.key)
-
-  const headingOptions: SectionHeadingOptions = {
-    headingLevel: level,
-    numbers,
-    title: configDetailIntlHelper(node, 'title', t),
-  }
-  if (isTableConfig(node)) {
-    return {
-      headingOptions,
-      renderOrder: {
-        type: 'heading',
-        id: sectionId,
-        relevateTableId: node.key,
-      },
-    }
-  } else {
-    return {
-      headingOptions,
-      renderOrder: {
-        type: 'heading',
-        id: sectionId,
-      },
-    }
-  }
-}
-export const processAndInitializeSectionsTree = (
+export const flattenReportConfig = (
   rootSections: ReportPageJson,
   startLevel: number = 1,
   t: TIntl
-): ProcessedInitializationData => {
-  const tableConfigsStore: ProcessedInitializationData['tableConfigsStore'] = {}
-  const sectionConfigStore: ProcessedInitializationData['sectionConfigStore'] = {}
-  const customNodeConfigStore: ProcessedInitializationData['customNodeConfigStore'] = {}
-  const renderOrder: ProcessedInitializationData['renderOrder'] = []
+): FlattenedReportConfig => {
+  const tableConfigsStore: FlattenedReportConfig['tableConfigsStore'] = {}
+  const sectionConfigStore: FlattenedReportConfig['sectionConfigStore'] = {}
+  const customNodeConfigStore: FlattenedReportConfig['customNodeConfigStore'] = {}
+  const rawHtmlNodeConfigStore: FlattenedReportConfig['rawHtmlNodeConfigStore'] = {}
+  const renderOrder: FlattenedReportConfig['renderOrder'] = []
 
   const recursiveInitializeSection = (
-    sectionOrNode: ReportDetailSectionJson | ReportDetailNodeJson,
+    sectionOrNode: ReportDetailSectionJson | ReportDetailNodeOrNodesJson,
     numbers: number[],
     level: number
   ): void => {
@@ -80,11 +41,23 @@ export const processAndInitializeSectionsTree = (
     } else if (sectionOrNode.type === 'custom') {
       renderOrder.push({ type: 'custom', id: sectionOrNode.key })
       customNodeConfigStore[sectionOrNode.key] = sectionOrNode
-    } else if (sectionOrNode.children && sectionOrNode.children.length) {
+    } else if (sectionOrNode.type === 'rawHtml') {
+      renderOrder.push({ type: 'rawHtml', id: sectionOrNode.key })
+      rawHtmlNodeConfigStore[sectionOrNode.key] = sectionOrNode
+    } else if ('children' in sectionOrNode && sectionOrNode.children && sectionOrNode.children.length) {
       sectionOrNode.children.forEach((childSection, childIndex) => {
         const childNumbers = [...numbers, childIndex + 1]
         recursiveInitializeSection(childSection, childNumbers, level + 1)
       })
+    } else {
+      console.error('Unknown section or node type:', sectionOrNode)
+    }
+    // 如果是 secion comment 需要在此处处理，之后不会再处理
+    if (sectionOrNode.type === 'section') {
+      if (sectionOrNode.commentSuffix || sectionOrNode.commentSuffixIntl) {
+        const commentSuffix = configDetailIntlHelper(sectionOrNode, 'commentSuffix', t)
+        renderOrder.push({ type: 'element', element: commentSuffix })
+      }
     }
   }
 
@@ -98,5 +71,6 @@ export const processAndInitializeSectionsTree = (
     sectionConfigStore,
     renderOrder,
     customNodeConfigStore,
+    rawHtmlNodeConfigStore,
   }
 }

@@ -77,6 +77,22 @@ import '../assets/imgs/chart/actor11.svg'
 import '../assets/icons/miniApp.svg'
 import '../assets/icons/Mobile.svg'
 import '../assets/icons/QRCode.svg'
+
+import '../assets/icons/send.svg'
+
+import '../assets/icons/corp_dynamic.svg'
+
+import '../assets/icons/menuFolderLeft.svg'
+import '../assets/icons/menuFolderRight.svg'
+
+import '../assets/imgs/aiGraphHiAlice.svg'
+
+import '../assets/imgs/aiGraph/ai_graph_markdown.svg'
+import '../assets/imgs/aiGraph/ai_graph_excel.svg'
+import '../assets/imgs/aiGraph/ai_graph_supply_chain.svg'
+import '../assets/imgs/aiGraph/ai_graph_competitors.svg'
+import '../assets/imgs/aiGraph/ai_graph_customers.svg'
+
 // 自定义图标
 export const MyIcon = (props) => {
   return (
@@ -89,6 +105,8 @@ export const MyIcon = (props) => {
         )
       }}
       {...props}
+      data-uc-id="cIiTVUSDgV"
+      data-uc-ct="icon"
     />
   )
 }

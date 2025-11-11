@@ -1,0 +1,88 @@
+@import '../../../../../styles/colorVariables.less';
+
+.graphChatHi {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  width: 100%;
+  padding: 0 30px;
+
+  .graphChatHiLogoImg {
+    width: 110px;
+    height: 110px;
+  }
+  .graphChatHiContent {
+    margin-left: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .graphChatHiContentImg {
+      width: 158px;
+      height: 80px;
+      align-self: flex-start;
+    }
+    .graphChatHiContentText {
+      font-size: 24px;
+      color: #333;
+      font-weight: 600;
+      // padding: 0 16px;
+      line-height: 34px;
+    }
+    .graphChatHiContentTextImg {
+      // background: linear-gradient(90deg, #3862ed, #274cda 11.98%, #00aec7 39.47%, #17d9cb 64.8%, #b388e8);
+      // background-clip: text;
+      // -webkit-background-clip: text;
+      // -webkit-text-fill-color: transparent;
+      & svg {
+        width: 165px;
+        height: 34px;
+      }
+    }
+  }
+}
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px 60px;
+}
+.card {
+  width: 384px;
+  height: 121px;
+  padding: 0 20px;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  &:hover {
+    border-color: transparent;
+    background-image:
+      linear-gradient(90deg, #fff, #fff),
+      linear-gradient(90deg, #3862ed 0%, #274cda 25%, #00aec7 50%, #12cbbe 75%, #9d9ae3 100%);
+  }
+}
+.cardIcon {
+  margin-right: 8px;
+  svg {
+    width: 60px;
+    height: 60px;
+  }
+}
+.title {
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+}
+.description {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #666;
+  line-height: 20px;
+  font-weight: 400;
+}

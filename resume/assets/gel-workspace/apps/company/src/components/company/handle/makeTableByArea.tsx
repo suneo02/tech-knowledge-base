@@ -5,9 +5,9 @@ import { vieRowConfig } from '@/handle/corpModuleCfgSpecial/vieRowConfig.tsx'
 import { englandRowConfig } from '@/handle/corpModuleCfgSpecial/englandRowConfig.tsx'
 import { indRowConfig } from '@/handle/corpModuleCfgSpecial/indRowConfig.tsx'
 import intl from '@/utils/intl'
-import { TCorpDetailSubModule } from '@/handle/corp/detail/module/type.ts'
 
 import { TCorpArea } from '@/handle/corp/corpArea.ts'
+import { TCorpDetailSubModule } from 'gel-types'
 
 export const makeCorpTableByCorpArea = (corpArea: TCorpArea, table: ICorpTableCfg, moduleKey: TCorpDetailSubModule) => {
   if (corpArea) {

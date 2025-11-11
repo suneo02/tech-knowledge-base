@@ -1,69 +1,35 @@
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { visualizer } from 'rollup-plugin-visualizer'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig, type ConfigEnv, type ProxyOptions, type UserConfig } from 'vite'
 import svgr from 'vite-plugin-svgr'
-import { visualizer } from 'rollup-plugin-visualizer'
+
+const devProxy: Record<string, ProxyOptions> = {
+  '/api/xtest': {
+    target: 'https://test.wind.com.cn',
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api\/xtest/, ''),
+  },
+  '/api/xsh': {
+    target: 'https://114.80.154.45',
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api\/xsh/, ''),
+  },
+  '/api/xnj': {
+    target: 'https://180.96.8.44',
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api\/xnj/, ''),
+  },
+  '/api/xexp': {
+    target: 'https://exp.wind.com.cn',
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api\/xexp/, ''),
+  },
+}
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const isDev = mode === 'development'
-  console.log('isDev', isDev)
-
-  const devProxy: Record<string, ProxyOptions> = {
-    '/xtest': {
-      target: 'https://test.wind.com.cn',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xtest/, ''),
-    },
-    '/xprod': {
-      target: 'https://wx.wind.com.cn',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xprod/, ''),
-    },
-    '/xexp': {
-      target: 'https://exp.wind.com.cn',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xexp/, ''),
-    },
-    '/xsh': {
-      target: 'https://114.80.154.45',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xsh/, ''),
-    },
-    '/xnj': {
-      target: 'https://180.96.8.44',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xnj/, ''),
-    },
-    '/xgel': {
-      target: 'https://gel.wind.com.cn',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xgel/, ''),
-    },
-    '/xdev2': {
-      target: 'http://10.100.5.240:8880',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xdev2/, ''),
-    },
-    '/xdev': {
-      target: 'http://10.100.5.240:8881',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xdev/, ''),
-    },
-    '/gky': {
-      target: 'http://10.100.4.62:8880',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/gky/, ''),
-    },
-    // '/download': {
-    //   target: 'http://10.100.5.240:9898',
-    //   changeOrigin: true,
-    //   rewrite: (path) => {
-    //     console.log(`http://10.100.5.240:9898` + path.replace(/^\/download/, ''))
-    //     return path.replace(/^\/download/, '')
-    //   },
-    // },
-  }
 
   const plugins = [
     react(),
@@ -155,6 +121,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   }
 
   return {
+    // logLevel: !isDev ? 'warn' : 'info',
     plugins,
     css: {
       modules: {

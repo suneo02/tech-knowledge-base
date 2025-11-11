@@ -85,7 +85,13 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
   return (
     <div className={wrapperClassName}>
       {children}
-      <Button type={buttonType} className={buttonClassName} onClick={handleCopy}>
+      <Button
+        type={buttonType}
+        className={buttonClassName}
+        onClick={handleCopy}
+        data-uc-id="UJ-To4LG-I"
+        data-uc-ct="button"
+      >
         {defaultRenderButtonText(copyStatus)}
       </Button>
     </div>

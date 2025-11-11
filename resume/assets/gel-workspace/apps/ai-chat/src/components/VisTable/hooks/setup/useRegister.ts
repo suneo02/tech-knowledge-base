@@ -1,16 +1,6 @@
 import { register, TYPES } from '@visactor/vtable'
 import { DateInputEditor, InputEditor, ListEditor, TextAreaEditor } from '@visactor/vtable-editors'
-import {
-  addIcon,
-  aiIcon,
-  chatIcon,
-  companyIcon,
-  dropdownIcon,
-  editIcon,
-  indexIcon,
-  runIcon,
-  userIcon,
-} from '../../config'
+import { addIcon, aiIcon, dropdownIcon, editIcon, runIcon } from '../../config'
 import { IconTypeEnum } from '../../types/iconTypes'
 
 export const useRegister = () => {
@@ -25,52 +15,56 @@ export const useRegister = () => {
       positionType: TYPES.IconPosition.left,
       marginRight: 4,
     })
-    register.icon(IconTypeEnum.COMPANY, {
-      type: 'svg',
-      svg: companyIcon,
-      width: 20,
-      height: 20,
-      name: IconTypeEnum.COMPANY,
-      positionType: TYPES.IconPosition.left,
-      marginRight: 4,
-      tooltip: {
-        title: '列数据源：企业数据浏览器',
-      },
-    })
-    register.icon(IconTypeEnum.AI_CHAT, {
-      type: 'svg',
-      svg: chatIcon,
-      width: 16,
-      height: 16,
-      name: IconTypeEnum.AI_CHAT,
-      positionType: TYPES.IconPosition.left,
-      marginRight: 4,
-      tooltip: {
-        title: '列数据源：AI对话',
-      },
-    })
-    register.icon(IconTypeEnum.USER, {
-      type: 'svg',
-      svg: userIcon,
-      width: 16,
-      height: 16,
-      name: IconTypeEnum.USER,
-      positionType: TYPES.IconPosition.left,
-      marginRight: 4,
-      tooltip: {
-        title: '列数据源：用户',
-      },
-    })
+    // register.icon(IconTypeEnum.COMPANY, {
+    //   type: 'svg',
+    //   // svg: companyIcon,
+    //   width: 20,
+    //   height: 20,
+    //   name: IconTypeEnum.COMPANY,
+    //   // positionType: TYPES.IconPosition.left,
+    //   marginRight: 4,
+    //   tooltip: {
+    //     title: '列数据源：企业高级筛选',
+    //   },
+    // })
+    // register.icon(IconTypeEnum.AI_CHAT, {
+    //   type: 'svg',
+    //   // svg: chatIcon,
+    //   width: 16,
+    //   height: 16,
+    //   name: IconTypeEnum.AI_CHAT,
+    //   // positionType: TYPES.IconPosition.left,
+    //   marginRight: 4,
+    //   tooltip: {
+    //     title: '列数据源：AI对话',
+    //   },
+    // })
+    // register.icon(IconTypeEnum.USER, {
+    //   type: 'svg',
+    //   // svg: userIcon,
+    //   width: 16,
+    //   height: 16,
+    //   name: IconTypeEnum.USER,
+    //   // positionType: TYPES.IconPosition.left,
+    //   marginRight: 4,
+    //   tooltip: {
+    //     title: '列数据源：用户',
+    //   },
+    // })
 
     register.icon('dropdownIcon', {
       name: 'dropdown',
       type: 'svg',
       positionType: TYPES.IconPosition.right,
       funcType: TYPES.IconFuncTypeEnum.dropDown,
-      width: 18,
-      height: 18,
+      width: 12,
+      height: 12,
       svg: dropdownIcon,
       marginLeft: 10,
+      hover: {
+        bgColor: 'rgba(0, 0, 0, 0.04)',
+      },
+      cursor: 'pointer',
     })
     register.icon(IconTypeEnum.EDIT, {
       type: 'svg',
@@ -103,13 +97,14 @@ export const useRegister = () => {
       //   title: '添加一列至末尾',
       // },
     })
+    // @ts-expect-error ttt
     register.icon(IconTypeEnum.INDEX, {
       type: 'svg',
-      svg: indexIcon,
+      // svg: indexIcon,
       width: 16,
       height: 16,
       name: IconTypeEnum.INDEX,
-      positionType: TYPES.IconPosition.left,
+      // positionType: TYPES.IconPosition.left,
       marginRight: 4,
       tooltip: {
         title: '列数据源：指标',

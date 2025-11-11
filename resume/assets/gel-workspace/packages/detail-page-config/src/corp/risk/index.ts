@@ -1,5 +1,5 @@
-import { validateReportDetailNodeJson } from '@/validation'
-import { ReportDetailNodeJson } from 'gel-types'
+import { validateReportDetailNodeOrNodesJson } from '@/validation'
+import { ReportDetailNodeOrNodesJson } from 'gel-types'
 import corpAppraisalJson from './Appraisal.json' assert { type: 'json' }
 import corpBankruptcyReorganizationJson from './BankruptcyReorganization.json' assert { type: 'json' }
 import corpCourtNoticeJson from './CourtNotice.json' assert { type: 'json' }
@@ -13,26 +13,31 @@ import corpJudicialDocumentJson from './JudicialDocument.json' assert { type: 'j
 import corpLimitHighConsumptionJson from './LimitHighConsumption.json' assert { type: 'json' }
 import corpTrialNoticeJson from './TrialNotice.json' assert { type: 'json' }
 
-export const corpAppraisal: ReportDetailNodeJson = validateReportDetailNodeJson(corpAppraisalJson)
-export const corpBankruptcyReorganization: ReportDetailNodeJson = validateReportDetailNodeJson(
+export const corpAppraisal: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpAppraisalJson)
+export const corpBankruptcyReorganization: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(
   corpBankruptcyReorganizationJson
 )
-export const corpCourtNotice: ReportDetailNodeJson = validateReportDetailNodeJson(corpCourtNoticeJson)
+export const corpCourtNotice: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpCourtNoticeJson)
 
-export const corpCreditDishonest: ReportDetailNodeJson = validateReportDetailNodeJson(corpCreditDishonestJson)
+export const corpCreditDishonest: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpCreditDishonestJson)
 
-export const corpDeliveryAnnouncement: ReportDetailNodeJson = validateReportDetailNodeJson(corpDeliveryAnnouncementJson)
+export const corpDeliveryAnnouncement: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpDeliveryAnnouncementJson)
 
-export const corpEndCase: ReportDetailNodeJson = validateReportDetailNodeJson(corpEndCaseJson)
+export const corpEndCase: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpEndCaseJson)
 
-export const corpEnforcement: ReportDetailNodeJson = validateReportDetailNodeJson(corpEnforcementJson)
+export const corpEnforcement: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpEnforcementJson)
 
-export const corpFilingInfo: ReportDetailNodeJson = validateReportDetailNodeJson(corpFilingInfoJson)
+export const corpFilingInfo: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpFilingInfoJson)
 
-export const corpJudicialDocument: ReportDetailNodeJson = validateReportDetailNodeJson(corpJudicialDocumentJson)
+export const corpJudicialDocument: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpJudicialDocumentJson)
 
-export const corpLimitHighConsumption: ReportDetailNodeJson = validateReportDetailNodeJson(corpLimitHighConsumptionJson)
+export const corpLimitHighConsumption: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpLimitHighConsumptionJson)
 
-export const corpTrialNotice: ReportDetailNodeJson = validateReportDetailNodeJson(corpTrialNoticeJson)
+export const corpTrialNotice: ReportDetailNodeOrNodesJson = validateReportDetailNodeOrNodesJson(corpTrialNoticeJson)
 
-export const corpJudicialAuction: ReportDetailNodeJson = validateReportDetailNodeJson(corpJudicialAuctionJson)
+export const corpJudicialAuction: ReportDetailNodeOrNodesJson =
+  validateReportDetailNodeOrNodesJson(corpJudicialAuctionJson)

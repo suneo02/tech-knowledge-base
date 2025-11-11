@@ -1,4 +1,4 @@
-import { API_PREFIX, DEV_WSID, isDev } from '@/utils/env'
+import { API_PREFIX, DEV_WSID, getWsidProd, isDev } from '@/utils/env'
 import { buildUrl } from '@/utils/url'
 import { RequestConfig } from '../types/request'
 
@@ -36,8 +36,11 @@ export function request<R>(url: string, options: RequestConfig<Record<string, an
       'Content-Type': contentType,
     }
 
+    // 百分的接口需要 session id ，不支持 cookie，因此统一全部添加
+    headers['wind.sessionid'] = getWsidProd()
+
     // Add session ID to headers for non-release environments
-    if (isDev) {
+    if (isDev && !headers['wind.sessionid']) {
       headers['wind.sessionid'] = DEV_WSID
     }
 
@@ -45,6 +48,10 @@ export function request<R>(url: string, options: RequestConfig<Record<string, an
     let processedData: any = bodyData
     if (contentType.indexOf('application/json') !== -1) {
       processedData = JSON.stringify(bodyData)
+    }
+
+    if (method === 'GET') {
+      processedData = undefined
     }
 
     // Use jQuery's AJAX with direct callbacks

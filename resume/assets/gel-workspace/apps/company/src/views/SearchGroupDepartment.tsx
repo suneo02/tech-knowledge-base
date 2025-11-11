@@ -95,15 +95,29 @@ function SearchGroupDepartment(_props) {
         <div className="hot-group-search">
           <div className="hot-wrap">
             <div className="hot-group">
-              <FireO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              <FireO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="UDxQlVUPG"
+                data-uc-ct="fireo"
+              />
               <span>{intl('286619', '热门集团系')}</span>
             </div>
             <div className="hot-change">
               <Button
                 type="text"
-                icon={<RefreshO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                icon={
+                  <RefreshO
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    data-uc-id="QOTydXGfIN"
+                    data-uc-ct="refresho"
+                  />
+                }
                 onClick={runGetQueryCommonList}
                 loading={hotLoading}
+                data-uc-id="_P19F8GqE7"
+                data-uc-ct="button"
               >
                 <span>{intl('437752', '换一换')}</span>
               </Button>

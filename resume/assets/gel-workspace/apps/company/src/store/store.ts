@@ -1,6 +1,8 @@
-import { createStore } from "redux";
-import rootReducers from "../reducers";
+import { createStore } from 'redux'
+import rootReducers from '../reducers'
 
-const store = createStore(rootReducers);
+export type RootState = ReturnType<typeof rootReducers>
 
-export default store;
+const store = createStore<RootState, any, any, any>(rootReducers)
+
+export default store

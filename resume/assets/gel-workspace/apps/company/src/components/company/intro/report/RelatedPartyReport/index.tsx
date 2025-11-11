@@ -1,3 +1,6 @@
+import { pointBuriedNew } from '@/api/configApi'
+import { commonBuryList } from '@/api/pointBuried/config'
+import { ECorpReport } from '@/handle/corp/report/config'
 import { downloadCompanySampleReport } from '@/handle/corp/report/handle/handle'
 import { Button, Radio } from '@wind/wind-ui'
 import React, { FC, useEffect, useMemo, useState } from 'react'
@@ -5,7 +8,7 @@ import RelatedPartyReportImg from '../../../../../assets/imgs/RelatedPartyReport
 import RelatedPartyReportImgEn from '../../../../../assets/imgs/RelatedPartyReportImgEn.png'
 import intl from '../../../../../utils/intl'
 import { CheckSampleIntl, CompanyReportExportItem } from '../comp'
-import { ReportDownBtn } from '../comp/DownBtn'
+import { ReportExcelDownBtn } from '../comp/DownBtn'
 import {
   downloadRelatedPartyReport,
   getIfCorpFinancial,
@@ -14,9 +17,6 @@ import {
   RelatedPartyReportRuleTitle,
 } from './handle'
 import './index.less'
-import { pointBuriedNew } from '@/api/configApi'
-import { commonBuryList } from '@/api/pointBuried/config'
-import { ECorpReport } from '@/handle/corp/report/config'
 
 export * from './handle'
 
@@ -79,25 +79,41 @@ export const RelatedPartyReport: FC<{
       ifSvip={true}
       buttons={
         <>
-          <Radio.Group onChange={handleChange} value={exchangeRule}>
+          <Radio.Group onChange={handleChange} value={exchangeRule} data-uc-id="nBWY6Ud4-" data-uc-ct="radio">
             {RelatedPartyReportRuleOptions.map((item) => (
-              <Radio key={item.value} value={item.value} disabled={item.disabled}>
+              <Radio
+                key={item.value}
+                value={item.value}
+                disabled={item.disabled}
+                data-uc-id="FWLTAgAoOo"
+                data-uc-ct="radio"
+                data-uc-x={item.value}
+              >
                 {item.title}
               </Radio>
             ))}
           </Radio.Group>
           <div className={`${StylePrefix}--footer-btns`}>
-            <ReportDownBtn
+            <ReportExcelDownBtn
               onClick={() =>
                 downloadRelatedPartyReport(companyCode, companyName, RelatedPartyReportRuleCode[exchangeRule])
               }
-              iconName="doc_excel"
+              data-uc-id="EArv40FGeW"
+              data-uc-ct="reportexceldownbtn"
             />
-            <Button onClick={() => downloadCompanySampleReport(ECorpReport.RelatedPartyRP)}>{CheckSampleIntl}</Button>
+            <Button
+              onClick={() => downloadCompanySampleReport(ECorpReport.RelatedPartyRP)}
+              data-uc-id="MRRsDGVN2G"
+              data-uc-ct="button"
+            >
+              {CheckSampleIntl}
+            </Button>
           </div>
         </>
       }
       imgSrc={window.en_access_config ? RelatedPartyReportImgEn : RelatedPartyReportImg}
+      data-uc-id="Jfl5ytWKGH"
+      data-uc-ct="companyreportexportitem"
     />
   )
 }

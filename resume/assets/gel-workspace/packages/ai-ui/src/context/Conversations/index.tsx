@@ -1,13 +1,12 @@
-import { ChatHistoryResponse, SuperChatHistoryItem } from 'gel-api'
+import { AIChatHistory, SuperChatHistoryItem } from 'gel-api'
+import { ConversationTimeGroup } from 'gel-ui'
 import { createConversationsContext } from './core'
-import { ConversationTimeGroup } from './type'
-export * from './core'
-export * from './type'
+export { createConversationsContext } from './core'
 
 // Create the context using the factory
 export const { useConversations: useConversationsBase, Provider: ConversationsBaseProvider } =
   createConversationsContext<
-    ChatHistoryResponse & {
+    AIChatHistory & {
       group?: ConversationTimeGroup
     }
   >()
@@ -17,5 +16,6 @@ export const { useConversations: useConversationsSuper, Provider: ConversationsS
   createConversationsContext<
     SuperChatHistoryItem & {
       group?: ConversationTimeGroup
+      splVersion?: number
     }
   >()

@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react'
 import axios from '@/api'
 import { message as Message } from '@wind/wind-ui'
 import md5 from 'js-md5'
+import { t } from 'gel-util/intl'
 
 // 定义类型
 interface ChatMessage {
@@ -182,7 +183,9 @@ export const useChatMessages = () => {
               .filter(Boolean)
               .join('')
             if (list && list.length > 0) {
-              sqlDesc = sqlDesc ? sqlDesc : '根据您的需求，已为您查询出结果，如有其他需求，随时告诉我们哦！'
+              sqlDesc = sqlDesc
+                ? sqlDesc
+                : t('455041', '根据您的需求，已为您查询出结果，如有其他需求，随时告诉我们哦！')
               const dataTemp: any = [
                 ...new Set(
                   list
@@ -214,7 +217,10 @@ export const useChatMessages = () => {
                     role: 'ai',
                     content: sqlDesc
                       ? sqlDesc
-                      : '抱歉，根据你的需求未查找到相关企业信息。请尝试使用不同的关键词或者提供更准确的企业名称进行查询。',
+                      : t(
+                          '455057',
+                          '抱歉，根据你的需求未查找到相关企业信息。请尝试使用不同的关键词或者提供更准确的企业名称进行查询。'
+                        ),
                     data: [],
                     id: queryId,
                   },
@@ -232,7 +238,7 @@ export const useChatMessages = () => {
                 ...otherMessages,
                 {
                   role: 'ai',
-                  content: '抱歉，系统发生错误，请重试',
+                  content: t('455042', '抱歉，系统发生错误，请重试'),
                   error: true,
                   id: queryId,
                 },
@@ -269,8 +275,8 @@ export const useChatMessages = () => {
   const handleCopyMessage = useCallback((content: string) => {
     navigator.clipboard
       .writeText(content)
-      .then(() => Message.success('已复制'))
-      .catch(() => Message.error('复制失败'))
+      .then(() => Message.success(t('421466', '已复制')))
+      .catch(() => Message.error(t('455058', '复制失败')))
   }, [])
 
   // 重新提问
@@ -294,7 +300,7 @@ export const useChatMessages = () => {
         ...otherMessages,
         {
           role: 'ai',
-          content: '已停止回答。如有需要，请随时重新提问',
+          content: t('455059', '已停止回答。如有需要，请随时重新提问'),
           id: queryId,
         },
       ]

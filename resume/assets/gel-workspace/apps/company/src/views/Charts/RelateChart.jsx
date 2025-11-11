@@ -872,6 +872,7 @@ function RelateChart({ companycode, companyname, watermask = true, bottom = fals
         ? o.push({
             name: i.substr(0, i.length),
             row: 'last',
+            root: e[0].depth === 0 ? true : false,
           })
         : 2 === n
           ? o.push({
@@ -946,6 +947,9 @@ function RelateChart({ companycode, companyname, watermask = true, bottom = fals
         .attr('fill', '#fff')
         .attr('x', function (t) {
           var e = s.attr('x')
+          if (t.root) {
+            return e
+          }
           if ('last' === t.row) {
             var a = d.default.centerWidth - 16 * t.name.length
             e = parseFloat(a / 2) + parseFloat(e) - 12
@@ -1277,12 +1281,13 @@ function RelateChart({ companycode, companyname, watermask = true, bottom = fals
     >
       {loading || !data ? null : (
         <div className="chart-icons">
-          {disableExportExcel ? null : <FileTextO onClick={glgxChartExportEvent} />}
-          <SaveO onClick={saveAction} />
-          <RefreshO onClick={freshChart} />
+          {disableExportExcel ? null : (
+            <FileTextO onClick={glgxChartExportEvent} data-uc-id="HTgwaDrOqC" data-uc-ct="filetexto" />
+          )}
+          <SaveO onClick={saveAction} data-uc-id="JfjyRhUL6X" data-uc-ct="saveo" />
+          <RefreshO onClick={freshChart} data-uc-id="uvb3FR5O0_" data-uc-ct="refresho" />
         </div>
       )}
-
       <div className={`chart-tabs ${loading ? 'chart-tabs-dark' : ''}`}>
         <Radio.Group
           value={selType}
@@ -1290,18 +1295,19 @@ function RelateChart({ companycode, companyname, watermask = true, bottom = fals
             pointBuriedByModule(922602100956)
             setSelType(e.target.value)
           }}
+          data-uc-id="eCEeK4GDb"
+          data-uc-ct="radio"
         >
           {glgxTypes.map((t) => {
             if (t.val === 5 && !isfinical) return null
             return (
-              <Radio key={t.val} value={t.val}>
+              <Radio key={t.val} value={t.val} data-uc-id="eDCFHshqqJ" data-uc-ct="radio" data-uc-x={t.val}>
                 {t.label}
               </Radio>
             )
           })}
         </Radio.Group>
       </div>
-
       <div
         className={`relate-graph-content ${waterMask ? 'chart-content-watermask' : ''}`}
         style={!loading && !data ? { borderLeft: 'none', borderRight: 'none' } : null}
@@ -1309,7 +1315,6 @@ function RelateChart({ companycode, companyname, watermask = true, bottom = fals
         {loading && companyCode ? <Spin className="chart-loading" tip="Loading..."></Spin> : null}
         {(!loading && !data) || !companyCode ? <Empty></Empty> : null}
       </div>
-
       {bottom ? (
         <div className="chart-bottom">
           {intl('437654', '计算结果基于公开信息和第三方数据利用大数据技术独家计算生成')}

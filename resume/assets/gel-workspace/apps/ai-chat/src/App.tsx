@@ -1,22 +1,20 @@
-import DebugPanel from '@/components/debug-panel'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import { GlobalModalProvider } from '@/components/GlobalModalProvider'
-import { store } from '@/store'
+import { store, useAppDispatch } from '@/store'
 import { XProvider } from '@ant-design/x'
 import { ConfigProvider } from 'antd'
 import enUS from 'antd/locale/en_US'
 import zhCN from 'antd/locale/zh_CN'
-import { primaryColor } from 'gel-ui'
+import { DebugPanel, primaryColor } from 'gel-ui'
 import { clientInitWSID } from 'gel-util/env'
 import { i18n } from 'gel-util/intl'
-
-import Loading from '@/pages/Fallback/loading'
-import { Suspense, useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Provider } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
 import './App.css'
 import router from './router'
-import { useUrlLanguage } from './utils/intl/useUrlLanguage'
+import { fetchUserInfo } from './store'
+import { isDev, isStaging } from './utils/env'
 
 // 预加载关键路由
 const preloadRoutes = () => {
@@ -37,21 +35,19 @@ const preloadRoutes = () => {
   return () => clearTimeout(timeout)
 }
 
-const App = () => {
-  const isDev = import.meta.env.DEV
-
-  // 初始化 URL 语言处理
-  useUrlLanguage()
+const AppContent = () => {
+  const dispatch = useAppDispatch()
 
   // 根据当前语言选择 Ant Design 的语言包
   const antdLocale = useMemo(() => {
-    return i18n.language === 'en-US' ? enUS : zhCN
-  }, [i18n.language])
+    return i18n?.language?.startsWith('en') ? enUS : zhCN
+  }, [i18n?.language])
 
-  // 初始化从终端中获取 wsid
+  // 初始化从终端中获取 wsid 并获取用户信息
   useEffect(() => {
     clientInitWSID()
-  }, [])
+    dispatch(fetchUserInfo())
+  }, [dispatch])
 
   // 预加载关键路由
   useEffect(() => {
@@ -59,30 +55,33 @@ const App = () => {
   }, [])
 
   return (
-    <ErrorBoundary>
-      <Provider store={store}>
-        <ConfigProvider
-          theme={{
-            token: {
-              colorPrimary: primaryColor,
-            },
-          }}
-          locale={antdLocale}
-        >
-          <XProvider>
-            <GlobalModalProvider>
-              <Suspense fallback={<Loading />}>
-                <div className={`app-container ${isDev ? 'dev-mode' : ''}`}>
-                  <RouterProvider router={router} />
-                  {isDev && <DebugPanel />}
-                </div>
-              </Suspense>
-            </GlobalModalProvider>
-          </XProvider>
-        </ConfigProvider>
-      </Provider>
-    </ErrorBoundary>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: primaryColor,
+          borderRadiusLG: 4,
+        },
+      }}
+      locale={antdLocale}
+    >
+      <XProvider>
+        <GlobalModalProvider>
+          <div className={`app-container ${isDev ? 'dev-mode' : ''}`}>
+            <RouterProvider router={router} />
+            {(isDev || isStaging) && <DebugPanel />}
+          </div>
+        </GlobalModalProvider>
+      </XProvider>
+    </ConfigProvider>
   )
 }
+
+const App = () => (
+  <ErrorBoundary>
+    <Provider store={store}>
+      <AppContent />
+    </Provider>
+  </ErrorBoundary>
+)
 
 export default App

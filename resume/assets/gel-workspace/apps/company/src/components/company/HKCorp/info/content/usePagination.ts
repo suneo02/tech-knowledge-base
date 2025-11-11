@@ -67,10 +67,7 @@ export const usePagination = ({ initialPageSize = 10, maxTotal = 5000 }: UsePagi
   )
 
   // 缓存处理后的分页数据
-  const paginationHandled = useMemo(
-    () => handlePagination(pagination),
-    [handlePagination, pagination]
-  )
+  const paginationHandled = useMemo(() => handlePagination(pagination), [handlePagination, pagination])
 
   return {
     pagination: paginationHandled, // 返回缓存的结果

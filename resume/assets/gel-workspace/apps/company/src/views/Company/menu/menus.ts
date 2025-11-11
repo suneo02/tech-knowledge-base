@@ -1,4 +1,3 @@
-import { ECorpDetailSubModule, TCorpDetailSubModule } from '@/handle/corp/detail/module/type.ts'
 import {
   corpDetailEquityPledge,
   corpDetailEvaluation,
@@ -7,11 +6,13 @@ import {
   corpDetailStockPledge,
 } from '@/handle/corpModuleCfg'
 import intl from '@/utils/intl'
+import { isEn } from 'gel-util/intl'
 import { corpDetailBusinessMenu } from './configs/business.ts'
 import { corpDetailFinanceMenu } from './configs/finance.ts'
 import { overviewConfig } from './configs/overview'
-import { convertCorpDetailNewMenuToOldMenu } from './handle.ts'
+import { convertCorpDetailNewMenuToOldMenu } from './util.ts'
 import { ICorpMenuCfg } from './type.ts'
+import { ECorpDetailSubModule, TCorpDetailSubModule } from 'gel-types'
 
 /**
  * 在左侧菜单需要隐藏统计数字展示的模块
@@ -36,6 +37,7 @@ export const CompanyDetailBaseMenus: ICorpMenuCfg = {
   overview: overviewConfig,
   // 业务数据
   IpoBusinessData: {
+    hide: true,
     title: intl('64824', '业务数据'),
     showList: ['showIpoYield', 'showIpoSales', 'showIpoBusiness', 'showIpoStock'],
     showName: [intl('49513', '产量'), intl('46834', '销量'), intl('46883', '业务量'), intl('44662', '库存')],
@@ -95,7 +97,7 @@ export const CompanyDetailBaseMenus: ICorpMenuCfg = {
       intl('354853', '游戏审批'),
       intl('216392', '建筑资质'),
       intl('348191', '房企开发资质'),
-      window.en_access_config ? 'Logistics Credit Rating' : '物流信用评级',
+      isEn() ? 'Logistics Credit Rating' : '物流信用评级',
       intl('205419', '进出口信用'),
       intl('332373', '认证认可'),
       intl('332374', 'A级纳税人'),
@@ -290,7 +292,7 @@ export const CompanyDetailBaseMenus: ICorpMenuCfg = {
     ],
     showName: [
       intl('257705', '工商信息'),
-      window.en_access_config ? 'History Changes' : '变更历史',
+      isEn() ? 'History Changes' : '变更历史',
       intl('138506', '股东信息'),
       intl('138370', '法人和高管'),
       intl('138724', '对外投资'),
@@ -321,38 +323,3 @@ export const CompanyDetailBaseMenus: ICorpMenuCfg = {
     ],
   },
 }
-
-/**
- * 检查配置是否正确
- */
-function checkConfigLengths(): void {
-  for (const key in CompanyDetailBaseMenus) {
-    const item = CompanyDetailBaseMenus[key]
-    if (!item) continue
-
-    const numArrLength = item.numArr.length
-    const showListLength = item.showList.length
-    const showNameLength = item.showName.length
-
-    if (numArrLength !== showListLength || numArrLength !== showNameLength) {
-      console.warn(
-        `~ Warning: In corp detail menu config item '${item.title}', the lengths of 'numArr', 'showList', and 'showName' are not equal.`
-      )
-    }
-  }
-}
-
-/**
- * 个体工商户 menu
- */
-export const getCorpDetailIndividualMenus = (): ICorpMenuCfg => {
-  // 删除金融行为、资质荣誉、司法风险、经营风险大目录，其余目录没有数据时隐藏
-  const menuToDel = ['financing', 'qualifications', 'risk', 'businessRisk']
-  const res = { ...CompanyDetailBaseMenus }
-  menuToDel.forEach((key) => {
-    delete res[key]
-  })
-  return res
-}
-
-checkConfigLengths()

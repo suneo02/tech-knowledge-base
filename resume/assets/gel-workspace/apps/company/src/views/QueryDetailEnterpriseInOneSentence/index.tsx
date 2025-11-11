@@ -1,25 +1,25 @@
-import { Breadcrumb, message, Popconfirm, Resizer, Spin } from '@wind/wind-ui'
+import { Breadcrumb, message, Resizer } from '@wind/wind-ui'
 import Table, { ColumnProps } from '@wind/wind-ui-table'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { connect } from 'react-redux'
 import { MyIcon } from '../../components/Icon'
-import { getCustomerSubList } from '../../api/findCustomer'
+import { getCustomerSubList, measureSearchFuse } from '../../api/findCustomer.ts'
 import { connectZustand } from '../../store'
 import * as FindCustomerActions from '../../actions/findCustomer'
 import { useConditionFilterStore } from '../../store/cde/useConditionFilterStore.tsx'
-import intl from '../../utils/intl'
 import './index.less'
 import Chat from './chat'
 import TreeTransfer from '../../components/filterOptions/TreeTransfer'
 import { getIndicator, pointBuriedGel } from '@/api/configApi'
 import { parseQueryString } from '@/lib/utils'
-import { measureSearchFuse } from '../../api/findCustomer'
 import { useExport } from './useExportHooks'
 import LimitNotice from '../../components/LimitNotice'
 import dayjs from 'dayjs'
 import { wftCommon } from '@/utils/utils'
 import { useHistory } from 'react-router-dom'
 import { BaseAlign } from '@wind/wind-ui-table/lib/foundation/foundation'
+import { t } from 'gel-util/intl'
+import { generateUrlByModule, LinkModule } from 'gel-util/link'
 
 export function getColumnsWidth(key) {
   const defaultWidth = {
@@ -66,15 +66,16 @@ export const COLUMNS_RENDER = {
         : '--'
     const end = record.oper_period_end
       ? dayjs(record.oper_period_end).format('YYYY-MM-DD') == '9999-99-99'
-        ? '无固定期限'
+        ? t('271247', '无固定期限')
         : dayjs(record.oper_period_end).format('YYYY-MM-DD')
-      : '无固定期限'
-    return `${start} 至 ${end}`
+      : t('271247', '无固定期限')
+    return `${start} ~ ${end}`
   },
 }
 
 function QueryDetailEnterpriseInOneSentence(props: any) {
   const [data, setData] = useState([])
+  const [translateData, setTranslateData] = useState([])
   const [total, setTotal] = useState(0)
   const [indicators, setIndicators] = useState([
     'credit_code',
@@ -134,6 +135,12 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
     setTotal(0)
   }
 
+  useEffect(() => {
+    wftCommon.zh2en(data, (newData) => {
+      setTranslateData(newData)
+    })
+  }, [data])
+
   // 获取企业id
   const getCropInfo = (data: string[]) => {
     if (!data || data.length === 0) {
@@ -141,8 +148,8 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
     }
     const ids = data.slice(0, pageSize)
     const measureIds = [
-      { field: 'corp_id', title: '企业id' },
-      { field: 'corp_name', title: '企业名称' },
+      { field: 'corp_id', title: t('455039', '企业id') },
+      { field: 'corp_name', title: t('138677', '企业名称') },
     ]
     indicators.forEach((item) => {
       measureIds.push({
@@ -170,8 +177,8 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
     const ids = compIds.slice((page - 1) * pageSize, page * pageSize)
 
     const measureIds = [
-      { field: 'corp_id', title: '企业id' },
-      { field: 'corp_name', title: '企业名称' },
+      { field: 'corp_id', title: t('455039', '企业id') },
+      { field: 'corp_name', title: t('138677', '企业名称') },
     ]
     indicators.forEach((item) => {
       measureIds.push({
@@ -194,7 +201,7 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
   const columns: ColumnProps<any>[] = useMemo(() => {
     const fixedColumns = [
       {
-        title: <p>序号</p>,
+        title: <p>{t('441914', '序号')}</p>,
         width: getColumnsWidth('No.'),
         dataIndex: 'No.',
         fixed: 'left' as const,
@@ -203,7 +210,7 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
         },
       },
       {
-        title: <p>公司名称</p>,
+        title: <p>{t('32914', '公司名称')}</p>,
         width: getColumnsWidth('corp_name'),
         dataIndex: 'corp_name',
         fixed: 'left' as const,
@@ -214,6 +221,8 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
               record.corp_id && wftCommon.linkCompany('Bu3', record.corp_id)
             }}
             rel="noreferrer"
+            data-uc-id="NbN49L70dD"
+            data-uc-ct="a"
           >
             {text}
           </a>
@@ -235,14 +244,14 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
         }
       })
     return [...fixedColumns, ...columns]
-  }, [indicators, AllIndicators,pageNo])
+  }, [indicators, AllIndicators, pageNo])
 
   // 新增列指标
   const changeIndicators = (e) => {
     const ids = compIds.slice((pageNo - 1) * pageSize, pageNo * pageSize)
     const measureIds = [
-      { field: 'corp_id', title: '企业id' },
-      { field: 'corp_name', title: '企业名称' },
+      { field: 'corp_id', title: t('455039', '企业id') },
+      { field: 'corp_name', title: t('138677', '企业名称') },
     ]
     e.forEach((item) => {
       measureIds.push({
@@ -276,33 +285,40 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
   return (
     <React.Fragment>
       <div className="breadcrumb-box">
-        <Breadcrumb>
+        <Breadcrumb data-uc-id="QOvQaMnBPa" data-uc-ct="breadcrumb">
           <Breadcrumb.Item
             style={{ cursor: 'pointer' }}
             onClick={() => {
               wftCommon.jumpJqueryPage('SearchHome.html')
             }}
+            data-uc-id="XpQv4sqNQh"
+            data-uc-ct="breadcrumb"
           >
-            {'首页'}{' '}
+            {t('19475', '首页')}{' '}
           </Breadcrumb.Item>
           <Breadcrumb.Item
             style={{ cursor: 'pointer' }}
             onClick={() => {
-              history.push('/queryEnterpriseInOneSentence')
+              // history.push('/queryEnterpriseInOneSentence')
+              const url = generateUrlByModule({ module: LinkModule.SUPER })
+              window.open(url, '_blank')
             }}
+            data-uc-id="6VuRAoQ1Cf"
+            data-uc-ct="breadcrumb"
           >
-            {'一句话查企业'}
+            {t('464234', '一句话找企业')}
           </Breadcrumb.Item>
-          <Breadcrumb.Item>{window.en_access_config ? 'Results' : '结果列表'}</Breadcrumb.Item>
+          <Breadcrumb.Item data-uc-id="irXpRcLIUN" data-uc-ct="breadcrumb">
+            {window.en_access_config ? 'Results' : t('419809', '结果列表')}
+          </Breadcrumb.Item>
         </Breadcrumb>
       </div>
-
       <div className="home-filter-res">
         <div className="main-container filterRes">
           <div className="chat-box" style={{ width: width }}>
             <Chat getCropInfo={getCropInfo} clean={clean} />
           </div>
-          <Resizer unfoldedSize={280} onResize={handleResize} />
+          <Resizer unfoldedSize={280} onResize={handleResize} data-uc-id="aNZv33ka9c" data-uc-ct="resizer" />
           <div className="page-container">
             <div className="tools" style={{ display: 'flex' }}>
               <div className="tools-first"></div>
@@ -318,25 +334,29 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
                       borderRight: '1px solid #999',
                     }}
                     onClick={changeLimitNoticeVisible}
+                    data-uc-id="4QmzluZyFQ"
+                    data-uc-ct="button"
                   >
-                    <MyIcon name="save" /> {'导出数据'}
+                    <MyIcon name="save" /> {t('227063', '导出数据')}
                   </button>
                 )}
                 {/* <a className="grey-border" onClick={changeTransferVisible}> */}
-                <a onClick={changeTransferVisible}>
-                  <MyIcon name="addColumn" /> {'新增列指标'}
+                <a onClick={changeTransferVisible} data-uc-id="lzTIYYS1Ee" data-uc-ct="a">
+                  <MyIcon name="addColumn" /> {t('257742', '新增列指标')}
                 </a>
               </div>
             </div>
             <div className="table-container">
-              <Table
+              {/* <Table
                 size="small"
                 rowKey="corp_id"
                 columns={columns}
-                dataSource={data}
+                dataSource={translateData && translateData.length > 0 ? translateData : data}
                 pagination={pageProps}
                 loading={loading}
-              />
+                data-uc-id="DnCRhbCf2G"
+                data-uc-ct="table"
+              /> */}
             </div>
           </div>
           {/* 下载超限提醒 */}
@@ -345,8 +365,8 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
             changeVisible={changeLimitNoticeVisible}
             postFn={(from, size, to, total) => {
               const measureIds = [
-                { field: 'corp_id', title: '企业id' },
-                { field: 'corp_name', title: '企业名称' },
+                { field: 'corp_id', title: t('455039', '企业id') },
+                { field: 'corp_name', title: t('138677', '企业名称') },
               ]
               indicators.forEach((item) => {
                 measureIds.push({
@@ -355,7 +375,7 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
                 })
               })
               if (Math.ceil(total / pageSize) < to) {
-                message.warn(`导出页码输入超出上限，请调整页码`)
+                message.warn(t('455040', '导出页码输入超出上限，请调整页码'))
                 return
               }
               exportFile(from, size, to, total, compIds.slice((from - 1) * pageSize, to * pageSize), measureIds, false)
@@ -364,7 +384,6 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
           />
         </div>
       </div>
-
       {transferVisible && (
         <TreeTransfer
           visible={transferVisible}
@@ -372,6 +391,8 @@ function QueryDetailEnterpriseInOneSentence(props: any) {
           dataSource={AllIndicators}
           targetKeys={indicators}
           onChange={changeIndicators}
+          data-uc-id="-tEBMBkycpv"
+          data-uc-ct="treetransfer"
         />
       )}
     </React.Fragment>

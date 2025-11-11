@@ -283,11 +283,20 @@ function ShareAndInvest(props) {
                             onChange(e, type)
                           }}
                           value={val}
+                          data-uc-id="fcgjrmP_8K"
+                          data-uc-ct="radiogroup"
                         >
                           {item.map((t, index) => {
                             if (idx === 2) {
                               return (
-                                <Radio key={index} style={radioStyle} value={t.value}>
+                                <Radio
+                                  key={index}
+                                  style={radioStyle}
+                                  value={t.value}
+                                  data-uc-id="y-afrleP7f"
+                                  data-uc-ct="radio"
+                                  data-uc-x={index}
+                                >
                                   {t.txt}
                                   {t.value === 4 && rateVal === 4 ? (
                                     <>
@@ -308,6 +317,8 @@ function ShareAndInvest(props) {
                                         onChange={(e) => {
                                           onChangeRateLeft(e)
                                         }}
+                                        data-uc-id="mU1IGy9mZ2"
+                                        data-uc-ct="inputnumber"
                                       />
                                       -{' '}
                                       <InputNumber
@@ -327,6 +338,8 @@ function ShareAndInvest(props) {
                                         onChange={(e) => {
                                           onChangeRateRight(e)
                                         }}
+                                        data-uc-id="Q3ca3Be2hp"
+                                        data-uc-ct="inputnumber"
                                       />
                                     </>
                                   ) : null}
@@ -334,7 +347,14 @@ function ShareAndInvest(props) {
                               )
                             }
                             return (
-                              <Radio key={index} style={radioStyle} value={t.value}>
+                              <Radio
+                                key={index}
+                                style={radioStyle}
+                                value={t.value}
+                                data-uc-id="8JAwOMHAPG"
+                                data-uc-ct="radio"
+                                data-uc-x={index}
+                              >
                                 {t.txt}
                               </Radio>
                             )
@@ -346,12 +366,20 @@ function ShareAndInvest(props) {
                 </div>
               </div>
             </Sider>
-            <Resizer unfoldedSize={290} onResize={handleResize} defaultFolded={false} />
+            <Resizer
+              unfoldedSize={290}
+              onResize={handleResize}
+              defaultFolded={false}
+              data-uc-id="LUSZjvT1B9"
+              data-uc-ct="resizer"
+            />
           </>
         )}
         <Content className="f-df">
           <div className="gqct-chart-box">
-            {snapshot ? <div className="snapshot" onClick={gotoChart}></div> : null}
+            {snapshot ? (
+              <div className="snapshot" onClick={gotoChart} data-uc-id="z5ruADfBPy" data-uc-ct="div"></div>
+            ) : null}
             {opts ? (
               <ShareAndInvestTree
                 companycode={companycode}

@@ -4,9 +4,11 @@ import { myWfcAjax } from '@/api/common'
 import SpinLoading from '../spin-loading'
 import { useUpdateEffect } from 'ahooks'
 import { parseQueryString } from '@/lib/utils'
-import { GRAPH_MENU_TYPE, RELATE_CHART_API_TYPE } from '../constants'
+import { RELATE_CHART_API_TYPE } from '../constants'
+import { GRAPH_MENU_TYPE } from '../../types'
 import intl from '@/utils/intl'
 import { translateRelateGraphData } from '../extra'
+import { pointBuriedByModule } from '@/api/pointBuried/bury'
 
 interface RelatedGraphProps {
   companyCode: string
@@ -127,6 +129,11 @@ const RelatedGraph: React.FC<RelatedGraphProps> = ({
   }
 
   useEffect(() => {
+    pointBuriedByModule(922602100891, {
+      currentId: companyCode,
+      opId: companyCode,
+      currentPage: selectedKey,
+    })
     if (!isFinancial && selectedKey === GRAPH_MENU_TYPE.CBIRC_RULES) {
       setData({})
       setLoading(false)
@@ -153,6 +160,8 @@ const RelatedGraph: React.FC<RelatedGraphProps> = ({
           width={width}
           height={height}
           allListLoading={allListLoading}
+          data-uc-id="f4Z7aJq4z"
+          data-uc-ct="windbdgraph"
         />
       ) : null}
     </>

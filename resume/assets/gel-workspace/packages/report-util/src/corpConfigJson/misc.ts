@@ -1,4 +1,4 @@
-import { ReportDetailNodeJson, ReportDetailSectionJson, ReportPageJson } from 'gel-types'
+import { ReportDetailNodeOrNodesJson, ReportDetailSectionJson, ReportPageJson } from 'gel-types'
 
 /**
  * Filter a ReportPageJson tree by an array of hidden node keys.
@@ -9,8 +9,8 @@ import { ReportDetailNodeJson, ReportDetailSectionJson, ReportPageJson } from 'g
 export function filterReportPageJsonByHiddenKeys(rootSections: ReportPageJson, hiddenKeys: string[]): ReportPageJson {
   const isHidden = (node: { key: string }) => hiddenKeys.indexOf(node.key) > -1
   function filterSection(
-    section: ReportDetailSectionJson | ReportDetailNodeJson
-  ): ReportDetailSectionJson | ReportDetailNodeJson | null {
+    section: ReportDetailSectionJson | ReportDetailNodeOrNodesJson
+  ): ReportDetailSectionJson | ReportDetailNodeOrNodesJson | null {
     if (isHidden(section)) return null
     if (section.type === 'section') {
       // Only sections can have children that are sections or nodes

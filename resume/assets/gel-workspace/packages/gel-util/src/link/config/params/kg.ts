@@ -1,16 +1,11 @@
-import { WindSessionHeader } from '@/env'
 import { LinkModule } from '@/link/config/linkModule'
 import { CommonLinkParams } from './common'
 
 /**
  * 对外提供的图谱页面通用参数
  */
-type KGLinkExternalParamsCommon = {
+export type KGLinkExternalParamsCommon = {
   companycode: string
-  snapshot: '1'
-  linksource: 'pcai'
-  notoolbar: '1'
-  [WindSessionHeader]: string
 } & Partial<CommonLinkParams>
 
 /**
@@ -37,14 +32,9 @@ export enum KGLinkActiveKeyEnum {
 // 定义每个模块的参数接口
 export interface KGLinkParams {
   [LinkModule.GQCT_CHART]: {
-    companycode: string
-    snapshot: '1'
-    linksource: 'pcai'
-    notoolbar: '1'
     onlyChart?: '1'
     noslide?: '1'
     disableExportExcel?: '1'
-    [WindSessionHeader]: string
   } & KGLinkExternalParamsCommon
 
   [LinkModule.ACTUAL_CONTROLLER_CHART]: KGLinkExternalParamsCommon

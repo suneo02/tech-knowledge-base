@@ -3,11 +3,12 @@ import { getQueryCommonList } from '../api/searchListApi.ts'
 import HotItems from '../components/hotItems'
 import { numberFormat } from '../lib/utils'
 import intl, { getLang } from '../utils/intl'
-import { wftCommon } from '../utils/utils'
 
 import { request } from '@/api/request.ts'
 import { addSearchHistory, getSearchHistoryAndSlice } from '@/api/services/history.ts'
 import { SearchFormSingle } from '@/components/searchForm/index.tsx'
+import { GELSearchParam, getUrlByLinkModule, LinksModule, TLinkOptions } from '@/handle/link/index.ts'
+import { hashParams } from '@/utils/links/index.ts'
 import { FireO } from '@wind/icons'
 import { pointBuriedNew } from '../api/configApi'
 import { usePageTitle } from '../handle/siteTitle'
@@ -19,7 +20,50 @@ type SearchItem = {
   value: string
   searchFlag?: 'btn' | 'history'
 }
-function SearchFetured(_props) {
+
+// 跳转到榜单列表
+export const routerToFeaturedList = ({
+  id,
+  search,
+  linksource,
+}: {
+  id?: string
+  search?: string
+  linksource?: string
+}) => {
+  const params: Record<string, string> = {
+    ...(linksource ? { linksource } : {}),
+    ...(search ? { search } : {}),
+    [GELSearchParam.NoSearch]: 1,
+  }
+
+  const options: TLinkOptions = {
+    ...(id ? { id } : {}),
+    ...(Object.keys(params).length > 0 ? { params } : {}),
+  }
+
+  const url = getUrlByLinkModule(LinksModule.FEATURED_LIST, options)
+  window.open(url)
+}
+
+// 跳转到榜单详情
+export const routerToFeaturedCompany = ({ id, linksource }: { id: string; linksource?: string }) => {
+  const params: Record<string, string> = {
+    ...(linksource ? { linksource } : {}),
+    [GELSearchParam.NoSearch]: 1,
+  }
+  const options: TLinkOptions = {
+    ...(id ? { id } : {}),
+    ...(Object.keys(params).length > 0 ? { params } : {}),
+  }
+  const url = getUrlByLinkModule(LinksModule.FEATURED, options)
+
+  window.open(url)
+}
+
+function SearchFetured() {
+  const { getParamValue } = hashParams()
+  const linksource = getParamValue('linksource')
   usePageTitle('RankHome')
   const [hotList, setHotList] = useState([]) // 搜素结果
   const [searchList, setSearchList] = useState<SearchItem[]>([]) // 搜素结果
@@ -35,8 +79,10 @@ function SearchFetured(_props) {
       },
     })
       .then((res) => {
-        setHotList(res.Data)
-        setRecords(res?.Page?.Records)
+        if (res?.Data) {
+          setHotList(res.Data)
+          setRecords(res?.Page?.Records)
+        }
       })
       .catch((e) => {
         console.log(e)
@@ -72,9 +118,12 @@ function SearchFetured(_props) {
   const goSearchListDetail = (item: SearchItem) => {
     pointBuriedNew('922602100855')
     if (item.searchFlag === 'btn' || item.searchFlag === 'history') {
-      wftCommon.jumpJqueryPage(`#feturedlist?search=${item.name.replace(/(<([^>]+)>)/gi, '')}`)
+      // wftCommon.jumpJqueryPage(`#feturedlist?search=${item.name.replace(/(<([^>]+)>)/gi, '')}`, {
+      //   from,
+      // })
+      routerToFeaturedList({ search: item.name.replace(/(<([^>]+)>)/gi, ''), linksource })
     } else {
-      wftCommon.jumpJqueryPage(`#feturedcompany?id=${item.value}`)
+      routerToFeaturedCompany({ id: item.value, linksource })
     }
   }
 
@@ -102,21 +151,38 @@ function SearchFetured(_props) {
               },
             })
           }}
+          data-uc-id="cFkqf5Akj8A"
+          data-uc-ct="searchformsingle"
         />
 
         <div className="hot-feture-Search">
           <div className="hot-wrap">
             <div className="hot-Group">
-              <FireO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              <FireO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="0emhKgWnn0w"
+                data-uc-ct="fireo"
+              />
               <span>{intl('437747', '热门推荐')}</span>
             </div>
-            <a className="show-more-fetured" onClick={() => wftCommon.jumpJqueryPage('#feturedlist?id=01010100')}>
+            <a
+              className="show-more-fetured"
+              // onClick={() => wftCommon.jumpJqueryPage(`#feturedlist?id=01010100${from ? `&from=${from}` : ''}`)}
+              onClick={() => routerToFeaturedList({ id: '01010100', linksource })}
+              data-uc-id="c7LP-_sxgzi"
+              data-uc-ct="a"
+            >
               {intl('138737', '查看更多')}
             </a>
           </div>
           <HotItems hotFlag="fetured" hotList={hotList} />
           <div className="all-fetures">
-            <a onClick={() => wftCommon.jumpJqueryPage('#feturedlist?id=01010100')}>
+            <a
+              onClick={() => routerToFeaturedList({ id: '01010100', linksource })}
+              data-uc-id="34rF18akrwU"
+              data-uc-ct="a"
+            >
               {intl('315080', '查看全部{num}个榜单名录').replace('{num}', numberFormat(records - 2, true))}
             </a>
           </div>

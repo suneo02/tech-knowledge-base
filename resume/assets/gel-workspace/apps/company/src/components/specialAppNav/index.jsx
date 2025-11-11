@@ -39,7 +39,14 @@ function SpecialAppNav(props) {
                 .filter((key) => classnames[key])
                 .join(' ')
               return (
-                <li key={item} className={classNames} onClick={() => itemClick(itemData)}>
+                <li
+                  key={item}
+                  className={classNames}
+                  onClick={() => itemClick(itemData)}
+                  data-uc-id="iDskRGenSU"
+                  data-uc-ct="li"
+                  data-uc-x={item}
+                >
                   <span>{itemData.title}</span>
                 </li>
               )

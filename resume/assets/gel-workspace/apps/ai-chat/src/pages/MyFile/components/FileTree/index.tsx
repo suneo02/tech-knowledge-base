@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Tree } from '@wind/wind-ui'
 import './index.less'
 import { FolderIcon } from '@/assets/icon'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { fileStructure, convertToTreeData, ACTIVE_FOLDER_KEY, isHashRouter } from '../../constants/fileStructure'
+import { t } from 'gel-util/intl'
+import { useNavigateWithLangSource } from '@/hooks/useLangSource'
 
 const PREFIX = 'file-tree'
 
@@ -12,13 +14,17 @@ interface FileTreeProps {
   activeFolder: string | null
 }
 
+const STRINGS = {
+  FILE_TREE_TITLE: t('464147', '文件管理'),
+}
+
 // 将原始数据转换为 Tree 组件需要的数据结构
 const treeData = convertToTreeData(fileStructure)
 
 export const FileTree: React.FC<FileTreeProps> = ({ onFolderSelect, activeFolder }) => {
   // 默认展开所有顶层节点
   const [expandedKeys, setExpandedKeys] = useState<string[]>(fileStructure.map((item) => item.id))
-  const navigate = useNavigate()
+  const navigate = useNavigateWithLangSource()
   const location = useLocation()
 
   // 处理选择节点
@@ -35,7 +41,7 @@ export const FileTree: React.FC<FileTreeProps> = ({ onFolderSelect, activeFolder
         const hashPath = location.pathname
         const hashSearch = `?folder=${selectedFolder}`
 
-        console.log('更新 URL (Hash 路由):', { hashPath, hashSearch })
+        // console.log('更新 URL (Hash 路由):', { hashPath, hashSearch })
         navigate(`${hashPath}${hashSearch}`, { replace: true })
       } else {
         // 普通路由正常处理
@@ -46,7 +52,7 @@ export const FileTree: React.FC<FileTreeProps> = ({ onFolderSelect, activeFolder
 
       // 保存到本地存储
       localStorage.setItem(ACTIVE_FOLDER_KEY, selectedFolder)
-      console.log('选择的文件夹已保存到本地存储:', selectedFolder)
+      // console.log('选择的文件夹已保存到本地存储:', selectedFolder)
     }
   }
 
@@ -70,7 +76,7 @@ export const FileTree: React.FC<FileTreeProps> = ({ onFolderSelect, activeFolder
 
   return (
     <div className={`${PREFIX}-container`}>
-      <div className={`${PREFIX}-header`}>文件管理</div>
+      <div className={`${PREFIX}-header`}>{STRINGS.FILE_TREE_TITLE}</div>
       <div className={`${PREFIX}-content`}>
         <Tree
           size="large"

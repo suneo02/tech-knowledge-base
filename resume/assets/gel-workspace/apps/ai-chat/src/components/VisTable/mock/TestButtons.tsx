@@ -25,7 +25,7 @@ export const TestButtons = () => {
     <div style={{ padding: '16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
       <Button
         onClick={() => {
-          console.log('设置数据')
+          // console.log('设置数据')
           setRecords(mockTableData.records)
         }}
       >
@@ -34,7 +34,8 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('添加单条')
+          // console.log('添加单条')
+          // @ts-expect-error
           addRecord({ '1': 'test', '2': 'test' }, 24)
         }}
       >
@@ -43,7 +44,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('添加多条')
+          // console.log('添加多条')
           addRecords([
             { '1': 'batch1', '2': 'batch1' },
             { '1': 'batch2', '2': 'batch2' },
@@ -55,7 +56,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('删除记录')
+          // console.log('删除记录')
           deleteRecords([0, 1]) // 删除前两条记录
         }}
       >
@@ -64,7 +65,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('更新记录')
+          // console.log('更新记录')
           updateRecords(
             [
               { '1_wtFss5DlTsLY': 'updated1', '2_wtFss5DlTsLY': 'updated1' },
@@ -79,7 +80,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('刷新表格')
+          // console.log('刷新表格')
           refresh()
         }}
       >
@@ -88,7 +89,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('重建单元格')
+          // console.log('重建单元格')
           refreshWithRecreateCells()
         }}
       >
@@ -97,7 +98,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('设置单元格值')
+          // console.log('设置单元格值')
           setCellValue(0, 0, 'new value') // 设置第一个单元格的值
         }}
       >
@@ -106,7 +107,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('更新列定义')
+          // console.log('更新列定义')
           updateColumns(mockColumns)
         }}
       >
@@ -115,7 +116,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('选择单元格')
+          // console.log('选择单元格')
           selectCell(10, 0) // 选择第一个单元格
         }}
       >
@@ -124,7 +125,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('清除选择')
+          // console.log('清除选择')
           clearSelection()
         }}
       >
@@ -133,7 +134,7 @@ export const TestButtons = () => {
 
       <Button
         onClick={() => {
-          console.log('滚动到单元格')
+          // console.log('滚动到单元格')
           scrollToCell(0, 0) // 滚动到第一个单元格
         }}
       >
@@ -141,7 +142,7 @@ export const TestButtons = () => {
       </Button>
       {/* <Button
         onClick={() => {
-          console.log('滚动到单元格')
+          // console.log('滚动到单元格')
           scrollToCell(0, 0) // 滚动到第一个单元格
         }}
       >
@@ -149,7 +150,7 @@ export const TestButtons = () => {
       </Button>
       <Button
         onClick={() => {
-          console.log('滚动到单元格')
+          // console.log('滚动到单元格')
           scrollToCell(0, 0) // 滚动到第一个单元格
         }}
       >

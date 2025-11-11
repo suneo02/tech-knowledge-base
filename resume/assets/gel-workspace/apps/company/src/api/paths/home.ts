@@ -1,5 +1,7 @@
 import { ApiResponse } from '../types'
 
+export type Platform = 'pc' | 'mobile'
+
 export type HomePageApiPaths = {
   // 首页获取企业数量
   getcrossfilterforhome: {
@@ -16,5 +18,23 @@ export type HomePageApiPaths = {
       PageNo: 0
     }
     response: ApiResponse<any>
+  }
+
+  'operation/get/getFunc': {
+    params: {
+      platform: Platform
+      pageIndex: number
+      pageSize: number
+    }
+    response: ApiResponse<
+      {
+        idFunc: string
+        nameFunc: string
+        descriptionFunc: string
+        iconFunc: string
+        tagsFunc: string
+        typeFunc: string
+      }[]
+    >
   }
 }

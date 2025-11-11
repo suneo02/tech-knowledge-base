@@ -1,0 +1,13 @@
+﻿<svg viewBox="0 0 18 18" focusable="false" class="" data-icon="input" width="18px" height="18px"
+    aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="send-button-gradient" x1="0%" y1="0%" x2="100%" y2="85%">
+            <stop offset="0%" stop-color="#5879fb" />
+            <stop offset="85%" stop-color="#3ec0d3" />
+        </linearGradient>
+    </defs>
+    <path
+        d="M1.1 1a.2.2 0 01.1 0l.05.01 15.62 7.81a.2.2 0 01.03.34l-.03.02-15.62 7.8a.2.2 0 01-.3-.18l.02-.05L3.18 9 .97 1.25A.2.2 0 011.1 1zm13.44 8L2.74 3.1l1.52 5.3H9.9c.1 0 .17.06.2.15V9.4a.2.2 0 01-.15.2H4.26l-1.52 5.3L14.54 9z"
+        fill="url(#send-button-gradient)" fill-rule="nonzero"></path>
+</svg>

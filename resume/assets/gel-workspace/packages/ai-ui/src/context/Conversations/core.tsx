@@ -1,5 +1,5 @@
+import { ConversationTimeGroup, ConversationTimeGroupMap } from 'gel-ui'
 import React, { createContext, useContext, useState } from 'react'
-import { ConversationTimeGroup, ConversationTimeGroupMap } from './type'
 
 // Define a base interface for conversation items
 export interface BaseConversationItem {

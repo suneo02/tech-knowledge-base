@@ -1,66 +1,56 @@
-import SendBtnIcon from '@/assets/icon/send-btn.svg'
-import SendDisabledIcon from '@/assets/icon/send-disabled.svg'
-import StopIcon from '@/assets/icon/stop.svg'
-
 import { Sender, Suggestion } from '@ant-design/x'
-import React from 'react'
+import { ChatInputSendBtn, ChatSenderFooter } from 'gel-ui'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { ChatSenderProps } from './types'
-
-// 自定义发送按钮组件
-const CustomSendButton = ({
-  disabled,
-  isLoading,
-  onCancel,
-}: {
-  disabled: boolean
-  isLoading: boolean
-  onCancel?: () => void
-}) => {
-  if (isLoading) {
-    return (
-      <div
-        style={{ width: 32, height: 32, cursor: 'pointer' }}
-        onClick={(e) => {
-          e.stopPropagation()
-          onCancel?.()
-        }}
-      >
-        <img src={StopIcon} alt="停止" width={32} height={32} />
-      </div>
-    )
-  }
-
-  return (
-    <div style={{ width: 32, height: 32 }}>
-      {disabled ? (
-        <img src={SendDisabledIcon} alt="发送(禁用)" width={32} height={32} />
-      ) : (
-        <img src={SendBtnIcon} alt="发送" width={32} height={32} />
-      )}
-    </div>
-  )
-}
+import { GetRef } from 'antd'
 
 const SuggestionChatSender = (props: ChatSenderProps) => {
-  const { isLoading, content, placeholder, className, onCancel, sendMessage, deepthink, headerNode, suggestions } =
-    props
+  const {
+    isLoading,
+    content,
+    placeholder,
+    className,
+    onCancel,
+    sendMessage,
+    headerNode,
+    suggestions,
+    handleContentChange,
+    focus,
+  } = props
+  const senderRef = useRef<GetRef<typeof Sender>>(null)
   const [value, setValue] = React.useState(content)
   const [open, setOpen] = React.useState(false)
   const handleSuggestionSelect = (item: string) => {
     setValue((val) => val + `sheet:${item}`)
     setOpen(false)
   }
+  const handleSend = useCallback(() => {
+    if (open) return
 
+    if (!isLoading && content) {
+      sendMessage(content, undefined)
+      setValue('')
+    } else {
+      onCancel?.()
+    }
+  }, [open, isLoading, content, sendMessage, onCancel])
+  useEffect(() => {
+    if (focus) {
+      senderRef.current?.focus()
+    }
+  }, [focus])
   return (
     <Suggestion open={open} items={suggestions!} onSelect={handleSuggestionSelect}>
       {({ onKeyDown }) => (
         <Sender
+          ref={senderRef}
           value={value}
           header={headerNode}
           disabled={isLoading}
           placeholder={placeholder}
           loading={isLoading}
           onCancel={onCancel}
+          // maxLength={maxLength}
           onChange={(nextVal) => {
             if (nextVal.endsWith('@')) {
               setOpen(true)
@@ -70,30 +60,21 @@ const SuggestionChatSender = (props: ChatSenderProps) => {
               setOpen(false)
             }
             setValue(nextVal)
+            handleContentChange?.(nextVal)
           }}
           onKeyDown={(e) => {
             console.log('onKeyDown', e)
             onKeyDown(e)
-            if (e.key === 'Enter') {
+            if (open) {
               setOpen(false)
+            } else if (e.key === 'Enter') {
+              handleSend()
             }
-          }}
-          onSubmit={(message) => {
-            if (open) return
-            sendMessage(message, undefined, deepthink ? 1 : undefined)
-            setValue('')
           }}
           className={className}
           actions={
-            <div
-              onClick={() => {
-                if (!isLoading && value) {
-                  sendMessage(value, undefined, deepthink ? 1 : undefined)
-                }
-              }}
-              style={{ cursor: value && !isLoading ? 'pointer' : isLoading ? 'default' : 'not-allowed' }}
-            >
-              <CustomSendButton disabled={!value} isLoading={isLoading} onCancel={onCancel} />
+            <div style={{ cursor: value && !isLoading ? 'pointer' : isLoading ? 'default' : 'not-allowed' }}>
+              <ChatInputSendBtn isLoading={isLoading} isActive={!!content} onClick={handleSend} />
             </div>
           }
         />
@@ -110,11 +91,52 @@ const OnlyChatSender: React.FC<ChatSenderProps> = ({
   onCancel,
   handleContentChange,
   sendMessage,
-  deepthink,
   headerNode,
+  renderLeftActions,
+  renderRightActions,
+  focus,
+  maxLength,
 }) => {
+  const senderRef = useRef<GetRef<typeof Sender>>(null)
+  const handleSend = useCallback(() => {
+    if (!isLoading && content) {
+      sendMessage(content, undefined)
+    } else {
+      onCancel?.()
+    }
+  }, [isLoading, content, sendMessage, onCancel])
+
+  useEffect(() => {
+    if (focus) {
+      senderRef.current?.focus()
+    }
+  }, [focus])
+
+  // 没有自定义footer，则默认一行展示，不展示footer
+  if (!renderLeftActions && !renderRightActions && !maxLength) {
+    return (
+      <Sender
+        ref={senderRef}
+        value={content}
+        header={headerNode}
+        disabled={isLoading}
+        placeholder={placeholder}
+        loading={isLoading}
+        onCancel={onCancel}
+        onChange={handleContentChange}
+        onSubmit={(message) => sendMessage(message, undefined)}
+        className={className}
+        actions={
+          <div style={{ cursor: content && !isLoading ? 'pointer' : isLoading ? 'default' : 'not-allowed' }}>
+            <ChatInputSendBtn isLoading={isLoading} isActive={!!content} onClick={handleSend} />
+          </div>
+        }
+      />
+    )
+  }
   return (
     <Sender
+      ref={senderRef}
       value={content}
       header={headerNode}
       disabled={isLoading}
@@ -122,19 +144,18 @@ const OnlyChatSender: React.FC<ChatSenderProps> = ({
       loading={isLoading}
       onCancel={onCancel}
       onChange={handleContentChange}
-      onSubmit={(message) => sendMessage(message, undefined, deepthink ? 1 : undefined)}
+      onSubmit={(message) => sendMessage(message, undefined)}
       className={className}
-      actions={
-        <div
-          onClick={() => {
-            if (!isLoading && content) {
-              sendMessage(content, undefined, deepthink ? 1 : undefined)
-            }
-          }}
-          style={{ cursor: content && !isLoading ? 'pointer' : isLoading ? 'default' : 'not-allowed' }}
-        >
-          <CustomSendButton disabled={!content} isLoading={isLoading} onCancel={onCancel} />
-        </div>
+      actions={false}
+      footer={
+        <ChatSenderFooter
+          isLoading={isLoading}
+          content={content}
+          handleSend={handleSend}
+          renderLeftActions={renderLeftActions}
+          renderRightActions={renderRightActions}
+          maxLength={maxLength}
+        />
       }
     />
   )
@@ -148,5 +169,3 @@ export const ChatSender = (props: ChatSenderProps) => {
     <OnlyChatSender {...rest} />
   )
 }
-
-export { CustomSendButton }

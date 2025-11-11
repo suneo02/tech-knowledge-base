@@ -1,5 +1,7 @@
 /** @format */
 
+import { usedInClient } from 'gel-util/env'
+import { isStaging } from '../utils/env'
 import { ErrorPage, NotFound } from '../views/404'
 import asyncComponent from './AsyncComponent'
 
@@ -10,7 +12,6 @@ const QueryEnterpriseInOneSentence = asyncComponent(() => import('../views/Query
 const QueryDetailEnterpriseInOneSentence = asyncComponent(() => import('../views/QueryDetailEnterpriseInOneSentence'))
 const FindCustomer = asyncComponent(() => import('../views/FindCustomer'))
 const RankList = asyncComponent(() => import('../views/RankingList'))
-const SearchList = asyncComponent(() => import('../views/SearchList'))
 const GroupSearchList = asyncComponent(() => import('../views/groupSearchList'))
 const PersonSearchList = asyncComponent(() => import('../views/personSearchList'))
 const IntelluctalSearch = asyncComponent(() => import('../views/IntellectualSearch/intelluctalSearch'))
@@ -18,11 +19,9 @@ const BidSearchList = asyncComponent(() => import('../views/BidSearch/bidSearchL
 const RankingListTree = asyncComponent(() => import('../views/RankingListTree'))
 const CompanyDetailEntry = asyncComponent(() => import('../views/CompanyDetailEntry'))
 const CompanyDetail = asyncComponent(() => import('../views/CompanyDetail'))
-const CompanyDetailAI = asyncComponent(() => import('../views/CompanyDetailAI'))
 const CompanyDetailAIRight = asyncComponent(() => import('../views/CompanyDetailAIRight'))
 const CompanyHome = asyncComponent(() => import('../views/CompanyHome'))
 const RankListDetail = asyncComponent(() => import('../views/RankingListDetail'))
-const OutCompanySearch = asyncComponent(() => import('../views/outCompanySearch'))
 const LawDetail = asyncComponent(() => import('../views/lawDetail'))
 const SearchJob = asyncComponent(() => import('../views/SearchJob/SearchJob'))
 const SearchBidNew = asyncComponent(() => import('../views/SearchBidNew/SearchBidNew'))
@@ -41,7 +40,7 @@ const ProductDetail = asyncComponent(() => import('../views/ProductDetail')) // 
 const AtlasPlatform = asyncComponent(() => import('../views/AtlasPlatform')) // 图谱平台首页
 const Company = asyncComponent(() => import('@/views/Company')) // 图谱平台首页
 const SearchPlatform = asyncComponent(() => import('../views/SearchPlatform')) // 搜索平台
-const SearchHome = asyncComponent(() => import('../views/SearchHome/SearchHome')) // 企业库首页
+const SearchHome = asyncComponent(() => import('../views/HomeAI')) // 企业库首页
 const HomeAI = asyncComponent(() => import('../views/HomeAI')) // 企业库首页
 const GlobalSearch = asyncComponent(() => import('../views/GlobalSearch/index')) // 企业库首页
 const feturedcompany = asyncComponent(() => import('../views/Fetured/feturedcompany')) // 榜单名录详情页
@@ -52,10 +51,12 @@ const SingleCompanyDynamic = asyncComponent(() => import('../views/SingleCompany
 const VersionPriceDomestic = asyncComponent(() => import('../views/VersionPriceDomestic')) // VIP服务页
 const VersionPriceOversea = asyncComponent(() => import('../views/VersionPriceOversea')) // VIP服务页
 
-const RelatedLinks = asyncComponent(() => import('../views/RelatedLinks')) // 友情链接
+const RelatedLinks = asyncComponent(() => import('../views/RelatedLinks/index')) // 友情链接
+const InnerLinks = asyncComponent(() => import('../views/RelatedLinks/index')) // 内链
 
 const Customer = asyncComponent(() => import('../views/Customer')) // 用户中心
-const GQCTChart = asyncComponent(() => import('../views/Charts/ShareInvestChart')) // 股权穿透图
+const GQCTChart = asyncComponent(() => import('../views/Charts/SingleGraph/singleShareInvest')) // 股权穿透图
+
 const RelateChart = asyncComponent(() => import('../views/Charts/RelateChart')) // 关联方图谱
 const ActCtrlChart = asyncComponent(() => import('../views/Charts/ActCtrlChart')) // 实控人图谱
 const BeneficialChart = asyncComponent(() => import('../views/Charts/BeneficialChart')) // 受益人图谱
@@ -75,8 +76,11 @@ const ReportInfo = asyncComponent(() => import('../views/Report/ReportInfo'))
 const AuthCheck = asyncComponent(() => import('../views/AuthCheck')) // 南京政务平台身份校验
 const Charts = asyncComponent(() => import('../views/Charts')) // 图谱平台
 
-const LayoutDemo = asyncComponent(() => import('../views/LayoutDemo')) // 可以删除
 const IcLayout = asyncComponent(() => import('../views/IcLayout')) // 集成电路布图
+const AiCharts = asyncComponent(() => import('../views/AICharts')) // AI图谱平台
+
+const UserNoteTextCN = asyncComponent(() => import('../views/Customer/UserNote/cn')) // 用户协议cn，抽离出单独路由可直接用于windzx/app等其他场景进行展示
+const UserNoteTextEN = asyncComponent(() => import('../views/Customer/UserNote/en')) // 用户协议en，抽离出单独路由可直接用于windzx/app等其他场景进行展示
 
 export const routes = [
   {
@@ -84,13 +88,26 @@ export const routes = [
     component: AnnualReportDetail,
   },
   {
+    path: '/agreementCN',
+    component: UserNoteTextCN,
+  },
+  {
+    path: '/agreementEN',
+    component: UserNoteTextEN,
+  },
+  {
     path: '/reportInfo',
     component: ReportInfo,
   },
-  {
-    path: '/authCheck',
-    component: AuthCheck,
-  },
+  // 非终端模式
+  ...(usedInClient()
+    ? []
+    : [
+        {
+          path: '/authCheck',
+          component: AuthCheck,
+        },
+      ]),
   {
     path: '/',
     component: Home,
@@ -100,15 +117,7 @@ export const routes = [
         component: CompanyDetailEntry,
         exact: true,
       },
-      {
-        path: '/LayoutDemo',
-        component: LayoutDemo,
-      },
 
-      {
-        path: '/companyDetailAI',
-        component: CompanyDetailAI,
-      },
       {
         path: '/companyDetailAIRight',
         component: CompanyDetailAIRight,
@@ -160,10 +169,19 @@ export const routes = [
         component: feturedcompany,
       },
       {
+        // 这个才是正确的，之前的feturedcompany是错的 add by Calvin
+        path: '/featuredcompany',
+        component: feturedcompany,
+      },
+      {
         path: '/feturedlist',
         component: feturedlist,
       },
-
+      {
+        // 这个才是正确的，之前的feturedlist是错的 add by Calvin
+        path: '/featuredlist',
+        component: feturedlist,
+      },
       {
         path: '/rankList',
         component: RankList,
@@ -190,7 +208,7 @@ export const routes = [
       },
       {
         path: '/searchList',
-        component: SearchList,
+        component: GlobalSearch,
       },
       {
         path: '/personSearchList',
@@ -210,7 +228,7 @@ export const routes = [
       },
       {
         path: '/outCompanySearch',
-        component: OutCompanySearch,
+        component: GlobalSearch,
       },
       {
         path: '/companyDetail',
@@ -326,6 +344,10 @@ export const routes = [
         component: RelatedLinks, // 友链
       },
       {
+        path: '/innerLinks',
+        component: InnerLinks, // 内链
+      },
+      {
         path: '/CompanyNews',
         component: CompanyNews, // 新闻舆情
       },
@@ -360,6 +382,10 @@ export const routes = [
       {
         path: '/icLayout',
         component: IcLayout,
+      },
+      {
+        path: '/aiGraph',
+        component: AiCharts,
       },
       {
         path: '*',
@@ -441,12 +467,12 @@ export const searchHomeRoutes = [
     children: [
       {
         path: '/',
-        component: SearchList,
+        component: GlobalSearch,
         exact: true,
       },
       {
         path: '/searchList',
-        component: SearchList,
+        component: GlobalSearch,
       },
       {
         path: '/personSearchList',
@@ -466,7 +492,7 @@ export const searchHomeRoutes = [
       },
       {
         path: '/outCompanySearch',
-        component: OutCompanySearch,
+        component: GlobalSearch,
       },
       {
         path: '*',
@@ -516,7 +542,7 @@ export const bankWorkBenchRoutes = [
       },
       {
         path: '/searchList',
-        component: SearchList,
+        component: GlobalSearch,
       },
       {
         path: '/companyDetail',
@@ -574,7 +600,7 @@ export const homeTempRoutes = [
       },
       {
         path: '/searchList',
-        component: SearchList,
+        component: GlobalSearch,
       },
       {
         path: '/companyDetail',

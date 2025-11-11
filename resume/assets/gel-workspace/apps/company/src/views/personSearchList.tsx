@@ -1,24 +1,20 @@
+import { addPersonRecentViewItem } from '@/api/services/personRecentView.ts'
 import TextExpandable from '@/components/common/expandable/textExpandable/TextExpandable'
 import { LinksModule } from '@/handle/link'
 import { Modal } from '@wind/wind-ui'
+import { WindCascade } from 'gel-ui'
+import { globalAreaTree } from 'gel-util/config'
+import { isEn } from 'gel-util/intl'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as HomeActions from '../actions/home'
 import * as SearchListActions from '../actions/searchList'
 import { pointBuriedByModule } from '../api/pointBuried/bury'
-import {
-  addPersonView,
-  delPersonViewAll,
-  delPersonViewOne,
-  getPersonList,
-  getPersonView,
-} from '../api/searchListApi.ts'
+import { delPersonViewAll, delPersonViewOne, getPersonList, getPersonView } from '../api/searchListApi.ts'
 import man from '../assets/imgs/logo/man.png'
 import Links from '../components/common/links/Links'
 import SearchIndustry from '../components/searchListComponents/searchIndustry'
 import { HistoryList, ResultContainer, SearchTitleList } from '../components/searchListComponents/searchListComponents'
-import SearchRegion from '../components/searchListComponents/searchRegion'
-import { map } from '../handle/searchConfig/map'
 import { parseQueryString } from '../lib/utils'
 import { globalIndustryOfNationalEconomy3 } from '../utils/industryOfNationalEconomyTree'
 import intl from '../utils/intl'
@@ -49,7 +45,7 @@ type PersonSearchListState = {
   loadingList: boolean
   visible: boolean
   industryname: string[]
-  regioninfo: string[]
+  regioninfo: string[][]
 }
 // 产品介绍页面，游客访问
 class PersonSearchList extends React.Component<PersonSearchListProps, PersonSearchListState> {
@@ -75,9 +71,7 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
     if (this.props.keyword !== prevProps.keyword) {
       const keyword = this.props.keyword
 
-      this.setState({ queryText: keyword ? keyword : '小米', industryname: [], regioninfo: [], loading: true }, () =>
-        this.getPersonList()
-      )
+      this.setState({ queryText: keyword, industryname: [], regioninfo: [], loading: true }, () => this.getPersonList())
     }
   }
 
@@ -165,7 +159,7 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
       })
   }
 
-  searchChange = (e, type, _ctype, state) => {
+  searchChange = (e: string[][], type: string, _ctype: string, state: string) => {
     const choose = []
     const show = []
     for (let i = 0; i < e.length; i++) {
@@ -176,12 +170,7 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
         show.push(e[i][e[i].length - 1])
       }
     }
-    let condition: any = ''
-    if (type == 'industryname') {
-      condition = choose.join('、')
-    } else {
-      condition = show.join('、')
-    }
+    // no-op
     const filter = this.state.filter
     filter['pageNo'] = 0
     // @ts-expect-error ttt
@@ -207,7 +196,6 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
     }
   }
   searchCallBack = (item) => {
-    const personIdStr = item.personId ? item.personId : ''
     const introduce = item.introduce ? item.introduce : '--'
     const personName = item.personName ? item.personName : '--'
     const hasCompany =
@@ -215,12 +203,10 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
         <span
           className="person-company underline"
           onClick={() => {
-            addPersonView({
-              parameter: item.companyCode,
-              entityId: item.personId,
-            })
             wftCommon.jumpJqueryPage('Company.html?companycode=' + item.companyCode + '&linksource=personSearch')
           }}
+          data-uc-id="Zi2Y60q1Fd"
+          data-uc-ct="span"
         >
           {item.companyName}
         </span>
@@ -242,6 +228,8 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
                     e.target.src = man
                   }}
                   src={wftCommon.addWsidForImg(item.image)}
+                  data-uc-id="9f3xjwcnqJ"
+                  data-uc-ct="img"
                 />
               ) : (
                 <span className="person-span">
@@ -250,7 +238,15 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
               )}
             </div>
             <div className="person-detail">
-              <div className="person-name">
+              <div
+                className="person-name"
+                onClick={() => {
+                  addPersonRecentViewItem({
+                    parameter: item.companyCode,
+                    entityId: item.personId,
+                  }).then(() => this.props.getPersonView())
+                }}
+              >
                 <Links
                   module={LinksModule.CHARACTER}
                   id={item.personId}
@@ -271,7 +267,12 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
             </div>
           </div>
         </div>
-        <TextExpandable content={`${intl('451241', '简介')}：${introduce}`} maxLines={3} />
+        <TextExpandable
+          content={`${intl('451241', '简介')}：${introduce}`}
+          maxLines={3}
+          data-uc-id="OKcOlyxdLm"
+          data-uc-ct="textexpandable"
+        />
       </div>
     )
   }
@@ -296,7 +297,16 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
           className="wi-link-color"
           // @ts-expect-error ttt
           code={item.parameter}
-          onClick={() => wftCommon.jumpJqueryPage(`Company.html?companycode=${item.companycode || item.parameter}`)}
+          onClick={() => {
+            addPersonRecentViewItem({
+              entityId: item.entityId,
+              parameter: item.parameter,
+            })
+              .then(() => this.props.getPersonView())
+              .finally(() => wftCommon.jumpJqueryPage(`Company.html?companycode=${item.companycode || item.parameter}`))
+          }}
+          data-uc-id="TCPqUEe36e"
+          data-uc-ct="a"
         >
           {name}
         </a>
@@ -306,6 +316,8 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
             onClick={() => {
               return this.delViewCorp(item, idx, data)
             }}
+            data-uc-id="b5PKrIR8u5"
+            data-uc-ct="span"
           ></span>
         ) : (
           ''
@@ -316,19 +328,19 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
   showModal = () => {
     this.setState({ visible: true })
   }
-  handleOk = (_e) => {
+  handleOk = () => {
     this.props.clearPersonView()
     this.setState({ visible: false })
   }
-  handleCancel = (_e) => {
+  handleCancel = () => {
     this.setState({ visible: false })
   }
 
   render() {
     const { personList, personListErrorCode, personView } = this.props
     return (
-      <div className="SearchList" onScroll={this.scroll}>
-        <SearchTitleList name="personSearchList" jump={this.jump} />
+      <div className="SearchList" onScroll={this.scroll} data-uc-id="SlNnCHvJE-" data-uc-ct="div">
+        <SearchTitleList name="personSearchList" jump={this.jump} keyword={this.state.queryText} />
         <div className="wrapper workspace-fix" id="SearchHome">
           <div className="search-l">
             <div className="search-for-company each-search-result">
@@ -338,21 +350,22 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
                     <span className="title-city-industry">
                       <span>{intl('451213', '省份地区')}</span>：
                     </span>
-                    <SearchRegion
+                    <WindCascade
+                      style={{ display: 'inline-block', width: 290 }}
                       placeholder={intl('138649', '不限')}
-                      // open={}
-                      from
-                      options={map}
+                      options={globalAreaTree}
                       value={this.state.regioninfo}
-                      // defaultValue = {this.state.regioninfo && this.state.regioninfo.length ? this.state.regioninfo : null}
-                      valueType="name"
-                      height="190px"
-                      dropMatchWidth
-                      cssName="casader-choose-region"
+                      fieldNames={{
+                        label: isEn() ? 'nameEn' : 'name',
+                        value: 'name',
+                        children: 'node',
+                      }}
                       onChange={(e) => {
                         pointBuriedByModule(922602101033)
                         this.searchChange(e, 'regioninfo', intl('451213', '省份地区'), 'regioninfo')
                       }}
+                      data-uc-id="SbIAWwoET8"
+                      data-uc-ct="windcascade"
                     />
                     <span className="title-city-industry" id="TitleIndustry">
                       <span>{intl('257690', '国标行业')}</span>：
@@ -370,6 +383,8 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
                         pointBuriedByModule(922602101034)
                         this.searchChange(e, 'industryname', intl('257690', '国标行业'), 'industryname')
                       }}
+                      data-uc-id="Nb7S0tzQA7"
+                      data-uc-ct="searchindustry"
                     />
                   </div>
                 </li>
@@ -403,12 +418,13 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
             </div>
           </div>
           {this.state.visible ? (
-            // @ts-expect-error ttt
             <Modal
               title={intl('31041', '提示')}
               visible={this.state.visible}
               onOk={this.handleOk}
               onCancel={this.handleCancel}
+              data-uc-id="4-lVu0GPm"
+              data-uc-ct="modal"
             >
               <p>{intl('272002', '全部清除最近浏览人物')}</p>
             </Modal>
@@ -438,7 +454,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(SearchListActions.getPersonList({ ...res, ...data }))
           }
         }
-        new Promise((resolve, _reject) => {
+        new Promise((resolve) => {
           if (res.ErrorCode == '0' && res.data && res.data.length) {
             wftCommon.zh2en(
               res.data,
@@ -469,7 +485,7 @@ const mapDispatchToProps = (dispatch) => {
         return res
       })
     },
-    setGlobalSearch: (_data) => {
+    setGlobalSearch: () => {
       return dispatch(HomeActions.setGlobalSearch({ globalSearchReloadCurrent: true })) // 设置顶部search组件搜索时刷新当前路由
     },
     getPersonView: (data) => {
@@ -482,7 +498,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(SearchListActions.getPersonView({ ...data }))
     },
     clearPersonView: (data) => {
-      return delPersonViewAll(data).then((_res) => {
+      return delPersonViewAll(data).then(() => {
         return dispatch(SearchListActions.getPersonView({ data: [], code: '0' }))
       })
     },

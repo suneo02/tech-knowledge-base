@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { FileTextO, SaveO, FullscreenO, ReductionO, MinusO, PlusO } from '@wind/icons'
 import { Switch, Divider, Slider, InputNumber } from '@wind/wind-ui'
 import intl from '@/utils/intl'
+import { OPERATOR_RIGHT_MENU_LIST } from '../constants'
+import { WIND_BDG_GRAPH_OPERATOR_RIGHT_TYPE, GRAPH_MENU_TYPE } from '../../types'
 import './index.less'
 
 /**
@@ -25,6 +27,7 @@ interface OperatorProps {
  * @param {Function} onOperatorAction - 操作回调函数
  * @param {boolean} [waterMask] - 是否显示水印
  * @param {boolean} [resetSize] - 是否重置大小
+ * @param {boolean} [hideSize] - 是否隐藏缩放按钮
  */
 interface OperatorRightProps {
   menu?: any
@@ -32,6 +35,7 @@ interface OperatorRightProps {
   waterMask?: boolean
   resetSize?: boolean
   zoomFactor?: number
+  hideSize?: boolean
 }
 
 interface OperatorButtonProps extends OperatorProps {
@@ -48,7 +52,7 @@ interface OperatorButtonProps extends OperatorProps {
  */
 const OperatorButton: React.FC<OperatorButtonProps> = ({ type, icon, text, intlCode, onAction }) => {
   return (
-    <span onClick={() => onAction(type)} className="operator-item">
+    <span onClick={() => onAction(type)} className="operator-item" data-uc-id="lRX_nOaQtLL" data-uc-ct="span">
       {icon}
       {intlCode ? intl(intlCode, text) : text}
     </span>
@@ -70,8 +74,8 @@ const RemoveWaterMark: React.FC<OperatorProps> = ({ onAction, waterMask = true }
     onAction(checked ? 'addWaterMark' : 'removeWaterMark')
   }
   return (
-    <span className="operator-item" onClick={() => onChange(!checked)}>
-      <Switch size="small" checked={!checked} />
+    <span className="operator-item" onClick={() => onChange(!checked)} data-uc-id="1E86g7AjdIp" data-uc-ct="span">
+      <Switch size="small" checked={!checked} data-uc-id="ZnvM-TA372" data-uc-ct="switch" />
       {intl('440334', '去水印')}
     </span>
   )
@@ -154,7 +158,13 @@ const Size: React.FC<OperatorProps> = ({ onAction, resetSize = false, zoomFactor
   return (
     <>
       <span className={`operator-item-minus ${size === 25 ? 'operator-item-disabled' : ''}`} title="缩小">
-        <MinusO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} onClick={handleMinus}></MinusO>
+        <MinusO
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          onClick={handleMinus}
+          data-uc-id="nrlWNbHI9y"
+          data-uc-ct="minuso"
+        ></MinusO>
       </span>
       <span className="operator-item-number-input">
         <InputNumber
@@ -164,11 +174,19 @@ const Size: React.FC<OperatorProps> = ({ onAction, resetSize = false, zoomFactor
           onChange={handleInputChange}
           size="small"
           formatter={(value) => `${Number(value).toFixed(0)}`}
+          data-uc-id="yL6F1gsG2kt"
+          data-uc-ct="inputnumber"
         />
         <span className="operator-item-percent">%</span>
       </span>
       <span className={`operator-item-plus ${size === 200 ? 'operator-item-disabled' : ''}`} title="放大">
-        <PlusO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} onClick={handlePlus}></PlusO>
+        <PlusO
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          onClick={handlePlus}
+          data-uc-id="s8rCqMgu1E"
+          data-uc-ct="pluso"
+        ></PlusO>
       </span>
     </>
   )
@@ -177,22 +195,50 @@ const Size: React.FC<OperatorProps> = ({ onAction, resetSize = false, zoomFactor
 // 简单按钮配置
 const buttonConfigs = {
   exportReport: {
-    icon: <FileTextO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
+    icon: (
+      <FileTextO
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        data-uc-id="eZiZHn6CAU"
+        data-uc-ct="filetexto"
+      />
+    ),
     text: '导出报告',
     intlCode: '440315',
   },
   saveImage: {
-    icon: <SaveO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
+    icon: (
+      <SaveO
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        data-uc-id="Vp_w0bA2zI"
+        data-uc-ct="saveo"
+      />
+    ),
     text: '保存图片',
     intlCode: '421570',
   },
   fullScreen: {
-    icon: <FullscreenO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
+    icon: (
+      <FullscreenO
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        data-uc-id="3YiiIseCU9"
+        data-uc-ct="fullscreeno"
+      />
+    ),
     text: '全屏',
     intlCode: '',
   },
   restore: {
-    icon: <ReductionO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
+    icon: (
+      <ReductionO
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        data-uc-id="8wh5wzlFA1"
+        data-uc-ct="reductiono"
+      />
+    ),
     text: '还原',
     intlCode: '414174',
   },
@@ -228,6 +274,7 @@ const OperatorRight: React.FC<OperatorRightProps> = ({
   waterMask = true,
   resetSize = false,
   zoomFactor,
+  hideSize = false,
 }) => {
   const [size, setSize] = useState(zoomFactor ? zoomFactor * 100 : 100)
 
@@ -240,19 +287,22 @@ const OperatorRight: React.FC<OperatorRightProps> = ({
     onOperatorAction?.(type, value)
   }
 
-  // let operatorList = ['saveImage', 'restore', 'removeWaterMark', 'size'] // 默认显示的按钮
-  let operatorList = ['saveImage', 'restore', 'size'] // 默认显示的按钮
+  let operatorList: WIND_BDG_GRAPH_OPERATOR_RIGHT_TYPE[] = [...OPERATOR_RIGHT_MENU_LIST] // 默认显示的按钮
+
+  if (hideSize) {
+    operatorList.pop()
+  }
   // 一般的图不需要导出报告
   if (menu?.exportAction) {
-    operatorList = ['exportReport', ...operatorList]
+    operatorList = [WIND_BDG_GRAPH_OPERATOR_RIGHT_TYPE.ExportReport, ...operatorList]
   }
   // 主要针对外部的图
   if (menu?.noAction) {
     return null
   }
   // 持股路径
-  if (menu?.key === 'chart_cglj') {
-    operatorList = ['saveImage', 'restore']
+  if (menu?.key === GRAPH_MENU_TYPE.SHAREHOLDING_PATH) {
+    operatorList = [WIND_BDG_GRAPH_OPERATOR_RIGHT_TYPE.SaveImage, WIND_BDG_GRAPH_OPERATOR_RIGHT_TYPE.Restore]
   }
   return (
     <div className="charts-operator-right">
@@ -261,7 +311,14 @@ const OperatorRight: React.FC<OperatorRightProps> = ({
         return (
           <React.Fragment key={item}>
             {index > 0 && <Divider type="vertical" />}
-            <Component onAction={handleAction} waterMask={waterMask} resetSize={resetSize} zoomFactor={size} />
+            <Component
+              onAction={handleAction}
+              waterMask={waterMask}
+              resetSize={resetSize}
+              zoomFactor={size}
+              data-uc-id="e7R6JlP4Pbd"
+              data-uc-ct="component"
+            />
           </React.Fragment>
         )
       })}

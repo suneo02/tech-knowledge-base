@@ -23,6 +23,8 @@ export const CheckBoxComp: React.FC<{
       checked={checked}
       indeterminate={indeterminate}
       onChange={(e) => handleItemChange(e.target.checked, getCheckBoxItemValue(item))}
+      data-uc-id="n_5Ak9-p73"
+      data-uc-ct="checkbox"
     >
       {getCDEItemOptionLabel(item)}
     </Checkbox>

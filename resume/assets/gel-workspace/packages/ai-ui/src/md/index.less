@@ -1,3 +1,5 @@
+@import 'gel-ui/mixin/index.less';
+
 .markdown-content {
   font-size: 14px;
   line-height: 22px;
@@ -5,7 +7,6 @@
   a {
     color: unset;
     text-underline-offset: 4px;
-    // text-decoration: underline;
 
     border-bottom: 1px solid #c3c5c9;
     &:hover {
@@ -213,37 +214,7 @@
       0 8px 10px 1px rgb(0 0 0 / 6%),
       0 2px 5px -2px rgb(0 0 0 / 10%);
 
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    &::after {
-      content: '';
-      -webkit-transition: all 0.2s;
-      -o-transition: all 0.2s;
-      transition: all 0.2s;
-      display: block;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 4px;
-      background-image: -webkit-gradient(
-        linear,
-        left top,
-        right top,
-        from(#3862ed),
-        color-stop(11%, #274cda),
-        color-stop(47%, #00aec7),
-        color-stop(62%, #17d9cb),
-        color-stop(94%, #b388e8)
-      );
-      background-image: -webkit-linear-gradient(left, #3862ed, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
-      background-image: -o-linear-gradient(left, #3862ed 0, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
-      background-image: linear-gradient(90deg, #3862ed, #274cda 11%, #00aec7 47%, #17d9cb 62%, #b388e8 94%);
-      background-size: 100%;
-      background-repeat: no-repeat;
-      background-position: bottom;
-    }
+    .gradient-bottom-mixin();
   }
   z-index: 1050;
 
@@ -255,65 +226,4 @@
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
-}
-
-.xcontainer {
-  --p-i: 12px;
-  --h: 32px;
-  position: relative;
-  padding: 16px var(--p-i);
-  border-radius: 4px;
-  //   background-color: #2d2d2d;
-  padding-top: calc(var(--h) + 16px);
-  &-header {
-    border-radius: 4px 4px 0 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding-inline: var(--p-i);
-    height: var(--h);
-    background-color: #24262b;
-    color: #fff;
-    button.copy {
-      margin: 0;
-      padding: 2px 8px;
-      border: none;
-      background: none;
-      font: inherit;
-      color: #999;
-      cursor: pointer;
-      outline: none;
-      appearance: none;
-      -webkit-appearance: none;
-
-      font-size: 12px;
-      border: 1px solid #444;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-
-      &:hover {
-        color: #fff;
-        border-color: #666;
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-
-      &:active {
-        transform: scale(0.98);
-      }
-    }
-  }
-
-  //   small {
-  //     position: absolute;
-  //     top: 0;
-  //     right: 0;
-  //     background-color: #000;
-  //     color: #fff;
-  //     padding: 0 5px;
-  //     // border-radius: 5px;
-  //   }
 }

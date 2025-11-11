@@ -63,6 +63,8 @@ export const FinancialDataUnitFilter: FC<{ corpModuleSubCfg: ICorpDetailModuleWi
         }
       }}
       options={FinancialDataUnitFilterOptions}
+      data-uc-id="z2IVpkH8Uq"
+      data-uc-ct="select"
     ></Select>
   )
 }

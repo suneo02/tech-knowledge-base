@@ -72,11 +72,13 @@ export const ConfidenceSelector: React.FC<ConfidenceSelectorProps> = (props) => 
   if (!props?.options || props.options.length === 0) return null
   return (
     <div className={styles[`${PREFIX}-container`]}>
-      <Select {...props} className={styles[`${PREFIX}-selector`]} />
+      <Select {...props} className={styles[`${PREFIX}-selector`]} data-uc-id="cKNftPl7uT" data-uc-ct="select" />
       <Popover
         content={renderTooltipContent(props.options, props.industryTitle)}
         placement="right"
         overlayStyle={{ width: 500 }}
+        data-uc-id="79soxUf4S"
+        data-uc-ct="popover"
       >
         <InfoCircleButton />
       </Popover>

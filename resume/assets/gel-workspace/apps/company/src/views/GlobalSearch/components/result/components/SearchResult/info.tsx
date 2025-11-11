@@ -7,6 +7,7 @@ import React from 'react'
 import { BaseInfoItemProps, OrgTypeEnum, SearchResultItem, TextProps } from './type'
 import { LinksModule } from '@/handle/link'
 import { Links } from '@/components/common/links'
+import { refreshHistoryEmitter } from '@/views/GlobalSearch/emitter'
 
 // TODO 未来可以替换成和tableColumns同样的方法，看后续改造
 const Text = <T extends Record<string, any>>({ type, item, field, unit, href }: TextProps<T>) => {
@@ -21,7 +22,7 @@ const Text = <T extends Record<string, any>>({ type, item, field, unit, href }: 
   }
   if ((type === 'links' || type === 8) && href) {
     return (
-      <a className="underline" href={href} target="_blank" rel="noreferrer">
+      <a className="underline" href={href} target="_blank" rel="noreferrer" data-uc-id="roqBZgGgX" data-uc-ct="a">
         <InnerHtml html={item[field]}></InnerHtml>
       </a>
     )
@@ -53,7 +54,17 @@ const BaseInfoItem = <T extends Record<string, any>>({
     if (children) {
       return children
     }
-    return <Text item={item} field={field} type={renderType} unit={unit} href={href} />
+    return (
+      <Text
+        item={item}
+        field={field}
+        type={renderType}
+        unit={unit}
+        href={href}
+        data-uc-id="L_5FVWIz4G"
+        data-uc-ct="text"
+      />
+    )
   }
 
   return label ? (
@@ -86,6 +97,9 @@ export const CompanyNameInfo = <T extends SearchResultItem>({ item, type }: { it
         ></Text>
       </h4>
     }
+    addRecordCallback={() => {
+      refreshHistoryEmitter.emit() // 通知更新最近浏览企业列表
+    }}
   ></Links>
 )
 
@@ -96,10 +110,13 @@ export const EnglishNameInfo = <T extends SearchResultItem>({ item, type }: { it
       item={item}
       type={type}
       field="corpNameEng"
-      showCondition={(_, type) => !(window.en_access_config && type === GSTabsEnum.CHINA)} // ToDo 所属省份
+      // ToDo 所属省份
+      showCondition={(_, type) => !(window.en_access_config && type === GSTabsEnum.CHINA)}
       extraContent={
         item?.aiTransFlag ? <small style={{ marginInlineStart: 12, color: '#575d67' }}>Provided by AI</small> : null
       }
+      data-uc-id="f4EKqRkP7E"
+      data-uc-ct="baseinfoitem"
     />
   </>
 )
@@ -111,7 +128,10 @@ export const CountryInfo = <T extends SearchResultItem>({ item, type }: { item: 
     type={type}
     label={intl('6886', '国家/地区')}
     field="areaCn"
-    showCondition={(item) => true} // ToDo 所属省份
+    // ToDo 所属省份
+    showCondition={(item) => true}
+    data-uc-id="C6xpHsqF1w"
+    data-uc-ct="baseinfoitem"
   />
 )
 
@@ -165,6 +185,8 @@ export const LegalPersonInfo = <T extends SearchResultItem>({ item, type }: { it
       field="artificialPersonName"
       renderType="links"
       href={wftCommon.jumpMap(item.corpId)}
+      data-uc-id="fWvAa39wNg"
+      data-uc-ct="baseinfoitem"
     >
       <Links {...linksParams} useUnderline />
     </BaseInfoItem>
@@ -180,6 +202,8 @@ export const AddressInfo = <T extends SearchResultItem>({ item, type }: { item: 
     field="registerAddress"
     renderType="links"
     href={wftCommon.jumpMap(item.corpId)}
+    data-uc-id="61Z4YlP70f"
+    data-uc-ct="baseinfoitem"
   />
 )
 

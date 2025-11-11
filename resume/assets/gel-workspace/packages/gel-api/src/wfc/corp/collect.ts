@@ -1,6 +1,6 @@
 // 收藏相关接口
 
-import { ApiResponseForWFC } from '../type'
+import { ApiResponseForWFC } from '@/types'
 
 export interface wfcCorpCollectApiPath {
   // 删除收藏

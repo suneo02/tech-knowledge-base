@@ -1,10 +1,10 @@
+import { pointBuriedGel } from '@/api/configApi'
 import { pointBuriedByModule } from '@/api/pointBuried/bury.ts'
 import { isArray } from 'lodash'
-import { pointBuriedGel } from '@/api/configApi'
 
-import { ICorpMenuData } from '@/views/Company/menu/type.ts'
+import { CorpMenuData } from '@/views/Company/menu/type.ts'
 
-function hasMatchingChildKey(allMenu: ICorpMenuData[], targetKey: string) {
+function hasMatchingChildKey(allMenu: CorpMenuData[], targetKey: string) {
   return allMenu.some((menuLevel1) => {
     if (!(menuLevel1.children && menuLevel1.children.length > 0)) {
       return false
@@ -18,7 +18,7 @@ export const handleBuryInCorpDetailMenu = async (
   selectedKeys: any,
   corpId: string,
   allTreeDataObj: any,
-  allMenu: ICorpMenuData[]
+  allMenu: CorpMenuData[]
 ) => {
   try {
     if (!selectedKeys || !isArray(selectedKeys)) {

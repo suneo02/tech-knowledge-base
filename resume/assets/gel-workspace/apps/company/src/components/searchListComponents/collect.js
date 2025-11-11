@@ -117,6 +117,8 @@ class Collect extends React.Component {
           onOk={(e) => this.handleOk(e, 'visible')}
           width="400px"
           onCancel={(e) => this.handleCancel(e, 'visible')}
+          data-uc-id="31UuGxhCba6"
+          data-uc-ct="modal"
         >
           <div className="warn-layer-msg">
             <span className="collect-modal-c-title"> {intl('437299', '将所选企业收藏至')} </span>
@@ -124,6 +126,8 @@ class Collect extends React.Component {
               options={option}
               onChange={this.checkChange}
               defaultValue={this.state.defaultSelected}
+              data-uc-id="9HBbdWJpYlj"
+              data-uc-ct="checkboxgroup"
             ></CheckboxGroup>
           </div>
         </Modal>
@@ -133,11 +137,13 @@ class Collect extends React.Component {
           onOk={(e) => this.handleOk(e, 'visible2')}
           width="400px"
           onCancel={(e) => this.handleCancel(e, 'visible2')}
+          data-uc-id="MudbqxW7G96"
+          data-uc-ct="modal"
         >
           <div className="warn-layer-msg">{intl('138853', '取消收藏')}?</div>
         </Modal>
         {this.props.from == 'detail' ? null : (
-          <Button onClick={this.changeStatus}>
+          <Button onClick={this.changeStatus} data-uc-id="XNxevhSWwTs" data-uc-ct="button">
             <i className={this.state.isCollect ? 'list-icon-customer-ok' : 'list-icon-customer'}></i>
             {this.state.isCollect ? intl('138129', '已收藏') : intl('143165', '收藏')}
           </Button>

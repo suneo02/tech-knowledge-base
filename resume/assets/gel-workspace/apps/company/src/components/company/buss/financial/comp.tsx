@@ -1,10 +1,8 @@
-import { Empty } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
 import classNames from 'classnames'
 import React from 'react'
 import { getTableLocale } from '../../table/handle'
 import { ICorpTableCfg } from '../../type'
-import styles from './comp.module.less'
 
 interface FinancialTableProps {
   eachTableKey: string
@@ -28,15 +26,6 @@ export const FinancialTable: React.FC<FinancialTableProps> = ({
     return null
   }
 
-  if (dataLoaded && !tableData?.list?.length) {
-    return (
-      <div className={classNames(styles.emptyContainer, className)} data-custom-id={eachTableKey}>
-        <div className="wind-ui-table-title">{eachTable.titleStr}</div>
-        <Empty status="no-data" direction="vertical" />
-      </div>
-    )
-  }
-
   return (
     <div className={classNames(className)} data-custom-id={eachTableKey}>
       <Table
@@ -48,6 +37,9 @@ export const FinancialTable: React.FC<FinancialTableProps> = ({
         locale={getTableLocale(dataLoaded)}
         dataSource={tableData.list}
         style={{ width: '100%' }}
+        data-uc-id="pGCQoAAMn"
+        data-uc-ct="table"
+        data-uc-x={eachTableKey}
       />
     </div>
   )

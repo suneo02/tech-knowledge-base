@@ -1,0 +1,1 @@
+export { RoleAvatarHidden } from './misc'

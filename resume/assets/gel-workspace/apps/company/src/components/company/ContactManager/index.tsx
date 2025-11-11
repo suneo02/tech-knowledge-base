@@ -41,6 +41,8 @@ const ModalForm: React.FC<IModalFormProps> = React.memo(({ userInfo, onFormChang
         formRef.current = form
         onFormChange(form)
       }}
+      data-uc-id="eBaYtX_CE"
+      data-uc-ct="callhelpform"
     />
   )
 })
@@ -92,6 +94,7 @@ export const useContactManager = ({
           width: 420,
           height: 280,
           visible: true,
+          zIndex: 2000, // 设置更高的z-index，确保显示在CompanyReportModal之上
           onCancel: () => store.dispatch(globalActions.clearGolbalModal()),
           onOk: async () => {
             try {
@@ -130,6 +133,8 @@ export const useContactManager = ({
                 formRef.current = form
                 setCallHelpForm(form)
               }}
+              data-uc-id="sh2QgukDfG"
+              data-uc-ct="modalform"
             />
           ),
           okText: window.en_access_config ? 'OK' : '确定',
@@ -152,7 +157,7 @@ export const useContactManager = ({
       // 第一次点击时获取用户信息
       const info = await fetchUserInfo()
       if (!info) {
-        message.error(intl('378222', '获取用户信息失败，请稍后重试'))
+        message.error(intl('', '获取用户信息失败，请稍后重试'))
         return
       }
 

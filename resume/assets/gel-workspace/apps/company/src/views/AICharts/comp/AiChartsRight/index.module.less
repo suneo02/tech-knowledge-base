@@ -1,0 +1,14 @@
+.aiChartsRight {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  :global(> .w-tabs-content) {
+    width: 100%;
+    height: calc(100% - 32px);
+  }
+  :global(> .w-tabs-bar) {
+    border-bottom: 1px solid #c5c5c5;
+  }
+}

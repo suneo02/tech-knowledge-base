@@ -1,6 +1,6 @@
-import { ErrorActionType, ErrorConfig } from '@/api/error/errorConfig'
 import type { ModalProps } from 'antd'
 import { Button, message, Modal } from 'antd'
+import { ErrorActionType, ErrorConfig } from 'gel-util/config'
 import React, { useCallback } from 'react'
 import styles from './styles.module.less'
 

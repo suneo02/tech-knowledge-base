@@ -1,21 +1,20 @@
-import { axiosInstance } from '@/api/axios'
-import { entWebAxiosInstance } from '@/api/entWeb'
+import Bubble from '@ant-design/x/es/bubble'
 import { BubbleListProps } from '@ant-design/x/es/bubble/BubbleList'
 import { MessageInfo } from '@ant-design/x/es/use-x-chat'
 import {
   ChatActions,
-  MessageParsedCore,
-  MessageRaw,
+  CLASSNAME_USER_ROLE,
   PlaceholderPromptsComp,
   ScrollToBottomButton,
   useBubbleItems,
   UseChatRestoreResult,
   useEmbedMode,
-  useScrollToBottom,
 } from 'ai-ui'
 import { Spin } from 'antd'
 import cn from 'classnames'
-import { intl, t } from 'gel-util/intl'
+import { AgentIdentifiers, ChatThinkSignal } from 'gel-api'
+import { getChatPlaceholder, MsgParsedDepre, useScrollToBottom } from 'gel-ui'
+import { t } from 'gel-util/intl'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import styles from '../ChatMessage/chatMessageShared.module.less'
@@ -33,7 +32,7 @@ interface ChatMessageCoreProps<T extends BubbleListProps['roles'] = BubbleListPr
   roomId: string
   /** 初始消息，通常用于从其他页面跳转时带入的消息 */
   initialMessage?: string | null
-  initialDeepthink?: MessageRaw['think'] | null
+  initialDeepthink?: ChatThinkSignal['think'] | null
   /** 是否正在聊天 */
   isChating: boolean
   /** 占位组件类型 */
@@ -43,15 +42,18 @@ interface ChatMessageCoreProps<T extends BubbleListProps['roles'] = BubbleListPr
   /** 内容 */
   content: string
   /** 解析后的消息 */
-  parsedMessages: MessageInfo<MessageParsedCore>[]
+  parsedMessages: MessageInfo<MsgParsedDepre>[]
   /** 处理内容变化 */
   handleContentChange: (content: string) => void
   /** 发送消息 */
-  sendMessage: (message: string, agentId?: MessageRaw['agentId'], think?: MessageRaw['think']) => void
+  sendMessage: (message: string, agentId?: AgentIdentifiers['agentId'], think?: ChatThinkSignal['think']) => void
   /** 取消请求 */
   cancelRequest: () => void
   /** 气泡加载状态 */
   bubbleLoading?: boolean
+  /** 分页相关参数 */
+  hasMore?: boolean
+  onLoadMore?: () => void
 }
 /**
  * 聊天内容组件，目前只给 ai chat base 使用
@@ -71,9 +73,11 @@ export const ChatMessageCore = memo(
     sendMessage,
     bubbleLoading,
     cancelRequest,
+    hasMore,
+    onLoadMore,
   }: ChatMessageCoreProps<T> & Pick<UseChatRestoreResult, 'bubbleLoading'>) => {
     // 深度思考模式状态，可以是 1 或 undefined
-    const [deepthink, setDeepthink] = useState<MessageRaw['think']>(initialDeepthink ?? undefined)
+    const [deepthink, setDeepthink] = useState<ChatThinkSignal['think']>(initialDeepthink ?? undefined)
 
     const { isEmbedMode = false } = useEmbedMode()
 
@@ -81,20 +85,81 @@ export const ChatMessageCore = memo(
     const initialMessageSentRef = useRef(false)
     const [searchParams, setSearchParams] = useSearchParams() // 获取/设置 URL 查询参数
 
+    // 用于记录加载更多前的滚动位置
+    const scrollPositionRef = useRef<{ scrollTop: number; firstVisibleElement: Element | null } | null>(null)
+
     // 使用滚动控制 hook
     const { chatContainerRef, showScrollBottom, scrollToBottom } = useScrollToBottom({
       parsedMessages,
       isChating,
     })
 
+    // 记录当前滚动位置和第一个可见元素
+    const recordScrollPosition = useCallback(() => {
+      if (chatContainerRef.current) {
+        const container = chatContainerRef.current
+        const firstVisibleElement = container.querySelector(`.${CLASSNAME_USER_ROLE}`)
+        scrollPositionRef.current = {
+          scrollTop: container.scrollTop,
+          firstVisibleElement: firstVisibleElement || null,
+        }
+      }
+    }, [])
+
+    // 恢复滚动位置
+    const restoreScrollPosition = useCallback(() => {
+      if (scrollPositionRef.current && chatContainerRef.current) {
+        const container = chatContainerRef.current
+        const { scrollTop, firstVisibleElement } = scrollPositionRef.current
+
+        // 使用 requestAnimationFrame 确保 DOM 更新完成后再恢复位置
+        requestAnimationFrame(() => {
+          if (firstVisibleElement && firstVisibleElement.parentNode) {
+            // 找到恢复后的元素位置
+            const newFirstElement = container.querySelector(`.${CLASSNAME_USER_ROLE}`)
+            if (newFirstElement) {
+              // 计算新元素相对于容器的偏移
+              const newElementTop = newFirstElement.getBoundingClientRect().top
+              const containerTop = container.getBoundingClientRect().top
+              const offset = newElementTop - containerTop
+
+              // 设置滚动位置，保持用户看到的第一个元素位置不变
+              container.scrollTop = offset
+            }
+          } else {
+            // 如果没有找到特定元素，直接恢复滚动位置
+            container.scrollTop = scrollTop
+          }
+
+          // 清除记录的位置
+          scrollPositionRef.current = null
+        })
+      }
+    }, [])
+
+    // 处理滚动到顶部时触发加载更多
+    const handleScroll = useCallback(() => {
+      if (chatContainerRef.current && hasMore && !bubbleLoading) {
+        const { scrollTop } = chatContainerRef.current
+
+        // 当滚动到顶部附近时（距离顶部小于等于10px）触发加载更多
+        if (scrollTop === 0) {
+          // 记录加载前的滚动位置
+          recordScrollPosition()
+          onLoadMore?.()
+          restoreScrollPosition()
+        }
+      }
+    }, [hasMore, bubbleLoading, onLoadMore, recordScrollPosition])
+
     // 包装发送消息函数，添加自动滚动到底部功能
     const handleSendMessage = useCallback(
-      (message: string, agentId?: MessageRaw['agentId'], think?: MessageRaw['think']) => {
-        sendMessage(message, agentId, think)
+      (message: string, agentId?: AgentIdentifiers['agentId']) => {
+        sendMessage(message, agentId, deepthink ? 1 : undefined)
         // 发送消息后立即滚动到底部
         setTimeout(scrollToBottom, 50)
       },
-      [sendMessage, scrollToBottom]
+      [sendMessage, scrollToBottom, deepthink]
     )
 
     // 处理初始深度思考
@@ -126,8 +191,6 @@ export const ChatMessageCore = memo(
 
     // 气泡项处理逻辑
     const { bubbleItems } = useBubbleItems(
-      axiosInstance,
-      entWebAxiosInstance,
       parsedMessages,
       chatId,
       showPlaceholderWhenEmpty,
@@ -139,7 +202,13 @@ export const ChatMessageCore = memo(
     return (
       <Spin spinning={bubbleLoading} wrapperClassName={styles.spinContainer}>
         <div className={styles.chat}>
-          <div ref={chatContainerRef} className={cn(styles.chatContainer, styles.chatContainerTop)}>
+          <div
+            ref={chatContainerRef}
+            className={cn(styles.chatContainer, styles.chatContainerTop)}
+            onScroll={handleScroll}
+          >
+            {/* 加载更多消息的指示器 */}
+            {hasMore && bubbleLoading && <Spin size="small" />}
             <Bubble.List
               className={cn(styles.bubbleListContainer, 'bubble-list-container')}
               roles={roles}
@@ -153,27 +222,19 @@ export const ChatMessageCore = memo(
           {/* 聊天操作区域 */}
           <div className={cn(styles.chatActionsContainer, styles.chatContainerTop)}>
             <ChatActions
-              className={styles.chatActions}
-              placeholder={
-                isChating
-                  ? t('421517', '正在回答')
-                  : parsedMessages?.length > 0
-                    ? t('421516', '您可以继续提问')
-                    : t('421515', '有什么可以帮你?')
-              }
+              placeholder={getChatPlaceholder(parsedMessages, isChating)}
               isLoading={isChating}
               content={content}
-              senderClassName={styles.sender}
               onCancel={cancelRequest}
               handleContentChange={handleContentChange}
               sendMessage={handleSendMessage}
-              deepthink={deepthink === 1}
-              setDeepthink={(value: boolean) => setDeepthink(value ? 1 : undefined)}
             />
           </div>
-          <div className={styles.footer}>{intl('451199', '内容由AI生成，仅供参考，请检查数据和信息的正确性')}</div>
+          <div className={styles.footer}>{t('453642', '内容由AI生成，请核查重要信息')}</div>
         </div>
       </Spin>
     )
   }
 )
+
+ChatMessageCore.displayName = 'ChatMessageCore'

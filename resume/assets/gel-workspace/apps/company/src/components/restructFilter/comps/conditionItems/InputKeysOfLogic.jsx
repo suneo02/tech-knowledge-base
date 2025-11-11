@@ -38,8 +38,18 @@ const InputKeysOfLogic = ({ item }) => {
     <ConditionItem>
       <ConditionTitle filter={filter} isVip={isVip} itemName={itemName} hoverHint={hoverHint} />
       <div className="flex">
-        <LogicOption defaultOption={logic} changeOptionCallback={changeOptionCallback} />
-        <InputKeyWords defalutValue={filter ? filter.value : []} onChangeCallback={onChangeCallback} />
+        <LogicOption
+          defaultOption={logic}
+          changeOptionCallback={changeOptionCallback}
+          data-uc-id="jbDXGmsMA"
+          data-uc-ct="logicoption"
+        />
+        <InputKeyWords
+          defalutValue={filter ? filter.value : []}
+          onChangeCallback={onChangeCallback}
+          data-uc-id="luGXDDl5wh"
+          data-uc-ct="inputkeywords"
+        />
       </div>
     </ConditionItem>
   )

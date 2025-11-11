@@ -1,9 +1,5 @@
-node_modules
-.idea
-packages/ai-chat/src/api/services/__tests__
 **/node_modules
 **/.idea
-**/dist
-
-
 *storybook.log
+.DS_Store
+.env.development
