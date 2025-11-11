@@ -12,7 +12,7 @@ export const HKCorpIntro: React.FC<BaseCorpIntroProps> = ({ headerInfo, companyb
   return (
     <>
       <Row>
-        <CorpIntroItem title={intl('138276', '公司英文名')} value={getEngName()} span={24} />
+        <CorpIntroItem title={intl('448329', '公司英文名')} value={getEngName()} span={24} />
       </Row>
 
       <Row>
@@ -21,7 +21,7 @@ export const HKCorpIntro: React.FC<BaseCorpIntroProps> = ({ headerInfo, companyb
       </Row>
 
       <Row>
-        <CorpIntroItem title={intl('259200', '公司地址')} value={headerInfo.address} span={24} />
+        <CorpIntroItem title={intl('438015', '公司地址')} value={headerInfo.address} span={24} />
       </Row>
     </>
   )

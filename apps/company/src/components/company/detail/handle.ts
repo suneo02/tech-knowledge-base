@@ -1,4 +1,6 @@
-export const getParentKey = (key, tree) => {
+import { CorpMenuData } from '@/views/Company/menu/type.ts'
+
+export const getParentKey = (key: string, tree: CorpMenuData[]) => {
   let parentKey
   for (let i = 0; i < tree.length; i++) {
     const node = tree[i]

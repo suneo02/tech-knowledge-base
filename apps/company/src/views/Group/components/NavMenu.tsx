@@ -26,7 +26,15 @@ const GoupNavMenu = ({ selectedNode, setUpdateSelected, setSelectedNode }) => {
   return (
     <div className="navMenu">
       {treeData?.length ? (
-        <Tree className="tree" treeData={treeData} onSelect={onSelect} selectedKeys={selectedNode} onExpand={setExpandedKeys}></Tree>
+        <Tree
+          className="tree"
+          treeData={treeData}
+          onSelect={onSelect}
+          selectedKeys={selectedNode}
+          onExpand={setExpandedKeys}
+          data-uc-id="AT8BE_4EP"
+          data-uc-ct="tree"
+        ></Tree>
       ) : (
         <Skeleton loading animation style={{ height: 300, width: '100%' }}></Skeleton>
       )}

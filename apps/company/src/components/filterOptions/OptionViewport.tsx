@@ -1,5 +1,7 @@
 import { Checkbox, Radio, Tag } from '@wind/wind-ui'
-import React from 'react'
+import { CDEFilterItem } from 'gel-api/*'
+import { isCDEValueObject } from 'gel-ui'
+import React, { FC } from 'react'
 import { pointBuried } from '../../api/configApi'
 import { useConditionFilterStore } from '../../store/cde/useConditionFilterStore'
 import intl from '../../utils/intl'
@@ -7,6 +9,7 @@ import { MyIcon } from '../Icon'
 import './OptionViewport.less'
 import { CheckBoxGroupForOptionViewport } from './OptionViewPort/CheckBoxGroup'
 import { useOptionViewportItemOption } from './OptionViewPort/hook'
+import { isShowOptionViewportCascade, isShowOptionViewportRadio } from './OptionViewPort/util'
 
 /**
 一个用于呈现选项视图的React组件。筛选结果页面中的左侧展示控件
@@ -22,9 +25,29 @@ import { useOptionViewportItemOption } from './OptionViewPort/hook'
 @param {Function} props.detailFilter - 一个用于详细过滤的函数。
 @returns {JSX.Element} 一个用于呈现选项视图的React组件。
 */
-const OptionViewport = (props) => {
+const OptionViewport: FC<{
+  mode: number
+  title: string
+  value: any[]
+  logic: string
+  info: CDEFilterItem
+  changeFilterVisible: (info: CDEFilterItem) => void
+  changeFilter: (filter: CDEFilterItem[]) => void
+  detailFilter: any
+  filter: any
+}> = (props) => {
   console.log('🚀 ~ OptionViewport ~ props:', props)
-  const { mode, title, value, logic, info = {}, changeFilterVisible, changeFilter, detailFilter, filter } = props
+  const {
+    mode,
+    title,
+    value,
+    logic,
+    info = {} as CDEFilterItem,
+    changeFilterVisible,
+    changeFilter,
+    detailFilter,
+    filter,
+  } = props
 
   // 叶子节点checkboxs全量list
 
@@ -92,15 +115,28 @@ const OptionViewport = (props) => {
     <div className="option-viewport">
       <div className="title">
         <div className="title-left">
-          <MyIcon name="delete" onClick={deleteView} /> {title}
+          <MyIcon name="delete" onClick={deleteView} data-uc-id="5y-5KbqX8io" data-uc-ct="myicon" /> {title}
           {info && info.isVip ? <MyIcon name="svip" className="svip" /> : null}
         </div>
         {filter?.confidence ? (
           <div className="title-right">
-            <Radio.Group className="logic" name="city" defaultValue={filter?.confidence} onChange={confidenceChange}>
+            <Radio.Group
+              className="logic"
+              name="city"
+              defaultValue={filter?.confidence}
+              onChange={confidenceChange}
+              data-uc-id="bhkHRb1XhqN"
+              data-uc-ct="radio"
+            >
               {info.extraOptions.map((item, index) => {
                 return (
-                  <Radio.Button key={index} value={item.value}>
+                  <Radio.Button
+                    key={index}
+                    value={item.value}
+                    data-uc-id="aD9BS7LSk0g"
+                    data-uc-ct="radio"
+                    data-uc-x={index}
+                  >
                     {item.label.split('：')[1]}
                   </Radio.Button>
                 )
@@ -119,13 +155,25 @@ const OptionViewport = (props) => {
           {!['range', 'equal', 'bool'].includes(logic) &&
             info.logicOption &&
             info.logicOption.split(',').length > 1 && (
-              // @ts-expect-error
-              <Radio.Group className="logic" onChange={logicChange} value={logic} optionType="button">
+              <Radio.Group
+                className="logic"
+                onChange={logicChange}
+                value={logic}
+                optionType="button"
+                data-uc-id="SPbUc8wzwF0"
+                data-uc-ct="radio"
+              >
                 {info &&
                   info.logicOption &&
                   info.logicOption.split(',').map((item, index) => {
                     return (
-                      <Radio.Button key={index} value={item}>
+                      <Radio.Button
+                        key={index}
+                        value={item}
+                        data-uc-id="OhHQvGbBbV_"
+                        data-uc-ct="radio"
+                        data-uc-x={index}
+                      >
                         {options[item]}
                       </Radio.Button>
                     )
@@ -135,52 +183,76 @@ const OptionViewport = (props) => {
 
           {
             // 榜单名录
-            (info.itemType === '9' || info.itemType === '91') && (
-              <div className="tagBox" onClick={() => changeFilterVisible(info)}>
+            isCDEValueObject(info) && (
+              <div
+                className="tagBox"
+                onClick={() => changeFilterVisible(info)}
+                data-uc-id="k5owNrQ_d6w"
+                data-uc-ct="div"
+              >
                 {value.map((item, index) => {
                   return (
-                    // @ts-expect-error ttt
-                    <Tag closable={value.length > 1 ? true : false} key={index} onClose={(ev) => tagClose(ev, index)}>
+                    <Tag
+                      closable={value.length > 1 ? true : false}
+                      key={index}
+                      onClose={(ev) => tagClose(ev, index)}
+                      data-uc-id="VoG5Zi3Bj-B"
+                      data-uc-ct="tag"
+                      data-uc-x={index}
+                    >
                       <span className="tagTextSpan">{item.objectName}</span>
                     </Tag>
                   )
                 })}
-                <a onClick={() => changeFilterVisible(info)}> {intl('217745', '点击修改')} </a>
+                <a onClick={() => changeFilterVisible(info)} data-uc-id="k2QlaAEZJlw" data-uc-ct="a">
+                  {' '}
+                  {intl('217745', '点击修改')}{' '}
+                </a>
               </div>
             )
           }
-          {(logic === 'prefix' ||
-            logic === 'keyword' ||
-            info.itemType <= 2 ||
-            info.itemType === '6' ||
-            info.itemType === '10' ||
-            info.categoryType === '2') && (
-            // @ts-expect-error ttt
-            <div className="tagBox" onClick={(ev) => ev.stopPropagation() && changeFilterVisible(info)}>
-              {value.map((item, index) => {
-                return (
-                  // @ts-expect-error ttt
-                  <Tag closable={value.length > 1 ? true : false} key={index} onClose={(ev) => tagClose(ev, index)}>
-                    <span
-                      className="tagTextSpan"
-                      title={
-                        codeMap?.[info?.itemId]?.[item]
+          {!isCDEValueObject(info) && isShowOptionViewportCascade(info, logic) && (
+            <div
+              className="tagBox"
+              // @ts-expect-error ttt
+              onClick={(ev) => ev.stopPropagation() && changeFilterVisible(info)}
+              data-uc-id="K8X8iTVbpkz"
+              data-uc-ct="div"
+            >
+              {value &&
+                value.map((item, index) => {
+                  return (
+                    <Tag
+                      closable={value.length > 1 ? true : false}
+                      key={index}
+                      onClose={(ev) => tagClose(ev, index)}
+                      data-uc-id="N7acCmvsntx"
+                      data-uc-ct="tag"
+                      data-uc-x={index}
+                    >
+                      <span
+                        className="tagTextSpan"
+                        title={
+                          codeMap?.[info?.itemId]?.[item]
+                            ? item === '0000' && info.itemId === 89
+                              ? '全国'
+                              : codeMap[info?.itemId][item]
+                            : item
+                        }
+                      >
+                        {codeMap?.[info?.itemId]
                           ? item === '0000' && info.itemId === 89
                             ? '全国'
                             : codeMap[info?.itemId][item]
-                          : item
-                      }
-                    >
-                      {codeMap?.[info?.itemId]
-                        ? item === '0000' && info.itemId === 89
-                          ? '全国'
-                          : codeMap[info?.itemId][item]
-                        : item}
-                    </span>
-                  </Tag>
-                )
-              })}
-              <a onClick={() => changeFilterVisible(info)}> {intl('217745', '点击修改')}</a>
+                          : item}
+                      </span>
+                    </Tag>
+                  )
+                })}
+              <a onClick={() => changeFilterVisible(info)} data-uc-id="JKBHV52IN8r" data-uc-ct="a">
+                {' '}
+                {intl('217745', '点击修改')}
+              </a>
             </div>
           )}
 
@@ -190,37 +262,35 @@ const OptionViewport = (props) => {
               value={value}
               itemOptions={itemOptions}
               onChange={() => changeFilterVisible(info)}
+              data-uc-id="nZzKTDWfzO5"
+              data-uc-ct="checkboxgroupforoptionviewport"
             />
           )}
           {/* 单选 */}
-          {info.itemType > 3 &&
-            info.itemType !== '6' &&
-            info.itemType !== '9' &&
-            info.itemType !== '91' &&
-            info.itemId !== 143 && (
-              // @ts-expect-error
-              <Checkbox.Group className="radio" value={value}>
-                {itemOptions.map((item) => {
-                  return (
-                    item.value !== -1 && (
-                      <Checkbox
-                        value={item.value}
-                        // @ts-expect-error
-                        onClick={() => {
-                          if (item.status === 2) {
-                            changeFilterVisible(info)
-                          } else {
-                            onRadioChange(item.value)
-                          }
-                        }}
-                      >
-                        {item.label}
-                      </Checkbox>
-                    )
+          {isShowOptionViewportRadio(info) && (
+            <Checkbox.Group className="radio" value={value} data-uc-id="uEGpYYIM1CX" data-uc-ct="checkbox">
+              {itemOptions.map((item) => {
+                return (
+                  item.value !== -1 && (
+                    <Checkbox
+                      value={item.value}
+                      onClick={() => {
+                        if (item.status === 2) {
+                          changeFilterVisible(info)
+                        } else {
+                          onRadioChange(item.value)
+                        }
+                      }}
+                      data-uc-id="Z3aoLcf0GZZ"
+                      data-uc-ct="checkbox"
+                    >
+                      {item.label}
+                    </Checkbox>
                   )
-                })}
-              </Checkbox.Group>
-            )}
+                )
+              })}
+            </Checkbox.Group>
+          )}
         </>
       ) : null}
     </div>

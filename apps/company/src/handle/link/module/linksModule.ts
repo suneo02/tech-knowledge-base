@@ -46,8 +46,13 @@ export enum LinksModule {
   CompanyDetailAI = 27, // 企业详情 AI
 
   IC_LAYOUT = 28, // 集成电路布图
+  SUPER_LIST = 88, // 超级名单
 
   ANNUAL_REPORT = 97, // 企业年度报告
+
+  GRAPH_AI = 29, // 图谱 AI
+
+  LOGIN = 101, // 登录
 
   /**
    * gel web 端 链接

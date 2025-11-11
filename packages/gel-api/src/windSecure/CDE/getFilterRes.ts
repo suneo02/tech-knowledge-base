@@ -9,7 +9,7 @@ export type CDERankQueryFilterValue = {
 } & Partial<CDEFilterOption> &
   Pick<CDEFilterItem, 'selfDefine' | 'itemRemark'>
 
-interface QueryFilter {
+export interface QueryFilter {
   field: string
   itemId: number
   title: string
@@ -19,10 +19,15 @@ interface QueryFilter {
   value: string | string[] | CDERankQueryFilterValue[]
   /**
    * 榜单名录查询会用到这个
+   * 还有一些搜索，还有 百分 来觅赛道级联
    *
    * @deprecated
    */
   search?: string[] | CDERankQueryFilterValue[]
+  /**
+   * 所属行业产业
+   */
+  confidence?: 'lenient' | 'strict' | 'moderate' // lenient: 宽，strict: 严，moderate: 较严
 }
 
 /**
@@ -51,7 +56,7 @@ export interface getCDEFilterResPayload {
   pageNum: number
   pageSize: number
   superQueryLogic: CDESuperQueryLogic
-  order: null
+  order: null | { orderType: number; orderBy: string }
   largeSearch: boolean
   fromTemplate: boolean
 }

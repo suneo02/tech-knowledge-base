@@ -67,7 +67,6 @@ const MultiResultList: React.FC<{ filterParams: any; data?: any; api?: [string, 
           width: '100%',
         }}
       >
-        {/* <Result status={'no-data'} title={'抱歉，没有找到相关数据，请更换关键词重试'} /> */}
         <Empty
           status="no-data"
           description={
@@ -76,6 +75,8 @@ const MultiResultList: React.FC<{ filterParams: any; data?: any; api?: [string, 
               : '抱歉，没有找到相关数据，请更换关键词重试'
           }
           direction={'horizontal'}
+          data-uc-id="koypTuVSK"
+          data-uc-ct="empty"
         />
       </div>
     )
@@ -95,12 +96,18 @@ const MultiResultList: React.FC<{ filterParams: any; data?: any; api?: [string, 
               }}
             ></div>
             <div>
-              {/* @ts-expect-error ttt */}
-              <Select style={{ minWidth: 120 }} value={sort} options={sortOptions} onChange={setSort}></Select>
+              <Select
+                style={{ minWidth: 120 }}
+                value={sort}
+                options={sortOptions}
+                onChange={setSort}
+                data-uc-id="XBEt1oFODx"
+                data-uc-ct="select"
+              ></Select>
               {type === GSTabsEnum.CHINA ? (
                 <Button
                   // @ts-expect-error ttt
-                  icon={<DownloadO />}
+                  icon={<DownloadO data-uc-id="VCu4pemoT6" data-uc-ct="downloado" />}
                   style={{ marginLeft: 12 }}
                   onClick={() => {
                     createDownload({ ...filterParams, sort, companyname: filterParams.queryText }).then((res) => {
@@ -109,6 +116,8 @@ const MultiResultList: React.FC<{ filterParams: any; data?: any; api?: [string, 
                       }
                     })
                   }}
+                  data-uc-id="kthqt5GcAn"
+                  data-uc-ct="button"
                 >
                   {intl('4698', '导出数据')}
                 </Button>
@@ -127,8 +136,9 @@ const MultiResultList: React.FC<{ filterParams: any; data?: any; api?: [string, 
         type={type}
         done={fullDone}
         updateData={setFullData}
+        data-uc-id="vgCPfgTR8T"
+        data-uc-ct="searchresultlist"
       />
-
       {partTotal ? (
         <>
           {fullTotal ? <Divider style={{ marginBlock: 12 }} /> : null}
@@ -144,6 +154,8 @@ const MultiResultList: React.FC<{ filterParams: any; data?: any; api?: [string, 
         loading={partLoading}
         next={partNext}
         type={type}
+        data-uc-id="oQSCDlaCoh"
+        data-uc-ct="searchresultlist"
       />
     </div>
   )

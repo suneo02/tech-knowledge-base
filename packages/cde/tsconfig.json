@@ -34,15 +34,6 @@
     }
   },
   "include": ["src", "src/types/less.d.ts"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "**/*.stories.*",
-    "**/stories/**",
-    "**/__tests__/**",
-    "**/*.test.*",
-    "**/storybook/**"
-  ],
+  "exclude": ["node_modules", "dist", "build", "**/*.stories.*", "**/stories/**", "**/storybook/**"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

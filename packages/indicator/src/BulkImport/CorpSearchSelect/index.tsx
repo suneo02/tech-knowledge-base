@@ -142,7 +142,7 @@ export const CorpSearchSelect: React.FC<CorpSearchSelectProps> = ({
         if (fetchId !== lastFetchId.current) return
 
         if (res.ErrorCode !== ApiCodeForWfc.SUCCESS) {
-          setError(res.ErrorMessage)
+          setError(res.ErrorMessage || '')
           return
         }
 

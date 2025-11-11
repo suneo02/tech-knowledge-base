@@ -8,6 +8,7 @@ export const getSearchHistoryAndSlice = async (type: SearchHistoryType): Promise
       params: {
         type,
       },
+      noExtra: true,
     })
 
     // 确保返回的数据不超过5条
@@ -25,7 +26,7 @@ export const getSearchHistoryAndSlice = async (type: SearchHistoryType): Promise
           } else {
             searchParsed = { ...item, name: item.searchKey, value: item.searchKey }
           }
-        } catch (e) {
+        } catch {
           // 解析失败，说明是普通字符串
           searchParsed = { ...item, name: item.searchKey, value: item.searchKey }
         }
@@ -49,7 +50,7 @@ export const addSearchHistory = (
     if (typeof searchKeyOrObject === 'string') {
       // 如果是字符串，直接使用
       searchKey = searchKeyOrObject
-    } else if (typeof searchKeyOrObject !== null) {
+    } else if (searchKeyOrObject !== null) {
       searchKey = JSON.stringify(searchKeyOrObject)
     }
 
@@ -58,8 +59,24 @@ export const addSearchHistory = (
         type,
         searchKey,
       },
+      noExtra: true,
     })
   } catch (error) {
     console.error(error)
+  }
+}
+
+// 删除单个搜索历史
+export const deleteSearchHistoryItem = async (type: SearchHistoryType, searchKey: string): Promise<void> => {
+  try {
+    await request('operation/delete/searchhistorydeleteone', {
+      params: {
+        type,
+        searchKey,
+      },
+    })
+  } catch (error) {
+    console.error('删除搜索历史失败:', error)
+    throw error
   }
 }

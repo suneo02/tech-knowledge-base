@@ -1,20 +1,19 @@
-import { useCallback, useRef, useEffect } from 'react'
-import { useTableActions } from './useTableActions'
-import { useVisTableOperationState } from './useVisTableOperationState'
+import { SortState } from '@visactor/vtable/es/ts-types'
+import { CellMetadata, Column, ProgressStatusEnum } from 'gel-api'
+import { useCallback, useEffect, useRef } from 'react'
+import { ERROR_TEXT, GENERATE_TEXT, PENDING_TEXT } from '../config/status'
 import {
   DeleteRecordsOperation,
   RenameColumnOperation,
   toggleDisplayColumnOperation,
   VisTableOperationType,
 } from '../types/operationTypes'
-import { CellMetadata, Column, ProgressStatusEnum } from 'gel-api'
-import { SortState } from '@visactor/vtable/es/ts-types'
-import { GENERATE_TEXT, PENDING_TEXT } from '../config/status'
+import { useTableActions } from './useTableActions'
+import { useVisTableOperationState } from './useVisTableOperationState'
 
+import { useTableAITask } from '@/components/ETable/context/TableAITaskContext'
 import { useVisTableOperationContext } from '../context/VisTableOperationContext'
 import { tableOperationService } from '../services/tableOperationService'
-import { useTableAITask } from '@/components/MultiTable/context'
-import { generateUniqueName } from '@/utils/common/data'
 
 /**
  * 包装表格操作的选项接口
@@ -97,8 +96,7 @@ export const useTableHistoryActions = (options: WithTableHistoryOptions) => {
             baseActions.setCellValue(colIndex + 1, rowIndex + 1, task.content || '--')
           } else if (task.status === ProgressStatusEnum.FAILED) {
             // 失败状态，显示错误信息
-            console.log('🚀 ~ task:', task)
-            const errorMessage = task.processedValue || '生成失败，请重试'
+            const errorMessage = task.processedValue || ERROR_TEXT
             baseActions.setCellValue(colIndex + 1, rowIndex + 1, errorMessage)
           }
         }
@@ -118,7 +116,7 @@ export const useTableHistoryActions = (options: WithTableHistoryOptions) => {
       meta?: CellMetadata
     }) => {
       // 记录操作日志
-      console.log('setCellValue', payload)
+      // console.log('setCellValue', payload)
       if (
         payload.noRecord ||
         payload.changedValue === PENDING_TEXT ||
@@ -224,9 +222,10 @@ export const useTableHistoryActions = (options: WithTableHistoryOptions) => {
           {
             type: VisTableOperationType.COLUMN_DELETE,
             timestamp: new Date().toISOString(),
+
             payload: {
               col,
-              column,
+              column: column as Column,
             },
             syncStatus: 'PENDING',
           },
@@ -238,6 +237,7 @@ export const useTableHistoryActions = (options: WithTableHistoryOptions) => {
               const nextOperationNo = localOperationNoRef.current
               await tableOperationService.deleteColumn({
                 sheetId,
+                // @ts-expect-error
                 columnId: column.field,
                 operationNo: nextOperationNo,
               })
@@ -258,7 +258,7 @@ export const useTableHistoryActions = (options: WithTableHistoryOptions) => {
   const moveColumn = useCallback(
     (payload: { fromCol: number; toCol: number; columnId: string; title: string }) => {
       // 记录操作日志
-      console.log('setCellValue', payload)
+      // console.log('setCellValue', payload)
       recordOperation(
         {
           type: VisTableOperationType.COLUMN_MOVE,
@@ -442,7 +442,7 @@ export const useTableHistoryActions = (options: WithTableHistoryOptions) => {
               await tableOperationService.addRecord({
                 sheetId,
                 rowId: record.rowId as string,
-                rowIndex: recordIndex + 1,
+                rowIndex: (recordIndex || 0) + 1,
                 operationNo: nextOperationNo,
               })
             } catch (error) {
@@ -475,7 +475,7 @@ export const useTableHistoryActions = (options: WithTableHistoryOptions) => {
    */
   const runCell = useCallback(
     (col: number, row: number) => {
-      console.log('runCell', col, row)
+      // console.log('runCell', col, row)
 
       // 执行原始操作
       const result = baseActions.runCell(col, row)
@@ -500,7 +500,7 @@ export const useTableHistoryActions = (options: WithTableHistoryOptions) => {
 
   // 运行多行
   const runColumn = useCallback(
-    (props: { col?: number; columnId?: string }) => {
+    (props: { col?: number; columnId?: string; mode?: 'all' | 'pending' }) => {
       const result = baseActions.runColumn(props)
       return result
       // 记录操作日志

@@ -1,9 +1,8 @@
+import { ErrorConfig, getErrorConfig } from 'gel-util/config'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { ApiError } from './error-handling'
-import { getErrorConfig } from './errorConfig'
-import type { ErrorConfig } from './errorConfig'
 import ErrorPopup from '../../components/ErrorPopup'
+import { ApiError } from './error-handling'
 
 let errorPopupRoot: ReactDOM.Root | null = null
 let errorContainer: HTMLDivElement | null = null

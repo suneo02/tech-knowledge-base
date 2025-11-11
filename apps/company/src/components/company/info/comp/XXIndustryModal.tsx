@@ -53,19 +53,26 @@ export const StrategicIndustryButtonModal: React.FC<StrategicIndustryButtonModal
 
   return (
     <>
-      <Button type="link" onClick={() => setIsModalOpen(true)}>
+      <Button type="link" onClick={() => setIsModalOpen(true)} data-uc-id="ozjWeV0GD_" data-uc-ct="button">
         <span className={styles['more-link']}>
           {intl('272167', '更多')} ({basicInfo.seIndustriesCount ?? total})
-          <RightO className={styles['more-icon']} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          <RightO
+            className={styles['more-icon']}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            data-uc-id="jSlN1yhS1o"
+            data-uc-ct="righto"
+          />
         </span>
       </Button>
-
       <ModalSafeType
         title={intl('360593', '战略性新兴产业')}
         visible={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
         width={800}
+        data-uc-id="zOt0IdsoDK"
+        data-uc-ct="modalsafetype"
       >
         <div className={styles['modal-content']}>
           <div className={styles['modal-trees']}>
@@ -88,6 +95,8 @@ export const StrategicIndustryButtonModal: React.FC<StrategicIndustryButtonModal
                 pageSize={pageSize}
                 onChange={handlePageChange}
                 showSizeChanger={false}
+                data-uc-id="4hxVhUKZul"
+                data-uc-ct="pagination"
               />
             </div>
           )}

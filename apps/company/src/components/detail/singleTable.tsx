@@ -29,6 +29,9 @@ function Tables(props) {
       rows={columns}
       bordered={'dotted'}
       size={'default'}
+      data-uc-id="919m3h8gGLO"
+      data-uc-ct="horizontaltable"
+      data-uc-x={key}
     />
   ) : (
     // 如果有数据展示表格 如果要展示表结构 展示表格
@@ -47,6 +50,9 @@ function Tables(props) {
         bordered={'dotted'}
         size={'default'}
         onChange={onChangePage}
+        data-uc-id="g-67YKYbBd6"
+        data-uc-ct="table"
+        data-uc-x={key}
       />
     )
   )

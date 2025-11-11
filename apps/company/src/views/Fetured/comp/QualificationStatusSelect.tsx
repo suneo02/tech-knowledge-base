@@ -29,6 +29,8 @@ export const QualificationStatusSelect: FC<Pick<SelectProps, 'value' | 'onChange
         ...option,
         label: option.key,
       }))}
+      data-uc-id="vJHY_y2pTB"
+      data-uc-ct="select"
     />
   )
 }

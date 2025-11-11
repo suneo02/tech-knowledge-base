@@ -1,18 +1,9 @@
-import intlFun from '@/utils/intl'
 import { wftCommon } from '@/utils/utils'
 import intlU from 'react-intl-universal'
 export * from './complexHtml'
 export * from './translateService'
 
 import { getLocale as getLocaleUtil, imlCn } from 'gel-util/intl'
-
-export const intlNoNO = (id, params?) => {
-  if (id == '138741') {
-    // 序号不展示
-    return ''
-  }
-  return intlFun(id, params)
-}
 
 // Update the options assignment
 const defaultOptions = {
@@ -26,6 +17,7 @@ Object.assign(intlU.options, defaultOptions)
 
 /**
  *
+ * @deprecated 请用 gel-util 中的 t 代替
  * @param id {string|number}
  * @param params {string|undefined}
  * @returns {string}
@@ -71,15 +63,28 @@ function intl(id: string | number, params: string | undefined = ''): string {
 }
 
 /**
+ * 请用 gel-util 中的 tNoNO 代替
+ * @deprecated
+ * @param id
+ * @param params
+ * @returns
+ */
+export const intlNoNO = (id, params?) => {
+  if (id == '138741' || id == '28846') {
+    // 序号不展示
+    return ''
+  }
+  return intl(id, params)
+}
+
+/**
+ * @deprecated 请用 gel-util 中的 tNoNO 代替
  * extension of function intl
  * for no index and exclude params
  * params 目前是不强制填写
  * 未来需要改成ts，通过类型来定义id，id就不可能不存在！！！
  **/
-const intlNoIndex = (id, params?) => {
-  const indexNo = '138741' // 序号
-  return id === indexNo ? '' : intl(id, params || imlCn[id])
-}
+const intlNoIndex = intlNoNO
 
 // 获取多语言设置
 const getLocale = getLocaleUtil

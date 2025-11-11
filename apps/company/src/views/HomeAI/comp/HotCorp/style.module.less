@@ -1,4 +1,10 @@
+@import 'gel-ui/variables.less';
+
+@searchFormWidth: 956px;
+
 .container {
+  width: @searchFormWidth;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   margin-top: 16px;
@@ -6,19 +12,20 @@
   font-size: 14px;
   line-height: 20px;
 
-  color: #fff;
-}
+  color: @font-color-2;
+  .content {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: 1;
 
-.content {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.link {
-  font-size: 14px;
-  color: #fff;
-  &:hover {
-    color: #00b8d9;
+    .link {
+      font-size: 14px;
+      display: inline;
+      &:hover {
+        color: #00b8d9;
+      }
+    }
   }
 }

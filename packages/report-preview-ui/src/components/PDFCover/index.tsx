@@ -26,7 +26,7 @@ export const PDFCover: React.FC<PDFCoverOptions> = (optionsProp) => {
       <h3 className={styles.reportDate}>{options.reportDate || getTodayIntl(isEn())}</h3>
       {options.showDisclaimers && (
         <div>
-          <p className={styles.disclaimer}>{getRPCoverComment(isEn())}</p>
+          <p className={styles.disclaimer}>{getRPCoverComment({ isEn: isEn() })}</p>
         </div>
       )}
     </div>

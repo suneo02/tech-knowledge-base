@@ -26,6 +26,7 @@ import { intlNoNO as intl } from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
 import { TenderNoticeHold, TenderNoticeInvest } from 'gel-types'
 import { TenderWinnerTag } from 'gel-ui'
+import { t } from 'gel-util/intl'
 import React from 'react'
 import { corpDetailFinancialAnalysis } from './finnancialAnalysis'
 
@@ -1102,8 +1103,8 @@ export const buss: ICorpPrimaryModuleCfg = {
               }
               return value.map((item) => (
                 <>
-                  <CompanyLink name={item.companyName} id={item.companyCode} />
-                  <TenderWinnerTag unit={item} projectStage={row.project_stage} />
+                  <Links module={LinksModule.COMPANY} id={item.companyCode} title={item.companyName} />
+                  <TenderWinnerTag unit={item} projectStage={row.project_stage} intl={t} />
                 </>
               ))
             },
@@ -1220,8 +1221,8 @@ export const buss: ICorpPrimaryModuleCfg = {
               }
               return value.map((item) => (
                 <>
-                  <CompanyLink name={item.companyName} id={item.companyCode} />
-                  <TenderWinnerTag unit={item} projectStage={row.project_stage} />
+                  <Links module={LinksModule.COMPANY} id={item.companyCode} title={item.companyName} />
+                  <TenderWinnerTag unit={item} projectStage={row.project_stage} intl={t} />
                 </>
               ))
             },

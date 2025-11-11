@@ -1,8 +1,9 @@
-import { handleWebLogout } from '@/handle/user/login'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils'
 import { Dropdown, Menu } from '@wind/wind-ui'
 import React, { useMemo } from 'react'
+import { gotoLogin } from '@/lib/logout'
+import { isEn } from 'gel-util/intl'
 
 /**
  * 用户菜单项。
@@ -20,7 +21,7 @@ const UserMenusRaw = [
   {
     id: 14896,
     zh: '我的收藏',
-    url: '#/companyDynamic?keyMenu=1&nosearch=1',
+    url: 'index.html#/companyDynamic?keyMenu=1&nosearch=1',
   },
   {
     id: 141995,
@@ -33,7 +34,7 @@ const UserMenusRaw = [
     url: 'index.html#/customer?type=myorders',
   },
   {
-    id: 209659,
+    id: 452995,
     zh: '用户协议',
     url: 'index.html#/customer?type=usernote',
   },
@@ -49,8 +50,9 @@ const UserMenusRaw = [
     en: 'Bind Account',
   },
   {
+    onlyTerminal: true,
     id: '',
-    zh: '帮助中心',
+    zh: isEn() ? 'Help Center' : '帮助中心',
     url: '//UnitedWebServer/helpcenter/helpCenter/redirect/document?id=30',
   },
   {
@@ -73,6 +75,10 @@ const useUserMenus = () => {
       if (usedInClient) {
         // 终端中不展示绑定手机号
         if (item.id == -1) return false
+      }
+      if (!usedInClient && item.onlyTerminal) {
+        // web端 不显示
+        return false
       }
       if (lanxin_terminal) {
         // 蓝信终端不展示退出登录
@@ -98,7 +104,7 @@ export const UserInfoDropdown = ({ accountCss, openUpdateContactModal }) => {
   const onMenuClick = (t) => {
     switch (t.id) {
       case 21828: {
-        handleWebLogout()
+        gotoLogin()
         return
       }
       // FIXME
@@ -118,14 +124,16 @@ export const UserInfoDropdown = ({ accountCss, openUpdateContactModal }) => {
       theme="light"
       overlay={
         // @ts-ignore
-        <Menu className="user-menus">
+        <Menu className="user-menus" data-uc-id="9mujLfE_2LT" data-uc-ct="menu">
           {userMenus.map((m) => (
             // @ts-ignore
-            <Menu.Item key={m.id}>
+            <Menu.Item key={m.id} data-uc-id="jyvooQRo9lL" data-uc-ct="menu" data-uc-x={m.id}>
               <a
                 onClick={() => {
                   onMenuClick(m)
                 }}
+                data-uc-id="rUzlQ_jKj8T"
+                data-uc-ct="a"
               >
                 {/* 此处做了特殊处理 有一项没有多语言 */}
                 {m.id === -1 ? (window.en_access_config ? m.en : m.zh) : intl(m.id, m.zh)}
@@ -135,6 +143,8 @@ export const UserInfoDropdown = ({ accountCss, openUpdateContactModal }) => {
         </Menu>
       }
       placement="bottomCenter"
+      data-uc-id="CZQkOdyjMWy"
+      data-uc-ct="dropdown"
     >
       <span className={accountCss}>{intl(210156, '用户中心')}</span>
     </Dropdown>

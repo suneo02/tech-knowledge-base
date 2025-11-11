@@ -144,6 +144,8 @@ function Evaluation(props) {
             size={'default'}
             rows={rows[i].columns}
             dataSource={info[i]}
+            data-uc-id="2A6kbkXNIX"
+            data-uc-ct="horizontaltable"
           ></HorizontalTable>
         ) : (
           <Table
@@ -153,6 +155,8 @@ function Evaluation(props) {
             size={'default'}
             columns={rows[i].columns}
             dataSource={info[i]}
+            data-uc-id="ktBPq0zy4c"
+            data-uc-ct="table"
           ></Table>
         )
       })}

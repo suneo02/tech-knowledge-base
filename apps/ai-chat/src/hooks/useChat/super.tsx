@@ -1,19 +1,19 @@
 import { axiosInstance } from '@/api/axios'
 import { entWebAxiosInstance } from '@/api/entWeb'
 import { createConfiguredXRequest } from '@/api/services/chatStream'
-import { useChatRoomSuperContext } from '@/contexts/ChatRoom/super'
+import { useSuperChatRoomContext } from '@/contexts/SuperChat'
 import { XChatConfig } from '@ant-design/x/es/use-x-chat'
+import { useConversationsSuper } from 'ai-ui'
+import { AgentIdentifiers, ChatEntityRecognize, ChatThinkSignal } from 'gel-api'
 import {
-  ChatSenderHookResult,
+  AgentMsgDepre,
+  ConversationSetupHookResult,
   createAgentRequestHandler,
-  MessageParsedBase,
-  MessageParsedSuper,
-  MessageRaw,
-  MessageRawSuper,
+  MsgParsedDepre,
+  SPAgentMsg,
+  SPMsgParsed,
   useCancelChatRequest,
-  useConversationsSuper,
-} from 'ai-ui'
-import { SessionCompleteResponse } from 'gel-api'
+} from 'gel-ui'
 import { useConversationSetupSuper } from '../conversationSetup'
 import { fetchSuperQuestionGuide } from './helpers/questionGuide'
 import { useXChatParserSuper } from './XChatParser/super'
@@ -39,9 +39,10 @@ import { useXChatParserSuper } from './XChatParser/super'
  *
  * @returns 完整的超级聊天功能接口
  */
-export const useChatSuper = (defaultMessages?: XChatConfig<MessageRawSuper, MessageParsedSuper>['defaultMessages']) => {
+export const useChatSuper = (defaultMessages?: XChatConfig<SPAgentMsg, SPMsgParsed>['defaultMessages']) => {
   // 从超级聊天室上下文获取聊天状态和ID管理函数
-  const { chatId, setIsChating, setConversationId } = useChatRoomSuperContext()
+  const { chatId, setIsChating, setConversationId } = useSuperChatRoomContext()
+
   // 获取超级会话列表管理函数
   const { addConversationItem } = useConversationsSuper()
   const isFirstQuestionRef = useRef(false) // 是否是第一次问句重命名标识
@@ -63,6 +64,7 @@ export const useChatSuper = (defaultMessages?: XChatConfig<MessageRawSuper, Mess
     (superIds) => setConversationId(superIds.conversationId),
     // 添加超级会话到列表的回调，当创建新会话时调用
     (conversation) =>
+      // @ts-expect-error ttt
       addConversationItem({
         updateTime: conversation.updateTime,
         conversationId: conversation.id,
@@ -71,12 +73,14 @@ export const useChatSuper = (defaultMessages?: XChatConfig<MessageRawSuper, Mess
   )
 
   // 用于存储API响应返回的实体的状态
-  const [entities, setEntities] = useState<SessionCompleteResponse[]>()
+  const [entities, setEntities] = useState<ChatEntityRecognize[]>()
 
   // 保存最近的结果，用于取消请求时上报
   const latestResultRef =
     useRef<
-      ChatSenderHookResult['sendAndInitializeConversation'] extends (...args: any[]) => Promise<infer R> ? R : never
+      ConversationSetupHookResult['sendAndInitializeConversation'] extends (...args: any[]) => Promise<infer R>
+        ? R
+        : never
     >(null)
 
   // 控制正在进行的请求（用于取消）的引用
@@ -118,7 +122,7 @@ export const useChatSuper = (defaultMessages?: XChatConfig<MessageRawSuper, Mess
         isFirstQuestionRef,
         onReciveQuestion,
       }).then((result) => {
-        console.log('🚀 ~ returnsendAndInitializeConversation ~ result:', result)
+        // console.log('🚀 ~ returnsendAndInitializeConversation ~ result:', result)
         // 保存结果引用，以便在取消时使用
         // @ts-expect-error 111
         latestResultRef.current = result
@@ -146,18 +150,19 @@ export const useChatSuper = (defaultMessages?: XChatConfig<MessageRawSuper, Mess
   })
 
   // 使用请求处理器初始化智能体
-  const [agent] = useXAgent<MessageRawSuper>({
+  const [agent] = useXAgent<SPAgentMsg>({
+    // @ts-expect-error ttt
     request: agentReqFunc,
   })
 
   // 使用工厂创建消息解析器
-  const parserRef = useRef<NonNullable<XChatConfig<MessageRaw, MessageParsedBase>['parser']>>()
+  const parserRef = useRef<NonNullable<XChatConfig<AgentMsgDepre, MsgParsedDepre>['parser']>>()
 
   /**
    * 使用智能体和解析器初始化聊天功能
    * 这提供了消息处理、状态管理和请求触发
    */
-  const { onRequest, parsedMessages, setMessages } = useXChat<MessageRawSuper, MessageParsedSuper>({
+  const { onRequest, parsedMessages, setMessages } = useXChat<SPAgentMsg, SPMsgParsed>({// @ts-expect-error ttt
     agent,
     parser: (message) => {
       if (!parserRef.current) return []
@@ -172,15 +177,17 @@ export const useChatSuper = (defaultMessages?: XChatConfig<MessageRawSuper, Mess
    * @param message - 要发送的消息文本
    * @param agentId - 可选的智能体ID，用于定向特定智能体
    * @param think - 可选的思考模式参数
+   * @param newChatId - 可选的新聊天ID，用于重置聊天ID
    */
   const sendMessage = useCallback(
-    (message: string, agentId?: MessageRaw['agentId'], think?: MessageRaw['think']) => {
-      onRequest({ role: 'user', content: message, agentId, chatId, think, status: 'finish' })
+    (message: string, agentId?: AgentIdentifiers['agentId'], think?: ChatThinkSignal['think'], newChatId?: string) => {
+      onRequest({ role: 'user', content: message, agentId, chatId: newChatId || chatId, think, status: 'finish' })
     },
     [onRequest, chatId]
   )
 
   // 使用工厂创建消息解析器，并传入sendMessage
+  // @ts-expect-error
   parserRef.current = useXChatParserSuper(sendMessage)
 
   // 返回聊天状态和交互功能

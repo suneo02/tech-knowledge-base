@@ -560,7 +560,12 @@ export const history: ICorpPrimaryModuleCfg = {
             return (
               <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <div style={{ width: 140 }}>{shareRate ? (shareRate == 0 ? '--' : shareRate) : '--'}</div>
-                <div className="share-route" onClick={() => wftCommon.showRoute(row.shareRoute)}></div>
+                <div
+                  className="share-route"
+                  onClick={() => wftCommon.showRoute(row.shareRoute)}
+                  data-uc-id="oOEwLhnQj"
+                  data-uc-ct="div"
+                ></div>
               </div>
             )
           } else {

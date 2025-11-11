@@ -4,20 +4,20 @@
  */
 
 import { Meta, StoryObj } from '@storybook/react'
+import { mockCorpBasicInfoCO } from '../../__mocks__/corp/bussInfo/mockCO'
+import { mockCorpBasicInfoFCP } from '../../__mocks__/corp/bussInfo/mockFCP'
+import { mockCorpBasicInfoFPC } from '../../__mocks__/corp/bussInfo/mockFPC'
+import { mockCorpBasicInfoGOV } from '../../__mocks__/corp/bussInfo/mockGOV'
+import { mockCorpBasicInfoHK } from '../../__mocks__/corp/bussInfo/mockHK'
+import { mockCorpBasicInfoIIP } from '../../__mocks__/corp/bussInfo/mockIIP'
+import { mockCorpBasicInfoLS } from '../../__mocks__/corp/bussInfo/mockLS'
+import { mockCorpBasicInfoNGO } from '../../__mocks__/corp/bussInfo/mockNGO'
+import { mockCorpBasicInfoOE } from '../../__mocks__/corp/bussInfo/mockOE'
+import { mockCorpBasicInfoPE } from '../../__mocks__/corp/bussInfo/mockPE'
+import { mockCorpBasicInfoSH } from '../../__mocks__/corp/bussInfo/mockSH'
+import { mockCorpBasicInfoSOE } from '../../__mocks__/corp/bussInfo/mockSOE'
+import { mockCorpBasicInfoSPE } from '../../__mocks__/corp/bussInfo/mockSPE'
 import { CompanyInfoDisplay } from '../../components/company/info/CompanyInfoDisplay'
-import { mockCorpBasicInfoCO } from './mockCO'
-import { mockCorpBasicInfoFCP } from './mockFCP'
-import { mockCorpBasicInfoFPC } from './mockFPC'
-import { mockCorpBasicInfoGOV } from './mockGOV'
-import { mockCorpBasicInfoHK } from './mockHK'
-import { mockCorpBasicInfoIIP } from './mockIIP'
-import { mockCorpBasicInfoLS } from './mockLS'
-import { mockCorpBasicInfoNGO } from './mockNGO'
-import { mockCorpBasicInfoOE } from './mockOE'
-import { mockCorpBasicInfoPE } from './mockPE'
-import { mockCorpBasicInfoSH } from './mockSH'
-import { mockCorpBasicInfoSOE } from './mockSOE'
-import { mockCorpBasicInfoSPE } from './mockSPE'
 
 const meta = {
   title: 'Corp/CompanyInfoDisplayMock',

@@ -1,7 +1,7 @@
 import { parseConfigTableConfig } from '@/handle/table'
 import { transformCrossTablePropsToVerticalTableProps } from '@/handle/table/parser/crossTable'
 import { ReportDetailTableJson } from 'gel-types'
-import { TableElementCreator } from '../Basic/creator'
+import { TableElementCreator } from '../Basic'
 import { HorizontalTableElementCreator } from '../Horizontal/creator'
 import { createTableNoDataElement } from '../tableComp'
 

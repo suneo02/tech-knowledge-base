@@ -20,6 +20,8 @@ const FilterTable = (props) => {
         onSearch={(value) => {
           setValue(value)
         }}
+        data-uc-id="MlvtC9bhYY"
+        data-uc-ct="search"
       ></Search>
       <Table
         columns={columns}
@@ -27,6 +29,8 @@ const FilterTable = (props) => {
         pagination={false}
         style={style}
         {...rest}
+        data-uc-id="YV-Q55r7r"
+        data-uc-ct="table"
       ></Table>
     </>
   )

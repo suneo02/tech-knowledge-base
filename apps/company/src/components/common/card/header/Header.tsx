@@ -79,7 +79,12 @@ const CardHeader: FC<
           {node.updateTimeOptions ? <UpdateTime UpdateTime={node.corp_update_time} /> : null}
           {node.extraLinks ? <ExtraLinks {...node} {...basicInfo} /> : null}
 
-          <CustomSelectByOptions options={customOptionsInHeader} onSearchChange={onSearchChange} />
+          <CustomSelectByOptions
+            options={customOptionsInHeader}
+            onSearchChange={onSearchChange}
+            data-uc-id="AIbFMOrIyT"
+            data-uc-ct="customselectbyoptions"
+          />
           <div className={'search-filters-container'}>
             {nonCustomOptions ? (
               <Search
@@ -87,6 +92,8 @@ const CardHeader: FC<
                 searchOptions={nonCustomOptions}
                 customSearchOptions={customOptionsInSearch}
                 onSearchChange={onSearchChange}
+                data-uc-id="sWC2nadxOm"
+                data-uc-ct="search"
               />
             ) : null}
             {node.downDocType || node.downDocTypeApi ? <ExportDoc {...node} /> : null}

@@ -235,7 +235,16 @@ const SmartHorizontalTable: React.FC<SmartHorizontalTableProps> = ({
               <Button
                 type="text"
                 size="small"
-                icon={<InfoCircleO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                icon={
+                  <InfoCircleO
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    data-uc-id="Ty8MrZ-sVK"
+                    data-uc-ct="infocircleo"
+                  />
+                }
+                data-uc-id="CvplbKqJMb"
+                data-uc-ct="button"
               />
             </Tooltip>
           </div>
@@ -245,7 +254,15 @@ const SmartHorizontalTable: React.FC<SmartHorizontalTableProps> = ({
     })
   )
 
-  return <HorizontalTable rows={processedRows} dataSource={dataSource} {...restProps} />
+  return (
+    <HorizontalTable
+      rows={processedRows}
+      dataSource={dataSource}
+      {...restProps}
+      data-uc-id="pcoPI_7u_6"
+      data-uc-ct="horizontaltable"
+    />
+  )
 }
 
 export default SmartHorizontalTable

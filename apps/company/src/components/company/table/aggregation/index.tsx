@@ -85,5 +85,13 @@ export const CorpTableAggregation: FC<{
   if (!tableCfg.searchOptions) {
     return null
   }
-  return <Search className={styles.corpTableAgg} onSearchChange={handleChange} searchOptions={searchOptions} />
+  return (
+    <Search
+      className={styles.corpTableAgg}
+      onSearchChange={handleChange}
+      searchOptions={searchOptions}
+      data-uc-id="PdxU10N3g"
+      data-uc-ct="search"
+    />
+  )
 }

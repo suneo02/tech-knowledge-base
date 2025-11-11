@@ -1,9 +1,9 @@
-import type { InternalAxiosRequestConfig } from 'axios'
-import { WindSessionHeader } from 'gel-api'
 import { getWsid } from '@/utils/env'
+import { AxiosInstance } from 'axios'
+import { WindSessionHeader } from 'gel-api'
 
 // 请求拦截器
-export const requestInterceptor = (config: InternalAxiosRequestConfig) => {
+export const requestInterceptor: Parameters<AxiosInstance['interceptors']['request']['use']>[0] = (config) => {
   // 动态获取 session ID
   const wsid = getWsid()
   if (wsid) {

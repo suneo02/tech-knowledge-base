@@ -3,7 +3,7 @@ import { pointClickSpecialList } from '../../lib/pointBuriedGel'
 
 function SpecialAppFilterTab(props) {
   const { filtersData } = props
-  const tabDatas = (filtersData && filtersData[0]?.data[0]) || [] // 
+  const tabDatas = (filtersData && filtersData[0]?.data[0]) || [] //
   const [activeKey, setActiveKey] = useState('') // 一级选中
   const [activeMultiKey, setActiveMultiKey] = useState('') // 一级选中
   const [filterDataMulti, setFilterDataMulti] = useState([])
@@ -32,7 +32,7 @@ function SpecialAppFilterTab(props) {
   useEffect(() => {
     setActiveKey(tabDatas?.key)
     tabDatas?.params?.corpNature && pointClickSpecialList(tabDatas?.params?.corpNature) // 埋点
-    setFilterDataMulti(tabDatas?.children||[]) // 二级分类
+    setFilterDataMulti(tabDatas?.children || []) // 二级分类
   }, [tabDatas?.key])
 
   const filterListRender = (itemData, flag) => {
@@ -46,7 +46,14 @@ function SpecialAppFilterTab(props) {
               let flagKey = flag === 'multi' ? activeMultiKey : activeKey
               const activeClass = flagKey === key ? 'active' : ''
               return (
-                <span key={key} className={`module-tab-btn ${activeClass}`} onClick={() => itmeClick(item, flag)}>
+                <span
+                  key={key}
+                  className={`module-tab-btn ${activeClass}`}
+                  onClick={() => itmeClick(item, flag)}
+                  data-uc-id="rxxi3cNko0L"
+                  data-uc-ct="span"
+                  data-uc-x={key}
+                >
                   {item.name}
                 </span>
               )

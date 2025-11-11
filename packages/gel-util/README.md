@@ -8,16 +8,18 @@ Gel Web Utilities - Environment and Client Functions
 pnpm add @gel/util
 ```
 
+## ❗ 重要提示 ❗
+
+util 包中 misc 目录下如果加方法，需要注意 site title ，及 company 的网页标题是否正常，踩过一次坑，没查出来问题 。。。
+
 ## Usage
 
 ```typescript
-import { getCurrentEnv, getWSID, callClientFunc, type TGelEnv } from '@gel/util';
+import { getCurrentEnv, callClientFunc, type TGelEnv } from '@gel/util';
 
 // Get current environment
 const env: TGelEnv = getCurrentEnv();
 
-// Get Wind Session ID
-const wsid = getWSID();
 
 // Call client function
 callClientFunc({
@@ -44,7 +46,6 @@ callClientFunc({
 ### Functions
 
 - `getCurrentEnv(): TGelEnv` - Get the current environment
-- `getWSID(): string` - Get the Wind Session ID
 - `usedInClient(): boolean` - Check if running in client environment
 - `isDev(): boolean` - Check if in development environment
 - `isWebTest(): boolean` - Check if in web test environment
@@ -86,14 +87,14 @@ UNLICENSED - Private use only
 
 ```typescript
 // ❌ 不再支持
-import { getWSID, isDev, formatTime } from 'gel-util';
+import {  isDev, formatTime } from 'gel-util';
 ```
 
 修改为相应子模块的导入：
 
 ```typescript 
 // ✅ 正确方式
-import { getWSID, isDev } from 'gel-util/env';
+import {  isDev } from 'gel-util/env';
 import { formatTime } from 'gel-util/format';
 ```
 
@@ -103,7 +104,7 @@ import { formatTime } from 'gel-util/format';
 
 | 模块名 | 描述 | 主要函数/类型 |
 |--------|------|--------------|
-| `env` | 环境相关函数 | `getWSID`, `isDev`, `usedInClient`, `WindSessionHeader` |
+| `env` | 环境相关函数 |  `isDev`, `usedInClient`, `WindSessionHeader` |
 | `intl` | 国际化相关 | `i18n`, `t`, `getLocale`, `SupportedLocale` |
 | `link` | 链接生成 | `generateUrlByModule`, `LinkModule` |
 | `format` | 格式化函数 | `formatTime`, `formatMoney`, `numberFormat` |
@@ -111,7 +112,6 @@ import { formatTime } from 'gel-util/format';
 | `corp` | 企业相关函数和类型 | `TCorpArea` |
 | `config` | 配置相关 | |
 | `corpConfig` | 企业配置相关 | |
-| `download` | 下载相关函数 | `downloadFileToLocal`, `STATIC_FILE_PATH` |
 | `typeUtil` | 类型工具 | |
 
 ## 常用函数对照表
@@ -120,7 +120,6 @@ import { formatTime } from 'gel-util/format';
 
 | 函数名 | 子模块 |
 |--------|------|
-| `getWSID` | `env` |
 | `isDev` | `env` |
 | `usedInClient` | `env` |
 | `WindSessionHeader` | `env` |
@@ -135,7 +134,6 @@ import { formatTime } from 'gel-util/format';
 | `numberFormat` | `format` |
 | `generateUrlByModule` | `link` |
 | `LinkModule` | `link` |
-| `downloadFileToLocal` | `download` |
 | `STATIC_FILE_PATH` | `download` |
 | `TCorpArea` | `corp` |
 | `makeTree` | `corp` |

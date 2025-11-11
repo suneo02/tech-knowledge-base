@@ -73,26 +73,22 @@ export const getNoDataLocaleAuto = (module: string | undefined, key: TCorpDetail
 }
 
 /**
- * 免责声明 第二段
- */
-export const getDisclaimerSecondary = (isEn: boolean) => {
-  return isEn
-    ? 'This report is for business decision-making purposes only and shall not be used as a basis for legal proceedings or other illegal purposes. Without the consent or authorization from Wind, no part of this report may be disclosed to any third party. Under no circumstances will Wind be liable for any losses resulting from the reference to this report.'
-    : '本报告仅供商业决策参考之用，不得用作法律诉讼的依据或是其他非法用途。未经万得同意或授权，不得向第三人透露本报告任何内容。在任何情况下，对由于参考本报告所造成的损失，万得不承担任何责任。'
-}
-
-/**
  * 报告首页声明
  * @param isEn
  * @returns
  */
-export const getRPCoverComment = (isEn: boolean) => {
+export const getRPCoverComment = ({ isEn }: { isEn: boolean }) => {
   const reportDate = getTodayIntl(isEn)
-  return isEn
-    ? 'The content of this report is the data snapshot content as of ' +
+  return [
+    isEn
+      ? 'The content of this report is the data snapshot content as of ' +
         reportDate +
         '. The data is collected by Wind according to public information. Wind does not distinguish and verify the comprehensiveness, accuracy and authenticity of this report, and does not have relevant legal liabilities. The content of this report does not constitute clear or implied views or guarantees for anyone or enterprise. This report only provides reference for you. For the real results, please refer to the announcement results of each official website.'
-    : '本报告内容为截至' +
+      : '本报告内容为截至' +
         reportDate +
-        '的数据快照内容，万得根据目标企业在相关信息公示、公开信息数据整理分析所得。万得不对本报告的全面、准确、真实性进行分辨和核验，不负相关法律责任，本报告内容不构成我们对任何人或企业之明示或暗示的观点或保证，仅为您提供参考，真实结果请以各官方网站的公布结果为准。'
+        '的数据快照内容，万得根据目标企业在相关信息公示、公开信息数据整理分析所得。万得不对本报告的全面、准确、真实性进行分辨和核验，不负相关法律责任，本报告内容不构成我们对任何人或企业之明示或暗示的观点或保证，仅为您提供参考，真实结果请以各官方网站的公布结果为准。',
+    isEn
+      ? 'This report is for business decision-making purposes only and shall not be used as a basis for legal proceedings or other illegal purposes. Without the consent or authorization from Wind, no part of this report may be disclosed to any third party. Under no circumstances will Wind be liable for any losses resulting from the reference to this report.'
+      : '本报告仅供商业决策参考之用，不得用作法律诉讼的依据或是其他非法用途。未经万得同意或授权，不得向第三人透露本报告任何内容。在任何情况下，对由于参考本报告所造成的损失，万得不承担任何责任。',
+  ]
 }

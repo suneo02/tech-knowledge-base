@@ -1,7 +1,8 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import type { Meta, StoryObj } from '@storybook/react'
+import { ConversationItemProps } from 'gel-ui'
+import React, { useState } from 'react'
 import { InfiniteScrollConversations } from '../../components/Conversation/InfiniteScrollConversations'
-import { ConversationItemProps } from '../../components/Conversation/type'
 import { conversationsMock } from './conversationsMock'
 
 // Mock action creator to simulate Storybook's addon-actions
@@ -143,6 +144,7 @@ export const InfiniteLoadingExample: StoryObj<typeof InfiniteScrollConversations
     onActiveChange: (key: string) => {
       console.log('[onActiveChange]', key)
     },
+    // @ts-expect-error Basic.args.menu is undefined
     menu: Basic.args.menu,
   },
 }

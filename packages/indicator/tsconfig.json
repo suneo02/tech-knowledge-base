@@ -23,7 +23,7 @@
     }
   },
   "include": ["src", "src/types/less.d.ts"],
-  "exclude": ["**/*.stories.*", "**/stories/**", "**/__tests__/**", "**/*.test.*", "**/storybook/**"],
+  "exclude": ["**/*.stories.*", "**/stories/**", "**/storybook/**"],
   "references": [
     {
       "path": "./tsconfig.node.json"

@@ -22,6 +22,8 @@ export const HKCorpInfoModal: FC = () => {
       maskClosable={false}
       wrapClassName={styles.hkModalContainer}
       className={styles.hkModalContent}
+      data-uc-id="7cwztQKokAF"
+      data-uc-ct="staticmodal"
     >
       {state.modalType === 'instruction' ? (
         <HKCorpInstruction />

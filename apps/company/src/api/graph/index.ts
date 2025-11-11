@@ -4,19 +4,7 @@ import { getWsid } from '@/utils/env'
 import axios from '../index'
 import { wftCommon } from '@/utils/utils'
 import { isTestSite } from '@/utils/env'
-
-// 接口传参图谱类型
-export enum WIND_BDG_GRAPH_TYPE {
-  EquityPenetrationChart = 'equity-penetration-chart', // 股权穿透图
-  InvestmentChart = 'investment-chart', // 对外投资图
-  ActualControllerChart = 'actual-controller-chart', // 实控人图谱
-  BeneficiaryChart = 'beneficiary-chart', // 受益人图谱
-  EnterpriseChart = 'enterprise-chart', // 企业图谱
-  RelatedPartyChart = 'related-party-chart', // 关联方图谱
-  SuspectedRelationChart = 'suspected-relation-chart', // 疑似关系图谱
-  RelationQueryChart = 'relation-query-chart', // 查关系
-  MultiToOneChart = 'multi-to-one-chart', // 多对一触达
-}
+import { WIND_BDG_GRAPH_TYPE } from '@/views/Charts/types'
 
 interface Entity {
   entityId: string
@@ -36,19 +24,17 @@ export const getBaseUrl = () => {
   const isTestEnvironment = isTestSite()
   const usedInClient = wftCommon.usedInClient()
 
-  if (isTestEnvironment) {
-    return 'https://test.wind.com.cn/rimedata/backend'
+  if (!isTestEnvironment && !usedInClient) {
+    return 'https://wx.wind.com.cn//EnterpriseGraph/v1' // web端主站
+    // return 'http://10.220.33.21:23903/v1/graph' // 开发站
   }
-  if (usedInClient) {
-    return '/rime/backend'
-  }
-  return 'https://wx.wind.com.cn/rime/backend'
+  return '/EnterpriseGraph/v1'
 }
 
 export const getWindBDGraphData = async (params: GetWindBDGraphDataParams) => {
   const { type, mainEntity, subEntity, filter, ...extraParams } = params
   const baseUrl = getBaseUrl()
-  const url = `${baseUrl}/graph_api/wind-graph`
+  const url = `${baseUrl}/wind-graph`
 
   const requestData = {
     graphType: type,
@@ -63,7 +49,7 @@ export const getWindBDGraphData = async (params: GetWindBDGraphDataParams) => {
 
 export const getWindBDGraphChildData = async (data: any) => {
   const baseUrl = getBaseUrl()
-  const url = `${baseUrl}/graph_api/expand-nodes`
+  const url = `${baseUrl}/expand-nodes`
 
   return makeGraphRequest(url, data)
 }

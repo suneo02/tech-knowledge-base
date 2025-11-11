@@ -1,6 +1,6 @@
 const PENDING_TEXT = '等待运行...'
 const GENERATE_TEXT = '生成中...'
 const COLUMN_GENERATING_TEXT = 'AI生成列名中...'
-const ERROR_TEXT = '生成失败，请重试'
 const REFERENCE_EMPTY_TEXT = '引用单元格为空，请补充内容后重试'
+const ERROR_TEXT = '运行失败，请重试'
 export { PENDING_TEXT, GENERATE_TEXT, COLUMN_GENERATING_TEXT, ERROR_TEXT, REFERENCE_EMPTY_TEXT }

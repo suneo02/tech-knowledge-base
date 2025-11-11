@@ -20,6 +20,8 @@ const UpdateTime = ({ updateTime }) => {
           message.success(intlNoIndex('347890', '数据更新中，请稍候刷新页面查看'))
           setTimeout(() => setLoading(false), 3200)
         }}
+        data-uc-id="PO-HM-Z7ON"
+        data-uc-ct="syno"
       />
       {intlNoIndex('138868', '更新时间')} <span className="">{wftCommon.formatTime(time)}</span>
     </span>

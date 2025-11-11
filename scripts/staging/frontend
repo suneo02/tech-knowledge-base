@@ -1,0 +1,116 @@
+# 前端应用配置
+server {
+    listen 80;
+    server_name _;
+    
+    # 基础配置
+    server_tokens off;
+    ignore_invalid_headers off;
+    
+    # 日志配置
+    access_log /var/log/nginx/frontend_access.log main;
+    access_log /var/log/nginx/frontend_debug.log debug_proxy;
+    error_log /var/log/nginx/frontend_error.log;
+    
+    # 安全头配置
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+    add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+    
+    # 限制请求方法
+    if ($request_method !~ ^(GET|HEAD|POST|PUT|DELETE|OPTIONS)$) {
+        return 444;
+    }
+    
+    # ========================================
+    # API 代理配置
+    # ========================================
+    
+    # 上海主站 API
+    location ~ ^/api/xsh/(.*)$ {
+        include /etc/nginx/conf.d/proxy-common.conf;
+        proxy_pass https://114.80.154.45/$1$is_args$args;
+        proxy_set_header Host 114.80.154.45;
+        access_log /var/log/nginx/xsh_debug.log debug_proxy;
+    }
+    
+    # 南京主站 API
+    location ~ ^/api/xnj/(.*)$ {
+        include /etc/nginx/conf.d/proxy-common.conf;
+        proxy_pass https://180.96.8.44/$1$is_args$args;
+        proxy_set_header Host 180.96.8.44;
+        access_log /var/log/nginx/xnj_debug.log debug_proxy;
+    }
+
+    # 体验站 API
+    location ~ ^/api/xexp/(.*)$ {
+        include /etc/nginx/conf.d/proxy-common.conf;
+        proxy_pass https://114.80.213.47/$1$is_args$args;
+        proxy_set_header Host 114.80.213.47;
+        access_log /var/log/nginx/xexp_debug.log debug_proxy;
+    }
+    
+    # 测试环境 API
+    location ~ ^/api/xtest/(.*)$ {
+        include /etc/nginx/conf.d/proxy-common.conf;
+        proxy_pass https://180.96.8.173/$1$is_args$args;
+        proxy_set_header Host test.wind.com.cn;
+        access_log /var/log/nginx/xtest_debug.log debug_proxy;
+    }
+    
+    # 默认 API（上海主站）
+    location ~ ^/api/(.*)$ {
+        include /etc/nginx/conf.d/proxy-common.conf;
+        proxy_pass https://114.80.154.45/$1$is_args$args;
+        proxy_set_header Host 114.80.154.45;
+    }
+    
+    # ========================================
+    # 前端应用配置
+    # ========================================
+    
+    # 根路径重定向
+    location = / {
+        return 301 /Wind.WFC.Enterprise.Web/PC.Front/Company;
+    }
+    
+    # 静态资源（JS、CSS、图片、字体等）
+    location ~ ^/Wind\.WFC\.Enterprise\.Web/PC\.Front/[^/]+/.*\.(js|mjs|css|json|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif|html|htm)$ {
+        root /var/www;
+        try_files $uri =404;
+        
+        # 根据文件类型设置缓存
+        # JS/CSS/字体/图片：长期缓存
+        location ~ \.(js|mjs|css|woff|woff2|ttf|eot|png|jpg|jpeg|gif|ico|svg|webp|avif)$ {
+            expires 1y;
+            add_header Cache-Control "public, immutable";
+        }
+        
+        # HTML：短期缓存
+        location ~ \.(html|htm)$ {
+            expires 1h;
+            add_header Cache-Control "public, must-revalidate";
+        }
+    }
+    
+    # SPA 应用路由（处理前端路由）
+    location ~ ^/Wind\.WFC\.Enterprise\.Web/PC\.Front/([^/]+)(/.*)?$ {
+        root /var/www;
+        try_files $uri $uri/ /Wind.WFC.Enterprise.Web/PC.Front/$1/index.html;
+    }
+    
+    # ========================================
+    # 安全配置
+    # ========================================
+    
+    # 禁止访问敏感文件
+    location ~* \.(htaccess|htpasswd|ini|log|sh|sql|conf)$ {
+        deny all;
+    }
+    
+    # 错误页面
+    error_page 404 /404.html;
+    error_page 500 502 503 504 /50x.html;
+}

@@ -92,7 +92,15 @@ export const CheckBoxOption: React.FC<{
   //#endregion
 
   const makeVt = () => {
-    return <CheckBoxMulti optionsFromConfig={options} value={valueFromProp} onChange={changeOptionCallback} />
+    return (
+      <CheckBoxMulti
+        optionsFromConfig={options}
+        value={valueFromProp}
+        onChange={changeOptionCallback}
+        data-uc-id="8wClzkCfh-"
+        data-uc-ct="checkboxmulti"
+      />
+    )
   }
 
   return (
@@ -100,10 +108,15 @@ export const CheckBoxOption: React.FC<{
       {multiCbx ? (
         makeVt()
       ) : (
-        // @ts-expect-error ttt
-        <Checkbox.Group value={valueForCheckBoxGroup} onChange={onChange}>
+        <Checkbox.Group value={valueForCheckBoxGroup} onChange={onChange} data-uc-id="WUJr9An1Ff" data-uc-ct="checkbox">
           {options.map((item) => (
-            <Checkbox key={String(item.value)} value={item.value}>
+            <Checkbox
+              key={String(item.value)}
+              value={item.value}
+              data-uc-id="cxB9q5F7VJ"
+              data-uc-ct="checkbox"
+              data-uc-x={String(item.value)}
+            >
               {item.name}
               {item.value === 'custom' &&
                 (filterItem.selfDefine === 2 ? (
@@ -113,15 +126,22 @@ export const CheckBoxOption: React.FC<{
                       max={customValue ? customValue.split('-')[1] : ''}
                       changeOptionCallback={customValueChange}
                       unit={filterItem.itemRemark}
+                      data-uc-id="3F4paIKSAq"
+                      data-uc-ct="numberrangeoption"
                     />
                   </div>
                 ) : (
                   <div className="ml-6">
-                    <DatePickerOption value={customValue} changeOptionCallback={customValueChange} />
+                    <DatePickerOption
+                      value={customValue}
+                      changeOptionCallback={customValueChange}
+                      data-uc-id="GaBGIZhWZ4"
+                      data-uc-ct="datepickeroption"
+                    />
                   </div>
                 ))}
               {item.hoverHint ? (
-                <Popover content={item.hoverHint} style={{ width: 400 }}>
+                <Popover content={item.hoverHint} style={{ width: 400 }} data-uc-id="MDuhvloHte" data-uc-ct="popover">
                   <InfoCircleButton />
                 </Popover>
               ) : null}

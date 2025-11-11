@@ -1,7 +1,7 @@
 import { corpInfoConfigHK } from '../rowsByCorpTypeId'
 
-import { validateReportDetailNodeJson } from '@/validation'
-import { CorpBasicInfo, ReportDetailNodeJson } from 'gel-types'
+import { validateReportDetailNodeOrNodesJson } from '@/validation'
+import { CorpBasicInfo, ReportDetailNodeOrNodesJson } from 'gel-types'
 import corpInfoConfigCOJson from '../CO.json' assert { type: 'json' }
 import corpInfoConfigFCPJson from './FCP.json' assert { type: 'json' }
 import corpInfoConfigFPCJson from './FPC.json' assert { type: 'json' }
@@ -13,19 +13,19 @@ import corpInfoConfigPEJson from './PE.json' assert { type: 'json' }
 import corpInfoConfigSOEJson from './SOE.json' assert { type: 'json' }
 import corpInfoConfigSPEJson from './SPE.json' assert { type: 'json' }
 
-export const corpInfoConfigFCP = validateReportDetailNodeJson(corpInfoConfigFCPJson)
-export const corpInfoConfigGOV = validateReportDetailNodeJson(corpInfoConfigGOVJson)
-export const corpInfoConfigFPC = validateReportDetailNodeJson(corpInfoConfigFPCJson)
-export const corpInfoConfigIIP = validateReportDetailNodeJson(corpInfoConfigIIPJson)
-export const corpInfoConfigNGO = validateReportDetailNodeJson(corpInfoConfigNGOJson)
-export const corpInfoConfigOE = validateReportDetailNodeJson(corpInfoConfigOEJson)
-export const corpInfoConfigPE = validateReportDetailNodeJson(corpInfoConfigPEJson)
-export const corpInfoConfigSOE = validateReportDetailNodeJson(corpInfoConfigSOEJson)
-export const corpInfoConfigSPE = validateReportDetailNodeJson(corpInfoConfigSPEJson)
+export const corpInfoConfigFCP = validateReportDetailNodeOrNodesJson(corpInfoConfigFCPJson)
+export const corpInfoConfigGOV = validateReportDetailNodeOrNodesJson(corpInfoConfigGOVJson)
+export const corpInfoConfigFPC = validateReportDetailNodeOrNodesJson(corpInfoConfigFPCJson)
+export const corpInfoConfigIIP = validateReportDetailNodeOrNodesJson(corpInfoConfigIIPJson)
+export const corpInfoConfigNGO = validateReportDetailNodeOrNodesJson(corpInfoConfigNGOJson)
+export const corpInfoConfigOE = validateReportDetailNodeOrNodesJson(corpInfoConfigOEJson)
+export const corpInfoConfigPE = validateReportDetailNodeOrNodesJson(corpInfoConfigPEJson)
+export const corpInfoConfigSOE = validateReportDetailNodeOrNodesJson(corpInfoConfigSOEJson)
+export const corpInfoConfigSPE = validateReportDetailNodeOrNodesJson(corpInfoConfigSPEJson)
 
-export const corpInfoConfigCO = validateReportDetailNodeJson(corpInfoConfigCOJson)
+export const corpInfoConfigCO = validateReportDetailNodeOrNodesJson(corpInfoConfigCOJson)
 
-export const corpConfigMapByConfigType: Record<CorpBasicInfo['configType'], ReportDetailNodeJson | undefined> = {
+export const corpConfigMapByConfigType: Record<CorpBasicInfo['configType'], ReportDetailNodeOrNodesJson | undefined> = {
   CO: corpInfoConfigCO,
   FCP: corpInfoConfigFCP,
   GOV: corpInfoConfigGOV,

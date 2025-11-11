@@ -4,7 +4,7 @@ import intl from '../../utils/intl'
 
 import './HorizontalCheckBox.less'
 
-const HorizontalCheckBox = ({ isMultiple = false, options, onSelect, selected = [],label='' }) => {
+const HorizontalCheckBox = ({ isMultiple = false, options, onSelect, selected = [], label = '' }) => {
   const [selectArrs, setSelectArrs] = useState([])
 
   return (
@@ -32,7 +32,7 @@ const HorizontalCheckBox = ({ isMultiple = false, options, onSelect, selected = 
                     menu.splice(index, 1)
                   } else {
                     if (i.isAll) {
-                     return onSelect([i]) 
+                      return onSelect([i])
                     } else {
                       isAllindex > -1 && menu.splice(isAllindex, 1)
                       menu.push(i)
@@ -47,6 +47,9 @@ const HorizontalCheckBox = ({ isMultiple = false, options, onSelect, selected = 
                 // setActiveMenu(i)
                 // setCurrentMenu(i.children || [])
               }}
+              data-uc-id="hJO3wnYSFD"
+              data-uc-ct="span"
+              data-uc-x={index}
             >
               {intl('', i.name)}
             </span>

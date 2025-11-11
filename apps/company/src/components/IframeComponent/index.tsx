@@ -81,6 +81,8 @@ const IframeComponent: React.FC<IframeComponentProps> = ({
           setIframeStatus('error')
         }}
         ref={iframeRef}
+        data-uc-id="yCG5zIlNSWp"
+        data-uc-ct="iframe"
       />
       {iframeStatus === 'loading' && (
         <div className={`${PREFIX}-loading`}>

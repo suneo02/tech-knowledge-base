@@ -26,7 +26,7 @@ export const getSearchGlobalCompanyItem = (): IFuncMenuItem => ({
   }),
   css: 'global-icon',
   icon: 'CQQQY',
-  new: true,
+  // new: true,
 })
 
 // 查人物

@@ -1,12 +1,7 @@
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
-import {
-  defineConfig,
-  type ConfigEnv,
-  type ProxyOptions,
-  type UserConfig,
-} from 'vite'
+import { defineConfig, type ConfigEnv, type ProxyOptions, type UserConfig } from 'vite'
 import svgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
@@ -15,15 +10,20 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 
   // 开发环境代理配置
   const devProxy: Record<string, ProxyOptions> = {
-    '/xtest': {
+    '/api/xtest': {
       target: 'https://test.wind.com.cn',
       changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xtest/, ''),
+      rewrite: (path) => path.replace(/^\/api\/xtest/, ''),
     },
-    '/xprod': {
-      target: 'https://wx.wind.com.cn',
+    '/api/xsh': {
+      target: 'https://114.80.154.45',
       changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/xprod/, ''),
+      rewrite: (path) => path.replace(/^\/api\/xsh/, ''),
+    },
+    '/api/xnj': {
+      target: 'https://180.96.8.44',
+      changeOrigin: true,
+      rewrite: (path) => path.replace(/^\/api\/xnj/, ''),
     },
   }
 
@@ -37,11 +37,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         gzipSize: true,
         brotliSize: true,
         filename: 'dist/stats.html',
-      }),
+      })
     )
   }
 
   return {
+    logLevel: 'warn',
     base: './',
     plugins,
     // 多页面配置
@@ -79,23 +80,26 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
             'vendor-other': [],
           },
           // 入口与分块文件名
-          entryFileNames: isDev
-            ? 'assets/js/[name].js'
-            : 'assets/js/[name]-[hash].js',
-          chunkFileNames: isDev
-            ? 'assets/js/[name].js'
-            : 'assets/js/[name]-[hash].js',
-          assetFileNames: isDev
-            ? 'assets/[ext]/[name].[ext]'
-            : 'assets/[ext]/[name]-[hash].[ext]',
+          entryFileNames: isDev ? 'assets/js/[name].js' : 'assets/js/[name]-[hash].js',
+          chunkFileNames: isDev ? 'assets/js/[name].js' : 'assets/js/[name]-[hash].js',
+          assetFileNames: isDev ? 'assets/[ext]/[name].[ext]' : 'assets/[ext]/[name]-[hash].[ext]',
         },
       },
     },
 
     resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'src'),
-      },
+      alias: [
+        {
+          find: '@',
+          replacement: path.resolve(__dirname, 'src'),
+        },
+        {
+          // 解决部分旧版 less 库（如 @wind/wind-ui-form）中 '~@' 写法无法被 Vite 正确解析的问题
+          // 该写法意在指向 node_modules，此别名通过移除 '~' 字符，让 Vite 能正确解析路径
+          find: /^~/,
+          replacement: '',
+        },
+      ],
     },
 
     // 开发服务器配置
@@ -109,9 +113,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     css: {
       modules: {
         localsConvention: 'camelCase',
-        generateScopedName: isDev
-          ? '[name]__[local]__[hash:base64:5]'
-          : '[hash:base64:5]',
+        generateScopedName: isDev ? '[name]__[local]__[hash:base64:5]' : '[hash:base64:5]',
       },
       preprocessorOptions: {
         less: {

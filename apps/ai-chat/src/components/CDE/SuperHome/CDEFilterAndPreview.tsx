@@ -4,6 +4,7 @@ import { CDEFilterPreviewModal } from '../component/FilterPreviewModal'
 import { CDEFilterPreviewModalProps } from '../component/type'
 
 /**
+ * @deprecated 已弃用，请使用 useCDEModal 方法替代
  * 首页使用，需要单独包裹 CDEFilterCfgProvider 和 MeasuresProvider
  * @param props
  * */

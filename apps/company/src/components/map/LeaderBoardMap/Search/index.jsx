@@ -48,15 +48,17 @@ export default (props) => {
         }
         props.onChange(params)
       }}
+      data-uc-id="MnQLtOrQUt"
+      data-uc-ct="select"
     >
-      <Select.Option key="" title={intl('51886', '全国')}>
+      <Select.Option key="" title={intl('51886', '全国')} data-uc-id="o81OEKJ26z" data-uc-ct="select">
         {intl('51886', '全国')} {`  (${props?.options?.reduce((pre, next) => pre + next.value, 0) || 0})`}
       </Select.Option>
       {props?.options
         ?.filter((res) => res.code)
         ?.map(({ oldCode, name, title, value }) => {
           return (
-            <Select.Option key={oldCode} title={title}>
+            <Select.Option key={oldCode} title={title} data-uc-id="u-NrljCc0Q" data-uc-ct="select" data-uc-x={oldCode}>
               {name}
               {`  (${value})`}
             </Select.Option>

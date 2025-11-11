@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import { ConfigTableCellJsonConfig } from 'gel-types'
-import React from 'react'
 import { getDefaultImage, getImageUrl } from 'report-util/misc'
 import styles from './image.module.less'
 

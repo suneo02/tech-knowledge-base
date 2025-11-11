@@ -5,7 +5,7 @@ import { industryToTreeData } from '@/components/company/info/handle/tree.ts'
 interface IndustryItem {
   industryName: string
 }
-  
+
 /**
  * XXIndustryTreeProps
  * @property data - 产业分类数据
@@ -52,6 +52,8 @@ export const XXIndustryTree: React.FC<XXIndustryTreeProps> = ({ data, fromShfic 
       showLine={true}
       defaultExpandedKeys={defaultExpandedKeys}
       treeData={treeData}
+      data-uc-id="IVg84wiIcU"
+      data-uc-ct="tree"
     />
   )
 }

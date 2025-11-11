@@ -1,13 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-const Input = ({
-  type = 'text',
-  focus = false,
-  onChange,
-  value,
-  ...args
-}) => {
+const Input = ({ type = 'text', focus = false, onChange, value, ...args }) => {
   const isInputting = useRef(false)
   const inputRef = useRef()
 
@@ -22,26 +16,20 @@ const Input = ({
       ref={inputRef}
       autoFocus={focus}
       // value={value}
-      onCompositionStart={
-        () => {
-          isInputting.current = true
-        }
-      }
-      onCompositionEnd={
-        (e) => {
-          isInputting.current = false
-          onChange(e)
-        }
-      }
-      onChange={
-        (e) => {
-          if (isInputting.current) return
-          onChange(e)
-        }
-      }
-      {
-      ...args
-      }
+      onCompositionStart={() => {
+        isInputting.current = true
+      }}
+      onCompositionEnd={(e) => {
+        isInputting.current = false
+        onChange(e)
+      }}
+      onChange={(e) => {
+        if (isInputting.current) return
+        onChange(e)
+      }}
+      {...args}
+      data-uc-id="Fs3l_ZIh2l"
+      data-uc-ct="inputbox"
     />
   )
 }

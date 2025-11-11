@@ -77,7 +77,7 @@ const IcLayout = () => {
           {data?.exclusiveTransferRecords?.length ? (
             <IcLayoutExclusiveTransfer data={data?.exclusiveTransferRecords} />
           ) : (
-            <Empty description={STRINGS.NO_DATA} />
+            <Empty description={STRINGS.NO_DATA} data-uc-id="lFiXrMnd24" data-uc-ct="empty" />
           )}
         </div>
         <div>
@@ -85,7 +85,7 @@ const IcLayout = () => {
           {data?.entriesChangeRecords?.length ? (
             <IcLayoutEntriesChangeRecords data={data?.entriesChangeRecords} />
           ) : (
-            <Empty description={STRINGS.NO_DATA} />
+            <Empty description={STRINGS.NO_DATA} data-uc-id="12XzMPJfZ5" data-uc-ct="empty" />
           )}
         </div>
       </div>

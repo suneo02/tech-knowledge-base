@@ -1,4 +1,3 @@
-import { ICorpOtherInfo } from '@/api/corp/info/otherInfo.ts'
 import { useCorpModuleCfg } from '@/components/company/handle'
 import { makeCorpTableByCorpArea } from '@/components/company/handle/makeTableByArea.tsx'
 import { useBuyStatusInDetail } from '@/components/company/HKCorp/api.ts'
@@ -7,17 +6,16 @@ import { ICorpSubModuleCfg, ICorpTableCfg } from '@/components/company/type'
 import { getCorpModuleNum } from '@/handle/corp/basicNum/handle.tsx'
 import { TCorpCategory } from '@/handle/corp/corpType/category.ts'
 import { downLoadExcelInCompanyBase } from '@/handle/corp/download.ts'
-import { getIfBondCorpByBasicNum, getIfIPOCorpByBasicNum } from '@/views/Company/handle/corpBasicNum.ts'
 import { DownloadO } from '@wind/icons'
-import { Button, Card, Col, Row, Tabs, Tooltip } from '@wind/wind-ui'
+import { Button, Card, Tabs, Tooltip } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
-import React, { FC, memo, useEffect, useMemo, useReducer, useState } from 'react'
+import { CorpOtherInfo, TCorpDetailSubModule } from 'gel-types'
+import React, { FC, lazy, memo, Suspense, useEffect, useMemo, useState } from 'react'
 import { connect } from 'react-redux'
 import * as companyActions from '../../actions/company'
 import * as globalActions from '../../actions/global'
 import { getCorpModuleInfo } from '../../api/companyApi'
 import { ICorpBasicNumFront } from '../../handle/corp/basicNum/type.ts'
-import { TCorpDetailSubModule } from '../../handle/corp/detail/module/type.ts'
 import { useCompanyTabWidth } from '../../hooks/useCompanyTabWidth'
 import global from '../../lib/global'
 import { getVipInfo } from '../../lib/utils'
@@ -26,13 +24,21 @@ import store from '../../store/store'
 import intl from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import { InfoCircleButton } from '../icons/InfoCircle/index.tsx'
-import { FinancialDataUnitFilter } from './buss/financial/FinancialDataUnitFilter.tsx'
 import CompanyTable from './CompanyTable.tsx'
 import { handleBuryInCorpDetailModuleTab } from './detail/bury'
 import { CorpModuleNum, CorpModuleNumClassChild } from './detail/comp/CorpNum'
 import { shficRowConfig } from './listRowConfig.tsx'
 import corpTableStyles from './style/corpTable.module.less'
+import { useTablesGel } from './tablesGel.tsx'
+import { CompanyBaseYProps } from './type/companyBaseY.ts'
 import VipModule from './VipModule'
+
+// 懒加载 FinancialDataUnitFilter 组件 - 仅在财务数据模块时才加载
+const FinancialDataUnitFilter = lazy(() =>
+  import('./buss/financial/FinancialDataUnitFilter.tsx').then((module) => ({
+    default: module.FinancialDataUnitFilter,
+  }))
+)
 
 // 白名单：只有在这些 eachTableKey 中才显示额外的 div
 const whiteList = [
@@ -43,12 +49,6 @@ const whiteList = [
 
 const TabPane = Tabs.TabPane
 const { HorizontalTable } = Table
-
-const medicReducer = (_state, action) => {
-  return { activeKey: action.activeKey }
-}
-const initialState = { activeKey: '1' }
-
 const StatisticalChartComp = () => React.lazy(() => import('./StatisticalChart'))
 const WCBChartComp = () => React.lazy(() => import('./WcbChartDiv'))
 // 这里如果放到具体组件里 父组件属性变动会造成重复渲染，必须拿出来
@@ -83,38 +83,8 @@ const VTable: FC<{ ready; eachTableKey; eachTable; singleModuleId; smaller?; bas
 
 /**
  * 企业详情组件
- * @date 3/26/2024 - 11:33:41 AM
- * @param {Object} props
- * @param {any} props.basicNum
- * @param {string} props.setCorpModuleReadyed
- * @param {string} props.singleModuleId
- * @param {string} props.companycode  企业wind code
- * @param {string} props.companyname  企业名称
- * @param {string} props.companyid  企业id
- * @param {Array<stirng>} props.scrollModuleIds
- * @param {string} props.companyRegDate
- * @param {any} props.allMenuDataObj
- * @param {()=>void} props.menuClick
- * @param {any} props.company
- * @param {string} props.corpCategory
  */
-const CompanyBaseY: FC<{
-  companyname: string
-  companyid: string
-  basicNum: ICorpBasicNumFront
-  companycode: string
-  companyRegDate
-  company
-  corpArea
-  corpCategory: TCorpCategory[]
-  menuClick
-  singleModuleId
-  scrollModuleIds: any[]
-  setCorpModuleReadyed
-  allMenuDataObj
-  corpOtherInfo: ICorpOtherInfo
-  refreshCorpOtherInfo: () => void
-}> = (props) => {
+const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
   const userVipInfo = getVipInfo()
   const isWidthLessThan985 = useCompanyTabWidth()
 
@@ -124,11 +94,7 @@ const CompanyBaseY: FC<{
   const companycode = props.companycode
   const companyRegDate = props.companyRegDate
   const corpId = props?.company?.baseInfo?.corp_id
-
   const corpArea = props.corpArea // 国家地区
-
-  const [medicActiveKey, dispatchMedic] = useReducer(medicReducer, initialState)
-
   const [fundSizeData, setFundSizeData] = useState(null) // 公募基金
   const [fundSizeDataPie, setFundSizeDataPie] = useState(null) // 公募基金
 
@@ -524,76 +490,6 @@ const CompanyBaseY: FC<{
           />
         )
       }
-    } else if ('titleTabs' in corpModuleSubCfg && corpModuleSubCfg.titleTabs) {
-      // 医药数据 - title带tab，表格下也带tab 特殊处理
-      const titleStr = (
-        <>
-          <span> {corpModuleSubCfg.title} </span>
-          <div className="multitabs-more-title">
-            {corpModuleSubCfg.titleTabs.map((t, idx) => {
-              return (
-                <span
-                  className={!idx ? 'sel' : ''}
-                  key={idx}
-                  onClick={(e) => {
-                    // @ts-expect-error ttt
-                    const selTab = e.target.parentElement.querySelector('.sel')
-                    if (e.target == selTab) {
-                      return false
-                    } else {
-                      selTab && selTab.classList.remove('sel')
-                    }
-                    // @ts-expect-error ttt
-                    e.target.classList.add('sel')
-                    corpModuleSubCfg.children.map((t, idx) => {
-                      t.extraParams = (param) => {
-                        return {
-                          ...param,
-                          productType: t,
-                        }
-                      }
-                      !idx && t.medicineFresh && t.medicineFresh()
-                    })
-                    if (medicActiveKey.activeKey != 0) {
-                      dispatchMedic({ activeKey: '0' })
-                    }
-                  }}
-                >
-                  {t}
-                </span>
-              )
-            })}{' '}
-          </div>
-        </>
-      )
-      const tabs = (
-        <Card key={eachTableKey} className="vtable-container" divider={'none'} title={titleStr}>
-          {/* @ts-expect-error ttt*/}
-          <Tabs
-            activeKey={medicActiveKey.activeKey}
-            onChange={(key) => {
-              if (key == medicActiveKey.activeKey) {
-                return
-              }
-              dispatchMedic({ activeKey: key })
-            }}
-          >
-            <div>
-              {corpModuleSubCfg.children.map((t, idx) => {
-                t.hideTitle = true
-                const tableStr = makeTable(t, eachTableKey, idx, true)
-                return (
-                  // @ts-expect-error ttt
-                  <TabPane tab={t.title} key={idx} forceRender={false}>
-                    {tableStr}
-                  </TabPane>
-                )
-              })}
-            </div>
-          </Tabs>
-        </Card>
-      )
-      tables.push(tabs)
     } else if ('withTab' in corpModuleSubCfg && corpModuleSubCfg.withTab) {
       if (!userVipInfo.isSvip && !userVipInfo.isVip) {
         if (
@@ -659,7 +555,6 @@ const CompanyBaseY: FC<{
           ) : null}
 
           {'children' in corpModuleSubCfg && corpModuleSubCfg.children?.length ? (
-            // @ts-expect-error ttt
             <Tabs
               className="VTable"
               defaultActiveKey="0"
@@ -679,6 +574,8 @@ const CompanyBaseY: FC<{
                   dom.className = 'w-tabs-top-bar noMaxWidth'
                 }
               }}
+              data-uc-id="mLgOkU9tWW"
+              data-uc-ct="tabs"
             >
               {corpModuleSubCfg.children.map((t, idx) => {
                 t.hideTitle = true
@@ -703,8 +600,10 @@ const CompanyBaseY: FC<{
                   <TabPane
                     className={corpModuleSubCfg.withTab ? 'tab-show-small-title' : ''}
                     tab={tabChildNumStr}
-                    // @ts-expect-error ttt
                     key={idx}
+                    data-uc-id="lqxC1LBIXy"
+                    data-uc-ct="tabpane"
+                    data-uc-x={idx}
                   >
                     {isWidthLessThan985 && whiteList.includes(eachTableKey) && <div style={{ height: '40px' }}></div>}
                     {tableStr}
@@ -784,7 +683,16 @@ const CompanyBaseY: FC<{
                   // @ts-expect-error ttt
                   downLoadExcel(corpModuleSubCfg.downDocType, corpModuleSubCfg.title, corpModuleSubCfg.companyname)
                 }}
-                icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                icon={
+                  <DownloadO
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    data-uc-id="55QZVSikT"
+                    data-uc-ct="downloado"
+                  />
+                }
+                data-uc-id="Tlj4KDP4XW"
+                data-uc-ct="button"
               >
                 {intl('4698', '导出数据')}
               </Button>
@@ -793,7 +701,9 @@ const CompanyBaseY: FC<{
               <div className="financial-select">
                 {' '}
                 <span> {intl('31686', '单位')}：</span>
-                <FinancialDataUnitFilter corpModuleSubCfg={corpModuleSubCfg} />
+                <Suspense fallback={<div></div>}>
+                  <FinancialDataUnitFilter corpModuleSubCfg={corpModuleSubCfg} />
+                </Suspense>
               </div>
             ) : null}
           </div>
@@ -814,323 +724,18 @@ const CompanyBaseY: FC<{
     }
   }
 
-  const tablesGEL = React.useMemo(() => {
-    if (!props.singleModuleId) {
-      // 1. 要先获取到统计数字basicnum
-      // 2. 要通过是否specialcorp区分不同类型实体的展示模块
-      if (Object.entries(basicNum).length < 5) {
-        return null
-      }
-      if (!basicNum.__specialcorp) {
-        return null
-      }
-    }
-    const bodys = []
-    corpModuleCfg.map((corpModulePrimaryCfg, _idx) => {
-      const tables = []
-      let currentModuleIsEmpty = true // 记录当前大模块是否全部子模块都没有数据
-
-      let eachTableKey: TCorpDetailSubModule | 'moduleTitle'
-      for (eachTableKey in corpModulePrimaryCfg) {
-        /* ----------------- 单独处理的几个特殊模块，业务数据、医药数据、私募基金、公募基金等 ------------------------ */
-        if (corpModulePrimaryCfg.showFundSize) {
-          // 公募基金模块， 如果当前企业非公募基金类型，直接跳过
-          if (!props.corpCategory || props.corpCategory.indexOf('publicfund') == -1) {
-            currentModuleIsEmpty = false
-            continue
-          }
-        }
-        if (corpModulePrimaryCfg.showPrivateFundInfo) {
-          // 私募基金模块， 如果当前企业非私募基金类型，直接跳过
-          if (!props.corpCategory || props.corpCategory.indexOf('privatefund') == -1) {
-            currentModuleIsEmpty = false
-            continue
-          }
-        }
-        if (corpModulePrimaryCfg.showIpoYield) {
-          // 业务数据模块， 如果当前企业非上市公司，直接跳过
-          if (!props.corpCategory || props.corpCategory.indexOf('ipo') == -1) {
-            currentModuleIsEmpty = false
-            continue
-          }
-        }
-        /* ------------------------------------------------------------------------------------------------- */
-
-        if (eachTableKey == 'showFundSize') {
-          const pieStr = fundSizeDataPie ? (
-            <Row gutter={16}>
-              <Col span={12}>
-                <React.Suspense fallback={<div></div>}>
-                  {<WCBChartCss data={fundSizeDataPie.pie} waterMark={false} style={{ height: 400 }} />}
-                </React.Suspense>
-              </Col>
-              <Col span={12}>
-                <Table
-                  style={{ marginTop: '32px' }}
-                  key={'fundSizeDataPie'}
-                  columns={[
-                    {
-                      dataIndex: 'fundTypeName',
-                      title: intl('66063', '基金类型'),
-                    },
-                    {
-                      dataIndex: 'assets',
-                      title: intl('18827', '资产净值合计(亿元)'),
-                      align: 'right',
-                    },
-                    {
-                      dataIndex: 'assetsPercentage',
-                      title: intl('105862', '占比'),
-                      align: 'right',
-                      render: (txt, _row) => {
-                        return wftCommon.formatPercent(txt * 100)
-                      },
-                    },
-                  ]}
-                  pagination={false}
-                  dataSource={fundSizeDataPie.list}
-                />
-              </Col>
-            </Row>
-          ) : (
-            ''
-          )
-
-          tables.push(
-            <Card
-              key={eachTableKey}
-              className="vtable-container card-fundsize"
-              /*@ts-expect-error ttt*/
-              multiTabId={eachTableKey}
-              divider={'none'}
-              title={intl('37109', '基金规模')}
-            >
-              {' '}
-              {fundSizeDataPie ? pieStr : ''}{' '}
-              {fundSizeData ? (
-                <React.Suspense fallback={<div></div>}>
-                  {<WCBChartCss data={fundSizeData} waterMark={false} style={{ height: 400 }} />}
-                </React.Suspense>
-              ) : (
-                ''
-              )}{' '}
-            </Card>
-          )
-          currentModuleIsEmpty = false
-          continue
-        }
-
-        if (eachTableKey == 'showPrivateFundInfo') {
-          const tableStr = privateFundBase ? (
-            <HorizontalTable
-              bordered={'default'}
-              className=""
-              loading={false}
-              title={<span>{intl('205468', '基本信息')}</span>}
-              rows={privateFundBase.rows}
-              dataSource={privateFundBase.list}
-            ></HorizontalTable>
-          ) : null
-
-          privateFundBase && tables.push(tableStr)
-
-          const pieStr = privateFundProduct ? (
-            <Row gutter={16}>
-              <Col span={12}>
-                <React.Suspense fallback={<div></div>}>
-                  {<WCBChartCss data={privateFundProduct.pie} waterMark={false} style={{ height: 400 }} />}
-                </React.Suspense>
-              </Col>
-              <Col span={12}>
-                <Table
-                  style={{ marginTop: '12px', marginBottom: '32px' }}
-                  key={'privateFundBasePie'}
-                  columns={[
-                    {
-                      dataIndex: 'strategyType',
-                      title: intl('228375', '产品策略'),
-                    },
-                    {
-                      dataIndex: 'productNumber',
-                      title: intl('2491', '产品数量'),
-                      align: 'right',
-                    },
-                  ]}
-                  pagination={false}
-                  dataSource={privateFundProduct.list}
-                />
-              </Col>
-            </Row>
-          ) : null
-
-          tables.push(
-            <Card
-              key={'privateFundProductFormance'}
-              /*@ts-expect-error ttt*/
-              multiTabId={eachTableKey}
-              className="vtable-container private-fund-card"
-              divider={'none'}
-              title={intl('37254', '产品结构')}
-            >
-              {' '}
-              {privateFundProduct ? pieStr : ''}{' '}
-              {privateFundProductFormance ? (
-                <Table
-                  style={{ marginTop: '12px' }}
-                  key={'privateFundBaseTable'}
-                  columns={privateFundProductFormance.columns}
-                  pagination={false}
-                  dataSource={privateFundProductFormance.list}
-                />
-              ) : null}{' '}
-            </Card>
-          )
-          currentModuleIsEmpty = false
-          continue
-        }
-
-        if (basicNum.__specialcorp > 0) {
-          // 特殊的企业如 社会组织 则根据指定的menu渲染
-          const theModuleKey = eachTableKey.split('-')[0]
-          if (theModuleKey !== 'moduleTitle' && !props.allMenuDataObj[theModuleKey]) {
-            continue
-          }
-        }
-
-        if (!props.singleModuleId) {
-          if (eachTableKey == 'moduleTitle') {
-            tables.push(
-              <div
-                key={corpModulePrimaryCfg[eachTableKey].moduleKey + '-moduleTitle'}
-                className={` module-title  module-title-${corpModulePrimaryCfg[eachTableKey].moduleKey} `}
-              >
-                {corpModulePrimaryCfg[eachTableKey].title}
-              </div>
-            )
-            continue
-          }
-        }
-        // corpModulePrimaryCfg - 每个一级菜单包含的所有模块(大类)
-        // eachTableKey - 每个二级菜单也就是独立模块对应的key
-        // corpModuleSubCfg - 每个二级菜单对应：这里分两类 一类是包含多个子表的 如：股东信息模块，包含两个子表模块
-        let corpModuleSubCfg: ICorpSubModuleCfg = corpModulePrimaryCfg[eachTableKey] as ICorpSubModuleCfg
-
-        /**
-         * asharelist_num  判断A股上市   >0就是上市，=0就是非上市
-         * sharedbonds_num  判断发债企业  >0就是发债企业，=0就是非发债企业
-         */
-        // 非上市发债
-        if (eachTableKey == 'showguarantee' && getIfIPOCorpByBasicNum(basicNum) && getIfBondCorpByBasicNum(basicNum)) {
-          corpModuleSubCfg = corpModulePrimaryCfg[eachTableKey]['showguaranteeNotMarket']
-        }
-
-        // 此处谨慎修改，model num 为 undefined 时需要跳过这个逻辑
-        if (!props.singleModuleId && 'modelNum' in corpModuleSubCfg && corpModuleSubCfg.modelNum) {
-          const currentModuleNum = getCorpModuleNum(corpModuleSubCfg.modelNum, basicNum)
-          if (!currentModuleNum) {
-            continue
-          }
-          if (
-            // 当前模块 配置为 true 固定展示，或者统计数字大于0
-
-            (typeof currentModuleNum === 'number' && currentModuleNum > 0) ||
-            currentModuleNum === true
-          ) {
-            corpModuleSubCfg.modelNumStr = (
-              <CorpModuleNum
-                numHide={corpModuleSubCfg.numHide}
-                modelNum={corpModuleSubCfg.modelNum}
-                basicNum={basicNum}
-              />
-            )
-            currentModuleIsEmpty = false
-          }
-        }
-
-        if (props.singleModuleId) {
-          // f9等单独嵌入的单模块处理
-          currentModuleIsEmpty = false
-          if (props.singleModuleId.indexOf(eachTableKey) > -1) {
-            renderTableDom(corpModuleSubCfg, eachTableKey, tables)
-          }
-        } else {
-          renderTableDom(corpModuleSubCfg, eachTableKey, tables)
-        }
-      }
-      if (!props.singleModuleId) {
-        if (currentModuleIsEmpty) {
-          if (
-            corpModulePrimaryCfg.moduleTitle &&
-            corpModulePrimaryCfg.moduleTitle.moduleKey !== 'intellectual' &&
-            corpModulePrimaryCfg.moduleTitle.moduleKey !== 'bussiness'
-          ) {
-            // 当前大模块下子模块都不展示，则需要展示empty
-            // 知识产权intellectual 大模块除外 （由于没有商标和专利的统计数字）   招投标 也除外  无统计数字 bussiness模块不显示暂无数据
-            if (corpModulePrimaryCfg.moduleTitle.noneData) {
-              tables.push(
-                <div key={corpModulePrimaryCfg.moduleTitle.moduleKey + '-' + 'empty'} className="no-data-module">
-                  <i></i> {corpModulePrimaryCfg.moduleTitle.noneData}
-                </div>
-              )
-            } else {
-              tables.push(
-                <div key={corpModulePrimaryCfg.moduleTitle.moduleKey + '-' + 'empty'} className="no-data-module">
-                  <i></i> {window.en_access_config ? 'No ' : intl('145622', '暂无')}
-                  {corpModulePrimaryCfg.moduleTitle.title}
-                  {window.en_access_config ? ' Data' : intl('203798', '数据')}
-                </div>
-              )
-            }
-          }
-        }
-      }
-
-      bodys.push(tables)
-    })
-
-    if (props.singleModuleId) {
-      // f9单个模块
-      if (!bodys.join('').length) {
-        // 一个错误的singleModuleId 如 xxx
-        // 此时返回暂无数据即可
-        return <div className="wind-ui-table-empty"> {intl('132725', '暂无数据')} </div>
-      }
-      return bodys.map((t) => {
-        return t.map((tt) => {
-          return tt
-        })
-      })
-    }
-    return bodys.map((t, idx) => {
-      let css = 'corp-body-card '
-      if (idx == 0) {
-        css += ' corp-body-card-first '
-      }
-      if (t && t.length) {
-        if (t[0].key == 'IpoBusinessData-moduleTitle') {
-          // 业务数据
-          css += ' corp-body-card-ipobussiness '
-        }
-        return (
-          <div key={idx} className={css}>
-            {t.map((tt) => {
-              return tt
-            })}
-          </div>
-        )
-      }
-    })
-  }, [
-    props.scrollModuleIds,
-    props.corpCategory,
-    props.allMenuDataObj,
-    companyid,
-    basicNum,
-    medicActiveKey,
+  const tablesGEL = useTablesGel({
+    props,
+    corpModuleCfg,
+    renderTableDom,
+    fundSizeDataPie,
+    fundSizeData,
+    privateFundBase,
     privateFundProduct,
     privateFundProductFormance,
+    companyid,
     isWidthLessThan985,
-  ])
+  })
   /**
    * 上海工商联
    */
@@ -1199,7 +804,16 @@ const CompanyBaseY: FC<{
                   onClick={() => {
                     downLoadExcel(eachTable.downDocType, eachTable.title, eachTable.companyname)
                   }}
-                  icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                  icon={
+                    <DownloadO
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                      data-uc-id="pjl1Y0zP4u"
+                      data-uc-ct="downloado"
+                    />
+                  }
+                  data-uc-id="e0s3DiSL08"
+                  data-uc-ct="button"
                 >
                   {intl('4698', '导出数据')}
                 </Button>
@@ -1315,6 +929,8 @@ const CompanyBaseY: FC<{
                 })
               )
             }}
+            data-uc-id="6UkIecAUrz_"
+            data-uc-ct="a"
           >
             {intl('437430', '请点击') + '>>'}
           </a>
@@ -1332,6 +948,7 @@ const CompanyBase = memo(
   ({
     scrollModuleIds,
     singleModuleId,
+    singleModuleOrder,
     companycode,
     companyid,
     companyname,
@@ -1351,10 +968,11 @@ const CompanyBase = memo(
     corpCategory: TCorpCategory[]
     menuClick
     singleModuleId
+    singleModuleOrder?: string[]
     scrollModuleIds: any[]
     setCorpModuleReadyed
     allMenuDataObj
-    corpOtherInfo: ICorpOtherInfo
+    corpOtherInfo: CorpOtherInfo
     refreshCorpOtherInfo: () => void
   }) => {
     return (
@@ -1362,6 +980,7 @@ const CompanyBase = memo(
         basicNum={basicNum}
         setCorpModuleReadyed={setCorpModuleReadyed}
         singleModuleId={singleModuleId}
+        singleModuleOrder={singleModuleOrder}
         companyname={companyname}
         companycode={companycode}
         companyid={companyid}

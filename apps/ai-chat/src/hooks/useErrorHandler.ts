@@ -1,10 +1,10 @@
+import { ErrorAction, ErrorActionType, getErrorConfig } from 'gel-util/config'
 import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { ErrorAction, ErrorActionType, getErrorConfig } from '../api/error/errorConfig'
+import { useNavigateWithLangSource } from '@/hooks/useLangSource'
 import { closeAllErrors, showError } from '../api/error/errorService'
 
 export const useErrorHandler = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigateWithLangSource()
 
   // 显示错误
   const displayError = useCallback((errorCode: string | number, customMessage?: string) => {

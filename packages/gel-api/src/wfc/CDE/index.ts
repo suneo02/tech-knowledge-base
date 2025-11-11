@@ -1,7 +1,6 @@
 import type { AxiosRequestConfig } from 'axios'
 
-import { ApiResponseForWFC } from '../type'
-
+import { ApiResponseForWFC } from '@/types'
 import {
   addCDESubscribePath,
   CDEAddSubscribePayload,

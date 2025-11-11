@@ -9,9 +9,9 @@ import { Button, Card, List, message, Modal, Tooltip } from '@wind/wind-ui'
 import { CompanybrowsehistorylistResult } from 'gel-api/*'
 import React, { useEffect, useState } from 'react'
 import './index.less'
+import { refreshHistoryEmitter } from '@/views/GlobalSearch/emitter'
 
 const HistorySearch: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [list, setList] = useState<CompanybrowsehistorylistResult[]>([])
   const [loading, setLoading] = useState(false)
   const api = createRequest({ noExtra: true })
@@ -28,6 +28,8 @@ const HistorySearch: React.FC = () => {
     }
     setLoading(false)
   }
+  // 订阅来自 PopularSearch 的刷新事件
+  refreshHistoryEmitter.useSubscription(() => getList())
   const showModal = () => {
     Modal.confirm({
       title: intl(138910, '提示'),
@@ -56,7 +58,13 @@ const HistorySearch: React.FC = () => {
         style={{ marginBottom: 12 }}
         extra={
           <Tooltip title={intl(149222, '清空')}>
-            <Button icon={<DeleteOutlined />} type="text" onClick={() => showModal()} />
+            <Button
+              icon={<DeleteOutlined />}
+              type="text"
+              onClick={() => showModal()}
+              data-uc-id="0m6IG4T_DH"
+              data-uc-ct="button"
+            />
           </Tooltip>
         }
       >
@@ -64,15 +72,22 @@ const HistorySearch: React.FC = () => {
           loading={loading}
           split={false}
           dataSource={list}
-          renderItem={(item) => (
-            <List.Item key={item.entityId} className={'list-container'}>
-              <Links module={LinksModule.COMPANY} id={item.entityId} title={item.entityName} />
+          renderItem={(item, index) => (
+            <List.Item key={item.entityId + index} className={'list-container'}>
+              <Links
+                module={LinksModule.COMPANY}
+                id={item.entityId}
+                title={item.entityName}
+                addRecordCallback={() => getList()}
+              />
               <Button
                 className="delete-btn"
                 // @ts-expect-error ttt
-                icon={<CloseO />}
+                icon={<CloseO data-uc-id="j0gTjADWx6" data-uc-ct="closeo" />}
                 type="text"
                 onClick={() => delItem(item.entityId)}
+                data-uc-id="avzPWrPAjr"
+                data-uc-ct="button"
               />
             </List.Item>
           )}

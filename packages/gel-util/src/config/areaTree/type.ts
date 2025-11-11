@@ -1,7 +1,8 @@
 export interface AreaTreeNode {
   code: string
-  level: number
+  level?: number
   name: string
   nameEn: string
   node?: AreaTreeNode[]
+  nameNative?: string
 }

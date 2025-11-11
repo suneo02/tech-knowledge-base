@@ -20,7 +20,7 @@ function SearchForm({ wrapperClassName, ...props }: SearchFormProps) {
 
 export function SearchFormSingle({ wrapperClassName, ...props }: SearchFormBaseProps) {
   return (
-    <div className={classNames('search-form', wrapperClassName)}>
+    <div className={classNames('search-form-new', wrapperClassName)}>
       <SingleSearch {...props} />
     </div>
   )
@@ -28,7 +28,7 @@ export function SearchFormSingle({ wrapperClassName, ...props }: SearchFormBaseP
 
 export function SearchFormMulti({ wrapperClassName, ...props }: SearchFormBaseProps) {
   return (
-    <div className={classNames('search-form', wrapperClassName)}>
+    <div className={classNames('search-form-new', wrapperClassName)}>
       <MultiSearch {...props} />
     </div>
   )

@@ -31,6 +31,8 @@ const WFilter = (props: WFilterProps) => {
             style={{
               maxWidth: 160,
             }}
+            data-uc-id="lbg4Sugp0v"
+            data-uc-ct="input"
           />
         )
       case 'number':
@@ -40,6 +42,8 @@ const WFilter = (props: WFilterProps) => {
             onKeyDown={(e) => {
               if (e.key === 'Enter') form.submit()
             }}
+            data-uc-id="FUE95P_40M"
+            data-uc-ct="inputnumber"
           ></InputNumber>
         )
       case 'select':
@@ -60,6 +64,8 @@ const WFilter = (props: WFilterProps) => {
             onChange={() => {
               form.submit()
             }}
+            data-uc-id="oPjfMoUq1q"
+            data-uc-ct="wselect"
           ></WSelect>
         )
       default:

@@ -1,8 +1,8 @@
+import { Button } from '@wind/wind-ui'
+import { WindCascade } from 'gel-ui'
 import React, { useMemo, useState } from 'react'
 import { getIndustryCodes } from '../../../../lib/utils'
-import { WindCascade } from '@/components/cascade/WindCascade'
 import intl from '../../../../utils/intl'
-import { Button } from '@wind/wind-ui'
 
 /**
  * CascaderSelect组件的属性类型
@@ -82,6 +82,8 @@ const CascaderSelect: React.FC<CascaderSelectProps> = (props) => {
             expandTrigger="hover"
             dropdownMatchSelectWidth
             maxTagCount={maxTagCount}
+            data-uc-id="97TZAWY4Xy"
+            data-uc-ct="windcascade"
           />
         )}
       </div>
@@ -102,6 +104,8 @@ const CascaderSelect: React.FC<CascaderSelectProps> = (props) => {
             onClick={() => {
               if (showFooter.onSubmit) showFooter.onSubmit()
             }}
+            data-uc-id="2lhTF72QG3"
+            data-uc-ct="button"
           >
             {intl('257693', '应用筛选')}
           </Button>
@@ -119,6 +123,8 @@ const CascaderSelect: React.FC<CascaderSelectProps> = (props) => {
               }, 20)
               if (showFooter.onCLear) showFooter.onCLear()
             }}
+            data-uc-id="yUsTzmdFwN"
+            data-uc-ct="button"
           >
             {intl('149222', '清空')}
           </Button>

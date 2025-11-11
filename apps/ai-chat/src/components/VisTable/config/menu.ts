@@ -1,5 +1,4 @@
 import { MenuListItem } from '@visactor/vtable/es/ts-types'
-import { deepthinkIcon } from './svg'
 import { MenuKey } from '../types/menuTypes'
 import { Column, SourceTypeEnum } from 'gel-api'
 
@@ -9,13 +8,13 @@ const getColumnMenuItems = (column?: Column): MenuListItem[] => {
   const items = [
     {
       text: '重命名列',
-      icon: { svg: deepthinkIcon },
+      // icon: { svg: deepthinkIcon },
       menuKey: MenuKey.COLUMN_RENAME,
       disabled: !editor,
     },
     {
       text: 'AI生成列',
-      icon: { svg: deepthinkIcon },
+      // icon: { svg: deepthinkIcon },
       menuKey: MenuKey.COLUMN_ADD_AI,
     },
     // {
@@ -39,13 +38,13 @@ const getColumnMenuItems = (column?: Column): MenuListItem[] => {
     // },
     {
       text: '编辑AI列',
-      icon: { svg: deepthinkIcon },
+      // icon: { svg: deepthinkIcon },
       menuKey: MenuKey.COLUMN_EDIT_AI,
       disabled: initSourceType !== SourceTypeEnum.AI_GENERATE_COLUMN,
     },
     {
       text: '运行列',
-      icon: { svg: deepthinkIcon },
+      // icon: { svg: deepthinkIcon },
       menuKey: 'run-column',
       disabled:
         !(
@@ -70,44 +69,44 @@ const getColumnMenuItems = (column?: Column): MenuListItem[] => {
     //   icon: { svg: deepthinkIcon },
     //   menuKey: MenuKey.COLUMN_COPY,
     // },
-    {
-      text: '向左插入',
-      icon: { svg: deepthinkIcon },
-      menuKey: MenuKey.COLUMN_INSERT_LEFT,
-    },
-    {
-      text: '向右插入',
-      icon: { svg: deepthinkIcon },
-      menuKey: MenuKey.COLUMN_INSERT_RIGHT,
-    },
-    {
-      text: '筛选列',
-      icon: { svg: deepthinkIcon },
-      menuKey: MenuKey.COLUMN_FILTER,
-    },
-    {
-      text: '排序',
-      icon: { svg: deepthinkIcon },
-      menuKey: 'sort-column',
-      children: [
-        {
-          text: 'A-Z排序',
-          menuKey: MenuKey.COLUMN_SORT_ASC,
-        },
-        {
-          text: 'Z-A排序',
-          menuKey: MenuKey.COLUMN_SORT_DESC,
-        },
-      ],
-    },
+    // {
+    //   text: '向左插入',
+    //   icon: { svg: deepthinkIcon },
+    //   menuKey: MenuKey.COLUMN_INSERT_LEFT,
+    // },
+    // {
+    //   text: '向右插入',
+    //   icon: { svg: deepthinkIcon },
+    //   menuKey: MenuKey.COLUMN_INSERT_RIGHT,
+    // },
+    // {
+    //   text: '筛选列',
+    //   icon: { svg: deepthinkIcon },
+    //   menuKey: MenuKey.COLUMN_FILTER,
+    // },
+    // {
+    //   text: '排序',
+    //   icon: { svg: deepthinkIcon },
+    //   menuKey: 'sort-column',
+    //   children: [
+    //     {
+    //       text: 'A-Z排序',
+    //       menuKey: MenuKey.COLUMN_SORT_ASC,
+    //     },
+    //     {
+    //       text: 'Z-A排序',
+    //       menuKey: MenuKey.COLUMN_SORT_DESC,
+    //     },
+    //   ],
+    // },
     // {
     //   text: '隐藏/显示',
     //   icon: { svg: deepthinkIcon },
     //   menuKey: MenuKey.COLUMN_TOGGLE_DISPLAY,
     // },
     {
-      text: '删除',
-      icon: { svg: deepthinkIcon },
+      text: '删除列',
+      // icon: { svg: deepthinkIcon },
       menuKey: MenuKey.COLUMN_DELETE,
     },
   ]
@@ -128,15 +127,15 @@ const getCellMenuItems = (): MenuListItem[] => {
     // },
     {
       text: '删除行',
-      icon: { svg: deepthinkIcon },
+      // icon: { svg: deepthinkIcon },
       menuKey: MenuKey.ROW_DELETE,
     },
 
-    {
-      text: '添加到对话',
-      icon: { svg: deepthinkIcon },
-      menuKey: MenuKey.CHAT_ADD,
-    },
+    // {
+    //   text: '添加到对话',
+    //   icon: { svg: deepthinkIcon },
+    //   menuKey: MenuKey.CHAT_ADD,
+    // },
   ]
 }
 

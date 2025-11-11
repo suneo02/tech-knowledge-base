@@ -194,9 +194,16 @@
     ],
     [
       {
-        "dataIndex": "bus_address",
+        "dataIndex": "reg_address",
         "title": "主要经营场所",
         "titleIntl": "411314"
+      }
+    ],
+    [
+      {
+        "dataIndex": "bus_address",
+        "title": "办公地址",
+        "titleIntl": "1588"
       }
     ],
     [

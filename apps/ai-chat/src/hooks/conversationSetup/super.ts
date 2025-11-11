@@ -1,14 +1,10 @@
-import { createSuperlistRequestFcs } from '@/api'
 import { axiosInstance } from '@/api/axios'
 import { useChatRoomSuperContext } from '@/contexts/ChatRoom/super'
 import { isDev } from '@/utils/env'
 import { message as messageApi } from '@wind/wind-ui'
-import { useRequest } from 'ahooks'
-import { ChatCreator, ChatSenderHookResult, useConversationSetup, useConversationsSuper } from 'ai-ui'
-import { useNavigate } from 'react-router-dom'
+import { ChatCreator, ConversationSetupHookResult, useConversationSetup } from 'gel-ui'
+import { useNavigateWithLangSource } from '@/hooks/useLangSource'
 import { createChatSuper } from './helpers'
-
-const requestFuncSuper = createSuperlistRequestFcs('conversation/conversationList')
 
 /**
  * 超级聊天会话设置钩子
@@ -25,7 +21,7 @@ const requestFuncSuper = createSuperlistRequestFcs('conversation/conversationLis
  * @param onTitleSummaryFinish - 刷新会话列表的回调函数
  * @param onAddConversation - 添加会话到列表的回调函数
  *
- * @returns {ChatSenderHookResult} 包含内容管理和消息发送的接口
+ * @returns {ConversationSetupHookResult} 包含内容管理和消息发送的接口
  */
 export const useConversationSetupSuper = (
   setSuperId: ({
@@ -38,24 +34,10 @@ export const useConversationSetupSuper = (
     chatId: string
   }) => void,
   onAddConversation: (conversation: { id: string; title: string; updateTime: string }) => void
-): ChatSenderHookResult => {
-  const navigate = useNavigate()
-  // 获取超级会话列表管理函数
-  const { updateConversationsItems } = useConversationsSuper()
+): ConversationSetupHookResult => {
+  const navigate = useNavigateWithLangSource()
   const { setTableId, setChatId, updateRoomId, setConversationId } = useChatRoomSuperContext()
-  // 初始化超级API请求，用于获取会话列表
-  const { run } = useRequest<Awaited<ReturnType<typeof requestFuncSuper>>, Parameters<typeof requestFuncSuper>>(
-    requestFuncSuper,
-    {
-      onError: console.error,
-      onSuccess: (res) => {
-        if (res.Data.list) {
-          updateConversationsItems(res.Data.list)
-        }
-      },
-      manual: true,
-    }
-  )
+
   // 创建超级聊天会话创建器
   const chatCreator: ChatCreator = async (message, signal) => {
     const result = await createChatSuper(message, onAddConversation, setSuperId, signal)
@@ -79,15 +61,10 @@ export const useConversationSetupSuper = (
   }
 
   // 使用通用的会话设置钩子
-  return useConversationSetup(
-    axiosInstance,
+  return useConversationSetup(axiosInstance, {
     isDev,
     chatCreator, // 刷新超级会话列表的回调，获取最新会话数据
-    () =>
-      run({
-        pageNo: 1,
-        pageSize: 100,
-      }),
-    'superlist'
-  )
+    clientType: 'superlist',
+    splVersion: 1,
+  })
 }

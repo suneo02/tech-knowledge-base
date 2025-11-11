@@ -365,8 +365,7 @@
               },
               "tagInfo": {
                 "color": "color-2",
-                "dataIndex": "listStatusLabel",
-                "size": "mini"
+                "dataIndex": "listStatusLabel"
               }
             },
             {
@@ -453,13 +452,11 @@
               "tagInfo": [
                 {
                   "color": "color-2",
-                  "dataIndex": "listStatusLabel",
-                  "size": "mini"
+                  "dataIndex": "listStatusLabel"
                 },
                 {
                   "color": "color-2",
-                  "dataIndex": "structuralEntityLabel",
-                  "size": "mini"
+                  "dataIndex": "structuralEntityLabel"
                 }
               ]
             },
@@ -493,8 +490,8 @@
             },
             {
               "dataIndex": "controlTypeName",
-              "title": "控制类型",
-              "titleId": "216391",
+              "title": "持股类型",
+              "titleId": "2949",
               "width": "100px"
             },
             {

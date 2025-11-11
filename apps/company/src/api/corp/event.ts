@@ -1,9 +1,10 @@
 // 获取近三月舆情资讯
 import axios from '@/api'
-import { ICorpEvent } from './eventTypes'
 import { ApiResponse } from '@/api/types.ts'
+import { BusinessOpportunity } from 'gel-types'
+import { ICorpEvent } from './eventTypes'
 
-export const getCompanyHeadScanning = (companyCode, data) => {
+export const getCompanyHeadScanning = (_companyCode, data) => {
   return axios.request({
     cmd: '/detail/company/get_company_head_scanning',
     method: 'post',
@@ -14,7 +15,7 @@ export const getCompanyHeadScanning = (companyCode, data) => {
   })
 }
 //获取舆情卡片中三条舆情
-export const getNewsInternal = (companyCode, data) => {
+export const getNewsInternal = (_companyCode, data) => {
   return axios.request({
     cmd: '/detail/company/getNewsInternal',
     method: 'post',
@@ -54,16 +55,21 @@ export const getMyCorpEventListNew = ({
     },
   })
 }
+
+export type BusinessOpportunityResponse = {
+  list: BusinessOpportunity[]
+  more: Partial<BusinessOpportunity>
+}
 //获取舆情卡片中舆情
 export const getBusinessOpportunityTab = async (id) => {
-  const { Data } = await axios.request({
+  const { Data } = await axios.request<BusinessOpportunity[]>({
     cmd: 'detail/company/getBusinessOpportunityTab',
     method: 'post',
     data: {
       __primaryKey: id,
     },
   })
-  const returnData = {
+  const returnData: BusinessOpportunityResponse = {
     list: [],
     more: {},
   }

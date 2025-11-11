@@ -1,5 +1,6 @@
 export type HomeFuncItemKey =
   | 'alice'
+  | 'yjhzqy'
   | 'newcorps'
   | 'chartplathome'
   | 'bid'
@@ -8,7 +9,6 @@ export type HomeFuncItemKey =
   | 'detach'
   | 'relation'
   | 'oversea-com'
-  | 'diligence-platf'
   | 'group-search'
   | 'safari'
   | 'searchmap'
@@ -34,4 +34,5 @@ export interface SearchHomeItemData {
   fIcon: string
   hot?: boolean
   new?: boolean
+  typeFunc?: string
 }

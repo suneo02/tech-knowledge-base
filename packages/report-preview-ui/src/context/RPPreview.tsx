@@ -2,6 +2,7 @@ import { useTreeHiddenStatus } from '@/hooks'
 import { DataNode } from '@wind/wind-ui/lib/tree'
 import { AxiosInstance } from 'axios'
 import { CorpBasicInfo, CorpBasicNumFront, CorpOtherInfo, ReportPageJson, UserPackageInfo } from 'gel-types'
+import { useIntl } from 'gel-ui'
 import { isEn } from 'gel-util/intl'
 import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
 import { getCorpName } from 'report-util/misc'
@@ -52,6 +53,7 @@ export const RPPreviewCtxProvider: FC<
     children: ReactNode
   } & RPPreviewProviderProps
 > = ({ children, ...props }) => {
+  const t = useIntl()
   const ifAllFetched = useMemo(() => {
     return (
       props.corpBasicInfoFetched &&
@@ -64,7 +66,7 @@ export const RPPreviewCtxProvider: FC<
   const corpName = getCorpName(props.corpBasicInfo, isEn())
 
   const originalTreeNodes = useMemo(() => {
-    return convertReportConfigToTreeNodes(props.reportConfig)
+    return convertReportConfigToTreeNodes(props.reportConfig, t)
   }, [props.reportConfig])
 
   const { hiddenNodeIds, handleToggleNodeVisibility } = useTreeHiddenStatus(originalTreeNodes)

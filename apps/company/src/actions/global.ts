@@ -1,6 +1,6 @@
-import * as actionTypes from "./actionTypes";
+import * as actionTypes from './actionTypes'
 
-export const setGolbalModal = data => {
+export const setGolbalModal = (data) => {
   return {
     type: actionTypes.SET_GLOBAL_MODAL,
     data,
@@ -13,17 +13,16 @@ export const clearGolbalModal = () => {
   }
 }
 
-export const setLanguage = data => {
+export const setLanguage = (data) => {
   return {
     type: actionTypes.SET_LANGUAGE,
     data,
   }
 }
 
-
-export const setGolbalVipModal = data => {
-    return {
-      type: actionTypes.SET_GLOBAL_VIP_MODAL,
-      data,
-    }
+export const setGolbalVipModal = (data) => {
+  return {
+    type: actionTypes.SET_GLOBAL_VIP_MODAL,
+    data,
   }
+}

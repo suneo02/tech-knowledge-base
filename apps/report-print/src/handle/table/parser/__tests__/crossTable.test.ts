@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it, jest } from '@jest/globals'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { TablePropsCross } from '../../../../types/table'
 import { transformCrossTablePropsToVerticalTableProps } from '../crossTable'
 
@@ -11,7 +11,7 @@ describe('transformCrossTablePropsToVerticalTableProps', () => {
 
   beforeAll(() => {
     originalIntl = (window as any).intl
-    ;(window as any).intl = jest.fn((id: string | number, defaultVal?: string) => defaultVal || `mocked_intl_${id}`)
+    ;(window as any).intl = vi.fn((id: string | number, defaultVal?: string) => defaultVal || `mocked_intl_${id}`)
 
     originalWind = (window as any).wind // Backup original window.wind
     ;(window as any).wind = { langControl: { locale: 'cn' } } // Mock window.wind with a default lang property

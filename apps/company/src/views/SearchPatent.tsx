@@ -60,6 +60,8 @@ function SearchPatent(_props) {
               },
             })
           }}
+          data-uc-id="PySP1k5CEgJ"
+          data-uc-ct="searchformsingle"
         />
       </div>
     </React.Fragment>

@@ -1,5 +1,15 @@
 import { generateCommonLink } from '../handle'
 import { LinksModule } from './linksModule'
+import { TGelEnv, getEnvParams } from '@/utils/env/index.ts'
+import { getPrefixUrl } from '@/handle/link/handle/prefixUrl.ts'
+import { handleAppendUrlPath } from '@/handle/link/handle/common.ts'
+import { COMMON_PARAM_KEYS, EIsSeparate, ENoSearch } from 'gel-util/link'
+import { AIGRAPH_PARAM_KEYS } from '@/views/AICharts/contansts'
+
+/**
+ * @description AI图谱hash key
+ */
+export const AIGRAPH_HASH_KEY = 'aigraph'
 
 /**
  * 图谱平台 各子页面
@@ -26,16 +36,42 @@ export const KGLinkEnum = {
  * 拼接图谱平台的 url 根据 submodule
  */
 export const getKgLinkBySubModule = ({ subModule, params = {}, env }) => {
-  const finalParams = subModule === KGLinkEnum.FRONT
-    ? params
-    : {
-        activeKey: subModule,
-        ...params,
-      }
+  const finalParams =
+    subModule === KGLinkEnum.FRONT
+      ? params
+      : {
+          activeKey: subModule,
+          ...params,
+        }
 
   return generateCommonLink({
     module: LinksModule.KG,
     params: finalParams,
     env,
   })
+}
+
+/**
+ * 获取 iframe 嵌套的 WebAI 聊天链接 包含header头
+ * @param param0
+ * @returns
+ */
+export const getAIGraphLink = ({
+  env: envParam,
+  params,
+}: { env?: TGelEnv; params?: Record<string, string | number> } = {}) => {
+  try {
+    const env = envParam || getEnvParams().env
+    return generateCommonLink({
+      module: LinksModule.GRAPH_AI,
+      params: {
+        [COMMON_PARAM_KEYS.NOSEARCH]: ENoSearch.True.toString(),
+        [COMMON_PARAM_KEYS.ISSEPARATE]: EIsSeparate.True.toString(),
+        ...params,
+      },
+      env,
+    })
+  } catch (e) {
+    console.error(e)
+  }
 }

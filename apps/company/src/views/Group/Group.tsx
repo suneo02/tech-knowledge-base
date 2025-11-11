@@ -5,14 +5,14 @@
  * @format
  */
 
-import { TreeModuleName } from '@/store/group'
-import React, { useEffect } from 'react'
-import { useUserInfoStore } from '../../store/userInfo'
-import { VipPopupModal } from '../../lib/globalModal'
-import { Skeleton } from '@wind/wind-ui'
-import { useGroupStore } from '../../store/group'
-import { usePageTitle } from '../../handle/siteTitle'
 import LayoutNavAndScrollContent from '@/components/layout/LayoutNavAndScrollContent.tsx'
+import { TreeModuleName } from '@/store/group'
+import { Skeleton } from '@wind/wind-ui'
+import React, { useEffect } from 'react'
+import { usePageTitle } from '../../handle/siteTitle'
+import { VipPopupModal } from '../../lib/globalModal'
+import { useGroupStore } from '../../store/group'
+import { useUserInfoStore } from '../../store/userInfo'
 
 const Group = () => {
   const { basicInfo } = useGroupStore()
@@ -35,8 +35,7 @@ const Group = () => {
     }
   }
 
-  // @ts-expect-error ttt
-  useEffect(async () => {
+  useEffect(() => {
     getUserInfo()
   }, [])
 

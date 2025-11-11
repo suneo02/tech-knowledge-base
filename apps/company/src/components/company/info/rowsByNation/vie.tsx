@@ -55,7 +55,7 @@ export const vieRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   ],
   [
     {
-      title: CorpInfoHeaderComp(intl('259200', '公司地址'), 'Địa chỉ'),
+      title: CorpInfoHeaderComp(intl('438015', '公司地址'), 'Địa chỉ'),
       dataIndex: 'reg_address',
       colSpan: 5,
     },

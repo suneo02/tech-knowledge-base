@@ -71,7 +71,13 @@ export const CopyContainer: React.FC<CopyContainerProps> = ({
   return (
     <div className={styles[`${PREFIX}-container`]}>
       {children}
-      <Button type={buttonType} className={styles[`${PREFIX}-button`]} onClick={handleCopy}>
+      <Button
+        type={buttonType}
+        className={styles[`${PREFIX}-button`]}
+        onClick={handleCopy}
+        data-uc-id="G5epp-z73j"
+        data-uc-ct="button"
+      >
         {defaultRenderButtonText(copyStatus)}
       </Button>
     </div>

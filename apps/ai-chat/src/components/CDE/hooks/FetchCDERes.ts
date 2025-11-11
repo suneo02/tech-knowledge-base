@@ -2,7 +2,7 @@ import { createSuperlistRequestFcs } from '@/api/handleFcs'
 import { useRequest } from 'ahooks'
 import { CDEFilterItemUser, CDELogicDefault, isValidUserFilterItem } from 'cde'
 import { CDEMeasureItem, CDESuperQueryLogic } from 'gel-api'
-import { isArray, isNil } from 'lodash'
+import { filter, isArray, isNil } from 'lodash'
 
 export const useFetchCDERes = (filters: CDEFilterItemUser[] | undefined, measures: CDEMeasureItem[]) => {
   const func = createSuperlistRequestFcs('company/getcrossfilter2')
@@ -10,9 +10,12 @@ export const useFetchCDERes = (filters: CDEFilterItemUser[] | undefined, measure
     run: runFetch,
     loading,
     data: res,
+    cancel,
   } = useRequest<Awaited<ReturnType<typeof func>>, Parameters<typeof func>>(func, {
     manual: true,
     onError: console.error,
+    debounceWait: 500,
+    refreshDeps: ['superQueryLogic'],
   })
   const data = useMemo(() => {
     if (res && res.Data) {
@@ -61,7 +64,9 @@ export const useFetchCDERes = (filters: CDEFilterItemUser[] | undefined, measure
       },
       fromTemplate: false,
       largeSearch: false,
-      order: null,
+      order: null,// @ts-expect-error ttt
+      orderBy: 'count_domain_num',
+      orderType: 0,
     })
   }
 
@@ -70,5 +75,6 @@ export const useFetchCDERes = (filters: CDEFilterItemUser[] | undefined, measure
     data,
     page,
     loading,
+    cancel,
   }
 }

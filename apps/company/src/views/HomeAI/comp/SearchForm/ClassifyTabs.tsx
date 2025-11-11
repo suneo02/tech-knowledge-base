@@ -27,11 +27,15 @@ const ClassifyTabs: React.FC<ClassifyTabsProps> = ({ tabs, activeTab, onTabChang
       activeKey={activeTab}
       onChange={(key) => {
         const tab = tabs.find((item) => item.key === key)
-        tab && onTabChange(tab)
+        if (tab) {
+          onTabChange(tab)
+        }
       }}
+      data-uc-id="Rre4Eiy2pK"
+      data-uc-ct="tabssafe"
     >
       {tabs.map((item) => (
-        <Tabs.TabPane key={item.key} tab={item.value} />
+        <Tabs.TabPane key={item.key} tab={item.value} data-uc-id="eM55zfz4r5" data-uc-ct="tabs" data-uc-x={item.key} />
       ))}
     </TabsSafe>
   )

@@ -57,9 +57,7 @@ export const formatMoney = (amount: string | number, options?: MoneyOptions): st
       if (formattedAmount.includes('e')) {
         const [base, exponent] = formattedAmount.split('e')
         const exp = parseInt(exponent)
-        formattedAmount = exp < 0 
-          ? Number(base).toFixed(Math.abs(exp))
-          : base + '0'.repeat(exp)
+        formattedAmount = exp < 0 ? Number(base).toFixed(Math.abs(exp)) : base + '0'.repeat(exp)
       }
     }
 

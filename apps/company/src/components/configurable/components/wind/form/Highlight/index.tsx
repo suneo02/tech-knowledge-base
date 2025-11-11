@@ -1,5 +1,5 @@
-import React from 'react'
 import { Tag } from 'antd'
+import React from 'react'
 
 const Highlight = (props: { list: string[] }) => {
   return (
@@ -12,6 +12,9 @@ const Highlight = (props: { list: string[] }) => {
             onClose={(e) => {
               e.preventDefault()
             }}
+            data-uc-id="tEwDw0cCxL"
+            data-uc-ct="tag"
+            data-uc-x={index}
           >
             {res}
           </Tag>

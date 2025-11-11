@@ -5,6 +5,6 @@ export function openApplyAccountModal(userName, corpName, phone) {
       corpName: corpName,
       phone: phone,
     },
-  });
-  document.dispatchEvent(ev);
+  })
+  document.dispatchEvent(ev)
 }

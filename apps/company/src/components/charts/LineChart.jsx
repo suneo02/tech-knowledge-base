@@ -37,7 +37,13 @@ const LineChartComponent = ({ opts }) => {
     }
   }, [data])
 
-  return <div ref={chartRef} style={{ width: '100%', height: '100%', background: '#fff', ...style }} className={` chart-line ${opts.css || ''} `}></div>
+  return (
+    <div
+      ref={chartRef}
+      style={{ width: '100%', height: '100%', background: '#fff', ...style }}
+      className={` chart-line ${opts.css || ''} `}
+    ></div>
+  )
 }
 
 export default LineChartComponent

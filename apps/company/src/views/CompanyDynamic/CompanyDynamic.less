@@ -33,20 +33,23 @@
       }
 
       .group {
-        display: flex;
-        align-items: center;
-
+        display: block;
         border-radius: 2px;
         cursor: pointer;
         line-height: 28px;
         font-size: 14px;
         margin: 8px 0 0;
+        // padding: 0 4px;
         &:hover {
           background-color: #e9e9e9;
         }
+        .group-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
         .EditBox {
           width: 100%;
-          flex: 1;
           display: flex;
           align-items: center;
           background-color: #fff;
@@ -56,8 +59,19 @@
           display: inline-block;
           width: 140px;
         }
+        .group-actions {
+          display: none;
+        }
+        &:hover .group-actions {
+          display: inline-flex;
+        }
         .wicon-svg {
           font-size: 16px;
+        }
+        .dupName {
+          padding-left: 4px;
+          padding-top: 4px;
+          background-color: #fff !important;
         }
       }
       .current_group,
@@ -66,8 +80,7 @@
         color: #fff;
       }
       .add-group-box {
-        display: flex;
-        align-items: center;
+        // keep natural block layout
         margin-top: 8px;
       }
     }

@@ -1,13 +1,13 @@
-import * as actionTypes from "./actionTypes";
+import * as actionTypes from './actionTypes'
 
-export const subscribe = data => {
+export const subscribe = (data) => {
   return {
     type: actionTypes.RES_SUBSCRIBE,
     data,
   }
 }
 
-export const dissubscribe = data => {
+export const dissubscribe = (data) => {
   return {
     type: actionTypes.RES_DISSUBSCRIBE,
     data,
@@ -26,7 +26,7 @@ export const clearSubType = () => {
   }
 }
 
-export const getContactByCropid = data => {
+export const getContactByCropid = (data) => {
   return {
     type: actionTypes.GET_CONTACT_BY_CROPID,
     data,

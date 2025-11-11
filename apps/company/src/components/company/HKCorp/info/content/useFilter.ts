@@ -67,4 +67,4 @@ export const useFilter = ({ initialFilter, nodesFilter }: UseFilterProps = {}) =
     setFilter,
     setSearchFilter,
   }
-} 
+}

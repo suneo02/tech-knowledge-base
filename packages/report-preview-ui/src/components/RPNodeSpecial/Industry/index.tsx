@@ -1,13 +1,13 @@
 import { corpNodeApiExecutorWithAxios } from '@/api'
 import { HorizontalTable } from '@/components/table'
 import { NoDataElement } from '@/components/table/tableComp'
-import { tForRPPreview } from '@/utils'
+import { getTForRPPreview } from '@/utils'
 import { Spin } from '@wind/wind-ui'
 import { useRequest } from 'ahooks'
 import { AxiosInstance } from 'axios'
 import { ApiResponseForWFC } from 'gel-api'
 import { CorpBasicNumFront, IndustrySector, ReportDetailCustomNodeJson, TCorpDetailNodeKey } from 'gel-types'
-import { ErrorBoundary } from 'gel-ui'
+import { ErrorBoundary, useIntl } from 'gel-ui'
 import { isEn } from 'gel-util/intl'
 import React, { useEffect, useMemo, useState } from 'react'
 import { getNoDataLocaleAuto } from 'report-util/constants'
@@ -43,6 +43,7 @@ export const CorpBelongIndustry: React.FC<Props> = ({
   dataSource: dataSourceFromProps,
   axiosInstance,
 }) => {
+  const t = useIntl()
   const [hasFetched, setHasFetched] = useState(false)
   // 处理 API 响应数据
   const handleApiResponse = (response: ApiResponseForWFC<any>) => {
@@ -107,7 +108,7 @@ export const CorpBelongIndustry: React.FC<Props> = ({
   }, [config?.api, corpBasicNum])
 
   const renderNoData = () => {
-    const title = configDetailIntlHelper(config, 'title', tForRPPreview)
+    const title = configDetailIntlHelper(config, 'title', getTForRPPreview(t))
     return <NoDataElement message={getNoDataLocaleAuto(title, config?.key, isEn())} />
   }
 

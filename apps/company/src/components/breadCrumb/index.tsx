@@ -38,30 +38,36 @@ const BreadCrumb: FC<BreadCrumbProps> = ({ subTitle, onSubClick, width = '1280px
   return (
     <div className={styles[PREFIX]}>
       <div className={styles[`${PREFIX}-content`]} style={{ width }}>
-        <Breadcrumb separator=">">
-          <Breadcrumb.Item>
-            <a onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}>{STRINGS.HOME}</a>
+        <Breadcrumb separator=">" data-uc-id="URW-4CslJy" data-uc-ct="breadcrumb">
+          <Breadcrumb.Item data-uc-id="qEp2Fba7os" data-uc-ct="breadcrumb">
+            <a onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))} data-uc-id="FX_dxGSsBk" data-uc-ct="a">
+              {STRINGS.HOME}
+            </a>
           </Breadcrumb.Item>
           {items
             ? items.map((item, index) => (
-                <Breadcrumb.Item key={index}>
+                <Breadcrumb.Item key={index} data-uc-id="qyuoox2jTp" data-uc-ct="breadcrumb" data-uc-x={index}>
                   <span
                     style={{
                       cursor: item.onClick ? 'pointer' : 'initial',
                     }}
                     onClick={item.onClick}
+                    data-uc-id="cdLjfVoawX"
+                    data-uc-ct="span"
                   >
                     {item.title}
                   </span>
                 </Breadcrumb.Item>
               ))
             : subTitle && (
-                <Breadcrumb.Item>
+                <Breadcrumb.Item data-uc-id="cc55M1yYrS" data-uc-ct="breadcrumb">
                   <span
                     style={{
                       cursor: onSubClick ? 'pointer' : 'initial',
                     }}
                     onClick={onSubClick}
+                    data-uc-id="jgPnMV8pET"
+                    data-uc-ct="span"
                   >
                     {subTitle}
                   </span>

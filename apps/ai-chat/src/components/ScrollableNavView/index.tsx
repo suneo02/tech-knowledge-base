@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 // import { Row, Col } from '@wind/wind-ui' // Removed Row and Col
 import styles from './index.module.less'
 
@@ -61,6 +61,7 @@ export const ScrollableNavView = <T extends { id: string }>({
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current)
     }
+    // @ts-expect-error ttt
     debounceTimerRef.current = setTimeout(() => {
       const scrollContainer = contentScrollRef.current
       if (!scrollContainer || items.length === 0) return

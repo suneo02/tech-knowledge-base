@@ -113,7 +113,7 @@ export const GlobalModalProvider = ({ children }: { children: React.ReactNode })
     const { onFinish, onCancel, ...restProps } = modal.props
 
     const handleFinish = (...args: unknown[]) => {
-      if (onFinish) {
+      if (onFinish) {// @ts-expect-error ttt
         onFinish(...args)
       }
       closeModal()

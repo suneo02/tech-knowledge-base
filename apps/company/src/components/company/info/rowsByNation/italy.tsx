@@ -31,6 +31,6 @@ export const italyRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
     //   colSpan: 2,
     // },
   ],
-  [{ title: intl('259200', '公司地址'), dataIndex: 'reg_address', colSpan: 5 }],
+  [{ title: intl('438015', '公司地址'), dataIndex: 'reg_address', colSpan: 5 }],
   [{ title: intl('206088', '活动'), dataIndex: 'business_scope', colSpan: 5 }],
 ]

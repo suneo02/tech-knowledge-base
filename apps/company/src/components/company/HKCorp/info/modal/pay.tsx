@@ -1,17 +1,16 @@
-import React, { ChangeEventHandler, FC, ReactNode, useEffect, useState } from 'react'
-import { Button, Checkbox, message, Modal } from '@wind/wind-ui'
-import styles from './style/pay.module.less'
-import { SearcherForm } from './searcherForm'
-import cn from 'classnames'
-import classNames from 'classnames'
 import { createHKPayOrder, IHKOrderInfo, IHKSearcherInfo } from '@/api/corp/HKCorp/pay.ts'
-import { FormInstance } from '@wind/wind-ui-form'
 import { useCreatePayOrder } from '@/api/pay.ts'
 import { usePollingPaymentStatus } from '@/components/company/HKCorp/handlePay.ts'
-import { useHKCorpInfoCtx } from '../ctx.tsx'
 import { InvoiceSample, PrivacyPolicyBtn, UserAgreementBtn } from '@/components/pay/tip.tsx'
 import intl from '@/utils/intl'
+import { Button, Checkbox, message, Modal } from '@wind/wind-ui'
+import { FormInstance } from '@wind/wind-ui-form'
+import { default as classNames, default as cn } from 'classnames'
+import React, { ChangeEventHandler, FC, ReactNode, useEffect, useState } from 'react'
+import { useHKCorpInfoCtx } from '../ctx.tsx'
 import { HKInfoQueryAggreBtn } from './HKInfoQueryAggre.tsx'
+import { SearcherForm } from './searcherForm'
+import styles from './style/pay.module.less'
 
 const tips: ReactNode[] = [
   <>
@@ -85,7 +84,6 @@ export const HKCorpPay: FC<{
     <div className={cn(styles.paymentContainer, 'flex', 'flex-column', 'align-center')}>
       <h2 className={styles.title}>{intl(414513, '公司资料')}</h2>
       <h3 className={styles.titleSecond}>{intl(414545, '包括股东结构、股东资料、董事信息、秘书资料')}</h3>
-
       <div className={cn(styles.descContainer, 'flex', 'justify-space-between', 'align-center')}>
         <span className={cn(styles.descCorp)}>
           【{state.corpName}】{intl(414513, '公司资料')}
@@ -98,10 +96,22 @@ export const HKCorpPay: FC<{
       <div className={cn(styles.checkboxAndPay, 'flex', 'align-center')}>
         {/* 服务条款复选框 */}
         <div className={styles.checkboxWrapper}>
-          <Checkbox checked={isCheckedStatement} onChange={handleCheckboxChange} className={styles.checkbox}>
+          <Checkbox
+            checked={isCheckedStatement}
+            onChange={handleCheckboxChange}
+            className={styles.checkbox}
+            data-uc-id="YzEf0_n9N5"
+            data-uc-ct="checkbox"
+          >
             {intl(415013, '我已填写')}
             {/* TODO 需要国际化 */}
-            <Button className={classNames('p-0', 'border-0')} type={'link'} onClick={() => setIsModalVisible(true)}>
+            <Button
+              className={classNames('p-0', 'border-0')}
+              type={'link'}
+              onClick={() => setIsModalVisible(true)}
+              data-uc-id="9GW3XN9sZG"
+              data-uc-ct="button"
+            >
               《{intl(414533, '查册人信息及声明')}》
             </Button>
           </Checkbox>
@@ -109,18 +119,25 @@ export const HKCorpPay: FC<{
             checked={isCheckedTerms}
             onChange={(e) => setIsCheckedTerms(e.target.checked)}
             className={styles.checkbox}
+            data-uc-id="C449xxQVpj"
+            data-uc-ct="checkbox"
           >
             {intl('150315', '我已阅读并同意')}
-            <UserAgreementBtn text={`《${intl(209659, '用户协议')}》`} />
+            <UserAgreementBtn text={`《${intl(452995, '用户协议')}》`} />
             、 <PrivacyPolicyBtn text={`《${intl(242146, '隐私政策')}》`} />、<HKInfoQueryAggreBtn />
           </Checkbox>
         </div>
 
-        <Button type="primary" onClick={handlePayment} className={styles.paymentButton}>
+        <Button
+          type="primary"
+          onClick={handlePayment}
+          className={styles.paymentButton}
+          data-uc-id="cQdy7kU9x9"
+          data-uc-ct="button"
+        >
           {intl(392560, '立即支付')}
         </Button>
       </div>
-
       <div className={styles.tipsContainer}>
         {tips.map((tip, i) => (
           <p key={i} className={styles.tipWrapper}>
@@ -128,14 +145,14 @@ export const HKCorpPay: FC<{
           </p>
         ))}
       </div>
-
       {/* 查册人表单 Modal */}
-      {/*@ts-expect-error ttt*/}
       <Modal
         visible={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={null}
         className={styles.searcherFormModal}
+        data-uc-id="YYdCN58Fo6"
+        data-uc-ct="modal"
       >
         <SearcherForm
           onFinish={handleFormSubmit}
@@ -144,6 +161,8 @@ export const HKCorpPay: FC<{
             setIsCheckedStatement(false)
             setIsModalVisible(false)
           }}
+          data-uc-id="_YEkf2LUPDE"
+          data-uc-ct="searcherform"
         />
       </Modal>
     </div>

@@ -1,20 +1,34 @@
 import { requestToChat } from '@/api'
+import { entWebAxiosInstance } from '@/api/entWeb'
 import { createChatRequest } from '@/api/handle'
 import { useConversationsInfiniteScroll } from '@/hooks/useConversationsInfiniteScroll'
+import { postPointBuried } from '@/utils/common/bury'
 import { ConversationsProps } from '@ant-design/x'
 import { message } from '@wind/wind-ui'
-import { initRandomRoomId, LogoSection, useChatRoomContext, useConversationsBase } from 'ai-ui'
-import { ApiResponseForWFC, ChatHistoryResponse } from 'gel-api'
+import {
+  AddConversationBtn,
+  HistoryBtn,
+  MyCollectBtn,
+  initRandomRoomId,
+  useChatRoomContext,
+  useConversationsBase,
+  useFavorites,
+  useHistory,
+} from 'ai-ui'
+import classNames from 'classnames'
+import { AIChatHistory, ApiResponseForWFC } from 'gel-api'
+import { LogoSection } from 'gel-ui'
 import { t } from 'gel-util/intl'
 import { useMemo } from 'react'
-import { ConversationCore } from './core'
 import { groupConversation } from './handle'
+import styles from './index.module.less'
+import { InfiniteScrollConversations } from './InfiniteScrollConversations'
 
 /**
  * 处理 base conversations 的渲染
  */
 
-const processConversations = (conversations: ChatHistoryResponse[]): ConversationsProps['items'] => {
+const processConversations = (conversations: AIChatHistory[]): ConversationsProps['items'] => {
   return conversations.map((conversation) => {
     return {
       ...groupConversation(conversation),
@@ -32,13 +46,15 @@ export const ChatConversationBase: React.FC = () => {
 
   // 先获取context中的方法和数据，避免闭包问题
   const { updateConversationsItems, conversationsItems } = useConversationsBase()
+  const { setShowFavorites, addFavorite, removeFavorite } = useFavorites()
+  const { setShowHistory } = useHistory()
 
   /**
    * 使用统一的会话无限滚动 hook 处理加载和删除逻辑
    */
   const { loading, loadingMore, hasMore, loadMore, handleDeleteConversation, reload } = useConversationsInfiniteScroll<
-    ChatHistoryResponse,
-    ApiResponseForWFC<ChatHistoryResponse[]>
+    AIChatHistory,
+    ApiResponseForWFC<AIChatHistory[]>
   >({
     // 请求函数
     requestFn: async (params) => {
@@ -106,22 +122,70 @@ export const ChatConversationBase: React.FC = () => {
     return processConversations(conversationsItems)
   }, [conversationsItems])
 
+  // 点击会话
+  const handleConversationClick = (key: string) => {
+    setShowFavorites(false)
+    setShowHistory(false)
+    if (key === roomId) return
+    if (isChating) {
+      message.error(t('421523', '请等待当前对话结束'))
+      return
+    }
+    postPointBuried('922610370016')
+    updateRoomId(key)
+  }
+
+  // 添加会话
+  const handleAddConversation = () => {
+    setShowFavorites(false)
+    setShowHistory(false)
+    if (isChating) {
+      message.error(t('421523', '请等待当前对话结束'))
+      return
+    }
+    postPointBuried('922610370017')
+    updateRoomId(initRandomRoomId())
+  }
+
+  // 重命名包装（校验 + 复用已有实现）
+  const handleRenameWithGuard = async (id: string, newName: string): Promise<boolean> => {
+    if (isChating) {
+      message.error(t('421523', '请等待当前对话结束'))
+      return false
+    }
+    if (!newName.trim()) {
+      message.error(t('', '名称不能为空'))
+      return false
+    }
+    return await handleRenameConversation(id, newName)
+  }
+
   return (
-    <ConversationCore
-      logo={<LogoSection />}
-      roomId={roomId}
-      isChating={isChating}
-      onRoomIdChange={updateRoomId}
-      items={processedItems}
-      hasMore={hasMore}
-      loadMoreItems={loadMore}
-      loading={loading || loadingMore}
-      onReload={reload}
-      onDeleteConversation={handleDeleteConversation}
-      onRenameConversation={handleRenameConversation}
-      onAddConversation={() => {
-        updateRoomId(initRandomRoomId())
-      }}
-    />
+    <div className={classNames(styles.menu)}>
+      <LogoSection logoText={t('466895', '万得企业库Alice')} />
+      <span className={styles.description}>{t('453645', 'Hi，我是您的商业查询智能助手')}</span>
+      <AddConversationBtn
+        loading={loading || loadingMore}
+        style={{ marginBlockEnd: 12 }}
+        onClick={handleAddConversation}
+      />
+      <MyCollectBtn loading={isChating} axiosInstanceEntWeb={entWebAxiosInstance} />
+      <HistoryBtn loading={isChating} style={{ marginBlockStart: 4 }} axiosInstanceEntWeb={entWebAxiosInstance} />
+      <>
+        <InfiniteScrollConversations
+          items={processedItems}
+          hasMore={hasMore}
+          loading={loading || loadingMore}
+          loadMoreItems={loadMore}
+          activeKey={roomId}
+          onReload={reload}
+          onActiveChange={handleConversationClick}
+          onDeleteConversation={handleDeleteConversation}
+          onRenameConversation={handleRenameWithGuard}
+          onAddFavorite={addFavorite}
+          onRemoveFavorite={removeFavorite}
+        />
+      </>
+    </div>
   )
 }

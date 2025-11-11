@@ -1,5 +1,7 @@
 import { ReportPageJson } from 'gel-types'
+import { getCreditRPDisclaimer, getRPCoverComment } from 'report-util/constants'
 import { filterReportPageJsonByHiddenKeys } from 'report-util/corpConfigJson'
+import { TIntl } from 'report-util/types'
 import { getUrlParamHiddenNodes } from 'report-util/url'
 import { Store, createStore } from './creator/createStore'
 
@@ -8,6 +10,9 @@ const RP_PRINT_EVENT = 'rp_print_updated'
 type RPPrintStoreData = {
   reportTitle: string
   reportConfig: ReportPageJson
+  reportConfigAfterApi: ReportPageJson
+  getRpDisclaimer: (option: { config: ReportPageJson; isEn: boolean; t: TIntl }) => string[]
+  getRpCoverComment: (option: { isEn: boolean }) => string[]
 }
 // User package store type for TypeScript support
 interface RPPrintStore extends Store<RPPrintStoreData> {
@@ -24,6 +29,9 @@ const createRPPrintStore = (): RPPrintStore => {
     initialData: {
       reportTitle: '',
       reportConfig: [],
+      reportConfigAfterApi: [],
+      getRpDisclaimer: getCreditRPDisclaimer,
+      getRpCoverComment: getRPCoverComment,
     },
   })
 

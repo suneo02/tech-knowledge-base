@@ -107,7 +107,9 @@ function MergedTable<T extends object>({
     })
   }, [columns, mergedColumnDataIndexes])
 
-  return <Table dataSource={processedData} columns={augmentedColumns} {...rest} />
+  return (
+    <Table dataSource={processedData} columns={augmentedColumns} {...rest} data-uc-id="BLAuJIP65g" data-uc-ct="table" />
+  )
 }
 
 export default MergedTable

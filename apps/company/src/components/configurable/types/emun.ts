@@ -1,15 +1,15 @@
 export enum LayoutStateEnum {
-  HORIZONTAL = "horizontal", // 水平
-  VERTICAL = "vertical", // 垂直
-  TABS = "tabs", // 标签页
+  HORIZONTAL = 'horizontal', // 水平
+  VERTICAL = 'vertical', // 垂直
+  TABS = 'tabs', // 标签页
 }
 
 export enum ComponentTypeEnum {
-  INTEGRATION = "integration",
-  TABLE = "table",
-  DESCRIPTIONS = "descriptions",
-  CHARTS = "charts",
-  CHAINS = "chains",
+  INTEGRATION = 'integration',
+  TABLE = 'table',
+  DESCRIPTIONS = 'descriptions',
+  CHARTS = 'charts',
+  CHAINS = 'chains',
 }
 
 export enum ComponentTypeNumEnum {
@@ -21,15 +21,15 @@ export enum ComponentTypeNumEnum {
 }
 
 export enum VipTypeEnum {
-  NO = "",
-  VIP = "vip",
-  SVIP = "svip",
+  NO = '',
+  VIP = 'vip',
+  SVIP = 'svip',
 }
 
 export enum AlignTypeEnum {
-  LEFT = "left",
-  CENTER = "center",
-  RIGHT = "right",
+  LEFT = 'left',
+  CENTER = 'center',
+  RIGHT = 'right',
 }
 
 export enum ColumnTypeEnum {

@@ -1,20 +1,41 @@
-export * from './handle'
-export * from './industryTree'
-export * from './type'
+export {
+  convertTreeToOptions,
+  digitalOptions,
+  getIndustryCodeAncestors,
+  industryOfNationalEconomyCfgFour,
+  industryOfNationalEconomyCfgThree,
+  industryOfNationalEconomyCfgTwo,
+  translateIndustryCode,
+} from './handle'
+export { industryOfNationalEconomyCfg } from './industryTree'
+export type { IndustryTreeNode } from './type'
 
 import { isEn } from '@/intl'
 
-import AgricultureRelatedIndustryTree from './agricultureRelated.json'
-import DigitalIndustryTree from './digital.json'
-import AgingCareIndustryTree from './elderlyCare.json'
-import GreenIndustryTree from './green.json'
-import HighTechManufacturingIndustryTree from './highTechManufacturing.json'
-import HighTechServiceIndustryTree from './highTechService.json'
-import IntellectualIndustryTree from './intellectual.json'
-import RimeTrackIndustryTreeCn from './rimeTrackCn.json'
-import RimeTrackIndustryTreeEn from './rimeTrackEn.json'
-import StrategicEmergingIndustryTree from './strategicEmerging.json'
-import WindIndustryTree from './wind.json'
+import AgricultureRelatedIndustryTreeJson from './agricultureRelated.json'
+import DigitalIndustryTreeJson from './digital.json'
+import AgingCareIndustryTreeJson from './elderlyCare.json'
+import GreenIndustryTreeJson from './green.json'
+import HighTechManufacturingIndustryTreeJson from './highTechManufacturing.json'
+import HighTechServiceIndustryTreeJson from './highTechService.json'
+import IntellectualIndustryTreeJson from './intellectual.json'
+import RimeTrackIndustryTreeCnJson from './rimeTrackCn.json'
+import RimeTrackIndustryTreeEnJson from './rimeTrackEn.json'
+import StrategicEmergingIndustryTreeJson from './strategicEmerging.json'
+import { IndustryTreeNode } from './type'
+import WindIndustryTreeJson from './wind.json'
+
+const AgricultureRelatedIndustryTree: IndustryTreeNode[] = AgricultureRelatedIndustryTreeJson
+const DigitalIndustryTree: IndustryTreeNode[] = DigitalIndustryTreeJson
+const AgingCareIndustryTree: IndustryTreeNode[] = AgingCareIndustryTreeJson
+const GreenIndustryTree: IndustryTreeNode[] = GreenIndustryTreeJson
+const HighTechManufacturingIndustryTree: IndustryTreeNode[] = HighTechManufacturingIndustryTreeJson
+const HighTechServiceIndustryTree: IndustryTreeNode[] = HighTechServiceIndustryTreeJson
+const IntellectualIndustryTree: IndustryTreeNode[] = IntellectualIndustryTreeJson
+const StrategicEmergingIndustryTree: IndustryTreeNode[] = StrategicEmergingIndustryTreeJson
+const WindIndustryTree: IndustryTreeNode[] = WindIndustryTreeJson
+const RimeTrackIndustryTreeEn: IndustryTreeNode[] = RimeTrackIndustryTreeEnJson
+const RimeTrackIndustryTreeCn: IndustryTreeNode[] = RimeTrackIndustryTreeCnJson
 
 export { globalElectronEconomy } from './electronEconomyTree'
 export { globalLowCarbon } from './lowCarbonTree'

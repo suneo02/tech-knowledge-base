@@ -2,12 +2,12 @@ import { requestToSuperlistFcs } from '@/api'
 import { createSuperlistRequestFcs } from '@/api/handleFcs'
 import { InfiniteScrollConversations } from '@/components/Conversation/InfiniteScrollConversations'
 import { processSuperConversations } from '@/components/Conversation/processSuperConversations'
-import { useConversationsInfiniteScroll } from '@/hooks/useConversationsInfiniteScroll'
 import { ApiResponseForSuperlistWithPage, SuperChatHistoryItem } from 'gel-api'
-import React, { useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
-import styles from './style/historyList.module.less'
+import { useConversationsInfiniteScroll } from 'gel-ui'
 import { t } from 'gel-util/intl'
+import React, { useMemo } from 'react'
+import { useNavigateWithLangSource } from '@/hooks/useLangSource'
+import styles from './style/historyList.module.less'
 
 const renameFunc = createSuperlistRequestFcs('conversation/renameConversation')
 
@@ -16,7 +16,7 @@ const renameFunc = createSuperlistRequestFcs('conversation/renameConversation')
  * 使用 useConversationsInfiniteScroll 实现分页加载历史会话数据
  */
 export const HistoryList: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigateWithLangSource()
 
   // 创建请求函数
   const conversationListRequest = createSuperlistRequestFcs('conversation/conversationList')
@@ -75,12 +75,17 @@ export const HistoryList: React.FC = () => {
    * @param key 会话ID
    */
   const handleItemClick = (key: string) => {
+    const item = processedItems?.find((item) => item.key === key)
+    if (item?.companySheetFromCde) {
+      navigate(`/super/chat/${item.key}?type=CDE`)
+      return
+    }
     navigate(`/super/chat/${key}`)
   }
 
   // 处理会话重命名
   const handleRenameConversation = async (id: string, newName: string): Promise<boolean> => {
-    console.log('🚀 ~ handleRenameConversation ~ newName:', newName)
+    // console.log('🚀 ~ handleRenameConversation ~ newName:', newName)
     if (!newName.trim()) {
       message.error(t('', '名称不能为空'))
       return false
@@ -118,9 +123,9 @@ export const HistoryList: React.FC = () => {
 
   return (
     <div className={styles['history-list-container']}>
-      <div className={styles['history-list-header']}>
-        <span>历史对话</span>
-      </div>
+      {/* <div className={styles['history-list-header']}>
+        <span>{STRINGS.HISTORY_TITLE}</span>
+      </div> */}
 
       <InfiniteScrollConversations
         conversationClassName={styles['history-list-conversation']}
@@ -132,6 +137,8 @@ export const HistoryList: React.FC = () => {
         onActiveChange={handleItemClick}
         onDeleteConversation={handleDeleteConversation}
         onRenameConversation={handleRenameConversation}
+        enableFavorite={false}
+        enableRename={false}
       />
     </div>
   )

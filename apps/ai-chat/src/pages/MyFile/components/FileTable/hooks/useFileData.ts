@@ -3,6 +3,7 @@ import { requestToWFCSecure } from '@/api'
 import { DocTaskStatus, getDocTaskListResponse, DocTaskItem } from 'gel-api'
 import dayjs from 'dayjs'
 import { local } from '@/utils'
+import { t } from 'gel-util/intl'
 
 // 保留原始的 FileStatus 用于兼容现有代码
 export enum FileStatus {
@@ -50,7 +51,6 @@ const getDataSource = async (page = 0, pageSize = 10): Promise<{ dataSource: Fil
           'Content-Type': 'application/x-www-form-urlencoded',
           sourceId: 'superlist',
         },
-        baseURL: local.get('mainEnv')?.proxy,
       }
     )
     const list = res?.Data as getDocTaskListResponse
@@ -59,7 +59,7 @@ const getDataSource = async (page = 0, pageSize = 10): Promise<{ dataSource: Fil
     if (list && Array.isArray(list)) {
       const dataSource = list.map((item: DocTaskItem) => ({
         id: item.id,
-        name: item.displayName || '未命名文件',
+        name: item.displayName || t('464241', '未命名'),
         exportTime: item.created ? dayjs(item.created).format('YYYY-MM-DD HH:mm:ss') : '',
         status: mapDocTaskStatusToFileStatus(item.status),
         downloadFileName: item.downloadFileName,

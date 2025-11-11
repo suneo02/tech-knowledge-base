@@ -1,11 +1,8 @@
 import { AddStarO, DataEditO, DownloadO, HomeO, QuestionCircleO, StarF, ToTopO } from '@wind/icons'
-import { BackTop, Button, message, Tooltip } from '@wind/wind-ui'
-import React, { memo, useCallback, useState } from 'react'
-import * as globalActions from '../../actions/global'
-import { myWfcAjax } from '../../api/companyApi'
+import { BackTop, Tooltip } from '@wind/wind-ui'
+import React, { FC, memo, useCallback, useState } from 'react'
 import { getcustomercountgroupnew } from '../../api/companyDynamic'
-import store from '../../store/store'
-import intl from '../../utils/intl'
+
 import { wftCommon } from '../../utils/utils'
 import Collect from '../searchListComponents/collect'
 
@@ -14,12 +11,16 @@ import miniAppImg from '@/assets/imgs/logo/mini-app.jpg'
 import supportImg from '@/assets/imgs/logo/support.jpg'
 import './index.less'
 
-import { AliceBitAnimation } from '@/views/CompanyDetailAI/comp/AIBitmapAnimation'
-import { useSelector } from 'react-redux'
+import { entWebAxiosInstance } from '@/api/entWeb'
+import { AliceBitAnimation } from '@/components/AIBitmapAnimation'
+import { useFeedbackModal } from '@/components/company/feedback/useFeedbackModal'
+import { postPointBuriedWithAxios } from 'gel-api'
+import { t } from 'gel-util/intl'
 import './index.less'
 
 const is_terminal = wftCommon.usedInClient()
-const CompanyFloatingWindowComp = () => React.lazy(() => import('../company/CompanyFloatingWindow'))
+
+// 反馈提交按钮逻辑移至通用函数，工具栏无需自带提交按钮
 
 interface ToolsBarProps {
   isShowApp?: boolean
@@ -35,6 +36,7 @@ interface ToolsBarProps {
   backTopWrapClass?: string
   isHorizon?: boolean
   companyCode?: string
+  companyName?: string
   setCollectState?: (state: boolean) => void
   collectState?: boolean
   onClickReport?: () => void
@@ -43,80 +45,33 @@ interface ToolsBarProps {
   onShowFeedback?: () => void
 }
 
-function ToolsBar(props: ToolsBarProps) {
-  const {
-    isShowApp,
-    isShowMiniApp,
-    isShowPublic,
-    isShowCollect,
-    collectState,
-    setCollectState,
-    isShowFeedback,
-    isShowHome,
-    isShowAlice,
-    isShowReport,
-    isShowBackTop = true,
-    isShowHelp = true,
-    backTopWrapClass,
-    isHorizon = false,
-    companyCode,
-    showRight,
-    onAliceClick,
-    onClickReport,
-  } = props
-
+const ToolsBar: FC<ToolsBarProps> = ({
+  isShowApp,
+  isShowMiniApp,
+  isShowPublic,
+  isShowCollect,
+  collectState,
+  setCollectState,
+  isShowFeedback,
+  isShowHome,
+  isShowAlice,
+  isShowReport,
+  isShowBackTop = true,
+  isShowHelp = true,
+  backTopWrapClass,
+  isHorizon = false,
+  companyCode,
+  companyName,
+  onAliceClick,
+  onClickReport,
+}) => {
   const [collectList, setCollectList] = useState([])
   const [modalShow, setModalShow] = useState(false)
-
-  const feedParam = useSelector((state: any) => state.company?.feedBackPara)
+  const { openFeedbackModal } = useFeedbackModal()
 
   const showFeedBackModel = useCallback(() => {
-    const CompanyFloatingWindowCss = CompanyFloatingWindowComp()
-    store.dispatch(
-      globalActions.setGolbalModal({
-        className: 'companyIntroductionTagModal',
-        width: 720,
-        visible: true,
-        onCancel: () => store.dispatch(globalActions.clearGolbalModal()),
-        title: intl('97058', '意见反馈'),
-        content: <React.Suspense fallback={<div></div>}>{<CompanyFloatingWindowCss name={''} />}</React.Suspense>,
-        footer: [
-          // @ts-expect-error ttt
-          <Button key={19405} type="grey" onClick={() => store.dispatch(globalActions.clearGolbalModal())}>
-            {intl('19405', '取消')}
-          </Button>,
-          <Button
-            key={14108}
-            type="primary"
-            onClick={() => showFeedParam(() => store.dispatch(globalActions.clearGolbalModal()))}
-          >
-            {intl('14108', '提交')}
-          </Button>,
-        ],
-      })
-    )
-  }, [])
-
-  const showFeedParam = useCallback(
-    async (fn) => {
-      try {
-        if (!feedParam || !feedParam.message || feedParam?.message?.length == 0) {
-          message.warning('请填写反馈描述!', 2)
-        } else {
-          const res = await myWfcAjax('addfeedback', feedParam)
-          if (res.ErrorCode == 0) {
-            message.success('感谢您的反馈!', 2)
-            fn?.()
-          } else {
-            message.warning('提交失败，请稍后重试!', 2)
-          }
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    },
-    [feedParam]
-  )
+    openFeedbackModal(companyName)
+  }, [companyName, openFeedbackModal])
 
   // 收藏相关功能
   const showCollectModal = useCallback(() => {
@@ -140,7 +95,7 @@ function ToolsBar(props: ToolsBarProps) {
         <div className="tools-bar-horizon-left">
           {isShowApp && (
             <>
-              <span className="horizon-item" onClick={() => {}}>
+              <span className="horizon-item" onClick={() => {}} data-uc-id="Tus-YqtYhOJ" data-uc-ct="span">
                 <div className="content-toolbar-APP-icon"></div>
               </span>
             </>
@@ -148,7 +103,7 @@ function ToolsBar(props: ToolsBarProps) {
 
           {isShowMiniApp && (
             <>
-              <span className="horizon-item" onClick={() => {}}>
+              <span className="horizon-item" onClick={() => {}} data-uc-id="cGqa862VyRj" data-uc-ct="span">
                 <div className="content-toolbar-mini-icon"></div>
               </span>
             </>
@@ -156,7 +111,7 @@ function ToolsBar(props: ToolsBarProps) {
 
           {isShowPublic && (
             <>
-              <span className="horizon-item" onClick={() => {}}>
+              <span className="horizon-item" onClick={() => {}} data-uc-id="4y6fqVAWOqK" data-uc-ct="span">
                 <div className="content-toolbar-QRCode-icon"></div>
               </span>
             </>
@@ -164,41 +119,85 @@ function ToolsBar(props: ToolsBarProps) {
 
           {isShowReport && (
             <>
-              <span className="horizon-item" onClick={() => onClickReport?.()}>
-                <DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-                <span className="horizon-item-text">{intl('175211', '报告')}</span>
+              <span
+                className="horizon-item"
+                onClick={() => onClickReport?.()}
+                data-uc-id="j10jd49smxZ"
+                data-uc-ct="span"
+              >
+                <DownloadO
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="NJrFb0AuaTP"
+                  data-uc-ct="downloado"
+                />
+                <span className="horizon-item-text">{t('175211', '报告')}</span>
               </span>
             </>
           )}
 
           {isShowHome && (
             <>
-              <span className="horizon-item" onClick={() => wftCommon.jumpJqueryPage('SearchHome.html')}>
-                <HomeO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              <span
+                className="horizon-item"
+                onClick={() => wftCommon.jumpJqueryPage('SearchHome.html')}
+                data-uc-id="j1-2ACgp8yI"
+                data-uc-ct="span"
+              >
+                <HomeO
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="9P6N5eauWfD"
+                  data-uc-ct="homeo"
+                />
               </span>
             </>
           )}
 
           {isShowCollect && (
             <>
-              <span className={`horizon-item ${collectState ? 'sel-customer' : ''}`} onClick={showCollectModal}>
+              <span
+                className={`horizon-item ${collectState ? 'sel-customer' : ''}`}
+                onClick={showCollectModal}
+                data-uc-id="MpgKNhHgVvt"
+                data-uc-ct="span"
+              >
                 {collectState ? (
-                  <StarF onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                  <StarF
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    data-uc-id="IgGmPER1Ra5"
+                    data-uc-ct="starf"
+                  />
                 ) : (
-                  <AddStarO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                  <AddStarO
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    data-uc-id="86B6_pNMm-"
+                    data-uc-ct="addstaro"
+                  />
                 )}
-                <span className="horizon-item-text">
-                  {collectState ? intl('138129', '已收藏') : intl('143165', '收藏')}
-                </span>
+                <span className="horizon-item-text">{collectState ? t('138129', '已收藏') : t('143165', '收藏')}</span>
               </span>
             </>
           )}
 
           {isShowFeedback && (
             <>
-              <span className="horizon-item" style={{ zIndex: 2 }} onClick={() => showFeedBackModel()}>
-                <DataEditO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-                <span className="horizon-item-text">{intl('142975', '反馈')}</span>
+              <span
+                className="horizon-item"
+                style={{ zIndex: 2 }}
+                onClick={() => showFeedBackModel()}
+                data-uc-id="K3_Oa_yyw5E"
+                data-uc-ct="span"
+              >
+                <DataEditO
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="N6Fk57ypfPM"
+                  data-uc-ct="dataedito"
+                />
+                <span className="horizon-item-text">{t('142975', '反馈')}</span>
               </span>
             </>
           )}
@@ -212,8 +211,15 @@ function ToolsBar(props: ToolsBarProps) {
                   targetElement.scrollTo({ top: 0, behavior: 'smooth' })
                 }
               }}
+              data-uc-id="iDNu1qxaAZJ"
+              data-uc-ct="span"
             >
-              <ToTopO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              <ToTopO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="Ooy_9JCmhsu"
+                data-uc-ct="totopo"
+              />
             </span>
           )}
         </div>
@@ -221,13 +227,16 @@ function ToolsBar(props: ToolsBarProps) {
           <span
             className="horizon-item"
             onClick={() => {
-              onAliceClick?.((i) => !i)
+              onAliceClick?.((i) => {
+                postPointBuriedWithAxios(entWebAxiosInstance, i ? '922610370036' : '922610370035')
+                return !i
+              })
             }}
+            data-uc-id="5lASMtn9tVS"
+            data-uc-ct="span"
           >
-            <AliceBitAnimation
-              style={{ transform: 'scale(0.4)', transformOrigin: 'center', marginRight: '-36px', height: '30px' }}
-            />
-            <span className="horizon-item-text">{intl('451214', 'AI问企业')}</span>
+            <AliceBitAnimation className="horizon-item-alice-icon" />
+            <span className="horizon-item-text">{t('451214', 'AI问企业')}</span>
           </span>
         ) : null}
       </div>
@@ -241,6 +250,7 @@ function ToolsBar(props: ToolsBarProps) {
     isShowFeedback,
     is_terminal,
     backTopWrapClass,
+    showFeedBackModel,
   ])
 
   // 垂直工具栏
@@ -252,21 +262,36 @@ function ToolsBar(props: ToolsBarProps) {
             // @ts-expect-error ttt
             <BackTop
               className="content-toolbar-APP"
-              visibilityHeight={-1}
               // onClick={() => wftCommon.jumpJqueryPage('SearchHome.html')}
+              visibilityHeight={-1}
+              data-uc-id="oCW4LynYtXO"
+              data-uc-ct="backtop"
             >
-              <Tooltip placement="left" title={<img src={appImg} alt="APP" style={{ width: 180 }} />}>
+              <Tooltip
+                placement="left"
+                overlayClassName="backTop-tooltip"
+                title={<img src={appImg} alt="APP" style={{ width: 180 }} />}
+              >
                 <div className="content-toolbar-APP-icon"></div>
-                <span>{intl('', 'APP')}</span>
+                <span>{t('', 'APP')}</span>
               </Tooltip>
             </BackTop>
           ) : null}
           {isShowMiniApp ? (
             // @ts-expect-error ttt
-            <BackTop className="content-toolbar-mini" visibilityHeight={-1}>
-              <Tooltip placement="left" title={<img src={miniAppImg} alt="服务号" style={{ width: 180 }} />}>
+            <BackTop
+              className="content-toolbar-mini"
+              visibilityHeight={-1}
+              data-uc-id="VXgtAgPVp-l"
+              data-uc-ct="backtop"
+            >
+              <Tooltip
+                placement="left"
+                overlayClassName="backTop-tooltip"
+                title={<img src={miniAppImg} alt={t('431128', '小程序')} style={{ width: 180 }} />}
+              >
                 <div className="content-toolbar-mini-icon"></div>
-                <span>{intl('', '小程序')}</span>
+                <span>{t('431128', '小程序')}</span>
               </Tooltip>
             </BackTop>
           ) : null}
@@ -274,12 +299,18 @@ function ToolsBar(props: ToolsBarProps) {
             // @ts-expect-error ttt
             <BackTop
               className="content-toolbar-QRCode"
-              visibilityHeight={-1}
               // onClick={() => wftCommon.jumpJqueryPage('SearchHome.html')}
+              visibilityHeight={-1}
+              data-uc-id="klrxc7wgI8E"
+              data-uc-ct="backtop"
             >
-              <Tooltip placement="left" title={<img src={supportImg} alt="服务号" style={{ width: 180 }} />}>
+              <Tooltip
+                placement="left"
+                overlayClassName="backTop-tooltip"
+                title={<img src={supportImg} alt={t('431127', '服务号')} style={{ width: 180 }} />}
+              >
                 <div className="content-toolbar-QRCode-icon"></div>
-                <span>{intl('', '服务号')}</span>
+                <span>{t('431127', '服务号')}</span>
               </Tooltip>
             </BackTop>
           ) : null}
@@ -290,9 +321,16 @@ function ToolsBar(props: ToolsBarProps) {
               className="content-toolbar-home"
               visibilityHeight={-1}
               onClick={() => wftCommon.jumpJqueryPage('SearchHome.html')}
+              data-uc-id="SE39Z9CRxXl"
+              data-uc-ct="backtop"
             >
-              <HomeO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></HomeO>
-              <span>{intl('19475', '首页')}</span>
+              <HomeO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="AsdcYgRrFIk"
+                data-uc-ct="homeo"
+              ></HomeO>
+              <span>{t('19475', '首页')}</span>
             </BackTop>
           ) : null}
 
@@ -302,21 +340,44 @@ function ToolsBar(props: ToolsBarProps) {
               className={collectState ? 'content-toolbar-customer sel-customer' : 'content-toolbar-customer'}
               visibilityHeight={-1}
               onClick={showCollectModal}
+              data-uc-id="TrhmeT7UsPC"
+              data-uc-ct="backtop"
             >
               {collectState ? (
-                <StarF onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                <StarF
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="tO09EGSyeA1"
+                  data-uc-ct="starf"
+                />
               ) : (
-                <AddStarO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></AddStarO>
+                <AddStarO
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="pS3j9X1Sf2g"
+                  data-uc-ct="addstaro"
+                ></AddStarO>
               )}
-              <span>{collectState ? intl('138129', '已收藏') : intl('143165', '收藏')}</span>
+              <span>{collectState ? t('138129', '已收藏') : t('143165', '收藏')}</span>
             </BackTop>
           ) : null}
 
           {isShowFeedback ? (
             // @ts-expect-error ttt
-            <BackTop className="content-toolbar-feedback" visibilityHeight={-1} onClick={() => showFeedBackModel()}>
-              <DataEditO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-              <span>{intl('142975', '反馈')}</span>
+            <BackTop
+              className="content-toolbar-feedback"
+              visibilityHeight={-1}
+              onClick={() => showFeedBackModel()}
+              data-uc-id="82-MR-6zP8J"
+              data-uc-ct="backtop"
+            >
+              <DataEditO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="MkQ_fJfEDPk"
+                data-uc-ct="dataedito"
+              />
+              <span>{t('142975', '反馈')}</span>
             </BackTop>
           ) : null}
 
@@ -330,8 +391,15 @@ function ToolsBar(props: ToolsBarProps) {
                   window.open('//UnitedWebServer/helpcenter/helpCenter/redirect/document?id=30', '_blank')
                 }
               }}
+              data-uc-id="kW87w8UCZIT"
+              data-uc-ct="backtop"
             >
-              <QuestionCircleO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              <QuestionCircleO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="JL15XP7AlDP"
+                data-uc-ct="questioncircleo"
+              />
               <span>{window.en_access_config ? 'Help' : '帮助'}</span>
             </BackTop>
           ) : null}
@@ -343,11 +411,13 @@ function ToolsBar(props: ToolsBarProps) {
               style={{}}
               visibilityHeight={-1}
               onClick={() => onAliceClick?.((i) => !i)}
+              data-uc-id="suOLZhURQba"
+              data-uc-ct="backtop"
             >
               <AliceBitAnimation
                 style={{ transform: 'scale(0.4)', height: '30px', marginLeft: '-55px', transformOrigin: 'center' }}
               />
-              <span>{intl('', 'Alice')}</span>
+              <span>{t('', 'Alice')}</span>
             </BackTop>
           ) : null}
 
@@ -356,9 +426,16 @@ function ToolsBar(props: ToolsBarProps) {
             // @ts-expect-error ttt
             target={() => document.getElementsByClassName(backTopWrapClass)[0]}
             visibilityHeight={-1}
+            data-uc-id="OJoLT1VbpJK"
+            data-uc-ct="backtop"
           >
-            <ToTopO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></ToTopO>
-            <span>{intl('416013', '置顶')}</span>
+            <ToTopO
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              data-uc-id="b5cOxvo04Pf"
+              data-uc-ct="totopo"
+            ></ToTopO>
+            <span>{t('416013', '置顶')}</span>
           </BackTop>
         </div>
       </>
@@ -372,6 +449,7 @@ function ToolsBar(props: ToolsBarProps) {
     isShowFeedback,
     is_terminal,
     backTopWrapClass,
+    showFeedBackModel,
   ])
 
   const renderToolsBar = () => {

@@ -1,6 +1,5 @@
-import { HKCompanyInfoSubModule, THKModuleType } from '@/api/corp/info/otherInfo.ts'
-import axios from '@/api'
 import { IPagParam } from '@/api/types.ts'
+import { HKCompanyInfoSubModule, THKModuleType } from 'gel-types'
 export type IHKCorpPayload = IPagParam & {
   companyCode: string
   dataModule: THKModuleType
@@ -53,21 +52,3 @@ export const hkCorpInfoSubModuleCMDList: HKCompanyInfoSubModule[] = [
   'directorInfo',
   'secretaryInfo',
 ]
-
-/**
- * 通用获取香港公司信息函数
- * @param payload 公共请求参数
- * @param childDataModule 子模块命令
- * @returns Promise<IHKCorpInfoData>
- */
-export const getHKCorpInfo = <T extends IHKCorpInfoData = IHKCorpInfoData>(
-  payload: Pick<IHKCorpPayload, 'companyCode'> & IPagParam,
-  childDataModule: HKCompanyInfoSubModule
-) => {
-  const requestPayload: IHKCorpPayload = { ...payload, dataModule: 'companyInfo', childDataModule }
-  return axios.request({
-    method: 'get',
-    cmd: '/moduleDataForUser',
-    params: requestPayload,
-  })
-}

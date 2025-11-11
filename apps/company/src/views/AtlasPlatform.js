@@ -393,6 +393,8 @@ function AtlasPlatform(props) {
               expandedKeys={expandedKeys}
               onSelect={handleSelect}
               onExpand={handleExpand}
+              data-uc-id="Q4tGRt8uA8e"
+              data-uc-ct="tree"
             ></Tree>
           </Sider>
         </ThemeProvider>
@@ -420,7 +422,13 @@ function AtlasPlatform(props) {
                           <ul>
                             {item.children.map((childItem) => {
                               return (
-                                <li onClick={() => jumpPage(childItem)} key={childItem.key}>
+                                <li
+                                  onClick={() => jumpPage(childItem)}
+                                  key={childItem.key}
+                                  data-uc-id={`DzjzeQ02AF${childItem.key}`}
+                                  data-uc-ct="li"
+                                  data-uc-x={childItem.key}
+                                >
                                   <p>{childItem.title}</p>
                                   <img src={childItem.img} />
                                 </li>

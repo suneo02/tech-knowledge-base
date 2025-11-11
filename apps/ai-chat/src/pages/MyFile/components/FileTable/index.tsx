@@ -1,16 +1,28 @@
-import { DownloadO, ReductionO } from '@wind/icons'
 import { Button } from '@wind/wind-ui'
 import { SmartPaginationTable, SmartProgress, SmartProgressStatus } from 'gel-ui'
 import React, { useEffect } from 'react'
 import './index.less'
 
 // 导入拆分出来的hooks和组件
+import { postPointBuried } from '@/utils/common/bury'
+import dayjs from 'dayjs'
+import { usedInClient } from 'gel-util/env'
+import { t } from 'gel-util/intl'
 import FileIcon from './components/FileIcon'
 import { FileItem, FileStatus, useFileData } from './hooks/useFileData'
 import { useFilePolling } from './hooks/useFilePolling'
 
 interface FileTableProps {
   folderId: string
+}
+
+const STRINGS = {
+  FILE_NAME: t('31717', '文件名称'),
+  EXPORT_TIME: t('425478', '导出时间'),
+  STATUS: t('32098', '状态'),
+  OPERATION: t('114232', '操作'),
+  DOWNLOAD: t('432908', '下载'),
+  RETRY: t('313393', '重试'),
 }
 
 const PREFIX = 'my-file-table'
@@ -67,16 +79,22 @@ export const FileTable: React.FC<FileTableProps> = ({ folderId }) => {
   }
 
   const handleDownload = (record: FileItem) => {
-    console.log('下载文件:', record.id)
-
-    const url = `${'http://10.100.5.240:9898'}/Wind.WFC.Enterprise.Web/Enterprise/ExcelDownload.aspx?taskId=${record.id}&filename=${record.downloadFileName}`
-    window.open(url, '_blank')
-    // 实际下载逻辑
+    postPointBuried('922604570303', {
+      tablename: record.downloadFileName,
+    })
+    // console.log('🚀 ~ handleDownload ~ record:', record)
+    const baseUrl = import.meta.env.DEV ? 'https://gel.wind.com.cn' : window.location.origin
+    const url = `${baseUrl}/Wind.WFC.Enterprise.Web/Enterprise/ExcelDownload.aspx?taskId=${record.id}&filename=${record.downloadFileName}`
+    if (usedInClient()) {
+      window.open(url, '_blank')
+    } else {
+      location.href = url
+    }
   }
 
   const handleRetry = (fileId: string) => {
-    console.log('重试生成文件:', fileId)
-
+    // console.log('重试生成文件:', fileId)
+    postPointBuried('922604570304')
     // 重试文件
     retryFile(fileId)
 
@@ -90,7 +108,7 @@ export const FileTable: React.FC<FileTableProps> = ({ folderId }) => {
   // 定义表格列
   const columns = [
     {
-      title: '文件名',
+      title: STRINGS.FILE_NAME,
       key: 'name',
       dataIndex: 'name',
       render: (name: string) => (
@@ -105,50 +123,54 @@ export const FileTable: React.FC<FileTableProps> = ({ folderId }) => {
       ),
     },
     {
-      title: '导出时间',
+      title: STRINGS.EXPORT_TIME,
       key: 'exportTime',
+      width: '30%',
       dataIndex: 'exportTime',
-      render: (time: string) => time,
+      render: (time: string) => dayjs(time).format('YYYY-MM-DD HH:mm'),
+      align: 'center',
     },
     {
-      title: '状态',
+      title: STRINGS.STATUS,
+      width: '20%',
       key: 'status',
       dataIndex: 'status',
       render: (_: string, record: FileItem) => {
         const progressStatus = record.status as unknown as SmartProgressStatus
-        return <SmartProgress style={{ width: '100px' }} status={progressStatus} />
+        return (
+          <SmartProgress
+            style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            status={progressStatus}
+          />
+        )
       },
+      align: 'center',
     },
     {
-      title: '操作',
+      title: STRINGS.OPERATION,
       key: 'action',
+      width: 120,
       render: (_: unknown, record: FileItem) => (
-        <>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {record.status !== FileStatus.FAILED && (
-            <Button
-              onClick={() => handleDownload(record)}
-              disabled={record.status !== FileStatus.SUCCESS}
-              icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
-              style={{ marginRight: '8px' }}
-            >
-              下载
+            <Button onClick={() => handleDownload(record)} disabled={record.status !== FileStatus.SUCCESS} type="text">
+              {STRINGS.DOWNLOAD}
             </Button>
           )}
           {record.status === FileStatus.FAILED && (
-            <Button
-              icon={<ReductionO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
-              onClick={() => handleRetry(record.id)}
-            >
-              重试
+            <Button onClick={() => handleRetry(record.id)} type="text">
+              {STRINGS.RETRY}
             </Button>
           )}
-        </>
+        </div>
       ),
+      align: 'center',
     },
   ]
 
   return (
     <SmartPaginationTable
+      size="large"// @ts-expect-error
       columns={columns}
       dataSource={files}
       loading={loading}

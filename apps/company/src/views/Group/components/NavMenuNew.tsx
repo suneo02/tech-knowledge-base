@@ -96,7 +96,13 @@ const GroupNavMenuNew = () => {
 
   function renderOption(res) {
     return (
-      <AutoComplete.Option key={res.key} value={res.title}>
+      <AutoComplete.Option
+        key={res.key}
+        value={res.title}
+        data-uc-id="rzOsE3Mcx"
+        data-uc-ct="autocomplete"
+        data-uc-x={res.key}
+      >
         <span>
           {res.beforeStr}
           <span style={{ color: '#f50' }}>{res.searchValue}</span>
@@ -128,13 +134,24 @@ const GroupNavMenuNew = () => {
             onSearch={onSearch}
             onSelect={onSelect}
             dataSource={searchDataSource.map(renderOption)}
+            data-uc-id="TRw_hpCrHn"
+            data-uc-ct="autocomplete"
           >
             <Input
               placeholder={intlNoIndex('222764', '搜索菜单')}
               suffix={
                 <Button
-                  icon={<SearchO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                  icon={
+                    <SearchO
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                      data-uc-id="O6cBw62k0T"
+                      data-uc-ct="searcho"
+                    />
+                  }
                   type="text"
+                  data-uc-id="t7xVPR1OD0"
+                  data-uc-ct="button"
                 ></Button>
               }
             />
@@ -151,11 +168,30 @@ const GroupNavMenuNew = () => {
               scrollContentToview(keys[0]).then(() => setPosition(''))
             }}
             onExpand={toggleExpanded}
+            data-uc-id="JhXrZR8MNj"
+            data-uc-ct="tree"
           >
             {treeData.map((node) => (
-              <Tree.TreeNode key={node.key} title={<NodeTitle {...node} level="1" />} style={{ fontWeight: 'bold' }}>
+              <Tree.TreeNode
+                key={node.key}
+                title={<NodeTitle {...node} level="1" />}
+                style={{ fontWeight: 'bold' }}
+                data-uc-id="FHI_tmykCK"
+                data-uc-ct="tree"
+                data-uc-x={node.key}
+              >
                 {node?.children.map(
-                  (n) => !n.disabled && <Tree.TreeNode key={n.key} title={<NodeTitle {...n} />} level="2" />
+                  (n) =>
+                    !n.disabled && (
+                      <Tree.TreeNode
+                        key={n.key}
+                        title={<NodeTitle {...n} />}
+                        level="2"
+                        data-uc-id="cWMmb7xYFo"
+                        data-uc-ct="tree"
+                        data-uc-x={n.key}
+                      />
+                    )
                 )}
               </Tree.TreeNode>
             ))}

@@ -43,7 +43,13 @@ export const CheckBoxMulti: React.FC<{
   value: string[] // 当前选中的值
 }> = ({ optionsFromConfig, onChange, value }) => {
   return (
-    <SelectionProvider optionsFromConfig={optionsFromConfig} value={value} onChange={onChange}>
+    <SelectionProvider
+      optionsFromConfig={optionsFromConfig}
+      value={value}
+      onChange={onChange}
+      data-uc-id="yjblLco_5d"
+      data-uc-ct="selectionprovider"
+    >
       <CheckBoxInner />
     </SelectionProvider>
   )

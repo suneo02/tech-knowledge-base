@@ -8,6 +8,8 @@ export type TCorpDetailSectionKey =
   | 'EnterprisePublicity'
   // 企业财务情况
   | 'BussData'
+  // 企业财务情况-aigc
+  | 'BussDataAigc'
   // 财务报表
   | 'BussDataReport'
   // 业务数据-产量
@@ -30,3 +32,5 @@ export type TCorpDetailSectionKey =
   | 'JudicialRisk'
   // 企业经营风险
   | 'BusinessRisk'
+  // 企业历史信息
+  | 'HistoryInfo'

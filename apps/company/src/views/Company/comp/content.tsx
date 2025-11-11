@@ -38,7 +38,13 @@ export const CorpContent = forwardRef<HTMLDivElement, any>((_, contentRef) => {
       <div id={module.key} key={module.key} className="node-item-children">
         {checkVip ? (
           <Card title={<CardHeader {...module} />} styleType="block">
-            <VipComponent title={module.title} vipPopupSel={module.isSvip ? 'svip' : 'vip'} onlySvip={module.isSvip} />
+            <VipComponent
+              title={module.title}
+              vipPopupSel={module.isSvip ? 'svip' : 'vip'}
+              onlySvip={module.isSvip}
+              data-uc-id="9S6bibLUiT"
+              data-uc-ct="vipcomponent"
+            />
           </Card>
         ) : checkHidden(module) ? null : (
           <Menu {...module} treeKey={treeKey} />

@@ -1,4 +1,5 @@
 export * from './basicInfo'
+export * from './cardInfo'
 export * from './corpArea'
 export * from './corpOrganizationType'
 export * from './corpTypeCode'

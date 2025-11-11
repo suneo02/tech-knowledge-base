@@ -2,6 +2,7 @@ import { ICorpTableCfg } from '@/components/company/type'
 import intl from '@/utils/intl'
 import { FC } from 'react'
 import { wftCommon } from '../../../../utils/utils'
+import { getEmptyFinanceTableColumns } from './handleFinanceTableEmpty'
 
 interface CashFlowSheetProps {
   data: any[]
@@ -36,7 +37,9 @@ export const renderCashFlowSheet: FC<CashFlowSheetProps> = ({
   ]
 
   if (!res?.length) {
-    setCashflowInfo((prev) => ({ ...prev, defaultList: [], list: [] }))
+    const columns = getEmptyFinanceTableColumns()
+    setCashflowInfo((prev) => ({ ...prev, columns, defaultList: [], list: [] }))
+    setDataLoaded(true)
     return null
   }
 

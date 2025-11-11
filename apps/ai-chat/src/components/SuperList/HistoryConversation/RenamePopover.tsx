@@ -13,7 +13,7 @@ export const RenamePopover: React.FC<RenamePopoverProps> = ({ item, onRename, on
   const [newName, setNewName] = useState(item.conversationName || '')
 
   const handleRename = () => {
-    console.log('🚀 ~ handleRename ~ newName:', newName)
+    // console.log('🚀 ~ handleRename ~ newName:', newName)
     if (newName.trim()) {
       onRename(item, newName.trim())
     }

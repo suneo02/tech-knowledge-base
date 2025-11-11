@@ -1,10 +1,17 @@
 import Markdown from '@/components/markdown'
-import { CopyOutlined } from '@ant-design/icons'
-import { Divider } from '@wind/wind-ui'
-import { copyTextAndMessage } from 'ai-ui'
-import { SourceTypeEnum } from 'gel-api'
+import { Button, Divider, Tag } from '@wind/wind-ui'
+import { ColumnDataTypeEnum, DPUItem, GetSourceDetailResponse, RAGItem, SourceTypeEnum } from 'gel-api'
+import { t } from 'gel-util/intl'
 import { ResearchSteps } from './ResearchSteps'
+// import Section from './Section'
+import { axiosInstance } from '@/api/axios'
+import { entWebAxiosInstance } from '@/api/entWeb'
+import { AICopyButton, AIDislikeButton, AILikeButton } from 'gel-ui'
+import DataSourceSection from './DataSourceSection'
+import PromptSection from './PromptSection'
 import { SourceTag } from './SourceTag'
+import SuggestSection from './SuggestSection'
+import styles from './notificationDescription.module.less'
 
 interface NotificationDescriptionProps {
   sourceType: SourceTypeEnum
@@ -13,74 +20,164 @@ interface NotificationDescriptionProps {
   isLoading?: boolean
   sourceDetail?: string
   progressSteps?: string[]
+  columnDataType?: ColumnDataTypeEnum
+  info?: GetSourceDetailResponse
+  onModalOpen?: () => void
+  onModalClose?: () => void
 }
 
-export const NotificationDescription = ({
-  sourceType,
-  value,
-  sourceId,
-  isLoading,
-  sourceDetail,
-  progressSteps = [],
-}: NotificationDescriptionProps) => {
-  return (
-    <div style={{ overflow: 'auto', maxHeight: '80vh' }}>
-      <div style={{ marginBlock: 12 }}>
-        {sourceType === SourceTypeEnum.AI_GENERATE_COLUMN ? (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ width: '100%' }}>
-              <div style={{ width: '100%' }}>{value ? <Markdown content={value} /> : ''}</div>
-              {value && (
-                <div
-                  style={{
-                    marginBlockStart: 8,
-                    color: '#8E8E8E',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  内容由AI生成，请注意识别
-                  <CopyOutlined onClick={() => copyTextAndMessage(value)} />
-                </div>
-              )}
-              <ResearchSteps steps={progressSteps} />
-            </div>
-          </div>
-        ) : (
-          <>
-            {value && <Markdown content={value} />}
-            <Divider dashed style={{ marginBlock: 12 }} />
-          </>
-        )}
+const PREFIX = 'notification-description'
+const STRINGS = {
+  AI_TIPS: t('464117', '内容由AI生成，请注意识别'),
+  DATA_SOURCE: t('464158', '数据来源：'),
+  GETTING_DATA_SOURCE: t('464165', '正在获取数据来源...'),
+  NO_DATA_SOURCE: t('464150', '无数据来源'),
+  AI_TIPS_COPY: t('453642', '内容由AI生成，请核查重要信息'),
+  PROMPT: t('464143', '提示词'),
+  STEPS: t('464191', '研究步骤'),
+  REFERENCES: t('464121', '参考资料'),
+}
 
-        <div
-          style={{
-            width: '100%',
-            marginBlock: 12,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <h4 style={{ color: '#999' }}>数据来源：</h4>
-            <SourceTag sourceType={sourceType} />
-          </div>
+// 已拆分为独立组件 SuggestSection
+
+const AIColumnContent = ({
+  sourceType,
+  sourceDetail,
+  info,
+  progressSteps,
+  onModalOpen,
+  onModalClose,
+}: NotificationDescriptionProps) => {
+  const hasSteps = !!(progressSteps && progressSteps.length)
+  const hasRefs = !!((info?.ragList && info.ragList.length) || (info?.dpuList && info.dpuList.length))
+  const hasPrompt = !!sourceDetail
+
+  return (
+    <div className={styles[`${PREFIX}-container`]}>
+      <div style={{ marginBlockEnd: 12 }}>
+        <div style={{ width: '100%' }}>
+          {info?.answer ? <Markdown content={info.answer} /> : null}
+
+          {info?.answer && (
+            <div>
+              <div
+                style={{
+                  marginBlockStart: 8,
+                  color: 'var(--basic-8)',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <AICopyButton axiosEntWeb={entWebAxiosInstance} content={info?.answer} isBury />
+                <AILikeButton
+                  axiosEntWeb={entWebAxiosInstance}
+                  content={info?.answer}
+                  question={info?.question || ''}
+                  isBury
+                />
+                <AIDislikeButton
+                  axiosChat={axiosInstance}
+                  axiosEntWeb={entWebAxiosInstance}
+                  content={info?.answer}
+                  question={info?.question || ''}
+                  // questionID={info?.questionID || ''}  等待坤元提供参数
+                  isBury
+                  source="SuperAI"
+                />
+                {/* <Button
+                  // @ts-expect-error wind-icon
+                  icon={<CopyIcon />}
+                  type="text"
+                  onClick={() => copyTextAndMessage(`${info?.answer}\n\n${STRINGS.AI_TIPS_COPY}`)}
+                ></Button> */}
+              </div>
+              <Divider dashed style={{ marginBlockStart: 12, marginBlockEnd: 0 }} />
+            </div>
+          )}
         </div>
-        {!sourceId ? (
-          <div style={{ border: '1px solid #ddd', borderRadius: 4, padding: 12, color: '#ddd' }}>
-            正在获取数据来源...
-          </div>
-        ) : sourceType !== SourceTypeEnum.AI_GENERATE_COLUMN ? (
-          <div style={{ border: '1px solid #ddd', borderRadius: 4, padding: 12 }}>
-            {isLoading ? (
-              <div style={{ color: '#999' }}>正在获取详细信息...</div>
-            ) : (
-              <Markdown content={sourceDetail || '无数据来源'} />
+
+        <DataSourceSection
+          leftContent={
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h4 style={{ color: '#999', margin: 0 }}>{STRINGS.DATA_SOURCE}</h4>
+
+              <div style={{ marginInlineEnd: 12 }}>
+                <SourceTag sourceType={sourceType} />
+              </div>
+
+              {hasSteps && <Tag size="small">{STRINGS.STEPS}</Tag>}
+              {hasRefs && <Tag size="small">{STRINGS.REFERENCES}</Tag>}
+              {hasPrompt && <Tag size="small">{STRINGS.PROMPT}</Tag>}
+            </div>
+          }
+        >
+          <div style={{ marginBlockStart: 4 }}>
+            {hasSteps && <ResearchSteps steps={progressSteps || []} />}
+
+            {hasRefs && (
+              <SuggestSection
+                ragList={(info?.ragList || []) as RAGItem[]}
+                dpuList={(info?.dpuList || []) as DPUItem[]}
+                onModalClose={() => {
+                  console.log('AIColumnContent：onModalClose')
+                  onModalClose?.()
+                }}
+                onModalOpen={() => {
+                  console.log('AIColumnContent：onModalOpen')
+                  onModalOpen?.()
+                }}
+                defaultExpanded
+              />
             )}
+
+            {hasPrompt && <PromptSection content={sourceDetail || STRINGS.NO_DATA_SOURCE} defaultExpanded />}
           </div>
-        ) : null}
+        </DataSourceSection>
+      </div>
+    </div>
+  )
+}
+
+export const NotificationDescription = (props: NotificationDescriptionProps) => {
+  const { sourceType, value, sourceId, sourceDetail, columnDataType } = props || {}
+  if (sourceType === SourceTypeEnum.AI_GENERATE_COLUMN) {
+    return <AIColumnContent {...props} />
+  }
+  return (
+    <div className={styles[`${PREFIX}-container`]}>
+      <div style={{ marginBlockEnd: 12 }}>
+        <>
+          {columnDataType === ColumnDataTypeEnum.WEB && value && value !== '--' ? (
+            <Button
+              type="link"
+              onClick={() => window.open(`http://${value}`, '_blank')}
+              style={{ paddingInlineStart: 0 }}
+            >
+              {value}
+            </Button>
+          ) : (
+            value && <Markdown content={value} />
+          )}
+          <Divider dashed style={{ marginBlockStart: 12, marginBlockEnd: 12 }} />
+        </>
+        <DataSourceSection
+          leftContent={
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h4 style={{ color: '#999' }}>{STRINGS.DATA_SOURCE}</h4>
+              <SourceTag sourceType={sourceType} />
+            </div>
+          }
+        >
+          {!sourceId ? (
+            <div style={{ border: '1px solid #ddd', borderRadius: 4, padding: 12, color: '#ddd' }}>
+              {STRINGS.GETTING_DATA_SOURCE}
+            </div>
+          ) : (
+            <div style={{ border: '1px solid #ddd', borderRadius: 4, padding: '4px 12px', color: 'var(--basic-8)' }}>
+              <p>{sourceDetail || STRINGS.NO_DATA_SOURCE}</p>
+            </div>
+          )}
+        </DataSourceSection>
       </div>
     </div>
   )

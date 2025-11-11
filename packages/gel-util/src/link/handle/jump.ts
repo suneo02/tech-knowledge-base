@@ -29,7 +29,7 @@ export const handleJumpTerminalCompatible = (url: string, isBaiFenTerminal: bool
         }
       }
       // 终端中跳f9
-      // @ts-expect-error
+      // @ts-expect-error url is string
       window.location = url
     } else {
       console.error('handleJumpTerminalCompatible: 当前不在客户端中，无法跳转')

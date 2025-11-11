@@ -21,6 +21,8 @@ export const DetailLink: FC<{
           wftCommon.jumpJqueryPage(url)
         }
       }}
+      data-uc-id="xihx-2EyB"
+      data-uc-ct="a"
     >
       {txt || '--'}
     </a>

@@ -566,6 +566,8 @@ function ActCtrlChart({ companycode, watermask = true, saveImgName = intl('35611
               }
             }
           }}
+          data-uc-id="55GAiUd6iB"
+          data-uc-ct="a"
         >
           {t.ActControName}
         </a>
@@ -590,8 +592,8 @@ function ActCtrlChart({ companycode, watermask = true, saveImgName = intl('35611
         ) : (
           <>
             <div className="chart-icons">
-              <SaveO onClick={saveAction} />
-              <RefreshO onClick={refreshAction} />
+              <SaveO onClick={saveAction} data-uc-id="vtsoLcAjvd" data-uc-ct="saveo" />
+              <RefreshO onClick={refreshAction} data-uc-id="hiXfB8TUkd" data-uc-ct="refresho" />
             </div>
             {/* <div className="chart-tag">
               <MyIcon name={'actor11'}></MyIcon>

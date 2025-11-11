@@ -38,6 +38,8 @@ const ModalLocal = ({ title, visible, onClose, children }) => {
       onCancel={onClose}
       confirmLoading={confirmLoading}
       okText={intl('286726', '确认绑定')}
+      data-uc-id="cuxoaZFshy"
+      data-uc-ct="modal"
     >
       {children}
     </Modal>
@@ -47,7 +49,7 @@ const ModalLocal = ({ title, visible, onClose, children }) => {
 export const BindContactModal = ({ title, visible, onClose, children }) => {
   return (
     <BindContactModalProvider>
-      <ModalLocal title={title} visible={visible} onClose={onClose}>
+      <ModalLocal title={title} visible={visible} onClose={onClose} data-uc-id="jHVzpqqBCH" data-uc-ct="modallocal">
         {children}
       </ModalLocal>
     </BindContactModalProvider>

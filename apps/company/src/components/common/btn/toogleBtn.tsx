@@ -16,12 +16,24 @@ export const ToggleBtn: FC<{
       className={styles['toggle-btn']}
       icon={
         ifExpanded ? (
-          <MenuFoldO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          <MenuFoldO
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            data-uc-id="UYGzPwD5v3"
+            data-uc-ct="menufoldo"
+          />
         ) : (
-          <MenuUnfoldO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+          <MenuUnfoldO
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            data-uc-id="pGqqX-bLCj"
+            data-uc-ct="menuunfoldo"
+          />
         )
       }
       onClick={toggle}
+      data-uc-id="m05evphjnc"
+      data-uc-ct="button"
     />
   )
 }

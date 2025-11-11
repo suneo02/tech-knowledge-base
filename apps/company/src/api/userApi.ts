@@ -43,9 +43,12 @@ export const listPayOrder = (data) => {
 // 发票详情
 export const getPayInvoice = (orderId) => {
   return axios.request({
-    cmd: `operation/get/getPayInvoice?orderId=${orderId}`,
+    cmd: `operation/get/getPayInvoice`,
     method: 'post',
     data: {},
+    params: {
+      orderId,
+    },
   })
 }
 

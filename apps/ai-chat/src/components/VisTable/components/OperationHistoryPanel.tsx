@@ -1,21 +1,21 @@
-import React from 'react'
-import { Timeline, Card, Tag, Typography, Empty } from 'antd'
 import {
   CheckCircleOutlined,
   ClockCircleOutlined,
-  ExclamationCircleOutlined,
-  EditOutlined,
   DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
+  HolderOutlined,
+  MinusOutlined,
+  PlayCircleOutlined,
   PlusOutlined,
+  RedoOutlined,
   SyncOutlined,
   UndoOutlined,
-  RedoOutlined,
-  PlayCircleOutlined,
-  MinusOutlined,
-  HolderOutlined,
 } from '@ant-design/icons'
+import { Card, Empty, Tag, Timeline, Typography } from 'antd'
+import React from 'react'
 import { useTableOperationsHistory } from '../hooks/useTableOperationsHistoryHook'
-import { VisTableOperationType, SyncStatus } from '../types/operationTypes'
+import { SyncStatus, VisTableOperationType } from '../types/operationTypes'
 
 const { Text } = Typography
 
@@ -108,6 +108,7 @@ const OperationTag = ({ type }: { type: string }) => {
  */
 export const OperationHistoryPanel: React.FC<OperationHistoryPanelProps> = ({ tableId, maxHeight = 170 }) => {
   // 获取操作历史
+  // @ts-expect-error
   const { operationLogs, canUndo, canRedo } = useTableOperationsHistory(tableId)
 
   // 倒序排列日志，最新的显示在上面

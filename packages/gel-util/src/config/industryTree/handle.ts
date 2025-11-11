@@ -1,6 +1,6 @@
+import digitalIndustryTree from './digital.json'
 import { industryOfNationalEconomyCfg } from './industryTree'
 import { IndustryTreeNode } from './type'
-import digitalIndustryTree from './digital.json'
 
 // 将oldcode转换成新code，并保留n级
 export const translateIndustryCode = (arr: IndustryTreeNode[], level = 3): IndustryTreeNode[] => {
@@ -41,25 +41,34 @@ export const getIndustryCodeAncestors = (code: string) => {
   return codeArr
 }
 
+type TreeNode<T> = {
+  name: string
+  code: string
+  node?: TreeNode<T>[]
+}
+
+type TreeOption = {
+  label: string
+  value: string
+  children?: TreeOption[]
+}
 /**
  * 将json tree 转换成 antd options
  * @param arr
  * @returns
  */
-export const convertIndustryTreeToOptions = (
-  arr: IndustryTreeNode[]
-): { label: string; value: string; children?: any[] }[] => {
+export function convertTreeToOptions<T extends TreeNode<T>>(arr: T[]): TreeOption[] {
   if (!arr?.length) return []
   return arr.map((i) => {
-    const obj: { label: string; value: string; children?: any[] } = {
+    const obj: TreeOption = {
       label: i.name,
       value: i.code,
     }
     if (i.node?.length) {
-      obj.children = convertIndustryTreeToOptions(i.node)
+      obj.children = convertTreeToOptions(i.node)
     }
     return obj
   })
 }
 
-export const digitalOptions = convertIndustryTreeToOptions(digitalIndustryTree as any[])
+export const digitalOptions = convertTreeToOptions(digitalIndustryTree)

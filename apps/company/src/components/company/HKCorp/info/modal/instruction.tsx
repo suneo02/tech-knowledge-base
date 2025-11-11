@@ -32,7 +32,13 @@ export const HKCorpInstruction: FC<{
           <span key={i}>{`${i + 1}. ${item}`}</span>
         ))}
       </div>
-      <Button className={styles.payBtn} type={'primary'} onClick={handlePay}>
+      <Button
+        className={styles.payBtn}
+        type={'primary'}
+        onClick={handlePay}
+        data-uc-id="vjg-7L86Yc"
+        data-uc-ct="button"
+      >
         <InfoCircleButton />
         <span>{intl(414525, '在线购买')}</span>
       </Button>

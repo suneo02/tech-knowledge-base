@@ -5,7 +5,6 @@ import {
   Col,
   Input,
   Layout,
-  Link,
   message,
   Modal,
   Popconfirm,
@@ -19,7 +18,6 @@ import {
   Upload,
 } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
-import classNames from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import XLSX from 'xlsx'
@@ -46,15 +44,16 @@ import RangePickerDialog from '../SingleCompanyDynamic/RangePickerDialog.tsx'
 import './CompanyDynamic.less'
 
 import CompanyLink from '../../components/company/CompanyLink.tsx'
+import GroupList from './components/GroupList'
 
-import { DeleteOBtn } from '@/components/common/btn/DeleteOBtn/index.tsx'
-import { CheckO, CloseO, CopyO, DeleteO, EditO, FileAddO, FileTextO, PlusCircleO } from '@wind/icons'
+import { CopyO, DeleteO, FileAddO, FileTextO, PlusCircleO } from '@wind/icons'
 import CheckboxGroup from '@wind/wind-ui/lib/checkbox/Group'
 import { getDynamicDetail } from 'gel-ui'
 import { pointBuriedByModule } from '../../api/pointBuried/bury.ts'
 import Cancel from '../../assets/imgs/Cancel.png'
 import yidongdao from '../../assets/imgs/yidongdao.png'
 import { usePageTitle } from '../../handle/siteTitle'
+import { mapText2JSXInCorpDynamic } from './corpEventItem.tsx'
 import { corpDynamicMenu } from './dynamic/config.ts'
 
 const Dragger = Upload.Dragger
@@ -70,15 +69,12 @@ function CompanyDynamic(props) {
   const qsParam = parseQueryString()
   const keyMenu = qsParam['keyMenu']
 
-  const { location, history } = props
-  const { id } = parseQueryString()
-
   const [value, setValue] = useState('')
   const [keyWord, setKeyWord] = useState('') // 搜索企业名称
   const [paraKeyWord, setParaKeyWord] = useState('') // 搜索企业名称
   const [textareaValue, setTextareaValue] = useState('') // 批量导入文本粘贴
 
-  const [defaultActiveKey, setDefaultActiveKey] = useState('1')
+  const defaultActiveKey = '1'
   const [current_group, setCurrent_group] = useState<any>({
     name: 'all',
     groupId: 'all',
@@ -88,6 +84,7 @@ function CompanyDynamic(props) {
   const [isAdd, setIsAdd] = useState(false) // 是否是添加
   const [isEdit, setIsEdit] = useState(false) // 是否是编辑
   const [isCopy, setIsCopy] = useState(false)
+  const [isCopyFromTable, setIsCopyFromTable] = useState(false)
   const [isFirst, setIsFirst] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -98,7 +95,7 @@ function CompanyDynamic(props) {
   const [emptyVisible, setEmptyVisible] = useState(false) // 清空收藏确认框
   const [importVisible, setImportVisible] = useState(false) // 批量导入确认框
 
-  const [mouseOnGroupId, setMouseOnGroupId] = useState<any>(false)
+  const [editingGroupId, setEditingGroupId] = useState<string | null>(null)
 
   const [paramGroupId, setParamGroupId] = useState<any>('')
   const [sectorId, setSectorId] = useState('')
@@ -162,6 +159,8 @@ function CompanyDynamic(props) {
               onClick={() => {
                 window.open(`index.html#/SingleCompanyDynamic?companycode=${record?.CompanyCode}`)
               }}
+              data-uc-id="tjhfkjSQwC2"
+              data-uc-ct="span"
             >
               {record?.EventAgg}
             </span>
@@ -192,28 +191,37 @@ function CompanyDynamic(props) {
             }}
             okText={intl('19482', '确认')}
             cancelText={intl('19405', '取消')}
+            data-uc-id="uaPKYVV4Oh"
+            data-uc-ct="popconfirm"
           >
             <a>{intl('257657', '取消收藏')}</a>
           </Popconfirm>
           &nbsp;&nbsp;&nbsp;
-          <a
-            onClick={() => {
-              pointBuriedByModule(922602101054)
-              setIsCopy(false)
-              setVisible(true)
-              setCompanyCodes(record.CompanyCode)
-            }}
-          >
-            {intl('370255', '移动到')}
-          </a>
+          {current_group.groupId !== 'all' ? (
+            <a
+              onClick={() => {
+                pointBuriedByModule(922602101054)
+                setIsCopy(false)
+                setVisible(true)
+                setCompanyCodes(record.CompanyCode)
+              }}
+              data-uc-id="qAowJikWhlh"
+              data-uc-ct="a"
+            >
+              {intl('370255', '移动到')}
+            </a>
+          ) : null}
           &nbsp;&nbsp;&nbsp;
           <a
             onClick={() => {
               pointBuriedByModule(922602101055)
+              setIsCopyFromTable(true)
               setIsCopy(true)
               setVisible(true)
               setCompanyCodes(record.CompanyCode)
             }}
+            data-uc-id="zqodUy4WtrB"
+            data-uc-ct="a"
           >
             {intl('370256', '复制到')}
           </a>
@@ -487,6 +495,7 @@ function CompanyDynamic(props) {
       }).then(() => {
         setIsEdit(false)
         setValue('')
+        setEditingGroupId(null)
         getcustomercountgroupnew()
           .then((res) => {
             setGroups(res?.Data || [])
@@ -576,70 +585,6 @@ function CompanyDynamic(props) {
     setTextareaValue(e.target.value)
   }
 
-  const mapText2JSX = ({ event_type_raw, text, event_id, event_source_id, corp_id }) => {
-    switch (event_type_raw) {
-      case '招投标公告':
-        return (
-          // @ts-expect-error ttt
-          <Link target="_blank" href={`index.html?nosearch=1#/biddingDetail?detailid=${event_source_id}`}>
-            {text}
-          </Link>
-        )
-      case '招聘信息':
-        return (
-          <Link
-            // @ts-expect-error ttt
-            target="_blank"
-            href={`index.html#/jobDetail?type=jobs&detailid=${event_source_id}&jobComCode=${corp_id}`}
-          >
-            {text}
-          </Link>
-        )
-
-      // 法律诉讼
-      case '裁判文书':
-        return (
-          // @ts-expect-error ttt
-          <Link target="_blank" href={`index.html#/lawdetail?reportName=Judgment&id=${event_source_id}`}>
-            {text}
-          </Link>
-        )
-      case '开庭公告':
-        return (
-          // @ts-expect-error ttt
-          <Link target="_blank" href={`index.html#/lawdetail?reportName=CourtSession&id=${event_source_id}`}>
-            {text}
-          </Link>
-        )
-      case '法院公告':
-        return (
-          // @ts-expect-error ttt
-          <Link target="_blank" href={`index.html#/lawdetail?reportName=CourtAnnouncement&id=${event_source_id}`}>
-            {text}
-          </Link>
-        )
-
-      // 知识产权
-      case '商标信息':
-        return (
-          // @ts-expect-error ttt
-          <Link target="_blank" href={`index.html?type=brand&expover=${0}&detailid=${event_source_id}#/logoDetail`}>
-            {text}
-          </Link>
-        )
-      case '专利信息':
-        return (
-          // @ts-expect-error ttt
-          <Link target="_blank" href={`index.html#/patentDetail?nosearch=1&detailId=${event_id}`}>
-            {text}
-          </Link>
-        )
-
-      default:
-        return text
-    }
-  }
-
   const radioStyle = {
     display: 'block',
     height: '34px',
@@ -687,13 +632,20 @@ function CompanyDynamic(props) {
             setParamGroupId(groupId)
           }}
           style={{ flex: 1 }}
+          data-uc-id="eRYAqvOyK_"
+          data-uc-ct="select"
         >
           {groups.map(({ name, groupId }) =>
             groupId === 'all' ? (
               <></>
             ) : (
-              // @ts-expect-error ttt
-              <Option key={groupId} title={name}>
+              <Option
+                key={groupId}
+                title={name}
+                data-uc-id={`2bwo-rDsdJ1${groupId}`}
+                data-uc-ct="option"
+                data-uc-x={groupId}
+              >
                 {name}
               </Option>
             )
@@ -701,18 +653,6 @@ function CompanyDynamic(props) {
         </Select>
       </div>
     </div>
-  )
-
-  const dupName = (
-    <p
-      style={{
-        lineHeight: '16px',
-        fontSize: '12px',
-        color: '#D9001B',
-      }}
-    >
-      {intl('371234', '与现有分组重名')}
-    </p>
   )
 
   const matchResult = (
@@ -763,6 +703,8 @@ function CompanyDynamic(props) {
         pagination={false}
         rowSelection={matchRowSelection}
         empty={intl('17235', '暂无数据')}
+        data-uc-id="b1EtnSRiJH"
+        data-uc-ct="table"
       ></Table>
 
       {footer}
@@ -772,12 +714,15 @@ function CompanyDynamic(props) {
   return (
     <React.Fragment>
       <div className="breadcrumb-box">
-        <Breadcrumb>
-          <Breadcrumb.Item style={{ cursor: 'pointer' }}>{intl('19475', '首页')}</Breadcrumb.Item>
-          <Breadcrumb.Item style={{ cursor: 'pointer' }}>{intl('370234', '收藏&动态')}</Breadcrumb.Item>
+        <Breadcrumb data-uc-id="TWa2NyeS_" data-uc-ct="breadcrumb">
+          <Breadcrumb.Item style={{ cursor: 'pointer' }} data-uc-id="8EInuN8yhT" data-uc-ct="breadcrumb">
+            {intl('19475', '首页')}
+          </Breadcrumb.Item>
+          <Breadcrumb.Item style={{ cursor: 'pointer' }} data-uc-id="I15r0Q4pmS" data-uc-ct="breadcrumb">
+            {intl('370234', '收藏&动态')}
+          </Breadcrumb.Item>
         </Breadcrumb>
       </div>
-
       <div id="companyCollect">
         {/* 页面的任何地方加上Prompt组件都生效 */}
         {/* <Prompt when={isHoldUpRouter} message={this.handleRouterHoldUp} /> */}
@@ -807,6 +752,7 @@ function CompanyDynamic(props) {
                       setValue('')
                       setIsAdd(true)
                       setIsEdit(false)
+                      setEditingGroupId(null)
                     }}
                     icon={
                       <PlusCircleO
@@ -814,147 +760,35 @@ function CompanyDynamic(props) {
                         title={intl('370838', '点击新增分组')}
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
+                        data-uc-id="TXSNLvVWDq"
+                        data-uc-ct="pluscircleo"
                       />
                     }
+                    data-uc-id="jBZ5Fedhvp"
+                    data-uc-ct="button"
                   />
                 </Tooltip>
               </div>
-              <div className="tree">
-                {groups.map((i) => {
-                  return (
-                    <div
-                      key={i.groupId}
-                      className={classNames('group', {
-                        current_group: i.groupId === current_group.groupId,
-                      })}
-                      onClick={() => {
-                        setParaKeyWord('')
-                        setKeyWord('')
-                        handleSelect(i)
-                      }}
-                      onMouseEnter={() => {
-                        if (isEdit) return
-                        setMouseOnGroupId(i.groupId)
-                      }}
-                      onMouseLeave={() => {
-                        if (isEdit) return
-                        setMouseOnGroupId('')
-                      }}
-                    >
-                      {mouseOnGroupId == i.groupId && isEdit ? (
-                        <div className="EditBox">
-                          <Input
-                            size="mini"
-                            placeholder=""
-                            autoFocus
-                            value={value}
-                            onChange={(e) => {
-                              setValue(e.target.value)
-                            }}
-                            style={{
-                              width: '130px',
-                              marginRight: '12px ',
-                            }}
-                          />
-                          <Button
-                            type="text"
-                            onClick={() => {
-                              handleUpdateGroup(i.groupId)
-                            }}
-                            icon={<CheckO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
-                          />
-                          &nbsp;&nbsp;
-                          <Button
-                            type="text"
-                            onClick={() => {
-                              setIsEdit(false)
-                            }}
-                            icon={<CloseO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
-                          />
-                          {groups.some((j) => j.name == value && j.name !== i.name) ? dupName : <></>}
-                        </div>
-                      ) : (
-                        <>
-                          <span className="groupName">
-                            &nbsp;{i.name}（{i.num}）
-                          </span>
-                          {mouseOnGroupId == i.groupId && i.groupId !== 'all' ? (
-                            <>
-                              <Button
-                                type="text"
-                                className={classNames({
-                                  'icon-in-active-menu': i.groupId === current_group.groupId,
-                                })}
-                                onClick={() => {
-                                  pointBuriedByModule(922602101051)
-                                  setIsAdd(false)
-                                  setIsEdit(true)
-                                  setValue(i.name)
-                                }}
-                                icon={<EditO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
-                              />
-                              &nbsp;&nbsp;
-                              {groups?.length > 2 ? (
-                                <Popconfirm
-                                  title={intl('370837', `删除操作不可撤销，确定删除分组“%”么？`).replace('%', i.name)}
-                                  onConfirm={() => {
-                                    pointBuriedByModule(922602101050)
-                                    handleDeleteGroup(i.groupId)
-                                  }}
-                                  okText={intl('19482', '确认')}
-                                  cancelText={intl('19405', '取消')}
-                                >
-                                  <DeleteOBtn
-                                    className={classNames({
-                                      'icon-in-active-menu': i.groupId === current_group.groupId,
-                                    })}
-                                  />
-                                </Popconfirm>
-                              ) : (
-                                <></>
-                              )}
-                            </>
-                          ) : (
-                            <></>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  )
-                })}
-                {isAdd ? (
-                  <div className="add-group-box">
-                    <Input
-                      size="mini"
-                      placeholder=""
-                      value={value}
-                      onChange={(e) => {
-                        setValue(e.target.value)
-                      }}
-                      style={{
-                        width: '130px',
-                        marginRight: '12px ',
-                      }}
-                    />
-                    <Button
-                      type="text"
-                      onClick={handleAddGroup}
-                      icon={<CheckO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
-                    />
-                    &nbsp;&nbsp;
-                    <Button
-                      type="text"
-                      onClick={() => {
-                        setIsAdd(false)
-                      }}
-                      icon={<CloseO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
-                    />
-                    {groups.some((i) => i.name == value) ? dupName : <></>}
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
+              <GroupList
+                groups={groups}
+                currentGroup={current_group}
+                value={value}
+                setValue={setValue}
+                isAdd={isAdd}
+                setIsAdd={setIsAdd}
+                isEdit={isEdit}
+                setIsEdit={setIsEdit}
+                editingGroupId={editingGroupId}
+                setEditingGroupId={setEditingGroupId}
+                onSelect={(g) => {
+                  setParaKeyWord('')
+                  setKeyWord('')
+                  handleSelect(g)
+                }}
+                onAddGroup={handleAddGroup}
+                onUpdateGroup={handleUpdateGroup}
+                onDeleteGroup={handleDeleteGroup}
+              />
             </div>
           </Sider>
           {/*// @ts-expect-error ttt*/}
@@ -964,7 +798,6 @@ function CompanyDynamic(props) {
               marginLeft: '24px',
             }}
           >
-            {/*// @ts-expect-error ttt*/}
             <Tabs
               defaultActiveKey={defaultActiveKey}
               activeKey={activeKeyMenu}
@@ -975,9 +808,10 @@ function CompanyDynamic(props) {
                 props.history.push(`/companyDynamic?keyMenu=${key}`)
                 setActiveKeyMenu(key)
               }}
+              data-uc-id="96NKDAYC1D"
+              data-uc-ct="tabs"
             >
-              {/*// @ts-expect-error ttt*/}
-              <TabPane tab={intl('370235', '收藏的企业')} key="1">
+              <TabPane tab={intl('370235', '收藏的企业')} key="1" data-uc-id="OehjSMdISs" data-uc-ct="tabpane">
                 <div className="operation">
                   <Search
                     ref={searchRef}
@@ -992,14 +826,25 @@ function CompanyDynamic(props) {
                       setParaKeyWord(value)
                     }}
                     allowClear
+                    data-uc-id="w7iJ_WYkfU"
+                    data-uc-ct="search"
                   ></Search>
                   <div className="operation_btns">
                     <Button
-                      icon={<DeleteO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                      icon={
+                        <DeleteO
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                          data-uc-id="ECw5HMJFKK"
+                          data-uc-ct="deleteo"
+                        />
+                      }
                       onClick={() => {
                         pointBuriedByModule(922602101052)
                         setEmptyVisible(true)
                       }}
+                      data-uc-id="n1lVBIhgHK"
+                      data-uc-ct="button"
                     >
                       {intl('437738', '清空收藏')}
                     </Button>
@@ -1014,27 +859,38 @@ function CompanyDynamic(props) {
 
                         setCancelVisible(true)
                       }}
+                      data-uc-id="juOiPpEuRW"
+                      data-uc-ct="button"
                     >
                       {intl('257657', '取消收藏')}
                     </Button>
-
+                    {current_group.groupId !== 'all' ? (
+                      <Button
+                        icon={<img className="operation_btns_icon" src={yidongdao} />}
+                        onClick={() => {
+                          if (!selectedRowKeys.length) {
+                            return message.warn(intl('373273', '至少选择1条数据'))
+                          }
+                          pointBuriedByModule(922602101054)
+                          setCompanyCodes(selectedRowKeys.join(','))
+                          setVisible(true)
+                          setIsCopy(false)
+                        }}
+                        data-uc-id="nyZElR388Q"
+                        data-uc-ct="button"
+                      >
+                        {intl('370255', '移动到')}
+                      </Button>
+                    ) : null}
                     <Button
-                      icon={<img className="operation_btns_icon" src={yidongdao} />}
-                      onClick={() => {
-                        if (!selectedRowKeys.length) {
-                          return message.warn(intl('373273', '至少选择1条数据'))
-                        }
-                        pointBuriedByModule(922602101054)
-                        setCompanyCodes(selectedRowKeys.join(','))
-                        setVisible(true)
-                        setIsCopy(false)
-                      }}
-                    >
-                      {intl('370255', '移动到')}
-                    </Button>
-
-                    <Button
-                      icon={<CopyO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                      icon={
+                        <CopyO
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                          data-uc-id="T6hQ4pGzD"
+                          data-uc-ct="copyo"
+                        />
+                      }
                       onClick={() => {
                         if (!selectedRowKeys.length) {
                           return message.warn(intl('373273', '至少选择1条数据'))
@@ -1042,18 +898,30 @@ function CompanyDynamic(props) {
                         pointBuriedByModule(922602101055)
                         setCompanyCodes(selectedRowKeys.join(','))
                         setVisible(true)
+                        setIsCopyFromTable(false)
                         setIsCopy(true)
                       }}
+                      data-uc-id="fZqz54b2j4"
+                      data-uc-ct="button"
                     >
                       {intl('370256', '复制到')}
                     </Button>
 
                     <Button
-                      icon={<FileAddO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                      icon={
+                        <FileAddO
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                          data-uc-id="AsIIl2Ti2h"
+                          data-uc-ct="fileaddo"
+                        />
+                      }
                       onClick={() => {
                         pointBuriedByModule(922602101056)
                         dispalyImportModal()
                       }}
+                      data-uc-id="BvkRLlUsTw"
+                      data-uc-ct="button"
                     >
                       {intl('286238', '批量导入')}
                     </Button>
@@ -1072,7 +940,9 @@ function CompanyDynamic(props) {
                         }}
                       >
                         {intl('370244', '暂无收藏的企业，')}
-                        <a onClick={dispalyImportModal}>{intl('370263', '点击添加')}</a>
+                        <a onClick={dispalyImportModal} data-uc-id="S9_xQxeMBk4" data-uc-ct="a">
+                          {intl('370263', '点击添加')}
+                        </a>
                       </div>
                     }
                     dataSource={dataSource.map((i) => ({
@@ -1082,11 +952,13 @@ function CompanyDynamic(props) {
                     loading={loading}
                     rowSelection={rowSelection}
                     size="large"
+                    data-uc-id="ZnUIqSCgmj"
+                    data-uc-ct="table"
                   />
                 </div>
               </TabPane>
-              {/*// @ts-expect-error ttt*/}
-              <TabPane tab={intl('370254', '企业动态')} key="2">
+
+              <TabPane tab={intl('370254', '企业动态')} key="2" data-uc-id="ZcOEPlHGBh" data-uc-ct="tabpane">
                 <Row className="dynamicType">
                   <Col
                     span={2}
@@ -1099,12 +971,15 @@ function CompanyDynamic(props) {
                   <Col span={21}>
                     {corpDynamicMenu.map((i) => (
                       <span
+                        key={i.name}
                         className={activeMenu.name == i.name ? 'activeMenu span' : 'span'}
                         onClick={() => {
                           setActiveMenu(i)
                           setCurrentMenu(i.children || [])
                           setActiveSubMenus([i.children[0] || ''])
                         }}
+                        data-uc-id="_ww_eFhwTWt"
+                        data-uc-ct="span"
                       >
                         {intl('', i.name)}
                       </span>
@@ -1126,6 +1001,7 @@ function CompanyDynamic(props) {
                       >
                         {currentMenu.map((i, index, arr) => (
                           <span
+                            key={i.name}
                             className={activeSubMenus.find((j) => j.name == i.name) ? 'activeMenu span' : 'span'}
                             onClick={() => {
                               setActiveSubMenus((menu) => {
@@ -1146,6 +1022,8 @@ function CompanyDynamic(props) {
                                 return [...menu]
                               })
                             }}
+                            data-uc-id="nqcVEEB_stw"
+                            data-uc-ct="span"
                           >
                             {intl('', i.name)}
                           </span>
@@ -1169,11 +1047,14 @@ function CompanyDynamic(props) {
                   <Col span={22}>
                     {dates.map((i) => (
                       <span
+                        key={i.name}
                         className={activeDate.name == i.name ? 'activeMenu span' : 'span'}
                         onClick={() => {
                           setActiveDate(i)
                           setIsShowRangePicker(false)
                         }}
+                        data-uc-id="uENuLjDDAwJ"
+                        data-uc-ct="span"
                       >
                         {intl('', i.name)}
                       </span>
@@ -1194,6 +1075,8 @@ function CompanyDynamic(props) {
                         }
                       }}
                       className={activeDate.name && customDate.name == activeDate.name ? 'activeMenu span' : 'span'}
+                      data-uc-id="gI83NHJwYV-"
+                      data-uc-ct="span"
                     >
                       {customDate.name || intl('25405', '自定义')}
                       <RangePickerDialog
@@ -1203,6 +1086,8 @@ function CompanyDynamic(props) {
                           setActiveDate(dateObj)
                           setCustomDate(dateObj)
                         }}
+                        data-uc-id="ZwPR-AED1n8"
+                        data-uc-ct="rangepickerdialog"
                       />
                     </span>
                   </Col>
@@ -1210,10 +1095,9 @@ function CompanyDynamic(props) {
 
                 <div className="timelineBox" ref={scrollRef}>
                   {corpeventlist && corpeventlist.length ? (
-                    <Timeline>
+                    <Timeline data-uc-id="gP_O31mwcI" data-uc-ct="timeline">
                       {corpeventlist.map((i, index, arr) => (
                         <>
-                          {/*// @ts-expect-error ttt*/}
                           <Timeline.Item
                             color="blue"
                             title={
@@ -1232,6 +1116,8 @@ function CompanyDynamic(props) {
                                 ''
                               )
                             }
+                            data-uc-id="UqN1wKfF2x"
+                            data-uc-ct="timeline"
                           >
                             <p
                               style={{
@@ -1248,7 +1134,6 @@ function CompanyDynamic(props) {
                                 paddingRight: '20px',
                               }}
                             >
-                              {/*// @ts-expect-error ttt*/}
                               <Tag
                                 style={{
                                   color: '#6D78A5',
@@ -1256,10 +1141,12 @@ function CompanyDynamic(props) {
                                   borderColor: 'rgba(109, 120, 165, 0.5)',
                                   backgroundColor: 'transparent',
                                 }}
+                                data-uc-id="GBPuzkzqZT"
+                                data-uc-ct="tag"
                               >
                                 {i.event_type || ''}
                               </Tag>
-                              <span>{mapText2JSX(i)}</span>
+                              <span>{mapText2JSXInCorpDynamic(i)}</span>
                             </div>
                             <div
                               style={{
@@ -1287,7 +1174,9 @@ function CompanyDynamic(props) {
                       ) : (
                         <>
                           <span>{intl('370244', '暂无收藏的企业，')}</span>
-                          <a onClick={dispalyImportModal}>{intl('370263', '点击添加')}</a>
+                          <a onClick={dispalyImportModal} data-uc-id="zK0O5pRZhra" data-uc-ct="a">
+                            {intl('370263', '点击添加')}
+                          </a>
                         </>
                       )}
                     </div>
@@ -1298,7 +1187,6 @@ function CompanyDynamic(props) {
           </Layout>
         </Layout>
 
-        {/*// @ts-expect-error ttt*/}
         <Modal
           title={isCopy ? intl('370256', '复制到') : intl('370255', '移动到')}
           visible={visible}
@@ -1308,11 +1196,19 @@ function CompanyDynamic(props) {
             setSelectedGroups([])
             setVisible(false)
           }}
+          data-uc-id="t-g8QIfjF"
+          data-uc-ct="modal"
         >
           {isCopy ? (
             <>
-              {/*// @ts-expect-error ttt*/}
-              <p>{intl('370258', `将选中的%家企业复制到`).replace('%', selectedRowKeys.length)}</p>
+              {!isCopyFromTable && (
+                <p>
+                  {intl('370258', `将选中的%家企业复制到`).replace(
+                    '%',
+                    ((companyCodes && companyCodes.split(',').filter(Boolean).length) || selectedRowKeys.length) + ''
+                  )}
+                </p>
+              )}
               <CheckboxGroup
                 name="fruit"
                 value={selectedGroups}
@@ -1323,17 +1219,26 @@ function CompanyDynamic(props) {
                     value: i.groupId,
                   }))}
                 onChange={onChange}
+                data-uc-id="e5hlvUhzOc0"
+                data-uc-ct="checkboxgroup"
               />
             </>
           ) : (
             <>
               {/*// @ts-expect-error ttt*/}
               <p>{intl('370238', `将选中的%家企业移动到`).replace('%', selectedRowKeys.length)}</p>
-              <RadioGroup value={selectedGroup} onChange={onChange}>
+              <RadioGroup value={selectedGroup} onChange={onChange} data-uc-id="xMjIr4u6d3I" data-uc-ct="radiogroup">
                 {groups.map((i) => {
                   if (i.groupId == 'all') return
                   return (
-                    <Radio key={i.groupId} style={radioStyle} value={i.groupId}>
+                    <Radio
+                      key={i.groupId}
+                      style={radioStyle}
+                      value={i.groupId}
+                      data-uc-id="J-DbTkCr6Q"
+                      data-uc-ct="radio"
+                      data-uc-x={i.groupId}
+                    >
                       {i.name}
                     </Radio>
                   )
@@ -1343,7 +1248,6 @@ function CompanyDynamic(props) {
           )}
         </Modal>
 
-        {/*// @ts-expect-error ttt*/}
         <Modal
           title={intl('437738', '清空收藏')}
           visible={emptyVisible}
@@ -1358,6 +1262,8 @@ function CompanyDynamic(props) {
           onCancel={() => {
             setEmptyVisible(false)
           }}
+          data-uc-id="wQEEzlTgOc"
+          data-uc-ct="modal"
         >
           <p>
             {intl('370236', `确定要清空【${current_group.name}】分组下的全部${dataSource.length}家公司吗？`)
@@ -1366,7 +1272,7 @@ function CompanyDynamic(props) {
               .replace('&', dataSource.length)}
           </p>
         </Modal>
-        {/*// @ts-expect-error ttt*/}
+
         <Modal
           title={intl('257657', '取消收藏')}
           visible={cancelVisible}
@@ -1379,6 +1285,8 @@ function CompanyDynamic(props) {
           onCancel={() => {
             setCancelVisible(false)
           }}
+          data-uc-id="hu4nYszn-Y"
+          data-uc-ct="modal"
         >
           <p>
             {intl('370237', `确定要从【${current_group.name}】分组下取消收藏${selectedRowKeys.length}家公司吗？`)
@@ -1388,11 +1296,11 @@ function CompanyDynamic(props) {
           </p>
         </Modal>
 
-        {/*// @ts-expect-error ttt*/}
         <Modal
           title={intl('286238', '批量导入')}
           visible={importVisible}
           onOk={() => {}}
+          width={960}
           onCancel={() => {
             setImportVisible(false)
             setIsFirst(true)
@@ -1411,6 +1319,8 @@ function CompanyDynamic(props) {
                     onClick={() => {
                       setImportVisible(false)
                     }}
+                    data-uc-id="-fe11YuEpk"
+                    data-uc-ct="button"
                   >
                     {intl('19405', '取消')}
                   </Button>,
@@ -1459,6 +1369,8 @@ function CompanyDynamic(props) {
                     style={{
                       width: '80px',
                     }}
+                    data-uc-id="UXDQ6HkQ1K"
+                    data-uc-ct="button"
                   >
                     {intl('437739', '下一步')}
                   </Button>,
@@ -1474,6 +1386,8 @@ function CompanyDynamic(props) {
                       setIsFirst(true)
                       setCompanyMatchData('')
                     }}
+                    data-uc-id="oAOJqy4kIS"
+                    data-uc-ct="button"
                   >
                     {intl('12855', '上一步')}
                   </Button>,
@@ -1507,14 +1421,17 @@ function CompanyDynamic(props) {
                     style={{
                       width: '80px',
                     }}
+                    data-uc-id="rQ6lIF0vqC"
+                    data-uc-ct="button"
                   >
                     {intl('257656', '导入')}
                   </Button>,
                 ]
           }
           className="importModal"
+          data-uc-id="DheWwFpiOn"
+          data-uc-ct="modal"
         >
-          {/*// @ts-expect-error ttt*/}
           <Tabs
             defaultActiveKey="1"
             activeKey={activeKey}
@@ -1522,16 +1439,17 @@ function CompanyDynamic(props) {
               setIsFirst(true)
               // if(!isFirst)return
               setActiveKey(key)
-              // @ts-expect-error ttt
+
               if (key == 3) {
                 getusersector().then((res) => {
                   setUsersector(res.Data || [])
                 })
               }
             }}
+            data-uc-id="dDWNPjT59u"
+            data-uc-ct="tabs"
           >
-            {/*// @ts-expect-error ttt*/}
-            <TabPane tab={intl('437889', '文件导入')} key="1">
+            <TabPane tab={intl('437889', '文件导入')} key="1" data-uc-id="DBbVgcXihO" data-uc-ct="tabpane">
               {isFirst ? (
                 <div className="fileUpload">
                   {/*// @ts-expect-error ttt*/}
@@ -1592,9 +1510,16 @@ function CompanyDynamic(props) {
                       setFileList([])
                       return true
                     }}
+                    data-uc-id="Btne7-xjPR"
+                    data-uc-ct="dragger"
                   >
                     <p className="w-upload-drag-icon">
-                      <FileTextO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                      <FileTextO
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                        data-uc-id="wNVXGvJCLo"
+                        data-uc-ct="filetexto"
+                      />
                     </p>
                     <p className="w-upload-text">
                       <a>{intl('286682', '点击上传')}</a>/{intl('370853', '拖拽Excel文件到此区域')}
@@ -1610,6 +1535,8 @@ function CompanyDynamic(props) {
                           : '/ExportTemplate.xlsx'
                       }
                       download={`${intl('437790', '模板文件')}.xlsx`}
+                      data-uc-id="MkJW3WwxR4X"
+                      data-uc-ct="a"
                     >
                       {`${intl('437790', '模板文件')}.xlsx`}
                     </a>
@@ -1625,8 +1552,8 @@ function CompanyDynamic(props) {
                 matchResult
               )}
             </TabPane>
-            {/*// @ts-expect-error ttt*/}
-            <TabPane tab={intl('370261', '文本粘贴')} key="2">
+
+            <TabPane tab={intl('370261', '文本粘贴')} key="2" data-uc-id="Y2bowm88fe" data-uc-ct="tabpane">
               {isFirst ? (
                 <>
                   <TextArea
@@ -1638,6 +1565,8 @@ function CompanyDynamic(props) {
                       // ...TextAreaStyle
                     }}
                     onChange={handleTextAreaChange}
+                    data-uc-id="zX3a8lYaxk"
+                    data-uc-ct="textarea"
                   ></TextArea>
 
                   <p className="color999">{intl('370240', '第一步：粘贴企业名称或统一社会信用代码进行查询。')}</p>
@@ -1650,8 +1579,8 @@ function CompanyDynamic(props) {
                 matchResult
               )}
             </TabPane>
-            {/*// @ts-expect-error ttt*/}
-            <TabPane tab={intl('370262', '自选股导入')} key="3">
+
+            <TabPane tab={intl('370262', '自选股导入')} key="3" data-uc-id="O7wNHmpAZa" data-uc-ct="tabpane">
               {isFirst ? (
                 <div style={{ marginTop: '12px', padding: 0 }}>
                   <span>{intl('370242', '要导入的自选股：')}</span>
@@ -1659,14 +1588,20 @@ function CompanyDynamic(props) {
                     allowClear
                     placeholder={intl('437320', '选择分组')}
                     onChange={(sectorId) => {
-                      // @ts-expect-error ttt
                       setSectorId(sectorId)
                     }}
                     style={{ width: 'calc(100% - 150px)' }}
+                    data-uc-id="sI8rn8wxem"
+                    data-uc-ct="select"
                   >
                     {usersector?.map(({ sectorName, sectorId }) => (
-                      // @ts-expect-error ttt
-                      <Option key={sectorId} title={sectorName}>
+                      <Option
+                        key={sectorId}
+                        title={sectorName}
+                        data-uc-id={`iDu_Ey9w7so${sectorId}`}
+                        data-uc-ct="option"
+                        data-uc-x={sectorId}
+                      >
                         {sectorName}
                       </Option>
                     ))}

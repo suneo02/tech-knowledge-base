@@ -23,8 +23,8 @@ export const SecondLevelCheckbox: React.FC<SecondLevelCheckboxProps> = ({ subIte
     typeof subItem.value === 'string'
       ? subItem.value
       : Array.isArray(subItem.value) && subItem.value.length > 0
-      ? String(subItem.value[0])
-      : ''
+        ? String(subItem.value[0])
+        : ''
 
   // 计算当前选中的三级选项
   const selectedLevel3 = selectedValues.filter((v) => level3Values.includes(v))
@@ -122,7 +122,6 @@ export const SecondLevelCheckbox: React.FC<SecondLevelCheckboxProps> = ({ subIte
         {(subItem.itemOption?.length ?? 0) > 0 && (
           <div className={styles['third-level-container']}>
             <Divider dashed />
-            {/* @ts-expect-error wind ui */}
             <Checkbox.Group
               className={styles['second-checkbox-group']}
               value={selectedLevel3} // 只传入当前三级选项中被选中的值

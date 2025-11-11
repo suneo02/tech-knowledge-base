@@ -1,14 +1,12 @@
-import { RefModal } from '@/ChatRoles/components/suggestion/comp/modal'
-import { useRefLink } from '@/hooks/useRefLink'
 import { Button } from '@wind/wind-ui'
 import { AxiosInstance } from 'axios'
-import { QueryReferenceSuggest, QueryReferenceSuggestType } from 'gel-api'
+import { RAGItem, RAGType } from 'gel-api'
+import { RefModal, RefTag, useRefLink } from 'gel-ui'
 import { t } from 'gel-util/intl'
-import { RefTag } from '../../ChatRoles/components/suggestion/comp/RefTag/RefTag'
 import './popoverContent.less'
 
 type PopoverContentProps = {
-  refData: QueryReferenceSuggest
+  refData: RAGItem
   positions: Array<{ start: string; end: string }>
   isDev: boolean
   wsid: string
@@ -60,7 +58,7 @@ export const PopoverContent = ({ refData, positions = [], isDev, wsid, entWebAxi
   return (
     <div className="source-popover">
       <div className="source-popover--title">
-        <RefTag tagType={type as QueryReferenceSuggestType} tagText={tagText} size="large" />
+        <RefTag tagType={type as RAGType} tagText={tagText} size="large" type="secondary" />
         <div className="source-popover--title-text" title={text}>
           {text}
         </div>

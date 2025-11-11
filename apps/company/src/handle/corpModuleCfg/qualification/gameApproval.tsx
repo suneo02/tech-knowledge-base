@@ -50,6 +50,8 @@ export const CorpDetailQualificationGetGameApprovalCfg: ICorpSubModuleVipCfg = {
             // @ts-expect-error ttt
             target="_blank"
             dangerouslySetInnerHTML={{ __html: txt || '--' }}
+            data-uc-id="NG62aTHiO"
+            data-uc-ct="link"
           ></Link>
         )
       },

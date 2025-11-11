@@ -1,6 +1,6 @@
 import { arrayFind } from '@/misc'
 import { TIntl } from '@/types'
-import { ReportDetailCustomNodeJson, ReportDetailTableJson, TCorpDetailNodeKey } from 'gel-types'
+import { ReportDetailCustomNodeJson, ReportDetailTableJson, TCorpDetailNodeKey, TCorpDetailSectionKey } from 'gel-types'
 import { configDetailIntlHelper } from './intlHelper'
 
 const ReportQuarterDescMap = [
@@ -134,15 +134,18 @@ export const getReportNodePrefixComment = (
  * @returns
  */
 export const getReportNodeSuffixComment = (
-  _key: TCorpDetailNodeKey,
+  _key: TCorpDetailNodeKey | TCorpDetailSectionKey,
   config: ReportDetailTableJson | ReportDetailCustomNodeJson | undefined,
   t: TIntl,
   isEn: boolean
 ): string | string[] => {
-  if (config && (config.commentSuffix || config.commentSuffixIntl)) {
+  if (!config) {
+    return ''
+  }
+  if (config.commentSuffix || config.commentSuffixIntl) {
     return configDetailIntlHelper(config, 'commentSuffix', t)
   }
-  if (config && config.commentSuffixArr) {
+  if (config.commentSuffixArr) {
     return config.commentSuffixArr.map((item) => {
       return isEn ? item.en : item.cn
     })

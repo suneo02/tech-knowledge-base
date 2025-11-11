@@ -1,6 +1,7 @@
 import { TaskTemplate } from '../types'
 import { ConfigurableForm, TemplateFormData } from './ConfigurableForm'
 import { getReadOnlyFieldConfigs } from '../config/formConfig'
+// @ts-expect-error
 import { ExtendedColumnDefine } from '@/components/MultiTable/utils/columnsUtils'
 import Markdown from '@/components/markdown'
 import styles from './styles.module.less'
@@ -39,7 +40,7 @@ export const TemplateInfo = ({
   onColumnMappingChange,
   onPreviewChange,
 }: TemplateInfoProps) => {
-  console.log('TemplateInfo columns', columns)
+  // console.log('TemplateInfo columns', columns)
   // 如果没有选择任务模板，显示默认内容
   if (!selectedTaskTemplate) {
     return (
@@ -52,23 +53,23 @@ export const TemplateInfo = ({
   // 获取只读模式的表单字段配置
   const fieldConfigs = getReadOnlyFieldConfigs(selectedTaskTemplate.inputFields, columns)
 
-  // 生成预览提示语
+  // 生成预览提示词
   const generatePreviewPrompt = () => {
     let previewPrompt = selectedTaskTemplate.prompt
-    // console.log('Generating preview with mappings:', columnMappings)
+    // // console.log('Generating preview with mappings:', columnMappings)
 
-    // 替换提示语中的变量
+    // 替换提示词中的变量
     Object.entries(selectedTaskTemplate.inputFields).forEach(([, field]) => {
       const fieldName = field.title
       const columnField = columnMappings[fieldName] || ''
       const placeholder = `{{${fieldName}}}`
-      // console.log('Processing field:', { fieldName, columnField, placeholder })
+      // // console.log('Processing field:', { fieldName, columnField, placeholder })
 
       if (previewPrompt && previewPrompt.includes(placeholder)) {
         // 如果已选择列，则替换为@列名
         if (columnField) {
           const columnTitle = columns.find((col) => col.field === columnField)?.title || ''
-          // console.log('Replacing with column:', { columnField, columnTitle })
+          // // console.log('Replacing with column:', { columnField, columnTitle })
           previewPrompt = previewPrompt.replace(new RegExp(placeholder, 'g'), `@${columnTitle}`)
         } else {
           // 未选择列，保持原样
@@ -79,7 +80,7 @@ export const TemplateInfo = ({
 
     // 当预览内容变化时通知父组件
     onPreviewChange?.(previewPrompt || '')
-    // console.log('Final preview:', previewPrompt)
+    // // console.log('Final preview:', previewPrompt)
     return previewPrompt
   }
 
@@ -94,13 +95,13 @@ export const TemplateInfo = ({
     templateName: selectedTaskTemplate.templateName,
   }
 
-  // console.log('Rendering TemplateInfo with mappings:', columnMappings)
+  // // console.log('Rendering TemplateInfo with mappings:', columnMappings)
 
   return (
     <div style={{ height: '100%', overflow: 'auto' }}>
       <h3 style={{ marginBottom: 12 }}>描述</h3>
       <div style={{ marginBottom: 12 }}>{selectedTaskTemplate.description}</div>
-      <Divider style={{ marginBlock: '0 12px' }} />
+      <Divider style={{ margin: '0 12px' }} />
       {/* 使用ConfigurableForm显示模板基本信息，设为只读模式 */}
       <ConfigurableForm
         columns={columns}
@@ -119,9 +120,9 @@ export const TemplateInfo = ({
         }}
       />
 
-      <Divider style={{ marginBlock: '0 12px' }} />
+      <Divider style={{ margin: '0 12px' }} />
 
-      <h3>提示语</h3>
+      <h3>提示词</h3>
       <div className={styles.gradientBorderContainer}>
         <Markdown content={generatePreviewPrompt() || ''} />
       </div>

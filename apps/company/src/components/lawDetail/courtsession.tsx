@@ -93,6 +93,8 @@ function CourtSession(props) {
         // @ts-expect-error ttt
         rows={rows.concat(parties)}
         dataSource={info}
+        data-uc-id="zVhITzglAF"
+        data-uc-ct="horizontaltable"
       ></HorizontalTable>
     </Card>
   )

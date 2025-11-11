@@ -1,15 +1,10 @@
-import { WindCascade } from '@/components/cascade/WindCascade'
 import { convertSelectOptionByCount } from '@/components/common/search/comp/OptionRender'
 import { CustomSelectByOptions } from '@/components/common/search/comp/customSelect'
 import { checkSelectOption } from '@/components/common/search/handle/optionCheck'
-import { globalAreaTree } from '@/utils/areaTree'
-import {
-  globalIndustryOfNationalEconomy,
-  globalIndustryOfNationalEconomy3,
-} from '@/utils/industryOfNationalEconomyTree'
 import intl, { intlNoIndex } from '@/utils/intl'
 import { InputNumber, Select } from '@wind/wind-ui'
 import classNames from 'classnames'
+import { WindCascade } from 'gel-ui'
 import { isArray } from 'lodash'
 import React from 'react'
 import { pointBuriedByModule } from '../../../api/pointBuried/bury'
@@ -85,6 +80,8 @@ const Search = ({
                   : [..._options]
                 : [{ label: '', key: '' }]
             )}
+            data-uc-id="LDmcwbOPm8"
+            data-uc-ct="select"
           ></Select>
         )
       case 'inputNumber':
@@ -92,7 +89,6 @@ const Search = ({
           <InputNumber
             style={{ width: widthCalculate }}
             placeholder={optionsCfg?.placeholderId ? intlNoIndex(optionsCfg.placeholderId) : optionsCfg?.placeholder}
-            // @ts-expect-error ttt
             onKeyDown={(ev) => {
               if (bury) {
                 const { id, ...rest } = bury
@@ -100,6 +96,8 @@ const Search = ({
               }
               handleKeyDown(ev, optionsCfg)
             }}
+            data-uc-id="rG0i2v5Vil"
+            data-uc-ct="inputnumber"
           />
         )
       case 'search':
@@ -107,6 +105,7 @@ const Search = ({
           <WindSearch
             style={{ width: widthCalculate }}
             placeholder={optionsCfg?.placeholderId ? intlNoIndex(optionsCfg.placeholderId) : optionsCfg?.placeholder}
+            // allowClear
             onSearch={(ev) => {
               if (bury) {
                 const { id, ...rest } = bury
@@ -114,7 +113,8 @@ const Search = ({
               }
               handleSearch(ev, optionsCfg)
             }}
-            // allowClear
+            data-uc-id="4cvyepucVj"
+            data-uc-ct="windsearch"
           />
         )
       case 'cascader':
@@ -122,7 +122,8 @@ const Search = ({
         return (
           <WindCascade
             style={{ width: widthCalculate }}
-            options={getOptionsForCascader(optionsKey, options)}
+            optionsKey={optionsKey}
+            options={options}
             placeholder={optionsCfg?.placeholderId ? intl(optionsCfg.placeholderId) : optionsCfg?.placeholder}
             fieldNames={{
               label: window.en_access_config ? 'nameEn' : 'name',
@@ -136,6 +137,8 @@ const Search = ({
               }
               handleCascaderChange(v, optionsCfg.key)
             }}
+            data-uc-id="jYhwOoNC-X"
+            data-uc-ct="windcascade"
           />
         )
       default:
@@ -145,7 +148,12 @@ const Search = ({
 
   return (
     <div className={classNames('search-container', className)}>
-      <CustomSelectByOptions options={customSearchOptions} onSearchChange={onSearchChange} />
+      <CustomSelectByOptions
+        options={customSearchOptions}
+        onSearchChange={onSearchChange}
+        data-uc-id="yIUQ1yLOwLJ"
+        data-uc-ct="customselectbyoptions"
+      />
       {isArray(nodes.searchOptions) &&
         nodes.searchOptions.map((searchOption, index) => {
           if (!searchOption) {
@@ -162,17 +170,6 @@ const Search = ({
         })}
     </div>
   )
-}
-
-// 获取级联选择器的选项数据
-const getOptionsForCascader = (optionsKey, fallbackOptions) => {
-  const optionsMap = {
-    area: globalAreaTree,
-    industry: globalIndustryOfNationalEconomy,
-    industryOld: globalIndustryOfNationalEconomy3,
-  }
-
-  return optionsMap[optionsKey] || fallbackOptions
 }
 
 Search.displayName = 'ConfigDetailSearch'

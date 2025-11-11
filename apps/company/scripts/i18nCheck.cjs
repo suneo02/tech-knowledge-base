@@ -25,7 +25,6 @@ const excludePatterns = [
   '**/src/utils/strategicEmergingIndustryTree.js',
   '**/src/components/table/tableDictionary.tsx',
   '**/src/views/overseaSearchList.js',
-  '**/src/views/outCompanySearch.js',
   '**/src/views/jobSearchList.js',
   '**/src/views/groupSearchList.tsx',
   '**/src/views/Qualifications/qualificationBury.ts',
@@ -34,10 +33,8 @@ const excludePatterns = [
   '**/src/lib/countryCode.js',
   '**/src/lib/city.js',
   '**/src/handle/searchConfig/newMap.ts',
-  '**/src/handle/searchConfig/map.ts',
   '**/src/views/personSearchList.tsx',
-  '**/src/views/SearchList/index.js',
-  '**/src/views/bidSearchList.js',
+  '**/src/views/SearchList/index.tsx',
   '**/src/views/FilterRes.js',
   // 在这里添加其他要排除的文件或文件夹模式
   // 例如: '**/test/**', '**/*.test.{js,jsx,ts,tsx}'
@@ -222,7 +219,7 @@ function processFile(file, zhLocale, enLocale, result, generateNewId) {
  */
 function saveResults(result, fileBasedResult) {
   // 转换match结果为数组格式
-  const matchArray = Object.entries(result.match).map(([key, value], index) => ({
+  const matchArray = Object.entries(result.match).map(([, value], index) => ({
     id: index + 1,
     intlId: value.intlId,
     cnName: value.cnName,
@@ -231,7 +228,7 @@ function saveResults(result, fileBasedResult) {
   }))
 
   // 转换noMatch结果为数组格式
-  const noMatchArray = Object.entries(result.noMatch).map(([key, value], index) => ({
+  const noMatchArray = Object.entries(result.noMatch).map(([, value], index) => ({
     id: index + 1,
     intlId: value.intlId,
     cnName: value.cnName,

@@ -1,22 +1,29 @@
+@import 'gel-ui/variables.less';
+
 .commonQuestions {
-  margin-top: 16px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
 
   .title {
     display: block;
-    color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 8px;
+    color: @font-color-2;
   }
 
   .questionsContainer {
     display: flex;
-    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
   }
 
   .questionItem {
-    height: 20px;
-    color: rgba(255, 255, 255, 0.65);
+    padding: 6px 12px;
+    margin-left: 20px;
+    background: #ffffff;
+    border-radius: 2px;
+
+    color: @font-color-2;
     cursor: pointer;
-    margin-bottom: 4px;
 
     white-space: nowrap;
     overflow: hidden;

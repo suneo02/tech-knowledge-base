@@ -18,10 +18,7 @@
           "additionalProperties": false,
           "properties": {
             "method": {
-              "enum": [
-                "GET",
-                "POST"
-              ],
+              "enum": ["GET", "POST"],
               "type": "string"
             }
           },
@@ -41,9 +38,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "companyCode"
-          ],
+          "required": ["companyCode"],
           "type": "object"
         },
         "extraPayload": {
@@ -59,21 +54,14 @@
           "type": "string"
         },
         "titleIntl": {
-          "type": [
-            "string",
-            "number"
-          ]
+          "type": ["string", "number"]
         },
         "type": {
           "const": "custom",
           "type": "string"
         }
       },
-      "required": [
-        "key",
-        "title",
-        "type"
-      ],
+      "required": ["key", "title", "type"],
       "type": "object"
     },
     "TCorpDetailNodeKey": {
@@ -101,6 +89,9 @@
         },
         {
           "$ref": "#/definitions/corpDetailBusinessRiskKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailHistoryKey"
         }
       ],
       "description": "定义企业详情各节点的 key，有可能是 表格，有可能是图 也有可能是多个表格的 父节点的 key ，父节点内部的多个表格一般是上下排列 node 与章节 key 不同的是，章节内部的节点都较为独立，而 node 内部的节点可能较为关联，例如发行股票内部的两个表格非常相似，所以看作一个节点"
@@ -158,15 +149,28 @@
         "BussDataBusinessCumulative",
         "BussDataBusinessCurrent",
         "BussDataInventoryCumulative",
-        "BussDataInventoryCurrent"
+        "BussDataInventoryCurrent",
+        "FinancialIndicator",
+        "MainBusinessScope"
       ],
       "type": "string"
     },
     "corpDetailBusinessInfoKey": {
       "enum": [
-        "Business",
-        "ProjectInfo",
-        "BrandInfo"
+        "EnterpriseBusiness",
+        "AppProducts",
+        "Hotels",
+        "CompanyReports",
+        "GovernmentMajorProjects",
+        "TenderingAnnouncements",
+        "BiddingAnnouncements",
+        "Recruitment",
+        "LandInformation",
+        "PrivateEquityFunds",
+        "CustomersAndSuppliers",
+        "BusinessAssociates",
+        "GovernmentSubsidies",
+        "GovernmentSupport"
       ],
       "type": "string"
     },
@@ -218,6 +222,25 @@
       ],
       "type": "string"
     },
+    "corpDetailHistoryKey": {
+      "enum": [
+        "HistoryBusinessInfo",
+        "HistoryShareholder",
+        "HistoryLegalRepresentative",
+        "HistoryOverseasInvestment",
+        "HistoryAdministrativeLicenseBureau",
+        "HistoryAdministrativeLicenseCreditChina",
+        "HistoryWebsiteRegistration",
+        "HistoryEquityPledge",
+        "HistoryEquityPledgePledgor",
+        "HistoryEquityPledgePledgee",
+        "HistoryEquityPledgePledgeeTarget",
+        "HistoryLandMortgage",
+        "MultiCertificate",
+        "BusinessLicenseInvalidDeclaration"
+      ],
+      "type": "string"
+    },
     "corpDetailIntellectualKey": {
       "enum": [
         "Trademark",
@@ -230,7 +253,13 @@
         "PatentBranch",
         "PatentHoldCompany",
         "PatentOutboundInvestment",
-        "SoftwareCopyright"
+        "SoftwareCopyright",
+        "WorkCopyright",
+        "StandardInfo",
+        "WebsiteRegistration",
+        "WechatPublic",
+        "MicroblogAccount",
+        "TodayHeadline"
       ],
       "type": "string"
     },
@@ -259,7 +288,7 @@
         "TrialNotice",
         "CourtNotice",
         "DeliveryAnnouncement",
-        "ViolationPunishment",
+        "IntegrityInformation",
         "WarrantyInformation",
         "TaxViolation",
         "TaxDebt"
@@ -268,4 +297,3 @@
     }
   }
 }
-

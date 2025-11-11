@@ -85,7 +85,7 @@ export const customerMenus: TCustomerMenu[] = [
   },
   {
     key: 'usernote',
-    name: intl('209659', '用户协议'),
+    name: intl('452995', '用户协议'),
     buryId: 922602101061,
   },
   {

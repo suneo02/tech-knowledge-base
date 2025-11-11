@@ -2,6 +2,7 @@ import { Links } from '@/components/common/links'
 import { LinksModule, parseApiFieldModule } from '@/handle/link'
 import { wftCommonType } from '@/utils/WFTCommonWithType'
 import { ActCtrlTag, BeneficiaryTag, ChangeNameTag } from 'gel-ui'
+import { t } from 'gel-util/intl'
 import { isNil } from 'lodash'
 import React, { FC, useMemo } from 'react'
 
@@ -92,9 +93,11 @@ export const CorpOrPersonLinkWithTag: FC<{
   isChangeName: string
   className?: string
 }> = ({ nameKey, idKey, row, isBeneficiary, isActCtrl, isChangeName, className }) => {
-  const beneficiaryTag = isBeneficiary ? <BeneficiaryTag /> : null
-  const actCtrlStr = isActCtrl ? <ActCtrlTag ctrlType={isActCtrl === 'publish' ? 'actual' : 'uncertain'} /> : null
-  const changeNameStr = isChangeName ? <ChangeNameTag /> : null
+  const beneficiaryTag = isBeneficiary ? <BeneficiaryTag intl={t} /> : null
+  const actCtrlStr = isActCtrl ? (
+    <ActCtrlTag ctrlType={isActCtrl === 'publish' ? 'actual' : 'uncertain'} intl={t} />
+  ) : null
+  const changeNameStr = isChangeName ? <ChangeNameTag intl={t} /> : null
 
   return (
     <div className={className}>

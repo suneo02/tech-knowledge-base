@@ -99,7 +99,6 @@ export const SearcherForm: FC<{
       <p className={styles.hint}>
         <span>{intl(414516, '根据香港特区政府公司注册处规定，查册人需提供以下信息')}</span>
       </p>
-
       <div className={styles.formContainer}>
         <div className={styles.scrollContent}>
           <h3 className={styles.title}>
@@ -131,6 +130,8 @@ export const SearcherForm: FC<{
                   onCancel()
                   form.resetFields()
                 }}
+                data-uc-id="hJj_XfTYih"
+                data-uc-ct="button"
               >
                 {intl('19405', '取消')}
               </Button>
@@ -140,6 +141,8 @@ export const SearcherForm: FC<{
                 onClick={() => {
                   form.submit()
                 }}
+                data-uc-id="3IQk4LcIpp"
+                data-uc-ct="button"
               >
                 {intl(414517, '接受并提交')}
               </Button>

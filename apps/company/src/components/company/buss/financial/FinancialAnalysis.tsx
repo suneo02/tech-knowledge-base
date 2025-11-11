@@ -5,6 +5,7 @@ import { FinancialIndicatorData } from 'gel-types'
 import React, { FC } from 'react'
 import intl from '../../../../utils/intl'
 import { wftCommon } from '../../../../utils/utils'
+import { getEmptyFinanceTableColumns } from './handleFinanceTableEmpty'
 
 interface FinancialAnalysisProps {
   /** 接口返回的原始数据 */
@@ -123,7 +124,10 @@ export const renderFinanceanalysis: FC<FinancialAnalysisProps> = ({
 
   // 如果接口没有返回数据，则清空列表并直接返回，不进行后续处理
   if (!res?.length) {
+    const columns = getEmptyFinanceTableColumns()
+    setFinacialindicatorColumn(columns)
     setFinacialindicatorList([])
+    setDataLoaded(true)
     return null
   }
 

@@ -1,0 +1,47 @@
+{
+  "api": "detail/company/getheadline",
+  "countKey": "today_headline_num",
+  "downDocTypeName": "不存在导出",
+  "id": "8-10",
+  "key": "8-10",
+  "level": 2,
+  "title": "头条号",
+  "titleIntl": "138559",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "image_id",
+      "title": "头像",
+      "titleIntl": "138171",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "name",
+      "title": "名称",
+      "titleIntl": "29979",
+      "width": "21%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "account",
+      "title": "头条号",
+      "titleIntl": "138559",
+      "width": "21%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "profile",
+      "title": "简介",
+      "titleIntl": "138847",
+      "width": "44%"
+    }
+  ]
+}

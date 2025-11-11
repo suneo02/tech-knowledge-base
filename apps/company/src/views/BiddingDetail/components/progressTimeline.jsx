@@ -58,19 +58,21 @@ const ProgressTimeline = ({ dataList = [] }) => {
 
   return (
     <div className="progress-timeline">
-      <Timeline>
+      <Timeline data-uc-id="KDc5f9BFtT" data-uc-ct="timeline">
         {dataList.map((t) => (
           <div
             key={t.detail_id}
             ref={detailid === t.detail_id ? selectedRef : null}
             className={detailid === t.detail_id ? 'timeline__selected' : ''}
           >
-            <Timeline.Item>
+            <Timeline.Item data-uc-id="6HXtlQU-o" data-uc-ct="timeline">
               <p className="progress-item">{t.announcement_date ? t.announcement_date.split(' ')[0] : '--'}</p>
               <p className="progress-item">{type2jdStage(t.type)}</p>
               <p className="progress-item">
                 <a
                   href={`index.html?type=bid&detailid=${t.detail_id}&from=${wftCommon.isBaiFenTerminalOrWeb() ? 'baifen' : ''}#/biddingDetail`}
+                  data-uc-id="cphu4aaW8D"
+                  data-uc-ct="a"
                 >
                   {t.type ? t.type : '--'}
                 </a>

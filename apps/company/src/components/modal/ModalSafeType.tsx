@@ -7,5 +7,9 @@ export const ModalSafeType: FC<
     children: ReactNode
   }
 > = ({ children, ...props }) => {
-  return <Modal {...props}>{children}</Modal>
+  return (
+    <Modal {...props} data-uc-id="sm_6SzIj19" data-uc-ct="modal">
+      {children}
+    </Modal>
+  )
 }

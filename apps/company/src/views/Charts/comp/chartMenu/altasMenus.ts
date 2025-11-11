@@ -1,5 +1,8 @@
 import intl from '@/utils/intl'
-import { GRAPH_MENU_TYPE } from '../constants'
+import { GRAPH_MENU_TYPE } from '../../types'
+import { usedInClient } from 'gel-util/env'
+import { AI_GRAPH_TYPE } from '@/views/AICharts/contansts'
+import { isDeveloper } from '@/utils/common'
 
 /**
  * @description 新版图谱平台菜单
@@ -11,6 +14,47 @@ export const atlasTreeData = [
     parentNode: false, // 点击事件中为true是展开的效果，为false是跳转页面
     homePage: true, // 用来判断跳转的是否是react新的router
   },
+  // ...(isDeveloper
+  //   ? [
+  //       {
+  //         title: intl('', 'AI探查图谱'),
+  //         key: 'ai_graph',
+  //         parentNode: true,
+  //         children: [
+  //           {
+  //             title: intl('', '供应链探查'),
+  //             key: 'ai_graph_supply_chain',
+  //             type: AI_GRAPH_TYPE.AI_GRAPH_SUPPLY_CHAIN,
+  //           },
+  //           {
+  //             title: intl('', '客户群探查'),
+  //             key: 'ai_graph_customers',
+  //             type: AI_GRAPH_TYPE.AI_GRAPH_CUSTOMERS,
+  //           },
+  //           {
+  //             title: intl('', '竞争对手探查'),
+  //             key: 'ai_graph_competitors',
+  //             type: AI_GRAPH_TYPE.AI_GRAPH_COMPETITORS,
+  //           },
+  //           {
+  //             title: intl('', 'Markdown'),
+  //             key: 'ai_graph_markdown',
+  //             type: AI_GRAPH_TYPE.AI_GRAPH_MARKDOWN,
+  //           },
+  //           {
+  //             title: intl('', 'Excel'),
+  //             key: 'ai_graph_excel',
+  //             type: AI_GRAPH_TYPE.AI_GRAPH_EXCEL,
+  //           },
+  //           {
+  //             title: intl('', '历史记录'),
+  //             key: 'ai_graph_history',
+  //             type: AI_GRAPH_TYPE.AI_GRAPH_HISTORY,
+  //           },
+  //         ],
+  //       },
+  //     ]
+  //   : []),
   {
     title: intl('367256', '股权类图谱'),
     key: 'gqltp',
@@ -106,11 +150,15 @@ export const atlasTreeData = [
         buryId: 922602100302,
         type: GRAPH_MENU_TYPE.SUSPECTED_RELATION,
       },
-      {
-        title: intl('342095', '竞争图谱'),
-        key: 'chart_jztp',
-        externalLink: '/windkg/index.html#/competitors?companyname=融创房地产集团有限公司&id=1015343518',
-      },
+      ...(usedInClient()
+        ? [
+            {
+              title: intl('342095', '竞争图谱'),
+              key: 'chart_jztp',
+              externalLink: '/windkg/index.html#/competitors?companyname=融创房地产集团有限公司&id=1015343518',
+            },
+          ]
+        : []),
     ],
   },
   {
@@ -118,13 +166,17 @@ export const atlasTreeData = [
     key: 'rzltp',
     parentNode: true,
     children: [
-      {
-        title: intl('206370', '融资图谱'),
-        key: 'chart_rztp',
-        buryId: 922602100301,
-        type: GRAPH_MENU_TYPE.FINANCING,
-        noAction: true,
-      },
+      ...(usedInClient()
+        ? [
+            {
+              title: intl('206370', '融资图谱'),
+              key: 'chart_rztp',
+              buryId: 922602100301,
+              type: GRAPH_MENU_TYPE.FINANCING,
+              noAction: true,
+            },
+          ]
+        : []),
       {
         title: intl('138297', '融资历程'),
         key: 'chart_rzlc',

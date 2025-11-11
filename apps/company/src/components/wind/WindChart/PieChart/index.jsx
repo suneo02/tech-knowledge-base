@@ -22,7 +22,10 @@ const PieChart = memo(function (props) {
           pie:
             shape !== 'rose'
               ? {
-                  radius: props.size === 'small' ? [shape === 'ring' ? '20%' : '0%', '50%'] : [shape === 'ring' ? '45%' : '0', '75%'],
+                  radius:
+                    props.size === 'small'
+                      ? [shape === 'ring' ? '20%' : '0%', '50%']
+                      : [shape === 'ring' ? '45%' : '0', '75%'],
                   label: {
                     show: !hideLabel,
                   },

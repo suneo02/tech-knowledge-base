@@ -1,4 +1,4 @@
-import { stringifyObjectToParams } from '../handle/param'
+import { stringifyObjectToParams } from '../../common'
 
 export enum AliceLinkModule {
   EDITOR,

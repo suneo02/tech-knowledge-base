@@ -56,12 +56,12 @@ const Welcome: React.FC<{ sheetId: number; tableId: string; onDataImported: (she
       description: '基于海量企业数据，智能识别企业特征，快速定位目标企业，支持模糊匹配和多维度筛选',
       icon: <img src={CDEFind} alt="智能搜索企业" style={{ height: 60, color: '#3176FF' }} />,
       onClick: () => {
-        // console.log('🚀 ~ Welcome ~ 智能搜索企业:sheetId', sheetId)
+        // // console.log('🚀 ~ Welcome ~ 智能搜索企业:sheetId', sheetId)
         openModal('cdeHome', {
           sheetId: sheetId,
           // container: null,
           onFinish: (res) => {
-            console.log('🚀 ~ Welcome ~ 智能搜索企业:', res)
+            // console.log('🚀 ~ Welcome ~ 智能搜索企业:', res)
           },
           confirmText: '添加至表格',
         })
@@ -69,11 +69,11 @@ const Welcome: React.FC<{ sheetId: number; tableId: string; onDataImported: (she
     },
     {
       key: '2',
-      title: '批量导入数据',
+      title: '批量导入查询',
       description: '支持Excel格式一键导入，快速构建企业分析表格',
-      icon: <img src={UploadClue} alt="批量导入数据" style={{ height: 60, color: '#3176FF' }} />,
+      icon: <img src={UploadClue} alt="批量导入查询" style={{ height: 60, color: '#3176FF' }} />,
       onClick: () => {
-        // console.log('🚀 ~ Welcome ~ 智能搜索企业:sheetId', sheetId)
+        // // console.log('🚀 ~ Welcome ~ 智能搜索企业:sheetId', sheetId)
         openModal('bulkImportHome', {
           // sheetId: sheetId,
           // container: null,

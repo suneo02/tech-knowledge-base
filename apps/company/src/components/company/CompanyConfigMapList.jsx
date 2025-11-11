@@ -1,9 +1,8 @@
 import React from 'react'
-import styled from 'styled-components';
-import CompanyConfigMapItem from './CompanyConfigMapItem';
+import styled from 'styled-components'
+import CompanyConfigMapItem from './CompanyConfigMapItem'
 
 const Box = styled.div`
-
   .title {
     font-size: 16px;
     color: #333333;
@@ -12,24 +11,16 @@ const Box = styled.div`
     display: flex;
     align-items: center;
   }
-
 `
 
 const CompanyConfigMapList = ({ data }) => {
   return (
-    <Box fontColor='blue'>
-      {
-        data.length > 0 ?
-          <div className='title'>
-            更多企业信息
-          </div> : null
-      }
-      <div className='item-box'>
-        {
-          data.map((item, i) => (
-            <CompanyConfigMapItem key={i} item={item} />
-          ))
-        }
+    <Box fontColor="blue" data-uc-id="KrpJub9B3" data-uc-ct="box">
+      {data.length > 0 ? <div className="title">更多企业信息</div> : null}
+      <div className="item-box">
+        {data.map((item, i) => (
+          <CompanyConfigMapItem key={i} item={item} />
+        ))}
       </div>
     </Box>
   )

@@ -86,6 +86,8 @@ export const bussRisk: ICorpPrimaryModuleCfg = {
               dangerouslySetInnerHTML={{
                 __html: window.en_access_config ? intl('40513') : '查看原文',
               }}
+              data-uc-id="VSJR-roG0"
+              data-uc-ct="link"
             ></Link>
           )
         },
@@ -912,8 +914,6 @@ export const bussRisk: ICorpPrimaryModuleCfg = {
                     <InfoCircleButton />
                   </Tooltip>
                 }
-
-                {/* { <span className="table-hint" dangerouslySetInnerHTML={{__html : '<i style="right:0;padding:5px;">  <div>股权出质状态无效是指历史发生过股权出质的情况，现已经解除。</br>股权出质状态有效是指历史发生过股权出质的情况，现未解除。</div> </i>'}}></span> } */}
               </span>
             ),
             render: (txt, _row, _idx) => {
@@ -996,7 +996,6 @@ export const bussRisk: ICorpPrimaryModuleCfg = {
                     <InfoCircleButton />
                   </Tooltip>
                 }
-                {/* { <span className="table-hint" dangerouslySetInnerHTML={{__html : '<i style="right:0;padding:5px;">  <div>股权出质状态无效是指历史发生过股权出质的情况，现已经解除。</br>股权出质状态有效是指历史发生过股权出质的情况，现未解除。</div> </i>'}}></span> } */}
               </span>
             ),
             render: (txt, _row, _idx) => {
@@ -1086,19 +1085,10 @@ export const bussRisk: ICorpPrimaryModuleCfg = {
                     <InfoCircleButton />
                   </Tooltip>
                 }
-
-                {/* { <span className="table-hint" dangerouslySetInnerHTML={{__html : '<i style="right:0;padding:5px;">  <div>股权出质状态无效是指历史发生过股权出质的情况，现已经解除。</br>股权出质状态有效是指历史发生过股权出质的情况，现未解除。</div> </i>'}}></span> } */}
               </span>
             ),
             render: (txt, _row, _idx) => {
               if (txt) {
-                // if (txt == "有效") {
-                //     return <span style={{color : '#169d60'}}>有效</span>
-                // } else if (txt == "无效") {
-                //     return <span style={{color : '#E50113'}}>无效</span>
-                // } else {
-                //     return txt;
-                // }
                 return txt
               } else {
                 return '--'

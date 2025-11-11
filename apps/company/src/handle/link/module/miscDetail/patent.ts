@@ -1,6 +1,11 @@
 import { generateCommonLink, GELSearchParam, LinksModule, TLinkOptions } from '@/handle/link'
 
-export const getPatentDetailByUrl = ({ id, params = {}, type, env }: Pick<TLinkOptions, 'id' | 'params' | 'type' | 'env'>) => {
+export const getPatentDetailByUrl = ({
+  id,
+  params = {},
+  type,
+  env,
+}: Pick<TLinkOptions, 'id' | 'params' | 'type' | 'env'>) => {
   if (!id) {
     return null
   }

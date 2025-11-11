@@ -18,13 +18,19 @@ export const PlatformInfo: React.FC<Props> = ({ platform }) => {
         </p>
         <p>
           <span className={classNames(styles.label, styles.bold)}>信息查询链接地址：</span>
-          <a href={platform.queryUrl} target="_blank" rel="noopener noreferrer">
+          <a href={platform.queryUrl} target="_blank" rel="noopener noreferrer" data-uc-id="xbCINkNJ06" data-uc-ct="a">
             {platform.queryUrl}
           </a>
         </p>
         <p>
           <span className={classNames(styles.label, styles.bold)}>平台用户协议或隐私政策链接地址：</span>
-          <a href={platform.privacyUrl} target="_blank" rel="noopener noreferrer">
+          <a
+            href={platform.privacyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-uc-id="FNTPz5BQMu"
+            data-uc-ct="a"
+          >
             {platform.privacyUrl}
           </a>
         </p>

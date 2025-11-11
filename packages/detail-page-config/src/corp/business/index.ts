@@ -1,4 +1,4 @@
-import { validateReportDetailNodeJson } from '@/validation/validator'
+import { validateReportDetailNodeOrNodesJson } from '@/validation/validator'
 import appProductsJson from './AppProducts.json' assert { type: 'json' }
 import biddingAnnouncementsJson from './BiddingAnnouncements.json' assert { type: 'json' }
 import businessAssociatesJson from './BusinessAssociates.json' assert { type: 'json' }
@@ -14,17 +14,17 @@ import privateEquityFundsJson from './PrivateEquityFunds.json' assert { type: 'j
 import recruitmentJson from './Recruitment.json' assert { type: 'json' }
 import tenderingAnnouncementsJson from './TenderingAnnouncements.json' assert { type: 'json' }
 
-export const corpEnterpriseBusiness = validateReportDetailNodeJson(enterpriseBusinessJson)
-export const corpAppProducts = validateReportDetailNodeJson(appProductsJson)
-export const corpHotels = validateReportDetailNodeJson(hotelsJson)
-export const corpCompanyReports = validateReportDetailNodeJson(companyReportsJson)
-export const corpGovernmentMajorProjects = validateReportDetailNodeJson(governmentMajorProjectsJson)
-export const corpTenderingAnnouncements = validateReportDetailNodeJson(tenderingAnnouncementsJson)
-export const corpBiddingAnnouncements = validateReportDetailNodeJson(biddingAnnouncementsJson)
-export const corpRecruitment = validateReportDetailNodeJson(recruitmentJson)
-export const corpLandInformation = validateReportDetailNodeJson(landInformationJson)
-export const corpPrivateEquityFunds = validateReportDetailNodeJson(privateEquityFundsJson)
-export const corpCustomersAndSuppliers = validateReportDetailNodeJson(customersAndSuppliersJson)
-export const corpBusinessAssociates = validateReportDetailNodeJson(businessAssociatesJson)
-export const corpGovernmentSubsidies = validateReportDetailNodeJson(governmentSubsidiesJson)
-export const corpGovernmentSupport = validateReportDetailNodeJson(governmentSupportJson)
+export const corpEnterpriseBusiness = validateReportDetailNodeOrNodesJson(enterpriseBusinessJson)
+export const corpAppProducts = validateReportDetailNodeOrNodesJson(appProductsJson)
+export const corpHotels = validateReportDetailNodeOrNodesJson(hotelsJson)
+export const corpCompanyReports = validateReportDetailNodeOrNodesJson(companyReportsJson)
+export const corpGovernmentMajorProjects = validateReportDetailNodeOrNodesJson(governmentMajorProjectsJson)
+export const corpTenderingAnnouncements = validateReportDetailNodeOrNodesJson(tenderingAnnouncementsJson)
+export const corpBiddingAnnouncements = validateReportDetailNodeOrNodesJson(biddingAnnouncementsJson)
+export const corpRecruitment = validateReportDetailNodeOrNodesJson(recruitmentJson)
+export const corpLandInformation = validateReportDetailNodeOrNodesJson(landInformationJson)
+export const corpPrivateEquityFunds = validateReportDetailNodeOrNodesJson(privateEquityFundsJson)
+export const corpCustomersAndSuppliers = validateReportDetailNodeOrNodesJson(customersAndSuppliersJson)
+export const corpBusinessAssociates = validateReportDetailNodeOrNodesJson(businessAssociatesJson)
+export const corpGovernmentSubsidies = validateReportDetailNodeOrNodesJson(governmentSubsidiesJson)
+export const corpGovernmentSupport = validateReportDetailNodeOrNodesJson(governmentSupportJson)

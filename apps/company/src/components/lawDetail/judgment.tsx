@@ -163,10 +163,14 @@ function Judgment(props) {
         <Card className="header-container">
           <h3>
             <span className="header-title">{info && info['title']}</span>
-            {/*// @ts-expect-error ttt*/}
-            <Tag className="isclose_tag">{info && info['isClosed'] ? '已结案' : '未结案'}</Tag>
-            {/*// @ts-expect-error ttt*/}
-            <Tag className="type-case-tag">{info && info['caseName']}</Tag>
+
+            <Tag className="isclose_tag" data-uc-id="S8iv3zYiqq" data-uc-ct="tag">
+              {info && info['isClosed'] ? '已结案' : '未结案'}
+            </Tag>
+
+            <Tag className="type-case-tag" data-uc-id="1leahL3OUw" data-uc-ct="tag">
+              {info && info['caseName']}
+            </Tag>
           </h3>
           <div>
             <span className="tip-mar">
@@ -178,8 +182,16 @@ function Judgment(props) {
           </div>
         </Card>
         <Card className="baseinfo-container" title={intl('205468', '基本信息')}>
-          {/*// @ts-expect-error ttt*/}
-          <HorizontalTable bordered={false} striped={true} rows={rowsConfig.concat(parties)} dataSource={info} />
+          <HorizontalTable
+            // @ts-expect-error ttt
+            bordered={false}
+            striped={true}
+            // @ts-expect-error ttt
+            rows={rowsConfig.concat(parties)}
+            dataSource={info}
+            data-uc-id="Hm1ArDgeeX"
+            data-uc-ct="horizontaltable"
+          />
         </Card>
         <Card className="baseinfo-container" title={intl('222856', '文书正文')}>
           {showContentText()}
@@ -216,12 +228,21 @@ function Judgment(props) {
                     onClick={() => {
                       setShowCateChild(!showCateChild)
                     }}
+                    data-uc-id="kkCDcWD7u"
+                    data-uc-ct="i"
                   ></i>
                   {intl('222856', '文书正文')}
                 </h3>
                 <div className="cate-children">
                   {keyOrder.map((item, index) => (
-                    <div key={CodeOrder[index]} className="each-cate-child" onClick={() => scollFn(CodeOrder[index])}>
+                    <div
+                      key={CodeOrder[index]}
+                      className="each-cate-child"
+                      onClick={() => scollFn(CodeOrder[index])}
+                      data-uc-id="OSMRn2shz6"
+                      data-uc-ct="div"
+                      data-uc-x={CodeOrder[index]}
+                    >
                       {item}
                     </div>
                   ))}

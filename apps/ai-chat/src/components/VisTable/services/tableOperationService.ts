@@ -46,7 +46,7 @@ export const tableOperationService = {
     columnId: string
   }) {
     const { sheetId, column, columnIndex, operationNo, columnId } = params
-    console.log('🚀 ~ addColumn ~ column:', column)
+    // console.log('🚀 ~ addColumn ~ column:', column)
     return await requestToWFCSuperlistFcs('superlist/excel/operation', {
       cmd: 'add_column',
       sheetId,

@@ -17,6 +17,8 @@ const VipAccess: FC<{
           { label: 'vip', value: 'vip', key: 'vip' },
           { label: 'svip', value: 'svip', key: 'svip' },
         ]}
+        data-uc-id="Iu2LDgX3p-"
+        data-uc-ct=""
       ></Checkbox.Group>
     </div>
   ) : null

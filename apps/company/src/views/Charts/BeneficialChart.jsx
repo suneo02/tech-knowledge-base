@@ -511,6 +511,8 @@ function BeneficialChart({ companycode, watermask = true, saveImgName = intl('30
                 setLoaded(true)
                 setSelType(t.val)
               }}
+              data-uc-id="yNmk5fWtkt5"
+              data-uc-ct="button"
             >
               {t.label}
             </Button>
@@ -523,8 +525,8 @@ function BeneficialChart({ companycode, watermask = true, saveImgName = intl('30
         ) : (
           <>
             <div className="chart-icons">
-              <SaveO onClick={saveAction} />
-              <RefreshO onClick={refreshAction} />
+              <SaveO onClick={saveAction} data-uc-id="S1Mp3MBXZH6" data-uc-ct="saveo" />
+              <RefreshO onClick={refreshAction} data-uc-id="Nj1NDrkfLJp" data-uc-ct="refresho" />
             </div>
             {/* <div className="chart-tag">
               <MyIcon name={'actor11'}></MyIcon>

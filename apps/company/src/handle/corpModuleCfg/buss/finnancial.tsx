@@ -1,4 +1,5 @@
 import { ICorpSubModuleCfg } from '@/components/company/type'
+import { ECorpDetailTable } from 'gel-types'
 import { intlNoNO as intl } from 'src/utils/intl'
 
 export const corpDetailFinancial: ICorpSubModuleCfg = {
@@ -11,6 +12,7 @@ export const corpDetailFinancialData: ICorpSubModuleCfg = {
   modelNum: corpDetailFinancial.modelNum,
   children: [
     {
+      enumKey: ECorpDetailTable.BalanceSheet,
       modelNum: undefined,
       title: intl('27166', '资产负债表'),
       cmd: 'detail/company/getbalancesheet',
@@ -35,8 +37,10 @@ export const corpDetailFinancialData: ICorpSubModuleCfg = {
           ],
         },
       ],
+      rightFilterHideWhenEmpty: true,
     },
     {
+      enumKey: ECorpDetailTable.ProfitSheet,
       modelNum: undefined,
       title: intl('27167', '利润表'),
       cmd: 'detail/company/getprofit',
@@ -61,8 +65,10 @@ export const corpDetailFinancialData: ICorpSubModuleCfg = {
           ],
         },
       ],
+      rightFilterHideWhenEmpty: true,
     },
     {
+      enumKey: ECorpDetailTable.CashFlowSheet,
       modelNum: undefined,
       title: intl('27168', '现金流表'),
       cmd: 'detail/company/getcashflowsheet',
@@ -87,6 +93,7 @@ export const corpDetailFinancialData: ICorpSubModuleCfg = {
           ],
         },
       ],
+      rightFilterHideWhenEmpty: true,
     },
   ],
 }

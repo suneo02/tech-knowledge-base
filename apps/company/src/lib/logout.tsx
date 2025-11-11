@@ -1,9 +1,12 @@
+import { isStaging } from '@/utils/env'
 import { localStorageManager, sessionStorageManager } from '@/utils/storage'
+import { WindSessionHeader, isWebTest } from 'gel-util/env'
 import { loginByToken } from '../api/userApi'
 import { apiGetPublicKey } from '../components/HeaderHasUser/UserInfoMenu/BindContactModal/api'
 import { wftCommon } from '../utils/utils'
 import global from './global'
 import { encryptData } from './utils'
+// import { getPrefixUrl, getUrlByLinkModule, LinksModule } from '@/handle/link'
 
 // 用于跟踪 logout 状态的变量
 let isLoggingOut = false
@@ -31,7 +34,7 @@ export const logout = async () => {
   logoutPromise = new Promise<void>((resolve) => {
     // web 登出或自动登录
     // 1 先清除本地wsid
-    sessionStorageManager.remove('GEL-wsid')
+    localStorage.removeItem(WindSessionHeader)
     // 403后不需要跳转登录首页的页面判断
     const noNeedSessionMatch = global.ACCESS_PASS_403.filter((page) =>
       new RegExp(page, 'gi').test(window.location.href)
@@ -58,7 +61,7 @@ export const logout = async () => {
                 )
                 const loginRes = await loginByToken({ data: data, publicKey: res.Data, version: '2.0' })
                 if (loginRes.ErrorCode == global.SUCCESS && loginRes.Data?.wsid && loginRes.Data?.isSucceed) {
-                  sessionStorageManager.set('GEL-wsid', loginRes.Data?.wsid)
+                  localStorage.setItem(WindSessionHeader, loginRes.Data?.wsid)
                   setTimeout(() => {
                     window.location.reload()
                   }, 100)
@@ -102,7 +105,16 @@ export const gotoLogin = () => {
     window.location.href = '../Company/index.html#/authCheck'
     return
   }
-  window.location.href = '../windLogin.html'
+  // 如果是staging环境，则不跳转
+  if (isStaging) {
+    return
+  }
+  if (isWebTest()) {
+    window.location.href = `${window.location.protocol}//${window.location.host}/wind.ent.web/gel/windLogin.html`
+  } else {
+    window.location.href = `${window.location.protocol}//${window.location.host}/web/windLogin.html`
+  }
+  return
 }
 
 // 南京政务平台接入-登录

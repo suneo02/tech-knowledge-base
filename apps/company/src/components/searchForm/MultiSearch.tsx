@@ -3,8 +3,9 @@ import classNames from 'classnames'
 import { CorpGlobalPreSearchResultV1Parsed, SearchHistoryParsed } from 'gel-api/*'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSearchHistory } from '../../hooks/useSearchHistory'
+import { useRecentView } from '../../hooks/useRecentView'
 import intl from '../../utils/intl'
-import SearchList from './searchList'
+import { HistoryAndRecentView, ResultList } from './searchList'
 import { SearchFormProps } from './type'
 import { decryptSearchHistory, encryptSearchHistory } from './util'
 
@@ -20,18 +21,42 @@ function MultiSearch(props: SearchFormProps) {
     goSearchListDetail, // 点击搜索结果或者搜素按钮跳转列表页的方法
     historyAddTiming, // 用于判断存储历史记录的操作，是change的时候还是click的时候，默认chagnge
     className,
-    searchBtnClassName,
+    // searchBtnClassName,
     searchRelationIconClassName,
     onFetchHistory,
     onAddHistoryItem,
     onClearHistory,
+    onDeleteHistoryItem,
+    recentViewList: externalRecentViewList = [], // 最近浏览列表数据
+    onRecentViewItemClick,
+    onFetchRecentView,
+    onAddRecentViewItem,
+    onClearRecentView,
+    onDeleteRecentViewItem,
   } = props
 
-  const { historyList, showHistory, setShowHistory, addHistoryItem, clearHistory, fetchHistory } = useSearchHistory({
-    onFetchHistory,
-    onAddHistoryItem,
-    onClearHistory,
+  const { historyList, showHistory, setShowHistory, addHistoryItem, clearHistory, fetchHistory, deleteHistoryItem } =
+    useSearchHistory({
+      onFetchHistory,
+      onAddHistoryItem,
+      onClearHistory,
+      onDeleteHistoryItem,
+    })
+
+  const {
+    recentViewList: internalRecentViewList,
+    fetchRecentView,
+    deleteRecentViewItem,
+    clearRecentView,
+  } = useRecentView({
+    onFetchRecentView,
+    onAddRecentViewItem,
+    onClearRecentView,
+    onDeleteRecentViewItem,
   })
+
+  // 优先使用外部传入的最近浏览数据，如果没有则使用内部管理的数据
+  const recentViewList = externalRecentViewList.length > 0 ? externalRecentViewList : internalRecentViewList
 
   const didMountRef = useRef(null)
   const inputRef = useRef(null)
@@ -42,6 +67,17 @@ function MultiSearch(props: SearchFormProps) {
   const [inputType, setInputType] = useState('') // 用于判断多input输入框
   const [clickActiveInfo, setClickActiveInfo] = useState<CorpGlobalPreSearchResultV1Parsed>(null) // 记录选中公司的所有信息
   const [clickActiveRelationInfo, setClickActiveRelationInfo] = useState<CorpGlobalPreSearchResultV1Parsed>(null) // 记录选中关联公司的所有信息
+  const mouseDownInsideListRef = useRef(false)
+
+  useEffect(() => {
+    const handleDocumentMouseDown = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      const insideList = !!target.closest('.input-toolbar-search-list') || !!target.closest('.history-recent-container')
+      mouseDownInsideListRef.current = insideList
+    }
+    document.addEventListener('mousedown', handleDocumentMouseDown, true)
+    return () => document.removeEventListener('mousedown', handleDocumentMouseDown, true)
+  }, [])
 
   useEffect(() => {
     if (didMountRef.current) {
@@ -65,10 +101,16 @@ function MultiSearch(props: SearchFormProps) {
     }
     setListFlag(true)
     setSuggestions([])
-    // input值长度等于0才显示历史记录
-    if (onFetchHistory && !searchValue && !searchRelationValue) {
+    // input值长度等于0才显示历史记录和最近浏览
+    if (!searchValue && !searchRelationValue) {
       setShowHistory(true)
-      fetchHistory()
+      if (onFetchHistory) {
+        fetchHistory()
+      }
+      // 如果没有外部传入最近浏览数据，则自动获取
+      if (externalRecentViewList.length === 0) {
+        fetchRecentView()
+      }
     }
 
     // 聚焦时如果有输入值则重新发起请求
@@ -78,8 +120,24 @@ function MultiSearch(props: SearchFormProps) {
   }
 
   // 失焦
-  const blurHandle = () => {
-    setListFlag(false)
+  const blurHandle = (e: any) => {
+    if (mouseDownInsideListRef.current) {
+      setTimeout(() => {
+        mouseDownInsideListRef.current = false
+      }, 0)
+      return
+    }
+    const hasOpenModal = document.querySelector('.ant-modal-root, .ant-modal-wrap, .wind-modal, .gel-modal') !== null
+    if (hasOpenModal) return
+    setTimeout(() => {
+      const related = (e && (e as any).relatedTarget) as HTMLElement | null
+      if (related) {
+        const insideList =
+          !!related.closest('.input-toolbar-search-list') || !!related.closest('.history-recent-container')
+        if (insideList) return
+      }
+      setListFlag(false)
+    }, 100)
   }
 
   /**
@@ -161,11 +219,23 @@ function MultiSearch(props: SearchFormProps) {
     }
   }
 
+  // 最近浏览项点击事件处理
+  const recentViewItemClickHandle = (item) => {
+    // 在MultiSearch中，我们暂时只是调用外部回调
+    // 因为MultiSearch需要两个公司信息，而最近浏览只有一个
+    if (onRecentViewItemClick) {
+      onRecentViewItemClick(item)
+    } else {
+      // 如果没有外部回调，隐藏列表
+      setListFlag(false)
+    }
+  }
+
   // 点击搜索按钮
   const serachSubmit: (data?: any, flag?: 'btn' | 'history') => void = (data?, flag = 'btn') => {
     message.destroy()
     if (!data && (searchValue.length === 0 || searchRelationValue.length === 0)) {
-      message.info(intl('176478', '请选择关系双方公司或个人'))
+      message.info(intl('417182', '请选择双方企业'))
       return
     }
 
@@ -189,67 +259,79 @@ function MultiSearch(props: SearchFormProps) {
       <div className={classNames('multi-search-area', className)}>
         <div className="search-relation-from-wrap">
           <div className="search-relation-from">
-            <Input
+            <Input.Search
               ref={inputRef}
               type="text"
               value={searchValue}
-              className="txt_search"
+              className="txt_search hide-search-icon"
               placeholder={placeHolder}
               onChange={(e) => changeHandle(e.target.value)}
               onFocus={() => focusHandle(COMPANYONE)}
-              onBlur={() => blurHandle()}
+              onBlur={(e) => blurHandle(e)}
               onKeyDown={(e: React.KeyboardEvent) => {
                 if (e.key === 'Enter') serachSubmit()
               }}
+              data-uc-id="rtdSzkG5h"
+              data-uc-ct="input"
             />
             {!showHistory && inputType === COMPANYONE && (
-              <SearchList
+              <ResultList
                 list={suggestions}
                 onItemClick={itemClickHanle}
                 listFlag={listFlag}
-                showSearchHistoryFlag={showHistory}
                 showTag={true}
+                data-uc-id="Ak6Qbur-zy"
+                data-uc-ct="resultlist"
               />
             )}
           </div>
           <span className={classNames('icon-search-relation', searchRelationIconClassName)}></span>
           <div className="search-relation-from">
-            <Input
+            <Input.Search
               type="text"
               value={searchRelationValue}
               className="txt_search"
               placeholder={placeHolder}
               onChange={(e) => changeHandle(e.target.value)}
               onFocus={() => focusHandle(COMPANYTWO)}
-              onBlur={() => blurHandle()}
+              onBlur={(e) => blurHandle(e)}
               onKeyDown={(e: React.KeyboardEvent) => {
                 if (e.key === 'Enter') serachSubmit()
               }}
+              onSearch={(value) => serachSubmit(value)}
+              data-uc-id="oPQnXyir-y"
+              data-uc-ct="input"
             />
             {!showHistory && inputType === COMPANYTWO && (
-              <SearchList
+              <ResultList
                 list={suggestions}
                 onItemClick={itemClickHanle}
                 listFlag={listFlag}
-                showSearchHistoryFlag={showHistory}
                 showTag={true}
+                data-uc-id="WWm302GaN0"
+                data-uc-ct="resultlist"
               />
             )}
           </div>
-          <a
+          {/* <a
             className={classNames('btn_search', 'btn-default-primary', searchBtnClassName)}
             onClick={() => serachSubmit()}
           >
             {intl('425436', '查询')}
-          </a>
+          </a> */}
           {showHistory && (
-            <SearchList
-              list={historyList}
-              onItemClick={itemClickHanle}
-              listFlag={listFlag}
+            <HistoryAndRecentView
+              historyList={historyList}
+              onHistoryItemClick={itemClickHanle}
               onClearHistory={clearHistory}
-              showSearchHistoryFlag={showHistory}
-              showTag={true}
+              onDeleteHistoryItem={deleteHistoryItem}
+              recentViewList={recentViewList}
+              onRecentViewItemClick={recentViewItemClickHandle}
+              onClearRecentView={clearRecentView}
+              onDeleteRecentViewItem={deleteRecentViewItem}
+              listFlag={listFlag}
+              data-uc-id="lj5bKzhj0R"
+              data-uc-ct="historyAndRecentView"
             />
           )}
         </div>

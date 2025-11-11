@@ -1,4 +1,3 @@
-export * from './chatStream'
+export { createConfiguredXRequest, type XRequestClass } from './chatStream'
 export * from './env'
-export * from './errorCode'
 export * from './misc'

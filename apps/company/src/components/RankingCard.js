@@ -37,7 +37,7 @@ class RankingCard extends React.Component {
         <div className="content">
           <p className="title">
             <span className="name">{showHighLight(objectName, keyword)}</span>
-            <a onClick={this.toRankingListDetail}>
+            <a onClick={this.toRankingListDetail} data-uc-id="3Si0D1ASJW" data-uc-ct="a">
               {numberFormat(count, true)}家 <MyIcon name="arrow_right_small" />
             </a>
           </p>

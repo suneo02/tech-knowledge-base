@@ -1,7 +1,7 @@
+import { Button, Card, Space, Typography } from 'antd'
+import { ErrorActionType } from 'gel-util/config'
 import React from 'react'
-import { Button, Space, Card, Typography } from 'antd'
 import { useErrorHandler } from '../../hooks/useErrorHandler'
-import { ErrorActionType } from '../../api/error/errorConfig'
 import styles from './styles.module.less'
 
 const { Title, Paragraph } = Typography
@@ -36,7 +36,7 @@ const ErrorExample: React.FC = () => {
       message: '您当前积分仅剩10分，该操作需要消耗50积分，请先充值',
       actions: [
         createErrorAction(ErrorActionType.RECHARGE, '立即充值', () => {
-          console.log('跳转到自定义充值页面')
+          // console.log('跳转到自定义充值页面')
           // 可以在这里添加自定义的充值逻辑
         }),
         createErrorAction(ErrorActionType.CANCEL, '稍后再说'),

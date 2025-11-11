@@ -842,6 +842,14 @@ body {
   color: #fff;
 }
 
+// windui 4.5.2 树形组件选中颜色变成黑色了，这里全局处理一下，设置为白色
+.w-tree
+  .w-tree-treenode:not(.w-tree-treenode-disabled)
+  .w-tree-node-content-wrapper.w-tree-node-selected
+  .w-tree-title {
+  color: #fff !important;
+}
+
 .w-link {
   &:hover {
     border-bottom-color: #00aec7;

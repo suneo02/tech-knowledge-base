@@ -27,6 +27,8 @@ interface HomeProps {
   home: any
 }
 
+const COMPANY_DETAIL_HASH = '#/' // 企业详情页面Hash
+
 // 内页公共部分，各功能页面是该页面下的二级路由
 class Home extends React.Component<HomeProps, HomeState> {
   private isSeparate: string | number = ''
@@ -46,6 +48,8 @@ class Home extends React.Component<HomeProps, HomeState> {
     const isSearchHome = hrefUrl.includes('searchhome')
     const isCustomer = hrefUrl.includes('customer')
     const isVersionPrice = hrefUrl.includes('versionPrice')
+
+    const isCompanyDetailPage = window.location.hash === COMPANY_DETAIL_HASH // 是否是企业详情页面
     this.setState({ nosearch: false }) // 初始设置true，再DidMount中统一置为false，以解决如果默认为false，通过porps控制true时，会出现看到搜索框一瞬后又消失的现象
     if (hrefUrl.indexOf('/bankingworkbench') > -1) {
       this.setState({ notoolbar: true })
@@ -68,7 +72,8 @@ class Home extends React.Component<HomeProps, HomeState> {
     if (qs.nosearch) {
       this.setState({ needtoolbar: true, nosearch: true })
     }
-    if (qs.isSeparate) {
+    // 终端命令跳转企业详情带不了isSeparate参数，直接在这里添加
+    if (qs.isSeparate || isCompanyDetailPage) {
       this.isSeparate = 1
     }
     // 首页和用户中心及会员页面，走接口读实时权限
@@ -78,7 +83,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 
       if (gelUserInfo && gelUserInfo == window.globaluserinfo4gel) {
         // 终端内拿到了用户信息，并且是同一个客户的信息，则userpackage直接从本地读取
-        let userPackage = localStorageManager.get('globaluserpackage4gel')
+        const userPackage = localStorageManager.get('globaluserpackage4gel')
 
         // 计算权限是否过期
         const expireDate = wftCommon.formatTime(userPackage?.expireDate)
@@ -96,7 +101,7 @@ class Home extends React.Component<HomeProps, HomeState> {
           // 非免费用户，且权限到期时间在一天以上 则先从本地读权限
           this.props.getUserPackageInfo(
             (hidetoolbar) => {
-              hidetoolbar && this.setState({ notoolbar: hidetoolbar, needtoolbar: false })
+              if (hidetoolbar) this.setState({ notoolbar: hidetoolbar, needtoolbar: false })
             },
             {
               data: userPackage,
@@ -106,7 +111,9 @@ class Home extends React.Component<HomeProps, HomeState> {
         } else {
           // 未拿到用户信息，直接从接口处读取
           this.props.getUserPackageInfo((hidetoolbar) => {
-            hidetoolbar && this.setState({ notoolbar: hidetoolbar, needtoolbar: false })
+            if (hidetoolbar) {
+              this.setState({ notoolbar: hidetoolbar, needtoolbar: false })
+            }
           })
         }
       } else {
@@ -115,13 +122,13 @@ class Home extends React.Component<HomeProps, HomeState> {
         }
         // 未拿到用户信息，直接从接口处读取
         this.props.getUserPackageInfo((hidetoolbar) => {
-          hidetoolbar && this.setState({ notoolbar: hidetoolbar, needtoolbar: false })
+          if (hidetoolbar) this.setState({ notoolbar: hidetoolbar, needtoolbar: false })
         })
       }
     } else {
       // 直接从接口处读取
       this.props.getUserPackageInfo((hidetoolbar) => {
-        hidetoolbar && this.setState({ notoolbar: hidetoolbar, needtoolbar: false })
+        if (hidetoolbar) this.setState({ notoolbar: hidetoolbar, needtoolbar: false })
       })
     }
   }
@@ -144,6 +151,8 @@ class Home extends React.Component<HomeProps, HomeState> {
         <Modal
           {...this.props.home.globalModalProps}
           transitionName={''}
+          data-uc-id="duXq18LXXAO"
+          data-uc-ct="modal"
           visible={this.props.home.globalModalProps && this.props.home.globalModalProps.visible ? true : false}
         >
           {this.props.home.globalModalProps && this.props.home.globalModalProps.content}
@@ -169,9 +178,7 @@ const mapDispatchToProps = (dispatch) => {
        */
       const userPackinfoCall = (res) => {
         if (!localres) {
-          let dataDeled = res.data
-          // 精简用户信息
-          delete dataDeled.packageNameList
+          const dataDeled = res.data
           localStorageManager.set('globaluserpackage4gel', dataDeled)
         }
         wftCommon.userPackageConfigSet(res.data.packageName, res.data.expireDate, res.data)
@@ -182,14 +189,16 @@ const mapDispatchToProps = (dispatch) => {
           // 获取可以购买的套餐
           // paygoods
           getPayGoods().then((res) => {
-            res && res.data && dispatch(HomeActions.getPayGoods({ ...res }))
-            res && res.data && wftCommon.payGoodsSet(res.data)
+            if (res && res.data) {
+              dispatch(HomeActions.getPayGoods({ ...res }))
+              wftCommon.payGoodsSet(res.data)
+            }
           })
         }
         console.warn(`ISB`, wftCommon.isBaiFenTerminalOrWeb(res.data.terminalType))
         if (wftCommon.isBaiFenTerminalOrWeb(res.data.terminalType)) {
           //用于百分企业，由柴荣臻负责
-          var script = window.document.createElement('script')
+          const script = window.document.createElement('script')
           const isOrNotTestSite = isTestSite()
           script.setAttribute(
             'src',

@@ -24,5 +24,12 @@ export const statementOfInvalidation = {
     intlNoIndex('145870', '补领情况'),
   ],
   align: [1, 0, 0, 0, 0, 0],
-  fields: ['NO.', 'declaration_date|formatTime', 'original_or_copy', 'declaration_content', 'duplicate_no', 'replacement_status'],
+  fields: [
+    'NO.',
+    'declaration_date|formatTime',
+    'original_or_copy',
+    'declaration_content',
+    'duplicate_no',
+    'replacement_status',
+  ],
 }

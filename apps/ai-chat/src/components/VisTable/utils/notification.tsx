@@ -1,10 +1,19 @@
 import { requestToWFCSuperlistFcs } from '@/api/requestFcs'
-import { UnorderedListOutlined } from '@ant-design/icons'
 import { notification } from 'antd'
-import { SourceTypeEnum } from 'gel-api'
+import { GetSourceDetailResponse, SourceTypeEnum } from 'gel-api'
 import { useEffect, useRef } from 'react'
 import { NotificationDescription } from '../components/notification/NotificationDescription'
 import { parseProgressSteps } from './progressUtils'
+
+interface ShowNotificationProps {
+  sourceType: SourceTypeEnum
+  value?: string
+  sourceId?: string
+  isLoading?: boolean
+  sourceDetail?: string
+  progressSteps?: string[]
+  info?: GetSourceDetailResponse
+}
 
 /**
  * 创建单元格通知服务
@@ -16,6 +25,7 @@ export const useCellNotification = () => {
   const [api, contextHolder] = notification.useNotification({ top: 100 })
   const notificationRef = useRef<string | null>(null)
   const handleOutsideClickRef = useRef<(event: MouseEvent) => void>()
+  const notificationPropsRef = useRef<ShowNotificationProps | null>(null)
 
   // 使用常量定义通知的key
   const notificationKey = 'cell-info'
@@ -51,6 +61,40 @@ export const useCellNotification = () => {
     document.addEventListener('mousedown', handleOutsideClickRef.current)
   }
 
+  const internalShowNotification = (props: ShowNotificationProps) => {
+    const handleModalOpen = () => {
+      api.destroy(notificationKey)
+      removeGlobalClickListener()
+    }
+
+    const handleModalClose = () => {
+      if (notificationPropsRef.current) {
+        internalShowNotification(notificationPropsRef.current)
+      }
+    }
+    api.open({
+      key: notificationKey,
+      message: (
+        <>
+          {/* <UnorderedListOutlined style={{ marginInlineEnd: 4 }} /> */}
+          单元格详情
+        </>
+      ),
+      duration: 0,
+      style: {
+        padding: '24px 12px',
+      },
+      description: <NotificationDescription {...props} onModalOpen={handleModalOpen} onModalClose={handleModalClose} />,
+      onClose: () => {
+        removeGlobalClickListener()
+        if (notificationRef.current === notificationKey) {
+          notificationRef.current = null
+        }
+      },
+    })
+    addGlobalClickListener()
+  }
+
   // 清理函数，在组件卸载时执行
   useEffect(() => {
     return () => {
@@ -66,52 +110,22 @@ export const useCellNotification = () => {
   /**
    * 显示通知内容
    */
-  const showNotification = (props: {
-    sourceType: SourceTypeEnum
-    value?: string
-    sourceId?: string
-    isLoading?: boolean
-    sourceDetail?: string
-    progressSteps?: string[]
-  }) => {
-    const { sourceType, value, sourceId, isLoading, sourceDetail, progressSteps = [] } = props
-
-    api.open({
-      key: notificationKey,
-      message: (
-        <>
-          <UnorderedListOutlined style={{ marginInlineEnd: 4 }} />
-          单元格详情
-        </>
-      ),
-      duration: 0,
-      description: (
-        <NotificationDescription
-          sourceType={sourceType}
-          value={value}
-          sourceId={sourceId}
-          isLoading={isLoading}
-          sourceDetail={sourceDetail}
-          progressSteps={progressSteps}
-        />
-      ),
-      onClose: () => {
-        removeGlobalClickListener()
-        if (notificationRef.current === notificationKey) {
-          notificationRef.current = null
-        }
-      },
-    })
-
-    addGlobalClickListener()
+  const showNotification = (props: ShowNotificationProps) => {
+    notificationPropsRef.current = props
+    internalShowNotification(props)
   }
 
   /**
    * 打开单元格详情通知
    * @param cellInfo 单元格信息，包含来源类型、值和来源值
    */
-  const openCellNotification = async (props?: { sourceType?: SourceTypeEnum; value?: string; sourceId?: string }) => {
-    const { sourceType, value, sourceId } = props || {}
+  const openCellNotification = async (props?: {
+    sourceType?: SourceTypeEnum
+    value?: string
+    sourceId?: string
+    info?: GetSourceDetailResponse
+  }) => {
+    const { sourceType, value, sourceId, info } = props || {}
 
     if (notificationRef.current && notificationRef.current !== notificationKey) {
       api.destroy(notificationRef.current)
@@ -126,13 +140,12 @@ export const useCellNotification = () => {
 
     notificationRef.current = notificationKey
 
-    showNotification({ sourceType, value, sourceId, isLoading: true, progressSteps: [] })
+    showNotification({ sourceType, value, sourceId, isLoading: true, progressSteps: [], info })
 
     if (sourceId) {
       try {
         const response = await requestToWFCSuperlistFcs('superlist/excel/sourceDetail', {
           sourceId,
-          sourceType,
         })
         const anyResponse = response
 
@@ -170,6 +183,7 @@ export const useCellNotification = () => {
             isLoading: false,
             sourceDetail,
             progressSteps,
+            info: anyResponse?.Data,
           })
         }
       } catch (error) {

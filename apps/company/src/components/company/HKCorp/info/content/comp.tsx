@@ -38,6 +38,8 @@ export const HKCorpInfoBoughtTip: FC = () => {
           payload: true,
         })
       }}
+      data-uc-id="lbLcmcTZ5a"
+      data-uc-ct="button"
     >
       {text}
     </Button>

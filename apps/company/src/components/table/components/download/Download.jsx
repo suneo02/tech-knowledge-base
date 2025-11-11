@@ -38,7 +38,9 @@ const Download = (props) => {
       onClick={() => {
         downLoadExcel(downDocType, title, companyName)
       }}
-      icon={<DownloadO />}
+      icon={<DownloadO data-uc-id="fdodt0auaJ" data-uc-ct="downloado" />}
+      data-uc-id="mAu7uPzSuL"
+      data-uc-ct="button"
     >
       {intlNoIndex('4698', '导出数据')}
     </Button>

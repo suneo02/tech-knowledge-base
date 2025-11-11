@@ -1,4 +1,5 @@
 import { Button } from '@wind/wind-ui'
+import { getCdeSearchFilterDisplayValues } from 'gel-ui'
 import React from 'react'
 import { connect } from 'react-redux'
 import { pointBuried } from '../../api/configApi'
@@ -56,7 +57,13 @@ class Condition extends React.Component<any, any> {
         <p className="title" style={{ margin: '4px 0' }}>
           <MyIcon name="filter" /> {intl(257655, '筛选条件')}
         </p>
-        <Button className="addBtn" icon={<MyIcon name="add" />} onClick={this.addFilter}>
+        <Button
+          className="addBtn"
+          icon={<MyIcon name="add" />}
+          onClick={this.addFilter}
+          data-uc-id="5CFtvatlAC"
+          data-uc-ct="button"
+        >
           {' '}
           {intl(257741, '添加筛选条件')}
         </Button>
@@ -94,7 +101,7 @@ class Condition extends React.Component<any, any> {
                 mode={2}
                 filter={item}
                 title={item.title}
-                value={item.itemType == '9' ? (item.search ? item.search : item.value) : item.value}
+                value={getCdeSearchFilterDisplayValues(item)}
                 logic={item.logic}
                 info={getPreItemInfo(item.itemId)}
                 changeFilter={changeFilter}
@@ -104,23 +111,25 @@ class Condition extends React.Component<any, any> {
             )
           })}
         </div>
-
         <Button
           className="condition-btn-save"
           // @ts-expect-error
           type="default"
           disabled={filters.length === 0 || this.props.subscribeBtnDisabled}
           onClick={this.saveSub}
+          data-uc-id="3ZFFi5b4E5"
+          data-uc-ct="button"
         >
           {' '}
           {intl('261051', '保存条件')}
         </Button>
-
         <Button
           className="condition-btn-ok"
           disabled={filters.length === 0 && geoFilter.length === 0}
           type="primary"
           onClick={this.search}
+          data-uc-id="xkQ8NMJUkk"
+          data-uc-ct="button"
         >
           {intl(257693, '应用筛选')}
         </Button>

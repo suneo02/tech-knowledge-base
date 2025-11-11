@@ -56,7 +56,13 @@ export const LSrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       dataIndex: 'reg_address',
       colSpan: 5,
       render: (title, row) => (
-        <ParkBox title={title} parkTitle={row?.registerPark} row={row} parkId={row?.registerParkId} />
+        <ParkBox
+          title={title}
+          parkTitle={row?.registerPark}
+          row={row}
+          parkId={row?.registerParkId}
+          isBusAddress={false}
+        />
       ),
     },
   ],

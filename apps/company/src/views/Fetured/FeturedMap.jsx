@@ -8,14 +8,12 @@ import intl from '../../utils/intl'
 import { useEffect } from 'react'
 import { globalAreaTree } from '../../utils/areaTree'
 
-
-
 const DemoMap = memo((props) => {
-  const {list=[],code='156000000',area_code,direction='2',isDisplayBack,onBack,onClick}=props
-  console.log("🚀 ~ DemoMap ~ props:", props)
-  let province=globalAreaTree.find(i=>i.code==area_code)?.node||globalAreaTree
-  const end=code=='156000000'?6:8
-  const initOption= {
+  const { list = [], code = '156000000', area_code, direction = '2', isDisplayBack, onBack, onClick } = props
+  console.log('🚀 ~ DemoMap ~ props:', props)
+  let province = globalAreaTree.find((i) => i.code == area_code)?.node || globalAreaTree
+  const end = code == '156000000' ? 6 : 8
+  const initOption = {
     type: 'polygon',
     style: {
       color: ['#F0F6FA', '#E8F3FA', '#D5EAF7', '#C9E2F2', '#B9D8ED', '#A1CBE6', '#85BCDE', '#62A5CC'],
@@ -28,9 +26,15 @@ const DemoMap = memo((props) => {
           console.log('🚀 ~ DemoMap ~ e:', e)
           let str = renderToString(
             <div style={{ lineHeight: '26px' }}>
-              <p style={{ borderBottom: '1px solid #ccc' }}>{window.en_access_config?province?.find(i=>i.code==e.area_code.slice(0,end))?.nameEn:e.name}</p>
+              <p style={{ borderBottom: '1px solid #ccc' }}>
+                {window.en_access_config ? province?.find((i) => i.code == e.area_code.slice(0, end))?.nameEn : e.name}
+              </p>
 
-              <p>{intl('208504', '企业数量')+(window.en_access_config?':':'：')}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{e.value ? wftCommon.formatMoneyComma(e.value) : 0}{window.en_access_config?'':'（家）'}</p>
+              <p>
+                {intl('208504', '企业数量') + (window.en_access_config ? ':' : '：')}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{e.value ? wftCommon.formatMoneyComma(e.value) : 0}
+                {window.en_access_config ? '' : '（家）'}
+              </p>
             </div>
           )
           return str
@@ -39,8 +43,8 @@ const DemoMap = memo((props) => {
     },
     visible: true,
     batch: {
-      code: code,//四川
-      direction: direction,//省级要改为down
+      code: code, //四川
+      direction: direction, //省级要改为down
     },
     // layerInfo: {
     //   name: '各省人均可支配收入',
@@ -49,22 +53,25 @@ const DemoMap = memo((props) => {
     data: list,
     event: {
       click: (a, b, c) => {
-      // console.log("🚀 ~ DemoMap ~ (a, b, c:", a, b, c)
-      if(a.geoLevel<3){//只到省级
-        onClick(a,b)
-      }
+        // console.log("🚀 ~ DemoMap ~ (a, b, c:", a, b, c)
+        if (a.geoLevel < 3) {
+          //只到省级
+          onClick(a, b)
+        }
       },
     },
   }
   return (
-    <div style={{ width: '500px', height: '300px',display:'inline-block' }}>
+    <div style={{ width: '500px', height: '300px', display: 'inline-block' }}>
       {isDisplayBack ? (
         <Button
           className="mapBtn"
-          icon={<UndoO />}
+          icon={<UndoO data-uc-id="ewakMJ2gRy" data-uc-ct="undoo" />}
           onClick={() => {
             onBack()
           }}
+          data-uc-id="vDEr_oqaa"
+          data-uc-ct="button"
         >
           {intl('5550', '返回')}{' '}
         </Button>

@@ -24,7 +24,6 @@ export const BindPhoneEmailFormCtx = createContext({
 const reducer = (state, action) => {
   switch (action.type) {
     case 'setCaptchaResult': {
-      
       return {
         ...state,
         captchaRes: action.payload,

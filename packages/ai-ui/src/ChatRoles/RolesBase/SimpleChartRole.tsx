@@ -1,19 +1,19 @@
-import { MessageRawCore } from '@/types/message/raw'
-import { WCB } from '@/WindChart'
-import { ChatTypeEnum, RefTableData } from 'gel-api'
+import { ChatTypeEnum, DPUItem } from 'gel-api'
+import { AntRoleType, SimpleChartMessage } from 'gel-ui'
+import { lazy, Suspense } from 'react'
 import { RoleAvatarHidden } from '../components/misc'
 import ChartDataBuilder from './core/ChartDataBuilder'
 import DPUProcessor from './core/DPUProcessor'
-import { RoleTypeBase } from './type'
 
-export const SimpleChartRole: RoleTypeBase = {
+// 懒加载 WCB 组件
+const LazyWCB = lazy(() => import('@/WindChart').then((module) => ({ default: module.WCB })))
+
+export const SimpleChartRole: AntRoleType<SimpleChartMessage['content']> = {
   placement: 'start',
   avatar: RoleAvatarHidden,
   variant: 'borderless',
   messageRender: (content) => {
-    console.log('🚀 SimpleChartRole ~ content:', content)
-
-    const { refTable, chartType, rawSentence } = content as unknown as MessageRawCore
+    const { dpuList, chartType, rawSentence } = content
 
     const getConfigs = ({
       chartData,
@@ -22,7 +22,7 @@ export const SimpleChartRole: RoleTypeBase = {
       rewriteQuestion = '',
       question = '',
     }: {
-      chartData: RefTableData[] | undefined
+      chartData: DPUItem[] | undefined
       chartType: ChatTypeEnum | undefined
       intention?: string
       rewriteQuestion?: string
@@ -64,18 +64,20 @@ export const SimpleChartRole: RoleTypeBase = {
     }
 
     const configs = getConfigs({
-      chartData: refTable,
+      chartData: dpuList,
       chartType,
       rewriteQuestion: rawSentence,
       question: rawSentence,
     })
     console.log('🚀 ~SimpleChartRole  configs:', configs)
 
-    // 检查 content 是否为有效的 RefTableData 数组
+    // 检查 content 是否为有效的 DPUItem 数组
 
     return (
       <>
-        <WCB type="bar" indicators={configs?.indicators} />
+        <Suspense fallback={<div></div>}>
+          <LazyWCB type="bar" indicators={configs?.indicators} />
+        </Suspense>
       </>
     )
   },

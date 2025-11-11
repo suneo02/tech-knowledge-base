@@ -15,10 +15,10 @@ export const getCorpListPresearch = async (val) => {
     return
   }
   if (isCorpListPresearchResponse(res)) {
-    console.log('🚀 ~ getCorpListPresearch ~ res:', res)
+    // console.log('🚀 ~ getCorpListPresearch ~ res:', res)
     const { Data, ...rest } = res
     return {
-      Data: Data.map((r) => ({
+      Data: Data?.map((r) => ({
         ...r,
         objectName: r.objectName.replace(/<[^>]+>/g, ''),
       })),

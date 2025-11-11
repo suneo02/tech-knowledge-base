@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useReducer, ReactNode, useCallback, useEffect } from 'react'
-import { VisTableOperation, SyncStatus, VisTableOperationType } from '../types/operationTypes'
 import { nanoid } from 'nanoid'
+import React, { createContext, ReactNode, useCallback, useContext, useEffect, useReducer } from 'react'
 import { tableOperationService } from '../services/tableOperationService'
+import { SyncStatus, VisTableOperation, VisTableOperationType } from '../types/operationTypes'
 
 // 操作日志记录
 export interface OperationLog {
@@ -255,7 +255,10 @@ export const VisTableOperationProvider: React.FC<VisTableOperationProviderProps>
       try {
         if (!sheetId) return
         const result = await tableOperationService.getSheetVersion(sheetId)
-        console.log('🚀 ~ result:', result)
+        if (!result) {
+          return
+        }
+        // console.log('🚀 ~ result:', result)
 
         dispatch({
           type: VisTableOperationActionType.SET_OPERATION_NO,
@@ -269,7 +272,7 @@ export const VisTableOperationProvider: React.FC<VisTableOperationProviderProps>
           type: VisTableOperationActionType.SET_CAN_ADD_CDE_TO_CURRENT,
           payload: { canAddCdeToCurrent: result.canAddCdeToCurrent },
         })
-        console.log('初始化操作编号:', result.operationNoComplete)
+        // console.log('初始化操作编号:', result.operationNoComplete)
       } catch (error) {
         console.error('获取操作编号失败:', error)
       }
@@ -346,7 +349,7 @@ export const VisTableOperationProvider: React.FC<VisTableOperationProviderProps>
 
       // 操作编号自增
       const currentOperationNo = state.operationNo + 1
-      console.log('记录操作，operationNo从', state.operationNo, '增加到', currentOperationNo)
+      // console.log('记录操作，operationNo从', state.operationNo, '增加到', currentOperationNo)
       dispatch({
         type: VisTableOperationActionType.SET_OPERATION_NO,
         payload: { operationNo: currentOperationNo },

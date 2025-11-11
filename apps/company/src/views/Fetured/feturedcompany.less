@@ -1,3 +1,5 @@
+@page-width: 1280px;
+
 .feturecompany-body {
   width: 100%;
   position: relative;
@@ -20,7 +22,6 @@
     position: relative;
 
     .fetured-toolbar-content {
-      width: 1280px;
       margin: 0 auto;
       display: flex;
       // position: relative;
@@ -56,7 +57,6 @@
   }
 
   .fetured-wrapper {
-    width: 1280px;
     margin: 0 auto;
     border-radius: 4px;
     background: #fff;
@@ -148,7 +148,7 @@
       .status-ipo {
         overflow: hidden;
         .status-left {
-          width: 550px;
+          width: 600px;
           float: left;
           // height: 250px;
 
@@ -170,8 +170,7 @@
           .ipo-chart-r {
             width: 200px;
             float: right;
-            height: 150px;
-            margin-top: 50px;
+            height: 250px;
           }
         }
         .status-ipo-table {
@@ -204,8 +203,8 @@
         height: 185px;
       }
     }
-    width: 1280px;
-    margin: 0 auto;
+    margin: 0 auto 16px;
+
     box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
   }
 }
@@ -218,6 +217,33 @@
   padding-bottom: 0;
 }
 
-// body {
-//   font-family: 'Microsoft YaHei', 'PingFangSC-Regular', sans-serif !important;
-// }
+.feturecompany-body:not(.from-rime) {
+  #fetured-toolbar {
+    .fetured-toolbar-content {
+      width: @page-width;
+    }
+  }
+  .fetured-wrapper {
+    width: @page-width;
+  }
+
+  .feturedMain {
+    width: @page-width;
+  }
+}
+
+.feturecompany-body.from-rime {
+  overflow-x: hidden;
+  #fetured-toolbar {
+    .fetured-toolbar-content {
+      max-width: @page-width;
+    }
+  }
+  .fetured-wrapper {
+    max-width: @page-width;
+  }
+
+  .feturedMain {
+    max-width: @page-width;
+  }
+}

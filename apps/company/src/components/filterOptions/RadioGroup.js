@@ -1,7 +1,9 @@
 import React from 'react'
 import { Form, Radio, InputNumber } from 'antd'
 import { MyIcon } from '../Icon'
-import 'moment/locale/zh-cn'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+dayjs.locale('zh-cn')
 import PrefixLogic from './PrefixLogic'
 import './CheckBoxGroup.less'
 import { limitNumber } from '../../lib/utils'
@@ -78,12 +80,12 @@ class RadioGroup extends React.Component {
     setFieldsValue && setFieldsValue(obj)
   }
 
-  dateChange = (moment, timeString) => {
-    console.log('🚀 ~ moment, timeString:', moment, timeString)
-    // console.log(moment, timeString);
+  dateChange = (dayjsDate, timeString) => {
+    console.log('🚀 ~ dayjsDate, timeString:', dayjsDate, timeString)
+    // console.log(dayjsDate, timeString);
     // this.props.setCustomRange({
-    //   customStart: moment[0].format("yyyyMMDD"),
-    //   customEnd: moment[1].format("yyyyMMDD"),
+    //   customStart: dayjsDate[0].format("YYYYMMDD"),
+    //   customEnd: dayjsDate[1].format("YYYYMMDD"),
     // });
     // 监听自定义输入框的状态
     // this.props.customChange && this.props.customChange();
@@ -91,8 +93,8 @@ class RadioGroup extends React.Component {
     let obj = {}
     obj[itemKey] = {
       value: 'isCustom',
-      customMin: moment[0].format('yyyyMMDD'),
-      customMax: moment[1].format('yyyyMMDD'),
+      customMin: dayjsDate[0].format('YYYYMMDD'),
+      customMax: dayjsDate[1].format('YYYYMMDD'),
     }
     setFieldsValue && setFieldsValue(obj)
     customChange && customChange()
@@ -115,51 +117,104 @@ class RadioGroup extends React.Component {
     switch (type) {
       case 1:
         return (
-          <Radio value="isCustom" onChange={this.customChange}>
+          <Radio value="isCustom" onChange={this.customChange} data-uc-id="13om83MXpa" data-uc-ct="radio">
             {intl(25405, '自定义')}
             <Form.Item noStyle name={[itemKey, 'customMin']}>
-              <InputNumber formatter={limitNumber} parser={limitNumber} min={0} max={customEnd ? customEnd : 999998} onChange={this.changeStart} />
+              <InputNumber
+                formatter={limitNumber}
+                parser={limitNumber}
+                min={0}
+                max={customEnd ? customEnd : 999998}
+                onChange={this.changeStart}
+                data-uc-id="0ojVbfNGtXh"
+                data-uc-ct="inputnumber"
+              />
             </Form.Item>
             -
             <Form.Item noStyle name={[itemKey, 'customMax']}>
-              <InputNumber formatter={limitNumber} parser={limitNumber} min={customStart} max={999999} onChange={this.changeEnd} />
+              <InputNumber
+                formatter={limitNumber}
+                parser={limitNumber}
+                min={customStart}
+                max={999999}
+                onChange={this.changeEnd}
+                data-uc-id="siZ0wNuIFGX"
+                data-uc-ct="inputnumber"
+              />
             </Form.Item>
             {intl('20116', '万')}
           </Radio>
         )
       case 2:
         return (
-          <Radio value="isCustom" onChange={this.customChange}>
+          <Radio value="isCustom" onChange={this.customChange} data-uc-id="hQTqVNDwfUP" data-uc-ct="radio">
             {intl(25405, '自定义')}
             <Form.Item noStyle name={[itemKey, 'customMin']}>
-              <InputNumber formatter={limitNumber} parser={limitNumber} min={0} max={customEnd ? customEnd : 999998} onChange={this.changeStart} />
+              <InputNumber
+                formatter={limitNumber}
+                parser={limitNumber}
+                min={0}
+                max={customEnd ? customEnd : 999998}
+                onChange={this.changeStart}
+                data-uc-id="ie5WI4tbT8C"
+                data-uc-ct="inputnumber"
+              />
             </Form.Item>
             -
             <Form.Item noStyle name={[itemKey, 'customMax']}>
-              <InputNumber formatter={limitNumber} parser={limitNumber} min={customStart} max={999999} onChange={this.changeEnd} />
+              <InputNumber
+                formatter={limitNumber}
+                parser={limitNumber}
+                min={customStart}
+                max={999999}
+                onChange={this.changeEnd}
+                data-uc-id="kRk7r8NaAJL"
+                data-uc-ct="inputnumber"
+              />
             </Form.Item>
             {intl('38056', '人')}
           </Radio>
         )
       case 3:
         return (
-          <Radio value="isCustom" onChange={this.customChange}>
+          <Radio value="isCustom" onChange={this.customChange} data-uc-id="Gst9zGe_3zM" data-uc-ct="radio">
             {intl(25405, '自定义')}
             <Form.Item noStyle name={[itemKey, 'date']}>
-              <RangePicker format={dateFormat} onChange={this.dateChange} />
+              <RangePicker
+                format={dateFormat}
+                onChange={this.dateChange}
+                data-uc-id="0YQkVr_-tD"
+                data-uc-ct="rangepicker"
+              />
             </Form.Item>
           </Radio>
         )
       default:
         return (
-          <Radio value="isCustom" onChange={this.customChange}>
+          <Radio value="isCustom" onChange={this.customChange} data-uc-id="HPtlK6orbjj" data-uc-ct="radio">
             {intl(25405, '自定义')}
             <Form.Item noStyle name={[itemKey, 'customMin']}>
-              <InputNumber formatter={limitNumber} parser={limitNumber} min={0} max={customEnd ? customEnd : 999998} onChange={this.changeStart} />
+              <InputNumber
+                formatter={limitNumber}
+                parser={limitNumber}
+                min={0}
+                max={customEnd ? customEnd : 999998}
+                onChange={this.changeStart}
+                data-uc-id="a-VXBkP5IgI"
+                data-uc-ct="inputnumber"
+              />
             </Form.Item>
             -
             <Form.Item noStyle name={[itemKey, 'customMax']}>
-              <InputNumber formatter={limitNumber} parser={limitNumber} min={customStart} max={999999} onChange={this.changeEnd} />
+              <InputNumber
+                formatter={limitNumber}
+                parser={limitNumber}
+                min={customStart}
+                max={999999}
+                onChange={this.changeEnd}
+                data-uc-id="AWGjE90mxxb"
+                data-uc-ct="inputnumber"
+              />
             </Form.Item>
             {type}
           </Radio>
@@ -193,9 +248,16 @@ class RadioGroup extends React.Component {
 
     return (
       <div className="filter-item">
-        {hasLogic ? <PrefixLogic name={itemKey} logicOption={logicOption} /> : null}
-        <Form.Item className="my-check-group" style={hasLogic ? { flex: 1 } : {}} name={[itemKey, 'value']} rules={rules}>
-          <Radio.Group onChange={this.radioChange}>
+        {hasLogic ? (
+          <PrefixLogic name={itemKey} logicOption={logicOption} data-uc-id="M8kQ78gunTJ" data-uc-ct="prefixlogic" />
+        ) : null}
+        <Form.Item
+          className="my-check-group"
+          style={hasLogic ? { flex: 1 } : {}}
+          name={[itemKey, 'value']}
+          rules={rules}
+        >
+          <Radio.Group onChange={this.radioChange} data-uc-id="hVp-kXnbOyA" data-uc-ct="">
             {itemOption.map((item, index) => {
               return (
                 <Radio key={index} value={item.value}>
@@ -213,11 +275,27 @@ class RadioGroup extends React.Component {
               {hasDetail.isVip ? <MyIcon name="vip_filter" className="vip_filter" /> : null}
             </p>
             <Form.Item noStyle name={[hasDetail.itemId, 'min']}>
-              <InputNumber formatter={limitNumber} parser={limitNumber} min={0} max={detailEnd ? detailEnd : 999998} onChange={(value) => this.detailChange(value, 'min')} />
+              <InputNumber
+                formatter={limitNumber}
+                parser={limitNumber}
+                min={0}
+                max={detailEnd ? detailEnd : 999998}
+                onChange={(value) => this.detailChange(value, 'min')}
+                data-uc-id="LszqyN2xT_g"
+                data-uc-ct="inputnumber"
+              />
             </Form.Item>
             -
             <Form.Item noStyle name={[hasDetail.itemId, 'max']}>
-              <InputNumber formatter={limitNumber} parser={limitNumber} min={detailStart} max={999999} onChange={(value) => this.detailChange(value, 'max')} />
+              <InputNumber
+                formatter={limitNumber}
+                parser={limitNumber}
+                min={detailStart}
+                max={999999}
+                onChange={(value) => this.detailChange(value, 'max')}
+                data-uc-id="TzU4y9e7CAv"
+                data-uc-ct="inputnumber"
+              />
             </Form.Item>
           </div>
         ) : null}

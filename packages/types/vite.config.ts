@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 export default defineConfig({
+  logLevel: 'warn',
   plugins: [
     dts({
       outDir: 'dist',
@@ -11,6 +12,8 @@ export default defineConfig({
     }),
   ],
   build: {
+    // 确保每次构建前清空目录
+    emptyOutDir: false,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'types',

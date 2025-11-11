@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Modal } from '@wind/wind-ui'
 import { ModalProps } from '@wind/wind-ui/lib/modal/Modal'
 import styles from './index.module.less'
+import { postPointBuried } from '@/utils/common/bury'
 
 const PREFIX = 'route-modal'
 
@@ -62,6 +63,7 @@ export const RouteModal: React.FC<RouteModalProps> = ({
     if (open) {
       setCurrentPath(initialRoutePath)
       setCurrentState(initParams)
+      postPointBuried('922604570321')
     } else {
       // Optionally clear path/state when closed, though destroyOnClose on Modal might handle element unmounting
       // setCurrentPath(''); // Or some default/invalid path
@@ -107,15 +109,17 @@ export const RouteModal: React.FC<RouteModalProps> = ({
     console.warn(`RouteModal: No route found for path: ${currentPath}`)
     content = <p>页面未找到: {currentPath}</p> // Fallback UI for missing route
   }
-
   return (
-    // @ts-expect-error wind-ui modal
     <Modal
       title={modalTitle}
       visible={open}
       onCancel={onCancel}
       footer={null}
-      width={width}
+      width={'80vw'}
+      style={{
+        minWidth: 1000,
+        maxWidth: 1280,
+      }}
       destroyOnClose
       {...modalProps}
     >

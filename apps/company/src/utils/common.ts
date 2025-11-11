@@ -1,7 +1,9 @@
-
 // @ts-nocheck
 import { intlNoIndex } from './intl'
 import { wftCommon } from './utils'
+
+const STAFF_BETA_FEATURE_KEY = 'GEL_CB_LYX_LXH_ZWH' // beta功能体验key
+const STAFF_BETA_FEATURE_VALUE = 'GelDeveloper' // beta功能体验值
 
 /**
  * 返回数量缩写
@@ -111,4 +113,50 @@ export function formatCurrency(money, currency, numeral?) {
   return formattedMoney ? `${formattedMoney}${numeral ? `${numeral}` : ''}${currency ? `${currency}` : ''}` : '--'
 }
 
-export const isDeveloper = localStorage.getItem('GEL_CB_LYX_LXH_ZWH') === 'GelDeveloper' ||wftCommon.isDevDebugger()
+/**
+ * 员工权限beta功能体验开关
+ */
+export const staffBetaFeature = {
+  key: STAFF_BETA_FEATURE_KEY,
+  value: STAFF_BETA_FEATURE_VALUE,
+  get: () => {
+    return localStorage.getItem(staffBetaFeature.key)
+  },
+  set: () => {
+    localStorage.setItem(staffBetaFeature.key, staffBetaFeature.value)
+  },
+  clear: () => {
+    localStorage.removeItem(staffBetaFeature.key)
+  },
+}
+
+/**
+ * 是否为开发者环境
+ */
+export const isDeveloper = staffBetaFeature.get() === staffBetaFeature.value || wftCommon.isDevDebugger()
+
+/**
+ * 解析URL参数为JSON数组，支持多种格式：
+ * - JSON 数组格式：["module1", "module2"]
+ * - 单个字符串：module1
+ */
+export const parseUrlParamsToJsonArray = (param: string | null): string[] => {
+  if (!param) return []
+
+  // 先进行 URL 解码
+  const decodedParam = decodeURIComponent(param)
+
+  // 尝试解析为 JSON 数组
+  try {
+    const parsed = JSON.parse(decodedParam)
+    if (Array.isArray(parsed)) {
+      return parsed.filter((id) => typeof id === 'string' && id.trim()).map((id) => id.trim())
+    }
+  } catch (e) {
+    // 不是有效的 JSON，当作单个字符串处理
+  }
+
+  // 单个字符串的情况
+  const trimmed = decodedParam.trim()
+  return trimmed ? [trimmed] : []
+}

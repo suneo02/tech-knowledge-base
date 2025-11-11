@@ -1,15 +1,33 @@
 @import '@/styles/variables.less';
 @import '@/styles/colorVariables.less';
 
+.window-locale-en-US {
+  .backTop-box {
+    width: 72px;
+  }
+}
+
+.backTop-tooltip {
+  .w-tooltip-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 8px;
+  }
+}
+
 .backTop-box {
   bottom: 20px;
   box-shadow: @box-shadow-sm;
   position: absolute;
   right: 20px;
-  width: 48px;
+  width: 52px;
   z-index: 1000;
   border-radius: 8px;
   background-color: #fff;
+  -webkit-user-select: none;
+  user-select: none;
 
   .w-back-top {
     background-color: TRANSPARENT;
@@ -24,6 +42,10 @@
     position: relative;
     right: 0;
     box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     // box-shadow: @box-shadow-sm;
 
     //  width: 58px;
@@ -61,6 +83,7 @@
 
   // 各图标特定背景
   .content-toolbar-APP-icon {
+    min-width: 36px;
     background-image: url('~@/assets/icons/Mobile.svg');
   }
 
@@ -139,6 +162,18 @@
       .wicon {
         color: #00aec7;
       }
+    }
+
+    .horizon-item-alice-icon {
+      transform: scale(0.8);
+      transform-origin: center;
+      height: 22px;
+      width: 102px;
+      line-height: 30px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      flex-direction: column;
     }
   }
 

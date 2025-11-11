@@ -1,7 +1,7 @@
 import React from 'react'
 import Breadcrumb from '../Breadcrumb'
 import FileTable from '../FileTable'
-import SearchBar from '../SearchBar'
+// import SearchBar from '../SearchBar'
 import './index.less'
 import { Result } from '@wind/wind-ui'
 import User from '@/components/layout/Page/User'
@@ -19,16 +19,16 @@ export const FileContent: React.FC<FileContentProps> = ({ activeFolder, breadcru
       {/* 头部区域 */}
       <div className={`${PREFIX}-header`}>
         <Breadcrumb items={breadcrumbs} onItemClick={onBreadcrumbClick} />
-        <User showCoins />
+        <User showCoins from="my-file" />
       </div>
 
       {/* 内容区域 */}
       <div className={`${PREFIX}-body`}>
         {activeFolder ? (
           <>
-            <div className={`${PREFIX}-search`}>
+            {/* <div className={`${PREFIX}-search`}>
               <SearchBar />
-            </div>
+            </div> */}
             <FileTable folderId={activeFolder} />
           </>
         ) : (

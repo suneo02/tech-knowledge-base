@@ -1,0 +1,27 @@
+import { CorpBasicInfo } from '@/api/corp/info/basicInfo'
+
+export const mockCorpBasicInfoCanada: CorpBasicInfo = {
+  anotherNames: [],
+  areaCode: '180402',
+  biz_reg_no: '',
+  configType: 'OE',
+  corp_id: '1207758836',
+  corp_name: 'Intertainment Media Inc',
+  corp_type: '海外上市公司',
+  corp_type_id: 0,
+  credit_code: '',
+  domainCount: 0,
+  formerNameList: [],
+  gbIndustryList: [],
+  mailCount: 0,
+  overseasCorpIndustryList: [],
+  province: '加拿大',
+  reg_address: '',
+  reg_authority: '',
+  reg_date: '',
+  seIndustriesCount: 0,
+  state: '',
+  telCount: 0,
+  usednames: [],
+  xxIndustryList: null,
+}

@@ -1,29 +1,43 @@
 import { CoinsIcon } from '@/assets/icon'
-import avatar from '@/assets/image/user-avatar-default.png'
-import { selectPointsCount, selectPointsLoading, useAppSelector } from '@/store'
+import { fetchPoints, selectPointsCount, selectPointsInitialized, useAppDispatch, useAppSelector } from '@/store'
 import { LoadingO } from '@wind/icons'
+import { useEffect } from 'react'
 import styles from './index.module.less'
+import { postPointBuried } from '@/utils/common/bury'
+import { generateUrlByModule, LinkModule } from 'gel-util/link'
 
-const User = ({ showCoins = false }: { showCoins?: boolean }) => {
+const User = ({ showCoins = false, from }: { showCoins?: boolean; from?: string }) => {
   const credits = useAppSelector(selectPointsCount)
-  const loading = useAppSelector(selectPointsLoading)
+  const initialized = useAppSelector(selectPointsInitialized)
+  const dispatch = useAppDispatch()
+  // const navigate = useNavigateWithLangSource()
+
+  const handleClick = () => {
+    postPointBuried('922604570301', { source: from })
+    const url = generateUrlByModule({ module: LinkModule.CREDIT })
+    window.open(url, '_blank', 'noopener,noreferrer')
+    // navigate('#/credits', { openWindow: true, windowOptions: { target: '_blank', features: 'noopener,noreferrer' } })
+    // window.open('#/credits', '_blank', 'noopener,noreferrer')
+  }
+
+  useEffect(() => {
+    if (!initialized) {
+      dispatch(fetchPoints())
+    }
+  }, [initialized, dispatch])
 
   return (
-    <div
-      className={styles['user-container']}
-      onClick={() => window.open(`#/credits?temp=${new Date().getTime()}`, 'credits-home-page')}
-    >
+    <div className={styles['user-container']} onClick={() => handleClick()}>
       {showCoins && (
         <div className={styles['user-container-item']}>
           <CoinsIcon />
-          {loading ? (
+          {!initialized ? (
             <LoadingO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
           ) : (
-            <span>{credits ?? 0}</span>
+            <span>{credits?.toLocaleString() ?? 0}</span>
           )}
         </div>
       )}
-      {/* <img src={avatar} alt={'userName'} width={30} height={30} /> */}
     </div>
   )
 }

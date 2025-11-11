@@ -1,10 +1,10 @@
 import { requestWfcEntity } from '@/api/services/wfc'
-import { ApiResponseForWFC } from '@/api/types/response'
 import { configTableCreator } from '@/comp/table/ConfigTable/creator'
 import { initLanguageControl } from '@/utils/lang/languageControl'
 import { Meta, StoryObj } from '@storybook/html'
 import { getCorpInfoConfigByInfo } from 'detail-page-config'
 import { CorpBasicInfo, ReportDetailTableJson } from 'gel-types'
+import { ApiResponseForWFC } from 'report-util/types'
 
 const requestCorpInfo = async (corpCode: string): Promise<ApiResponseForWFC<CorpBasicInfo>> => {
   return new Promise((resolve, reject) => {

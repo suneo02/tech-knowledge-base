@@ -166,6 +166,8 @@ class TreeTransfer extends React.Component {
         onOk={this.onOk}
         cancelText={intl(286234, '取 消')}
         okText={intl(286235, '确 定')}
+        data-uc-id="5LA_thlZPX"
+        data-uc-ct="modal"
       >
         <Transfer
           onChange={this.handleChange}
@@ -186,6 +188,8 @@ class TreeTransfer extends React.Component {
             searchPlaceholder: '请输入搜索内容',
           }}
           titles={[intl(3604, '待选指标'), intl(257692, '已选指标')]}
+          data-uc-id="MGNqhtUYsO"
+          data-uc-ct="transfer"
         >
           {({ direction, onItemSelect, selectedKeys }) => {
             if (direction === 'left') {
@@ -206,6 +210,8 @@ class TreeTransfer extends React.Component {
                   onSelect={(_, { node: { key } }) => {
                     onItemSelect(key, !isChecked(checkedKeys, key))
                   }}
+                  data-uc-id="xsUB3g1JYS"
+                  data-uc-ct="tree"
                 />
               )
             } else {
@@ -214,16 +220,16 @@ class TreeTransfer extends React.Component {
           }}
         </Transfer>
         <div className="treeTransfer_right">
-          <a className="top" onClick={this.toTop}>
+          <a className="top" onClick={this.toTop} data-uc-id="gY38GSsU_9" data-uc-ct="a">
             <MyIcon name="ToTop_small_999@1x" />
           </a>
-          <a className="up" onClick={this.up}>
+          <a className="up" onClick={this.up} data-uc-id="Z1lTzkiuPt" data-uc-ct="a">
             <MyIcon name="Up_small_999@1x" />
           </a>
-          <a className="down" onClick={this.down}>
+          <a className="down" onClick={this.down} data-uc-id="l20Gh5ntWf" data-uc-ct="a">
             <MyIcon name="Down_999@1x" />
           </a>
-          <a className="bottom" onClick={this.toBottom}>
+          <a className="bottom" onClick={this.toBottom} data-uc-id="czfDqKBSBY" data-uc-ct="a">
             <MyIcon name="ToBottom_small_999@1x" />
           </a>
         </div>

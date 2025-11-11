@@ -6,9 +6,9 @@ import { wftCommon } from '@/utils/utils'
 import intl from '@/utils/intl'
 import { LinksModule } from '@/handle/link'
 import { Links } from '@/components/common/links'
+import { refreshHistoryEmitter } from '@/views/GlobalSearch/emitter'
 
 const PopularSearch: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [hotList, setHotList] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const getHotList = async () => {
@@ -35,7 +35,14 @@ const PopularSearch: React.FC = () => {
           dataSource={hotList}
           renderItem={(item, index) => (
             <List.Item key={index}>
-              <Links module={LinksModule.COMPANY} id={item.id} title={item.name} />
+              <Links
+                module={LinksModule.COMPANY}
+                id={item.id}
+                title={item.name}
+                addRecordCallback={() => {
+                  refreshHistoryEmitter.emit()
+                }}
+              />
             </List.Item>
           )}
         />

@@ -1,8 +1,16 @@
 import vipLogo from '@/assets/imgs/svip.png'
-import { flattenWindCascadeValue, parseFlattenedWindCascadeValue } from '@/components/cascade'
-import { WIndCascadeOptionCommon, WindCascadeFieldNamesCommon } from '@/components/cascade/type'
-import { WindCascade } from '@/components/cascade/WindCascade'
 import { industryTree as allIndustryTrees } from '@/utils/config'
+import { CDEFilterItem, CDERankQueryFilterValue } from 'gel-api/*'
+import {
+  checkIfCDESearchFilter,
+  convertRimeTrackValue,
+  flattenWindCascadeValue,
+  WindCascade,
+  WindCascadeFieldNamesCommon,
+  WIndCascadeOptionCommon,
+} from 'gel-ui'
+import { IndustryTreeNode } from 'gel-util/config'
+import { uniq } from 'lodash'
 import React, { FC, useMemo, useState } from 'react'
 import { useConditionFilterStore } from '../../../../store/cde/useConditionFilterStore'
 import { globalAreaTreeCn } from '../../../../utils/areaTree'
@@ -13,22 +21,10 @@ import styles from './styles/cityOrIndustry.module.less'
 const PREFIX = 'city-or-industry'
 
 export const CityOrIndusty: FC<{
-  item: {
-    itemId?: number
-    logicOption?: string
-    itemField?: string
-    labels4see?: string[]
-    itemName?: string
-    extraOptions?: {
-      label: string
-      value: string
-    }[]
-    confidence?: string
-    isVip?: boolean
-  }
+  item: CDEFilterItem & { labels4see?: string[] }
   parent: any
-}> = ({ item = {}, parent }) => {
-  console.log('🚀 ~ item1111:', item)
+  inModal?: boolean // 是否在弹窗中
+}> = ({ item = {} as CDEFilterItem & { labels4see?: string[] }, parent, inModal = false }) => {
   const { itemId, logicOption, itemName, extraOptions, confidence, isVip } = item //itemId:89地区，90行业
   const { updateFilters, getFilterById, filters } = useConditionFilterStore()
 
@@ -36,11 +32,22 @@ export const CityOrIndusty: FC<{
 
   const [confidenceValue, setConfidenceValue] = useState(filter?.confidence || confidence)
 
-  const changeOptionCallback = (value: string[][]) => {
+  const handleChange = (value: string[][], selectedOptions: IndustryTreeNode[][]) => {
+    // 将二维的 cde 数据转换为 一维，用来接口查询
     const valueFlattened = flattenWindCascadeValue(value)
+    // 去重
+    const valueDeDup = uniq(valueFlattened)
+
+    let valueParsed: string[] | CDERankQueryFilterValue[] = valueDeDup
+
+    // 来觅赛道的级联需要单独处理
+    if (checkIfCDESearchFilter(item)) {
+      valueParsed = convertRimeTrackValue(selectedOptions)
+    }
     updateFilters({
       filter: item,
-      value: valueFlattened,
+      value: valueParsed,
+      valueRaw: value,
       logic: logicOption,
       confidence: confidenceValue,
     })
@@ -76,12 +83,7 @@ export const CityOrIndusty: FC<{
     }
   }, [item?.itemField, parent, itemId])
 
-  const value = parseFlattenedWindCascadeValue(
-    filter ? filter.value : [],
-    options,
-    WindCascadeFieldNamesCommon.value,
-    WindCascadeFieldNamesCommon.children
-  ) as string[][]
+  const value = filter ? filter.valueRaw : []
 
   // value变化
   const onConfidenceChange = (newConfidenceValue: ConfidenceEnum) => {
@@ -97,6 +99,12 @@ export const CityOrIndusty: FC<{
     updateFilters(_filter)
   }
 
+  // 让级联弹层挂载到 Modal 内容容器，避免在自定义 Modal 中无法“点外关闭”
+  const getCascadePopupContainer = useMemo(
+    () => () => (document.querySelector('.w-modal-body') as HTMLElement) || document.body,
+    []
+  )
+
   return (
     <div className={styles[`${PREFIX}-container`]} key={itemId}>
       <div className={styles[`${PREFIX}-title`]}>
@@ -109,18 +117,39 @@ export const CityOrIndusty: FC<{
           defaultValue={filter?.confidence || confidence}
           industryTitle={item.itemName}
           onChange={(value) => onConfidenceChange(value as ConfidenceEnum)}
+          data-uc-id="IRV0IthPZ"
+          data-uc-ct="confidenceselector"
         />
         <div>
-          <WindCascade
-            className={styles[`${PREFIX}-cascade`]}
-            dropdownMatchSelectWidth
-            fieldNames={WindCascadeFieldNamesCommon}
-            value={value}
-            onChange={changeOptionCallback}
-            options={options}
-            size="large"
-            expandTrigger={itemId === 89 ? 'hover' : 'click'}
-          />
+          {/* 公司组件兼容性太差了，不能使用 getPopupContainer undefined，所以需要判断是否在弹窗中 */}
+          {inModal ? (
+            <WindCascade
+              getPopupContainer={getCascadePopupContainer}
+              className={styles[`${PREFIX}-cascade`]}
+              dropdownMatchSelectWidth
+              fieldNames={WindCascadeFieldNamesCommon}
+              value={value}
+              onChange={handleChange}
+              options={options}
+              size="large"
+              expandTrigger={itemId === 89 ? 'hover' : 'click'}
+              data-uc-id="DnnTAhE4Lf"
+              data-uc-ct="windcascade"
+            />
+          ) : (
+            <WindCascade
+              className={styles[`${PREFIX}-cascade`]}
+              dropdownMatchSelectWidth
+              fieldNames={WindCascadeFieldNamesCommon}
+              value={value}
+              onChange={handleChange}
+              options={options}
+              size="large"
+              expandTrigger={itemId === 89 ? 'hover' : 'click'}
+              data-uc-id="DnnTAhE4Lf"
+              data-uc-ct="windcascade"
+            />
+          )}
         </div>
       </div>
     </div>

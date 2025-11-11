@@ -55,6 +55,8 @@ export const ShowShareSearchPathItem = ({
             onClick={() => {
               handleJumpTerminalCompatibleAndCheckPermission(urlCorp)
             }}
+            data-uc-id="URA2w1U6rr"
+            data-uc-ct="a"
           >
             {nameR}
           </a>

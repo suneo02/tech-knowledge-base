@@ -1,14 +1,16 @@
 import { getQueryCommonList } from '@/api/searchListApi.ts'
 import { VipPopup } from '@/lib/globalModal.tsx'
-import intl from '@/utils/intl'
+
 import { wftCommon } from '@/utils/utils.tsx'
-import { DownO } from '@wind/icons'
 import { Button, Dropdown, Menu, Spin } from '@wind/wind-ui'
 import React, { FC, useEffect, useRef, useState } from 'react'
 
 import { pointBuriedByModule } from '@/api/pointBuried/bury.ts'
 import { LinkSafe, MenuSafe, SubMenuSafe } from '@/components/windUISafe/index.tsx'
+import { DownO } from '@wind/icons'
 import Table, { ColumnProps } from '@wind/wind-ui-table'
+import { t } from 'gel-util/intl'
+import { MyIcon } from '../../../../components/Icon'
 import { homeSelectDate, homeSelectType } from './config.ts'
 import { mapDynamicDetail } from './dynamicDetailMapper.ts'
 import { mapText2JSX } from './linkMapper.ts'
@@ -19,6 +21,27 @@ let isLoading = false
 let sortAfter = ''
 let allArr = []
 let zh2enArr = []
+
+const intlMsg = {
+  allTime: t('72086', '全部时间'),
+  allType: t('12074', '全部类型'),
+  myCorpDynamic: t('455514', '我的企业动态'),
+  loadFailed: t('313373', '加载失败，请重试}'),
+  retry: t('333836', '重 试'),
+  noData: t('132725', '暂无数据'),
+  viewMore: t('375453', '首页最多查看50条动态，点此查看更多'),
+  dynamicTime: t('437308', '动态时间'),
+  dynamicSummary: t('437327', '动态摘要'),
+  dynamicType: t('437226', '动态类别'),
+  tip: t('31041', '提示'),
+  buyVip: t('333838', '购买VIP/SVIP套餐，获取更多数据查看条数'),
+}
+
+enum SelectType {
+  type = 'type',
+  date = 'date',
+}
+
 export const HomeCorpDynamic: FC<{
   scrollObj: {
     scrollHeight: number
@@ -26,10 +49,10 @@ export const HomeCorpDynamic: FC<{
     clientHeight: number
   }
   onScrollTop: () => void
-}> = ({ scrollObj, onScrollTop }) => {
-  const [selectDate, setSelectDate] = useState(intl('72086', '全部时间')) // 选中时间下拉框的名称
+}> = ({ scrollObj }) => {
+  const [selectDate, setSelectDate] = useState(intlMsg.allTime) // 选中时间下拉框的名称
   const [selectDateVal, setSelectDateVal] = useState('365') // 选中时间下拉框的值
-  const [selectType, setSelectType] = useState(intl('12074', '全部类型')) // 选中类型下拉框的名称
+  const [selectType, setSelectType] = useState(intlMsg.allType) // 选中类型下拉框的名称
   const [selectTypeVal, setSelectTypeVal] = useState('') // 选中类型下拉框的值
   const [lastDatas, setLastDatas] = useState([]) // 企业最新动态
   const [lastDatasCode, setLastDatasCode] = useState<string | number>('0') // 企业动态请求返回的errorCode
@@ -56,7 +79,12 @@ export const HomeCorpDynamic: FC<{
 
   // 全部类型下拉框数据
   const menuType = (
-    <MenuSafe onClick={(e) => selectChangeHandle(e, 'type')} selectedKeys={[selectTypeVal]}>
+    <MenuSafe
+      onClick={(e) => selectChangeHandle(e, SelectType.type)}
+      selectedKeys={[selectTypeVal]}
+      data-uc-id="4zyl0wgERb"
+      data-uc-ct="menusafe"
+    >
       {homeSelectType.map((item) => {
         return !item?.children ? (
           <Menu.Item
@@ -65,6 +93,9 @@ export const HomeCorpDynamic: FC<{
               pointBuriedByModule(922602101026)
               menuItemClick(e, 'type', item)
             }}
+            data-uc-id="6NLGeGMEn"
+            data-uc-ct="menu"
+            data-uc-x={item.name}
           >
             {item.name}
           </Menu.Item>
@@ -78,6 +109,9 @@ export const HomeCorpDynamic: FC<{
                     pointBuriedByModule(922602101026)
                     menuItemClick(e, 'type', childItem)
                   }}
+                  data-uc-id="Bu3Ze_Mdrv"
+                  data-uc-ct="menu"
+                  data-uc-x={childItem.name}
                 >
                   {childItem.name}
                 </Menu.Item>
@@ -100,6 +134,9 @@ export const HomeCorpDynamic: FC<{
               pointBuriedByModule(922602101027)
               menuItemClick(e, '', item)
             }}
+            data-uc-id="YFF5VGUC14"
+            data-uc-ct="menu"
+            data-uc-x={item.code}
           >
             {item.name}
           </Menu.Item>
@@ -110,15 +147,17 @@ export const HomeCorpDynamic: FC<{
 
   // 下拉框选择事件
   const selectChangeHandle = (e, flag) => {
-    if (flag === 'type') {
+    if (flag === SelectType.type) {
       // 设置下拉框选中值
       setSelectTypeVal(e.keyPath)
+    } else if (flag === SelectType.date) {
+      setSelectDateVal(e.keyPath)
     }
   }
 
   // 下拉框点击事件
   const menuItemClick = (e, flag, data) => {
-    if (flag === 'type') {
+    if (flag === SelectType.type) {
       // 设置下拉框选中值
       setSelectType(data.name)
 
@@ -139,7 +178,7 @@ export const HomeCorpDynamic: FC<{
       setSelectDate(data.name)
       // 设置下拉框选中值
       setSelectDateVal(e.key)
-      onScrollTop()
+      // onScrollTop()
     }
   }
 
@@ -148,7 +187,7 @@ export const HomeCorpDynamic: FC<{
     isLoading = true
     const date = wftCommon.format()
     getQueryCommonList({
-      url: '/Wind.WFC.Enterprise.Web/Enterprise/gel/search/company/getmycorpeventlistnew',
+      url: '/Wind.WFC.Enterprise.Web/Enterprise/gel/operation/query/getcorpeventlist',
       data: {
         foldType: '',
         category: category,
@@ -218,14 +257,14 @@ export const HomeCorpDynamic: FC<{
         if (res.ErrorCode === '-10') {
           setDynamicEventLoaded(true)
           setDynamicLoading(false)
-          VipPopup({ title: intl('282273', '我的企业动态') })
+          VipPopup({ title: intlMsg.myCorpDynamic })
           return
         } else if (res.ErrorCode == '-13' || res.ErrorCode == '-9') {
           setDynamicEventLoaded(true)
           setDynamicLoading(false)
           VipPopup({
-            title: intl('31041', '提示'),
-            description: intl('333838', '购买VIP/SVIP套餐，获取更多数据查看条数'),
+            title: intlMsg.tip,
+            description: intlMsg.buyVip,
           })
           return
         }
@@ -258,21 +297,21 @@ export const HomeCorpDynamic: FC<{
   // 定义表格列配置
   const columns: ColumnProps[] = [
     {
-      title: intl('437308', '动态时间'),
+      title: intlMsg.dynamicTime,
       dataIndex: 'event_date',
       key: 'event_date',
       width: '120px',
       render: (text) => <span className={styles.dateColumn}>{wftCommon.formatCont(text)}</span>,
     },
     {
-      title: intl('437327', '动态摘要'),
+      title: intlMsg.dynamicSummary,
       dataIndex: 'text',
       key: 'text',
       width: '80%',
       render: (_, record) => {
         const linkInfo = mapText2JSX(record)
         return linkInfo.href ? (
-          <LinkSafe target={'_blank'} href={linkInfo.href}>
+          <LinkSafe target={'_blank'} href={linkInfo.href} data-uc-id="pSC1hvpVno" data-uc-ct="linksafe">
             {linkInfo.text}
           </LinkSafe>
         ) : (
@@ -281,7 +320,7 @@ export const HomeCorpDynamic: FC<{
       },
     },
     {
-      title: intl('437226', '动态类别'),
+      title: intlMsg.dynamicType,
       dataIndex: 'event_type',
       key: 'event_type',
       align: 'right',
@@ -305,7 +344,7 @@ export const HomeCorpDynamic: FC<{
     if (lastDatasCode === '-2') {
       return (
         <div className={styles.loadingFailed}>
-          <p>{intl('313373', '加载失败，请重试}')}</p>
+          <p>{intlMsg.loadFailed}</p>
           <p>
             <button
               className={styles.reloadBtn}
@@ -313,14 +352,16 @@ export const HomeCorpDynamic: FC<{
                 allArr = []
                 getBid()
               }}
+              data-uc-id="T0KYvRbIMR"
+              data-uc-ct="button"
             >
-              {intl('333836', '重 试')}
+              {intlMsg.retry}
             </button>
           </p>
         </div>
       )
     }
-    return intl('132725', '暂无数据')
+    return intlMsg.noData
   }
 
   // 自定义页脚
@@ -328,8 +369,13 @@ export const HomeCorpDynamic: FC<{
     if (lastDatas.length !== 0 && lastDatas.length === 50 && dynamicEventLoaded) {
       return (
         <div className={styles.dynamicLoadingMore}>
-          <LinkSafe target={'_blank'} href="index.html#/companyDynamic?keyMenu=2">
-            {intl('375453', '首页最多查看50条动态，点此查看更多')}
+          <LinkSafe
+            target={'_blank'}
+            href="index.html#/companyDynamic?keyMenu=2"
+            data-uc-id="_DA3NM3_VQW"
+            data-uc-ct="linksafe"
+          >
+            {intlMsg.viewMore}
           </LinkSafe>
         </div>
       )
@@ -344,17 +390,32 @@ export const HomeCorpDynamic: FC<{
     <React.Fragment>
       <div className={styles.homeCurrent}>
         <div className={styles.homeCurrentTop}>
-          <span className={styles.latest}>{intl('248131', '企业动态')}</span>
+          <div className={styles.homeCurrentTopLeft}>
+            <MyIcon name="corp_dynamic" svgStyle={{ fontSize: '24px' }} />
+            <span className={styles.latest}>{intlMsg.myCorpDynamic}</span>
+          </div>
 
           <div className={styles.dropdownWrap}>
-            <Dropdown trigger={['click']} overlay={menuType}>
-              <Button className={styles.dropdownBtn}>
-                {selectType} <DownO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            <Dropdown trigger={['click']} overlay={menuType} data-uc-id="7xqtRejmQY" data-uc-ct="dropdown">
+              <Button className={styles.dropdownBtn} data-uc-id="edW0TGhZEl" data-uc-ct="button">
+                {selectType}{' '}
+                <DownO
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="oJpVDf0KoS"
+                  data-uc-ct="downo"
+                />
               </Button>
             </Dropdown>
-            <Dropdown trigger={['click']} overlay={menuDate}>
-              <Button className={styles.dropdownBtn}>
-                {selectDate} <DownO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            <Dropdown trigger={['click']} overlay={menuDate} data-uc-id="UHNkOCYeJ_" data-uc-ct="dropdown">
+              <Button className={styles.dropdownBtn} data-uc-id="QG6u6tN36a" data-uc-ct="button">
+                {selectDate}{' '}
+                <DownO
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  data-uc-id="kSOLaknrBj"
+                  data-uc-ct="downo"
+                />
               </Button>
             </Dropdown>
           </div>
@@ -366,11 +427,12 @@ export const HomeCorpDynamic: FC<{
             columns={columns}
             dataSource={getTableData()}
             pagination={false}
-            showHeader={false}
             locale={{
               emptyText: customEmpty(),
             }}
             footer={customFooter}
+            data-uc-id="ilZ5hQ4BUJ"
+            data-uc-ct="table"
           />
         </div>
       </div>

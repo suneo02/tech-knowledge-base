@@ -1,20 +1,20 @@
-import { validateReportDetailNodeJson } from '@/validation'
-import { CorpBasicInfo, ReportDetailNodeJson } from 'gel-types'
+import { validateReportDetailNodeOrNodesJson } from '@/validation'
+import { CorpBasicInfo, ReportDetailNodeOrNodesJson } from 'gel-types'
 import corpInfoConfigHKJson from './HK.json' assert { type: 'json' }
 import corpInfoConfigLSJson from './LS.json' assert { type: 'json' }
 import corpInfoConfigSHJson from './SH.json' assert { type: 'json' }
 
-export const corpInfoConfigHK = validateReportDetailNodeJson(corpInfoConfigHKJson)
+export const corpInfoConfigHK = validateReportDetailNodeOrNodesJson(corpInfoConfigHKJson)
 
 /**
  * 企业工商信息配置 律所
  */
-export const corpInfoConfigLS = validateReportDetailNodeJson(corpInfoConfigLSJson)
+export const corpInfoConfigLS = validateReportDetailNodeOrNodesJson(corpInfoConfigLSJson)
 
 /**
  * 企业工商信息配置 社会组织
  */
-export const corpInfoConfigSH = validateReportDetailNodeJson(corpInfoConfigSHJson)
+export const corpInfoConfigSH = validateReportDetailNodeOrNodesJson(corpInfoConfigSHJson)
 
 export const corpTypeIdMap: Record<number, string> = {
   298010000: '企业',
@@ -75,7 +75,7 @@ export const corpStateSHList = [
 ]
 export const getCorpConfigMapByCorpTypeId = (
   corpTypeId: CorpBasicInfo['corp_type_id']
-): ReportDetailNodeJson | undefined => {
+): ReportDetailNodeOrNodesJson | undefined => {
   if (corpStateSHList.indexOf(corpTypeIdMap[corpTypeId]) !== -1) {
     return corpInfoConfigSH
   }

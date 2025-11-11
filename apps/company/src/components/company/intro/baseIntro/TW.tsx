@@ -18,7 +18,7 @@ export const TWCorpIntro: React.FC<BaseCorpIntroProps> = ({ headerInfo, companyb
       </Row>
 
       <Row>
-        <CorpIntroItem title={intl('259200', '公司地址')} value={headerInfo.address} span={24} />
+        <CorpIntroItem title={intl('438015', '公司地址')} value={headerInfo.address} span={24} />
       </Row>
     </>
   )

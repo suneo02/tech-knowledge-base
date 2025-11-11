@@ -21,7 +21,13 @@ export const historicalLPSM = {
   modelNum: 'his_manager_num',
   downDocType: 'hismanager',
   thWidthRadio: ['4%', '24%', '24%', '24%', '24%'],
-  thName: [intlNoIndex('138741', '序号'), intlNoIndex('34979', '姓名'), intlNoIndex('138728', '职务'), intlNoIndex('261229', '上任日期'), intlNoIndex('259985', '离任日期')],
+  thName: [
+    intlNoIndex('138741', '序号'),
+    intlNoIndex('34979', '姓名'),
+    intlNoIndex('138728', '职务'),
+    intlNoIndex('261229', '上任日期'),
+    intlNoIndex('259985', '离任日期'),
+  ],
   align: [1, 0, 0, 0, 0],
   fields: ['NO.', 'person_name', 'person_position', 'employment_date|formatTime', 'departure_date|formatTime'],
 }

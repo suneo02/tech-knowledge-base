@@ -120,7 +120,7 @@ const LongTxtMergenceLabel = (props) => {
   return (
     <Box>
       <div className={open ? 'long-txt-label-2' : ''} dangerouslySetInnerHTML={{ __html: text }}></div>
-      <div className="wi-btn-color" onClick={openFun}>
+      <div className="wi-btn-color" onClick={openFun} data-uc-id="PsU2VWSppW" data-uc-ct="div">
         {' '}
         {open ? intl('28912', '展开') : intl('119102', '收起')}{' '}
       </div>

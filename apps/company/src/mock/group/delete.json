@@ -27,7 +27,12 @@
     "search": true,
     "columns": [
       { "titleId": "138741", "align": "left", "dataIndex": "NO." },
-      { "titleId": "265441", "align": "left", "dataIndex": "executed_person", "companyLinks": { "id_key": "executed_person_id" } },
+      {
+        "titleId": "265441",
+        "align": "left",
+        "dataIndex": "executed_person",
+        "companyLinks": { "id_key": "executed_person_id" }
+      },
       { "titleId": "283582", "align": "right", "dataIndex": "stock_share|formatMoneyComma" },
       { "titleId": "138523", "align": "left", "dataIndex": "exe_notice_no|formatCont" },
       { "titleId": "138228", "align": "left", "dataIndex": "exe_court|formatCont" },

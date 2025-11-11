@@ -1,3 +1,4 @@
+import { ChatRawSentenceIdentifier, ChatRawSentenceIdIdentifier } from '@/chat'
 import { getCDEFilterResPayload } from '@/windSecure'
 
 export interface AddClueExcelDataToSheetRequest {
@@ -31,16 +32,13 @@ export type SuperListAddConversationPayload =
       cdeFilterCondition: getCDEFilterResPayload
     }
   // 从用户的对话中创建会话
-  | {
+  | ({
       conversationType: 'AI_CHAT'
-      rawSentence: string
-    }
+    } & ChatRawSentenceIdentifier)
   // 从预设问句创建
-  | {
+  | ({
       conversationType: 'PRESET_QUESTION'
-      // 预设问句 id
-      rawSentenceID: string
-    }
+    } & ChatRawSentenceIdIdentifier)
 
 export type SuperListAddConversationResponse = {
   conversationId: string

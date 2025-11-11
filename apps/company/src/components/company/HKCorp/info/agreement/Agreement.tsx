@@ -33,7 +33,13 @@ export const Agreement: React.FC = () => {
           </p>
         </div>
         {sections.map((section, index) => (
-          <AgreementSection key={index} section={section} />
+          <AgreementSection
+            key={index}
+            section={section}
+            data-uc-id="hWhKBKBgVc"
+            data-uc-ct="agreementsection"
+            data-uc-x={index}
+          />
         ))}
         {platforms.map((platform, index) => (
           <PlatformInfo key={index} platform={platform} />

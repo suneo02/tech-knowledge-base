@@ -2,8 +2,9 @@ import React, { FC } from 'react'
 import { isNil } from 'lodash'
 import { ICorpTableCfg } from '@/components/company/type'
 import { ICorpBasicNumFront } from '../../../../handle/corp/basicNum/type.ts'
-import { TCorpDetailSubModule } from '@/handle/corp/detail/module/type.ts'
+
 import { getCorpModuleNum } from '@/handle/corp/basicNum/handle.tsx'
+import { TCorpDetailSubModule } from 'gel-types'
 
 export const CorpModuleNumClass = 'corp-table-title-num'
 export const CorpModuleNumClassChild = 'corp-table-child-num'

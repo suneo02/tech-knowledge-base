@@ -1,0 +1,56 @@
+/* StatusTip styles for TinyMCE iframe */
+.status-tip {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-tip .left-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.status-tip .left-div .status-icon-div {
+  height: 22px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.status-tip .left-div .status-icon-div .loading-icon {
+  animation: rotation 1s infinite linear;
+}
+
+.status-tip .left-div .status-icon-div .stop-icon {
+  font-size: 18px;
+  color: #e22c2f;
+}
+
+.status-tip .left-div .status-icon-div .complete-icon {
+  font-size: 18px;
+  color: #179b4a;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.status-tip .left-div .status-content-div {
+  color: #666666;
+  height: 22px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.status-tip .left-div .status-content-div.highlight {
+  color: #3b7791;
+}

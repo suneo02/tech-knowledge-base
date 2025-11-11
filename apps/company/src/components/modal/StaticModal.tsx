@@ -34,12 +34,23 @@ export const StaticModal: FC<StaticModalProps> = ({
 
   return (
     <>
-      {mask && <div className={styles.mask} onClick={handleMaskClick} />}
+      {mask && <div className={styles.mask} onClick={handleMaskClick} data-uc-id="CttFUcnNYd" data-uc-ct="div" />}
       <div className={`${styles.wrapper} ${wrapClassName}`}>
         <div className={`${styles.content} ${className}`}>
           {closable && (
-            <button className={classNames(styles.closeButton, 'w-modal-close')} onClick={onCancel}>
-              <CloseO className="w-modal-close-x" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+            <button
+              className={classNames(styles.closeButton, 'w-modal-close')}
+              onClick={onCancel}
+              data-uc-id="9cnQS6rvYU"
+              data-uc-ct="button"
+            >
+              <CloseO
+                className="w-modal-close-x"
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="Bk7gakY4Ny"
+                data-uc-ct="closeo"
+              />
             </button>
           )}
           {children}

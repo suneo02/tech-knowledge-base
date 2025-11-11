@@ -36,6 +36,6 @@ export const singaporeRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
     },
   ],
   [{ title: 'SSIC行业', dataIndex: 'business_scope', colSpan: 5, render: industry_oversea_render }],
-  [{ title: intl('259200', '公司地址'), dataIndex: 'reg_address', colSpan: 5 }],
+  [{ title: intl('438015', '公司地址'), dataIndex: 'reg_address', colSpan: 5 }],
   [{ title: '公司介绍', dataIndex: 'brief', colSpan: 5 }],
 ]

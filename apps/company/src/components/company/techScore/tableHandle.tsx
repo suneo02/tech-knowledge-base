@@ -1,23 +1,10 @@
-import { pointBuriedByModule } from '@/api/pointBuried/bury.ts'
 import React, { useEffect, useState } from 'react'
-import intl from '@/utils/intl'
-import { getVipInfo } from '@/lib/utils'
-import { VipPopup } from '@/lib/globalModal'
-import { corpTechScoreIndustryRender } from '@/components/company/techScore/comp.tsx'
-import { downloadTechRankWord, getTechRank } from '@/api/companyApi'
-import { wftCommon } from '@/utils/utils'
 
-export const downloadTechRank = async (code) => {
-  try {
-    const res = await downloadTechRankWord(code)
-    if (res && res?.code == '0' && res.data && res.data?.id) {
-      // 导出成功
-      wftCommon.jumpJqueryPage('index.html#/customer?type=mylist')
-    }
-  } catch (error) {
-    console.error('Error downloading tech rank:', error)
-  }
-}
+import { getTechRank } from '@/api/companyApi'
+import { corpTechScoreIndustryRender } from '@/components/company/techScore/comp.tsx'
+import { wftCommon } from '@/utils/utils'
+import { t } from 'gel-util/intl'
+
 export const processTechRankData = (resData: any, rankData: any, score: string | number, date: string) => {
   try {
     const data: any = {}
@@ -43,16 +30,13 @@ export const processTechRankData = (resData: any, rankData: any, score: string |
     return {}
   }
 }
-export const getCorpTechScoreRows = ({ score, corpCode }) => {
-  const userVipInfo = getVipInfo()
+export const getCorpTechScoreRows = ({ score }) => {
   return [
     [
       {
-        title: intl('451195', '科创分'),
+        title: t('451195', '科创分'),
         dataIndex: 'score',
-        titleWidth: '15%',
-        contentWidth: '35%',
-        colSpan: 3,
+        colSpan: 5,
         render: () => {
           return (
             <div className="techScoreRank-history">
@@ -73,46 +57,8 @@ export const getCorpTechScoreRows = ({ score, corpCode }) => {
                   }
                 }}
               >
-                {intl('378217', '查看历史得分和排名')}
+                {t('378217', '查看历史得分和排名')}
               </span> */}
-            </div>
-          )
-        },
-      },
-      {
-        title: intl('175211', '报告'),
-        dataIndex: '$1',
-        titleWidth: '15%',
-        contentWidth: '35%',
-        render: () => {
-          return (
-            <div>
-              <span
-                className="wi-btn-color "
-                onClick={() => {
-                  if (!userVipInfo.isSvip) {
-                    VipPopup()
-                    return
-                  }
-                  pointBuriedByModule(922602101127, {
-                    company_id: corpCode,
-                  })
-                  downloadTechRank(corpCode)
-                }}
-              >
-                {intl('437448', '下载报告')}
-              </span>
-              <span
-                className="wi-btn-color "
-                onClick={() => {
-                  pointBuriedByModule(922602101127, {
-                    company_id: '1047934153',
-                  })
-                  downloadTechRank('1047934153')
-                }}
-              >
-                {intl('378218', '查看样例报告')}
-              </span>
             </div>
           )
         },
@@ -120,7 +66,7 @@ export const getCorpTechScoreRows = ({ score, corpCode }) => {
     ],
     [
       {
-        title: intl('361813', '战略性新兴产业及排名'),
+        title: t('361813', '战略性新兴产业及排名'),
         dataIndex: 'industry',
         colSpan: 5,
         render: corpTechScoreIndustryRender,

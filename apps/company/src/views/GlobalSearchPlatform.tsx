@@ -10,7 +10,7 @@ export function GlobalSearchPlatform() {
   const [searchList, setSearchList] = useState([]) // 搜素结果
 
   useEffect(() => {
-    document.title = intl('206094', '全球企业查询')
+    document.title = intl('438634', '全球企业查询')
   }, [])
 
   const searchRequest = ({ key, country }) => {
@@ -61,7 +61,7 @@ export function GlobalSearchPlatform() {
   return (
     <React.Fragment>
       <div className="search-common global-search">
-        <h3 className="main-title">{intl('206094', '全球企业查询')}</h3>
+        <h3 className="main-title">{intl('438634', '全球企业查询')}</h3>
         <SearchForm
           placeHolder={intl('225183', '请输入公司名称')}
           searchList={searchList}

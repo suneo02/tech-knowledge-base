@@ -1,5 +1,8 @@
+import { translateLoadManager } from '@/utils/intl/translateLoadManager.ts'
 import { DownO } from '@wind/icons'
 import { Checkbox, Dropdown, Menu, Radio } from '@wind/wind-ui'
+import { LoadMoreTrigger } from 'gel-ui'
+import { isEn } from 'gel-util/intl'
 import React from 'react'
 import { connect } from 'react-redux'
 import * as HomeActions from '../../actions/home'
@@ -233,26 +236,25 @@ class IntelluctalSearch extends React.Component {
     }
   }
 
-  scroll = (event) => {
-    //触底加载
+  loadMore = () => {
     // @ts-expect-error ttt
-    const { pageNo, resultNum, type } = this.state
+    const { pageNo, resultNum, type, loadingList } = this.state
+    if (loadingList) {
+      return
+    }
     let newType = ''
     if (type == 'patent_search') {
       newType = 'patent'
     }
-    if (event.target.clientHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      if ((pageNo + 1) * 10 < resultNum.split(',').join('')) {
-        this.setState({ loadingList: true })
-        setTimeout(() => {
-          this.setState({ pageNo: pageNo + 1 }, () => {
-            // @ts-expect-error ttt
-            this.getIntellectualList(newType)
-          })
-        }, 300)
-      }
+
+    if (resultNum && (pageNo + 1) * 10 < Number(String(resultNum).split(',').join(''))) {
+      this.setState({ loadingList: true })
+      this.setState({ pageNo: pageNo + 1 }, () => {
+        this.getIntellectualList(newType, true)
+      })
     }
   }
+
   searchCallBack = (item) => {
     // @ts-expect-error ttt
     const { type } = this.state
@@ -365,7 +367,7 @@ class IntelluctalSearch extends React.Component {
   onChange = (e, title, param, _refresh, type) => {
     // @ts-expect-error ttt
     if (this.state.loading) return false
-    if (window.en_access_config && wftCommon.globalTranslating.size) return false
+    if (isEn() && translateLoadManager.isTranslating()) return false
 
     const selTab = e.target.value // @ts-expect-error ttt
     let { moreFilter } = this.state
@@ -616,7 +618,7 @@ class IntelluctalSearch extends React.Component {
     // @ts-expect-error ttt
     const { intelluctalList, brandState, brandType, intelluctalErrorCode, patentSecondType } = this.props
     // @ts-expect-error ttt
-    const { type, allFilter, patentType, patentClassification } = this.state
+    const { type, allFilter, patentType, patentClassification, loadingList, key } = this.state
     let intelluctalCollationOption2 = intelluctalCollationOption
     let css = ''
     if (type == 'patent_search') {
@@ -632,8 +634,8 @@ class IntelluctalSearch extends React.Component {
       css = 'intelluctalSearch-img-block'
     }
     return (
-      <div className="SearchList" onScroll={this.scroll}>
-        <SearchTitleList name="intelluctalSearch" jump={this.jump} />
+      <div className="SearchList">
+        <SearchTitleList name="intelluctalSearch" jump={this.jump} keyword={key} />
         <div className="wrapper workspace-fix" id="SearchHome">
           <div className="search-l">
             <div className="search-for-company each-search-result">
@@ -642,10 +644,19 @@ class IntelluctalSearch extends React.Component {
               <ul className={`job-ul `} id="filterList" style={{ height: 'auto' }}>
                 <li>
                   <span className="filter-name">{intl('119542', '搜索范围')}：</span>
-                  {/* @ts-expect-error ttt */}
-                  <RadioGroup onChange={(e) => this.onChange(e, intl('119542', '搜索范围'), 'type', 1)} value={type}>
+                  <RadioGroup
+                    // @ts-expect-error wind
+                    onChange={(e) => this.onChange(e, intl('119542', '搜索范围'), 'type', 1)}
+                    value={type}
+                    data-uc-id="esDh70mUSP"
+                    data-uc-ct="radiogroup"
+                  >
                     {intellectualParam.map((item) => {
-                      return <Radio value={item.param}>{intl(item.typeid, item.type)}</Radio>
+                      return (
+                        <Radio value={item.param} data-uc-id="v_7KMP-ilF" data-uc-ct="radio">
+                          {intl(item.typeid, item.type)}
+                        </Radio>
+                      )
                     })}
                   </RadioGroup>
                 </li>
@@ -659,10 +670,20 @@ class IntelluctalSearch extends React.Component {
                         <RadioGroup
                           onChange={(e) => this.onChange(e, intl('138430', '专利类型'), 'patentType', 1, 'patent')}
                           value={patentType}
+                          data-uc-id="Ne2hxkVLHG"
+                          data-uc-ct="radiogroup"
                         >
-                          {<Radio value={''}>{intl('138649', '不限')}</Radio>}
+                          {
+                            <Radio value={''} data-uc-id="MUeJOHfKpX" data-uc-ct="radio">
+                              {intl('138649', '不限')}
+                            </Radio>
+                          }
                           {patentNewType.map((item) => {
-                            return <Radio value={item.zh}>{window.en_access_config ? item.en : item.zh}</Radio>
+                            return (
+                              <Radio value={item.zh} data-uc-id="lsO51LSrcg" data-uc-ct="radio">
+                                {window.en_access_config ? item.en : item.zh}
+                              </Radio>
+                            )
                           })}
                         </RadioGroup>
                       </div>
@@ -677,6 +698,8 @@ class IntelluctalSearch extends React.Component {
                       options={globalStrategicEmergingIndustry}
                       stateKey="strategicEmergingCodes"
                       onChange={this.patentIndustryChange}
+                      data-uc-id="lB4UxSN7Pu"
+                      data-uc-ct="industryfilteritem"
                     />
                     <IndustryFilterItem
                       title="国民经济行业"
@@ -684,6 +707,8 @@ class IntelluctalSearch extends React.Component {
                       options={globalIndustryOfNationalEconomy}
                       stateKey="notionalEconomyCodes"
                       onChange={this.patentIndustryChange}
+                      data-uc-id="7xHblmQbIWT"
+                      data-uc-ct="industryfilteritem"
                     />
                     <IndustryFilterItem
                       title="数字经济及其核心产业"
@@ -691,6 +716,8 @@ class IntelluctalSearch extends React.Component {
                       options={globalElectronEconomy}
                       stateKey="digitalEconomyCoreIndustryCodes"
                       onChange={this.patentIndustryChange}
+                      data-uc-id="ZbQZdlAUTo8"
+                      data-uc-ct="industryfilteritem"
                     />
                     <IndustryFilterItem
                       title="绿色低碳技术"
@@ -698,6 +725,8 @@ class IntelluctalSearch extends React.Component {
                       options={globalLowCarbon}
                       stateKey="greenLowCarbonTechnologyCodes"
                       onChange={this.patentIndustryChange}
+                      data-uc-id="TQkOa8qWRQv"
+                      data-uc-ct="industryfilteritem"
                     />
                   </li>
                 ) : null}
@@ -713,10 +742,20 @@ class IntelluctalSearch extends React.Component {
                             this.onChange(e, intl('272008', '专利类别'), 'patentClassification', 1, 'patent')
                           }
                           value={patentClassification}
+                          data-uc-id="rVFxt_Zxg8"
+                          data-uc-ct="radiogroup"
                         >
-                          {<Radio value={''}>{intl('138649', '不限')}</Radio>}
+                          {
+                            <Radio value={''} data-uc-id="384jSOlFpa" data-uc-ct="radio">
+                              {intl('138649', '不限')}
+                            </Radio>
+                          }
                           {patentSecondType.map((item) => {
-                            return <Radio value={item.key}>{window.en_access_config ? item.key_en : item.key}</Radio>
+                            return (
+                              <Radio value={item.key} data-uc-id="JKAf27mPCU" data-uc-ct="radio">
+                                {window.en_access_config ? item.key_en : item.key}
+                              </Radio>
+                            )
                           })}
                         </RadioGroup>
                       </div>
@@ -735,6 +774,8 @@ class IntelluctalSearch extends React.Component {
                         // @ts-expect-error ttt
                         value={this.state.simpleLawValue}
                         onChange={(e) => this.simpleLawChange(e)}
+                        data-uc-id="KakAPJly6u"
+                        data-uc-ct="checkboxgroup"
                       ></CheckboxGroup>
                     </div>
                   </li>
@@ -747,14 +788,18 @@ class IntelluctalSearch extends React.Component {
                     </span>
                     <IndustryCascader
                       className="patent-cascader"
-                      placeholder={intl('19498', '全部')} // @ts-expect-error ttt
+                      placeholder={intl('19498', '全部')}
+                      // @ts-expect-error ttt
                       options={this.state.patentLawOptions}
                       from="bid"
                       valueType="name"
-                      height="300px" // @ts-expect-error ttt
+                      height="300px"
+                      // @ts-expect-error ttt
                       value={this.state.patentLawSels}
                       industryLv3={true}
                       onChange={(e, item) => this.cascaderChange(e, item)}
+                      data-uc-id="uz8tY669yfd"
+                      data-uc-ct="industrycascader"
                     />
                   </li>
                 ) : null}
@@ -769,15 +814,22 @@ class IntelluctalSearch extends React.Component {
                           <Dropdown
                             overlay={
                               // @ts-expect-error ttt
-                              <Menu>
+                              <Menu data-uc-id="tHye-Ov-rE" data-uc-ct="menu">
                                 {brandState.map((item) => {
                                   return (
-                                    <Menu.Item key={item.key}>
+                                    <Menu.Item
+                                      key={item.key}
+                                      data-uc-id="2_sWDS0rEO"
+                                      data-uc-ct="menu"
+                                      data-uc-x={item.key}
+                                    >
                                       <li
                                         onClick={() => {
                                           // @ts-expect-error ttt
                                           this.typeClick(item.key, intl('149497', '商标状态'), 'status', item.key, 1)
                                         }}
+                                        data-uc-id="17QlypMij_U"
+                                        data-uc-ct="li"
                                       >
                                         {item.key}
                                       </li>
@@ -786,11 +838,13 @@ class IntelluctalSearch extends React.Component {
                                 })}
                               </Menu>
                             }
+                            data-uc-id="68PeVwymh"
+                            data-uc-ct="dropdown"
                           >
                             <a className="w-dropdown-link">
                               {intl('149497', '商标状态')}
                               {/* @ts-expect-error ttt */}
-                              <DownO />
+                              <DownO data-uc-id="wkwijwLNi-" data-uc-ct="downo" />
                             </a>
                           </Dropdown>
                         ) : null}
@@ -798,15 +852,26 @@ class IntelluctalSearch extends React.Component {
                           <Dropdown
                             overlay={
                               // @ts-expect-error ttt
-                              <Menu style={{ maxHeight: '250px', overflow: 'scroll' }}>
+                              <Menu
+                                style={{ maxHeight: '250px', overflow: 'scroll' }}
+                                data-uc-id="iphOCggLDE"
+                                data-uc-ct="menu"
+                              >
                                 {brandType.map((item) => {
                                   return (
-                                    <Menu.Item key={item.key}>
+                                    <Menu.Item
+                                      key={item.key}
+                                      data-uc-id="QSaY2_mdF4"
+                                      data-uc-ct="menu"
+                                      data-uc-x={item.key}
+                                    >
                                       <li
                                         onClick={() => {
                                           // @ts-expect-error ttt
                                           this.typeClick(item.key, intl('145353', '商标类别'), 'category', item.key, 1)
                                         }}
+                                        data-uc-id="EL55Pkps8PU"
+                                        data-uc-ct="li"
                                       >
                                         {item.key}
                                       </li>
@@ -815,11 +880,13 @@ class IntelluctalSearch extends React.Component {
                                 })}
                               </Menu>
                             }
+                            data-uc-id="gexQiVi-4J"
+                            data-uc-ct="dropdown"
                           >
                             <a className="w-dropdown-link">
                               {intl('145353', '商标类别')}
                               {/* @ts-expect-error ttt */}
-                              <DownO />
+                              <DownO data-uc-id="ArisciBgAU" data-uc-ct="downo" />
                             </a>
                           </Dropdown>
                         ) : null}
@@ -847,6 +914,12 @@ class IntelluctalSearch extends React.Component {
                 reload={this.getIntellectualList}
                 // @ts-expect-error ttt
                 selectValue={this.state.selectValue}
+              />
+              <LoadMoreTrigger
+                onLoadMore={this.loadMore}
+                loading={loadingList}
+                data-uc-id="MSSPdGdhrxU"
+                data-uc-ct="loadmoretrigger"
               />
             </div>
           </div>

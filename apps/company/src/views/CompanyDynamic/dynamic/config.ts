@@ -90,11 +90,6 @@ export const corpDynamicMenu = [
         value: '招投标公告',
       },
       {
-        name: intl('138468', '上榜信息'),
-        value: '上榜信息',
-        langkey: '',
-      },
-      {
         name: intl('260903', '招聘信息'),
         value: '招聘信息',
         langkey: '',

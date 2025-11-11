@@ -53,5 +53,5 @@ export const nzlRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       render: industry_oversea_render,
     },
   ],
-  [{ title: intl('259200', '公司地址'), dataIndex: 'reg_address', colSpan: 5 }],
+  [{ title: intl('438015', '公司地址'), dataIndex: 'reg_address', colSpan: 5 }],
 ]

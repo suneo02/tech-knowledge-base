@@ -391,15 +391,16 @@ export const renderEmptyData = (height = 0, translation, description) => {
     <Empty
       image={nodataImg}
       style={{ margin: Math.max((height - 350) / 2, 0) + 'px 0' }}
-      description={description || <span>{translation(17235)}</span>}
       // description={description ? <span>查看已达上限</span> : <span>{translation(17235)}</span>}
+      description={description || <span>{translation(17235)}</span>}
+      data-uc-id="J-40T5tyV"
+      data-uc-ct="empty"
     ></Empty>
   )
 }
 
 export const jumperTranslation = () => {
   const dom = document.getElementsByClassName('ant-pagination-options-quick-jumper')[0]
-  // @ts-expect-error ttt
   if (dom && store.getState().global.language === 'en') {
     dom.childNodes[0].nodeValue = 'Skip to '
     dom.childNodes[2].nodeValue = ''
@@ -517,8 +518,6 @@ export const clearAndLogout = () => {
   localStorageManager.remove('USERINFO')
   window.location.href = '/superlist/introduction'
 }
-
-
 
 export function encryptData(json, publicKey) {
   const encrypt = new JSEncrypt()

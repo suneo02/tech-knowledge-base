@@ -19,7 +19,7 @@ export const HKrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   [corpInfoHKUsedNames],
   [
     {
-      title: intl('', '商业登记号码'),
+      title: intl('417708', '商业登记号码'),
       dataIndex: 'credit_code',
     },
     {
@@ -30,7 +30,7 @@ export const HKrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   [
     { title: intl('2823', '成立日期'), dataIndex: 'reg_date', render: (date) => wftCommon.formatTime(date) },
     {
-      title: intl('138239', '已告解散日期/不再是独立实体日期'),
+      title: intl('448322', '已告解散日期/不再是独立实体日期'),
       dataIndex: 'revokeDate',
       render: (date) => wftCommon.formatTime(date),
     },
@@ -45,7 +45,13 @@ export const HKrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       dataIndex: 'reg_address',
       colSpan: 3,
       render: (title, row) => (
-        <ParkBox title={title} parkTitle={row?.registerPark} row={row} parkId={row?.registerParkId} />
+        <ParkBox
+          title={title}
+          parkTitle={row?.registerPark}
+          row={row}
+          parkId={row?.registerParkId}
+          isBusAddress={false}
+        />
       ),
     },
   ],
@@ -55,7 +61,7 @@ export const HKrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       dataIndex: 'bus_address',
       colSpan: 3,
       render: (title, row) => (
-        <ParkBox title={title} parkTitle={row?.officePark} row={row} parkId={row?.officeParkId} />
+        <ParkBox title={title} parkTitle={row?.officePark} row={row} parkId={row?.officeParkId} isBusAddress={true} />
       ),
     },
   ],

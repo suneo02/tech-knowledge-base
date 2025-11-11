@@ -23,6 +23,8 @@ export const WebLinks = (options) => {
       onClick={() => {
         openFunc ? openFunc(url) : wftCommon.jumpJqueryPage(url)
       }}
+      data-uc-id="8Skpp1leVVR"
+      data-uc-ct="a"
     >
       {txt}
     </a>
@@ -64,6 +66,8 @@ export const CompanyLinks = (props) => {
         // 最终受益人跳转
         if (benifciaryClickHandler) benifciaryClickHandler(['showFinalBeneficiary'], { selected: true })
       }}
+      data-uc-id="Uh5ghOZNy1b"
+      data-uc-ct="span"
     >
       {intlNoIndex('138180')}
     </span>
@@ -78,6 +82,8 @@ export const CompanyLinks = (props) => {
           `index.html?isSeparate=1&nosearch=1&companycode=${companyCode}&activeKey=chart_yskzr#/${CHART_HASH}`
         )
       }
+      data-uc-id="zM5EksRtxL3"
+      data-uc-ct="span"
     >
       {intlNoIndex('13270')}
     </span>
@@ -104,7 +110,13 @@ export const CompanyLinks = (props) => {
   // 有跳转
   return (
     <span className={props.divCss || ''}>
-      <a className={props.css || ''} onClick={gotoFun} dangerouslySetInnerHTML={{ __html: name }}></a>
+      <a
+        className={props.css || ''}
+        onClick={gotoFun}
+        dangerouslySetInnerHTML={{ __html: name }}
+        data-uc-id="alRWJ45X1Cd"
+        data-uc-ct="a"
+      ></a>
       {benifciaryStr}
       {actCtrlStr}
       {changeNameStr}

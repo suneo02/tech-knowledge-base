@@ -1,5 +1,5 @@
+import { ApiResponseForWFC } from '@/types'
 import { AxiosRequestConfig } from 'axios'
-import { ApiResponseForWFC } from '../type'
 import {
   wfcCorpGlobalPreSearchPath,
   wfcCorpGlobalPreSearchPayload,
@@ -11,6 +11,7 @@ import {
 import { BrandSearchResponse, PatentSearchResponse } from './miscSearch'
 
 export * from './corpPreSearch'
+export * from './domesticSearch'
 export * from './globalSearch'
 export * from './miscSearch'
 export * from './searchHistory'

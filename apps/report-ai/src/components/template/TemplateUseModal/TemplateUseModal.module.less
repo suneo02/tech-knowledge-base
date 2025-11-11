@@ -1,0 +1,59 @@
+@import 'gel-ui/variables.less';
+
+.templateUseModal {
+  &__content {
+    // 盒模型
+    padding: 0;
+  }
+
+  &__alert {
+    // 盒模型
+    margin-bottom: @spacing-sm;
+
+    :global(.w-alert) {
+      border-radius: @border-radius-base;
+    }
+  }
+
+  &__form {
+    :global(.w-form-item-label) {
+      // 视觉
+      font-weight: 500;
+      color: @font-color-2;
+    }
+  }
+
+  &__corpSearch {
+    // 盒模型
+    width: 100%;
+    min-width: 400px;
+
+    :global(.w-input) {
+      border-radius: @border-radius-base;
+    }
+  }
+
+  :global {
+    .w-modal-body {
+      // 盒模型
+      padding: @spacing-base;
+    }
+
+    .w-modal-footer {
+      .w-btn-primary {
+        &:disabled {
+          // 交互
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .w-alert-info {
+      .w-alert-icon {
+        // 视觉
+        color: @primary;
+      }
+    }
+  }
+}

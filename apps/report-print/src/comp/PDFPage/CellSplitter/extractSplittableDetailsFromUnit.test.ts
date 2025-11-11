@@ -1,7 +1,4 @@
-/// <reference types="jest" />
-/// <reference types="jquery" />
-
-import { describe, expect, it } from '@jest/globals'
+import { describe, expect, it } from 'vitest'
 
 import { extractSplittableDetailsFromUnit } from './extractSplittableDetailsFromUnit'
 

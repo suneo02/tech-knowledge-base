@@ -4,7 +4,7 @@ import React from 'react'
 import CompanyLink from '@/components/company/CompanyLink.tsx'
 import { intlNoIndex } from '@/utils/intl'
 import { ICorpPrimaryModuleCfg } from '@/components/company/type'
-import { ECorpDetailTable } from '@/handle/corp/detail/module/type.ts'
+import { ECorpDetailTable } from 'gel-types'
 
 const intl = intlNoIndex
 

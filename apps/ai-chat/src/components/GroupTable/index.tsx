@@ -8,12 +8,12 @@ export const GroupTable = () => {
   const allData = JSON.parse(DataSource).result.data
 
   const getRecordsWithAjax = (startIndex, num) => {
-    // console.log('getRecordsWithAjax', startIndex, num);
+    // // console.log('getRecordsWithAjax', startIndex, num);
     return new Promise((resolve) => {
       setTimeout(() => {
-        console.log('getRecordsWithAjax', startIndex, num, allData)
+        // console.log('getRecordsWithAjax', startIndex, num, allData)
         const records = []
-        for (let i = 0; i < num; i++) {
+        for (let i = 0; i < num; i++) {// @ts-expect-error
           records.push(allData[startIndex + i])
         }
         resolve(records)
@@ -47,7 +47,7 @@ export const GroupTable = () => {
         width: 200,
         field: res.columnId,
         title: res.columnName,
-      }))}
+      }))}// @ts-expect-error
       dataSource={dataSource}
       //   option={
       //     {

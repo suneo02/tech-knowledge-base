@@ -1,13 +1,13 @@
-import { getBaseUrl } from '@/services/request'
+import { getApiPrefix } from '@/services/request'
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { API_TIMEOUT, CONTENT_TYPES } from './config'
+import { API_TIMEOUT, CONTENT_TYPES } from 'gel-api'
 import { requestErrorInterceptor, requestInterceptor } from './interceptors/request'
 import { responseErrorInterceptor, responseInterceptor } from './interceptors/response'
 
 // 创建 axios 实例
 const createAxiosInstance = (config?: AxiosRequestConfig): AxiosInstance => {
   const instance = axios.create({
-    baseURL: config?.baseURL || getBaseUrl(),
+    baseURL: config?.baseURL || getApiPrefix(),
     timeout: API_TIMEOUT,
     headers: {
       'Content-Type': CONTENT_TYPES.JSON,

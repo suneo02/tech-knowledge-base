@@ -65,6 +65,18 @@ export type SearchBidNewState = {
   partHis: SearchHistoryParsed
   purchaseHis: SearchHistoryParsed
   winHis: SearchHistoryParsed
+
+  participateInputValues: any[]
+  purchaserInputValues: any[]
+  winnerInputValues: any[]
+  // 标签输入（公告标题/招标产品）
+  titleTags: string[]
+  productTags: string[]
+
+  // 标签输入回显初始值
+  participateInputInitialLabels: string[]
+  purchaserInputInitialLabels: string[]
+  winnerInputInitialLabels: string[]
 }
 export type SearchBidNewProps = {
   homePackageName: string

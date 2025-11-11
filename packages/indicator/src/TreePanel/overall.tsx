@@ -1,95 +1,84 @@
-import { CoinsO } from '@/assets'
-import { VerticalAlignTopOutlined } from '@ant-design/icons'
 import { AutoComplete, Button, Checkbox, Col, Divider, Input, Row, Switch } from '@wind/wind-ui'
 import { useScroll } from 'ahooks'
 import { IndicatorTreeClassification } from 'gel-api'
 import { useScrollTracking } from 'gel-ui'
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react'
 import { IndicatorClassificationCard } from './ClassificationCard'
 import { filterIndicatorTree } from './handle'
 import { useIndicatorCheck } from './hooks/useIndicatorCheck'
 import { IndicatorTreeOverallRef } from './hooks/useIndicatorTreeOverall'
 import styles from './style/overall.module.less'
+import { CoinsO } from '@/assets'
+import { VerticalAlignTopOutlined } from '@ant-design/icons'
+import { t } from 'gel-util/intl'
 
 export { useIndicatorTreeOverall } from './hooks/useIndicatorTreeOverall'
-
-// 辅助函数：展平指标树并格式化名称
-const flattenIndicatorTree = (tree: IndicatorTreeClassification[], parentName = ''): string[] => {
-  let result: string[] = []
-  tree.forEach((classification) => {
-    const currentName = parentName ? `${parentName}-${classification.title}` : classification.title
-    if (classification.indicators && classification.indicators.length > 0) {
-      classification.indicators.forEach((indicator) => {
-        result.push(`${currentName}-${indicator.indicatorDisplayName}`)
-      })
-    }
-    if (classification.children && classification.children.length > 0) {
-      result = result.concat(flattenIndicatorTree(classification.children, currentName))
-    }
-  })
-  return result
+const STRINGS = {
+  SHOW_COINS: t('464228', '显示积分'),
+  SEARCH_PLACEHOLDER: t('465501', '搜索指标'),
 }
-
 // Helper function to generate React Element options for AutoComplete
 const generateIndicatorOptions = (
   tree: IndicatorTreeClassification[],
-  parentPath = '',
-  checkedIndicators: Set<number>,
+  parentPath: string,
+  checkedIndicatorIds: Set<number>, // 改为使用 Set<number>
   initialCheckedIndicators: Set<number>,
   handleIndicatorCheckFn: (key: number, checked: boolean) => void,
-  forceDropdownOpenFn: () => void // Callback to keep dropdown open
+  forceDropdownOpenFn: () => void
 ): React.ReactElement[] => {
-  let options: React.ReactElement[] = []
-  const WindOption = AutoComplete.Option // Assuming AutoComplete.Option, or just Option if standalone
+  const options: React.ReactElement[] = []
+  const WindOption = AutoComplete.Option
 
   tree.forEach((classification) => {
     const currentPath = parentPath ? `${parentPath}-${classification.title}` : classification.title
-    if (classification.indicators && classification.indicators.length > 0) {
-      classification.indicators.forEach((indicator) => {
-        if (indicator.spId && indicator.indicatorDisplayName) {
-          const fullPathText = `${currentPath}-${indicator.indicatorDisplayName}`
-          const isDisabled = initialCheckedIndicators.has(indicator.spId)
 
-          // Define styles for disabled row
-          const optionStyle: React.CSSProperties = isDisabled ? { opacity: 0.6, cursor: 'not-allowed' } : {}
-          const textStyle: React.CSSProperties = isDisabled
-            ? { color: '#999' } // Lighter text color for disabled items
-            : {}
-          options.push(
-            <WindOption
-              key={indicator.spId}
-              value={indicator.spId} // Value for onSelect is the indicator's key
-              text={fullPathText} // Text for filtering
-              style={optionStyle}
-            >
-              <Row gutter={8} style={{ width: '100%' }} align="middle">
-                <Col span={18} style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  <span title={fullPathText} style={textStyle}>
-                    {fullPathText}
-                  </span>
-                </Col>
-                <Col span={6} style={{ textAlign: 'right' }}>
-                  <Checkbox
-                    checked={checkedIndicators.has(indicator.spId) || initialCheckedIndicators.has(indicator.spId)}
-                    disabled={initialCheckedIndicators.has(indicator.spId)}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleIndicatorCheckFn(indicator.spId, e.target.checked)
-                      forceDropdownOpenFn() // Keep dropdown open after checkbox click
-                    }}
-                  />
-                </Col>
-              </Row>
-            </WindOption>
-          )
-        }
-      })
-    }
+    // Add indicators to options if they exist
+    classification.indicators?.forEach((indicator) => {
+      if (indicator.spId && indicator.indicatorDisplayName) {
+        const fullPathText = `${currentPath}-${indicator.indicatorDisplayName}`
+        const isDisabled = initialCheckedIndicators.has(indicator.spId)
+
+        // Define styles for disabled row
+        const optionStyle: React.CSSProperties = isDisabled ? { opacity: 0.6, cursor: 'not-allowed' } : {}
+        const textStyle: React.CSSProperties = isDisabled
+          ? { color: '#999' } // Lighter text color for disabled items
+          : {}
+        options.push(
+          <WindOption
+            key={indicator.spId}
+            value={indicator.spId} // Value for onSelect is the indicator's key
+            text={fullPathText} // Text for filtering
+            style={optionStyle}
+          >
+            <Row gutter={8} style={{ width: '100%' }} align="middle">
+              <Col span={18} style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <span title={fullPathText} style={textStyle}>
+                  {fullPathText}
+                </span>
+              </Col>
+              <Col span={6} style={{ textAlign: 'right' }}>
+                <Checkbox
+                  checked={checkedIndicatorIds.has(indicator.spId) || initialCheckedIndicators.has(indicator.spId)}
+                  disabled={initialCheckedIndicators.has(indicator.spId)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    handleIndicatorCheckFn(indicator.spId, e.target.checked)
+                    forceDropdownOpenFn() // Keep dropdown open after checkbox click
+                  }}
+                />
+              </Col>
+            </Row>
+          </WindOption>
+        )
+      }
+    })
+
+    // Recursively process child classifications
     if (classification.children && classification.children.length > 0) {
-      options = options.concat(
-        generateIndicatorOptions(
+      options.push(
+        ...generateIndicatorOptions(
           classification.children,
           currentPath,
-          checkedIndicators,
+          checkedIndicatorIds,
           initialCheckedIndicators,
           handleIndicatorCheckFn,
           forceDropdownOpenFn
@@ -109,7 +98,7 @@ export const IndicatorTreeOverall = forwardRef<
     initialCheckedIndicators?: Set<number>
   }
 >(({ indicatorTree, onIndicatorCheckChange, onVisibleClassificationChange, initialCheckedIndicators }, ref) => {
-  const [showCoins, setShowCoins] = useState(true)
+  const [showCoins, setShowCoins] = useState()
   const treeParsed = useMemo(() => filterIndicatorTree(indicatorTree), [indicatorTree])
 
   const [searchValue, setSearchValue] = useState('')
@@ -123,21 +112,26 @@ export const IndicatorTreeOverall = forwardRef<
     isClassificationIndeterminate,
     setCheckedIndicators,
     resetCheckedIndicators,
-  } = useIndicatorCheck(initialCheckedIndicators)
+    getCheckedIds,
+    getCheckedIndicators,
+  } = useIndicatorCheck(treeParsed, initialCheckedIndicators)
 
   const forceDropdownOpen = () => setIsDropdownOpen(true)
+
+  // 获取选中的指标ID集合，用于兼容性
+  const checkedIndicatorIds = useMemo(() => getCheckedIds(), [getCheckedIds])
 
   const allFlattenedOptionElements = useMemo(
     () =>
       generateIndicatorOptions(
         indicatorTree,
         '',
-        checkedIndicators,
+        checkedIndicatorIds,
         initialCheckedIndicators || new Set(),
         handleIndicatorCheck,
         forceDropdownOpen
       ),
-    [indicatorTree, checkedIndicators, initialCheckedIndicators, handleIndicatorCheck]
+    [indicatorTree, checkedIndicatorIds, initialCheckedIndicators, handleIndicatorCheck]
   )
 
   const filteredDataSource = useMemo(() => {
@@ -158,26 +152,38 @@ export const IndicatorTreeOverall = forwardRef<
     }
   }
 
-  // 计算总积分
-  const totalScore = useMemo(() => {
-    let score = 0
-    treeParsed.forEach((classification) => {
-      classification.indicators?.forEach((indicator) => {
-        // 假设 indicator 对象有 key 和 score 属性
-        if (checkedIndicators.has(indicator.spId)) {
-          score += indicator.points
-        }
-      })
-      classification.children?.forEach((child) => {
-        child.indicators?.forEach((indicator) => {
-          if (checkedIndicators.has(indicator.spId)) {
-            score += indicator.points
-          }
-        })
-      })
-    })
-    return score
-  }, [checkedIndicators, treeParsed])
+  // 计算本次新增的积分（排除初始已选中的指标）
+  // const totalScore = useMemo(() => {
+  //   let score = 0
+  //   const initialSet = initialCheckedIndicators || new Set()
+  //   const selectedIndicators = getCheckedIndicators()
+
+  //   // console.log('=== 积分计算调试信息 ===')
+  //   // console.log('checkedIndicators keys:', Array.from(checkedIndicators.keys()))
+  //   // console.log('initialCheckedIndicators:', Array.from(initialSet))
+  //   // console.log('selectedIndicators:', selectedIndicators)
+
+  //   // 直接从选中的指标对象数组计算积分
+  //   selectedIndicators.forEach((indicator) => {
+  //     const isInitial = initialSet.has(indicator.spId)
+  //     const shouldCount = !isInitial
+
+  //     console.log(`指标 ${indicator.indicatorDisplayName} (id: ${indicator.spId}):`, {
+  //       isInitial,
+  //       shouldCount,
+  //       points: indicator.points,
+  //     })
+
+  //     // 只计算新增选中的指标积分，排除初始就已经选中的
+  //     if (shouldCount) {
+  //       score += indicator.points || 0
+  //     }
+  //   })
+
+  //   console.log('最终积分:', score)
+  //   console.log('=== 调试信息结束 ===')
+  //   return score
+  // }, [checkedIndicators, initialCheckedIndicators, getCheckedIndicators])
 
   const {
     containerRef: treeRef,
@@ -186,7 +192,7 @@ export const IndicatorTreeOverall = forwardRef<
     scrollToItem: scrollToClassification,
   } = useScrollTracking<IndicatorTreeClassification, HTMLDivElement>({
     items: treeParsed,
-    getItemKey: (item) => item.key.toString(),
+    getItemKey: (item: IndicatorTreeClassification) => item.key.toString(),
     onVisibleItemChange: onVisibleClassificationChange,
   })
 
@@ -204,16 +210,22 @@ export const IndicatorTreeOverall = forwardRef<
     }
   }
 
+  // 通知父组件选中的指标ID变化（保持兼容性）
   useEffect(() => {
-    onIndicatorCheckChange?.(checkedIndicators)
-  }, [checkedIndicators, onIndicatorCheckChange])
+    onIndicatorCheckChange?.(checkedIndicatorIds)
+  }, [checkedIndicatorIds, onIndicatorCheckChange])
 
   // 暴露方法给父组件
   useImperativeHandle(
     ref,
     () => ({
       checkedIndicators,
-      getCheckedIndicators: () => checkedIndicators,
+      // 兼容性方法：返回选中的指标ID集合
+      getCheckedIndicators: () => checkedIndicatorIds,
+      // 新方法：返回选中的指标Map
+      getCheckedIndicatorsMap: () => checkedIndicators,
+      // 新方法：返回选中的指标对象数组
+      getCheckedIndicatorsList: () => getCheckedIndicators(),
       setCheckedIndicators,
       resetCheckedIndicators,
       handleIndicatorCheck,
@@ -223,6 +235,8 @@ export const IndicatorTreeOverall = forwardRef<
     }),
     [
       checkedIndicators,
+      checkedIndicatorIds,
+      getCheckedIndicators,
       setCheckedIndicators,
       resetCheckedIndicators,
       handleIndicatorCheck,
@@ -241,18 +255,15 @@ export const IndicatorTreeOverall = forwardRef<
             onSearch={handleSearch}
             // onSelect={handleAutoCompleteSelect}
             value={searchValue}
-            // @ts-ignore - User confirms 'open' prop is supported at runtime
             open={isDropdownOpen}
-            // @ts-ignore - User confirms 'onDropdownVisibleChange' prop is supported at runtime
             onDropdownVisibleChange={setIsDropdownOpen}
-            // @ts-ignore - User confirms 'onFocus' prop is supported at runtime
             onFocus={() => {
               if (filteredDataSource.length > 0 || searchValue) {
                 setIsDropdownOpen(true)
               }
             }}
           >
-            <Input.Search placeholder="搜索指标" allowClear />
+            <Input.Search placeholder={STRINGS.SEARCH_PLACEHOLDER} allowClear />
           </AutoComplete>
         </div>
 
@@ -260,15 +271,16 @@ export const IndicatorTreeOverall = forwardRef<
         <Divider type="vertical" />
         <div className={styles.searchCoins}>
           <CoinsO style={{ marginInlineEnd: 4 }} />
-          <span className={styles.searchCoinsText}>显示积分</span>
+          <span className={styles.searchCoinsText}>{STRINGS.SHOW_COINS}</span>
+          {/* @ts-expect-error 类型错误 */}
           <Switch checked={showCoins} onChange={(checked) => setShowCoins(checked)} />
         </div>
-        <Divider type="vertical" />
+        {/* <Divider type="vertical" />
         <div className={styles.searchTotalCoins}>
           <CoinsO style={{ marginInlineEnd: 4 }} />
-          {/* 显示计算的总积分 */}
+    
           <div className={styles.searchTotalCoinsText}>{totalScore} / 条</div>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.overall} ref={treeRef}>
@@ -300,3 +312,6 @@ export const IndicatorTreeOverall = forwardRef<
     </div>
   )
 })
+
+// 添加 displayName 以修复 linter 错误
+IndicatorTreeOverall.displayName = 'IndicatorTreeOverall'

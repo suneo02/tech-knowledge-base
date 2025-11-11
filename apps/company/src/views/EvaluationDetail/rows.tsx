@@ -70,8 +70,13 @@ export const evaluationDetailRows = {
             titleAlign: 'left',
             render: (txt, _row) => {
               return (
-                <a href={`/ns/imagebase/10165/${txt}`} target="__blank">
-                  <FilePdfO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                <a href={`/ns/imagebase/10165/${txt}`} target="__blank" data-uc-id="PzTGEjtd1O" data-uc-ct="a">
+                  <FilePdfO
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    data-uc-id="GIQxZeowT"
+                    data-uc-ct="filepdfo"
+                  />
                 </a>
               ) //TODO
             },

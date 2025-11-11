@@ -5,13 +5,13 @@ import {
   ApiCodeForWfc,
   ApiResponseForChat,
   ApiResponseForIndicator,
-  ApiResponseForWFC,
   ApiResponseForTable,
+  ApiResponseForWFC,
   KnownError,
 } from 'gel-api'
 import { handleAxiosError } from '../error/error-handling'
-import { ERROR_TEXT } from '../error/errorCode'
 
+import { ERROR_TEXT } from 'gel-util/config'
 import { t } from 'gel-util/intl'
 
 // Type guard functions

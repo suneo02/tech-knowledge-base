@@ -81,22 +81,20 @@ const CompanyMap: FC<CompanyMapProps> = ({ companycode }) => {
       .then((res) => {
         if (res.ErrorCode === global.SUCCESS && res.Data) {
           if (window.en_access_config) {
-            let tmpData = [];
-            let arrLength = 0;
+            let tmpData = []
+            let arrLength = 0
             for (let k in res.Data) {
               if (res.Data[k].items?.length) {
-                tmpData = tmpData.concat(
-                  res.Data[k].items
-                )
+                tmpData = tmpData.concat(res.Data[k].items)
               }
             }
-            arrLength = tmpData.length;
+            arrLength = tmpData.length
             wftCommon.zh2en(tmpData, function (endata) {
               if (endata.length === arrLength) {
                 const newData = [...endata]
                 for (let k in res.Data) {
                   if (res.Data[k].items?.length) {
-                    res.Data[k].items = newData.splice(0, res.Data[k].items?.length);
+                    res.Data[k].items = newData.splice(0, res.Data[k].items?.length)
                   }
                 }
               }
@@ -694,16 +692,17 @@ const CompanyMap: FC<CompanyMapProps> = ({ companycode }) => {
     <div className="company-map-instance" ref={domRef}>
       <div className="chart-icons">
         {/* @ts-expect-error */}
-        <SaveO onClick={thirdSaveEvent} />
+        <SaveO onClick={thirdSaveEvent} data-uc-id="IcXcGZRqcU" data-uc-ct="saveo" />
         {/* @ts-expect-error */}
         <RefreshO
           onClick={() => {
             setLoading(true)
             freshChart()
           }}
+          data-uc-id="qGPOhTVpu"
+          data-uc-ct="refresho"
         />
       </div>
-
       <div
         className="company-map-content chart-content-watermask"
         style={!loading && !data ? { height: '100%', borderLeft: 'none', borderRight: 'none' } : null}
@@ -723,6 +722,8 @@ const CompanyMap: FC<CompanyMapProps> = ({ companycode }) => {
                     height="1em"
                     fill="currentColor"
                     aria-hidden="true"
+                    data-uc-id="650XW-Pjqs"
+                    data-uc-ct="svg"
                   >
                     <path
                       d="M9 .9a8.1 8.1 0 110 16.2A8.1 8.1 0 019 .9zm0 1.2a6.9 6.9 0 100 13.8A6.9 6.9 0 009 2.1zm0 7.8a3.1 3.1 0 013.09 2.86v.17c.01.1-.06.17-.15.17h-.87c-.07 0-.13-.04-.16-.12l-.01-.05a1.9 1.9 0 00-3.79-.14v.14c-.01.1-.09.17-.18.17h-.86a.17.17 0 01-.17-.17l.01-.18A3.1 3.1 0 019 9.9zm-3-4a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2zm6 0a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"

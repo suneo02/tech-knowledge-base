@@ -1,9 +1,9 @@
 import React, { useRef } from 'react'
 import styles from './index.module.less'
 import { FloatButton } from 'antd'
-import { Result, Spin } from '@wind/wind-ui'
-import { ResultProps } from '@wind/wind-ui/lib/result'
+import { Spin } from '@wind/wind-ui'
 import BreadCrumb, { BreadCrumbProps } from '@/components/breadCrumb'
+import Result, { LazyResultProps } from '@/components/Result'
 
 const PREFIX = 'page-container'
 
@@ -12,7 +12,7 @@ type CustomError = Error & {
   code?: string
 }
 
-const generateResultProps = (error: CustomError | null): ResultProps | null => {
+const generateResultProps = (error: CustomError | null): LazyResultProps | null => {
   if (!error) return null
 
   const errorCode = error.response?.data?.errorCode
@@ -45,13 +45,21 @@ interface PageContainerProps {
 const PageContainer = ({ children, loading, error, isEmpty, breadCrumb }: PageContainerProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
   if (isEmpty) {
-    return <Result status="no-data" title="暂无数据" subTitle="请确认数据是否正确" />
+    return (
+      <Result
+        status="no-data"
+        title="暂无数据"
+        subTitle="请确认数据是否正确"
+        data-uc-id="_hAaalCcpT"
+        data-uc-ct="result"
+      />
+    )
   }
   const resultProps = generateResultProps(error || null)
 
   const renderContent = () => {
     if (resultProps) {
-      return <Result {...resultProps} />
+      return <Result {...resultProps} data-uc-id="OxOdlFFt0u" data-uc-ct="result" />
     }
     return children
   }

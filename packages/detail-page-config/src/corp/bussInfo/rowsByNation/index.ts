@@ -1,5 +1,5 @@
-import { validateReportDetailNodeJson } from '@/validation'
-import { CorpBasicInfo, ReportDetailNodeJson } from 'gel-types'
+import { validateReportDetailNodeOrNodesJson } from '@/validation'
+import { CorpBasicInfo, ReportDetailNodeOrNodesJson } from 'gel-types'
 import corpInfoConfigCanadaJson from './canada.json' assert { type: 'json' }
 import corpInfoConfigEnglandJson from './england.json' assert { type: 'json' }
 import corpInfoConfigFranceJson from './france.json' assert { type: 'json' }
@@ -17,24 +17,24 @@ import corpInfoConfigThaJson from './tha.json' assert { type: 'json' }
 import corpInfoConfigTWJson from './TW.json' assert { type: 'json' }
 import corpInfoConfigVieJson from './vie.json' assert { type: 'json' }
 
-export const corpInfoConfigCanada = validateReportDetailNodeJson(corpInfoConfigCanadaJson)
-export const corpInfoConfigSingapore = validateReportDetailNodeJson(corpInfoConfigSingaporeJson)
-export const corpInfoConfigVie = validateReportDetailNodeJson(corpInfoConfigVieJson)
-export const corpInfoConfigFrance = validateReportDetailNodeJson(corpInfoConfigFranceJson)
-export const corpInfoConfigJapan = validateReportDetailNodeJson(corpInfoConfigJapanJson)
-export const corpInfoConfigKorea = validateReportDetailNodeJson(corpInfoConfigKoreaJson)
-export const corpInfoConfigLux = validateReportDetailNodeJson(corpInfoConfigLuxJson)
-export const corpInfoConfigMalaysia = validateReportDetailNodeJson(corpInfoConfigMalaysiaJson)
-export const corpInfoConfigNZL = validateReportDetailNodeJson(corpInfoConfigNZLJson)
-export const corpInfoConfigRussia = validateReportDetailNodeJson(corpInfoConfigRussiaJson)
-export const corpInfoConfigTha = validateReportDetailNodeJson(corpInfoConfigThaJson)
-export const corpInfoConfigTW = validateReportDetailNodeJson(corpInfoConfigTWJson)
-export const corpInfoConfigGermany = validateReportDetailNodeJson(corpInfoConfigGermanyJson)
-export const corpInfoConfigItaly = validateReportDetailNodeJson(corpInfoConfigItalyJson)
-export const corpInfoConfigIndia = validateReportDetailNodeJson(corpInfoConfigIndiaJson)
-export const corpInfoConfigEngland = validateReportDetailNodeJson(corpInfoConfigEnglandJson)
+export const corpInfoConfigCanada = validateReportDetailNodeOrNodesJson(corpInfoConfigCanadaJson)
+export const corpInfoConfigSingapore = validateReportDetailNodeOrNodesJson(corpInfoConfigSingaporeJson)
+export const corpInfoConfigVie = validateReportDetailNodeOrNodesJson(corpInfoConfigVieJson)
+export const corpInfoConfigFrance = validateReportDetailNodeOrNodesJson(corpInfoConfigFranceJson)
+export const corpInfoConfigJapan = validateReportDetailNodeOrNodesJson(corpInfoConfigJapanJson)
+export const corpInfoConfigKorea = validateReportDetailNodeOrNodesJson(corpInfoConfigKoreaJson)
+export const corpInfoConfigLux = validateReportDetailNodeOrNodesJson(corpInfoConfigLuxJson)
+export const corpInfoConfigMalaysia = validateReportDetailNodeOrNodesJson(corpInfoConfigMalaysiaJson)
+export const corpInfoConfigNZL = validateReportDetailNodeOrNodesJson(corpInfoConfigNZLJson)
+export const corpInfoConfigRussia = validateReportDetailNodeOrNodesJson(corpInfoConfigRussiaJson)
+export const corpInfoConfigTha = validateReportDetailNodeOrNodesJson(corpInfoConfigThaJson)
+export const corpInfoConfigTW = validateReportDetailNodeOrNodesJson(corpInfoConfigTWJson)
+export const corpInfoConfigGermany = validateReportDetailNodeOrNodesJson(corpInfoConfigGermanyJson)
+export const corpInfoConfigItaly = validateReportDetailNodeOrNodesJson(corpInfoConfigItalyJson)
+export const corpInfoConfigIndia = validateReportDetailNodeOrNodesJson(corpInfoConfigIndiaJson)
+export const corpInfoConfigEngland = validateReportDetailNodeOrNodesJson(corpInfoConfigEnglandJson)
 
-export const corpConfigMapByAreaCode: Record<CorpBasicInfo['areaCode'], ReportDetailNodeJson> = {
+export const corpConfigMapByAreaCode: Record<CorpBasicInfo['areaCode'], ReportDetailNodeOrNodesJson> = {
   // America 美国和 加拿大相同
   '180401': corpInfoConfigCanada,
   // Canada

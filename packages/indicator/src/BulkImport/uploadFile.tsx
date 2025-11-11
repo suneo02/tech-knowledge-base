@@ -46,10 +46,8 @@ export function BulkImportUpload({ handleChange, onCancel }: BatchIdFormProps) {
   ]
 
   return (
-    // @ts-expect-error wind-ui
     <Tabs defaultActiveKey="1" className={styles['upload-form']} animated={false}>
       {tabItems.map((item) => (
-        // @ts-expect-error wind-ui
         <Tabs.TabPane tab={item.label} key={item.key}>
           {item.children}
         </Tabs.TabPane>

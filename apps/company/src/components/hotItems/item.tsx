@@ -5,8 +5,12 @@ import intl, { getLang } from '@/utils/intl'
 import React, { useEffect, useState } from 'react'
 import { handleSearchHomeNavigation } from './handle/searchHomeNavigation'
 import { HotItemProps, isDepartmentData, isFeaturedData, isSearchHomeData } from './types'
+import { routerToFeaturedCompany } from '@/views/SearchFetured'
+import { hashParams } from '@/utils/links'
 
 function HotItem({ hotFlag, itemData, extendData }: HotItemProps) {
+  const { getParamValue } = hashParams()
+  const linksource = getParamValue('linksource')
   const [descriptionFlag, setDescriptionFlag] = useState(false) // 是否显示全部描述
   const [description, setDescription] = useState<string>('') // 描述
 
@@ -28,7 +32,7 @@ function HotItem({ hotFlag, itemData, extendData }: HotItemProps) {
         )
       }
     } else if (isSearchHomeData(itemData) && itemData.key === 'bid') {
-      corpStr = extendData.listDictory - 2 + (getLang() === 'en' ? ' ' : '个') + intl('338369', '榜单和科技类企业名录')
+      corpStr = extendData.listDictory - 2 + intl('338369', '个榜单和科技类企业名录')
     } else if (isSearchHomeData(itemData)) {
       corpStr = itemData.desc
     }
@@ -38,7 +42,8 @@ function HotItem({ hotFlag, itemData, extendData }: HotItemProps) {
   const itemClick = () => {
     // 企业榜单名录
     if (hotFlag === 'fetured' && isFeaturedData(itemData)) {
-      window.open(`index.html#/feturedcompany?id=${itemData.objectId}`)
+      routerToFeaturedCompany({ id: itemData.objectId, linksource })
+      // window.open(`index.html#/feturedcompany?id=${itemData.objectId}`)
     }
 
     // 集团系查询
@@ -59,7 +64,7 @@ function HotItem({ hotFlag, itemData, extendData }: HotItemProps) {
     <React.Fragment>
       {/* 集团系 */}
       {hotFlag === 'department' && isDepartmentData(itemData) && (
-        <div className="hot-item" onClick={() => itemClick()}>
+        <div className="hot-item" onClick={() => itemClick()} data-uc-id="bP7sk-V8Q" data-uc-ct="div">
           <div className="item-left">
             <img className="item-img" width="76" src={itemData.groupSystemLogoUrl} />
           </div>
@@ -74,7 +79,7 @@ function HotItem({ hotFlag, itemData, extendData }: HotItemProps) {
       )}
       {/* 榜单名录 */}
       {hotFlag === 'fetured' && isFeaturedData(itemData) && (
-        <div className="hot-item" onClick={() => itemClick()}>
+        <div className="hot-item" onClick={() => itemClick()} data-uc-id="zmEjnwI-0j" data-uc-ct="div">
           <div className="item-fetured-header">
             <span className="item-fetured-title">{featureInfo[itemData.objectId].name || itemData.objectName}</span>
             <span className="fetured-num">
@@ -86,6 +91,8 @@ function HotItem({ hotFlag, itemData, extendData }: HotItemProps) {
             className="fetured-description"
             onMouseOver={() => setDescriptionFlag(true)}
             onMouseLeave={() => setDescriptionFlag(false)}
+            data-uc-id="QB_Z2y4vXy"
+            data-uc-ct="div"
           >
             {featureInfo[itemData.objectId].brief || itemData.description}
           </div>
@@ -97,7 +104,12 @@ function HotItem({ hotFlag, itemData, extendData }: HotItemProps) {
       {/* @deprecated ai 首页完成后删除 */}
       {/* 企业库首页 */}
       {hotFlag === 'searchHome' && isSearchHomeData(itemData) && (
-        <div className={`icon-topic icon-topic-${itemData.key}`} onClick={() => itemClick()}>
+        <div
+          className={`icon-topic icon-topic-${itemData.key}`}
+          onClick={() => itemClick()}
+          data-uc-id="_zII5sCiIx"
+          data-uc-ct="div"
+        >
           <div>{itemData.title}</div>
           <span dangerouslySetInnerHTML={{ __html: description }}></span>
         </div>

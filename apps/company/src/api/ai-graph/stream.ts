@@ -1,4 +1,5 @@
 import { getWsid } from '@/utils/env'
+import { isAbortError } from 'gel-ui'
 
 export const postStreamRequest = async (url: string, data: any, processEventCb: any, abortSignal?: AbortSignal) => {
   const sessionid = getWsid()
@@ -51,7 +52,7 @@ export const postStreamRequest = async (url: string, data: any, processEventCb: 
     })
     .catch((error) => {
       // 注意：终止请求会抛出一个名为AbortError的DOMException
-      if (error.name === 'AbortError') {
+      if (isAbortError(error)) {
         console.log('Fetch请求已被终止')
         processEventCb('ABORT')
         return
@@ -71,18 +72,9 @@ export function parseSSEEvent(rawString) {
       const dataStr = line.replace('data:', '').trim()
       try {
         result.data = JSON.parse(dataStr)
-      } catch (e) {
-        // 尝试修复常见的格式问题
-        try {
-          const fixedStr = dataStr
-          // .replaceAll(/\\n|\\t/g, '')
-          // .replaceAll(/\n|\t/g, '')
-          // .replaceAll(/\\/g, '')
-          result.data = JSON.parse(fixedStr)
-        } catch {
-          // 依然失败，保留原始字符串
-          result.data = { raw: dataStr }
-        }
+      } catch {
+        // 如果解析失败，保留原始字符串
+        result.data = { raw: dataStr }
       }
     }
   }

@@ -20,6 +20,8 @@ export const BreadCrumbT: FC<{
               })
             )
           }
+          data-uc-id="feNjk7LxMZ"
+          data-uc-ct="span"
         >
           {intl('19475', '首页')}
         </span>
@@ -31,6 +33,8 @@ export const BreadCrumbT: FC<{
           onClick={() => {
             onSubClick && onSubClick()
           }}
+          data-uc-id="UgWUL_Op4y"
+          data-uc-ct="span"
         >
           {subTitle || '--'}
         </span>

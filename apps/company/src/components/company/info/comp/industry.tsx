@@ -26,7 +26,16 @@ export const industry_gb_render = (txt, backData) => {
       tmp = item
     }
   }
-  return <Tree className="corp-industry-tree" showLine={true} defaultExpandedKeys={[tmp.key]} treeData={treeStr} />
+  return (
+    <Tree
+      className="corp-industry-tree"
+      showLine={true}
+      defaultExpandedKeys={[tmp.key]}
+      treeData={treeStr}
+      data-uc-id="lApcm7HkME"
+      data-uc-ct="tree"
+    />
+  )
 }
 export const industry_name_wind_render = (txt, backData) => {
   const data = backData.industryWindFold
@@ -43,7 +52,16 @@ export const industry_name_wind_render = (txt, backData) => {
       tmp = item
     }
   }
-  return <Tree className="corp-industry-tree" showLine={true} defaultExpandedKeys={[tmp.key]} treeData={treeStr} />
+  return (
+    <Tree
+      className="corp-industry-tree"
+      showLine={true}
+      defaultExpandedKeys={[tmp.key]}
+      treeData={treeStr}
+      data-uc-id="HGVBYq_aBH"
+      data-uc-ct="tree"
+    />
+  )
 }
 export const industry_oversea_render = (txt, backData) => {
   const overseasCorpIndustryList = backData.overseasCorpIndustryList

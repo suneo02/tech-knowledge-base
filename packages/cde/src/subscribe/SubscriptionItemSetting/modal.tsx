@@ -27,7 +27,6 @@ export const SubscriptionItemSettingModal: React.FC<{
   })
 
   return (
-    // @ts-expect-error wind ui
     <Modal
       title={'保存条件'}
       visible={open}

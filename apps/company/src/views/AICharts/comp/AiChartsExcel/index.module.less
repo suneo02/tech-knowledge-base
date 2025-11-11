@@ -1,43 +1,5 @@
 @import '@/styles/colorVariables.less';
 
-.graphChatHi {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  min-height: 50vh;
-  width: 100%;
-
-  .graphChatHiLogoImg {
-    width: 110px;
-    height: 110px;
-  }
-  .graphChatHiContent {
-    margin-left: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    .graphChatHiContentImg {
-      width: 158px;
-      height: 80px;
-      align-self: flex-start;
-    }
-    .graphChatHiContentText {
-      font-size: 24px;
-      color: #666;
-      font-weight: 700;
-      padding: 0 16px;
-    }
-    .graphChatHiContentTextImg {
-      background: linear-gradient(90deg, #3862ed, #274cda 11.98%, #00aec7 39.47%, #17d9cb 64.8%, #b388e8);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  }
-}
-
 .aiGraphExcelDelete {
   color: @primary;
   cursor: pointer;
@@ -46,5 +8,43 @@
   }
   &:active {
     color: @primary-active;
+  }
+}
+
+.aiChartsExcelTabs {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  :global(.w-tabs-content) {
+    width: 100%;
+    height: 100%;
+  }
+  :global(.w-tabs-tab) {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    margin: 0 !important;
+    padding: 0 16px !important;
+    // &:hover {
+    //   background-color: @primary-hover !important;
+    //   color: #fff !important;
+    // }
+    // &:active {
+    //   background-color: @primary-active !important;
+    //   color: #fff !important;
+    // }
+  }
+  :global(.w-tabs-tab-active) {
+    background-color: @primary-hover !important;
+    color: #fff !important;
+  }
+  :global(.wind-ui-table-wrapper) {
+    padding-bottom: 12px !important;
+  }
+
+  :global(> .w-tabs-content) {
+    height: calc(100% - 38px);
   }
 }

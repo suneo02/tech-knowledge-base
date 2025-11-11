@@ -1,0 +1,48 @@
+@prefix: company-directory-data-table;
+
+.@{prefix} {
+  &-container {
+    width: 100%;
+    :global {
+      /* 斑马纹：偶数行背景色使用主题变量，带回退 */
+      .ant-table-tbody > tr:nth-child(odd) > td {
+        background-color: var(--click-15, var(--basic-15));
+      }
+
+      /* 悬浮时仍以表格 hover 规则为准，避免覆盖交互色 */
+      .ant-table-tbody > tr.ant-table-row:hover > td {
+        background-color: var(--item-hover);
+      }
+    }
+  }
+}
+
+// 单元格相关样式已迁移至 handleCell/*/index.module.less 下，保留表格级样式
+// .noYScroll {
+//   :global {
+//     /* 在不需要纵向滚动时，彻底隐藏 tbody 的纵向滚动与滚动槽 */
+//     .ant-table-body {
+//       overflow-y: hidden !important;
+//       scrollbar-width: none; /* Firefox */
+//     }
+//     .ant-table-body::-webkit-scrollbar {
+//       width: 0;
+//       height: 0;
+//     }
+//   }
+// }
+
+// .ellipsis {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
+
+// .fullText {
+//   white-space: normal;
+//   word-break: break-word;
+// }
+
+// .oneLine {
+//   margin: 0;
+// }

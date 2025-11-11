@@ -9,11 +9,24 @@ const FeedbackModal = ({ name }) => {
     <div>
       <div className="feedback-nav">
         <div className="feedback-nav-type-title">{intl('283797', '反馈类型')}</div>
-        <RadioGroup onChange={(e) => setFeedType(e.target.value)} value={feedType}>
-          <Radio value={'数据纠错'}>{intl('138235', '数据纠错')}</Radio>
-          <Radio value={'功能提升'}>{intl('138311', '功能提升')}</Radio>
-          <Radio value={'其他建议'}>{intl('138421', '其他建议')}</Radio>
-          <Radio value={'异议处理'}>{intl('366153', '异议处理')}</Radio>
+        <RadioGroup
+          onChange={(e) => setFeedType(e.target.value)}
+          value={feedType}
+          data-uc-id="ZF9Tj-jw4U"
+          data-uc-ct="radiogroup"
+        >
+          <Radio value={'数据纠错'} data-uc-id="ImdUky8xd" data-uc-ct="radio">
+            {intl('138235', '数据纠错')}
+          </Radio>
+          <Radio value={'功能提升'} data-uc-id="aAvIT57h-w" data-uc-ct="radio">
+            {intl('138311', '功能提升')}
+          </Radio>
+          <Radio value={'其他建议'} data-uc-id="TzKPIBGTjy" data-uc-ct="radio">
+            {intl('138421', '其他建议')}
+          </Radio>
+          <Radio value={'异议处理'} data-uc-id="N2OEQ1kHN2" data-uc-ct="radio">
+            {intl('366153', '异议处理')}
+          </Radio>
         </RadioGroup>
       </div>
     </div>

@@ -14,6 +14,7 @@ import {
   getVipLinkBySubModule,
   getWebLinkBySubModule,
   LinksModule,
+  getAIGraphLink,
 } from '@/handle/link'
 import { TLinkOptions } from '@/handle/link/handle/type.ts'
 import { getBidDetailUrl } from '@/handle/link/module/miscDetail/bid.ts'
@@ -66,7 +67,21 @@ export const getUrlByLinkModule = (module: LinksModule, optionsProp?: TLinkOptio
   if (options == null) {
     options = {}
   }
-  const { subModule, url, id, params, env, target, type, value, title, extraId, ifOversea, standardLevelCode } = options
+  const {
+    subModule,
+    url,
+    id,
+    params,
+    env,
+    target,
+    type,
+    value,
+    title,
+    extraId,
+    ifOversea,
+    standardLevelCode,
+    isSeparate,
+  } = options
   if (!module) {
     return null
   }
@@ -74,7 +89,6 @@ export const getUrlByLinkModule = (module: LinksModule, optionsProp?: TLinkOptio
     case LinksModule.GROUP:
     case LinksModule.CHARACTER:
     case LinksModule.FEATURED:
-    case LinksModule.FEATURED_LIST:
     case LinksModule.IC_LAYOUT:
     case LinksModule.QUALIFICATION_DETAIL: {
       if (!id) {
@@ -83,10 +97,14 @@ export const getUrlByLinkModule = (module: LinksModule, optionsProp?: TLinkOptio
       }
       return generateCommonLink({ module, params: { ...params, id }, env })
     }
+    case LinksModule.FEATURED_LIST:
+      if (!id && !params?.search) {
+        // 没有 id 且没有 search 则不跳转
+        return
+      }
+      return generateCommonLink({ module, params, env })
     case LinksModule.SPECIAL_CORP:
       return getSpecialCompanyListLinkBySubModule({ subModule, params, env })
-    case LinksModule.ANNUAL_REPORT:
-      return generateCommonLink({ module, params, env })
     case LinksModule.COMPANY:
       return getCompanyLink({ id, target, params, env })
     case LinksModule.CompanyNew:
@@ -145,9 +163,12 @@ export const getUrlByLinkModule = (module: LinksModule, optionsProp?: TLinkOptio
       return getScenarioApplicationLinkBySubModule({ subModule, params, env })
     case LinksModule.VIP:
       return getVipLinkBySubModule({ params, ifOversea, env })
-    case LinksModule.WEB:
-      return getWebLinkBySubModule({ params, url })
-
+    case LinksModule.HOME:
+      return generateCommonLink({ module, params: { ...params, isSeparate: isSeparate ? 1 : '' }, env })
+    case LinksModule.GRAPH_AI:
+      return getAIGraphLink({ params, env })
+    case LinksModule.LOGIN:
+      return `${getPrefixUrl({ isLoginIn: true, envParam: env })}windLogin.html`
     default:
       return generateCommonLink({ module, params, env })
   }

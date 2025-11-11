@@ -12,6 +12,7 @@ export interface LocalStorageSchema {
   'wind-gel-exp-user-tips': number
   gelLastUrl: string
   autoLoginInfo: any
+  gel_ai_graph_content: string // AI图谱内容
 }
 
 export type LocalStorageKey = keyof LocalStorageSchema

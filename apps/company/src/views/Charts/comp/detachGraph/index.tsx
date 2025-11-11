@@ -18,6 +18,8 @@ import SpinLoading from '../spin-loading'
 import { translateGraphData } from '../extra'
 import global from '@/lib/global'
 import { VipPopup } from '@/lib/globalModal'
+import { pointBuriedByModule } from '@/api/pointBuried/bury'
+import { GRAPH_MENU_TYPE } from '../../types'
 
 const { Content, Sider } = Layout
 
@@ -34,29 +36,29 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
   enableFit = true,
   ...props
 }) => {
-  const isMulti = graphMenuType === 'detach_multiToOne' // 多对一
+  const isMulti = graphMenuType === GRAPH_MENU_TYPE.MULTI_TO_ONE // 多对一
   const isFirstRender = useRef(true) // 用于区分url进来后的首次渲染
   const qsParam = parseQueryString()
   // 从url带入的左右企业
   const leftUrlCode = isMulti
     ? qsParam?.companycode && qsParam?.companyname
       ? {
-        id: qsParam.companycode?.length === 15 ? qsParam.companycode.substr(2, 10) : qsParam.companycode,
-        name: qsParam?.companyname ? decodeURIComponent(qsParam?.companyname) : '',
-      }
+          id: qsParam.companycode?.length === 15 ? qsParam.companycode.substr(2, 10) : qsParam.companycode,
+          name: qsParam?.companyname ? decodeURIComponent(qsParam?.companyname) : '',
+        }
       : null
     : qsParam?.lc && qsParam?.lcn
       ? {
-        id: qsParam.lc?.length === 15 ? qsParam.lc.substr(2, 10) : qsParam.lc,
-        name: qsParam?.lcn ? decodeURIComponent(qsParam?.lcn?.replace(/\+/g, ' ')) : '',
-      }
+          id: qsParam.lc?.length === 15 ? qsParam.lc.substr(2, 10) : qsParam.lc,
+          name: qsParam?.lcn ? decodeURIComponent(qsParam?.lcn?.replace(/\+/g, ' ')) : '',
+        }
       : null
   const rightUrlCode =
     qsParam?.rc && qsParam?.rcn
       ? {
-        id: qsParam.rc?.length === 15 ? qsParam.rc.substr(2, 10) : qsParam.rc,
-        name: qsParam?.rcn ? decodeURIComponent(qsParam?.rcn?.replace(/\+/g, ' ')) : '',
-      }
+          id: qsParam.rc?.length === 15 ? qsParam.rc.substr(2, 10) : qsParam.rc,
+          name: qsParam?.rcn ? decodeURIComponent(qsParam?.rcn?.replace(/\+/g, ' ')) : '',
+        }
       : null
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -69,16 +71,18 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
     rightUrlCode
       ? [{ ...rightUrlCode, key: Date.now() }]
       : [
-        {
-          id: '',
-          name: '',
-          key: Date.now(),
-        },
-      ]
+          {
+            id: '',
+            name: '',
+            key: Date.now(),
+          },
+        ]
   )
   const [inputKey, setInputKey] = useState(Date.now()) // 添加 inputKey 状态
   const [isDemoClicked, setIsDemoClicked] = useState(false)
   const [noFoundNodes, setNoFoundNodes] = useState([])
+  const preInputRefLeft = useRef(null)
+  const preInputRefRight = useRef(null)
 
   const demoImgUrlCn = isMulti ? demoImgMulti : demoImg
   const demoImgUrlEn = isMulti ? demoEnImgMulti : demoEnImg
@@ -118,6 +122,14 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
       ])
     // 更新 inputKey 以强制重新渲染输入框
     setInputKey(Date.now())
+
+    if (isMulti) {
+      // 多对一埋点
+      pointBuriedByModule(922602101005)
+    } else {
+      // 查关系埋点
+      pointBuriedByModule(922602100990)
+    }
   }, [graphMenuType])
 
   useEffect(() => {
@@ -130,22 +142,22 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
   async function getData() {
     const mainEntity = isMulti
       ? mulitList
-        .map((item) => {
-          if (!item?.id) {
-            return null
-          }
-          return {
-            entityId: item.id,
-            entityType: 'company' as const,
-          }
-        })
-        .filter((item) => item !== null)
+          .map((item) => {
+            if (!item?.id) {
+              return null
+            }
+            return {
+              entityId: item.id,
+              entityType: 'company' as const,
+            }
+          })
+          .filter((item) => item !== null)
       : [
-        {
-          entityId: companyInfoRight?.id,
-          entityType: 'company' as const,
-        },
-      ]
+          {
+            entityId: companyInfoRight?.id,
+            entityType: 'company' as const,
+          },
+        ]
     apiParams.mainEntity = mainEntity
     apiParams.subEntity = {
       entityId: companyInfo?.id,
@@ -166,6 +178,12 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
         setData({})
         return
       }
+      // 处理特殊情况：担保关系
+      res.Data?.relations?.map((t) => {
+        if (t?.relationshipType === 'guarantee') {
+          t.relationshipType = intl('27494', '担保')
+        }
+      })
       let finalData = res.Data
       if (window.en_access_config) {
         finalData = await translateGraphData(res.Data)
@@ -203,6 +221,7 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
   const onSearch = () => {
     if (isMulti) {
       if (!companyInfo?.id) {
+        preInputRefLeft?.current?.focus()
         message.error(intl('417238', '请选择触达目标企业'))
         return
       }
@@ -214,11 +233,18 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
         message.error(intl('417239', '请选择触达关联企业'))
         return
       }
+      pointBuriedByModule(922602101006)
     } else {
       if (!companyInfo?.id || !companyInfoRight?.id) {
         message.error(intl('416944', '请选择一个企业'))
+        if (!companyInfo?.id) {
+          preInputRefLeft?.current?.focus()
+        } else {
+          preInputRefRight?.current?.focus()
+        }
         return
       }
+      pointBuriedByModule(922602100991)
     }
     showDemo && setShowDemo(false)
     getData()
@@ -252,6 +278,7 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
                   {isMulti ? intl('437662', '触达目标企业') : intl('440314', '主体') + 1}
                 </div>
                 <PreInput
+                  ref={preInputRefLeft}
                   key={`company-input-${inputKey}`}
                   needRealCode={true}
                   type="text"
@@ -284,6 +311,7 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
                 {/* 普通查关系 */}
                 {!isMulti && (
                   <PreInput
+                    ref={preInputRefRight}
                     key={`company-right-input-${inputKey}`}
                     needRealCode={true}
                     type="text"
@@ -303,7 +331,7 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
                       })
                     }}
                     emptyCallback={() => {
-                      setCompanyInfo(null)
+                      setCompanyInfoRight(null)
                     }}
                   />
                 )}
@@ -349,6 +377,8 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
                           }
                           setMulitList(mulitList.filter((listItem) => listItem.key !== item.key))
                         }}
+                        data-uc-id="aLm02j_Au"
+                        data-uc-ct="minuscircleo"
                       />
                     </div>
                   ))}
@@ -367,23 +397,36 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
                     }
                     setMulitList([...mulitList, createMulitListItem()])
                   }}
+                  data-uc-id="QegJYdy2M9"
+                  data-uc-ct="div"
                 >
-                  <PlusO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                  <PlusO
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    data-uc-id="Y_5FeV5qUo"
+                    data-uc-ct="pluso"
+                  />
                   <span>{intl('440318', '添加我的关联企业')}</span>
                 </div>
               )}
 
-              <Button onClick={onSearch} className="detach-graph-left-btn">
+              <Button onClick={onSearch} className="detach-graph-left-btn" data-uc-id="ET1MQH0pWG" data-uc-ct="button">
                 {isMulti ? intl('437664', '查触达路径') : intl('437668', '关系透查')}
               </Button>
             </div>
           </Sider>
-          <Resizer unfoldedSize={290} onResize={handleResize} defaultFolded={false} />
+          <Resizer
+            unfoldedSize={290}
+            onResize={handleResize}
+            defaultFolded={false}
+            data-uc-id="rcrv7Ivz7_"
+            data-uc-ct="resizer"
+          />
         </>
         {/* @ts-ignore */}
         <Content className="" style={{ position: 'relative' }}>
           {showDemo && (
-            <div className="detach-graph-right-demo" onClick={onDemoSearch}>
+            <div className="detach-graph-right-demo" onClick={onDemoSearch} data-uc-id="AAut8rwxRV" data-uc-ct="div">
               <div className="detach-graph-right-demo-title">
                 <div>
                   {isMulti
@@ -410,6 +453,8 @@ const DetachGraph: React.FC<DetachGraphProps> = ({
                   height={height}
                   enableFit={enableFit}
                   {...props}
+                  data-uc-id="x2WZYLhaBY"
+                  data-uc-ct="windbdgraph"
                 ></WindBDGraph>
               ) : null}
 

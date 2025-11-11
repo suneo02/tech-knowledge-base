@@ -6,7 +6,6 @@
  * @FilePath: \Wind.GEL.Web\src\components\wind\windDataEntry\WindCasader\index.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { WindCascadeFieldNamesCommon } from '@/components/cascade/type'
 import { globalAreaTree } from '@/utils/areaTree'
 import {
   globalIndustryOfNationalEconomy,
@@ -17,6 +16,7 @@ import { Button, Divider } from '@wind/wind-ui'
 import { Cascader, ConfigProvider } from 'antd'
 import enUS from 'antd/locale/en_US'
 import zhCN from 'antd/locale/zh_CN'
+import { WindCascadeFieldNamesCommon } from 'gel-ui'
 import React, { useEffect, useState } from 'react'
 import './index.less'
 
@@ -45,7 +45,9 @@ export const WindCascadeForConfigDetail = (props) => {
             paddingInlineEnd: 12,
           }}
         >
-          <Button onClick={() => handleOnChange()}>{intl('138836', '确定')}</Button>
+          <Button onClick={() => handleOnChange()} data-uc-id="chFu_t00H6" data-uc-ct="button">
+            {intl('138836', '确定')}
+          </Button>
         </div>
       </div>
     )
@@ -115,6 +117,8 @@ export const WindCascadeForConfigDetail = (props) => {
         maxTagTextLength={3}
         placeholder={intl(props?.defaultId, props?.default)}
         dropdownRender={props?.mode === 'multiple' ? dropdownRender : null}
+        data-uc-id="FDMoQbgIYz"
+        data-uc-ct="cascader"
       />
     </ConfigProvider>
   )

@@ -156,7 +156,7 @@ export const getCDEFiltersTextUtil = (
   codeMap: Record<string, string>
 ) => {
   try {
-    let strArr = filters.map((filter) => {
+    const strArr = filters.map((filter) => {
       const filterItemCfg = getFilterItemById(filter.itemId)
 
       // 包含已删除的筛选项

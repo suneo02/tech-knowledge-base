@@ -48,7 +48,6 @@ const MenuComponent: React.FC<MenuComponentProps> = ({
       }
 
       return (
-        // @ts-expect-error ttt
         <Tree.TreeNode
           {...item}
           className={classNames(`${PREFIX}-menu-item`, {
@@ -63,11 +62,14 @@ const MenuComponent: React.FC<MenuComponentProps> = ({
                   {item.ai && (
                     <Tooltip title={intl('', '该报告由Alice Writer生成')} placement="top">
                       {/* @ts-expect-error icon */}
-                      <AISubtitleO style={{ marginInlineStart: 4, color: '#e22c2f', fontWeight: 500 }} />
+                      <AISubtitleO
+                        style={{ marginInlineStart: 4, color: '#e22c2f', fontWeight: 500 }}
+                        data-uc-id="m4BoLiBxHz"
+                        data-uc-ct="aisubtitleo"
+                      />
                     </Tooltip>
                   )}
                 </div>
-
                 {item.enableDelete && deleteItem ? (
                   /* @ts-expect-error icon */
                   <CloseO
@@ -84,11 +86,15 @@ const MenuComponent: React.FC<MenuComponentProps> = ({
                         },
                       })
                     }}
+                    data-uc-id="MQCxOWQIGL"
+                    data-uc-ct="closeo"
                   />
                 ) : null}
               </div>
             )
           }}
+          data-uc-id="wHxjbjmLn"
+          data-uc-ct="tree"
         />
       )
     },
@@ -127,6 +133,8 @@ const MenuComponent: React.FC<MenuComponentProps> = ({
                   onMenuSelect?.(node as MenuItemProps, selected)
                 }}
                 onExpand={(expandedKeys) => onMenuExpand?.(expandedKeys as string[])}
+                data-uc-id="8fs4A5vzes"
+                data-uc-ct="tree"
               >
                 {menuGroup.children?.map((item) => renderMenuItem(item))}
               </Tree>
@@ -134,7 +142,7 @@ const MenuComponent: React.FC<MenuComponentProps> = ({
           </div>
         ))
       ) : (
-        <Empty description="无数据" />
+        <Empty description="无数据" data-uc-id="wPCMOugOrz" data-uc-ct="empty" />
       )}
       {menuFooter}
     </div>

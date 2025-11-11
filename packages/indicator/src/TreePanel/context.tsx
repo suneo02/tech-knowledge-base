@@ -40,13 +40,14 @@ export const useIndicatorTreeState = (data: IndicatorTreeClassification[]): Indi
     treeParsed.length > 0 ? treeParsed[0].key.toString() : ''
   )
 
-  const checkResult = useIndicatorCheck()
+  // 现在传入 treeParsed 作为第一个参数
+  const checkResult = useIndicatorCheck(treeParsed)
 
   const selectedClassification = treeParsed.find((item) => item.key.toString() === selectedFirstLevel)
 
   const getIndicatorName = useCallback(
     (key: string): string => {
-      // @ts-expect-error
+      // @ts-expect-error 类型转换
       return findIndicatorName(treeParsed, key) || key // 如果找不到指标，返回原始 key
     },
     [treeParsed]
@@ -67,7 +68,7 @@ interface IndicatorTreeProviderProps {
   data: IndicatorTreeClassification[]
 }
 
-export const IndicatorTreeProvider: React.FC<IndicatorTreeProviderProps> = ({ data, children }) => {
+export const IndicatorTreeProvider = ({ data, children }: IndicatorTreeProviderProps) => {
   const treeState = useIndicatorTreeState(data)
 
   return <IndicatorTreeContext.Provider value={treeState}>{children}</IndicatorTreeContext.Provider>

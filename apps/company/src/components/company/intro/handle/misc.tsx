@@ -1,60 +1,17 @@
+import { getRiskTagCfg } from 'gel-util/biz'
+import React from 'react'
 import intl from '../../../../utils/intl'
 import { wftCommon } from '../../../../utils/utils'
-import React from 'react'
 
-export const allRiskTag = {
-  bankruptcyevent_count: {
-    name: intl('216410', '破产重整'),
-    jumpType: 'showBankruptcy',
-  },
-  breakpromise_num: {
-    name: intl('283600', '失信被执行人'),
-    jumpType: 'getdishonesty',
-  },
-  corp_consumption_num: {
-    name: intl('209064', '限制高消费'),
-    jumpType: 'getcorpconsumption',
-  },
-  end_case_num: {
-    name: intl('216398', '终本案件'),
-    jumpType: 'getendcase',
-  },
-  illegal_num: {
-    name: intl('138335', '严重违法'),
-    jumpType: 'getillegal',
-  },
-  taxdebts_count: {
-    name: intl('138424', '欠税信息'),
-    jumpType: 'getowingtax',
-  },
-  taxillegal_count: {
-    name: intl('138533', '税收违法'),
-    jumpType: 'gettaxillegal',
-  },
-  valid_abnormal: {
-    name: intl('138568', '经营异常'),
-    jumpType: 'getoperationexception',
-  },
-  violation_punish: {
-    name: intl('118780', '诚信信息'),
-    jumpType: 'showViolationsPenalties',
-  },
-  suspectedShellCompany: {
-    name: intl('413153', '疑似空壳企业'),
-    // jumpType: 'showViolationsPenalties',// TODO: 浏览器没有加筛选项，所以先不跳
-  },
-  suspectedShellGroup: {
-    name: intl('413173', '疑似空壳团伙'),
-    // jumpType: 'showViolationsPenalties',// TODO: 浏览器没有加筛选项，所以先不跳
-  },
-}
+export const allRiskTag = getRiskTagCfg(intl)
+
 export const telTitle = [
   {
     title: '',
     dataIndex: '',
     align: 'left',
     width: '10%',
-    render: (txt, row, idx) => {
+    render: (_txt, _row, idx) => {
       return idx + 1
     },
   },
@@ -73,14 +30,14 @@ export const mailTitle = [
     dataIndex: '',
     align: 'left',
     width: '10%',
-    render: (txt, row, idx) => {
+    render: (_txt, _row, idx) => {
       return idx + 1
     },
   },
   {
     title: intl('91283', '电子邮箱'),
     dataIndex: 'contactValue',
-    render: (txt, row, idx) => {
+    render: (txt) => {
       return <span>{wftCommon.formatWebsite(txt, 'email')}</span>
     },
   },
@@ -95,14 +52,14 @@ export const webTitle = [
     dataIndex: '',
     align: 'left',
     width: '30%',
-    render: (txt, row, idx) => {
+    render: (_txt, _row, idx) => {
       return idx + 1
     },
   },
   {
     title: intl('138805', '网址'),
     dataIndex: 'contactValue',
-    render: (txt, row, idx) => {
+    render: (txt) => {
       return wftCommon.formatWebsite(txt)
     },
   },

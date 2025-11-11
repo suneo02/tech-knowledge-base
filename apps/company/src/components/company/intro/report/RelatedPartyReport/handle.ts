@@ -1,11 +1,10 @@
-import { message } from 'antd'
+import { message } from '@wind/wind-ui'
 import { wftCommon } from '../../../../../utils/utils'
-import { myWfcAjax } from '../../../../../views/Chart/CompanyChart'
-
+import { myWfcAjax } from '@/api/common'
 import { getCompanyReportDownPage } from '@/handle/link'
-import intl from '../../../../../utils/intl'
 import { pointBuriedByModule } from '../../../../../api/pointBuried/bury'
 import { CompanyReportConfig, ECorpReport } from '../../../../../handle/corp/report/config'
+import intl from '../../../../../utils/intl'
 
 export const RelatedPartyReportRule = {
   CorpAccount: 'CoryAccount', // 企业会计准则
@@ -36,19 +35,19 @@ export const RelatedPartyReportRuleTitle = {
  */
 export const downloadRelatedPartyReport = (companyCode, companyName, exchangeRule) => {
   pointBuriedByModule(CompanyReportConfig[ECorpReport.RelatedPartyRP].downModuleId)
-  myWfcAjax(
-    'createiporelationdoc',
-    { entityId: wftCommon.formatCompanyCode(companyCode), refresh: exchangeRule, entityName: companyName },
-    function (data) {
-      if (data.ErrorCode != '0') {
-        return
-      }
-      message.info('正在为您导出...')
-      setTimeout(function () {
-        window.open(getCompanyReportDownPage())
-      }, 800)
+  myWfcAjax('createiporelationdoc', {
+    entityId: wftCommon.formatCompanyCode(companyCode),
+    refresh: exchangeRule,
+    entityName: companyName,
+  }).then((data) => {
+    if (data.ErrorCode != '0') {
+      return
     }
-  )
+    message.info('正在为您导出...')
+    setTimeout(function () {
+      window.open(getCompanyReportDownPage())
+    }, 800)
+  })
 }
 
 /**
@@ -56,22 +55,19 @@ export const downloadRelatedPartyReport = (companyCode, companyName, exchangeRul
  */
 export const getIfCorpFinancial = async (companyCode) => {
   return new Promise((resolve, reject) => {
-    myWfcAjax(
-      'getcorpbasicinfo',
-      { restfulApi: '/detail/company/getcorpbasicname/' + companyCode },
-      function (res) {
-        if (!(res.ErrorCode == '0' && res.Data)) {
+    myWfcAjax('getcorpbasicinfo', { restfulApi: '/detail/company/getcorpbasicname/' + companyCode })
+      .then((res: any) => {
+        if (!(res?.ErrorCode == '0' && res?.Data)) {
           return
         }
-        if (res.Data.is_financial == '1') {
+        if (res.Data?.is_financial == '1') {
           resolve(true)
         } else {
           resolve(false)
         }
-      },
-      function (err) {
+      })
+      .catch(function (err) {
         reject(err)
-      }
-    )
+      })
   })
 }

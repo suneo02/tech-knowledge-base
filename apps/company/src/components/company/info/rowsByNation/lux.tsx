@@ -63,7 +63,7 @@ export const luxRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       colSpan: 2,
     },
     {
-      title: CorpInfoHeaderComp(intl('259200', '公司地址'), 'Siège'),
+      title: CorpInfoHeaderComp(intl('438015', '公司地址'), 'Siège'),
       dataIndex: 'reg_address',
       colSpan: 2,
     },

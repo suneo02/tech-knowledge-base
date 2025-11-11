@@ -289,18 +289,17 @@ export const sections: AgreementSection[] = [
         id: '10.2',
         text: '本协议包括本协议正文以及《全球企业库隐私政策》、《全球企业库用户协议》、《全球企业库免责声明》、本产品相关的其他协议/说明、平台条款及条件（包括前述协议、声明、政策及其他说明不时修改的版本），与本协议正文不可分割且具有同等法律效力。',
         bold: true,
-        underline: true,
       },
       {
         id: '10.3',
         text: (
           <span>
             条款更新：委托方对本协议的接受包括同意万得征信有权随时根据有关法律、法规、政策的变化以及万得征信公司经营状况和经营策略的调整等修改本协议，
-            <span style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
+            <span style={{ fontWeight: 'bold' }}>
               万得征信有权不时地对本协议进行修改，修改后的协议将根据法律规定以适当方式进行提前公示，并在生效后替代原协议。
             </span>
             委托方在使用本平台提供的服务时，可及时查阅了解。
-            <span style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
+            <span style={{ fontWeight: 'bold' }}>
               如果委托方不同意修改后的协议，请委托方务必立即停止使用本服务。如果委托方继续使用本服务，则视为委托方已接受了修改后的协议。
             </span>
           </span>

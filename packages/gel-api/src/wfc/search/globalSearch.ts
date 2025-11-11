@@ -1,38 +1,7 @@
-import { QueryParams, SortParams } from '@/types'
-
-// 中国企业搜索参数
-export interface CompanySearchParams extends QueryParams, SortParams {
-  creditCode?: string
-  orgType?: string
-  regioninfo?: string
-  industryname?: string
-  establishedTime?: string
-  regRange?: string
-  capitalType?: string
-  status?: string
-  corpType?: string
-  endowmentNum?: string
-  hasMail?: string
-  hasTel?: string
-  hasDomain?: string
-  hasFinancing?: string
-  hasIpo?: string
-  hasDebt?: string
-  hasBidding?: string
-  hasOnList?: string
-  hasBrand?: string
-  hasPatent?: string
-  hasPledge?: string
-  hasBreakPromise?: string
-  hasTaxRating?: string
-  hasImportExport?: string
-  hasProductionCopyright?: string
-  hasCopyright?: string
-  listStatus?: string
-}
+import { CorpSearchQueryParams, CorpSearchSortParams } from '@/types'
 
 // 全球企业搜索参数
-export interface GlobalCompanySearchParams extends QueryParams, SortParams {
+export interface GlobalCompanySearchParams extends CorpSearchQueryParams, CorpSearchSortParams {
   areaType?: string
 }
 
@@ -59,37 +28,6 @@ export interface CompanybrowsehistorylistResult {
   entityName: string
   subType: number
   type: number
-}
-
-// 企业基础信息
-export interface CompanyBaseInfo {
-  companyCode: string // 企业编号
-  companyName: string // 企业名称
-  creditCode: string // 统一社会信用代码
-  regCapital: string // 注册资本
-  regDate: string // 成立日期
-  status: string // 经营状态
-  legalPerson: string // 法定代表人
-  address: string // 注册地址
-  industry: string // 所属行业
-  orgType: string // 机构类型
-  regAuthority: string // 登记机关
-  approvedDate: string // 核准日期
-  businessScope: string // 经营范围
-  district: string // 行政区划
-  phone: string // 联系电话
-  email: string // 联系邮箱
-  website: string // 网址
-  hasAbnormal: boolean // 是否有经营异常
-  hasCaseInfo: boolean // 是否有立案信息
-  hasEquityPledge: boolean // 是否有股权出质
-  hasMortgage: boolean // 是否有动产抵押
-}
-
-// 中国企业搜索结果
-export interface CompanySearchResult {
-  list: CompanyBaseInfo[]
-  total: number
 }
 
 // 全球企业基础信息

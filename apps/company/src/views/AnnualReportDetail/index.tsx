@@ -14,10 +14,7 @@ const AnnualDetail = () => {
   const param = queryString.parse(location.search, { ignoreQueryPrefix: true })
   const { data, loading } = useAnnualReportDetail()
   const [dataIntl] = useTranslateService(data, true, true)
-  usePageTitle('AnnualReportDetail', [
-    dataIntl.baseinfo?.company_name,
-    `${param['year']}${intl('138658', '年度报告')}`,
-  ])
+  usePageTitle('AnnualReportDetail', [dataIntl.baseinfo?.company_name, `${param['year']}${intl('138658', '年度报告')}`])
 
   useEffect(() => {}, [pointBuriedGel('922602100845', '企业年报', 'yearReportDetail')])
   if (dataIntl.baseinfo) {
@@ -38,6 +35,8 @@ const AnnualDetail = () => {
               info={dataIntl[i]}
               isLoading={loading}
               columns={rows[i].columns}
+              data-uc-id="DE7p_i9BAs"
+              data-uc-ct="tables"
             />
           </div>
         )

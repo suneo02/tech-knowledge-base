@@ -75,7 +75,7 @@ describe('formatTime', () => {
 describe('formatTimeIntl', () => {
   // 模拟 window.en_access_config
   const originalWindow = { ...window }
-  
+
   beforeEach(() => {
     // @ts-ignore
     delete window.en_access_config
@@ -115,4 +115,4 @@ describe('formatTimeIntl', () => {
       expect(formatTimeIntl('')).toBe('--')
     })
   })
-}) 
+})

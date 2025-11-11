@@ -5,6 +5,7 @@ import React, { forwardRef } from 'react'
 import { IndicatorCheckboxGroup } from './components/IndicatorCheckboxGroup'
 import { UseIndicatorCheckResult } from './hooks/useIndicatorCheck'
 import styles from './style/classsificationCard.module.less'
+import { t } from 'gel-util/intl'
 
 /**
  * 二级分类卡片组件
@@ -115,7 +116,7 @@ const ThirdLevelCard: React.FC<
             }
           }}
         >
-          {isClassificationSelected(classification) ? '取消全部' : '选择全部'}
+          {isClassificationSelected(classification) ? t('421473', '取消') : t('464230', '选择全部')}
         </Button>
       </div>
       {/* 渲染三级分类下的指标 */}
@@ -132,6 +133,7 @@ const ThirdLevelCard: React.FC<
         isClassificationSelected={isClassificationSelected}
         isClassificationIndeterminate={isClassificationIndeterminate}
         handleClassificationCheck={handleClassificationCheck}
+        // @ts-expect-error 类型错误
         checkedIndicators={checkedIndicators}
         handleIndicatorCheck={handleIndicatorCheck}
         showCoins={showCoins}
@@ -172,6 +174,7 @@ const FourthLevelCardContainer: React.FC<{
               className={styles.fourthLevelCardCheck}
               checked={isClassificationSelected(res)}
               indeterminate={isClassificationIndeterminate(res)}
+              // @ts-expect-error 类型错误
               onChange={(e) => handleClassificationCheck(e.target.checked, res)}
             >
               <span className={styles.fourthLevelCardTitle}>{res.title}</span>
@@ -180,6 +183,7 @@ const FourthLevelCardContainer: React.FC<{
           <div className={styles.fourthLevelCardContainerContent}>
             <IndicatorCheckboxGroup
               classification={res}
+              // @ts-expect-error 类型错误
               checkedIndicators={checkedIndicators}
               handleIndicatorCheck={handleIndicatorCheck}
               showCoins={showCoins}

@@ -25,6 +25,8 @@ const CheckBoxOfCustom = ({ item }) => {
         filterItem={item}
         value={filter ? filter.value : []}
         changeOptionCallback={changeOptionCallback}
+        data-uc-id="9cnv4NPaGj"
+        data-uc-ct="checkboxoption"
       />
     </ConditionItem>
   )

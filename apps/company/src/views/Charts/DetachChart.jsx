@@ -4,7 +4,8 @@ import { getuserinfo } from '../../api/chartApi'
 import { searchcollectlist } from '../../api/companyDynamic'
 import { pointBuriedGel } from '../../api/configApi'
 import { getPreCorpSearchNew } from '../../api/homeApi'
-import gx_more from '../../assets/imgs/chart/gx_more.png'
+import detach_multi from '../../assets/imgs/detach_multi.jpg'
+import detachMultiEn from '../../assets/imgs/detachMultiEn.jpg'
 import PreInput from '../../components/common/search/PreInput'
 import { parseQueryString } from '../../lib/utils'
 import intl from '../../utils/intl'
@@ -317,6 +318,8 @@ function DetachChart() {
               onClick={() => {
                 showFilter && setShowFilter(false)
               }}
+              data-uc-id="GynhcOIAmG"
+              data-uc-ct="span"
             >
               {intl('437660', '触达企业')}
             </span>
@@ -325,6 +328,8 @@ function DetachChart() {
               onClick={() => {
                 !showFilter && setShowFilter(true)
               }}
+              data-uc-id="WajSzA_R31"
+              data-uc-ct="span"
             >
               {intl('437661', '关系类型')}
             </span>
@@ -352,6 +357,8 @@ function DetachChart() {
                           onChange={() => {
                             onChangeList(t)
                           }}
+                          data-uc-id="0qyOqFqEn_"
+                          data-uc-ct="checkbox"
                         >
                           {t.CompanyName}
                         </Checkbox>
@@ -360,7 +367,7 @@ function DetachChart() {
                   })
                 : null}
             </div>
-            <Button className="detach-chart-btn" onClick={gotoSearch}>
+            <Button className="detach-chart-btn" onClick={gotoSearch} data-uc-id="dY2HRL0XE" data-uc-ct="button">
               {intl('437664', '查触达路径')}
             </Button>
           </div>
@@ -368,12 +375,24 @@ function DetachChart() {
           <div style={{ display: !showFilter ? 'none' : 'block' }}>
             <div className="relation-chart-nav-type"> {intl('437661', '关系类型')} </div>
             <div className="relation-chart-nav-opts">
-              <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
+              <Checkbox
+                indeterminate={indeterminate}
+                onChange={onCheckAllChange}
+                checked={checkAll}
+                data-uc-id="4KCQBivaYG"
+                data-uc-ct="checkbox"
+              >
                 {intl('272165', '全部')}
               </Checkbox>
-              <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />
+              <CheckboxGroup
+                options={plainOptions}
+                value={checkedList}
+                onChange={onChange}
+                data-uc-id="kDY1u-V0X5"
+                data-uc-ct="checkboxgroup"
+              />
             </div>
-            <Button className="relation-chart-ok" onClick={gotoFilter}>
+            <Button className="relation-chart-ok" onClick={gotoFilter} data-uc-id="y6ovG2KBY4" data-uc-ct="button">
               {intl('437668', '关系透查')}
             </Button>
             <div className="chart-nav-slide"></div>
@@ -399,8 +418,14 @@ function DetachChart() {
                 onClick={() => {
                   gotoSample()
                 }}
+                data-uc-id="LDdl-nhLUr"
+                data-uc-ct="div"
               >
-                <img src={gx_more} alt="" />
+                <img
+                  src={window.en_access_config ? detachMultiEn : detach_multi}
+                  style={{ maxWidth: '946px' }}
+                  alt=""
+                />
                 <div>{intl('437665', '点击查看样例')}</div>
               </div>
             </Row>

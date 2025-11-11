@@ -1,7 +1,7 @@
 import { requestWfcSecure } from '@/api/services/wfcSecure'
-import { ApiResponseForWFC } from '@/api/types/response'
 import { UserPackageFlags, UserPackageInfo } from 'gel-types'
 import { parseUserPackageInfo } from 'report-util/misc'
+import { ApiResponseForWFC } from 'report-util/types'
 import { ApiStore, createApiStore } from './creator/apiStore'
 
 // User package information event name

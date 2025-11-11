@@ -1,4 +1,6 @@
 import { createRequest } from '@/api/request'
+import { addGroupRecentViewItem } from '@/api/services/groupRecentView'
+import { addPersonRecentViewItem } from '@/api/services/personRecentView'
 import {
   LinksModule,
   TLinkOptions,
@@ -15,7 +17,7 @@ import { titleDefault, useLinkTitle } from './titleHandle'
 /** 添加企业详情的浏览记录 */
 const addRecord = (entityId: string) => {
   const api = createRequest({ noExtra: true })
-  api('operation/insert/companybrowsehistoryadd', { params: { entityId } })
+  return api('operation/insert/companybrowsehistoryadd', { params: { entityId } })
 }
 
 const getLinkClassName = (info?: boolean, useUnderline?: boolean) =>
@@ -101,6 +103,7 @@ const Links = ({
   bury,
   className: classNameProp,
   classNameWithJump,
+  addRecordCallback,
 }: TLinkOptions & {
   module?: LinksModule
   info?: boolean
@@ -110,6 +113,7 @@ const Links = ({
   } & { id: number }
   className?: string
   classNameWithJump?: string
+  addRecordCallback?: () => void // 添加浏览记录回调
 }) => {
   const titleParsed = useLinkTitle(title, { module, type })
   const linksParams = {
@@ -134,6 +138,19 @@ const Links = ({
   if (!ifShowLink) {
     return <span className={classNameProp}>{linksParams.title}</span>
   } else {
+    // 添加浏览记录
+    const recordRecentView = (m?: LinksModule, entityId?: string, text?: string) => {
+      if (!m || !entityId) return Promise.resolve()
+
+      if (m === LinksModule.COMPANY) return addRecord(entityId)
+      if (m === LinksModule.GROUP) return addGroupRecentViewItem(entityId, text || '')
+      // TODO：人物新增浏览记录需要公司code，后续优化
+      // if (m === LinksModule.CHARACTER) return addPersonRecentViewItem({ entityId, parameter: text || '' })
+
+      return Promise.resolve()
+    }
+
+    // 点击链接
     const onLinkClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
       e.preventDefault()
       // 添加埋点
@@ -141,9 +158,13 @@ const Links = ({
         const { id, ...rest } = bury
         pointBuriedByModule(id, rest)
       }
-      if (module === LinksModule.COMPANY) {
-        addRecord(id)
-      }
+
+      // 添加浏览记录
+      recordRecentView(module, id, titleParsed)
+        .then(() => addRecordCallback?.())
+        .catch((error) => {
+          console.error('记录最近浏览失败:', error)
+        })
       handleJumpTerminalCompatibleAndCheckPermission(linksParams.url)
     }
 
@@ -154,6 +175,8 @@ const Links = ({
         })}
         onClick={onLinkClick}
         url={linksParams.url}
+        data-uc-id="72mtsp6kL"
+        data-uc-ct="linkscomponent"
       >
         {title}
       </LinksComponent>

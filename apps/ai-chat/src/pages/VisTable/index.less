@@ -2,21 +2,8 @@
 @prefix: vis-table;
 
 .@{prefix}-container {
-  --header-height: 32px;
-
-  .@{prefix}-header {
-    height: var(--header-height);
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    // 兼容chrome 83以下版本
-    padding-inline-start: @spacing-xs;
-    padding-inline-end: @spacing-xs;
-    margin-block-end: @spacing-xs;
-    justify-content: space-between;
-  }
   .@{prefix}-content {
-    height: calc(100vh - var(--header-height) - @spacing-xs);
+    height: calc(100vh);
     padding-inline-start: @spacing-xs;
     padding-inline-end: @spacing-xs;
     overflow: hidden;
@@ -26,7 +13,7 @@
     }
   }
   .@{prefix}-tabs {
-    height: calc(100vh - var(--header-height) - @spacing-xs * 3);
+    height: calc(100vh - @spacing-xs * 2);
     background-color: #fff;
   }
 }

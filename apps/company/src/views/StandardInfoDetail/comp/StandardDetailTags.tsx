@@ -30,8 +30,13 @@ export const StandardDetailTags: FC<{
     <p>
       {mockLabel.map((i, index) => {
         return (
-          // @ts-expect-error ttt
-          <Tag key={index} className={`${index % 2 === 0 ? 'tag__type1' : 'tag__type2'}`}>
+          <Tag
+            key={index}
+            className={`${index % 2 === 0 ? 'tag__type1' : 'tag__type2'}`}
+            data-uc-id="KoPMWw5MhF"
+            data-uc-ct="tag"
+            data-uc-x={index}
+          >
             {i}
           </Tag>
         )

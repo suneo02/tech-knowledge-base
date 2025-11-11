@@ -1,18 +1,18 @@
 /**
- * @file 动态提示语生成工具函数
- * @description 根据用户输入动态替换提示语中的占位符
+ * @file 动态提示词生成工具函数
+ * @description 根据用户输入动态替换提示词中的占位符
  * @author Calvin<xyi.panda@gmail.com>
  * @version 1.0.0
  * @since 2025-05-12
  */
 
 /**
- * 动态提示语生成器所使用的输入字段配置接口。
+ * 动态提示词生成器所使用的输入字段配置接口。
  */
 export interface DynamicPromptInputField {
   /**
    * 字段的显示标题。
-   * 同时，在提示语模板中，该标题将作为占位符，格式为 `{{title}}`。
+   * 同时，在提示词模板中，该标题将作为占位符，格式为 `{{title}}`。
    * 例如，如果 title 是 "城市"，则模板中应为 `{{城市}}`。
    */
   title: string
@@ -41,14 +41,14 @@ export interface FormValues {
 }
 
 /**
- * 根据原始提示语、输入字段配置和当前的表单值，生成动态的提示语。
+ * 根据原始提示词、输入字段配置和当前的表单值，生成动态的提示词。
  *
- * @param originalPrompt 包含占位符的原始提示语字符串。例如："查找位于{{城市}}的天气，并关注{{关注点}}。"
+ * @param originalPrompt 包含占位符的原始提示词字符串。例如："查找位于{{城市}}的天气，并关注{{关注点}}。"
  * @param inputFields 一个包含输入字段配置对象的数组。每个对象应符合 `DynamicPromptInputField` 接口。
  * @param formValues 一个包含当前表单值的对象，键为字段的 `key` 或 `title`。
  *
- * @returns {string} 处理和替换占位符后的动态提示语字符串。
- *                   如果原始提示语为空，则返回空字符串。
+ * @returns {string} 处理和替换占位符后的动态提示词字符串。
+ *                   如果原始提示词为空，则返回空字符串。
  *                   如果 `inputFields` 或 `formValues` 未提供或为空数组，则直接返回 `originalPrompt`。
  *
  * @example
@@ -91,7 +91,7 @@ export const generateDynamicPrompt = (
   inputFields.forEach((field) => {
     // 步骤 2.1:确定字段在表单值对象中的键名
     const fieldKeyInForm = field.key || field.title
-    // 步骤 2.2: 确定在提示语模板中要替换的占位符文本，即 {{title}}
+    // 步骤 2.2: 确定在提示词模板中要替换的占位符文本，即 {{title}}
     const placeholderText = field.title
 
     // 如果字段标题无效，则跳过此字段
@@ -130,7 +130,7 @@ export const generateDynamicPrompt = (
       }
     }
 
-    // 步骤 2.6: 如果字段有有效值，则在处理后的提示语中执行替换
+    // 步骤 2.6: 如果字段有有效值，则在处理后的提示词中执行替换
     if (hasValue) {
       processedPrompt = processedPrompt.replace(placeholderRegex, replacementText)
     }
@@ -138,6 +138,6 @@ export const generateDynamicPrompt = (
     // 由于 processedPrompt 是从 originalPrompt 开始的，对应的 {{placeholderText}} 会保持原样。
   })
 
-  // 步骤 3: 返回最终处理过的提示语
+  // 步骤 3: 返回最终处理过的提示词
   return processedPrompt
 }

@@ -43,11 +43,15 @@ export const IndustryRowDisplay: React.FC<{
           more_industry_name: copyText,
         })
       }}
+      data-uc-id="DR0aFD6m90"
+      data-uc-ct="copycontainer"
     >
       {rowData.list.map((cellData, cellIndex) => (
         <React.Fragment key={cellData.id || `${baseKey}-cell-${cellIndex}`}>
           {cellOnClick && cellData?.id ? (
-            <a onClick={() => cellOnClick?.(cellData)}>{cellData.name}</a>
+            <a onClick={() => cellOnClick?.(cellData)} data-uc-id="uGzxXq7zs4" data-uc-ct="a">
+              {cellData.name}
+            </a>
           ) : (
             <span>{cellData.name}</span>
           )}

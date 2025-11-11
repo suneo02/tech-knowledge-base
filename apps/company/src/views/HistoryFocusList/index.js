@@ -65,10 +65,23 @@ const HistoryFocusList = () => {
 
     return (
       <li className="history-bidList" key={detailId}>
-        <span className="bid-history-title" title={item.keyword} onClick={() => wftCommon.jumpJqueryPage(jumpUrl)}>
+        <span
+          className="bid-history-title"
+          title={item.keyword}
+          onClick={() => wftCommon.jumpJqueryPage(jumpUrl)}
+          data-uc-id="4XxZkuFDL_L"
+          data-uc-ct="span"
+        >
           {item.keyword}
         </span>
-        {isDelete && <span className="del-history" onClick={() => deleteSingleHistory(detailId)} />}
+        {isDelete && (
+          <span
+            className="del-history"
+            onClick={() => deleteSingleHistory(detailId)}
+            data-uc-id="0mv0wSjgfO7"
+            data-uc-ct="span"
+          />
+        )}
       </li>
     )
   }
@@ -85,13 +98,14 @@ const HistoryFocusList = () => {
         isDelete
         showModal={() => setVisible(true)}
       />
-
       <Modal
         title={intl('108694', '最近浏览')}
         visible={visible}
         onOk={deleteAllHistory}
         onCancel={() => setVisible(false)}
         destroyOnClose
+        data-uc-id="dIpePvQALX4"
+        data-uc-ct="modal"
       >
         <span>{intl('349118', '全部清除最近浏览招投标公告?')}</span>
       </Modal>

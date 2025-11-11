@@ -1,9 +1,9 @@
+import InnerHtml from '@/components/InnerHtml'
+import intl from '@/utils/intl'
+import { wftCommon } from '@/utils/utils'
 import { CloseO, ExclamationCircleF } from '@wind/icons'
 import { Button, Link } from '@wind/wind-ui'
 import React from 'react'
-import intl from '@/utils/intl'
-import { wftCommon } from '@/utils/utils'
-import InnerHtml from '@/components/InnerHtml'
 
 interface GlobalTipsProps {
   visible: boolean
@@ -34,9 +34,18 @@ const GlobalTips: React.FC<GlobalTipsProps> = ({ visible, globalCount, onClose, 
       }}
     >
       {/* @ts-expect-error ttt */}
-      <ExclamationCircleF style={{ color: '#00aec7', marginInlineEnd: 8 }} />
-      {/* @ts-expect-error ttt */}
-      <Link style={{ marginInlineEnd: 4 }} onClick={onClick}>
+      <ExclamationCircleF
+        style={{ color: '#00aec7', marginInlineEnd: 8 }}
+        data-uc-id="lBnb4IA-7n"
+        data-uc-ct="exclamationcirclef"
+      />
+      <Link
+        // @ts-expect-error ttt
+        style={{ marginInlineEnd: 4 }}
+        onClick={onClick}
+        data-uc-id="o_7iVJn0RI"
+        data-uc-ct="link"
+      >
         <InnerHtml
           html={intl('406776', '为您检索到全球企业 % 家，点击切换查看').replace(
             /%/,
@@ -44,8 +53,21 @@ const GlobalTips: React.FC<GlobalTipsProps> = ({ visible, globalCount, onClose, 
           )}
         ></InnerHtml>
       </Link>
-      {/* @ts-expect-error ttt */}
-      <Button size="small" type="text" icon={<CloseO />} onClick={onClose} />
+      <Button
+        size="small"
+        type="text"
+        icon={
+          <CloseO
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            data-uc-id="muS3ZlSN6j"
+            data-uc-ct="closeo"
+          />
+        }
+        onClick={onClose}
+        data-uc-id="nULercNykx"
+        data-uc-ct="button"
+      />
     </div>
   )
 }

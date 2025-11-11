@@ -50,7 +50,13 @@ const GroupContentNew = forwardRef<HTMLDivElement, undefined>((_, contentRef) =>
       <div id={node.key} key={node.key} className="node-item-children">
         {checkVip ? (
           <Card title={<CardHeader {...node} />} styleType="block">
-            <VipComponent title={node.title} vipPopupSel={node.isSvip ? 'svip' : 'vip'} onlySvip={node.isSvip} />
+            <VipComponent
+              title={node.title}
+              vipPopupSel={node.isSvip ? 'svip' : 'vip'}
+              onlySvip={node.isSvip}
+              data-uc-id="W5sc8BVzp2n"
+              data-uc-ct="vipcomponent"
+            />
           </Card>
         ) : checkHidden(node) ? null : (
           <Menu {...node} />
@@ -161,7 +167,7 @@ const GroupContentNew = forwardRef<HTMLDivElement, undefined>((_, contentRef) =>
                 )
               : '免责声明：人物相关数据主要根据人名进行匹配，可能存在同名同姓匹配不精准问题，展示结果仅供参考，该成果并不代表万得的任何明示、暗示之观点或保证。企业库所有数据来源于公开渠道和第三方提供，万得尊重并倡导保护知识产权，本产品所引用数据及其他信息仅作参考，不代表万得赞同或证实其描述。如对该数据服务存在异议，或发现违法及不良信息，请拨打电话400-820-9463或发送邮件至GelSupport@wind.com.cn，我们将及时处理。'}
             {/*@ts-expect-error ttt*/}
-            <Link onClick={showModal} underline>
+            <Link onClick={showModal} underline data-uc-id="vjEi4nGcTO2" data-uc-ct="link">
               {intl('437429', '数据来源说明')}
             </Link>
           </div>

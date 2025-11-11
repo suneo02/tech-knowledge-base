@@ -1,5 +1,5 @@
 import { ICorpTableCfg } from '@/components/company/type/corpDetail/ICorpTableCfg.ts'
-import { TCorpDetailModuleValue, TCorpDetailSubModule } from '@/handle/corp/detail/module/type.ts'
+import { TCorpDetailModuleValue, TCorpDetailSubModule } from 'gel-types'
 import { ReactNode } from 'react'
 
 /**
@@ -19,7 +19,6 @@ export type ICorpDetailModuleWithChildrenCfg = {
   modelNumStr?: ReactNode
   numHide?: boolean
   children: ICorpTableCfg[]
-  titleTabs?: any
   // 统计图表的类型
   statisticalChart: 'brand' | 'patent'
   // 统计图表的 统计数字，和 model num 不同，比如 商标 专利 的统计数字是 本公司

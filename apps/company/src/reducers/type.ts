@@ -1,6 +1,6 @@
-import { ICorpState } from './company.ts'
+import { CorpState } from './company.ts'
 
 export interface IState {
-  company: ICorpState
+  company: CorpState
   home: any
 }

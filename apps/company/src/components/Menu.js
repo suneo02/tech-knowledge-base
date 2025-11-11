@@ -74,16 +74,25 @@ class Sider extends React.Component {
             <MyIcon className="ant-menu-submenu-expand-icon" name={item.isOpen ? 'Arrow_Up_999@1x' : 'Arrow_Down@1x'} />
           )
         }}
+        data-uc-id="cprH1WjeOH"
+        data-uc-ct="menu"
       >
         {menuList.map((item, index) => {
           return item.subMenu ? (
-            <SubMenu key={'sub' + index} icon={item.icon} title={item.name}>
+            <SubMenu
+              key={'sub' + index}
+              icon={item.icon}
+              title={item.name}
+              data-uc-id="IVJypiAs_1"
+              data-uc-ct="submenu"
+              data-uc-x={'sub' + index}
+            >
               {item.subMenu.map((item2, index2) => {
                 return <Menu.Item key={item2.url}>{item2.name}</Menu.Item>
               })}
             </SubMenu>
           ) : (
-            <Menu.Item key={item.url} icon={item.icon}>
+            <Menu.Item key={item.url} icon={item.icon} data-uc-id="N-Eia_otmc" data-uc-ct="" data-uc-x={item.url}>
               {item.name}
             </Menu.Item>
           )

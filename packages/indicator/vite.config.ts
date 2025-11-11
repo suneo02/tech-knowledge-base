@@ -14,6 +14,7 @@ const getCSSModulesConfig = () => {
 
 export default defineConfig(
   ({ mode }: ConfigEnv): UserConfig => ({
+    logLevel: 'warn',
     plugins: [
       dts({
         outDir: ['dist/types'],
@@ -33,6 +34,7 @@ export default defineConfig(
     // 配置公共目录，用于存放静态资源
     publicDir: resolve(__dirname, 'public'),
     build: {
+      emptyOutDir: false, // 确保每次构建前清空目录
       minify: mode === 'development' ? false : 'esbuild', // 开发环境不压缩，生产环境使用 esbuild 压缩
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
@@ -52,7 +54,7 @@ export default defineConfig(
           '@wind/icons',
           'gel-api',
           'gel-ui',
-          'gel-util',
+          /^gel-util(\/.*)?$/, // 支持 gel-util 的子路径导出
           'classnames',
           'lodash',
           'dayjs',
@@ -62,6 +64,10 @@ export default defineConfig(
           'path-browserify',
         ],
         output: {
+          format: 'es',
+          entryFileNames: `[name].mjs`, // Keep directory structure for submodules
+          preserveModules: true,
+          preserveModulesRoot: 'src',
           // Ensure CSS is generated as separate files
           assetFileNames: (assetInfo) => {
             // 处理不同类型的资源文件

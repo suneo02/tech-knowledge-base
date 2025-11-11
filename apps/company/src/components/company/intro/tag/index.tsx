@@ -1,70 +1,118 @@
-import { corpDetailTagJump, generateTagUrl, getInfoFromCompanyTag } from '@/components/company/intro/tag/handle.ts'
-import { TagSafe } from '@/components/windUISafe/index.tsx'
-import intl from '@/utils/intl'
-import { Tooltip } from '@wind/wind-ui'
-import { TagsModule, TagWithModule } from 'gel-ui'
-import React, { FC, useMemo } from 'react'
-import './styles/index.less'
-
-export const CompanyCardTag: FC<{
-  onClick?: () => void
-  content: string
-  color?: string
-  size?: 'small' | 'large' | 'default' | 'mini'
-}> = ({ color, onClick, content, size }) => (
-  <TagSafe className={`cursor-pointer`} size={size} onClick={onClick} color={color ?? 'color-2'} type="primary">
-    {content}
-  </TagSafe>
-)
+import { getCompanyTags } from '@/api/companyApi'
+import { handleJumpTerminalCompatibleAndCheckPermission } from '@/handle/link'
+import { isDev } from '@/utils/env'
+import { translateComplexHtmlData } from '@/utils/intl'
+import { useRequest } from 'ahooks'
+import { CorpTag } from 'gel-api/*'
+import { CorpBasicInfo } from 'gel-types'
+import { CorpTagInDetail } from 'gel-ui'
+import { getCorpTagClickHandler, splitTags2ArrByModule } from 'gel-util/biz'
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import styleModule from './index.module.less'
+import { CorpShowMoreTags } from './misc'
+import { CompanyMoreTagsModal } from './MoreTag'
+import { OverseaTagComp } from './overseaTagComp'
+import { CorpTagTrans } from './type'
 
 /**
- * 企业的 tag 内部带跳转
+ * 产品词标签 展示上限
  */
-export const CompanyCommonTagWithJump: FC<{
-  item?: string
-  itemDestruct?: {
-    type: string
-    content: string
-    id?: string
-  }
-  module: TagsModule
-}> = ({ item, itemDestruct, module }) => {
-  let type, content, id
-  if (item) {
-    ;({ type, content, id } = getInfoFromCompanyTag(item))
-  } else if (itemDestruct) {
-    ;({ type, content, id } = itemDestruct)
-  } else if (typeof item === 'string') {
-    content = item
-  }
+const PRODUCT_WORD_TAG_MAX_COUNT = 5
 
-  const urlObj = useMemo(() => {
-    return type && content ? generateTagUrl(type, content, id) : null
-  }, [type, content, id])
+/**
+ * TODO 翻译，有链接跳转时的样式
+ * @param corpTags 标签列表
+ * @returns 翻译后的标签列表
+ */
+export const CompanyDetailTags: FC<{
+  companyCode: string
+  corpBasicInfo: CorpBasicInfo
+  onJumpRisk?: (url: string) => void
+}> = ({ companyCode, corpBasicInfo, onJumpRisk }) => {
+  const [moreTagsModalOpen, setMoreTagsModalOpen] = useState(false)
+  const { data, loading } = useRequest(() => getCompanyTags(companyCode), {
+    refreshDeps: [companyCode],
+  })
 
-  // 检查是否可以生成有效的跳转URL
-  const canJump = !!urlObj?.url
+  const corpTagsRaw = useMemo(() => {
+    return data?.Data || []
+  }, [data])
 
-  const tag = (
-    <TagWithModule
-      module={module}
-      className={canJump ? 'cursor-pointer' : ''}
-      onClick={canJump ? () => corpDetailTagJump(type, content, id) : undefined}
-    >
-      {content}
-    </TagWithModule>
+  const [corpTagsTrans, setCorpTagsTrans] = useState<CorpTagTrans[]>([])
+  useEffect(() => {
+    translateComplexHtmlData(corpTagsRaw).then((res) => {
+      setCorpTagsTrans(res.map((tag, index) => ({ ...tag, nameOriginal: corpTagsRaw[index]?.name || '' })))
+    })
+  }, [corpTagsRaw])
+
+  const getTagClickHandler = useCallback(
+    (corpTag: CorpTag) => {
+      // 获取标签点击处理函数，如果标签有跳转链接，则返回跳转函数，否则返回空函数，这个逻辑设计到是否展示 可跳转样式
+      const clickHandler = getCorpTagClickHandler(corpTag, {
+        onJumpTerminalCompatible: handleJumpTerminalCompatibleAndCheckPermission,
+        onJumpRisk,
+        isDev: isDev,
+      })
+      if (clickHandler) {
+        return (corpTag: CorpTag, e: React.MouseEvent<HTMLDivElement>) => {
+          clickHandler(corpTag, e)
+          setMoreTagsModalOpen(false)
+        }
+      }
+      // 没有跳转链接，则返回空函数，不展示可跳转样式
+      return
+    },
+    [onJumpRisk]
   )
 
-  const isSmallMicroEnterprise = useMemo(() => content === '小微企业', [content])
+  const ifProductTagOverMaxCount = useMemo(() => {
+    return corpTagsRaw.filter((tag) => tag.module === 'PRODUCTION').length > PRODUCT_WORD_TAG_MAX_COUNT
+  }, [corpTagsRaw])
 
-  if (isSmallMicroEnterprise) {
-    return (
-      <Tooltip title={intl('361294', '依据国家市场监督管理总局公布的小微企业库，结合万得大数据模型进行判定。')}>
-        {/* 使用span包裹，避免Tooltip的样式影响 */}
-        <span style={{ display: 'inline-block' }}>{tag}</span>
-      </Tooltip>
-    )
-  }
+  // 过滤标签，对于 PRODUCTION 模块的标签只保留前 PRODUCT_WORD_TAG_MAX_COUNT 个
+  const corpTagsFiltered = useMemo(() => {
+    let productTagCount = 0
+    return corpTagsTrans.filter((tag) => {
+      // 如果不是产品标签，直接保留
+      if (tag.module !== 'PRODUCTION') {
+        return true
+      }
 
-  return tag
+      // 对于产品标签，检查是否超过限制
+      if (productTagCount < PRODUCT_WORD_TAG_MAX_COUNT) {
+        productTagCount++
+        return true
+      }
+
+      // 超过限制的产品标签不保留
+      return false
+    })
+  }, [corpTagsTrans])
+
+  /**
+   * 根据模块拆分标签
+   */
+  const corpTagsByModule = splitTags2ArrByModule(corpTagsFiltered)
+
+  if (loading || !corpTagsTrans.length) return null
+
+  return (
+    <>
+      <div className={styleModule['company-intro-tags']}>
+        <OverseaTagComp corpBasicInfo={corpBasicInfo} />
+        {corpTagsByModule.map((tags) =>
+          tags.map((tag) => (
+            <CorpTagInDetail key={tag.id} corpTag={tag} tagNameOriginal={tag.name} onClick={getTagClickHandler(tag)} />
+          ))
+        )}
+        {ifProductTagOverMaxCount && <CorpShowMoreTags onClick={() => setMoreTagsModalOpen(true)} />}
+      </div>
+      <CompanyMoreTagsModal
+        open={moreTagsModalOpen}
+        setOpen={setMoreTagsModalOpen}
+        tags={corpTagsTrans}
+        onTagClick={getTagClickHandler}
+      />
+    </>
+  )
 }

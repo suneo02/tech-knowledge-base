@@ -80,7 +80,6 @@ const ModalIndustry: React.ForwardRefRenderFunction<ModalIndustryHandle, any> = 
   }, [dataIntl, modalDataSource])
 
   return (
-    // @ts-expect-error wind-ui 类型定义错误
     <Modal
       title={
         <span>
@@ -93,6 +92,8 @@ const ModalIndustry: React.ForwardRefRenderFunction<ModalIndustryHandle, any> = 
       onCancel={() => setVisible(false)}
       footer={false}
       destroyOnClose
+      data-uc-id="ZGbMgGhaRm"
+      data-uc-ct="modal"
     >
       {/* @ts-expect-error wind-ui 类型定义错误 */}
       <Spin spinning={loading}>
@@ -103,7 +104,10 @@ const ModalIndustry: React.ForwardRefRenderFunction<ModalIndustryHandle, any> = 
           dataSource={modalDataSource}
           pagination={modalDataSource.length > 10 ? { pageSize: 10, showSizeChanger: false } : false}
           rowKey="_internal_key"
-          showHeader={false} // Hide header as the content is self-descriptive
+          // Hide header as the content is self-descriptive
+          showHeader={false}
+          data-uc-id="7v8ce30dkK"
+          data-uc-ct="table"
         />
         <div className={styles[`${PREFIX}-container-hint`]}>
           {STRINGS.DESCRIBE}

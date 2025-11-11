@@ -49,11 +49,23 @@ export const TitleAttachmentRender: React.FC<{
           type="text"
           icon={
             filePath?.includes('.pdf') ? (
-              <FilePdfO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              <FilePdfO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="TVcQMfYFFu"
+                data-uc-ct="filepdfo"
+              />
             ) : (
-              <FileWordO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              <FileWordO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="x8Z-GVOEkV"
+                data-uc-ct="filewordo"
+              />
             )
           }
+          data-uc-id="Ic_3J159k2K"
+          data-uc-ct="button"
         />
       </Tooltip>
     </>

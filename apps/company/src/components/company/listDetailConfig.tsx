@@ -1228,6 +1228,8 @@ export const listDetailConfig = {
                   }}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
+                  data-uc-id="HlX8JsQI7"
+                  data-uc-ct="datelocationo"
                 />
               )
             }
@@ -1250,6 +1252,8 @@ export const listDetailConfig = {
                   }}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
+                  data-uc-id="5TLgS0Jvm9"
+                  data-uc-ct="datelocationo"
                 />
               )
             }
@@ -1259,8 +1263,15 @@ export const listDetailConfig = {
                   target={'_blank'}
                   href={`/wind.risk.platform/index.html#/check/lawdetail/judgement/${announceId}`}
                   rel="noreferrer"
+                  data-uc-id="QAZWPHrJ_S"
+                  data-uc-ct="a"
                 >
-                  <DateLocationO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></DateLocationO>
+                  <DateLocationO
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    data-uc-id="KRNKnNAmDf"
+                    data-uc-ct="datelocationo"
+                  ></DateLocationO>
                 </a>
               )
             }
@@ -1272,6 +1283,8 @@ export const listDetailConfig = {
                 }}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
+                data-uc-id="tLf7lUu_tf"
+                data-uc-ct="datelocationo"
               />
             )
           }

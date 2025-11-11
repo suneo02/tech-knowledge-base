@@ -1,14 +1,15 @@
-import { ConversationItemProps } from '@/components/Conversation/type'
+// @ts-nocheck
+import { ConversationItemProps } from 'gel-ui'
 
 // Mock conversation items
 export const conversationsMock: ConversationItemProps[] = [
   {
     questionsNum: 1,
-    isDelete: 0,
+    isDelete: false,
     groupId: 'f61e3ffd-4627-4461-91d2-0afbb23d39dc',
     questions: '追觅科技股东变动查询追觅科技股东变动查询追觅科技股东变动查询追觅科技股东变动查询',
     updateTime: '2025-03-25 09:09:44',
-    id: 5981,
+    id: '5981',
     userId: '7167342',
     group: '近7天',
     key: 'f61e3ffd-4627-4461-91d2-0afbb23d39dc',
@@ -16,11 +17,11 @@ export const conversationsMock: ConversationItemProps[] = [
   },
   {
     questionsNum: 1,
-    isDelete: 0,
+    isDelete: false,
     groupId: 'bcc59900-c0c7-4922-8204-d30828b71ddf',
     questions: '2025年3.15晚会曝光企业名单',
     updateTime: '2025-03-21 18:16:41',
-    id: 5892,
+    id: '5892',
     userId: '7167342',
     group: '近30天',
     key: 'bcc59900-c0c7-4922-8204-d30828b71ddf',

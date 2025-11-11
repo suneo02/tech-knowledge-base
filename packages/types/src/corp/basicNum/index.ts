@@ -1,6 +1,7 @@
 import { CorpBasicNumBaseInfo } from './baseInfo'
 import { CorpBasicNumBussRisk } from './bussRisk'
 import { CorpBasicNumBoolFlag } from './common'
+import { CorpBasicNumFinance } from './finance'
 import { CorpBasicNumHistory } from './history'
 import { CorpBasicNumIntellectual } from './intellectual'
 import { CorpBasicNumJudicialRisk } from './judicialRisk'
@@ -14,10 +15,10 @@ export interface CorpBasicNum
   extends CorpBasicNumJudicialRisk,
     CorpBasicNumBussRisk,
     CorpBasicNumQualification,
-    CorpBasicNumQualification,
     CorpBasicNumHistory,
     CorpBasicNumIntellectual,
-    CorpBasicNumBaseInfo {
+    CorpBasicNumBaseInfo,
+    CorpBasicNumFinance {
   /**
    * 企业状态
    * 0 正常
@@ -51,37 +52,24 @@ export interface CorpBasicNum
   salesCount: number // 业务销量
   businessCount: number // 业务量
   stockCount: number // 业务库存
-
-  structuralEntityCount: number // 结构性主体
-
-  sharedstock_num_new: number // 发行股票
-  listedSubjectSharesCount: number // 发行股票-上市主体股票
-
-  declarcompany_num: number // 待上市信息
-  sharedbonds_num: number // 发行债券
-  cbrcreditratingreport_num: number // 发债主体评级
-  companyabs_num: number // ABS信息
-  mainbusinessstruct_num: number // 主营构成
-
-  assetSheetCount: CorpBasicNumBoolFlag // 财务数据-资产负债表
-  profitSheetCount: CorpBasicNumBoolFlag // 财务数据-利润表
-  cashFlowSheetCount: CorpBasicNumBoolFlag // 财务数据-现金流表
-
-  ranked_num: number // 上榜信息
-  governmentgrants_num: number // 政府补贴
-
-  insuranceNum: number // 保险产品
-  invest_orgs_num: number // 投资机构
-  invest_events_num: number // 投资事件
-  pevc_num_new: number // PEVC融资
-  pevcquit_num: number // PEVC退出
-  chattle_financing_num: number // 动产融资
-
-  chattelMortgagor: number // 动产抵押-抵押人
-  chattelMortgagee: number // 动产抵押-抵押权人
-
-  merge_num: number // 并购信息
-  banktrust_num: number // 银行授信
 }
 
 export type CorpBasicNumFront = CorpBasicNum & CorpBasicNumFrontParsed
+
+/**
+ * 最终受益人相关的统计数字
+ */
+export interface CorpBasicNumBeneficial {
+  beneficialOwner: boolean // 受益所有人
+  beneficialNaturalPerson: boolean // 受益自然人
+  beneficialInstitutions: boolean // 受益机构
+}
+
+/**
+ * 股东相关的统计数字
+ *
+ */
+export interface CorpBasicNumStock {
+  shareHolderTree: boolean // 股东
+  investTree: boolean // 对外投资
+}

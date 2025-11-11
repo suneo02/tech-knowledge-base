@@ -13,7 +13,7 @@ if (!fs.existsSync(logsDir)) {
 
 /**
  *
- * wkhtmltopdf --margin-bottom 0mm --margin-left 0mm --margin-right 0mm --margin-top 0mm --debug-javascript --javascript-delay 1000  --disable-smart-shrinking "https://test.wind.com.cn/Wind.WFC.Enterprise.Web/PC.Front/reportprint/creditrp.html?companyCode=1173319566&wind.sessionid=e188600b372340149b49b104b464f192&lan=cn&pattern=NoIgwg9gtgDghgOwJ4EkEDMIgDQgEICuAzkWpjvgKYA2ECA5mgCbEAuATkhQMoAWc7SrwjUmldj36Dho8QCVKMCO1aSBQkWPZlocVgEs6FSOxhh%2BDSjooBRBK3Ex2%2BopQAKBAEbV9AY32sXLh86jJaAIIITGBwMAFw1JD2zp4EBka4NgCOBAFI5oj0VhjKUHqGCBQAKnAAHm5wSOIgALpAA%3D" output.pdf
+ * wkhtmltopdf --margin-bottom 0mm --margin-left 0mm --margin-right 0mm --margin-top 0mm --debug-javascript --javascript-delay 1000  --disable-smart-shrinking "http://localhost:3000/creditevaluationrp?companyCode=1240014302" output.pdf
  */
 // 定义所有预设的企业代码
 const companies = {
@@ -46,6 +46,12 @@ const companies = {
   SINGAPORE: '1223920191',
   TAILAND: '1524110754',
   VIETNAM: '1273211271',
+}
+
+// 报表类型映射（默认 credit）
+const REPORT_PATH_MAP = {
+  credit: 'creditrp',
+  creditevaluation: 'creditevaluationrp',
 }
 
 // 环境配置
@@ -82,14 +88,21 @@ async function exportReport(options) {
   const {
     companyCode,
     type = '',
+    report = 'credit',
     env: envName = 'local',
     language = '',
     sessionId = '',
     pattern = '',
+
     outputFile,
   } = options
 
   const envConfig = config[envName]
+
+  // 根据报表类型替换路径
+  const reportKey = (report || 'credit').toLowerCase()
+  const reportPath = REPORT_PATH_MAP[reportKey] || REPORT_PATH_MAP.credit
+  const baseUrl = envConfig.baseUrl.replace('creditrp', reportPath)
   const langParam = language ? `&lan=${language}` : ''
   const sessionParam = sessionId ? `&wind.sessionid=${sessionId}` : ''
   const patternParam = pattern ? `&pattern=${pattern}` : ''
@@ -97,13 +110,13 @@ async function exportReport(options) {
   // 如果没有指定输出文件名，则生成一个
   const finalOutputFile =
     outputFile ||
-    `output-${type || companyCode}-${envConfig.env}${language ? '-' + language : ''}${pattern ? '-' + 'hasPattern' : ''}.pdf`
+    `output-${reportKey}-${type || companyCode}-${envConfig.env}${language ? '-' + language : ''}${pattern ? '-' + 'hasPattern' : ''}.pdf`
 
   // 生成日志文件名
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
   const logFile = path.join(logsDir, `wkhtmltopdf-${timestamp}-${type || companyCode}.log`)
 
-  const url = `${envConfig.baseUrl}?companyCode=${companyCode}${langParam}${sessionParam}${patternParam}`
+  const url = `${baseUrl}?companyCode=${companyCode}${langParam}${sessionParam}${patternParam}`
   const command = `wkhtmltopdf ${WKHTMLTOPDF_OPTIONS} --debug-javascript --javascript-delay 1000 "${url}" ${finalOutputFile} 2>&1 | tee "${logFile}"`
 
   try {
@@ -144,7 +157,14 @@ async function exportReport(options) {
   }
 }
 
-async function batchExport({ sessionId = '', companyCode = companies.CO, type = 'CO', env, pattern }) {
+async function batchExport({
+  sessionId = '',
+  companyCode = companies.CO,
+  type = 'CO',
+  env,
+  pattern,
+  report = 'credit',
+}) {
   const code = companyCode
   let exportTasks = []
 
@@ -170,6 +190,7 @@ async function batchExport({ sessionId = '', companyCode = companies.CO, type = 
           env,
           language: lang,
           pattern: p || undefined,
+          report,
         }
         if (env !== 'local') {
           reportOptions.sessionId = sessionId
@@ -184,13 +205,14 @@ async function batchExport({ sessionId = '', companyCode = companies.CO, type = 
     }
 
     // 本地版 (local)
-    exportTasks.push(exportReport({ companyCode: code, type, env: 'local' }))
+    exportTasks.push(exportReport({ companyCode: code, type, env: 'local', report }))
     exportTasks.push(
       exportReport({
         companyCode: code,
         type,
         env: 'local',
         language: 'cn',
+        report,
       })
     )
 
@@ -207,6 +229,7 @@ async function batchExport({ sessionId = '', companyCode = companies.CO, type = 
               env: e,
               language: l,
               sessionId,
+              report,
             })
           )
         }
@@ -257,6 +280,7 @@ async function main() {
         type: params.type,
         env: params.env,
         pattern: params.pattern,
+        report: params.report,
       })
     } else {
       await exportReport({
@@ -266,6 +290,7 @@ async function main() {
         sessionId: params.sessionId,
         pattern: params.pattern,
         outputFile: params.output,
+        report: params.report,
       })
     }
   } finally {

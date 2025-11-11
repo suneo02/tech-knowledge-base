@@ -4,8 +4,8 @@ import React, { memo, useState } from 'react'
 import MultiResultList from '../result/MultiResultList'
 
 import { GSTabsEnum } from '../../types'
-import { ChinaSearchForm, GlobalSearchForm } from '../forrm'
-import { BASIC_COLOR_7, SelectOptionProps } from '../forrm/common/select/type'
+import { ChinaSearchForm, GlobalSearchForm } from '../form'
+import { BASIC_COLOR_7, SelectOptionProps } from '../form/common/select/type'
 
 interface FilterParams {
   queryText: string
@@ -42,14 +42,23 @@ const GlobalSearchTab: React.FC<{
     <div style={{ width: '100%', background: '#fff', minHeight: '80vh' }}>
       {type === GSTabsEnum.CHINA ? (
         <div style={{ paddingInline: 12, paddingBlock: 6 }}>
-          <ChinaSearchForm onValuesChange={handleFormChange} onFinish={onFinish} />
+          <ChinaSearchForm
+            onValuesChange={handleFormChange}
+            onFinish={onFinish}
+            data-uc-id="TLe6X6NUz"
+            data-uc-ct="chinasearchform"
+          />
         </div>
       ) : (
         <div style={{ paddingInline: 12, paddingBlock: 6 }}>
-          <GlobalSearchForm onValuesChange={handleFormChange} onFinish={onFinish} />
+          <GlobalSearchForm
+            onValuesChange={handleFormChange}
+            onFinish={onFinish}
+            data-uc-id="B8vsdr4KmX"
+            data-uc-ct="globalsearchform"
+          />
         </div>
       )}
-
       {remark && <div style={{ color: BASIC_COLOR_7, paddingInline: 12 }}>{remark}</div>}
       <Divider style={{ marginBlockStart: 4, marginBlockEnd: 12 }} />
       <MultiResultList

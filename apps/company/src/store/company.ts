@@ -1,29 +1,30 @@
 /** @format */
 
-import { create } from 'zustand'
 import { pointBuriedNew } from '@/api/configApi.ts'
-import companyData from '@/mock/company/index.json'
 import companyDataGov from '@/mock/company/gov.json'
-import companyDataLawyer from '@/mock/company/lawyer.json'
-import companyDataSocial from '@/mock/company/social.json'
-import companyDataPublic from '@/mock/company/public.json'
 import companyDataHongkong from '@/mock/company/hongkong.json'
+import companyData from '@/mock/company/index.json'
+import companyDataLawyer from '@/mock/company/lawyer.json'
+import companyDataPublic from '@/mock/company/public.json'
+import companyDataSocial from '@/mock/company/social.json'
 import companyDataTaiwan from '@/mock/company/taiwan.json'
+import { create } from 'zustand'
 import { wftCommon } from '../utils/utils'
 
+import { getCorpHeaderInfo } from '@/api/corp/info/cardInfo.ts'
 import { BuryCfgList } from '../api/pointBuried/config'
-import { getCorpHeaderInfo, ICorpCardInfo } from '@/api/corp/info/cardInfo.ts'
 
-import { handleConfigDetailNum, handleTreeData } from './handle'
 import { getCompanyBasicNum } from '@/api/companyApi.ts'
-import { ICorpBasicNumFront } from '../handle/corp/basicNum/type.ts'
-import { getInitCorpPatentNum } from '../handle/corp/basicNum/patent.ts'
-import { getInitCorpBidNum, getInitCorpBidPenetrationNum } from '../handle/corp/basicNum/bid.ts'
 import { ICfgDetail, ICfgDetailJSON } from '@/types/configDetail/module.ts'
+import { CorpCardInfo } from 'gel-types'
+import { getInitCorpBidNum, getInitCorpBidPenetrationNum } from '../handle/corp/basicNum/bid.ts'
+import { getInitCorpPatentNum } from '../handle/corp/basicNum/patent.ts'
+import { ICorpBasicNumFront } from '../handle/corp/basicNum/type.ts'
+import { handleConfigDetailNum, handleTreeData } from './handle'
 
 export interface ICorpStoreState {
   corpCode: string | null | undefined
-  basicInfo: ICorpCardInfo | object
+  basicInfo: CorpCardInfo | object
   basicNum: Partial<ICorpBasicNumFront>
   treeData: ICfgDetail
   expandedKeys: any[]

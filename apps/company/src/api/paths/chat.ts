@@ -1,4 +1,10 @@
-import { ChatRestoreResponse } from 'gel-api/*'
+import {
+  AnalysisEnginePayload,
+  ChatDetailTurn,
+  ChatQuestionPlatform,
+  ChatQuestionType,
+  QueryReferencePayload,
+} from 'gel-api'
 import type { GetQuestionResponse } from '../chat/types'
 import type { ApiResponse } from '../types'
 
@@ -11,40 +17,19 @@ export type SelectChatAIRecordParams = {
 export type ChatApiPaths = {
   // Get question endpoint
   getQuestion: {
-    params: undefined
+    params: {
+      questionsType?: ChatQuestionType
+      questionsPlatform?: ChatQuestionPlatform
+      pageSize?: number
+    }
     response: ApiResponse<GetQuestionResponse>
   }
   'chat/analysisEngine': {
-    params: {
-      lang: string
-      body: {
-        chatId: string
-        searchword: string
-        agentId: string
-        think: number
-        entityType?: string
-        entityName?: string
-        version: string
-      }
-    }
+    params: AnalysisEnginePayload
     response: ApiResponse<any>
   }
   'chat/queryReference': {
-    params: {
-      body: {
-        searchword: string // 用analysisEngine的rewrite_sentence
-        rawSentenceID: string
-        chatId: string
-        it: string
-        callGLMType: string
-        aigcStreamFlag: string
-        agentId: string
-        reAgentId: string
-        agentParam: string
-        think: 0 | 1
-        version: 3
-      }
-    }
+    params: QueryReferencePayload
     response: ApiResponse<any>
   }
   'chat/getResult': {
@@ -62,6 +47,6 @@ export type ChatApiPaths = {
   }
   selectChatAIRecord: {
     params: SelectChatAIRecordParams
-    response: ApiResponse<ChatRestoreResponse>
+    response: ApiResponse<ChatDetailTurn[]>
   }
 }

@@ -4,11 +4,11 @@ import { TableActionType } from '../context/VisTableContext'
 import { ColumnDefine } from '@visactor/vtable'
 import { SortState } from '@visactor/vtable/es/ts-types'
 import { generateUniqueName } from '@/utils/common/data'
-import { CellMetadata, Column, RowData, SourceTypeEnum } from 'gel-api'
+import { CellMetadata, Column, ProgressStatusEnum, RowData, SourceTypeEnum } from 'gel-api'
 import { nanoid } from 'nanoid'
-import { useTableAITask } from '@/components/MultiTable/context'
-import { GENERATE_TEXT } from '../config/status'
+import { ERROR_TEXT, GENERATE_TEXT } from '../config/status'
 import { handleColumnUtils } from '../utils/handleColumn'
+import { useTableAITask } from '@/components/ETable/context/TableAITaskContext'
 
 export const useTableActions = () => {
   const { dispatch, getTableInstance, getCellMeta, getAllColumns, getDisplayRow, getColumnByCol } = useVisTableContext()
@@ -21,15 +21,15 @@ export const useTableActions = () => {
       column.columnName = generateUniqueName({ name: (column.title as string) || '列', list: columns, key: 'title' })
       column.width = column.width || 120
       column.initSourceType = column.initSourceType || SourceTypeEnum.USER
-      console.log('🚀 ~ addColumn ~ column:', column.initSourceType, handleColumnUtils(column))
+      // console.log('🚀 ~ addColumn ~ column:', column.initSourceType, handleColumnUtils(column))
       columns.splice(col, 0, handleColumnUtils(column))
-      console.log('🚀 ~ addColumn ~ columns:', columns)
+      // console.log('🚀 ~ addColumn ~ columns:', columns)
       try {
         dispatch({
           type: TableActionType.UPDATE_COLUMNS,
           payload: { columns },
         })
-        console.log('🚀 ~ useTableActions ~ column:', column)
+        // console.log('🚀 ~ useTableActions ~ column:', column)
         return column
       } catch (error) {
         console.error('设置表格数据失败:', error)
@@ -43,6 +43,7 @@ export const useTableActions = () => {
     (col: number, row: number): boolean => {
       try {
         const cellMeta = getCellMeta<CellMetadata>(col, row)
+        console.log('🚀 ~ runCell ~ cellMeta:', col, row, cellMeta)
         if (cellMeta) {
           dispatch({
             type: TableActionType.SET_CELL_VALUE,
@@ -55,6 +56,13 @@ export const useTableActions = () => {
               originalContent: cellMeta.processedValue,
             },
           ])
+          console.log('🚀 ~ runCell ~ updateTask called with:', {
+            columnId: cellMeta.columnId,
+            rowId: cellMeta.rowId,
+            originalContent: cellMeta.processedValue,
+          })
+        } else {
+          console.warn('🚀 ~ runCell ~ cellMeta is false, updateTask will not be called')
         }
         return true
       } catch (error) {
@@ -62,63 +70,78 @@ export const useTableActions = () => {
         return false
       }
     },
-    [dispatch]
+    [dispatch, getCellMeta, updateTask]
   )
 
   const runColumn = useCallback(
-    ({ col, columnId }: { col?: number; columnId?: string }): boolean => {
+    ({ col, columnId, mode = 'all' }: { col?: number; columnId?: string; mode?: 'all' | 'pending' }): boolean => {
       try {
         const colId: string = columnId || (getColumnByCol(col!)?.field as string)
         const rowData = getDisplayRow()
+
         const allRecords = [...rowData]
-        const newRecords = allRecords?.map((record) => ({ ...record, [colId]: GENERATE_TEXT }))
-        updateRecords(
-          newRecords,
-          newRecords.map((_, i) => i)
-        )
-        updateTask(
-          allRecords.map((record) => ({
+
+        let tasksToRun: Array<{ columnId: string; rowId: string; originalContent?: string }> = []
+        let recordsToUpdate: RowData[] = []
+        let actualIndexes: number[] = []
+
+        if (mode === 'pending') {
+          // 只处理需要处理的单元格
+          allRecords.forEach((record, row) => {
+            const cellMeta = getCellMeta<CellMetadata>(col!, row + 1)
+
+            if (!cellMeta) return
+            const shouldRun =
+              (cellMeta.status !== ProgressStatusEnum.SUCCESS &&
+                cellMeta.status !== ProgressStatusEnum.PENDING &&
+                cellMeta.status !== ProgressStatusEnum.RUNNING) ||
+              !cellMeta.processedValue ||
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              !(cellMeta as any).value ||
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (cellMeta as any).value === ERROR_TEXT ||
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (cellMeta as any).processedValue === ERROR_TEXT
+
+            if (shouldRun) {
+              tasksToRun.push({
+                columnId: colId,
+                rowId: record.rowId,
+                originalContent: GENERATE_TEXT,
+              })
+              recordsToUpdate.push({ ...record, [colId]: GENERATE_TEXT })
+              actualIndexes.push(row) // 记录真实的行索引
+            }
+          })
+        } else {
+          // 运行全部
+          tasksToRun = allRecords.map((record) => ({
             columnId: colId,
             rowId: record.rowId,
             originalContent: record[colId] as string,
           }))
-        )
-        // console.log('🚀 ~ useTableActions ~ displayRowIds:', displayRowIds)
-        // if (displayRowIds?.length && column) {
-        //   displayRowIds.forEach((rowId, index) => {
-        //     dispatch({
-        //       type: TableActionType.SET_CELL_VALUE,
-        //       payload: { col, row: index + 1, value: PENDING_TEXT },
-        //     })
-        //     updateTask([
-        //       {
-        //         columnId: cellMeta.columnId,
-        //         rowId: cellMeta.rowId,
-        //         originalContent: cellMeta.processedValue,
-        //       },
-        //     ])
-        //   })
-        // }
-        // if (cellMeta) {
-        //   dispatch({
-        //     type: TableActionType.SET_CELL_VALUE,
-        //     payload: { col, row, value: PENDING_TEXT },
-        //   })
-        //   updateTask([
-        //     {
-        //       columnId: cellMeta.columnId,
-        //       rowId: cellMeta.rowId,
-        //       originalContent: cellMeta.processedValue,
-        //     },
-        //   ])
-        // }
+          recordsToUpdate = allRecords.map((record) => ({ ...record, [colId]: GENERATE_TEXT }))
+          actualIndexes = allRecords.map((_, i) => i) // 全部索引
+        }
+        console.log('🚀 ~ runColumn ~ tasksToRun:', tasksToRun)
+        console.log('🚀 ~ runColumn ~ recordsToUpdate:', recordsToUpdate)
+        console.log('🚀 ~ runColumn ~ actualIndexes:', actualIndexes)
+        console.log('🚀 ~ runColumn ~ mode:', mode, '总行数:', allRecords.length, '更新行数:', recordsToUpdate.length)
+        // 直接更新记录，使用真实的行索引
+        dispatch({
+          type: TableActionType.UPDATE_RECORDS,
+          payload: { records: recordsToUpdate, recordIndexes: actualIndexes },
+        })
+        updateTask(tasksToRun, mode === 'all' ? allRecords.length : undefined)
+
+        console.log(`🚀 ~ runColumn ~ mode: ${mode}, 运行了 ${tasksToRun.length} 个单元格`)
         return true
       } catch (error) {
         console.error('运行单元格失败:', error)
         return false
       }
     },
-    [dispatch]
+    [dispatch, getCellMeta, updateTask, getColumnByCol, getDisplayRow]
   )
   const deleteColumn = useCallback(
     (col: number): boolean => {
@@ -176,7 +199,7 @@ export const useTableActions = () => {
   const addRecords = useCallback(
     <T extends Record<string, unknown>>(records: T[], recordIndex?: number | number[]): boolean => {
       try {
-        console.log('添加数据记录:', records, recordIndex)
+        // console.log('添加数据记录:', records, recordIndex)
         dispatch({
           type: TableActionType.ADD_RECORDS,
           payload: { records, recordIndex },
@@ -263,7 +286,7 @@ export const useTableActions = () => {
   const updateRecords = useCallback(
     (records: Omit<RowData, 'rowId'>[], recordIndexes: number[]): boolean => {
       try {
-        console.log('更新数据记录:', records, recordIndexes)
+        // console.log('更新数据记录:', records, recordIndexes)
         const allRecords = getDisplayRow()
         const rowData = [...allRecords]
 
@@ -276,7 +299,7 @@ export const useTableActions = () => {
             }
           }
         })
-        console.log('更新数据记录:', rowData)
+        // console.log('更新数据记录:', rowData)
 
         dispatch({
           type: TableActionType.UPDATE_RECORDS,

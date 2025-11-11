@@ -56,10 +56,16 @@ export const DeclarationOptionsField: React.FC = () => (
     label={intl(414529, '查册人声明')}
     rules={[{ required: true, message: intl(414515, '请至少选择一项声明') }]}
   >
-    <Checkbox.Group>
+    <Checkbox.Group data-uc-id="kBOF_xpvKB" data-uc-ct="checkbox">
       <div className={styles.checkboxGroup}>
         {declarations.map((declaration, index) => (
-          <Checkbox key={index} value={declaration.value}>
+          <Checkbox
+            key={index}
+            value={declaration.value}
+            data-uc-id="y_37ymUwvL"
+            data-uc-ct="checkbox"
+            data-uc-x={index}
+          >
             {`(${declaration.value}) ${declaration.desc}`}
           </Checkbox>
         ))}

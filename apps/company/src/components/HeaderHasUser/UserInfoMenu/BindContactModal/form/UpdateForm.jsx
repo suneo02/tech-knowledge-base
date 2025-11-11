@@ -103,7 +103,7 @@ export const UpdateContactForm = ({ onSuccess, isOversea }) => {
             },
           ]}
         >
-          <Input placeholder={intl('417570', '请输入邮箱')} />
+          <Input placeholder={intl('417570', '请输入邮箱')} data-uc-id="9o2HVUftuT" data-uc-ct="input" />
         </Form.Item>
       ) : (
         <Form.Item
@@ -120,10 +120,9 @@ export const UpdateContactForm = ({ onSuccess, isOversea }) => {
             },
           ]}
         >
-          <Input placeholder={intl('254955', '请输入手机号')} />
+          <Input placeholder={intl('254955', '请输入手机号')} data-uc-id="qFOzDXWie0" data-uc-ct="input" />
         </Form.Item>
       )}
-
       <Form.Item
         name="password"
         label={intl('417572', '密码')}
@@ -139,9 +138,8 @@ export const UpdateContactForm = ({ onSuccess, isOversea }) => {
           },
         ]}
       >
-        <Input placeholder={intl('417585', '请输入密码')} type="password" />
+        <Input placeholder={intl('417585', '请输入密码')} type="password" data-uc-id="Q_XZt0ih4E" data-uc-ct="input" />
       </Form.Item>
-
       <Form.Item
         name="verificationCode"
         label={intl('417586', '验证码')}
@@ -160,6 +158,8 @@ export const UpdateContactForm = ({ onSuccess, isOversea }) => {
           className={`${StylePrefix}--captcha-input`}
           placeholder={intl('417205', '请输入验证码')}
           addonAfter={<CaptchaBtn />}
+          data-uc-id="jz_3VBUD0e"
+          data-uc-ct="input"
         />
       </Form.Item>
     </Form>

@@ -1,0 +1,79 @@
+@import '@/styles/variables.less';
+
+.leftContent {
+  width: 300px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px 0px 16px 16px;
+  background-color: #f3f5f7;
+}
+
+.historyList {
+  width: 100%;
+  height: calc(100% - 74px);
+  // background-color: #fff;
+  // box-shadow: 0px 1px 5px 0px rgba(129, 160, 191, 0.29);
+  & ::-webkit-scrollbar-track {
+    background: #f3f5f7;
+  }
+}
+.hoverHistoryList {
+  width: 300px;
+  height: calc(100vh - 130px);
+  background: #f3f5f7;
+  box-shadow: 10px 1px 19px 0px rgba(212, 220, 227, 0.57);
+
+  position: absolute;
+  z-index: 3;
+  top: 50px;
+  left: 0px;
+  transition: transform 0.3s ease-in-out;
+
+  & ::-webkit-scrollbar-track {
+    background: #f3f5f7;
+  }
+}
+.historyBtnBox {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.historyOpen {
+  // display: block;
+  transform: translateX(0px);
+}
+.historyClose {
+  // display: none;
+
+  transform: translateX(-536px-32px);
+}
+
+.btn-border() {
+  transition: none;
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--primary);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: @--alice-border-1;
+}
+
+button.addBtn {
+  width: 100%;
+  border-radius: 6px;
+  max-width: none;
+  height: 42px;
+  .btn-border;
+
+  &:hover {
+    .btn-border;
+    border-width: 2px;
+  }
+  & svg {
+    color: var(--primary);
+  }
+}

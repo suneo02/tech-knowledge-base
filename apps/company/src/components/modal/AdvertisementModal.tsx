@@ -40,6 +40,8 @@ const FloatBtn = ({ btn, onClick }) => {
         ...positionStyle,
       }}
       onClick={onClick}
+      data-uc-id="D_bdan-QV7"
+      data-uc-ct="button"
     ></button>
   )
 }
@@ -124,8 +126,8 @@ const Advertisement = ({
         }}
       >
         <img src={imageUrl} alt="Advertisement" />
-        <FloatBtn btn={colseBtn} onClick={handleClose}></FloatBtn>
-        <FloatBtn btn={linkBtn} onClick={handleJump}></FloatBtn>
+        <FloatBtn btn={colseBtn} onClick={handleClose} data-uc-id="6_gEb7ZMsn" data-uc-ct="floatbtn"></FloatBtn>
+        <FloatBtn btn={linkBtn} onClick={handleJump} data-uc-id="Q4SoHg1Lto" data-uc-ct="floatbtn"></FloatBtn>
       </div>
       <div
         style={{

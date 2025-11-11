@@ -1,10 +1,11 @@
-import { RoleTypeSuper } from './type'
 import Table from '@wind/wind-ui-table'
+import { AntRoleType, SmartTableMessage } from 'gel-ui'
 
-export const SmartTableRole: RoleTypeSuper = {
+export const SmartTableRole: AntRoleType<SmartTableMessage['content']> = {
   placement: 'end',
   style: {
-    marginBlock: 24,
+    marginBlockStart: 24,
+    marginBlockEnd: 24,
   },
   messageRender: (content) => {
     // 超级名单的引用资料不展示 table 数据

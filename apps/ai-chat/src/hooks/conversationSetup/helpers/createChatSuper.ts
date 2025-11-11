@@ -28,12 +28,15 @@ export const createChatSuper = async (
       return
     }
     const data = result?.Data?.data
+    if (!data) {
+      return data
+    }
     onAddConversation({
       id: data?.conversationId,
       title: message,
       updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     })
-    
+
     onSuccess({
       conversationId: data?.conversationId,
       tableId: data?.tableId,

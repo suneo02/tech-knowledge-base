@@ -1,5 +1,6 @@
+import { HomeSearchTabKeys } from '@/views/HomeAI/comp/SearchForm'
 import { getPrefixUrl, handleAppendUrlPath } from '../handle'
-import { HomeSearchTabKeys } from '@/views/SearchHome/HomeSearchForm.tsx'
+
 
 /**
  * 查询结果列表
@@ -14,7 +15,6 @@ export const SearchLinkEnum = {
   Group: 'groupSearchList',
   Bid: 'bidSearchList',
   Intellectual: 'intelluctalSearch',
-  OutCompany: 'outCompanySearch',
   BidNew: 'searchBidNew',
 
   /**
@@ -51,7 +51,6 @@ export const SearchLinkInSearchHomeList = [
   SearchLinkEnum.Group,
   SearchLinkEnum.Bid,
   SearchLinkEnum.Intellectual,
-  SearchLinkEnum.OutCompany,
 ]
 
 /**

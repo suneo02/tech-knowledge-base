@@ -17,15 +17,18 @@
     "./dist/index.css": "./dist/index.css"
   },
   "scripts": {
+    "clean": "node ../../scripts/clean.cjs dist",
     "dev": "vite build --watch --mode development --minify false --sourcemap",
-    "build": "vite build",
+    "build": "npm run clean && vite build",
+    "build:staging": "npm run clean && vite build --mode staging",
     "preview": "vite preview",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "lint": "pnpm -s eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
     "tsc": "tsc --noEmit",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build-storybook": "storybook build",
+    "check:circular": "madge --circular --extensions ts,tsx src/"
   },
   "peerDependencies": {
     "react": "^18.2.0",
@@ -34,8 +37,8 @@
   "dependencies": {
     "@ant-design/icons": "^5.6.1",
     "@wind/icons": "^1.1.83",
-    "@wind/wind-ui": "4.3.5",
-    "@wind/wind-ui-table": "^2.2.36",
+    "@wind/wind-ui": "4.5.9",
+    "@wind/wind-ui-table": "^2.2.44",
     "ahooks": "^3.8.4",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
@@ -48,33 +51,22 @@
     "path-browserify": "^1.0.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
     "@types/classnames": "^2.3.4",
-    "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.15",
     "@types/node": "^22.13.9",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.19",
-    "@typescript-eslint/eslint-plugin": "^7.0.2",
-    "@typescript-eslint/parser": "^7.0.2",
-    "@vitejs/plugin-react": "^4.2.1",
     "axios": "^1.6.8",
-    "eslint": "^8.56.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
+    "gel-api": "workspace:*",
+    "gel-ui": "workspace:*",
+    "gel-util": "workspace:*",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^29.7.0",
     "less": "^4.2.2",
-    "ts-jest": "^29.2.6",
-    "typescript": "^5.2.2",
-    "vite": "^5.4.16",
-    "vite-plugin-dts": "^3.7.3",
-    "vite-plugin-svgr": "^4.3.0"
+    "typescript": "^5.2.2"
   },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
-  }
+  "sideEffects": [
+    "**/*.css",
+    "**/*.less",
+    "**/*.scss"
+  ]
 }

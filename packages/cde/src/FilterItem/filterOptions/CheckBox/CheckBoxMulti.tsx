@@ -136,6 +136,7 @@ export const CheckBoxMulti: React.FC<CheckBoxMultiProps> = ({
             <Checkbox
               indeterminate={isIndeterminate(item, value)}
               checked={isCheckAll(item, value)}
+              // @ts-expect-error wind-ui
               onChange={(e) => handleTopLevelChange(e, item)}
             >
               {item.name}

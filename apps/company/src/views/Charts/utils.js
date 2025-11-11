@@ -808,6 +808,8 @@ export const NoneData = () => {
               height="1em"
               fill="currentColor"
               aria-hidden="true"
+              data-uc-id="20TOwH1wZ"
+              data-uc-ct="svg"
             >
               <path
                 d="M9 .9a8.1 8.1 0 110 16.2A8.1 8.1 0 019 .9zm0 1.2a6.9 6.9 0 100 13.8A6.9 6.9 0 009 2.1zm0 7.8a3.1 3.1 0 013.09 2.86v.17c.01.1-.06.17-.15.17h-.87c-.07 0-.13-.04-.16-.12l-.01-.05a1.9 1.9 0 00-3.79-.14v.14c-.01.1-.09.17-.18.17h-.86a.17.17 0 01-.17-.17l.01-.18A3.1 3.1 0 019 9.9zm-3-4a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2zm6 0a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"
@@ -844,7 +846,7 @@ export const gqctLabelFirst = (d) => {
           tmp.split(' ').map(function (t) {
             tmp2.push(t)
           })
-          var tmp4 = tmp2.pop()
+          var tmp4 = tmp2.slice(-1)
           return tmp2.join(' ')
         }
         return tmp
@@ -865,7 +867,7 @@ export const gqctLabelFirst = (d) => {
             tmp.split(' ').map(function (t) {
               tmp2.push(t)
             })
-            var tmp4 = tmp2.pop()
+            var tmp4 = tmp2.slice(-1)
             d._lname = tmp4 + ' ' + d.name.substr(20, d.name.length)
             return tmp2.join(' ')
           }
@@ -892,7 +894,7 @@ export const gqctLabelFirst = (d) => {
           tmp.split(' ').map(function (t) {
             tmp2.push(t)
           })
-          var tmp4 = tmp2.pop()
+          var tmp4 = tmp2.slice(-1)
           d._lname = tmp4 + ' ' + d.name.substr(26, d.name.length)
           return tmp2.join(' ')
         }
@@ -906,7 +908,7 @@ export const gqctLabelFirst = (d) => {
           tmp.split(' ').map(function (t) {
             tmp2.push(t)
           })
-          var tmp4 = tmp2.pop()
+          var tmp4 = tmp2.slice(-1)
           d._lname = tmp4 + ' ' + d.name.substr(20, d.name.length)
           return tmp2.join(' ')
         }
@@ -937,11 +939,11 @@ export const gqctLabelSecond = (d) => {
           tmp.split(' ').map(function (t) {
             tmp2.push(t)
           })
-          var tmp4 = tmp2.pop()
+          var tmp4 = tmp2.slice(-1)
           if (d.name.length > 40 - tmp4.length) {
-            return d.name.split(tmp2.join(' '))[1].substr(1, 20) + '...'
+            return d.name.split(tmp2.join(' '))[1].substr(0, 20) + '...'
           }
-          return d.name.split(tmp2.join(' '))[1].substr(1, 20)
+          return d.name.split(tmp2.join(' '))[1].substr(0, 20)
         }
       }
     } else {
@@ -971,11 +973,11 @@ export const gqctLabelSecond = (d) => {
           tmp.split(' ').map(function (t) {
             tmp2.push(t)
           })
-          var tmp4 = tmp2.pop()
+          var tmp4 = tmp2.slice(-1)
           if (d.name.length > 52 - tmp4.length) {
-            return d.name.split(tmp2.join(' '))[1].substr(1, 26) + '...'
+            return d.name.split(tmp2.join(' '))[1].substr(0, 26) + '...'
           }
-          return d.name.split(tmp2.join(' '))[1].substr(1, 26)
+          return d.name.split(tmp2.join(' '))[1].substr(0, 26)
         }
       }
     }
@@ -990,11 +992,11 @@ export const gqctLabelSecond = (d) => {
         tmp.split(' ').map(function (t) {
           tmp2.push(t)
         })
-        var tmp4 = tmp2.pop()
+        var tmp4 = tmp2.slice(-1)
         if (d.name.length > 44 - tmp4.length) {
-          return d.name.split(tmp2.join(' '))[1].substr(1, 22) + '...'
+          return d.name.split(tmp2.join(' '))[1].substr(0, 22) + '...'
         }
-        return d.name.split(tmp2.join(' '))[1].substr(1, 22)
+        return d.name.split(tmp2.join(' '))[1].substr(0, 22)
       } else {
         return d.name.substr(22, 22) + '...'
       }
@@ -1007,11 +1009,11 @@ export const gqctLabelSecond = (d) => {
         tmp.split(' ').map(function (t) {
           tmp2.push(t)
         })
-        var tmp4 = tmp2.pop()
+        var tmp4 = tmp2.slice(-1)
         if (d.name.length > 40 - tmp4.length) {
-          return d.name.split(tmp2.join(' '))[1].substr(1, 20) + '...'
+          return d.name.split(tmp2.join(' '))[1].substr(0, 20) + '...'
         }
-        return d.name.split(tmp2.join(' '))[1].substr(1, 20)
+        return d.name.split(tmp2.join(' '))[1].substr(0, 20)
       }
       return tmp
     }

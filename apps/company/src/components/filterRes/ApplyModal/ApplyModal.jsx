@@ -160,6 +160,8 @@ export default function ApplyModal(props) {
           placeholder={intl('420089', '请输入名称(非必填)')}
           value={userName}
           onChange={onUserNameChange}
+          data-uc-id="ObMP3mRH1U"
+          data-uc-ct="input"
         />
       </div>
       <div className={`row`}>
@@ -168,6 +170,8 @@ export default function ApplyModal(props) {
           placeholder={intl('420049', '请输入公司名称(必填)')}
           value={companyName}
           onChange={onCompanyChange}
+          data-uc-id="Pdf2DjaTlk"
+          data-uc-ct="input"
         />
         <ErrorMessage text={companyNameErrMsg} />
       </div>
@@ -177,6 +181,8 @@ export default function ApplyModal(props) {
           placeholder={intl('420057', '请输入手机号码(必填)')}
           value={phone}
           onChange={onPhoneChange}
+          data-uc-id="dK8TbvKNnH"
+          data-uc-ct="input"
         />
         <ErrorMessage text={phoneErrMsg} />
       </div>
@@ -187,17 +193,21 @@ export default function ApplyModal(props) {
             placeholder={intl('417205', '请输入验证码')}
             value={smsCode}
             onChange={onSmsCodeChange}
+            data-uc-id="x6rso_jmo8"
+            data-uc-ct="input"
           />
 
-          <SmsButton onSmsCodeButtonClick={onSmsCodeButtonClick}></SmsButton>
+          <SmsButton
+            onSmsCodeButtonClick={onSmsCodeButtonClick}
+            data-uc-id="cGoxWe7RuMJ"
+            data-uc-ct="smsbutton"
+          ></SmsButton>
         </div>
         <ErrorMessage text={smsCodeErrMsg} />
       </div>
-
-      <Button className={'submitButton'} onClick={onSubmit} type="primary">
+      <Button className={'submitButton'} onClick={onSubmit} type="primary" data-uc-id="D5tzVnMfEO" data-uc-ct="button">
         {intl('417615', '立即提交申请')}
       </Button>
-
       <p className={'contactText'}>
         {intl('140100', '联系邮箱')}
         <span>100support@rimedata.com</span>

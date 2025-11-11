@@ -51,7 +51,7 @@ export enum PageModuleEnum {
   QUERY_RELATIONSHIP = 2715,
   /**  查集团 */
   QUERY_GROUP = 2716,
-  /**  查海外企业 */
+  /**  查全球企业 */
   QUERY_OVERSEAS_COMPANY = 2717,
   /**  企业榜单名录 */
   COMPANY_RANKING_LIST = 2718,

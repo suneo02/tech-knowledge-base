@@ -157,11 +157,10 @@ function ForceRelationChart() {
         <PreInput defaultValue={preInputLeft?.name} selectItem={setPreInputLeft} needRealCode={true}></PreInput>
         <span className="icon-search-relation"></span>
         <PreInput defaultValue={preInputRight?.name} selectItem={setPreInputRight} needRealCode={true}></PreInput>
-        <Button size="default" type="primary" onClick={gotoSearch}>
+        <Button size="default" type="primary" onClick={gotoSearch} data-uc-id="uoRD19EEu8" data-uc-ct="button">
           {intl('437659', '探查')}
         </Button>
       </Row>
-
       {showChart ? null : (
         <div style={{ marginTop: '45px' }}>
           <div className="search-relation-label">
@@ -175,6 +174,8 @@ function ForceRelationChart() {
               onClick={() => {
                 gotoSample(1)
               }}
+              data-uc-id="wKkc1YrpwF"
+              data-uc-ct="div"
             >
               <img src={demo_relation} alt="" />
               <div className="demo-jump-cont">
@@ -187,6 +188,8 @@ function ForceRelationChart() {
               onClick={() => {
                 gotoSample(2)
               }}
+              data-uc-id="XwHhNW8wJC"
+              data-uc-ct="div"
             >
               <img src={demo_chain} alt="" />
               <div className="demo-jump-cont">
@@ -197,19 +200,30 @@ function ForceRelationChart() {
           </Row>
         </div>
       )}
-
       {showChart ? (
         <div className={` relation-chart-main ${onlyChart ? 'relation-chart-main-chartonly' : ''}`}>
           {onlyChart ? null : (
             <div className={` relation-chart-nav  `}>
               <div className="relation-chart-nav-type">{intl('437661', '关系类型')} </div>
               <div className="relation-chart-nav-opts">
-                <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
+                <Checkbox
+                  indeterminate={indeterminate}
+                  onChange={onCheckAllChange}
+                  checked={checkAll}
+                  data-uc-id="4i-q-vw6aK"
+                  data-uc-ct="checkbox"
+                >
                   {intl('272165', '全部')}
                 </Checkbox>
-                <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />
+                <CheckboxGroup
+                  options={plainOptions}
+                  value={checkedList}
+                  onChange={onChange}
+                  data-uc-id="8aEWKOLH1N"
+                  data-uc-ct="checkboxgroup"
+                />
               </div>
-              <Button className="relation-chart-ok" onClick={gotoFilter}>
+              <Button className="relation-chart-ok" onClick={gotoFilter} data-uc-id="j-HGok8PW9" data-uc-ct="button">
                 {intl('437668', '关系透查')}
               </Button>
               <div className="chart-nav-infotips">

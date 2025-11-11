@@ -5,6 +5,7 @@ import { getCompanyReportDownPage } from '@/handle/link'
 
 import { pointBuriedGel } from '@/api/configApi'
 import { checkVIPReportExport, sampleReportCorpDefault } from '@/handle/corp/report/handle/misc.ts'
+import { CorpBasicInfo } from 'gel-types'
 
 /**
  * @deprecated
@@ -94,7 +95,9 @@ export const downloadReport: (
   id: string,
   onlySVIP: string | undefined,
   companycode: string,
-  company: any,
+  company: {
+    baseInfo?: Pick<CorpBasicInfo, 'corp_name' | 'eng_name'>
+  },
   reportTier?: string
 ) => void = (id, onlySVIP, companycode, company, reportTier) => {
   if (!checkVIPReportExport(Boolean(onlySVIP))) {

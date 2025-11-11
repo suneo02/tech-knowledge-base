@@ -1,6 +1,7 @@
 import { formatTime } from '@/format/time'
-import { intl, isEn } from '@/intl'
-import { t } from 'i18next'
+import { intl, isEn, t } from '@/intl'
+import { TIntl } from '@/types'
+import { CorpBJEEShareholder, EBJEEShareholderSource } from 'gel-api'
 
 const ReportQuarterDescMap = [
   {
@@ -105,10 +106,18 @@ export const getMajorReportComment = (dateStr: string) => {
  * @param dateStr
  * @returns
  */
-export const getBJEEReportComment = (dateStr: string | undefined) => {
-  if (!dateStr) {
-    return t('0', '取自北京股权交易中心')
+export const getBJEEReportComment = (record: CorpBJEEShareholder, t: TIntl) => {
+  if (!record) {
+    return ''
+  }
+  const { participation, source } = record
+  const sourceStr =
+    source === EBJEEShareholderSource.BJEE_SHANGHAI ? t('462075', '上海股权交易中心') : t('112363', '北京股权交易中心')
+
+  const sourceStrFinal = `${t('462076', '取自')}${sourceStr}`
+  if (!participation) {
+    return sourceStrFinal
   } else {
-    return t('0', '取自北京股权交易中心') + ' ' + `${intl('0', '更新日期')}: ${formatTime(dateStr)}`
+    return `${sourceStrFinal} ${t('273669', '更新日期')}: ${formatTime(participation)}`
   }
 }

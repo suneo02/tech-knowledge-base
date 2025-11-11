@@ -1,7 +1,6 @@
-import { findCascadeOptionByValue } from '@/components/cascade'
-import { WindCascade } from '@/components/cascade/WindCascade'
 import intl from '@/utils/intl'
 import classNames from 'classnames'
+import { findCascadeOptionByValue, WindCascade } from 'gel-ui'
 import React from 'react'
 import styles from './industryFilterItem.module.less'
 
@@ -17,7 +16,7 @@ interface IndustryFilterItemProps {
  * A reusable component for industry filtering options
  */
 const IndustryFilterItem: React.FC<IndustryFilterItemProps> = ({ title, titleId, options, stateKey, onChange }) => {
-  const handleCascadeChange = (value: string[][], selectedOptions: any[]) => {
+  const handleCascadeChange = (value: string[][]) => {
     // 根据 values 拿到 names
     const names = value.map((t) => {
       return t.map((tt) => {
@@ -37,6 +36,8 @@ const IndustryFilterItem: React.FC<IndustryFilterItemProps> = ({ title, titleId,
         options={options}
         className="casader-choose-industry"
         onChange={handleCascadeChange}
+        data-uc-id="57rKI_hVA"
+        data-uc-ct="windcascade"
       />
     </div>
   )

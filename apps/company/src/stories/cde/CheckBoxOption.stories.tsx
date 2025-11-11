@@ -1,6 +1,6 @@
+import { mockCDECorpOwnershipCfg } from '@/__mocks__/cde/cdeConfig.mock'
 import type { Meta, StoryObj } from '@storybook/react'
 import { CheckBoxOption } from '../../components/restructFilter/comps/filterOptions/CheckBoxOption'
-import { mockCDECorpOwnershipCfg } from './mock'
 
 /**
  * @description CheckBoxOption组件用于展示复选框选项，支持单选和多选模式，可自定义选项内容

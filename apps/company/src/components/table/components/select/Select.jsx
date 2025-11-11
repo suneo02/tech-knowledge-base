@@ -17,7 +17,9 @@ const Select = (props) => {
       onClick={() => {
         downLoadCorpExcel(downDocType, title, companyName)
       }}
-      icon={<DownloadO />}
+      icon={<DownloadO data-uc-id="xPVLUnePEp" data-uc-ct="downloado" />}
+      data-uc-id="K-aijHFd9I"
+      data-uc-ct="button"
     >
       {intlNoIndex('4698', '导出数据')}
     </Button>

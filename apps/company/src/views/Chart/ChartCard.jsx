@@ -275,6 +275,8 @@ const ChartCard = (props) => {
                           })
                       }, 100)
                     }}
+                    data-uc-id="W3c1ZWmAEbg"
+                    data-uc-ct="div"
                   >
                     {text}
                   </div>

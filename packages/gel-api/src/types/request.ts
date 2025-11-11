@@ -4,17 +4,17 @@ export type ApiRequestPage = {
 }
 
 // 基础请求参数
-export interface PaginationBaseParams {
-  pageSize: number
-  pageIndex: number
+export interface PaginationParams {
+  pageSize?: number
+  pageIndex?: number
 }
 
 // 查询参数
-export interface QueryParams extends PaginationBaseParams {
+export interface CorpSearchQueryParams extends PaginationParams {
   queryText: string
 }
 
 // 排序参数
-export interface SortParams {
+export interface CorpSearchSortParams {
   sort?: string | number
 }

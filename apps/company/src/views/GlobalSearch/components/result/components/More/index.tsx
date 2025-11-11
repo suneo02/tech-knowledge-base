@@ -50,7 +50,7 @@ const More = forwardRef(
       <div ref={ref} style={{ textAlign: 'center' }}>
         {loading ? (
           <>
-            <LoadingO size="small" style={{ marginRight: 8 }} />
+            <LoadingO size="small" style={{ marginRight: 8 }} data-uc-id="7m11nk0Vp-" data-uc-ct="loadingo" />
             {intl('428450', '加载中...')}
           </>
         ) : (

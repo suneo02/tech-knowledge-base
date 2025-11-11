@@ -33,7 +33,7 @@ export const fetchIndicatorTree = createAsyncThunk(
       }
 
       // If no data, make the API call
-      const response = await requestToSuperlistFcs('indicator/treeV2', { version: 2 })
+      const response = await requestToSuperlistFcs('indicator/treeV2', { version: 3 })
       if (response?.Data?.data?.classifications) {
         return response?.Data?.data?.classifications
       } else {
@@ -70,7 +70,7 @@ const indicatorSlice = createSlice({
 
         processedTree = filterIndicatorTree(processedTree)
 
-        const displayNamesToExclude = ['企业名称'] // 需要排除的 displayName 列表
+        const displayNamesToExclude = ['企业名称', 'Corp Name'] // 需要排除的 displayName 列表
         processedTree = filterIndicatorsByDisplayName(processedTree, displayNamesToExclude)
 
         state.indicatorTree = processedTree

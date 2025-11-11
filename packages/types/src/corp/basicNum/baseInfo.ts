@@ -5,6 +5,12 @@
 import { CorpBasicNumBoolFlag } from './common'
 
 export interface CorpBasicNumBaseInfo {
+  assetSheetCount: CorpBasicNumBoolFlag // 财务数据-资产负债表
+  profitSheetCount: CorpBasicNumBoolFlag // 财务数据-利润表
+  cashFlowSheetCount: CorpBasicNumBoolFlag // 财务数据-现金流表
+
+  financial_indicator_num: number // 财务指标
+
   vietnamCorpIndustryNum: number // 越南企业所属行业
 
   businessregisterCount: number // 股东信息-工商登记

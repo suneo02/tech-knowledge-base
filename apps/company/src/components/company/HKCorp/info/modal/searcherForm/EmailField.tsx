@@ -26,6 +26,6 @@ export const EmailField: React.FC<{ maskedFields: { [key: string]: boolean } }> 
       },
     ]}
   >
-    <Input placeholder={intl('414534', '请输入查册人邮箱')} allowClear />
+    <Input placeholder={intl('414534', '请输入查册人邮箱')} allowClear data-uc-id="UBNyg-VHXe" data-uc-ct="input" />
   </Form.Item>
 )

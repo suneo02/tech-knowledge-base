@@ -1,7 +1,6 @@
 import { HorizontalTableColProps, TablePropsHorizontal } from '@/types/table'
-import { tForRPPreview } from '@/utils'
 import { Spin } from '@wind/wind-ui'
-import { ErrorBoundary } from 'gel-ui'
+import { ErrorBoundary, useIntl } from 'gel-ui'
 import React from 'react'
 import { instanceTableDefaultOptions } from 'report-util/table'
 import { NoDataRow } from '../tableComp'
@@ -104,8 +103,9 @@ interface HorizontalTableProps extends Omit<TablePropsHorizontal, 'type'> {
 }
 
 export const HorizontalTable: React.FC<HorizontalTableProps> = ({ dataSource = null, ...optionsProp }) => {
+  const t = useIntl()
   const options: TablePropsHorizontal = {
-    ...instanceTableDefaultOptions(tForRPPreview),
+    ...instanceTableDefaultOptions(t),
     ...optionsProp,
     type: 'horizontalTable',
   }

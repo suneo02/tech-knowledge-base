@@ -5,6 +5,7 @@ import { Spin } from '@wind/wind-ui'
 import intl from '@/utils/intl'
 import SpinLoading from '../spin-loading'
 import { translateGraphData } from '../extra'
+import { pointBuriedByModule } from '@/api/pointBuried/bury'
 
 interface CytoGraphProps {
   companyCode: string
@@ -56,6 +57,10 @@ const CytoGraph: React.FC<CytoGraphProps> = ({
 
   useEffect(() => {
     getData()
+    pointBuriedByModule(922602100363, {
+      currentId: companyCode,
+      opId: companyCode,
+    })
   }, [companyCode, graphMenuType])
 
   return (
@@ -71,6 +76,8 @@ const CytoGraph: React.FC<CytoGraphProps> = ({
           width={width}
           height={height}
           {...props}
+          data-uc-id="BT-jFL5w1J9"
+          data-uc-ct="windbdgraph"
         />
       ) : null}
     </>

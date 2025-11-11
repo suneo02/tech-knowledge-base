@@ -15,11 +15,14 @@ import FeturedTree from './feturedTree'
 import './feturedlist.less'
 import { formatUpdateTime, updatefreqMap } from './util'
 
+import { GELSearchParam, getUrlByLinkModule, LinksModule } from '@/handle/link/index.ts'
+import { SearchLinkEnum } from '@/handle/link/module/search.ts'
+import { hashParams } from '@/utils/links/index.ts'
 import { LoadingO } from '@wind/icons'
-import queryString from 'qs'
-import { DefaultSearchType, DefaultSelectedKey, handleBuryFeatureCard } from './featuredList'
 import { pointBuriedByModule } from '../../api/pointBuried/bury'
+import { CorpPresearch } from '../../components/CorpPreSearch'
 import { usePageTitle } from '../../handle/siteTitle'
+import { DefaultSearchType, DefaultSelectedKey, handleBuryFeatureCard } from './featuredList'
 
 const TreeNode = Tree.TreeNode
 const Search = Input.Search
@@ -27,9 +30,11 @@ const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
 
 const Feturedlist = (props) => {
+  const { getParamValue } = hashParams()
+  const linksource = getParamValue('linksource')
   usePageTitle('RankList')
-  const { location } = props
-  let { id = DefaultSelectedKey, search, name } = queryString.parse(location.search, { ignoreQueryPrefix: true })
+  const id = getParamValue('id') || DefaultSelectedKey
+  const search = getParamValue('search') || ''
   const [searchedValue, setSearchedValue] = useState(search || '')
   const [searchKeyword, setSearchKeyword] = useState(search || '')
   const [searchType, setSearchType] = useState(DefaultSearchType)
@@ -272,6 +277,9 @@ const Feturedlist = (props) => {
             title={<h3 style={{ fontSize: '14px', fontWeight: 'bold' }}>{item.title}</h3>}
             data-code={item.key}
             data-id={item.code}
+            data-uc-id="rT9H0qNJRH"
+            data-uc-ct="treenode"
+            data-uc-x={item.key}
           >
             {rendertreenode(item.children)}
           </TreeNode>
@@ -287,6 +295,9 @@ const Feturedlist = (props) => {
                 {item.title}({isSearchEvent ? feturedTreeNum[item.currentCode] || 0 : item.total})
               </p>
             }
+            data-uc-id="tp7MrhqONY"
+            data-uc-ct="treenode"
+            data-uc-x={item.key}
           />
         )
       )
@@ -314,6 +325,9 @@ const Feturedlist = (props) => {
             onClick={() => {
               onClick(i)
             }}
+            data-uc-id="3XM22nhqck"
+            data-uc-ct="p"
+            data-uc-x={i[name]}
           ></p>
         ))}
       </>
@@ -326,11 +340,25 @@ const Feturedlist = (props) => {
         <div className="fetured-toolbar-content">
           <span>
             {!wftCommon.isBaiFenTerminalOrWeb() ? (
-              <Breadcrumb>
-                <Breadcrumb.Item>
-                  <a href="index.html#/searchPlatform/SearchFetured?nosearch=1">{intl('252965', '企业榜单名录')}</a>
+              <Breadcrumb data-uc-id="HIkPJDdqYh" data-uc-ct="breadcrumb">
+                <Breadcrumb.Item data-uc-id="6La6z--Xu" data-uc-ct="breadcrumb">
+                  <a
+                    onClick={() => {
+                      const url = getUrlByLinkModule(LinksModule.SEARCH, {
+                        subModule: SearchLinkEnum.FeaturedFront,
+                        params: { linksource, [GELSearchParam.NoSearch]: 1 },
+                      })
+                      window.location.href = url
+                    }}
+                    data-uc-id="AIyKXUA1hJ"
+                    data-uc-ct="a"
+                  >
+                    {intl('252965', '企业榜单名录')}
+                  </a>
                 </Breadcrumb.Item>
-                <Breadcrumb.Item>{intl('260423', '全部榜单名录')}</Breadcrumb.Item>
+                <Breadcrumb.Item data-uc-id="eNlMopYpO7" data-uc-ct="breadcrumb">
+                  {intl('260423', '全部榜单名录')}
+                </Breadcrumb.Item>
               </Breadcrumb>
             ) : null}
           </span>
@@ -343,37 +371,72 @@ const Feturedlist = (props) => {
                 setSearchType(e.target.value)
               }}
               value={searchType}
+              data-uc-id="iNWuLkievz"
+              data-uc-ct="radiogroup"
             >
-              <RadioButton value={DefaultSearchType}>{intl('437880', '搜榜单名录')}</RadioButton>
-              <RadioButton value="company">{intl('437861', '搜企业名称')}</RadioButton>
+              <RadioButton value={DefaultSearchType} data-uc-id="VsvVCvm3x6" data-uc-ct="radiobutton">
+                {intl('437880', '搜榜单名录')}
+              </RadioButton>
+              <RadioButton value="company" data-uc-id="uS7dw6Lk7N" data-uc-ct="radiobutton">
+                {intl('437861', '搜企业名称')}
+              </RadioButton>
             </RadioGroup>
 
             {/* TODO 封装preSearch组件 */}
             <div className="preSearch">
-              <Search
-                value={searchKeyword}
-                className="tree_search"
-                style={{
-                  width: window.en_access_config ? '310px' : '292px',
-                }}
-                placeholder={
-                  searchType == DefaultSearchType ? intl('437751', '请输入榜单名称') : intl('272142', '请输入企业名称')
-                }
-                onSearch={handleSearch}
-                onChange={(e) => {
-                  setSearchKeyword(e.target.value)
-                  debounce(onChange, 500)(e)
-                }}
-                onBlur={() => {
-                  setTimeout(() => {
-                    setIsShowPreSearch(false)
-                  }, 200)
-                }}
-                allowClear
-                onFocus={() => {
-                  preSearchList?.length && setIsShowPreSearch(true)
-                }}
-              />
+              {searchType == DefaultSearchType ? (
+                <Search
+                  value={searchKeyword}
+                  className="tree_search"
+                  style={{
+                    width: window.en_access_config ? '310px' : '292px',
+                  }}
+                  placeholder={
+                    searchType == DefaultSearchType
+                      ? intl('437751', '请输入榜单名称')
+                      : intl('272142', '请输入企业名称')
+                  }
+                  onSearch={handleSearch}
+                  onChange={(e) => {
+                    setSearchKeyword(e.target.value)
+                    debounce(onChange, 500)(e)
+                  }}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      setIsShowPreSearch(false)
+                    }, 200)
+                  }}
+                  allowClear
+                  onFocus={() => {
+                    preSearchList?.length && setIsShowPreSearch(true)
+                  }}
+                  data-uc-id="WvO1FUff2j"
+                  data-uc-ct="search"
+                />
+              ) : (
+                <CorpPresearch
+                  initialValue={searchKeyword}
+                  placeholder={intl('272142', '请输入企业名称')}
+                  onChange={(val) => {
+                    if (!val?.trim()) {
+                      getCorpNamepresearch('', true)
+                    }
+                  }}
+                  onClickItem={(item) => {
+                    const selectedItem = {
+                      corp_id: item?.corpId,
+                      corp_name: item?.corpName,
+                    }
+                    handlePreSelectCorp(selectedItem)
+                  }}
+                  widthAuto={true}
+                  minWidth={window.en_access_config ? 310 : 292}
+                  placement="bottomRight"
+                  data-uc-id="lpqAkUB3Bi"
+                  data-uc-ct="corppresearch"
+                />
+              )}
+
               {isShowPreSearch ? (
                 <div className="search_box">
                   {searchType == DefaultSearchType ? (
@@ -383,9 +446,17 @@ const Feturedlist = (props) => {
                       onClick={(i) => {
                         window.open(`#/feturedcompany?id=${i.objectId}`)
                       }}
+                      data-uc-id="j9dNpb-L2g"
+                      data-uc-ct="presearch"
                     ></PreSearch>
                   ) : (
-                    <PreSearch data={preSearchList} name="corp_name" onClick={handlePreSelectCorp}></PreSearch>
+                    <PreSearch
+                      data={preSearchList}
+                      name="corp_name"
+                      onClick={handlePreSelectCorp}
+                      data-uc-id="6LBeh7lgjx"
+                      data-uc-ct="presearch"
+                    ></PreSearch>
                   )}
                 </div>
               ) : (
@@ -412,6 +483,8 @@ const Feturedlist = (props) => {
               paddingBottom: '12px',
               maxHeight: 'calc(100vh - 120px)',
             }}
+            data-uc-id="7of7DZLzjF"
+            data-uc-ct="feturedtree"
           >
             {rendertreenode(feturedTree)}
           </FeturedTree>
@@ -445,6 +518,8 @@ const Feturedlist = (props) => {
                         handleBuryFeatureCard(i.objectName)
                         window.open(`#/feturedcompany?id=${i.objectId}`)
                       }}
+                      data-uc-id="STqmkpS3LZ"
+                      data-uc-ct="feturedcard"
                     >
                       {i.type == DefaultSearchType && (
                         <div className="rankCard">
@@ -483,7 +558,7 @@ const Feturedlist = (props) => {
                 <div className="loading-more" ref={placeholderRef}>
                   {intl('437730', '加载更多')}
                   &nbsp;
-                  <LoadingO />
+                  <LoadingO data-uc-id="PtZwaYlK7" data-uc-ct="loadingo" />
                 </div>
               ) : (
                 <></>

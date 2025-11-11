@@ -22,6 +22,8 @@ const CModal = () => {
       onOk={handleOk}
       // confirmLoading={confirmLoading}
       onCancel={handleCancel}
+      data-uc-id="NS1oS6fmTI"
+      data-uc-ct="modal"
     >
       {content}
     </Modal>

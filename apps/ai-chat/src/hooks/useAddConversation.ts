@@ -1,4 +1,5 @@
 import { createSuperlistRequestFcs } from '@/api/handleFcs'
+import { useNavigateWithLangSource } from '@/hooks/useLangSource'
 import { fetchPoints, useAppDispatch } from '@/store'
 import { message } from '@wind/wind-ui'
 import { useRequest } from 'ahooks'
@@ -20,6 +21,7 @@ const defaultOnSuccess = (data: AddConversationFuncReturn, navigate: ReturnType<
     message.success('创建会话成功')
     navigate(`/super/chat/${data.Data.data.conversationId}`)
   } else {
+    if (data?.ErrorCode === ApiCodeForWfc.INSUFFICIENT_POINTS) return
     message.error(data?.ErrorMessage || '创建会话失败')
   }
 }
@@ -32,7 +34,7 @@ const defaultOnSuccess = (data: AddConversationFuncReturn, navigate: ReturnType<
  */
 export const useAddConversation = (options?: Options) => {
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const navigate = useNavigateWithLangSource()
   const { onSuccess: customOnSuccess, isManual = true } = options || {}
 
   const handleSuccess = (data: AddConversationFuncReturn) => {
@@ -40,6 +42,7 @@ export const useAddConversation = (options?: Options) => {
       customOnSuccess(data)
     } else {
       // Use default handler if no custom one is provided
+      // @ts-expect-error
       defaultOnSuccess(data, navigate)
     }
     dispatch(fetchPoints())
@@ -54,7 +57,10 @@ export const useAddConversation = (options?: Options) => {
     onSuccess: handleSuccess,
     onError: (e) => {
       console.error(e)
-      message.error(`创建会话失败: ${e?.message}`)
+      // message.error(`创建会话失败: ${e?.message}`)
+    },
+    onFinally: () => {
+      dispatch(fetchPoints())
     },
     manual: isManual,
   })

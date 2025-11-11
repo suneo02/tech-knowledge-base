@@ -97,6 +97,8 @@ function CourtAnnouncement(props) {
         // @ts-expect-error ttt
         rows={rows.concat(parties).concat(append)}
         dataSource={info}
+        data-uc-id="Bt5Xoaw-e"
+        data-uc-ct="horizontaltable"
       ></HorizontalTable>
     </Card>
   )

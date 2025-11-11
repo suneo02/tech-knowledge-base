@@ -1,5 +1,5 @@
 import {
-  ReportDetailNodeJson,
+  ReportDetailNodeOrNodesJson,
   ReportDetailSectionJson,
   ReportPageJson,
   TCorpDetailNodeKey,
@@ -18,7 +18,7 @@ export const filterReportConfigByUserInfo = (
 ): ReportPageJson => {
   const keysToRemove: (TCorpDetailNodeKey | TCorpDetailSectionKey)[] = ['CoreTeam', 'JudicialRisk', 'BusinessRisk']
 
-  const filterSection = (sectionOrNode: ReportDetailSectionJson | ReportDetailNodeJson) => {
+  const filterSection = (sectionOrNode: ReportDetailSectionJson | ReportDetailNodeOrNodesJson) => {
     if (keysToRemove.indexOf(sectionOrNode.key) !== -1) {
       return false
     }

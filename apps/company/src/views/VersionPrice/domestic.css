@@ -64,11 +64,16 @@
   border-collapse: collapse;
 }
 
+.price-table-header {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
 .main-price-svip .price-table-header td:last-child {
   border-left: 2px solid transparent;
   border-right: 2px solid transparent;
   border-top: 2px solid transparent;
-  border-top-right-radius: 0px !important;
+  border-top-right-radius: 10px !important;
 }
 .main-price-svip .price-table-con td:last-child {
   border-left: 2px solid transparent;
@@ -98,7 +103,8 @@
   height: 84px;
   background: transparent;
   position: absolute;
-  right: -2px;  top: -84px;
+  right: -2px;
+  top: -84px;
 }
 
 .main-price-no .price-table-header td:nth-of-type(2) {
@@ -144,7 +150,10 @@
   border-left: 2px solid transparent;
   border-right: 2px solid transparent;
   border-top: 2px solid transparent;
-  border-top-right-radius: 0px !important;
+}
+
+.main-price-vip .price-table-header td:last-child {
+  border-top-right-radius: 10px !important;
 }
 .main-price-vip .price-table-con td:nth-of-type(3) {
   border-left: 2px solid transparent;

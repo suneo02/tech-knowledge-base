@@ -1,9 +1,9 @@
 export { type ClientFuncParams, type TerminalUserInfo, type TGelEnv } from './type'
 
-export { getWSID, getWsidProd, isWebTest, usedInClient, isFromF9 } from './misc'
+export { getWsidProd, isFromF9, isTerminalTestSite, isWebTest, usedInClient, isLinkSourceF9 } from './misc'
 
-export * from './clientFunc'
+export { callClientFunc, clientGetSessionId, clientGetTerminalUserInfo, clientInitWSID } from './clientFunc'
 
 export { getCurrentEnv } from './getCurrentEnv'
 
-export const WindSessionHeader = 'wind.sessionid'
+export { WindSessionHeader } from './config'

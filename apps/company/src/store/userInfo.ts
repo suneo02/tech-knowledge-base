@@ -48,7 +48,6 @@ interface UserInfoState {
   getUserInfo: () => Promise<void>
   getActivityInfos: () => Promise<void>
   setIsActivityUser: (isActivityUser: boolean) => void
-  getIsEmployee: () => Promise<void>
 }
 
 interface GlobalStore {
@@ -115,12 +114,5 @@ export const useUserInfoStore = create<UserInfoState>((set, get) => ({
   },
   setIsActivityUser: (isActivityUser: boolean) => {
     set({ isActivityUser })
-  },
-  getIsEmployee: async () => {
-    const { Data } = await getServerApi({
-      api: 'getuseraccounttype',
-      matchOldData: true,
-    })
-    set({ isEmployee: Data?.isEmployee })
   },
 }))

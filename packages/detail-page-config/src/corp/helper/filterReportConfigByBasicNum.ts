@@ -1,4 +1,4 @@
-import { CorpBasicNumFront, ReportDetailNodeJson, ReportDetailSectionJson, ReportPageJson } from 'gel-types'
+import { CorpBasicNumFront, ReportDetailNodeOrNodesJson, ReportDetailSectionJson, ReportPageJson } from 'gel-types'
 import { getCorpModuleNum } from './getCorpModuleNum'
 
 /**
@@ -13,8 +13,8 @@ export function filterReportConfigByBasicNum(
   corpBasicNum: Partial<CorpBasicNumFront> | undefined
 ): ReportPageJson {
   function filterSection(
-    section: ReportDetailSectionJson | ReportDetailNodeJson
-  ): ReportDetailSectionJson | ReportDetailNodeJson | null {
+    section: ReportDetailSectionJson | ReportDetailNodeOrNodesJson
+  ): ReportDetailSectionJson | ReportDetailNodeOrNodesJson | null {
     if (section.type === 'verticalTable' || section.type === 'horizontalTable' || section.type === 'crossTable') {
       // 统计数字部分逻辑
       const num = getCorpModuleNum(section.countKey, corpBasicNum)

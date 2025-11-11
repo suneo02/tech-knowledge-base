@@ -16,10 +16,14 @@ const warnTips = () => {
           marginRight: '12px',
         }}
         onClick={() => wftCommon.jumpJqueryPage('SearchHome.html', true)}
+        data-uc-id="D45ajRb5EO"
+        data-uc-ct="button"
       >
         {window.en_access_config ? 'Home' : '前往首页'}
       </Button>
-      <Button onClick={() => window.location.reload()}>{window.en_access_config ? 'Reload' : '刷新重试'}</Button>
+      <Button onClick={() => window.location.reload()} data-uc-id="X-Prr9Uc6L" data-uc-ct="button">
+        {window.en_access_config ? 'Reload' : '刷新重试'}
+      </Button>
     </div>,
   ]
 }
@@ -37,13 +41,29 @@ export const ErrorPage = () => {
       }}
     >
       <div>
-        <svg width="560px" height="350px" viewBox="0 0 560 350" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="560px"
+          height="350px"
+          viewBox="0 0 560 350"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          data-uc-id="Dd1Cde7JEH"
+          data-uc-ct="svg"
+        >
           <g id="页面-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-            <image id="web数据超限-白" x="0" y="0" width="560" height="350" href={forbidden}></image>
+            <image
+              id="web数据超限-白"
+              x="0"
+              y="0"
+              width="560"
+              height="350"
+              href={forbidden}
+              data-uc-id="qn6BwmbR8u"
+              data-uc-ct="image"
+            ></image>
           </g>
         </svg>
       </div>
-
       {warnTips()}
     </div>
   )
@@ -62,7 +82,15 @@ export const NotFound = () => {
       }}
     >
       <div>
-        <svg width="560px" height="350px" viewBox="0 0 560 350" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="560px"
+          height="350px"
+          viewBox="0 0 560 350"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          data-uc-id="qBj4EinW1u"
+          data-uc-ct="svg"
+        >
           <defs>
             <linearGradient
               x1="50%"
@@ -376,7 +404,6 @@ export const NotFound = () => {
           </g>
         </svg>
       </div>
-
       {warnTips()}
     </div>
   )

@@ -1,5 +1,5 @@
+import { ApiResponseForWFC } from 'report-util/types'
 import { RequestMethod } from './common'
-import { ApiResponseForWFC } from './response'
 
 /**
  * Success callback type definition

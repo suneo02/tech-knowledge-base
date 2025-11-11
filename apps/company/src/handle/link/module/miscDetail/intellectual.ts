@@ -11,10 +11,12 @@ export const IntellectualTypeEnum = {
   todo1: 'todo1', // 软件著作权
 }
 
-export const getIntellectualBySubModule = ({ subModule, id, params, standardLevelCode, type ,env }) => {
-  const baseUrl = new URL(getPrefixUrl({
-    envParam: env
-  }))
+export const getIntellectualBySubModule = ({ subModule, id, params, standardLevelCode, type, env }) => {
+  const baseUrl = new URL(
+    getPrefixUrl({
+      envParam: env,
+    })
+  )
   baseUrl.pathname = handleAppendUrlPath(baseUrl.pathname)
   switch (subModule) {
     case IntellectualTypeEnum.PATENT:

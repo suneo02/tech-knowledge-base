@@ -27,6 +27,8 @@ const SingleOfCustom = ({ item }) => {
         info={item}
         defaultValue={filter ? filter.value[0] : ''}
         changeOptionCallback={changeOptionCallback}
+        data-uc-id="hBY2ro-Jz9"
+        data-uc-ct="singleoption"
       />
     </ConditionItem>
   )

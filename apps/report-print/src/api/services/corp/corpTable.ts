@@ -3,11 +3,18 @@
  * 提供表格组件使用的API请求执行器
  */
 import { RequestConfig } from '@/api/types/request'
-import { ApiResponseForWFC } from '@/api/types/response'
 import { corpBaseInfoStore } from '@/store'
-import { CorpBasicInfo, ReportDetailTableJson } from 'gel-types'
+import {
+  CorpBasicInfo,
+  ReportDetailNodeJson,
+  ReportDetailTableJson,
+  TCorpDetailNodeKey,
+  TCorpDetailSectionKey,
+} from 'gel-types'
 import { ReportCfg } from 'report-util/constants'
+import { ApiResponseForWFC } from 'report-util/types'
 import { getUrlParamCorpCode } from 'report-util/url'
+import { requestBaifenAigc } from '../baifen'
 import { requestWfcEntity, requestWfcGel } from '../wfc'
 
 /**
@@ -60,28 +67,26 @@ const processExtraParams = (extraParams: Record<string, any> | undefined): Recor
 /**
  * 执行API请求
  */
-const executeApiRequest = (
-  apiType: string | undefined,
-  api: string,
+const executeConfigApiRequest = (
+  apiType: ReportDetailNodeJson['apiType'],
+  api: ReportDetailNodeJson['api'],
   data: Record<string, any>,
   extraParamsParsed: Record<string, any>,
   apiOptions: Record<string, any> | undefined,
-  options: Pick<RequestConfig, 'success' | 'error' | 'finish'>
+  options: Pick<RequestConfig<Record<string, any>, ApiResponseForWFC<any> | string>, 'success' | 'error' | 'finish'>
 ): void => {
+  const requestConfig = {
+    data,
+    method: apiOptions?.method,
+    params: extraParamsParsed,
+    ...options,
+  }
   if (apiType === 'operation') {
-    requestWfcGel(api, {
-      data,
-      method: apiOptions?.method,
-      params: extraParamsParsed,
-      ...options,
-    })
+    requestWfcGel(api, requestConfig)
+  } else if (apiType === 'baifen') {
+    requestBaifenAigc(api, requestConfig)
   } else {
-    requestWfcEntity(api, getUrlParamCorpCode(), {
-      data,
-      method: apiOptions?.method,
-      params: extraParamsParsed,
-      ...options,
-    })
+    requestWfcEntity(api, getUrlParamCorpCode(), requestConfig)
   }
 }
 
@@ -94,9 +99,9 @@ const executeApiRequest = (
 export const corpNodeApiExecutor = (
   config: Pick<
     ReportDetailTableJson,
-    'api' | 'key' | 'isBigData' | 'extraPayload' | 'apiOptions' | 'extraParams' | 'apiType'
-  >,
-  options: Pick<RequestConfig, 'success' | 'error' | 'finish'>
+    'api' | 'isBigData' | 'extraPayload' | 'apiOptions' | 'extraParams' | 'apiType'
+  > & { key: TCorpDetailNodeKey | TCorpDetailSectionKey },
+  options: Pick<RequestConfig<Record<string, any>, ApiResponseForWFC<any> | string>, 'success' | 'error' | 'finish'>
 ): void => {
   try {
     const { api, key, isBigData, extraPayload, apiOptions, extraParams, apiType } = config
@@ -114,7 +119,7 @@ export const corpNodeApiExecutor = (
 
     const data = prepareRequestData(isBigData, extraPayload)
     const extraParamsParsed = processExtraParams(extraParams)
-    executeApiRequest(apiType, api, data, extraParamsParsed, apiOptions, options)
+    executeConfigApiRequest(apiType, api, data, extraParamsParsed, apiOptions, options)
   } catch (error) {
     console.error(error)
   }

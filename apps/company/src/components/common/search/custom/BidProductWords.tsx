@@ -35,5 +35,14 @@ export const CustomSelectBidProductWords: FC<{
     }
   }, [checkedItem])
 
-  return <Products data={searchOption.options} onChange={handleChange} type={'filter'} selectedTags={[checkedItem]} />
+  return (
+    <Products
+      data={searchOption.options}
+      onChange={handleChange}
+      type={'filter'}
+      selectedTags={[checkedItem]}
+      data-uc-id="AVrBjxyOYr"
+      data-uc-ct="products"
+    />
+  )
 }

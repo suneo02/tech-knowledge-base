@@ -18,9 +18,17 @@ export const ImgWithModal: FC<{
         height={height}
         className={` ${className} ${styles['img-with-modal']}`}
         alt=""
+        data-uc-id="GZMBHzSbAo"
+        data-uc-ct="img"
       />
-      {/* @ts-expect-error ttt*/}
-      <Modal visible={open} footer={null} width={'auto'} onCancel={() => setOpen(false)}>
+      <Modal
+        visible={open}
+        footer={null}
+        width={'auto'}
+        onCancel={() => setOpen(false)}
+        data-uc-id="3fOG3OSKA"
+        data-uc-ct="modal"
+      >
         <img src={src} width={'auto'} height={'auto'} className={` ${className} ${styles['img-in-modal']}`} alt="" />
       </Modal>
     </>

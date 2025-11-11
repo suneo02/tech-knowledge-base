@@ -1,12 +1,11 @@
-import { createWFCSuperlistRequestFcs, requestToDownloadFcs, requestToWFCSuperlistFcs } from '@/api'
-import { Button, Divider, Dropdown, Input, Menu, message, Modal, Result, Spin, Tooltip } from '@wind/wind-ui'
+import { requestToWFCSuperlistFcs } from '@/api'
+import { Button, Dropdown, Input, message, Modal, Result, Spin, Tooltip } from '@wind/wind-ui'
 import { Tabs } from 'antd'
 import { TabsProps } from 'antd/lib'
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 
 import { useChatRoomSuperContext } from '@/contexts/ChatRoom/super'
 import { SheetInfo } from '@/contexts/ChatRoom/TChatRoomSuperCtx'
-import { FOLDER_IDS } from '@/pages/MyFile/utils/navigation'
 import { generateUniqueName } from '@/utils/common/data'
 import {
   CheckOutlined,
@@ -18,14 +17,11 @@ import {
   LoadingOutlined,
   PlusOutlined,
 } from '@ant-design/icons'
-import { FolderOpenO, SwapO } from '@wind/icons'
-import TableNameEditor from './components/TableNameEditor'
-import './index.less'
-import User from '@/components/layout/Page/User'
+import { SwapO } from '@wind/icons'
+import { useCdeContext } from '../SuperChat/CDE/context/CdeContext'
 import { VisTableContainer, type ContainerRefreshParams } from './components/VisTableContainer'
+import './index.less'
 import { getActiveSheet, saveActiveSheet } from './utils/localStorage'
-import { useModal } from '@/components/GlobalModalProvider'
-import { useRequest } from 'ahooks'
 
 // localStorage存储键常量
 // const ACTIVE_SHEET_STORAGE_KEY = 'visTable_activeSheet'
@@ -40,8 +36,6 @@ const PREFIX = 'vis-table'
 export interface VisTableRefType {
   refresh: (params?: { sheets?: number[] }) => void
 }
-
-const addDataToSheetFunc = createWFCSuperlistRequestFcs('superlist/excel/addDataToSheet')
 
 const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId }, ref) => {
   const [loading, setLoading] = useState<boolean>(true)
@@ -60,17 +54,17 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
   const [editingSheetName, setEditingSheetName] = useState<string>('')
   const [editSheetLoading, setEditSheetLoading] = useState<boolean>(false)
   const [originalSheetName, setOriginalSheetName] = useState<string>('')
-  // 存储表格名称用于初始化
-  const [initialTableName, setInitialTableName] = useState<string>('')
-  const [downloadLoading, setDownloadLoading] = useState<boolean>(false)
+  const [tableName, setTableName] = useState('')
 
   // 表格容器refs存储
   const containerRefs = useRef<Record<string, { refresh: (params?: ContainerRefreshParams) => void }>>({})
 
+  const { setTableInfo } = useCdeContext()
+
   const handleDataImported = (sheetId: number | string) => {
     const sheetIdStr = String(sheetId)
     const sheetExists = listRef.current?.some((item) => item.key === sheetIdStr)
-    console.log('🚀 ~ handleDataImported ~ sheetExists:', sheetExists)
+    // console.log('🚀 ~ handleDataImported ~ sheetExists:', sheetExists)
 
     if (sheetExists) {
       // 切换到目标tab
@@ -100,6 +94,7 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
                   tableId={tableId}
                   sheetId={Number(sheetIdStr)}
                   onDataImported={() => handleDataImported(sheetIdStr)}
+                  onPageRefresh={refresh}
                   ref={(ref) => registerContainerRef(sheetIdStr, ref)}
                 />
               ),
@@ -141,85 +136,87 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
     }
   }
 
-  // 暴露刷新方法给父组件
-  useImperativeHandle(ref, () => ({
-    refresh: (params) => {
-      console.log('通过ref调用刷新方法:', params)
+  const refresh = (params?: { sheets?: number[] }) => {
+    // console.log('🚀 ~ useImperativeHandle ~ params:', params)
+    if (params?.sheets && params.sheets.length > 0) {
+      // 检查指定的sheets是否都在当前list中
+      const sheetsToRefresh = params.sheets
+      const currentSheetIds = (list || []).map((item) => Number(item.key))
+      const allSheetsExist = sheetsToRefresh.every((sheetId) => currentSheetIds.includes(sheetId))
 
-      if (params?.sheets && params.sheets.length > 0) {
-        // 检查指定的sheets是否都在当前list中
-        const sheetsToRefresh = params.sheets
-        const currentSheetIds = (list || []).map((item) => Number(item.key))
-        const allSheetsExist = sheetsToRefresh.every((sheetId) => currentSheetIds.includes(sheetId))
+      if (allSheetsExist) {
+        // 如果所有sheet都存在，切换到第一个要刷新的sheet
+        const targetSheetId = String(sheetsToRefresh[0])
 
-        if (allSheetsExist) {
-          // 如果所有sheet都存在，切换到第一个要刷新的sheet
-          const targetSheetId = String(sheetsToRefresh[0])
+        // 切换到目标tab
+        setActiveKey(targetSheetId)
 
-          // 切换到目标tab
-          setActiveKey(targetSheetId)
+        // 保存当前活跃的tableId和sheetId到localStorage
+        saveActiveSheet(tableId, targetSheetId)
 
-          // 保存当前活跃的tableId和sheetId到localStorage
-          saveActiveSheet(tableId, targetSheetId)
+        // 调用对应容器组件的刷新方法
+        sheetsToRefresh.forEach((sheetId) => {
+          const containerRef = containerRefs.current[String(sheetId)]
+          if (containerRef && typeof containerRef.refresh === 'function') {
+            containerRef.refresh({
+              sheets: [sheetId],
+            })
 
-          // 调用对应容器组件的刷新方法
-          sheetsToRefresh.forEach((sheetId) => {
-            const containerRef = containerRefs.current[String(sheetId)]
-            if (containerRef && typeof containerRef.refresh === 'function') {
-              containerRef.refresh({
-                sheets: [sheetId],
+            // 设置临时key强制组件刷新
+            setList((prevList) => {
+              if (!prevList) return prevList
+              return prevList.map((item) => {
+                if (item.key === String(sheetId)) {
+                  return {
+                    ...item,
+                    key: `${item.key}-${Date.now()}`, // 临时更新key触发重渲染
+                    children: (
+                      <VisTableContainer
+                        tableId={tableId}
+                        sheetId={Number(sheetId)}
+                        onDataImported={() => handleDataImported(sheetId)}
+                        onPageRefresh={refresh}
+                        ref={(ref) => registerContainerRef(String(sheetId), ref)}
+                      />
+                    ),
+                  }
+                }
+                return item
               })
+            })
 
-              // 设置临时key强制组件刷新
+            // 恢复正确的key
+            setTimeout(() => {
               setList((prevList) => {
                 if (!prevList) return prevList
                 return prevList.map((item) => {
-                  if (item.key === String(sheetId)) {
+                  if (item.key.startsWith(`${sheetId}-`)) {
                     return {
                       ...item,
-                      key: `${item.key}-${Date.now()}`, // 临时更新key触发重渲染
-                      children: (
-                        <VisTableContainer
-                          tableId={tableId}
-                          sheetId={Number(sheetId)}
-                          onDataImported={() => handleDataImported(sheetId)}
-                          ref={(ref) => registerContainerRef(String(sheetId), ref)}
-                        />
-                      ),
+                      key: String(sheetId),
                     }
                   }
                   return item
                 })
               })
-
-              // 恢复正确的key
-              setTimeout(() => {
-                setList((prevList) => {
-                  if (!prevList) return prevList
-                  return prevList.map((item) => {
-                    if (item.key.startsWith(`${sheetId}-`)) {
-                      return {
-                        ...item,
-                        key: String(sheetId),
-                      }
-                    }
-                    return item
-                  })
-                })
-              }, 100)
-            }
-          })
-        } else {
-          // 如果有sheet不存在，需要重新获取表格信息
-          getTableInfo(tableId, conversationId).then(() => {
-            setActiveKey(String(sheetsToRefresh[0]))
-          })
-        }
+            }, 100)
+          }
+        })
       } else {
-        // 否则刷新所有sheets
-        getTableInfo(tableId, conversationId)
+        // 如果有sheet不存在，需要重新获取表格信息
+        getTableInfo(tableId, conversationId).then(() => {
+          setActiveKey(String(sheetsToRefresh[0]))
+        })
       }
-    },
+    } else {
+      // 否则刷新所有sheets
+      getTableInfo(tableId, conversationId).then(() => {})
+    }
+  }
+
+  // 暴露刷新方法给父组件
+  useImperativeHandle(ref, () => ({
+    refresh,
   }))
 
   // 更新URL参数
@@ -234,6 +231,10 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
         tableId: currentTableId,
         conversationId: currentConversationId,
       })
+      if (res.Data) {
+        setTableInfo(res.Data)
+        setTableName(res.Data.tableName)
+      }
       if (!res || !res.Data || !res.Data.sheetInfos) {
         setError('获取表格信息失败或格式不正确')
         setLoading(false)
@@ -263,7 +264,6 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
         setList([])
         setSheetList([])
         setActiveTableSheetsVersion((prev) => prev + 1)
-        setInitialTableName(res.Data.tableName || '')
         setExistingSheetNames([])
         setActiveKey('')
         setError('')
@@ -271,7 +271,6 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
       }
 
       setActiveKey(String(targetSheetId))
-      setInitialTableName(res.Data.tableName || '') // Ensure tableName is not undefined
       const sheetNames = res.Data.sheetInfos.map((sheet) => sheet.sheetName || '未命名')
       setExistingSheetNames(sheetNames)
 
@@ -284,6 +283,7 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
             tableId={currentTableId}
             sheetId={Number(sheetInfo.sheetId)}
             onDataImported={() => handleDataImported(sheetInfo.sheetId)}
+            onPageRefresh={refresh}
             ref={(containerRefVal) => registerContainerRef(String(sheetInfo.sheetId), containerRefVal)}
           />
         ),
@@ -321,7 +321,7 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
       tableId,
       sheetName,
     })
-    return Data.data
+    return Data?.data
   }
 
   // 用于更新sheet名称的函数
@@ -342,7 +342,7 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
     try {
       const sheetName = values.sheetName
       setAddSheetLoading(true)
-      const sheetId = await addSheetApi(sheetName)
+      const sheetId = (await addSheetApi(sheetName)) || 0
       const newSheetTabItem = {
         key: String(sheetId),
         label: sheetName,
@@ -351,6 +351,7 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
             tableId={tableId}
             sheetId={sheetId}
             onDataImported={() => handleDataImported(sheetId)}
+            onPageRefresh={refresh}
             ref={(containerRefVal) => registerContainerRef(String(sheetId), containerRefVal)}
           />
         ),
@@ -576,9 +577,9 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
   }
 
   // 处理Tab列表项，增加双击编辑功能
-  const enhancedTabItems = list?.map((item) => ({
+  const enhancedTabItems = list?.map((item, index) => ({
     ...item,
-    label: renderTabLabel(item.key as string, item.label),
+    label: index !== 0 ? renderTabLabel(item.key as string, item.label) : item.label,
     // 在编辑模式下禁用删除按钮
     closable: editingSheetId !== item.key && item.closable,
   }))
@@ -595,78 +596,6 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
 
   const addIcon = addSheetLoading ? <LoadingOutlined /> : <PlusOutlined />
 
-  // 处理下载文件
-  const handleDownloadFile = async () => {
-    if (!tableId) {
-      message.error('表格ID不存在')
-      return
-    }
-    try {
-      setDownloadLoading(true)
-      await requestToDownloadFcs(
-        'download/createtask/superlistexcel',
-        { tableName: initialTableName || '表格数据' },
-        { appendUrl: tableId, headers: { 'Content-Type': 'multipart/form-data' } }
-      )
-      message.success('文件已开始下载，正在前往我的下载查看...')
-      setTimeout(() => {
-        const myDownloadUrl = `#/super/my-file?folder=${FOLDER_IDS.DOWNLOADS}`
-        window.open(myDownloadUrl, '_blank')
-      }, 1000)
-    } catch (error: unknown) {
-      console.error('下载文件失败:', error)
-      if (error instanceof Error) {
-        message.error(error.message)
-      } else {
-        message.error('下载文件失败: 未知错误类型')
-      }
-    } finally {
-      setDownloadLoading(false)
-    }
-  }
-
-  const { openModal } = useModal()
-  const { run: addDataToSheet } = useRequest<
-    Awaited<ReturnType<typeof addDataToSheetFunc>>,
-    Parameters<typeof addDataToSheetFunc>
-  >(addDataToSheetFunc, {
-    onSuccess: (_res) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res = { Data: { data: [{ sheetId: (_res as unknown as any)?.Data?.data[0] }] } }
-
-      message.success('导入成功')
-      handleDataImported(res.Data.data[0].sheetId)
-    },
-    manual: true,
-  })
-
-  const menu = (
-    // @ts-expect-error windUI
-    <Menu>
-      <Menu.Item onClick={handleDownloadFile} disabled={downloadLoading}>
-        {downloadLoading ? <LoadingOutlined /> : null}
-        下载文件
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          openModal('bulkImportHome', {
-            onFinish: (res) => {
-              addDataToSheet({
-                tableId,
-                dataType: 'CLUE_EXCEL',
-                sheetId: Number(activeKey),
-                clueExcelCondition: res,
-                enablePointConsumption: 1,
-              })
-            },
-          })
-        }}
-      >
-        上传文件
-      </Menu.Item>
-    </Menu>
-  )
-
   return (
     // @ts-expect-error windUI
     <Spin spinning={loading || addSheetLoading || deleteSheetLoading || editSheetLoading}>
@@ -674,23 +603,6 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
         <Result title={error} subTitle="抱歉，服务器出错了" />
       ) : (
         <div className={`${PREFIX}-container`}>
-          <div className={`${PREFIX}-header`}>
-            <TableNameEditor tableId={tableId} initialName={initialTableName} onNameChange={setInitialTableName} />
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Dropdown overlay={menu} placement="bottomLeft">
-                {/* @ts-expect-error wind-icon */}
-                <Button type="text" icon={<FolderOpenO />}>
-                  操作
-                </Button>
-              </Dropdown>
-              <Divider type="vertical" style={{ marginInlineStart: 0, marginInlineEnd: 0 }} />
-              {/* <Button type="text" icon={<PlusOutlined />}>
-                监控设置
-              </Button> */}
-              <Divider type="vertical" style={{ marginInlineStart: 0, marginInlineEnd: 0 }} />
-              <User showCoins />
-            </div>
-          </div>
           <div className={`${PREFIX}-content`}>
             <div>
               <Tabs
@@ -699,14 +611,14 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
                   setActiveKey(key)
                   saveActiveSheet(tableId, key)
                 }}
-                type={editingSheetId ? 'card' : 'editable-card'}
+                type={'card'}
                 className={`${PREFIX}-tabs`}
                 tabBarStyle={{
                   backgroundColor: '#fff',
                 }}
                 tabPosition={'bottom'}
                 items={enhancedTabItems}
-                addIcon={addIcon}
+                // addIcon={addIcon}
                 // @ts-expect-error wind-icon
                 more={{ icon: <SwapO /> }}
                 tabBarExtraContent={{
@@ -715,6 +627,7 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
                       type="text"
                       icon={addIcon}
                       onClick={() =>
+                        // @ts-expect-error ttt
                         handleAddSheetSubmit({ sheetName: generateUniqueName({ name: 'Sheet', list, key: 'label' }) })
                       }
                     />
@@ -722,11 +635,9 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
                 }}
                 onEdit={(targetKey: React.MouseEvent | React.KeyboardEvent | string, action: 'add' | 'remove') => {
                   if (action === 'add') {
-                    console.log('🚀 ~ onEdit ~ 新增sheet:', targetKey)
+                    // @ts-expect-error ttt
                     handleAddSheetSubmit({ sheetName: generateUniqueName({ name: 'Sheet', list, key: 'label' }) })
                   } else if (!editingSheetId) {
-                    // 只有在非编辑模式下才允许删除
-                    console.log('🚀 ~ onEdit ~ 删除sheet:', targetKey)
                     handleDeleteSheet(targetKey as string)
                   }
                 }}
@@ -738,5 +649,7 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
     </Spin>
   )
 })
+
+VisTablePage.displayName = 'VisTablePage'
 
 export default VisTablePage

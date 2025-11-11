@@ -3,7 +3,7 @@ import { Button, Card } from '@wind/wind-ui'
 import { AxiosInstance } from 'axios'
 import { GelCardTypeEnum, GelData, postPointBuriedWithAxios } from 'gel-api'
 import { t } from 'gel-util/intl'
-import { isArray } from 'lodash'
+import { isArray } from 'lodash-es'
 import { FC } from 'react'
 
 export const isGelData = (content: any): content is GelData => {

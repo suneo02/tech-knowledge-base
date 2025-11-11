@@ -65,7 +65,6 @@ export const NumberRangeOption: FC<NumberRangeOptionProps> = ({ className, ...pr
       firstProps={{ className: styles.numberRangeOptionFirst }}
       secondProps={{ className: styles.numberRangeOptionSecond }}
       placeholder={['', '']}
-      
       {...props}
       onChange={handleChange}
       value={valueParsed}

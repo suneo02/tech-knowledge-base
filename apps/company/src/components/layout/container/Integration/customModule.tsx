@@ -1,13 +1,13 @@
-import React, { FC, useContext } from 'react'
 import { useTechScoreChart } from '@/components/company/techScore/chartHandle.tsx'
-import { getCorpTechScoreRows, useTechRank } from '@/components/company/techScore/tableHandle.tsx'
-import { Card, Col, Row } from '@wind/wind-ui'
 import { CorpTechTitleComponent } from '@/components/company/techScore/CompanyTechScore.tsx'
-import Table from '@wind/wind-ui-table'
-import { CompanyDetailContext } from '@/views/Company/ctx.ts'
-import intl from '@/utils/intl'
-import RadarChart from '../../../charts/RadarChart.jsx'
+import { getCorpTechScoreRows, useTechRank } from '@/components/company/techScore/tableHandle.tsx'
 import { ICfgDetailCompJson } from '@/types/configDetail/module.ts'
+import intl from '@/utils/intl'
+import { CompanyDetailContext } from '@/views/Company/ctx.ts'
+import { Card, Col, Row } from '@wind/wind-ui'
+import Table from '@wind/wind-ui-table'
+import React, { FC, useContext } from 'react'
+import { RadarChartComponent } from '../../../charts/RadarChart'
 
 const { HorizontalTable } = Table
 
@@ -19,7 +19,6 @@ export const ConfigDetailCorpTechScore: FC<ICfgDetailCompJson> = ({ titleId, tit
 
   const rows = getCorpTechScoreRows({
     score,
-    corpCode,
   })
 
   return (
@@ -27,16 +26,18 @@ export const ConfigDetailCorpTechScore: FC<ICfgDetailCompJson> = ({ titleId, tit
       key={'CompanyTechScore'}
       className="vtable-container CompanyTechScore-card"
       divider={'none'}
-      title={<CorpTechTitleComponent title={intl(titleId, title)} date={date} />}
+      title={<CorpTechTitleComponent title={intl(titleId, title)} date={date} corpCode={corpCode} />}
     >
       <Row>
-        <Col span={10}>{radarChartOpts ? <RadarChart opts={radarChartOpts} /> : null}</Col>
+        <Col span={10}>{radarChartOpts ? <RadarChartComponent opts={radarChartOpts} /> : null}</Col>
         <Col span={14}>
           <HorizontalTable
             bordered={'default'}
             className="table-custom-module-readyed"
             rows={rows}
             dataSource={rankData}
+            data-uc-id="IEpX2rDh85"
+            data-uc-ct="horizontaltable"
           />
         </Col>
       </Row>

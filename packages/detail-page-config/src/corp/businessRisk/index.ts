@@ -1,6 +1,7 @@
-import { validateReportDetailNodeJson } from '@/validation'
+import { validateReportDetailNodeOrNodesJson } from '@/validation'
 import corpBondDefaultJson from './BondDefault.json' assert { type: 'json' }
 import corpCancellationRecordJson from './CancellationRecord.json' assert { type: 'json' }
+import corpDoubleRandomInspectionJson from './DoubleRandomInspection.json' assert { type: 'json' }
 import corpEquityPledgeJson from './EquityPledge.json' assert { type: 'json' }
 import corpInspectionCheckJson from './InspectionCheck.json' assert { type: 'json' }
 import corpIntellectualPropertyPledgeJson from './IntellectualPropertyPledge.json' assert { type: 'json' }
@@ -10,35 +11,37 @@ import corpProductRecallJson from './ProductRecall.json' assert { type: 'json' }
 import corpSeriousViolationJson from './SeriousViolation.json' assert { type: 'json' }
 import corpStockPledgeJson from './StockPledge.json' assert { type: 'json' }
 
+import corpIntegrityInformationJson from './IntegrityInformation.json' assert { type: 'json' }
 import corpTaxDebtJson from './TaxDebt.json' assert { type: 'json' }
 import corpTaxViolationJson from './TaxViolation.json' assert { type: 'json' }
-import corpViolationPunishmentJson from './ViolationPunishment.json' assert { type: 'json' }
 import corpWarrantyInformationJson from './WarrantyInformation.json' assert { type: 'json' }
 
-export const corpBondDefault = validateReportDetailNodeJson(corpBondDefaultJson)
+export const corpBondDefault = validateReportDetailNodeOrNodesJson(corpBondDefaultJson)
 
-export const corpCancellationRecord = validateReportDetailNodeJson(corpCancellationRecordJson)
+export const corpCancellationRecord = validateReportDetailNodeOrNodesJson(corpCancellationRecordJson)
 
-export const corpProductRecall = validateReportDetailNodeJson(corpProductRecallJson)
+export const corpProductRecall = validateReportDetailNodeOrNodesJson(corpProductRecallJson)
 
-export const corpWarrantyInformation = validateReportDetailNodeJson(corpWarrantyInformationJson)
+export const corpWarrantyInformation = validateReportDetailNodeOrNodesJson(corpWarrantyInformationJson)
 
-export const corpViolationPunishment = validateReportDetailNodeJson(corpViolationPunishmentJson)
+export const corpIntegrityInformation = validateReportDetailNodeOrNodesJson(corpIntegrityInformationJson)
 
-export const corpTaxViolation = validateReportDetailNodeJson(corpTaxViolationJson)
+export const corpTaxViolation = validateReportDetailNodeOrNodesJson(corpTaxViolationJson)
 
-export const corpTaxDebt = validateReportDetailNodeJson(corpTaxDebtJson)
+export const corpTaxDebt = validateReportDetailNodeOrNodesJson(corpTaxDebtJson)
 
-export const corpManageAbnormal = validateReportDetailNodeJson(corpManageAbnormalJson)
+export const corpManageAbnormal = validateReportDetailNodeOrNodesJson(corpManageAbnormalJson)
 
-export const corpSeriousViolation = validateReportDetailNodeJson(corpSeriousViolationJson)
+export const corpSeriousViolation = validateReportDetailNodeOrNodesJson(corpSeriousViolationJson)
 
-export const corpStockPledge = validateReportDetailNodeJson(corpStockPledgeJson)
+export const corpStockPledge = validateReportDetailNodeOrNodesJson(corpStockPledgeJson)
 
-export const corpEquityPledge = validateReportDetailNodeJson(corpEquityPledgeJson)
+export const corpEquityPledge = validateReportDetailNodeOrNodesJson(corpEquityPledgeJson)
 
-export const corpIntellectualPropertyPledge = validateReportDetailNodeJson(corpIntellectualPropertyPledgeJson)
+export const corpIntellectualPropertyPledge = validateReportDetailNodeOrNodesJson(corpIntellectualPropertyPledgeJson)
 
-export const corpInspectionCheck = validateReportDetailNodeJson(corpInspectionCheckJson)
+export const corpInspectionCheck = validateReportDetailNodeOrNodesJson(corpInspectionCheckJson)
 
-export const corpLiquidationInfo = validateReportDetailNodeJson(corpLiquidationInfoJson)
+export const corpLiquidationInfo = validateReportDetailNodeOrNodesJson(corpLiquidationInfoJson)
+
+export const corpDoubleRandomInspection = validateReportDetailNodeOrNodesJson(corpDoubleRandomInspectionJson)

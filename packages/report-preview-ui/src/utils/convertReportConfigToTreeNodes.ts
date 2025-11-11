@@ -1,7 +1,7 @@
 import { DataNode } from '@wind/wind-ui/lib/tree'
-import { ReportDetailNodeJson, ReportDetailSectionJson, ReportPageJson } from 'gel-types'
+import { ReportDetailNodeOrNodesJson, ReportDetailSectionJson, ReportPageJson } from 'gel-types'
 import { configDetailIntlHelper } from 'report-util/corpConfigJson'
-import { tForRPPreview } from '.'
+import { TIntl } from 'report-util/types'
 
 /**
  * Converts the ReportPageJson structure to TreeNodeConfig for the TreeComponent.
@@ -9,9 +9,9 @@ import { tForRPPreview } from '.'
  * @param reportPageConfig The report configuration.
  * @returns An array of TreeNodeConfig.
  */
-export function convertReportConfigToTreeNodes(reportPageConfig: ReportPageJson): DataNode[] {
+export function convertReportConfigToTreeNodes(reportPageConfig: ReportPageJson, t: TIntl): DataNode[] {
   try {
-    const convertSection = (section: ReportDetailSectionJson | ReportDetailNodeJson): DataNode | undefined => {
+    const convertSection = (section: ReportDetailSectionJson | ReportDetailNodeOrNodesJson): DataNode | undefined => {
       if (!section) {
         return undefined
       }
@@ -19,7 +19,7 @@ export function convertReportConfigToTreeNodes(reportPageConfig: ReportPageJson)
         return undefined
       }
       const key = String(section.key)
-      const title = configDetailIntlHelper(section, 'title', tForRPPreview)
+      const title = configDetailIntlHelper(section, 'title', t)
       let children: DataNode[] | undefined = undefined
 
       if ((section.type === 'section' || section.type === 'nodeWithChildren') && section.children) {

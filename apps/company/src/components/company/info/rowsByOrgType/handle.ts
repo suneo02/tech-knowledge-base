@@ -13,7 +13,7 @@ import { ICorpBasicInfoFront } from '../handle'
 
 export const getCorpInfoRowsByOrg = (
   baseInfo: ICorpBasicInfoFront,
-  onCorpScaleClick: () => void
+  onClickFeedback: () => void
 ): HorizontalTableColumns => {
   try {
     switch (baseInfo.configType) {
@@ -24,19 +24,19 @@ export const getCorpInfoRowsByOrg = (
       case 'NGO':
         return corpInfoNGORows(baseInfo)
       case 'PE':
-        return corpInfoPERows(baseInfo, onCorpScaleClick)
+        return corpInfoPERows(baseInfo, onClickFeedback)
       case 'FCP':
-        return corpInfoFCPRows(baseInfo, onCorpScaleClick)
+        return corpInfoFCPRows(baseInfo, onClickFeedback)
       case 'FPC':
-        return corpInfoFPCRows(baseInfo, onCorpScaleClick)
+        return corpInfoFPCRows(baseInfo, onClickFeedback)
       case 'OE':
-        return corpInfoOERows(baseInfo, onCorpScaleClick)
+        return corpInfoOERows(baseInfo, onClickFeedback)
       case 'SPE':
-        return corpInfoSPERows(baseInfo, onCorpScaleClick)
+        return corpInfoSPERows(baseInfo, onClickFeedback)
       case 'IIP':
-        return getIndividualBusinessRows(baseInfo, onCorpScaleClick)
+        return getIndividualBusinessRows(baseInfo, onClickFeedback)
       case 'CO':
-        return corpInfoCORows(baseInfo, onCorpScaleClick)
+        return corpInfoCORows(baseInfo, onClickFeedback)
     }
     return null
   } catch (e) {

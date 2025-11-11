@@ -1,9 +1,8 @@
-import { ApiPageParamForSuperlist, ApiResponseForSuperlist } from './config'
+import { ChatRawSentenceIdentifier, ChatRawSentenceIdIdentifier } from '@/chat'
+import { ApiPageParamForSuperlist, ApiResponseForSuperlist } from './types'
 
-export interface SuperListPresetQuestion {
-  rawSentence: string
-  rawSentenceID: string
-}
+export interface SuperListPresetQuestion extends ChatRawSentenceIdentifier, ChatRawSentenceIdIdentifier {}
+
 export interface SuperListPresetQuestionResponse {
   list: SuperListPresetQuestion[]
   page: null

@@ -3,14 +3,13 @@ import { RPSection } from '@/components/RPSection'
 import { ConfigTable } from '@/components/table'
 import classNames from 'classnames'
 import { ReportDetailCustomNodeJson, ReportDetailTableJson, TCorpDetailNodeKey } from 'gel-types'
-import { ErrorBoundary } from 'gel-ui'
+import { ErrorBoundary, useIntl } from 'gel-ui'
 import { isEn } from 'gel-util/intl'
 import { FC, MutableRefObject } from 'react'
 import { getReportNodeSuffixComment, ReportRenderItem } from 'report-util/corpConfigJson'
 import { getReportNodeSuffixDataComment } from 'report-util/table'
 import { useRPPreviewCtx } from '../../../context/RPPreview'
 import { usePreviewReportContentCtx } from '../../../context/RPPreviewContent'
-import { tForRPPreview } from '../../../utils'
 import { TableComment } from '../../TableComment'
 import styles from './styles.module.less'
 
@@ -19,21 +18,15 @@ export const PreviewRenderOrderItem: FC<{
   item: ReportRenderItem
   renderedItemsRef: MutableRefObject<{ [id: string]: HTMLDivElement | null }>
 }> = ({ item, renderedItemsRef }) => {
+  const t = useIntl()
   const { corpBasicNum, axiosInstance, getWsid, corpCode } = useRPPreviewCtx()
 
   // Use context for report config and hidden nodes
-  const {
-    sectionConfigStore,
-    tableConfigsStore,
-    normalizedHiddenNodes,
-    customNodeConfigStore,
-    nodeDataStore,
-    updateData,
-    nodeDataOverallStore,
-  } = usePreviewReportContentCtx()
+  const { flattenedReportConfig, normalizedHiddenNodes, nodeDataStore, updateData, nodeDataOverallStore } =
+    usePreviewReportContentCtx()
 
   if (item.type === 'heading') {
-    const sectionConfig = sectionConfigStore[item.id]
+    const sectionConfig = flattenedReportConfig.sectionConfigStore[item.id]
     if (!sectionConfig) {
       console.error('sectionConfig not found', item.id)
       return null
@@ -49,7 +42,7 @@ export const PreviewRenderOrderItem: FC<{
         <RPSection
           tableKey={item.relevateTableId}
           tableData={item.relevateTableId ? nodeDataStore[item.relevateTableId] : undefined}
-          tableConfigsStore={tableConfigsStore}
+          tableConfigsStore={flattenedReportConfig.tableConfigsStore}
           {...sectionConfig}
         />
       </div>
@@ -70,7 +63,7 @@ export const PreviewRenderOrderItem: FC<{
   ) => {
     const dataOverall = nodeDataOverallStore[item.id]
     const dataComment = getReportNodeSuffixDataComment(isEn(), dataOverall, config)
-    const suffixComment = getReportNodeSuffixComment(item.id, config, tForRPPreview, isEn())
+    const suffixComment = getReportNodeSuffixComment(item.id, config, t, isEn())
     return (
       <>
         {suffixComment ? (
@@ -85,7 +78,7 @@ export const PreviewRenderOrderItem: FC<{
     )
   }
   if (item.type === 'table') {
-    const tableConfig = tableConfigsStore[item.id]
+    const tableConfig = flattenedReportConfig.tableConfigsStore[item.id]
     if (!tableConfig) {
       console.error('tableConfig not found', item.id)
       return null
@@ -114,7 +107,7 @@ export const PreviewRenderOrderItem: FC<{
   }
 
   if (item.type === 'custom' && item.id === 'BelongIndustry') {
-    const nodeConfig = customNodeConfigStore[item.id]
+    const nodeConfig = flattenedReportConfig.customNodeConfigStore[item.id]
     if (!nodeConfig) {
       console.error('tableConfig not found', item.id)
       return null

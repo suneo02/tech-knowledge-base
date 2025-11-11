@@ -5,11 +5,11 @@ import { GSTabsEnum } from '@/views/GlobalSearch/types'
 import { AddStarO, StarF } from '@wind/icons'
 import { Button, List, message, Modal } from '@wind/wind-ui'
 import React, { useRef } from 'react'
-import { PRIMARY_COLOR_1 } from '../../../forrm/common/select/type'
+import { PRIMARY_COLOR_1 } from '../../../form/common/select/type'
 import More from '../More'
 import './index.less'
 import SearchResultCollectModal from './modal'
-import SearchResultTag from './tag'
+import { SearchResultTag } from './tag'
 
 import {
   AddressInfo,
@@ -49,7 +49,7 @@ interface SearchResultCollectModalRef {
 const SearchResult = <T extends Record<string, any>>(props: Props<T>) => {
   const collectModalRef = useRef<SearchResultCollectModalRef>(null)
   const moreRef = useRef<HTMLDivElement>(null)
-  const { data, total, loading, next, moreMessage, type, done, updateData } = props
+  const { data, total, loading, next, type, done, updateData } = props
 
   const handleCollect = (isCollect: boolean, companyCode: string) => {
     if (isCollect) {
@@ -86,10 +86,15 @@ const SearchResult = <T extends Record<string, any>>(props: Props<T>) => {
         dataSource={data as unknown as SearchResultItem[]}
         renderItem={(item, index) => {
           return (
-            <List.Item key={(item.corpId as string) || index}>
+            <List.Item style={{ padding: '16px 12px' }} key={(item.corpId as string) || index}>
               <div className="item-item">
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <div style={{ marginInlineEnd: 12 }}>
+                <div style={{ display: 'flex' }}>
+                  <div
+                    style={{
+                      marginInlineEnd: 12,
+                      // marginTop: 4
+                    }}
+                  >
                     <Avatar src={item.logo} alt={item.corpName} width={60} height={60} />
                   </div>
 
@@ -99,16 +104,34 @@ const SearchResult = <T extends Record<string, any>>(props: Props<T>) => {
                     >
                       <CompanyNameInfo item={item} type={type} />
                       <Button
-                        //  @ts-expect-error ttt
-                        icon={item.isCollect ? <StarF style={{ color: PRIMARY_COLOR_1 }} /> : <AddStarO />}
+                        icon={
+                          item.isCollect ? (
+                            <StarF
+                              onPointerEnterCapture={undefined}
+                              onPointerLeaveCapture={undefined}
+                              style={{ color: PRIMARY_COLOR_1 }}
+                              data-uc-id="naRZJaj_ES"
+                              data-uc-ct="starf"
+                            />
+                          ) : (
+                            <AddStarO
+                              onPointerEnterCapture={undefined}
+                              onPointerLeaveCapture={undefined}
+                              data-uc-id="XD3jWuCyY5"
+                              data-uc-ct="addstaro"
+                            />
+                          )
+                        }
                         onClick={() => handleCollect(!!item.isCollect, item.corpId)}
+                        data-uc-id="L8xsN36qyb"
+                        data-uc-ct="button"
                       >
                         {item.isCollect ? intl('138129', '已收藏') : intl('143165', '收藏')}
                       </Button>
                     </div>
                     <EnglishNameInfo item={item} type={type} />
                     <div style={{ marginBlockStart: 8 }}>
-                      <SearchResultTag {...item} type={type} />
+                      <SearchResultTag tags={item.tags} statusAfter={item.statusAfter} type={type} />
                     </div>
                   </div>
                 </div>
@@ -143,11 +166,12 @@ const SearchResult = <T extends Record<string, any>>(props: Props<T>) => {
         <More
           ref={moreRef}
           enable={data?.length > 0 && !loading && data?.length < total}
-          onLoading={next}
           // message={moreMessage || (data?.length >= total ? '我是有底线的' : '上拉加载更多')}
+          onLoading={next}
+          data-uc-id="NE7QcG6fGW"
+          data-uc-ct="more"
         />
       ) : null}
-
       <SearchResultCollectModal
         // @ts-expect-error ttt
         ref={collectModalRef}
@@ -156,6 +180,8 @@ const SearchResult = <T extends Record<string, any>>(props: Props<T>) => {
             prevData.map((item) => (item.corpId === companyCode ? { ...item, isCollect: true } : item))
           )
         }
+        data-uc-id="UDgO1jFBDC"
+        data-uc-ct="searchresultcollectmodal"
       />
     </>
   )

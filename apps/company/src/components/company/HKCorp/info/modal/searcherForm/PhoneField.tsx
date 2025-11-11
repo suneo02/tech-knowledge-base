@@ -26,6 +26,6 @@ export const PhoneField: React.FC<{ maskedFields: { [key: string]: boolean } }> 
       },
     ]}
   >
-    <Input placeholder={intl(414523, '请输入查册人手机号')} allowClear />
+    <Input placeholder={intl(414523, '请输入查册人手机号')} allowClear data-uc-id="MRcI46h_UI" data-uc-ct="input" />
   </Form.Item>
 )

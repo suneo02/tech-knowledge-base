@@ -27,21 +27,14 @@
       "additionalProperties": false,
       "properties": {
         "align": {
-          "enum": [
-            "left",
-            "right",
-            "center"
-          ],
+          "enum": ["left", "right", "center"],
           "type": "string"
         },
         "colSpan": {
           "type": "number"
         },
         "contentWidth": {
-          "type": [
-            "number",
-            "string"
-          ]
+          "type": ["number", "string"]
         },
         "dataIndex": {},
         "hiddenTitle": {
@@ -67,91 +60,12 @@
           "type": "string"
         },
         "titleIntl": {
-          "type": [
-            "string",
-            "number"
-          ]
+          "type": ["string", "number"]
         },
         "titleRenderConfig": {
           "additionalProperties": false,
           "description": "标题渲染配置",
           "properties": {
-            "dependsOnField": {
-              "enum": [
-                "abbreviation",
-                "anotherNames",
-                "areaCode",
-                "biz_reg_no",
-                "bus_address",
-                "business_scope",
-                "cancel_date",
-                "configType",
-                "corp_id",
-                "corp_name",
-                "corp_old_id",
-                "corp_type",
-                "corp_type_id",
-                "credit_code",
-                "domainCount",
-                "endowment_num",
-                "employee_num",
-                "eng_name",
-                "formerNameList",
-                "gbIndustryList",
-                "industryGbFold",
-                "industryWindFold",
-                "industryWindFoldCode",
-                "issue_date",
-                "legal_person_id",
-                "legal_person_name",
-                "legal_person_type",
-                "mailCount",
-                "oper_period_begin",
-                "oper_period_end",
-                "org_code",
-                "overseasCorpIndustryList",
-                "paid_in_capital",
-                "paid_in_capital_currency",
-                "paid_in_capital_currency_name",
-                "postal_address",
-                "province",
-                "reg_address",
-                "reg_authority",
-                "reg_capital",
-                "reg_date",
-                "reg_unit",
-                "reg_unit_name",
-                "revokeDate",
-                "revokeOrCancelDate",
-                "scale",
-                "scaleAll",
-                "state",
-                "taxIdNo",
-                "taxQualiType",
-                "telCount",
-                "usednames",
-                "xxIndustryList",
-                "xxIndustryListEn",
-                "registerPark",
-                "registerParkId",
-                "officePark",
-                "officeParkId",
-                "date_ppproved",
-                "entity_type",
-                "simplified_chinese",
-                "remark",
-                "act_contro_id",
-                "act_contro_name",
-                "jurisdiction",
-                "industry_gb",
-                "industry_name",
-                "brief",
-                "seIndustriesCount",
-                "state_zh",
-                "collect_flag"
-              ],
-              "type": "string"
-            },
             "titleLocal": {
               "type": "string"
             },
@@ -165,16 +79,10 @@
           "type": "number"
         },
         "width": {
-          "type": [
-            "string",
-            "number"
-          ]
+          "type": ["string", "number"]
         }
       },
-      "required": [
-        "dataIndex",
-        "title"
-      ],
+      "required": ["dataIndex", "title"],
       "type": "object"
     },
     "ConfigTableCellRenderOptions": {
@@ -237,10 +145,7 @@
           "type": "string"
         },
         "imageRenderType": {
-          "enum": [
-            "brand",
-            "corp"
-          ],
+          "enum": ["brand", "corp"],
           "type": "string"
         },
         "imageTableId": {
@@ -281,14 +186,7 @@
     },
     "ConfigTableCellRenderTypeBase": {
       "description": "基础渲染类型 这个类型更新请谨慎，已经列举了业余不相关的可能配置",
-      "enum": [
-        "date",
-        "number",
-        "currency",
-        "dateRange",
-        "image",
-        "static"
-      ],
+      "enum": ["date", "number", "currency", "dateRange", "image", "static"],
       "type": "string"
     },
     "ConfigTableCellRenderTypeLiteral": {
@@ -331,10 +229,7 @@
           "additionalProperties": false,
           "properties": {
             "method": {
-              "enum": [
-                "GET",
-                "POST"
-              ],
+              "enum": ["GET", "POST"],
               "type": "string"
             }
           },
@@ -375,10 +270,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "cn",
-              "en"
-            ],
+            "required": ["cn", "en"],
             "type": "object"
           },
           "type": "array"
@@ -392,6 +284,7 @@
             "status",
             "fund_type",
             "hkUnlisted",
+            "industryCount",
             "outputCount",
             "salesCount",
             "businessCount",
@@ -510,15 +403,18 @@
             "webchat_public_num",
             "micro_blog_num",
             "today_headline_num",
+            "ic_layout_num",
             "vietnamCorpIndustryNum",
             "businessregisterCount",
             "shareholdertReport",
             "shareholdertUnregular",
             "majorShareholderCount",
+            "bjeeShareholdersCount",
             "actualcontrollerPublishCount",
             "actualcontrollerCalcCount",
             "shareholder_change_num",
             "new_branch_num",
+            "e_holdingEnterprise_count",
             "foreign_invest_num",
             "beneficialOwner",
             "beneficialNaturalPerson",
@@ -571,9 +467,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "companyCode"
-          ],
+          "required": ["companyCode"],
           "type": "object"
         },
         "extraPayload": {
@@ -605,10 +499,7 @@
           "type": "string"
         },
         "titleIntl": {
-          "type": [
-            "string",
-            "number"
-          ]
+          "type": ["string", "number"]
         },
         "tooltipTitle": {
           "type": "string"
@@ -624,10 +515,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "key",
-        "type"
-      ],
+      "required": ["key", "type"],
       "type": "object"
     },
     "TCorpDetailNodeKey": {
@@ -655,6 +543,9 @@
         },
         {
           "$ref": "#/definitions/corpDetailBusinessRiskKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailHistoryKey"
         }
       ],
       "description": "定义企业详情各节点的 key，有可能是 表格，有可能是图 也有可能是多个表格的 父节点的 key ，父节点内部的多个表格一般是上下排列 node 与章节 key 不同的是，章节内部的节点都较为独立，而 node 内部的节点可能较为关联，例如发行股票内部的两个表格非常相似，所以看作一个节点"
@@ -712,15 +603,28 @@
         "BussDataBusinessCumulative",
         "BussDataBusinessCurrent",
         "BussDataInventoryCumulative",
-        "BussDataInventoryCurrent"
+        "BussDataInventoryCurrent",
+        "FinancialIndicator",
+        "MainBusinessScope"
       ],
       "type": "string"
     },
     "corpDetailBusinessInfoKey": {
       "enum": [
-        "Business",
-        "ProjectInfo",
-        "BrandInfo"
+        "EnterpriseBusiness",
+        "AppProducts",
+        "Hotels",
+        "CompanyReports",
+        "GovernmentMajorProjects",
+        "TenderingAnnouncements",
+        "BiddingAnnouncements",
+        "Recruitment",
+        "LandInformation",
+        "PrivateEquityFunds",
+        "CustomersAndSuppliers",
+        "BusinessAssociates",
+        "GovernmentSubsidies",
+        "GovernmentSupport"
       ],
       "type": "string"
     },
@@ -772,6 +676,25 @@
       ],
       "type": "string"
     },
+    "corpDetailHistoryKey": {
+      "enum": [
+        "HistoryBusinessInfo",
+        "HistoryShareholder",
+        "HistoryLegalRepresentative",
+        "HistoryOverseasInvestment",
+        "HistoryAdministrativeLicenseBureau",
+        "HistoryAdministrativeLicenseCreditChina",
+        "HistoryWebsiteRegistration",
+        "HistoryEquityPledge",
+        "HistoryEquityPledgePledgor",
+        "HistoryEquityPledgePledgee",
+        "HistoryEquityPledgePledgeeTarget",
+        "HistoryLandMortgage",
+        "MultiCertificate",
+        "BusinessLicenseInvalidDeclaration"
+      ],
+      "type": "string"
+    },
     "corpDetailIntellectualKey": {
       "enum": [
         "Trademark",
@@ -784,7 +707,13 @@
         "PatentBranch",
         "PatentHoldCompany",
         "PatentOutboundInvestment",
-        "SoftwareCopyright"
+        "SoftwareCopyright",
+        "WorkCopyright",
+        "StandardInfo",
+        "WebsiteRegistration",
+        "WechatPublic",
+        "MicroblogAccount",
+        "TodayHeadline"
       ],
       "type": "string"
     },
@@ -813,7 +742,7 @@
         "TrialNotice",
         "CourtNotice",
         "DeliveryAnnouncement",
-        "ViolationPunishment",
+        "IntegrityInformation",
         "WarrantyInformation",
         "TaxViolation",
         "TaxDebt"
@@ -822,4 +751,3 @@
     }
   }
 }
-

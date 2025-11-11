@@ -5,29 +5,29 @@
  * @format
  */
 
-import { useScrollUtils } from '@/utils/scroll'
-import Table from '@wind/wind-ui-table'
-import React, { FC, memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { useTableColumns } from './tableColumns'
+import { getGroupDataApi } from '@/api/groupApi'
 import TableTitle from '@/components/common/card/header/Header'
 import NoData from '@/components/common/noData/NoData.tsx'
-import { useGroupStore } from '@/store/group'
-import intl, { intlNoIndex } from '@/utils/intl'
-import { Spin } from '@wind/wind-ui'
-import _, { cloneDeep, isArray, isNil } from 'lodash'
-import { wftCommon } from '@/utils/utils.tsx'
-import { TableFooterLeft } from './FooterLeft'
-import { useTableNewAggregations } from '@/handle/table/aggregation'
-import { useTableExpandable } from './components/expandable/expandable.tsx'
-import HorizontalTable from './horizontal'
-import './table.less'
-import { usePreprocessingData } from './utils/processing.ts'
-import { getGroupDataApi } from '@/api/groupApi'
-import global from '../../lib/global.ts'
 import { TOnSearchChange } from '@/components/common/search/type.ts'
-import { ICfgDetailTableJson } from '@/types/configDetail/table.ts'
 import { ConfigDetailContext } from '@/components/layout/ctx.tsx'
 import { IApiChangeIndicator } from '@/components/table/type.ts'
+import { useTableNewAggregations } from '@/handle/table/aggregation'
+import { useGroupStore } from '@/store/group'
+import { ICfgDetailTableJson } from '@/types/configDetail/table.ts'
+import intl, { intlNoIndex } from '@/utils/intl'
+import { useScrollUtils } from '@/utils/scroll'
+import { wftCommon } from '@/utils/utils.tsx'
+import { Spin } from '@wind/wind-ui'
+import Table from '@wind/wind-ui-table'
+import _, { cloneDeep, isArray, isNil } from 'lodash'
+import React, { FC, memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import global from '../../lib/global.ts'
+import { useTableExpandable } from './components/expandable/expandable.tsx'
+import { TableFooterLeft } from './FooterLeft'
+import HorizontalTable from './horizontal'
+import './table.less'
+import { useTableColumns } from './tableColumns'
+import { usePreprocessingData } from './utils/processing.ts'
 
 const TableType = {
   Normal: 'Normal',
@@ -199,7 +199,7 @@ const TableNewRaw: FC<ICfgDetailTableJson> = (props) => {
       onAggMapChange(Data?.aggregations, lastAggChangedRef.current, changeIndicator)
     }
 
-    const { sourceData: matchedData, aggregations: matchedAggs } = matchOldData(_Data)
+    const { sourceData: matchedData } = matchOldData(_Data)
 
     const tableDataComputed =
       matchedData && isArray(matchedData)
@@ -342,6 +342,8 @@ const TableNewRaw: FC<ICfgDetailTableJson> = (props) => {
             empty={<NoData />}
             rowKey="key"
             title={() => titleRender?.(pagination.total)}
+            data-uc-id="Epbbkpk7eY"
+            data-uc-ct="table"
           />
         )
       case TableType.Horizontal:
@@ -356,6 +358,8 @@ const TableNewRaw: FC<ICfgDetailTableJson> = (props) => {
             empty={<NoData />}
             // @ts-expect-error ttt
             title={() => titleRender?.(pagination.total)}
+            data-uc-id="aXUUmXVWU"
+            data-uc-ct="table"
           ></Table.HorizontalTable>
         )
       default:
@@ -373,6 +377,8 @@ const TableNewRaw: FC<ICfgDetailTableJson> = (props) => {
             num={pagination.total || pagination.total}
             onSearchChange={handleSearchChanged}
             titleRemark={titleRemark}
+            data-uc-id="3uAVeDU8-X"
+            data-uc-ct="tabletitle"
           />
         </div>
       ) : null}

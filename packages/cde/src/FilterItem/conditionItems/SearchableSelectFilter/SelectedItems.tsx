@@ -29,7 +29,6 @@ export const SelectedItems = ({
     <div className={styles.selectedItemsWrapper}>
       {selectedItems.map((item) => (
         <div key={String(item.value)} className={styles.selectedItem}>
-          {/* @ts-expect-error wind ui */}
           <Tag className={styles.selectedItemTag} closable onClose={() => onRemoveItem(item)}>
             {item.objectName}
           </Tag>

@@ -11,7 +11,7 @@ const InputKeyWords = ({ defalutValue = [], onChangeCallback = () => null }) => 
 
   useEffect(() => {
     setValue(defalutValue)
-  },[defalutValue])
+  }, [defalutValue])
   const onChange = (e) => {
     const val = e.target.value
     setKeyword(val)
@@ -20,11 +20,11 @@ const InputKeyWords = ({ defalutValue = [], onChangeCallback = () => null }) => 
   // 确认
   const onSubmit = (e) => {
     e.preventDefault()
-    if(value.includes(keyword) || !keyword) {
+    if (value.includes(keyword) || !keyword) {
       // msg('关键词已存在')
       setKeyword('')
-      return 
-    }else {
+      return
+    } else {
       value.push(keyword)
     }
     setValue([...value])
@@ -33,37 +33,37 @@ const InputKeyWords = ({ defalutValue = [], onChangeCallback = () => null }) => 
   }
 
   const delValue = (val) => {
-    value = value.filter(item => item !== val)
+    value = value.filter((item) => item !== val)
     setValue([...value])
     onChangeCallback(value)
   }
   return (
-    <Box ref={formRef} value={value}  onSubmit={onSubmit}>
-      {
-        value.map((item,i) => (
-          <span key={i}>
-            {item}
-            <img onClick={() => delValue(item)} src={closeImg} />
-          </span>
-        ))
-      }
+    <Box ref={formRef} value={value} onSubmit={onSubmit} data-uc-id="luBj-kGO-qH" data-uc-ct="box">
+      {value.map((item, i) => (
+        <span key={i}>
+          {item}
+          <img onClick={() => delValue(item)} src={closeImg} data-uc-id="au5Jy6SsCnK" data-uc-ct="img" />
+        </span>
+      ))}
       <Input
         type="text"
-        placeholder={`${value.length === 0 ?  intl('272180', '请输入关键词，按确认键隔开')  : ''}` }
+        placeholder={`${value.length === 0 ? intl('272180', '请输入关键词，按确认键隔开') : ''}`}
         value={keyword}
         onChange={onChange}
         onBlur={onSubmit}
+        data-uc-id="BBManVbJmSt"
+        data-uc-ct="input"
       />
     </Box>
   )
 }
 
-const Box = styled.form`  
+const Box = styled.form`
   display: flex;
   flex-wrap: wrap;
   padding: 4px;
   border-radius: 2px;
-  border: 1px solid ${props => props.value.length > 0 ? '#00aec7' : '#D9D9D9'};  
+  border: 1px solid ${(props) => (props.value.length > 0 ? '#00aec7' : '#D9D9D9')};
   border-color: @g-primary-color;
   background-color: #fff;
   min-height: 32px;
@@ -80,7 +80,7 @@ const Box = styled.form`
     line-height: 20px;
     font-size: 12px;
     color: #333;
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
     border-radius: 2px;
     border: 1px solid #e3e3e3;
     margin-right: 12px;
@@ -98,7 +98,6 @@ const Box = styled.form`
       cursor: pointer;
     }
   }
-
 `
 
 export default InputKeyWords

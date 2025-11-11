@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
 import { ITechScoreChartOpts } from '@/components/company/techScore/type.ts'
+import { useCompanyTabWidth } from '@/hooks/useCompanyTabWidth.ts'
 
-export const generateTechScoreRadarChartOpts = (data: TCorpTechScoreReport) => {
+export const generateTechScoreRadarChartOpts = (data: TCorpTechScoreReport, isWidthLessThan985: boolean) => {
   const key4score = {
     strengthScore: intl('273193', '企业实力'),
     influenceScore: intl('378216', '社会影响力'),
@@ -24,7 +25,7 @@ export const generateTechScoreRadarChartOpts = (data: TCorpTechScoreReport) => {
     ],
     indicator: [],
     style: {
-      height: '320px',
+      height: isWidthLessThan985 ? '220px' : '320px',
       width: '100%',
     },
     radarExtras: {
@@ -69,11 +70,13 @@ export const useTechScoreChart = (corpCode: string) => {
   const [score, setScore] = useState<string | number>(0)
   const [date, setDate] = useState('')
 
+  const isWidthLessThan985 = useCompanyTabWidth()
+
   const drawRadarChart = async () => {
     try {
       const res = await apiGetTechScore(corpCode)
       if (res?.code === '0' && res.data?.length) {
-        const { opts, innovateScore, formattedTime } = generateTechScoreRadarChartOpts(res.data)
+        const { opts, innovateScore, formattedTime } = generateTechScoreRadarChartOpts(res.data, isWidthLessThan985)
         setScore(innovateScore)
         setRadarChartOpts(opts)
         setDate(formattedTime)
@@ -88,7 +91,7 @@ export const useTechScoreChart = (corpCode: string) => {
     if (corpCode) {
       drawRadarChart()
     }
-  }, [corpCode])
+  }, [corpCode, isWidthLessThan985])
 
   return { radarChartOpts, score, date }
 }

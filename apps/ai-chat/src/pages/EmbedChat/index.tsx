@@ -26,7 +26,7 @@ const EmbedChatInner: React.FC = () => {
   // 监听isChating状态变化，向父窗口发送消息
   useEffect(() => {
     // 向父窗口发送当前聊天状态
-    console.log('聊天状态变化，正在发送消息:', isChating)
+    // console.log('聊天状态变化，正在发送消息:', isChating)
     try {
       window.parent.postMessage(
         {
@@ -37,7 +37,7 @@ const EmbedChatInner: React.FC = () => {
         },
         '*'
       )
-      console.log('消息已发送')
+      // console.log('消息已发送')
     } catch (error) {
       console.error('发送消息失败:', error)
     }

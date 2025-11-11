@@ -6,6 +6,7 @@ import svgr from 'vite-plugin-svgr'
 
 export default defineConfig(
   ({ mode }: ConfigEnv): UserConfig => ({
+    logLevel: 'warn',
     plugins: [
       dts({
         outDir: ['dist/types'],
@@ -27,6 +28,7 @@ export default defineConfig(
       },
     },
     build: {
+      emptyOutDir: false, // 确保每次构建前清空目录
       minify: mode === 'development' ? false : 'esbuild', // 开发环境不压缩，生产环境使用 esbuild 压缩
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
@@ -54,15 +56,24 @@ export default defineConfig(
           'dayjs',
           'gel-api',
           /^gel-util(\/.*)?$/, // 支持 gel-util 的子路径导出
-          'lodash',
           'path-browserify',
           'markdown-it',
-          'markdown-it-highlightjs',
           'highlight.js',
         ],
         output: {
-          // Ensure CSS is generated as separate files
-          assetFileNames: 'index.[ext]',
+          format: 'es',
+          entryFileNames: `[name].mjs`, // Keep directory structure for submodules
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+          assetFileNames: (assetInfo) => {
+            if (!assetInfo.name) {
+              return 'assets/[name].[ext]'
+            }
+            if (/\.css$/i.test(assetInfo.name)) {
+              return 'index.css'
+            }
+            return `assets/[name].[ext]`
+          },
         },
         onwarn(warning, warn) {
           // 忽略 "use client" 指令相关的警告

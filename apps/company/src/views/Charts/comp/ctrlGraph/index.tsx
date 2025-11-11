@@ -10,7 +10,8 @@ import { linkToCompany } from '../../handle'
 import SpinLoading from '../spin-loading'
 import { translateGraphData } from '../extra'
 import { VipPopup } from '@/lib/globalModal'
-import { GRAPH_MENU_TYPE } from '../constants'
+import { GRAPH_MENU_TYPE } from '../../types'
+import { pointBuriedByModule } from '@/api/pointBuried/bury'
 
 interface CtrlGraphProps {
   companyCode: string
@@ -53,9 +54,9 @@ const CtrlGraph: React.FC<CtrlGraphProps> = ({
 }) => {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [ctrlInfo, setCtrlInfo] = useState<CtrlInfo[]>([])  // 控制人info
+  const [ctrlInfo, setCtrlInfo] = useState<CtrlInfo[]>([]) // 控制人info
   const [isStitution, setIsStitution] = useState(false) // 机构类型
-  const [isCtrl, setIsCtrl] = useState(false) // 需要显示实际控制人label  
+  const [isCtrl, setIsCtrl] = useState(false) // 需要显示实际控制人label
 
   async function getData() {
     try {
@@ -121,7 +122,6 @@ const CtrlGraph: React.FC<CtrlGraphProps> = ({
   }
 
   useEffect(() => {
-
     // 更新状态
     const newIsStitution = graphMenuType === GRAPH_MENU_TYPE.BENEFICIARY_ORG
     const newIsCtrl = graphMenuType === GRAPH_MENU_TYPE.ACTUAL_CONTROLLER
@@ -135,9 +135,19 @@ const CtrlGraph: React.FC<CtrlGraphProps> = ({
     // 如果是实际控制人图谱，获取控制人信息
     if (newIsCtrl) {
       getActCtrlInfo()
+      // 实控人埋点
+      pointBuriedByModule(922602100364, {
+        currentId: companyCode,
+        opId: companyCode,
+      })
+    } else {
+      // 受益人埋点
+      pointBuriedByModule(922602100993, {
+        currentId: companyCode,
+        opId: companyCode,
+      })
     }
   }, [companyCode, graphMenuType])
-
 
   return (
     <>
@@ -165,12 +175,18 @@ const CtrlGraph: React.FC<CtrlGraphProps> = ({
                           handleClick(item.ActControId, 'company', linkSourceRIME)
                         }
                       }}
+                      data-uc-id="nxA0ID3MWE"
+                      data-uc-ct="span"
                     >
                       {item.ActControName}
                     </span>
                     <span> {intl('420007', '实际持股比例')}：</span>
                     <span className="">
-                      {Number(item.ActInvestRate) > 0 ? wftCommon.formatPercent(Number(item.ActInvestRate)) : '--'}
+                      {Number(item.ActInvestRate) > 0
+                        ? wftCommon.formatPercent(Number(item.ActInvestRate))
+                        : item.showShareRate
+                          ? `${item.showShareRate}%`
+                          : '--'}
                     </span>
                   </div>
                 ))}
@@ -182,6 +198,9 @@ const CtrlGraph: React.FC<CtrlGraphProps> = ({
           height={height}
           institutionShow={isStitution}
           {...props}
+          data-uc-id="WmXQf09pB"
+          data-uc-ct="windbdgraph"
+          maxPath={20}
         />
       ) : null}
     </>

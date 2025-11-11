@@ -1,4 +1,5 @@
 export * from './AliceIcon'
+export * from './AliceLogo'
 export * from './ChatBase'
 export * from './ChatMessage'
 export * from './ChatRoles'

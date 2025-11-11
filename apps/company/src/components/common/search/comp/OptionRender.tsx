@@ -17,7 +17,7 @@ export const convertSelectOptionByCount = (option?: ISearchOptionItem): ISearchO
   try {
     return {
       ...option,
-      label: <SearchSelectOptionRender option={option} />,
+      label: <SearchSelectOptionRender option={option} data-uc-id="9p1xmogr3N" data-uc-ct="searchselectoptionrender" />,
       disabled: option.count === 0,
     }
   } catch (e) {

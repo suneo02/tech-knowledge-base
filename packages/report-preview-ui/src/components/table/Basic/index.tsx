@@ -1,6 +1,7 @@
 import { TablePropsVertical } from '@/types/table'
-import { tForRPPreview } from '@/utils'
+import { getTForRPPreview } from '@/utils'
 import { Spin } from '@wind/wind-ui'
+import { useIntl } from 'gel-ui'
 import React from 'react'
 import { instanceTableDefaultOptions } from 'report-util/table'
 import { NoDataRow } from '../tableComp'
@@ -12,8 +13,9 @@ interface BasicTableProps {
 }
 
 export const BasicTable: React.FC<BasicTableProps> = ({ dataSource = [], options: optionsProp }) => {
+  const t = useIntl()
   const options: TablePropsVertical = {
-    ...instanceTableDefaultOptions(tForRPPreview),
+    ...instanceTableDefaultOptions(getTForRPPreview(t)),
     ...optionsProp,
   }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Input, Popover, Tooltip } from '@wind/wind-ui'
 import './InputBox.less'
+import { t } from 'gel-util/intl'
 
 const { TextArea } = Input
 
@@ -19,7 +20,7 @@ const InputBox: React.FC<InputBoxProps> = ({
   value,
   onChange,
   onSubmit,
-  placeholder = '有什么可以帮你？（Shift + Enter 换行）',
+  placeholder = t('455060', '有什么可以帮你？（Shift + Enter 换行）'),
   disabled = false,
 }) => {
   const [focus, setFocus] = useState(false)
@@ -43,6 +44,8 @@ const InputBox: React.FC<InputBoxProps> = ({
               }
             }}
             style={{ height: '56px' }}
+            data-uc-id="zAVM0m7xmF"
+            data-uc-ct="textarea"
           />
         </div>
       </div>
@@ -50,7 +53,7 @@ const InputBox: React.FC<InputBoxProps> = ({
         <span></span>
         <div className="alice-deepthink-wrap">
           <div>
-            <Tooltip placement="top" title={"深度思考模式不可更改"}>
+            <Tooltip placement="top" title={t('455045', '深度思考模式不可更改')}>
               <a className="alice-deepmode-btn-active">
                 <span className="icon" style={{ display: 'flex' }}>
                   <span role="img" aria-label="deep-think" className="wicon-svg wicon-deep-think-o">
@@ -63,6 +66,8 @@ const InputBox: React.FC<InputBoxProps> = ({
                       height="1em"
                       fill="currentColor"
                       aria-hidden="true"
+                      data-uc-id="9wwmq90-xl"
+                      data-uc-ct="svg"
                     >
                       <path
                         d="M15.45 2.57c1.23 1.23.69 3.75-1.12 6.44 1.8 2.68 2.35 5.2 1.12 6.43-1.23 1.23-3.75.69-6.43-1.12-2.69 1.8-5.2 2.35-6.44 1.12-1.23-1.23-.69-3.75 1.12-6.43-1.8-2.69-2.35-5.2-1.12-6.44 1.23-1.23 3.75-.69 6.44 1.12 2.68-1.8 5.2-2.35 6.43-1.12zm-1.88 7.48l-.18.22a21.14 21.14 0 01-3.33 3.29c2.02 1.28 3.84 1.74 4.54 1.03.7-.7.25-2.51-1.03-4.54zm-9.1 0l-.09.14c-1.21 1.96-1.64 3.71-.95 4.4.7.7 2.52.25 4.54-1.03a21 21 0 01-3.5-3.5zm4.55-4.87l-.11.08a19.08 19.08 0 00-3.72 3.75 19.02 19.02 0 003.83 3.83A19.02 19.02 0 0012.85 9a19.11 19.11 0 00-3.83-3.83zm.2 2.4l1.23 1.23c.12.12.12.3 0 .41l-1.22 1.23a.29.29 0 01-.41 0L7.59 9.22a.29.29 0 010-.41L8.8 7.58c.12-.11.3-.11.41 0zM3.43 3.42c-.7.7-.24 2.52 1.03 4.54a21 21 0 013.29-3.33l.22-.17C5.95 3.18 4.14 2.7 3.43 3.42zm6.99.82l-.23.13-.13.09a20.92 20.92 0 013.5 3.5c1.29-2.02 1.75-3.83 1.04-4.54-.66-.66-2.3-.3-4.18.82z"
@@ -78,7 +83,7 @@ const InputBox: React.FC<InputBoxProps> = ({
                     fontSize: '13px',
                   }}
                 >
-                  深度思考(R1)
+                  {t('455046', '深度思考(R1)')}
                 </span>
               </a>
             </Tooltip>
@@ -90,8 +95,10 @@ const InputBox: React.FC<InputBoxProps> = ({
         <a
           id="btnSearch"
           className={`btn-search ${focus && value.trim() ? 'btn-search-focus' : 'btn-search-noFocus'}`}
-          title="请输入你的问题"
+          title={t('455061', '请输入你的问题')}
           onClick={onSubmit}
+          data-uc-id="fQyRzDRrra"
+          data-uc-ct="a"
         >
           <svg className="send-icon" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
             <g id="发送图标" stroke="none" stroke-width="1" fill-rule="evenodd">

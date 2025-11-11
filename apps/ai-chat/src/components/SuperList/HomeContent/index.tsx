@@ -1,48 +1,33 @@
-import { createSuperlistRequestFcs } from '@/api/handleFcs'
-import { useModal } from '@/components/GlobalModalProvider'
 import { useAddConversation } from '@/hooks/useAddConversation'
+import { useNavigateWithLangSource } from '@/hooks/useLangSource'
+import { postPointBuried } from '@/utils/common/bury'
 import { message } from '@wind/wind-ui'
-import { useRequest } from 'ahooks'
-import { MessageRaw } from 'ai-ui'
-import { ApiCodeForWfc, SuperListPresetQuestion } from 'gel-api'
-import { IndicatorImportTransformedData } from 'indicator'
+import { ApiCodeForWfc, ChatQuestion, ChatThinkSignal } from 'gel-api'
 import qs from 'qs'
-import { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { SuperListChatSender } from '../ChatSender'
-import { HomeHeader } from './Header'
-import { HomeLogoSection } from './LogoSection'
-import { QuickBtnGroup } from './QuickBtnGroup'
+import { HomeHeader } from './HomeHeader'
+import { HomeLogoSection } from './HomeLogoSection'
+import { usePresetQuestions } from './hooks/usePresetQuestions'
+import styles from './index.module.less'
 import { RecommendQuestion } from './RecommendQuestion'
-import styles from './style/index.module.less'
+
+const PREFIX = 'home-content'
 
 export const HomeContent = () => {
-  const navigate = useNavigate()
-  const {
-    data: presetQuestionsRes,
-    run: fetchPresetQuestions,
-    loading: fetchPresetQuestionLoading,
-  } = useRequest(createSuperlistRequestFcs('chat/presetQuestion'), {
-    onError: console.error,
-    manual: true,
-  })
-  useEffect(() => {
-    fetchPresetQuestions({
-      rawSentenceType: 'HOME',
-      pageNo: 1,
-      pageSize: 6,
-    })
-  }, [])
+  // const [CDEModal, contextHolder] = useCDEModal()
+  const navigate = useNavigateWithLangSource()
+  const { presetQuestions, loading: fetchPresetQuestionLoading } = usePresetQuestions()
+  const [deepSearch, setDeepSearch] = useState(false)
+  // const { openModal } = useModal()
 
-  // Hook for sending a message - Custom success handling within handleSendMessage
   const { addConversationAsync: addConversationForSend, addConversationLoading: sendLoading } = useAddConversation({
-    // 去除默认成功处理
-    onSuccess: () => {},
+    onSuccess: () => {}, // Custom success handling
   })
 
-  // Hook for preset questions - Uses default success handling (message + navigate)
-  const { addConversation: addConversationForPreset, addConversationLoading: clickPresetQuestionLoading } =
-    useAddConversation()
+  const { addConversationLoading: clickPresetQuestionLoading } = useAddConversation()
+
+  // const { addConversationLoading: uploadLoading } = useAddConversation()
 
   useEffect(() => {
     if (clickPresetQuestionLoading) {
@@ -50,105 +35,91 @@ export const HomeContent = () => {
     }
   }, [clickPresetQuestionLoading])
 
-  // Hook for uploading clue excel - Uses default success handling (message + navigate)
-  const { addConversation: addConversationForUpload, addConversationLoading: uploadLoading } = useAddConversation()
-
-  // Hook for CDE filter - Uses default success handling (message + navigate)
-  const { addConversation: addConversationForCDE, addConversationLoading: cdeLoading } = useAddConversation()
-  const { openModal } = useModal()
-
-  const modalRef = useRef<HTMLDivElement>(null)
-
-  const handleSendMessage = async (msg: string, think?: MessageRaw['think']) => {
+  const handleSendMessage = async (
+    msg: string,
+    options?: { think?: ChatThinkSignal['think']; deepSearch?: boolean }
+  ) => {
+    console.log('🚀 ~ handleSendMessage ~ deepSearch:', options)
     try {
       const res = await addConversationForSend({
         conversationType: 'AI_CHAT',
         rawSentence: msg,
       })
       if (res?.ErrorCode === ApiCodeForWfc.SUCCESS && res?.Data?.data) {
+        const resolvedDeepSearch = options?.deepSearch ?? deepSearch
         const queryString = qs.stringify({
           initialMsg: msg,
-          initialDeepthink: think,
+          initialDeepthink: options?.think,
+          deepSearch: resolvedDeepSearch,
         })
         navigate(`/super/chat/${res.Data.data.conversationId}?${queryString}`)
-      } else {
-        // Error message is handled within the hook
       }
     } catch (e) {
       console.error(e)
-      message.error(`创建会话失败: ${e instanceof Error ? e.message : ''}`)
     }
   }
 
-  const handleQuestionClick = (question: SuperListPresetQuestion) => {
-    addConversationForPreset({
-      conversationType: 'PRESET_QUESTION',
-      rawSentenceID: question.rawSentenceID,
+  const handleQuestionClick = (question: ChatQuestion) => {
+    postPointBuried('922604570273', {
+      click: question.questions,
     })
+    handleSendMessage(question.questions, { deepSearch })
   }
 
-  const handleUploadFinish = (result: IndicatorImportTransformedData, clueExcelName?: string) => {
-    addConversationForUpload({
-      conversationType: 'CLUE_EXCEL',
-      clueExcelCondition: result,
-      clueExcelName,
-    })
-  }
-  const handleCDEfinish = (cdeDescription, cdeFilterCondition) => {
-    addConversationForCDE({
-      conversationType: 'CDE_FILTER',
-      cdeDescription,
-      cdeFilterCondition,
-    })
-  }
+  // 备用：上传结束处理（暂未开放）
 
-  const openCdeModal = () => {
-    openModal('cdeHome', {
-      // container: modalRef.current,
-      confirmLoading: cdeLoading,
-      onFinish: handleCDEfinish,
-      confirmText: '添加至表格',
-    })
-  }
+  // const openCdeModal = () => {
+  //   postPointBuried('922604570274')
+  //   CDEModal.show()
+  // }
 
-  const openUploadModal = () => {
-    openModal('bulkImportHome', {
-      loading: uploadLoading,
-      onFinish: handleUploadFinish,
-    })
-  }
+  // const handleUploadFinish = (result: IndicatorImportTransformedData, clueExcelName?: string) => {
+  //   addData({
+  //     conversationType: 'CLUE_EXCEL',
+  //     clueExcelCondition: result,
+  //     clueExcelName,
+  //     sheetId,
+  //     enablePointConsumption: 1,
+  //   })
+  // }
+
+  // const openUploadModal = () => {
+  //   message.info('敬请期待')
+  // }
 
   return (
-    <div className={styles.homeContent} ref={modalRef}>
-      <div className={styles.homeContentInner}>
-        <HomeHeader className={styles.homeHeader} />
-        <div className={styles.homeContentContainer}>
-          <div>
-            <HomeLogoSection className={styles.homeLogoSection} />
+    <div className={styles[`${PREFIX}-container`]}>
+      <div className={styles[`${PREFIX}-header-section`]}>
+        <HomeHeader />
+      </div>
 
-            <div className={styles.homeContentCenter}>
-              <QuickBtnGroup
-                className={styles.quickBtnGroup}
-                onClickCDE={openCdeModal}
-                onClickUpload={openUploadModal}
-                uploadLoading={uploadLoading} // Pass specific loading state (though modal has its own)
-                cdeLoading={cdeLoading} // Pass specific loading state (though modal has its own)
-              />
+      <div className={styles.scrollableContent}>
+        <div>
+          <div className={styles[`${PREFIX}-centered-content`]}>
+            <div>
+              <HomeLogoSection />
+            </div>
+            {/* <QuickBtnGroup onClickCDE={openCdeModal} onClickUpload={openUploadModal} /> */}
+            <div className={styles[`${PREFIX}-recommend-question`]}>
               <RecommendQuestion
-                questions={presetQuestionsRes?.Data?.list}
-                className={styles.recommendQuestion}
+                questions={presetQuestions}
                 onQuestionClick={handleQuestionClick}
-                loading={fetchPresetQuestionLoading} // Use specific loading state
+                loading={fetchPresetQuestionLoading}
               />
             </div>
             <SuperListChatSender
-              className={styles.chatSender}
+              className={styles[`${PREFIX}-chat-sender`]}
               sendMessage={handleSendMessage}
-              loading={sendLoading} // Use specific loading state
+              loading={sendLoading}
+              deepSearch={deepSearch}
+              onDeepSearchChange={setDeepSearch}
+              focus
             />
           </div>
         </div>
       </div>
+
+      {/* {contextHolder} */}
     </div>
   )
 }

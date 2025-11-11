@@ -39,6 +39,8 @@ export const actor1 = (
           font-size="10"
           font-weight="bold"
           fill="#00AEC7"
+          data-uc-id="RGYWE97mhL6"
+          data-uc-ct="text"
         >
           <tspan x="25.9165039" y="32">
             1
@@ -66,6 +68,8 @@ export const actor2 = (
           font-size="10"
           font-weight="bold"
           fill="#00AEC7"
+          data-uc-id="n5Dyg2uaEc2"
+          data-uc-ct="text"
         >
           <tspan x="25.9165039" y="32">
             2
@@ -93,6 +97,8 @@ export const actor3 = (
           font-size="10"
           font-weight="bold"
           fill="#00AEC7"
+          data-uc-id="nHuY7nRCSTv"
+          data-uc-ct="text"
         >
           <tspan x="25.9165039" y="32">
             3
@@ -119,6 +125,8 @@ export const actor4 = (
           font-size="10"
           font-weight="bold"
           fill="#00AEC7"
+          data-uc-id="yAbtI2NcC3w"
+          data-uc-ct="text"
         >
           <tspan x="25.9165039" y="32">
             4
@@ -145,6 +153,8 @@ export const actor5 = (
           font-size="10"
           font-weight="bold"
           fill="#00AEC7"
+          data-uc-id="oZssBaVW70A"
+          data-uc-ct="text"
         >
           <tspan x="25.9165039" y="32">
             5
@@ -171,6 +181,8 @@ export const actor6 = (
           font-size="10"
           font-weight="bold"
           fill="#00AEC7"
+          data-uc-id="nVJkAxdK_5i"
+          data-uc-ct="text"
         >
           <tspan x="25.9165039" y="32">
             6

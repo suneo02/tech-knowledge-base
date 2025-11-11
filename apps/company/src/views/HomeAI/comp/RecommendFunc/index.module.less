@@ -1,16 +1,22 @@
-@import "@/views/HomeAI/style/variable.module.less";
+@import '@/views/HomeAI/style/variable.module.less';
 @import '@/styles/variables.less';
+@import '@/views/HomeAI/style/mixin.module.less';
 
-.recommendFunc {
-  width: 100%;
-  margin-top: 40px;
+.recommend-func {
+  margin-top: 16px;
+  .bottom-container();
 
-  .recommendFuncTitle {
-    margin-bottom: 16px;
-    height: 28px;
+  .recommend-func-title {
+    margin-bottom: 32px;
+    height: 24px;
     font-size: 20px;
     font-weight: bold;
-    line-height: 28px;
+    line-height: 24px;
+
+    .recommend-func-text {
+      display: inline-block;
+      margin-left: 12px;
+    }
   }
 
   .functionGrid {
@@ -35,7 +41,7 @@
     cursor: pointer;
     position: relative;
     border: 1px solid #f0f0f0;
-    background: #F9FDFE;
+    background: #f9fdfe;
 
     &:hover {
       transform: translateY(-2px);
@@ -87,7 +93,6 @@
       color: #fff;
     }
 
-
     .iconBg {
       position: absolute;
       right: 12px;
@@ -97,7 +102,6 @@
       transform: translateY(-50%); // 添加transform实现垂直居中
       border-radius: 4px;
       opacity: 0.8;
-
 
       width: 60px;
       height: 60px;
@@ -126,9 +130,8 @@
 
     // 图标样式配置
     // 定义图标名称数组
-    @iconNames: DQZDXM, XQFX_line, QYTPPT_L, BDML_L, CZTB_L, GQCTT_L, DDYCD_L,
-      CGX_L, CQQQY_L, JDPT_L, CJTX_L, QYSJLLQ_line, WXDT_L, PLCXDC_L, DQZDXM,
-      THCK, WDTK, SXWJ, ZDYQ_L, SXSJ, CKSJ, ZLXXXCY_L;
+    @iconNames: DQZDXM, XQFX_line, QYTPPT_L, BDML_L, CZTB_L, GQCTT_L, DDYCD_L, CGX_L, CQQQY_L, JDPT_L, CJTX_L,
+      QYSJLLQ_line, WXDT_L, PLCXDC_L, DQZDXM, THCK, WDTK, SXWJ, ZDYQ_L, SXSJ, CKSJ, ZLXXXCY_L;
 
     // 使用LESS循环生成所有图标样式
     .generate-icon-styles(@i: 1) when (@i <=length(@iconNames)) {
@@ -136,8 +139,8 @@
 
       // 图标背景样式
       .iconBg@{iconName} {
-        -webkit-mask-image: url("~@/assets/fcon/@{iconName}.svg");
-        mask-image: url("~@/assets/fcon/@{iconName}.svg");
+        -webkit-mask-image: url('~@/assets/fcon/@{iconName}.svg');
+        mask-image: url('~@/assets/fcon/@{iconName}.svg');
         -webkit-mask-size: contain;
         mask-size: contain;
         -webkit-mask-repeat: no-repeat;
@@ -180,6 +183,68 @@
 
     .collapseIcon {
       transform: rotate(180deg);
+    }
+  }
+}
+
+.group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-size: 16px;
+
+  .group-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    .group-title {
+      min-width: 80px;
+      font-weight: bold;
+
+      color: #333;
+      margin-right: 16px;
+      line-height: 32px;
+    }
+
+    .group-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      flex: 1;
+
+      .group-item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        transition: background 0.2s;
+        min-width: 80px;
+        margin-bottom: 4px;
+        &:hover {
+          background: #f5f7fa;
+        }
+      }
+
+      .item-title {
+        color: #222;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .icon-bg {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        margin-right: 6px;
+        vertical-align: middle;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
     }
   }
 }

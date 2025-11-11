@@ -45,7 +45,7 @@ type TRequestToServerSpecific<Server extends APIServer, P extends PathsForServer
  * 基于通用请求函数类型的具体实现
  */
 // Wind 企业聊天服务请求函数类型
-export type TRequestToChat<P extends PathsForServer<typeof WIND_ENT_CHAT_PATH>> = TRequestToServer<
+export type TRequestToChat<P extends PathsForServer<typeof WIND_ENT_CHAT_PATH>> = TRequestToServerSpecific<
   typeof WIND_ENT_CHAT_PATH,
   P
 >

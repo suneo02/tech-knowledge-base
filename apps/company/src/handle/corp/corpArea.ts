@@ -1,4 +1,4 @@
-import { ICorpCardInfo } from '@/api/corp/info/cardInfo.ts'
+import { CorpAreaCode } from 'gel-types'
 
 /**
  * 前端自己维护的 海外国家 枚举
@@ -22,7 +22,7 @@ export type TCorpArea =
   | 'russia'
   | 'other'
   | ''
-export const TCorpAreaCodeMap: Partial<Record<ICorpCardInfo['areaCode'], TCorpArea>> = {
+export const TCorpAreaCodeMap: Partial<Record<CorpAreaCode, TCorpArea>> = {
   '180401': 'america',
   '180402': 'canada',
   '180101': 'singapore',
@@ -41,7 +41,7 @@ export const TCorpAreaCodeMap: Partial<Record<ICorpCardInfo['areaCode'], TCorpAr
   '180235': 'russia',
 }
 
-export function getOverSea(areaCode: ICorpCardInfo['areaCode']): TCorpArea | '' {
+export function getOverSea(areaCode: CorpAreaCode): TCorpArea | '' {
   try {
     const area = ''
     if (areaCode[0] + areaCode[1] !== '18') {

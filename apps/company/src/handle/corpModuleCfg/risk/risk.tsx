@@ -641,7 +641,16 @@ export const risk: ICorpPrimaryModuleCfg = {
                 data.companyCode
               )
             }}
-            icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+            icon={
+              <DownloadO
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                data-uc-id="yd02_ABuF"
+                data-uc-ct="downloado"
+              />
+            }
+            data-uc-id="pVEnE64jRF"
+            data-uc-ct="button"
           >
             {intl('4698', '导出数据')}
           </Button>

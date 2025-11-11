@@ -10,8 +10,17 @@ export const DeleteOBtn: FC<ButtonProps> = ({ className, ...props }) => {
     <Button
       className={classNames(styles.deleteOBtn, className)}
       type="text"
-      icon={<DeleteO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+      icon={
+        <DeleteO
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          data-uc-id="DV19loBqwt"
+          data-uc-ct="deleteo"
+        />
+      }
       {...props}
+      data-uc-id="fSLsC7OoSF"
+      data-uc-ct="button"
     />
   )
 }

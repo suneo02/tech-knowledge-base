@@ -632,8 +632,8 @@ function ShareholderChartComp({
         !mapData || actions ? null : (
           <div className="shareholderchart-nav">
             <div className="shareholderchart-icons">
-              <SaveO onClick={saveAction} />
-              <RefreshO onClick={refreshAction} />
+              <SaveO onClick={saveAction} data-uc-id="Ec34ywstd" data-uc-ct="saveo" />
+              <RefreshO onClick={refreshAction} data-uc-id="aSCRsLGDmv" data-uc-ct="refresho" />
             </div>
           </div>
         )
@@ -718,11 +718,10 @@ function ShareholderGraph({ actions }) {
         <PreInput defaultValue={preInputLeft?.name} selectItem={setPreInputLeft} needRealCode={true}></PreInput>
         <span className="icon-search-relation"></span>
         <PreInput defaultValue={preInputRight?.name} selectItem={setPreInputRight} needRealCode={true}></PreInput>
-        <Button size="default" type="primary" onClick={gotoSearch}>
+        <Button size="default" type="primary" onClick={gotoSearch} data-uc-id="8FiQBDnMQr" data-uc-ct="button">
           {intl('437659', '探查')}
         </Button>
       </Row>
-
       {showChart ? null : (
         <div style={{ marginTop: '125px' }}>
           <div className="search-relation-label"> {intl('312993', '全面探查任意两个企业之间的持股结构')}</div>
@@ -731,13 +730,14 @@ function ShareholderGraph({ actions }) {
               onClick={() => {
                 gotoSample()
               }}
+              data-uc-id="CJeyxjzPGw"
+              data-uc-ct="div"
             >
               <img src={demoPng} alt="" />
             </div>
           </Row>
         </div>
       )}
-
       {showChart ? (
         <div className="relation-chart-main">
           <ShareholderChartComp
@@ -746,6 +746,8 @@ function ShareholderGraph({ actions }) {
             relativeTypes={relativeType}
             forceUpdate={forceUpdate}
             actions={actions}
+            data-uc-id="NrD66jePYE"
+            data-uc-ct="shareholderchartcomp"
           ></ShareholderChartComp>
         </div>
       ) : null}

@@ -1,4 +1,4 @@
-import { getAllUrlSearch, getUrlSearchValue } from 'gel-util/link'
+import { getAllUrlSearch, getUrlSearchValue } from 'gel-util/common'
 
 /**
  * @author: 陆一新<yxlu.calvin@wind.com.cn>

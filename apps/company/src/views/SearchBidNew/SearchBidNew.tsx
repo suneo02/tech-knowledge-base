@@ -1,8 +1,10 @@
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 import { DownloadO, NoteO } from '@wind/icons'
 import { Button, Checkbox, DatePicker, Input, message, Modal, Radio, Select } from '@wind/wind-ui'
+import SpaceTagInput from '../../components/SpaceTagInput/SpaceTagInput'
+import { WindCascade } from 'gel-ui'
 import { isEn } from 'gel-util/intl'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import React, { createRef } from 'react'
 import { connect } from 'react-redux'
 import {
@@ -17,7 +19,6 @@ import {
 import { getSearchHistoryAndSlice } from '../../api/services/history.ts'
 import { CardList } from '../../components/CardList/CardList'
 import InnerHtml from '../../components/InnerHtml'
-import { WindCascade } from '../../components/cascade/WindCascade'
 import NumberRangeOption from '../../components/restructFilter/comps/filterOptions/NumberRangeOption'
 import PreSearchInput from '../../components/singleSearch/preSearchInput'
 import { bidResultOption } from '../../handle/searchConfig'
@@ -32,6 +33,9 @@ import './SearchBidNew.less'
 import { allAnnoc, biddingMoney, money, programStatus, releaseDate, showMap } from './config.ts'
 import { updateSearchHistory } from './history'
 import { SearchBidNewProps, SearchBidNewState } from './type.tsx'
+import { CorpPresearch } from '../../components/CorpPreSearch'
+import { CorpPresearchModule } from 'gel-ui'
+import { processAllCompanyNames } from './extra.ts'
 
 const RadioGroup = Radio.Group
 const Option = Select.Option
@@ -47,6 +51,9 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
   noBread: string
   isRequesting: boolean
   bidHistoryRef: any
+  participateInputRef: any
+  purchaserInputRef: any
+  winnerInputRef: any
   constructor(props) {
     super(props)
     this.state = {
@@ -113,6 +120,16 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
       partHis: [],
       purchaseHis: [],
       winHis: [],
+      participateInputValues: [], // 参与单位
+      purchaserInputValues: [], // 采购单位
+      winnerInputValues: [], // 中标单位
+      titleTags: [],
+      productTags: [],
+
+      //  订阅后的点击回显label
+      participateInputInitialLabels: [],
+      purchaserInputInitialLabels: [],
+      winnerInputInitialLabels: [],
     }
     this.buyCom = React.createRef()
     this.winCom = React.createRef()
@@ -120,6 +137,10 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
     this.noBread = wftCommon.getQueryString('noBread')
     this.isRequesting = false
     this.bidHistoryRef = createRef() // 创建 ref
+
+    this.participateInputRef = createRef()
+    this.purchaserInputRef = createRef()
+    this.winnerInputRef = createRef()
   }
 
   async componentDidMount() {
@@ -132,19 +153,13 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
       this.getData()
     }
     // 获取历史记录
-    const [titleHis, productHis, partHis, purchaseHis, winHis] = await Promise.all([
+    const [titleHis, productHis] = await Promise.all([
       getSearchHistoryAndSlice('BID_SEARCH_TITLE'),
       getSearchHistoryAndSlice('BID_SEARCH_PRODUCT'),
-      getSearchHistoryAndSlice('BID_SEARCH_PARTICIPATING_UNIT'),
-      getSearchHistoryAndSlice('BID_SEARCH_PURCHASING_UNIT'),
-      getSearchHistoryAndSlice('BID_SEARCH_BID_WINNER'),
     ])
     this.setState({
       keywordHis: titleHis,
       productsHis: productHis,
-      partHis: partHis,
-      purchaseHis: purchaseHis,
-      winHis: winHis,
     })
   }
 
@@ -234,6 +249,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
       for (let i = 0; i < dateString.length; i++) {
         if (dateString[i]) {
           newArr.push(dateString[i].replace(/-/g, ''))
+        } else {
+          newArr.push(null) // [1000,]支持 无上限（无下限）传参
         }
       }
       newArr = newArr.join('-')
@@ -294,6 +311,30 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
     })
   }
 
+  handleTitleTagsChange = (values: string[]) => {
+    const uniq = Array.from(new Set(values.filter(Boolean)))
+    this.setState({
+      titleTags: uniq,
+      title: uniq.join('|'),
+      nowSubId: '',
+      nowSubName: '',
+      subBotton: true,
+      queryHisShow: uniq.length ? 'none' : 'block',
+    })
+  }
+
+  handleProductTagsChange = (values: string[]) => {
+    const uniq = Array.from(new Set(values.filter(Boolean)))
+    this.setState({
+      productTags: uniq,
+      productName: uniq.join('|'),
+      nowSubId: '',
+      nowSubName: '',
+      subBotton: true,
+      productHisShow: uniq.length ? 'none' : 'block',
+    })
+  }
+
   // 是否有附件筛选
   handleAttachChange = (e) => {
     this.setState(
@@ -343,9 +384,9 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
     let newbidWinnerArr = []
     let newWinArr = []
     let param = {}
-    const showBuyPre = this.buyCom.state.showPre
-    const showWinPre = this.winCom.state.showPre
-    const showbidWinnerPre = this.bidWinnerCom.state.showPre
+    const showBuyPre = this.state.purchaserInputValues
+    const showWinPre = this.state.participateInputValues
+    const showbidWinnerPre = this.state.winnerInputValues
     const allAnnocment = newPrelist.concat(newBiddinglist).concat(newDeallist)
     const newRegion = []
     const newIndustry = []
@@ -371,18 +412,16 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
     }
     for (let i = 0; i < moneyList.length; i++) {
       if (moneyList[i] == 'custome') {
-        newMoney.push(
-          '[' + Number(customValue.split('-')[0]) * 10000 + ',' + Number(customValue.split('-')[1]) * 10000 + ']'
-        )
+        const [min, max] = customValue.split('-').map((i) => Number(i) * 10000 || null)
+        newMoney.push('[' + (min ? min + ',' : ',') + (max ? max + ']' : ']'))
       } else {
         newMoney.push(moneyList[i])
       }
     }
     for (let i = 0; i < bidMoney.length; i++) {
       if (bidMoney[i] == 'custome') {
-        newBidMoney.push(
-          '[' + Number(customValueBid.split('-')[0]) * 10000 + ',' + Number(customValueBid.split('-')[1]) * 10000 + ']'
-        )
+        const [min, max] = customValueBid.split('-').map((i) => Number(i) * 10000 || null)
+        newBidMoney.push('[' + (min ? min + ',' : ',') + (max ? max + ']' : ']'))
       } else {
         newBidMoney.push(bidMoney[i])
       }
@@ -434,7 +473,7 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
       oppTime: releaseDate,
       money: newMoney && newMoney.length > 0 ? newMoney.join('|') : '',
       bidWinningMoney: newBidMoney && newBidMoney.length > 0 ? newBidMoney.join('|') : '',
-      sort: selectValue ? selectValue : 'sort_date_desc',
+      sort: `${selectValue || '_score_desc,sort_date_desc'}`,
       hasAttach: hasAttach ? 1 : null,
     }
     return wftCommon.preProcessData(param)
@@ -442,13 +481,22 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
   getSubName = () => {
     //根据筛选区状态获取默认订阅名
     const param = this.getParam()
-    const { newPrelist, newBiddinglist, newDeallist, title, productName } = this.state
+    const {
+      newPrelist,
+      newBiddinglist,
+      newDeallist,
+      title,
+      productName,
+      participateInputValues,
+      winnerInputValues,
+      purchaserInputValues,
+    } = this.state
     const newBuyArr = []
     const newWinArr = []
     const newbidWinnerArr = []
-    const showBuyPre = this.buyCom.state.showPre
-    const showWinPre = this.winCom.state.showPre
-    const showbidWinnerPre = this.bidWinnerCom.state.showPre
+    const showBuyPre = purchaserInputValues
+    const showWinPre = participateInputValues
+    const showbidWinnerPre = winnerInputValues
     const newArr = []
     if (param.title) {
       newArr.push('公告标题：' + title)
@@ -637,13 +685,15 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                   })
               }
 
+              console.log(self.state.participateInputValues)
+
               // 保存历史记录
               updateSearchHistory(self.setState.bind(self), {
                 title: self.state.title,
                 productName: self.state.productName,
-                showBuyPre,
-                showWinPre,
-                showbidWinnerPre,
+                showBuyPre: self.state.purchaserInputValues,
+                showWinPre: self.state.participateInputValues,
+                showbidWinnerPre: self.state.winnerInputValues,
               })
 
               self.setState({
@@ -700,7 +750,6 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
   callBackSub = (param) => {
     //应用订阅到筛选框，并按照订阅条件执行一次搜索
 
-    let newPre = []
     let newBidding = []
     let newDeal = []
     let newStage = []
@@ -718,7 +767,7 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
       let typeArr = param.filterBiddingType.split('|')
       for (var i = 0; i < typeArr.length; i++) {
         if (typeArr[i] == '资格预审公告') {
-          newPre.push(typeArr[i])
+          newStage.push(typeArr[i])
         } else if (
           typeArr[i] == '公开招标公告' ||
           typeArr[i] == '询价公告' ||
@@ -783,7 +832,7 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
       if (param.oppTime.indexOf('~') < 0) {
         let time = param.oppTime.replace(/\[|]/g, '').split(',')
         for (let i = 0; i < time.length; i++) {
-          cusReleaseTime.push(moment(time[i]))
+          cusReleaseTime.push(dayjs(time[i]))
         }
       }
     }
@@ -821,6 +870,11 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
         loading: true,
         title: param?.title || param?.queryText || '',
         productName: param.productName ? param.productName : '',
+        titleTags:
+          param?.title || param?.queryText || ''
+            ? (param?.title || param?.queryText || '').split(/\s+|\|/).filter(Boolean)
+            : [],
+        productTags: param.productName || '' ? param.productName.split(/\s+|\|/).filter(Boolean) : [],
         buyGive: newBuy && newBuy.length > 0 ? newBuy : [],
         winGive: newWin && newWin.length > 0 ? newWin : [],
         showGive: newGive && newGive.length > 0 ? newGive : [],
@@ -841,6 +895,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
           participateUnit: newGive.join('|'),
           bidWinnerUnit: newWin.join('|'),
         })
+        //  通过订阅的id获取公司名称，并更新下拉输入框状态
+        processAllCompanyNames(newGive, newWin, newBuy, this.setState.bind(this))
       }
     )
   }
@@ -1146,11 +1202,19 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
   focusQuery = (key) => {
     //关键词输入框失焦后，历史搜索框处理
     // @ts-expect-error ttt
-    this.setState({
-      [showMap[key]]: this.state.title ? 'none' : 'block',
+    this.setState((prev) => {
+      const has =
+        key === 'title'
+          ? (prev as any).titleTags?.length
+          : key === 'productName'
+            ? (prev as any).productTags?.length
+            : (prev as any).title
+
+      return { [showMap[key]]: has ? 'none' : 'block' }
     })
   }
   moneyChange = (e, list, value, alertMessage, warningMessage) => {
+    console.log('🚀 ~ SearchBidNew ~ e:', e)
     //招标金额及中标金额选择回调
     let hasCus = false
     for (let i = 0; i < e.length; i++) {
@@ -1166,9 +1230,6 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
           message.warning(warningMessage)
           return false
         }
-      } else {
-        message.warning(alertMessage)
-        return false
       }
     } // @ts-expect-error ttt
     this.setState({
@@ -1197,11 +1258,9 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
   customValueChange = (e, list, value) => {
     //自定义框回调处理
 
-    let newArr = []
+    const newArr = []
     for (let i = 0; i < this.state[list].length; i++) {
-      if (this.state[list][i] !== 'custome') {
-        newArr.push(this.state[list][i])
-      }
+      newArr.push(this.state[list][i])
     }
     console.log(e)
     // @ts-expect-error ttt
@@ -1280,20 +1339,33 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                 placeholder={intl('349162', '请输入招投标名称，长度最多为30个字')}
                 value={addNewSubName}
                 onChange={this.addSubName}
+                data-uc-id="fU47a_3sLr"
+                data-uc-ct="input"
               />
             </div>
             {addSubNameWarning && addSubNameWarning.length > 0 ? (
               <span className="input-warning">{addSubNameWarning}</span>
             ) : null}
             <div className="email-alert">
-              <Checkbox checked={emailAlert} onChange={(e) => this.setState({ emailAlert: e.target.checked })}>
+              <Checkbox
+                checked={emailAlert}
+                onChange={(e) => this.setState({ emailAlert: e.target.checked })}
+                data-uc-id="u0ncs_qbCn"
+                data-uc-ct="checkbox"
+              >
                 {intl('121', '邮件提醒')}
               </Checkbox>
               {emailAlert ? (
                 <div className="msg2-email">
                   <span className="email-to">{intl('349076', '发送至')}：</span>
                   {edit ? (
-                    <Input placeholder={intl('257723', '请输入邮箱地址')} onChange={this.editEmail} value={newEmail} />
+                    <Input
+                      placeholder={intl('257723', '请输入邮箱地址')}
+                      onChange={this.editEmail}
+                      value={newEmail}
+                      data-uc-id="_FD2nQB45h"
+                      data-uc-ct="input"
+                    />
                   ) : (
                     <span className="email-addr">
                       {alreadyEmail}
@@ -1301,6 +1373,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                         onClick={() => this.setState({ edit: true, newEmail: alreadyEmail })}
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
+                        data-uc-id="JyvGL1Fy4w"
+                        data-uc-ct="noteo"
                       />
                     </span>
                   )}
@@ -1371,6 +1445,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                 })
               }
               unit={intl('149186', '条')}
+              data-uc-id="iyJIJr1_yv"
+              data-uc-ct="numberrangeoption"
             />
             {downloadRangWarning ? (
               <span className="download-warning">{intl('349119', '请输入正确的导出范围')}</span>
@@ -1419,9 +1495,14 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
     this.buyCom.deleteAllPre()
     this.winCom.deleteAllPre()
     this.bidWinnerCom.deleteAllPre()
+    this.participateInputRef.current.clearSelection()
+    this.purchaserInputRef.current.clearSelection()
+    this.winnerInputRef.current.clearSelection()
     this.setState({
       title: '',
       productName: '',
+      titleTags: [],
+      productTags: [],
       moneyList: [],
       releaseState: '',
       defaultTime: [],
@@ -1462,11 +1543,15 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
       preCheckAll: false,
       biddingCheckAll: false,
       dealCheckAll: false,
+
+      participateInputValues: [], // 参与单位
+      purchaserInputValues: [], // 采购单位
+      winnerInputValues: [], // 中标单位
     })
   }
   disabledDate = (current) => {
     //日期选择框不允许选择未来日期
-    return current && current >= moment().endOf('day')
+    return current && current >= dayjs().endOf('day')
   }
 
   render() {
@@ -1499,7 +1584,12 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
         {this.noBread || wftCommon.isBaiFenTerminalOrWeb() ? null : (
           <div className="bread-crumb">
             <div className="bread-crumb-content">
-              <span className="last-rank" onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}>
+              <span
+                className="last-rank"
+                onClick={() => window.open(getUrlByLinkModule(LinksModule.HOME))}
+                data-uc-id="Tr7q-UbDmv"
+                data-uc-ct="span"
+              >
                 {intl('19475', '首页')}
               </span>
               <i></i>
@@ -1507,7 +1597,6 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
             </div>
           </div>
         )}
-
         <div className="wrapper">
           <div className="search_l">
             <div className="search-condition">
@@ -1516,28 +1605,34 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
               <div className="condition-area">
                 <span className="condition-title-span">{intl('90845', '公告标题')}：</span>
                 <div id="queryHisList">
-                  <Input
-                    size="large"
-                    type="text"
-                    value={this.state.title}
+                  <SpaceTagInput
+                    value={this.state.titleTags}
+                    onChange={(vals) => this.handleTitleTagsChange(vals)}
                     placeholder={intl('416859', '请输入公告标题关键字')}
-                    allowClear
-                    onChange={this.keywordChange}
-                    onFocus={() => {
-                      this.focusQuery('title')
-                    }}
-                    onBlur={() => {
-                      setTimeout(() => {
-                        this.setState({ queryHisShow: 'none' })
-                      }, 150)
-                    }}
+                    onFocus={() => this.focusQuery('title')}
+                    onBlur={() => setTimeout(() => this.setState({ queryHisShow: 'none' }), 0)}
+                    data-uc-id="af-F6kxGzl"
+                    data-uc-ct="select"
                   />
                   <div className="historySearch" style={{ display: queryHisShow }}>
                     {keywordHis && keywordHis.length > 0 ? <div>{intl('437396', '历史搜索')}</div> : null}
                     {keywordHis && keywordHis.length > 0
                       ? keywordHis.map((item, index) => {
                           return (
-                            <div onClick={() => this.setState({ title: item.name })} key={index}>
+                            <div
+                              onMouseDown={() => {
+                                this.setState((prev: any) => {
+                                  const next = Array.from(
+                                    new Set([...(prev.titleTags || []), ...(item?.name?.split('|') || [])])
+                                  )
+                                  return { titleTags: next, title: next.join('|'), queryHisShow: 'none' }
+                                })
+                              }}
+                              key={index}
+                              data-uc-id="BRVhItD52G"
+                              data-uc-ct="div"
+                              data-uc-x={index}
+                            >
                               {item.name}
                             </div>
                           )
@@ -1549,33 +1644,37 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
               <div className="condition-area">
                 <span className="condition-title-span">{intl('327495', '招标产品')}：</span>
                 <div id="queryHisList">
-                  <Input
-                    size="large"
-                    type="text"
-                    value={this.state.productName}
+                  <SpaceTagInput
+                    value={this.state.productTags}
+                    onChange={(vals) => this.handleProductTagsChange(vals)}
                     placeholder={intl(
                       '284955',
                       '请输入招投标项目包含的关键词，并用空格隔开多个关键词，示例：大数据 ��电池'
                     )}
-                    allowClear
-                    onChange={(e) => {
-                      this.keywordChange(e, 'productName')
-                    }}
-                    onFocus={() => {
-                      this.focusQuery('productName')
-                    }}
-                    onBlur={() => {
-                      setTimeout(() => {
-                        this.setState({ productHisShow: 'none' })
-                      }, 150)
-                    }}
+                    onFocus={() => this.focusQuery('productName')}
+                    onBlur={() => setTimeout(() => this.setState({ productHisShow: 'none' }), 0)}
+                    data-uc-id="f4faEbRntWA"
+                    data-uc-ct="select"
                   />
                   <div className="historySearch" style={{ display: productHisShow }}>
                     {productsHis && productsHis.length > 0 ? <div>{intl('437396', '历史搜索')}</div> : null}
                     {productsHis && productsHis.length > 0
                       ? productsHis.map((item, index) => {
                           return (
-                            <div onClick={() => this.setState({ productName: item.name })} key={index}>
+                            <div
+                              onMouseDown={() =>
+                                this.setState((prev: any) => {
+                                  const next = Array.from(
+                                    new Set([...(prev.productTags || []), ...(item?.name?.split('|') || [])])
+                                  )
+                                  return { productTags: next, productName: next.join('|'), productHisShow: 'none' }
+                                })
+                              }
+                              key={index}
+                              data-uc-id="and7wBqgOPZ"
+                              data-uc-ct="div"
+                              data-uc-x={index}
+                            >
                               {item.name}
                             </div>
                           )
@@ -1586,9 +1685,7 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
               </div>
 
               <div className="condition-area">
-                <span className="condition-title-span">
-                  {window.en_access_config ? 'Participating Units' : intl('', '参与单位')}：
-                </span>
+                <span className="condition-title-span">{intl('416854', '参与单位')}：</span>
                 <div className="condition-pre">
                   <PreSearchInput
                     onRef={(node) => (this.winCom = node)}
@@ -1600,6 +1697,29 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                     placeholder={intl('313033', '请输入目标单位名称')}
                     state={this.state.showGive}
                     historyList={this.state.partHis}
+                    style={{ display: 'none' }}
+                    data-uc-id="olwOyFUIWM6"
+                    data-uc-ct="presearchinput"
+                  />
+                  <CorpPresearch
+                    placeholder={intl('313033', '请输入目标单位名称')}
+                    onSelectChange={(value, option) => {
+                      const values = option?.map((item) => {
+                        return item?.value + '|' + item?.data?.corpId
+                      })
+                      setTimeout(() => {
+                        this.setState({ participateInputValues: values })
+                      }, 50)
+                    }}
+                    widthAuto={true}
+                    minWidth={'100%'}
+                    searchMode="select"
+                    ref={this.participateInputRef}
+                    needHistory={true}
+                    module={CorpPresearchModule.BID_SEARCH_PARTICIPATING_UNIT}
+                    data-uc-id="3ZW4IFBc0Qo"
+                    data-uc-ct="corppresearch"
+                    initialSelectedValues={this.state.participateInputInitialLabels}
                   />
                 </div>
               </div>
@@ -1618,6 +1738,32 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                       placeholder={intl('313053', '请输入采购单位名称')}
                       state={this.state.buyGive}
                       historyList={this.state.purchaseHis}
+                      style={{ display: 'none' }}
+                      data-uc-id="3YbcnM2Hju9"
+                      data-uc-ct="presearchinput"
+                    />
+
+                    <CorpPresearch
+                      placeholder={intl('313053', '请输入采购单位名称')}
+                      onSelectChange={(value, option) => {
+                        console.log('onSelectChange - value:', value)
+                        console.log('onSelectChange - option:', option)
+                        const values = option?.map((item) => {
+                          return item?.value + '|' + item?.data?.corpId
+                        })
+                        setTimeout(() => {
+                          this.setState({ purchaserInputValues: values })
+                        }, 50)
+                      }}
+                      widthAuto={true}
+                      minWidth={'100%'}
+                      searchMode="select"
+                      ref={this.purchaserInputRef}
+                      needHistory={true}
+                      module={CorpPresearchModule.BID_SEARCH_PURCHASING_UNIT}
+                      data-uc-id="yudxxSrk8uc"
+                      data-uc-ct="corppresearch"
+                      initialSelectedValues={this.state.purchaserInputInitialLabels}
                     />
                   </div>
                 </div>
@@ -1631,9 +1777,33 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                         })
                       }}
                       onRef={(node) => (this.bidWinnerCom = node)}
-                      placeholder={window.en_access_config ? intl('313053', '') : intl('', '请输入中标单位名称')}
+                      placeholder={intl('416838', '请输入中标单位名称')}
                       state={this.state.winGive}
                       historyList={this.state.winHis}
+                      style={{ display: 'none' }}
+                      data-uc-id="C78XEN41NPF"
+                      data-uc-ct="presearchinput"
+                    />
+
+                    <CorpPresearch
+                      placeholder={intl('416838', '请输入中标单位名称')}
+                      onSelectChange={(value, option) => {
+                        const values = option?.map((item) => {
+                          return item?.value + '|' + item?.data?.corpId
+                        })
+                        setTimeout(() => {
+                          this.setState({ winnerInputValues: values })
+                        }, 50)
+                      }}
+                      widthAuto={true}
+                      minWidth={'100%'}
+                      searchMode="select"
+                      ref={this.winnerInputRef}
+                      needHistory={true}
+                      module={CorpPresearchModule.BID_SEARCH_BID_WINNER}
+                      data-uc-id="-pMjDJameBo"
+                      data-uc-ct="corppresearch"
+                      initialSelectedValues={this.state.winnerInputInitialLabels}
                     />
                   </div>
                 </div>
@@ -1650,6 +1820,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                     className="filter-item"
                     showSearch
                     onChange={(e) => this.cascaderChange(e, 'areaCodes', 'defaultRegion')}
+                    data-uc-id="kERuk6rVrtn"
+                    data-uc-ct="windcascade"
                   />
                 </div>
                 <div className="condition-industry">
@@ -1662,6 +1834,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                     showSearch
                     value={this.state.defaultIndustry}
                     onChange={(e) => this.cascaderChange(e, 'compIndustry', 'defaultIndustry')}
+                    data-uc-id="W6XmhsEQzpx"
+                    data-uc-ct="windcascade"
                   />
                 </div>
               </div>
@@ -1673,6 +1847,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                     indeterminate={this.state.preIndeterminate}
                     checked={this.state.preCheckAll}
                     onChange={(e) => this.stageChange(e, 'preIndeterminate', 'preCheckAll', 'newPrelist', 'preStage')}
+                    data-uc-id="ruvxBaMAhP"
+                    data-uc-ct="checkbox"
                   >
                     {intl('257788', '预审阶段')}
                   </Checkbox>
@@ -1682,6 +1858,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                     onChange={(e) =>
                       this.stageChange(e, 'biddingIndeterminate', 'biddingCheckAll', 'newBiddinglist', 'biddingStage')
                     }
+                    data-uc-id="ZH7Wj6gECB"
+                    data-uc-ct="checkbox"
                   >
                     {intl('257789', '招标阶段')}
                   </Checkbox>
@@ -1691,6 +1869,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                     onChange={(e) =>
                       this.stageChange(e, 'dealIndeterminate', 'dealCheckAll', 'newDeallist', 'dealStage')
                     }
+                    data-uc-id="nWIG6ntJlH"
+                    data-uc-ct="checkbox"
                   >
                     {intl('257808', '结果阶段')}
                   </Checkbox>
@@ -1710,6 +1890,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                         onChange={(e) =>
                           this.announcementChange(e, 'preIndeterminate', 'preCheckAll', 'newPrelist', 'preStage')
                         }
+                        data-uc-id="Zft3lG4MIv"
+                        data-uc-ct="checkboxgroup"
                       />
                     ) : null}
                     {this.state.newBiddinglist.length > 0 ? (
@@ -1725,6 +1907,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                             'biddingStage'
                           )
                         }
+                        data-uc-id="_dTHJIDfvj"
+                        data-uc-ct="checkboxgroup"
                       />
                     ) : null}
                     {this.state.newDeallist.length > 0 ? (
@@ -1734,6 +1918,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                         onChange={(e) =>
                           this.announcementChange(e, 'dealIndeterminate', 'dealCheckAll', 'newDeallist', 'dealStage')
                         }
+                        data-uc-id="tSkKkF8y9f"
+                        data-uc-ct="checkboxgroup"
                       />
                     ) : null}
                   </div>
@@ -1744,35 +1930,47 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                 <span className={`condition-title-span ${StylePrefix}--announce-date--title`}>
                   {intl('257639', '公告日期')}：
                 </span>
-                <RadioGroup
-                  className={`${StylePrefix}--announce-date--radio`}
-                  onChange={this.releaseDateChange}
-                  value={this.state.releaseState}
-                >
-                  {releaseDate.map((item, index) => {
-                    return (
-                      <Radio value={item.value} key={index}>
-                        {item.name}
-                      </Radio>
-                    )
-                  })}
-                  <Radio value="custome">{intl('25405', '自定义')}</Radio>
-                </RadioGroup>
-                <RangePicker
-                  className={`${StylePrefix}--announce-date--picker`}
-                  placeholder={[intl('9524', '开始时间'), intl('138688', '截止时间')]}
-                  onChange={this.onTimeChange}
-                  // @ts-expect-error ttt
-                  value={this.state.defaultTime}
-                  allowClear
-                  disabledDate={this.disabledDate}
-                />
+                <div className={`${StylePrefix}--announce-date--filter`}>
+                  <RadioGroup
+                    className={`${StylePrefix}--announce-date--radio`}
+                    onChange={this.releaseDateChange}
+                    value={this.state.releaseState}
+                    data-uc-id="CToLBrDoPB"
+                    data-uc-ct="radiogroup"
+                  >
+                    {releaseDate.map((item, index) => {
+                      return (
+                        <Radio
+                          value={item.value}
+                          key={index}
+                          data-uc-id="hced4m6zFW5"
+                          data-uc-ct="radio"
+                          data-uc-x={index}
+                        >
+                          {item.name}
+                        </Radio>
+                      )
+                    })}
+                    <Radio value="custome" data-uc-id="p6FVOPIFD-k" data-uc-ct="radio">
+                      {intl('25405', '自定义')}
+                    </Radio>
+                  </RadioGroup>
+                  <RangePicker
+                    className={`${StylePrefix}--announce-date--picker`}
+                    placeholder={[intl('9524', '开始时间'), intl('138688', '截止时间')]}
+                    onChange={this.onTimeChange}
+                    value={this.state.defaultTime}
+                    allowClear
+                    disabledDate={this.disabledDate}
+                    data-uc-id="X_vdWcZbdw"
+                    data-uc-ct="rangepicker"
+                  />
+                </div>
               </div>
 
               <div className="condition-area">
                 <span className="condition-title-span">{intl('260900', '招标预算：')}</span>
                 <div style={{ height: '32px', lineHeight: '32px' }} className="money">
-                  {/* @ts-expect-error ttt */}
                   <CheckboxGroup
                     value={this.state.moneyList}
                     onChange={(e) =>
@@ -1784,10 +1982,18 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                         intl('349114', '招标预算范围不正确')
                       )
                     }
+                    data-uc-id="oMrinn2IMh"
+                    data-uc-ct="checkboxgroup"
                   >
                     {money.map((item, index) => {
                       return (
-                        <Checkbox value={item.value} key={index}>
+                        <Checkbox
+                          value={item.value}
+                          key={index}
+                          data-uc-id="iQ8eDSEq4k"
+                          data-uc-ct="checkbox"
+                          data-uc-x={index}
+                        >
                           {item.label}
                           {item.value == 'custome' ? (
                             <NumberRangeOption
@@ -1796,6 +2002,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                               max={customValue ? customValue.split('-')[1] : ''}
                               changeOptionCallback={(e) => this.customValueChange(e, 'moneyList', 'customValue')}
                               unit={intl('420221', '万')}
+                              data-uc-id="MclymaViQGq"
+                              data-uc-ct="numberrangeoption"
                             />
                           ) : null}
                         </Checkbox>
@@ -1809,7 +2017,6 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                 <div className="condition-area">
                   <span className="condition-title-span">{intl('260907', '中标金额：')}</span>
                   <div style={{ height: '32px', lineHeight: '32px' }} className="money">
-                    {/* @ts-expect-error ttt */}
                     <CheckboxGroup
                       value={this.state.bidMoney}
                       onChange={(e) =>
@@ -1821,10 +2028,18 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                           intl('349116', '中标金额范围不正确')
                         )
                       }
+                      data-uc-id="NuJE2sKtZt"
+                      data-uc-ct="checkboxgroup"
                     >
                       {biddingMoney.map((item, index) => {
                         return (
-                          <Checkbox value={item.value} key={index}>
+                          <Checkbox
+                            value={item.value}
+                            key={index}
+                            data-uc-id="Et6HSN7Xoq"
+                            data-uc-ct="checkbox"
+                            data-uc-x={index}
+                          >
                             {item.label}
                             {item.value == 'custome' ? (
                               <NumberRangeOption
@@ -1833,6 +2048,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                                 max={customValueBid ? customValueBid.split('-')[1] : ''}
                                 changeOptionCallback={(e) => this.customValueChange(e, 'bidMoney', 'customValueBid')}
                                 unit={intl('420221', '万')}
+                                data-uc-id="wqXEsEDoVya"
+                                data-uc-ct="numberrangeoption"
                               />
                             ) : null}
                           </Checkbox>
@@ -1847,16 +2064,20 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                   <Button
                     size="large"
                     onClick={() => this.alertModal(this.state.subBotton ? 'addNewSub' : 'delSingleSub')}
+                    data-uc-id="u0cz8RR8ej"
+                    data-uc-ct="button"
                   >
                     {this.state.subBotton ? intl('349136', '立即订阅') : intl('229017', '取消订阅')}
                   </Button>
-                  <Button size="large" onClick={this.reset}>
+                  <Button size="large" onClick={this.reset} data-uc-id="vMSriaKhKL" data-uc-ct="button">
                     {intl('138490', '重置条件')}
                   </Button>
                   <Button
                     size="large"
                     type="primary"
                     onClick={() => this.setState({ pageNo: 0 }, () => this.getData())}
+                    data-uc-id="lybj1hlx0C"
+                    data-uc-ct="button"
                   >
                     {intl('257693', '应用筛选')}
                   </Button>
@@ -1869,23 +2090,39 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                 <InnerHtml html={resultAlert} className="searchResultNum" />
                 {/* <p dangerouslySetInnerHTML={{ __html: resultAlert }}></p> */}
                 <div className="operation-area">
-                  <Checkbox onChange={this.handleAttachChange}>{intl('410222', '仅看有附件公告')}</Checkbox>
+                  <Checkbox onChange={this.handleAttachChange} data-uc-id="yVWKeOIa1v" data-uc-ct="checkbox">
+                    {intl('410222', '仅看有附件公告')}
+                  </Checkbox>
                   <Select
                     placeholder="默认排序"
                     style={{ width: 125, height: '28px' }}
                     onChange={(e) => this.handleChange(e)}
                     value={this.state.selectValue}
+                    data-uc-id="h8emP3vnQ"
+                    data-uc-ct="select"
                   >
                     {bidResultOption.map(({ sort, key }) => {
-                      // @ts-expect-error ttt
-                      return <Option key={key}>{sort}</Option>
+                      return (
+                        <Option key={key} data-uc-id={`_TIExiPJ7SW${key}`} data-uc-ct="option" data-uc-x={key}>
+                          {sort}
+                        </Option>
+                      )
                     })}
                   </Select>
                   {!wftCommon.is_overseas_config ? (
                     <Button
-                      icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+                      icon={
+                        <DownloadO
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                          data-uc-id="pvxvPh-hH"
+                          data-uc-ct="downloado"
+                        />
+                      }
                       style={{ marginLeft: 12 }}
                       onClick={() => this.alertModal('downloadBid')}
+                      data-uc-id="TzJ487O6BF"
+                      data-uc-ct="button"
                     >
                       {intl('4698', '导出数据')}
                     </Button>
@@ -1901,6 +2138,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                 data={resultList}
                 refetch={this.getData}
                 render={(item, index) => <BidCard item={item} key={index} />}
+                data-uc-id="6TLjMg5Y9pw"
+                data-uc-ct="cardlist"
               />
             </div>
           </div>
@@ -1917,14 +2156,14 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                 // 调用取消订阅
                 this.callBackSub(params)
               }}
+              data-uc-id="BhLK6ys1gg7"
+              data-uc-ct="bidhistoryfocus"
             />
             {/* 最近浏览 */}
             <HistoryFocusList />
           </div>
         </div>
-
         {this.state.visible ? (
-          // @ts-expect-error ttt
           <Modal
             title={intl('349133', '招投标订阅')}
             visible={this.state.visible}
@@ -1932,6 +2171,8 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
             onOk={this.handleOk}
             onCancel={this.handleCancel}
             destroyOnClose={true}
+            data-uc-id="vWjR-Qm5f-X"
+            data-uc-ct="modal"
           >
             {this.modalShow()}
           </Modal>

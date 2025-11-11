@@ -1,8 +1,7 @@
 import { ConfigTableCellJsonConfig } from 'gel-types'
 import { isEn } from 'gel-util/intl'
-import React from 'react'
 import { renderNumber } from 'report-util/table'
-import { tForRPPreview } from '../../../../utils'
+import { TIntl } from 'report-util/types'
 import styles from './stockChange.module.less'
 
 /**
@@ -22,10 +21,15 @@ import styles from './stockChange.module.less'
  * @param options 
  * @param record 
  */
-export function renderStockChange(value: any, options?: ConfigTableCellJsonConfig['renderConfig'], record?: any) {
+export function renderStockChange(
+  t: TIntl,
+  value: any,
+  options?: ConfigTableCellJsonConfig['renderConfig'],
+  record?: any
+) {
   const valueString = value.toString()
   const numRendered = renderNumber(value, options, record, {
-    t: tForRPPreview,
+    t,
     isEn: isEn(),
   })
   return <span className={valueString.startsWith('+') ? styles.up : styles.down}>{numRendered}</span>

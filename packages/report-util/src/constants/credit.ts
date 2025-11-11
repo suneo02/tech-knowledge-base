@@ -22,17 +22,20 @@ export const getCreditRPLocale = (t: TIntl) => {
 
 
  */
-export const getCreditRPComment = (config: ReportPageJson, t: TIntl, isEn: boolean) => {
+export const getCreditRPDisclaimer = ({ config, t, isEn }: { config: ReportPageJson; t: TIntl; isEn: boolean }) => {
   const reportDate = getTodayIntl(isEn)
 
   const modules = config.map((item) => {
     return {
       title: configDetailIntlHelper(item, 'title', t),
-      children: item.children?.map((child) => {
-        return {
-          title: configDetailIntlHelper(child, 'title', t),
-        }
-      }),
+      children:
+        'children' in item && item.children
+          ? item.children.map((child) => {
+              return {
+                title: configDetailIntlHelper(child, 'title', t),
+              }
+            })
+          : [],
     }
   })
   return [

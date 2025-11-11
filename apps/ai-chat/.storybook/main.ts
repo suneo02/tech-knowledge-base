@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite'
+import { readdirSync } from 'fs'
 import { resolve } from 'path'
 
 const config: StorybookConfig = {
@@ -18,42 +19,31 @@ const config: StorybookConfig = {
       // 获取项目根目录路径
       const rootPath = resolve(__dirname, '../../../')
       const gelUtilPath = resolve(rootPath, 'packages/gel-util')
-
+      const gelUtilSrcPath = resolve(gelUtilPath, 'src')
+      const gelUtilSubmodules = readdirSync(gelUtilSrcPath, { withFileTypes: true })
+        .filter((dirent) => dirent.isDirectory() && dirent.name !== '__test__')
+      .map((dirent) => `gel-util/${dirent.name}`) // 获取 gel-util 的子模块
       return {
         ...config,
         optimizeDeps: {
-          include: [
-            'cde',
-            'gel-ui',
-            'indicator',
-            // gel-util 各个子模块
-            'gel-util/env',
-            'gel-util/intl',
-            'gel-util/link',
-            'gel-util/format',
-            'gel-util/corp',
-            'gel-util/config',
-            'gel-util/corpConfig',
-            'gel-util/download',
-            'gel-util/typeUtil',
-          ],
-          exclude: ['gel-util'],
+          include: [...gelUtilSubmodules, 'gel-ui', 'cde', 'indicator', 'gel-api'],
         },
         resolve: {
           ...(config.resolve || {}),
-          alias: {
-            ...(config.resolve?.alias || {}),
-            // 为每个子模块设置别名
-            'gel-util/env': resolve(gelUtilPath, 'dist/env.es.js'),
-            'gel-util/intl': resolve(gelUtilPath, 'dist/intl.es.js'),
-            'gel-util/link': resolve(gelUtilPath, 'dist/link.es.js'),
-            'gel-util/format': resolve(gelUtilPath, 'dist/format.es.js'),
-            'gel-util/corp': resolve(gelUtilPath, 'dist/corp.es.js'),
-            'gel-util/config': resolve(gelUtilPath, 'dist/config.es.js'),
-            'gel-util/corpConfig': resolve(gelUtilPath, 'dist/corpConfig.es.js'),
-            'gel-util/download': resolve(gelUtilPath, 'dist/download.es.js'),
-            'gel-util/typeUtil': resolve(gelUtilPath, 'dist/typeUtil.es.js'),
-          },
+          alias: [
+            {
+              find: '@',
+              replacement: resolve(__dirname, '../src'),
+            },
+            {
+              find: /^~/,
+              replacement: '',
+            },
+            {
+              find: /^gel-util\/(.*)/,
+              replacement: resolve(gelUtilPath, 'dist/$1.mjs'),
+            },
+          ],
         },
       }
     }

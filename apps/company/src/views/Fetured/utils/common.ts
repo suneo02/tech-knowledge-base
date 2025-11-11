@@ -93,15 +93,27 @@ export const featuredCompany = {
           type: 'shadow',
         },
       },
-      top: 'middle',
+      legend: {
+        bottom: '0%',
+        left: 'center',
+        orient: 'horizontal',
+
+        textStyle: {
+          rich: {
+            a: {
+              padding: [2.5, 0, 0, 0],
+            },
+          },
+        },
+      },
       series: [
         {
           type: 'pie',
           data: seriesData,
           label: {
-            show: true,
-            position: 'inside',
+            show: false,
           },
+          center: ['50%', '40%'],
         },
       ],
     }

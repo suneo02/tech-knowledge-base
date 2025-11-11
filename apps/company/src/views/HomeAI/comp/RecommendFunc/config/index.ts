@@ -2,9 +2,10 @@ import { wftCommon } from '@/utils/utils.tsx'
 import { groupBy, isEmpty, pickBy, uniqBy } from 'lodash'
 import { SearchHomeEntryList } from './domestic.ts'
 import { SearchHomeCardListOverSea } from './oversea.ts'
+import { CountDataType } from '@/views/HomeAI/index.tsx'
 
-export const getHomeEntryList = () => {
-  let res = SearchHomeEntryList
+export const getHomeEntryList = (countData?: CountDataType) => {
+  let res = SearchHomeEntryList(countData)
   if (wftCommon.is_overseas_config) {
     // 海外访问 card 切换调整
     res = SearchHomeCardListOverSea

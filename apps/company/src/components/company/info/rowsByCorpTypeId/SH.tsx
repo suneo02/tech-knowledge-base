@@ -83,7 +83,9 @@ export const getSHrows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns
         title: intl('207785', '住所'),
         dataIndex: 'reg_address',
         colSpan: 5,
-        render: AddrComp,
+        render: (txt, record) => {
+          return <AddrComp address={txt} corpId={record?.corp_id} isBusinessAddress={false} />
+        },
       },
     ],
     [

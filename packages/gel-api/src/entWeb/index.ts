@@ -1,4 +1,4 @@
+export { createEntWebAxiosInstance } from './axios'
 export * from './config'
-export * from './types'
 export * from './paths'
-export * from './axios'
+export * from './types'

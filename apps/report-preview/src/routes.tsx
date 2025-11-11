@@ -1,9 +1,10 @@
+import { lazy } from 'react'
 import { Navigate, RouteObject, createHashRouter } from 'react-router'
 
-import CreditRPPreview from './views/credit'
-import CreditRPPrint from './views/credit/print'
-import DDRPPreview from './views/dd'
-import NotFound from './views/Fallback/404'
+const CreditRPPreview = lazy(() => import('./views/credit'))
+const CreditRPPrint = lazy(() => import('./views/credit/print'))
+const DDRPPreview = lazy(() => import('./views/dd'))
+const NotFound = lazy(() => import('./views/Fallback/404'))
 
 // 路由配置
 export const routes: RouteObject[] = [

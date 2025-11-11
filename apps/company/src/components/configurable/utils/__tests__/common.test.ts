@@ -46,14 +46,14 @@ describe('getBrowserLocale', () => {
     // Restore the original navigator after each test
     Object.defineProperty(global, 'navigator', {
       value: originalNavigator,
-      writable: true
+      writable: true,
     })
   })
 
   it('should return navigator language when available', () => {
     Object.defineProperty(global, 'navigator', {
       value: { language: 'en-US' },
-      writable: true
+      writable: true,
     })
     expect(getBrowserLocale()).toBe('en-US')
   })
@@ -61,7 +61,7 @@ describe('getBrowserLocale', () => {
   it('should return zh-CN when navigator is undefined', () => {
     Object.defineProperty(global, 'navigator', {
       value: undefined,
-      writable: true
+      writable: true,
     })
     expect(getBrowserLocale()).toBe('zh-CN')
   })
@@ -69,7 +69,7 @@ describe('getBrowserLocale', () => {
   it('should return zh-CN when navigator.language is undefined', () => {
     Object.defineProperty(global, 'navigator', {
       value: { language: undefined },
-      writable: true
+      writable: true,
     })
     expect(getBrowserLocale()).toBe('zh-CN')
   })
@@ -79,8 +79,8 @@ describe('formatCurrency', () => {
   // Test cases for number input
   it('should format currency with number input', () => {
     expect(formatCurrency(1000, 0)).toBe('1000')
-    expect(formatCurrency(1000.50, 0)).toBe('1000.50')
-    expect(formatCurrency(1000.00, 0)).toBe('1000')
+    expect(formatCurrency(1000.5, 0)).toBe('1000.50')
+    expect(formatCurrency(1000.0, 0)).toBe('1000')
   })
 
   // Test cases for string input
@@ -155,4 +155,4 @@ describe('isObjectAndNotEmpty', () => {
     expect(isObjectAndNotEmpty(123)).toBe(false)
     expect(isObjectAndNotEmpty(true)).toBe(false)
   })
-}) 
+})

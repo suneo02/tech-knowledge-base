@@ -1,0 +1,68 @@
+@import 'gel-ui/variables.less';
+
+.reference-item-file {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &:not(:hover) {
+    .reference-item-file__delete {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &__main {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  &__tag {
+    padding: 0 @component-space-sm;
+  }
+
+  &__title-wrapper {
+    flex: 1;
+    min-width: 140px;
+    padding-right: @spacing-sm;
+    cursor: pointer;
+  }
+
+  &__title {
+    color: @font-color-2;
+    font-weight: 400;
+    line-height: @spacing-base;
+    width: 100%;
+
+    &--clickable {
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: @primary;
+        text-decoration: underline;
+        text-decoration-color: @primary;
+        text-underline-offset: @component-space-xs;
+      }
+    }
+  }
+
+  &__status {
+    margin-top: @component-space-xs;
+    padding-left: @component-space-xs;
+  }
+
+  &__delete {
+    height: @spacing-base;
+    line-height: @spacing-base;
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
+  }
+}

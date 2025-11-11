@@ -4,6 +4,7 @@ import { getFormFieldConfigs, RunTypeEnum } from '../config/formConfig'
 import { Button, ConfigProvider } from 'antd'
 import { Divider, Tooltip } from 'antd'
 import { AiModelEnum } from 'gel-api'
+// @ts-expect-error
 import { ExtendedColumnDefine } from '@/components/MultiTable/utils/columnsUtils'
 import { CoinsIcon } from '@/assets/icon'
 import styles from './styles.module.less'
@@ -94,7 +95,7 @@ export const TemplateHome = ({
           </Button>
         </ConfigProvider>
       </div>
-      <Divider style={{ marginBlock: 12 }} />
+      <Divider style={{ marginBlockStart: 12, marginBlockEnd: 12 }} />
       <ConfigurableForm
         columns={columns}
         initialValues={initialValues}

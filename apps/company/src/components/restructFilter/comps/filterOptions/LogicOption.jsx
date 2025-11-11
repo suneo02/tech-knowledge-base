@@ -23,9 +23,15 @@ const LogicOption = ({ defaultOption = 'any', changeOptionCallback }) => {
 
   return (
     <Box>
-      <Select defaultValue={current} onChange={changeOption} className="prefixLogic">
+      <Select
+        defaultValue={current}
+        onChange={changeOption}
+        className="prefixLogic"
+        data-uc-id="ClfNAdiaJ"
+        data-uc-ct="select"
+      >
         {Object.keys(logicOption).map((item) => (
-          <Option key={item} value={item}>
+          <Option key={item} value={item} data-uc-id={`joUWecWWmCH${item}`} data-uc-ct="option" data-uc-x={item}>
             {logicOption[item]}
           </Option>
         ))}
@@ -51,12 +57,11 @@ const Box = styled.ul`
     }
     .w-select-selector {
       height: 100%;
-      .w-select-selection-item{
+      .w-select-selection-item {
         line-height: 30px;
       }
     }
   }
-
 `
 
 export default LogicOption

@@ -228,7 +228,12 @@ class Subscribe extends React.Component {
         title: '温馨提示',
         content: <div>最多只可订阅20组条件，您已超限，您可以删除或者修改已订阅的条件。</div>,
         footer: [
-          <Button type="grey" onClick={() => store.dispatch(globalActions.clearGolbalModal())}>
+          <Button
+            type="grey"
+            onClick={() => store.dispatch(globalActions.clearGolbalModal())}
+            data-uc-id="UUvLmxbcUw-"
+            data-uc-ct="button"
+          >
             {intl('19405', '取消')}
           </Button>,
           <Button
@@ -236,6 +241,8 @@ class Subscribe extends React.Component {
             onClick={() => {
               store.dispatch(globalActions.clearGolbalModal())
             }}
+            data-uc-id="WZTqZSVR3L3"
+            data-uc-ct="button"
           >
             {intl('138836', '确定')}
           </Button>,
@@ -255,7 +262,12 @@ class Subscribe extends React.Component {
         title: '温馨提示',
         content: <div>{`您想订阅的条件和已订阅"${txt}"中的条件重复，请勿重复订阅。`}</div>,
         footer: [
-          <Button type="grey" onClick={() => store.dispatch(globalActions.clearGolbalModal())}>
+          <Button
+            type="grey"
+            onClick={() => store.dispatch(globalActions.clearGolbalModal())}
+            data-uc-id="rD-zyx7rgjv"
+            data-uc-ct="button"
+          >
             {intl('19405', '取消')}
           </Button>,
           <Button
@@ -263,6 +275,8 @@ class Subscribe extends React.Component {
             onClick={() => {
               store.dispatch(globalActions.clearGolbalModal())
             }}
+            data-uc-id="t8FVlzol7kS"
+            data-uc-ct="button"
           >
             {intl('138836', '确定')}
           </Button>,
@@ -285,6 +299,8 @@ class Subscribe extends React.Component {
         cancelText={intl(286234, '取消')}
         okText={intl(286235, '确定')}
         onOk={this.finish}
+        data-uc-id="EynXOlfz3aW"
+        data-uc-ct="modal"
       >
         <p className="content">
           {intl('438536', '保存筛选条件并订阅。订阅后，我们将根据保存的筛选条件，定期推送最新符合条件的企业给您')}
@@ -300,17 +316,28 @@ class Subscribe extends React.Component {
               style={{ width: 435 }}
               value={name}
               onChange={this.nameChange}
+              data-uc-id="DIvj9m5NVM2"
+              data-uc-ct="input"
             />
           </p>
         )}
-        <Radio.Group onChange={this.subscribeChange} value={subscribed}>
-          <Space direction="vertical">
-            <Radio value={false}>{intl('438515', '不推送')}</Radio>
-            <Radio value={true}>{intl('438516', '开启推送')}</Radio>
+        <Radio.Group onChange={this.subscribeChange} value={subscribed} data-uc-id="IduWLfrfCwW" data-uc-ct="radio">
+          <Space direction="vertical" data-uc-id="SWqQCqnuUp7" data-uc-ct="space">
+            <Radio value={false} data-uc-id="H4XYqnaxzpS" data-uc-ct="radio">
+              {intl('438515', '不推送')}
+            </Radio>
+            <Radio value={true} data-uc-id="A6GtRPamkPG" data-uc-ct="radio">
+              {intl('438516', '开启推送')}
+            </Radio>
           </Space>
         </Radio.Group>
         {subscribed && (
-          <Checkbox onChange={this.emailNoticeChange} checked={emailNotice}>
+          <Checkbox
+            onChange={this.emailNoticeChange}
+            checked={emailNotice}
+            data-uc-id="o3RrFWh9ZqC"
+            data-uc-ct="checkbox"
+          >
             {intl(283267)}
             {emailEdit ? (
               <>
@@ -320,13 +347,15 @@ class Subscribe extends React.Component {
                   maxLength={50}
                   value={email}
                   onChange={this.edit}
+                  data-uc-id="wqx-auvy3-E"
+                  data-uc-ct="input"
                 />
                 <div style={{ color: '#999' }}>此邮箱将作为全部订阅推送邮件的接收邮箱</div>
               </>
             ) : (
               <span>
                 {email}
-                <MyIcon name="rename" onClick={this.editChange} />
+                <MyIcon name="rename" onClick={this.editChange} data-uc-id="xsVXpPhBJaR" data-uc-ct="myicon" />
               </span>
             )}
           </Checkbox>

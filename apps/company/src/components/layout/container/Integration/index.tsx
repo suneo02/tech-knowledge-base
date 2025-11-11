@@ -1,13 +1,13 @@
-import { useIntersection } from '@/utils/intersection'
+import { ConfigDetailCorpTechScore } from '@/components/layout/container/Integration/customModule.tsx'
+import { Item } from '@/components/layout/renderItem.tsx'
+import { ICfgDetailNodeCommonJson } from '@/types/configDetail/common.ts'
+import { ICfgDetailCompJson, ICfgDetailSubMenu, IConfigDetailNodesJSON } from '@/types/configDetail/module.ts'
+import { createIntersectionObserver } from 'gel-util/common'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import CardHeader from '../../../common/card/header/Header'
 import ApiContainer from '../ApiContainer'
 import TabsContainer from '../TabsContainer'
 import './index.less'
-import { Item } from '@/components/layout/renderItem.tsx'
-import { ConfigDetailCorpTechScore } from '@/components/layout/container/Integration/customModule.tsx'
-import { ICfgDetailNodeCommonJson } from '@/types/configDetail/common.ts'
-import { ICfgDetailCompJson, ICfgDetailSubMenu, IConfigDetailNodesJSON } from '@/types/configDetail/module.ts'
 
 /** 布局 */
 const LayoutHorizontal: FC<{
@@ -73,7 +73,11 @@ export const Component: FC<ICfgDetailCompJson & Pick<ICfgDetailSubMenu, 'treeKey
     setLoading(false)
     if (componentRef.current) observable.unobserve(componentRef.current)
   }
-  const { observable } = useIntersection(inCallback)
+  const { observable } = createIntersectionObserver(inCallback, undefined, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.9,
+  })
 
   useEffect(() => {
     if (componentRef.current) observable.observe(componentRef.current)
@@ -141,7 +145,7 @@ export const FilterContainer: FC<{
   }, [props.params])
   return (
     <>
-      {<CardHeader {...props} onSearchChange={setParams} />}
+      {<CardHeader {...props} onSearchChange={setParams} data-uc-id="SxsteGJp8" data-uc-ct="cardheader" />}
       {props?.children(params)}
     </>
   )

@@ -268,6 +268,7 @@ export const CompanyMatchConfirm = ({
                 <CheckboxGroup
                   options={CONFIRM_OPTIONS}
                   value={confirmSelected}
+                  // @ts-expect-error ttt
                   onChange={(e) => {
                     setConfirmSelected(e as number[])
                   }}

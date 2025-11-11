@@ -1,9 +1,29 @@
-.version-price-footer {
+@import '../../../styles/colorVariables.less';
 
+.version-price-footer {
   width: 1300px;
   margin: 0 auto;
   margin-top: 20px;
   font-size: 13px;
   color: #999;
   font-style: normal;
+}
+.modal-content-anti-abuse {
+  div {
+    margin-top: 8px;
+  }
+  h4 {
+    margin-top: 12px;
+  }
+
+  .user-link {
+    color: @primary;
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    &:hover {
+      color: @primary-hover;
+    }
+    &:active {
+      color: @primary-active;
+    }
+  }
 }

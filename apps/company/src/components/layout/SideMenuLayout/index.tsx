@@ -159,6 +159,8 @@ const SideMenuLayout: React.FC<SideMenuLayoutProps> = ({
                     onMenuSelect={handleMenuSelect}
                     onMenuExpand={onMenuExpand}
                     deleteItem={handleDeleteTemplateData}
+                    data-uc-id="FPgoiuhpUG"
+                    data-uc-ct="menucomponent"
                   />
                 ) : null}
               </Sider>

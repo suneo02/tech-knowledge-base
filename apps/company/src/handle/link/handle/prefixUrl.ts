@@ -1,18 +1,11 @@
 import { getEnvParams, TGelEnv } from '@/utils/env'
+import { GELService } from 'gel-util/link'
 
 export const WFC_Enterprise_Web = 'Wind.WFC.Enterprise.Web'
 export const PC_Front = 'PC.Front'
 export const GEL_WEB_TEST = 'wind.ent.web/gel'
 export const GEL_WEB = 'web'
-/**
- * @deprecated
- *
- * 使用 gel util 中的 GELService 枚举
- */
-export enum GELService {
-  Company = 'Company', // gel pc 项目
-  AI = 'ai', // 新 AI 聊天项目
-}
+
 /**
  * 通用获取服务URL前缀的方法
  * @param options 配置项
@@ -43,10 +36,10 @@ export const getGeneralPrefixUrl = ({
         serverUrl = '/'
         break
       case 'webTest':
-        serverUrl = isLoginIn ? `/${GEL_WEB_TEST}/` : `/${GEL_WEB_TEST}/${service}/`
+        serverUrl = isLoginIn ? `/${GEL_WEB_TEST}/` : `/${WFC_Enterprise_Web}/${PC_Front}/${service}/`
         break
       case 'web':
-        serverUrl = isLoginIn ? `/${GEL_WEB}/` : `/${GEL_WEB}/${service}/`
+        serverUrl = isLoginIn ? `/${GEL_WEB}/` : `/${WFC_Enterprise_Web}/${PC_Front}/${service}/`
         break
       default:
         serverUrl = '/'

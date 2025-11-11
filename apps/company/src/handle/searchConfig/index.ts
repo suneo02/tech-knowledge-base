@@ -66,7 +66,7 @@ const outCompanySort2 = [
     key: '4',
   },
 ]
-// 用于查海外企业的国家选择
+// 用于全球企业的国家选择
 const outCompanyParam = [
   {
     type: '不限',
@@ -77,86 +77,103 @@ const outCompanyParam = [
     type: '美国',
     typeid: '76',
     param: 'usa',
+    code: '180401',
   },
   {
     type: '加拿大',
     typeid: '79',
     param: 'can',
+    code: '180402',
   },
   {
     type: '新加坡',
     typeid: '68',
     param: 'sgp',
+    code: '180101',
   },
   {
     type: '日本',
     typeid: '77',
     param: 'jpn',
+    code: '180102',
   },
   {
     type: '韩国',
     typeid: '144',
     param: 'kor',
+    code: '180114',
   },
   {
     type: '德国',
     typeid: '71063',
     param: 'deu',
+    code: '180202',
   },
   {
     type: '法国',
     typeid: '71068',
     param: 'fra',
+    code: '180203',
   },
   {
     type: '意大利',
     typeid: '71200',
     param: 'ita',
+    code: '180204',
   },
   {
     type: '英国',
     typeid: '78',
     param: 'eng',
+    code: '180201',
   },
   {
     type: '泰国',
     typeid: '211694',
     param: 'tha',
+    code: '180120',
   },
   {
     type: '越南',
     typeid: '53975',
     param: 'vie',
+    code: '180104',
   },
   {
     type: '新西兰',
     typeid: '211660',
     param: 'nzl',
+    code: '180602',
   },
   {
     type: '卢森堡',
     typeid: '224575',
     param: 'lux',
+    code: '180205',
   },
   {
     type: '印度',
     typeid: '226992',
     param: 'ind',
+    code: '180111',
   },
   {
     type: '俄罗斯',
     typeid: '226990',
     param: 'rus',
+    code: '180235',
   },
   {
     type: '马来西亚',
     typeid: '298293',
     param: 'mas',
+    code: '180117',
   },
   {
     type: '其他',
     typeid: '23435',
     param: 'oth',
+    code: '180',
   },
 ]
 const jobResultOption = [

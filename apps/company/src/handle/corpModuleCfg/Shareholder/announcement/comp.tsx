@@ -1,4 +1,4 @@
-export const AnnouncementExtraParams= (param) => {
+export const AnnouncementExtraParams = (param) => {
   delete param.windCode
   delete param.windcode
   return {
@@ -7,7 +7,7 @@ export const AnnouncementExtraParams= (param) => {
     __primaryKey: param.companycode,
   }
 }
-export const AnnouncementDataCallback= (res) => {
+export const AnnouncementDataCallback = (res) => {
   // 数据返回后是否要做单独的逻辑处理
   res.map((t, idx) => {
     t.rowKey = idx

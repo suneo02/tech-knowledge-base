@@ -4,6 +4,7 @@ import {
   getBJEEReportComment,
   getMajorReportComment,
 } from 'gel-util/corp'
+import { t } from 'gel-util/intl'
 import { CompanyDetailBJEEShareholderCfg } from '../bjee.tsx'
 import { CompanyDetailMajorShareholderCfg } from '../major'
 import { CompanyDetailShareholderAnnouncementReportCfg } from './report.tsx'
@@ -29,7 +30,7 @@ export const handleAnnouncementCommentAndCountNum = (eachTable, resultFirst) => 
       return
     }
     case CompanyDetailBJEEShareholderCfg.cmd: {
-      eachTable.comment = getBJEEReportComment(resultFirst?.participation)
+      eachTable.comment = getBJEEReportComment(resultFirst, t)
       return
     }
   }

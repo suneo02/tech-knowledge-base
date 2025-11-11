@@ -6,11 +6,14 @@ import { getGroupHotView, getGroupList } from '../api/searchListApi.ts'
 import defaultCompanyImg from '../assets/imgs/default_company.png'
 import CompanyLink from '../components/company/CompanyLink'
 import { HistoryList, ResultContainer, SearchTitleList } from '../components/searchListComponents/searchListComponents'
-import intl from '../utils/intl'
+
 import { wftCommon } from '../utils/utils'
 import './SearchList/index.less'
 
-import { getUrlByLinkModule, LinksModule } from '@/handle/link'
+import { deleteGroupRecentViewItem, getGroupRecentViewList } from '@/api/services/groupRecentView.ts'
+import Links from '@/components/common/links/Links'
+import { LinksModule } from '@/handle/link'
+import { t } from 'gel-util/intl'
 import { groupCollationOption } from '../handle/searchConfig/groupCollationOption'
 import { parseQueryString } from '../lib/utils'
 import { searchCommon } from './commonSearchFunc'
@@ -29,6 +32,7 @@ class GroupSearchList extends React.Component<any, any> {
       resultNum: '',
       loading: true,
       loadingList: false,
+      groupRecentView: [],
     }
   }
 
@@ -48,7 +52,22 @@ class GroupSearchList extends React.Component<any, any> {
     keyword = window.decodeURIComponent(keyword)
     this.setState({ queryText: keyword }, () => this.getGroupList())
     this.props.getGroupHotView({ pageSize: 10 })
+    // 最近浏览（集团系）
+    getGroupRecentViewList()
+      .then((res) => {
+        if (res && Array.isArray(res)) {
+          this.setState({ groupRecentView: res })
+        }
+      })
+      .catch(() => {})
     this.props.setGlobalSearch()
+  }
+  refreshGroupRecentView = () => {
+    getGroupRecentViewList()
+      .then((res) => {
+        if (res && Array.isArray(res)) this.setState({ groupRecentView: res })
+      })
+      .catch(() => {})
   }
   handleChange = (value) => {
     //排序功能事件
@@ -56,6 +75,31 @@ class GroupSearchList extends React.Component<any, any> {
     filter['sort'] = value
     filter['pageNo'] = 0
     this.setState({ loading: true, ...filter, loadingList: false }, () => this.getGroupList())
+  }
+  viewRecentCompany = (item, isDelete) => {
+    return (
+      <li className="history_list">
+        <Links
+          module={LinksModule.GROUP}
+          id={item.entityId}
+          title={item.entityName}
+          addRecordCallback={() => this.refreshGroupRecentView()}
+          className="wi-link-color"
+          data-uc-id="recent-view-item"
+          data-uc-ct="a"
+        ></Links>
+        {isDelete ? (
+          <span
+            className="del-history"
+            onClick={() => deleteGroupRecentViewItem(item.entityId).then(this.refreshGroupRecentView)}
+            data-uc-id="del-history"
+            data-uc-ct="span"
+          ></span>
+        ) : (
+          ''
+        )}
+      </li>
+    )
   }
   getGroupList = (loadingList?) => {
     //执行搜索事件
@@ -115,6 +159,8 @@ class GroupSearchList extends React.Component<any, any> {
                     e.target.src = defaultCompanyImg
                   }}
                   src={wftCommon.addWsidForImg(_logo)}
+                  data-uc-id="e323ga9pTBH"
+                  data-uc-ct="img"
                 />
               ) : (
                 <span className="logo-title" style={{ background: bkcolor }}>
@@ -122,38 +168,35 @@ class GroupSearchList extends React.Component<any, any> {
                 </span>
               )}
             </div>
-            <h5
+            <Links
+              module={LinksModule.GROUP}
+              id={item.groupsystem_id}
+              title={item.groupsystem_name}
+              addRecordCallback={() => this.refreshGroupRecentView()}
               className="searchtitle-news wi-link-color"
-              onClick={() =>
-                window.open(
-                  getUrlByLinkModule(LinksModule.GROUP, {
-                    id: item.groupsystem_id,
-                  })
-                )
-              }
-            >
-              {item.groupsystem_name ? item.groupsystem_name.replace(/\"/g, '') : '--'}
-            </h5>
+              data-uc-id="bfKQeQP5qUr"
+              data-uc-ct="h5"
+            ></Links>
 
             {window.en_access_config && titleEnName ? (
               <div className="div_Card_name_en">
                 {' '}
-                <span> {titleEnName} </span> {<i>{intl('362293', '该翻译由AI提供')} </i>}{' '}
+                <span> {titleEnName} </span> {<i>{t('362293', '该翻译由AI提供')} </i>}{' '}
               </div>
             ) : null}
           </div>
         </div>
         <div className="searchtitle-bottom">
           <span className="searchitem-time">
-            {intl('216412', '核心主体公司')}：
+            {t('216412', '核心主体公司')}：
             <CompanyLink divCss="company-jump" name={item.core_main_corp_name} id={item.core_main_corp_id} />
           </span>
           <br />
           <span className="searchitem-no">
-            {intl('224506', '集团企业数量')}：{parseInt(item.count_corp_num)}
+            {t('224506', '集团企业数量')}：{parseInt(item.count_corp_num)}
           </span>
           <span className="searchitem-source">
-            {intl('451213', '省份地区')}：{item.region ? item.region.replace(/\s*/g, '') : '--'}
+            {t('451213', '省份地区')}：{item.region ? item.region.replace(/\s*/g, '') : '--'}
           </span>
         </div>
       </div>
@@ -163,14 +206,17 @@ class GroupSearchList extends React.Component<any, any> {
     searchCommon.jumpOtherSearch(this.props, data)
   }
   viewCompany = (item, isDelete) => {
-    const groupDetailLink = getUrlByLinkModule(LinksModule.GROUP, {
-      id: item.groupSystemId,
-    })
     return (
       <li className="history_list">
-        <a className="wi-link-color" onClick={() => window.open(groupDetailLink)}>
-          {item.groupSystemName}
-        </a>
+        <Links
+          className="wi-link-color"
+          module={LinksModule.GROUP}
+          id={item.groupSystemId}
+          title={item.groupSystemName}
+          addRecordCallback={() => this.refreshGroupRecentView()}
+          data-uc-id="El1ffXJs2mU"
+          data-uc-ct="a"
+        ></Links>
         {isDelete ? <span className="del-history"></span> : ''}
       </li>
     )
@@ -178,14 +224,15 @@ class GroupSearchList extends React.Component<any, any> {
 
   render() {
     const { groupList, groupListErrorCode, groupViewHot } = this.props
+    const { groupRecentView } = this.state
     return (
-      <div className="SearchList" onScroll={this.scroll}>
-        <SearchTitleList name="groupSearchList" jump={this.jump} />
+      <div className="SearchList" onScroll={this.scroll} data-uc-id="vs2l2qbEyMz" data-uc-ct="div">
+        <SearchTitleList name="groupSearchList" jump={this.jump} keyword={this.state.queryText} />
         <div className="wrapper workspace-fix" id="SearchHome">
           <div className="search-l">
             <div className="search-for-company each-search-result">
               <ResultContainer
-                resultType={intl('437223', '找到 % 个符合条件的集团系')}
+                resultType={t('437223', '找到 % 个符合条件的集团系')}
                 resultNum={this.state.resultNum}
                 resultList={groupList}
                 list={groupCollationOption}
@@ -204,8 +251,18 @@ class GroupSearchList extends React.Component<any, any> {
               {groupViewHot ? (
                 <HistoryList
                   list={groupViewHot}
-                  title={window.en_access_config ? 'Top Viewed' : intl('', '热门推荐集团系')}
+                  title={window.en_access_config ? 'Top Viewed' : t('', '热门推荐集团系')}
                   listShowFun={this.viewCompany}
+                />
+              ) : null}
+              {groupRecentView && groupRecentView.length > 0 ? (
+                <HistoryList
+                  list={groupRecentView}
+                  title={window.en_access_config ? 'Recently Viewed' : t('', '最近浏览集团系')}
+                  isDelete={true}
+                  allDelete={true}
+                  listShowFun={this.viewRecentCompany}
+                  showModal={() => {}}
                 />
               ) : null}
             </div>

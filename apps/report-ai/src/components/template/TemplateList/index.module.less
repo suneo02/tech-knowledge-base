@@ -1,0 +1,50 @@
+@import 'gel-ui/variables.less';
+
+.container {
+  // 视觉
+  display: flex;
+  flex-direction: column;
+
+  > * + * {
+    margin-top: @component-space;
+  }
+
+  &__header {
+    // 视觉
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__sectionTitle {
+    // 视觉
+    font-weight: 600;
+    color: @font-color-1;
+  }
+
+  &__list {
+    // 盒模型
+    margin: calc(@component-space / -2);
+    padding-bottom: @component-space-xs;
+
+    // 视觉
+    display: flex;
+    flex-wrap: wrap;
+
+    > * {
+      margin: calc(@component-space / 2);
+    }
+  }
+
+  &__empty {
+    // 盒模型
+    width: 100%;
+    height: 100%;
+
+    // 视觉
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: @font-color-4;
+  }
+}

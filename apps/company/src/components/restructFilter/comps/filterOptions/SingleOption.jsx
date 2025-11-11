@@ -65,7 +65,7 @@ const SingleOption = ({
     // 单选的自定义操作
     setCustomValue(date)
     let value = [date?.map((i) => i?.format('YYYYMMDD')).join('-')]
-    console.log("🚀 ~ customValueChange ~ value:", value)
+    console.log('🚀 ~ customValueChange ~ value:', value)
     changeOptionCallback(value)
   }
 
@@ -90,9 +90,9 @@ const SingleOption = ({
   //#endregion
   return (
     <Box>
-      <Radio.Group value={value} onChange={onChange}>
+      <Radio.Group value={value} onChange={onChange} data-uc-id="taWnX_GPau" data-uc-ct="radio">
         {options.map((item) => (
-          <Radio key={item.value} value={item.value}>
+          <Radio key={item.value} value={item.value} data-uc-id="rASxjT3Y5g" data-uc-ct="radio" data-uc-x={item.value}>
             {item.name}
             {item.value === 'custom' &&
               (info.seolifDefine === 2 ? (
@@ -102,11 +102,18 @@ const SingleOption = ({
                     max={customValue ? customValue.split('-')[1] : ''}
                     changeOptionCallback={customNumberValueChange}
                     unit={info.itemRemark}
+                    data-uc-id="jyYpXLnEOp"
+                    data-uc-ct="numberrangeoption"
                   />
                 </div>
               ) : (
                 <div className="ml-6">
-                  <DatePickerOption value={customValue} changeOptionCallback={customValueChange} />
+                  <DatePickerOption
+                    value={customValue}
+                    changeOptionCallback={customValueChange}
+                    data-uc-id="ZXgeRXdaNz"
+                    data-uc-ct="datepickeroption"
+                  />
                 </div>
               ))}
           </Radio>
@@ -130,15 +137,6 @@ const Box = styled.div`
     .w-radio-checked {
       span {
         color: #000 !important;
-      }
-    }
-  }
-  .ant-radio-wrapper-checked,
-  .w-radio-wrapper-checked {
-    .ant-radio-inner,
-    .w-radio-inner {
-      &:after {
-        background-color: #00aec7;
       }
     }
   }

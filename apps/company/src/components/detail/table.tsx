@@ -26,6 +26,8 @@ function Tables(props) {
             style={{
               marginBottom: 10,
             }}
+            data-uc-id="W0AlDIZGHeV"
+            data-uc-ct="horizontaltable"
           />
         ) : (
           <Table
@@ -38,6 +40,8 @@ function Tables(props) {
             style={{
               marginBottom: 10,
             }}
+            data-uc-id="9qwazAJn1Ej"
+            data-uc-ct="table"
           />
         )
       })}

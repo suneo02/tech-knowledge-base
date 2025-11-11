@@ -1,12 +1,12 @@
 import { ConfigTableCellJsonConfig } from 'gel-types'
-import React from 'react'
 import { configDetailIntlHelper } from 'report-util/corpConfigJson'
-import { tForRPPreview } from '../../../../utils'
+import { TIntl } from 'report-util/types'
 
 export function parseConfigTableCellTitleConfig(
   title: string,
   titleIntl: ConfigTableCellJsonConfig['titleIntl'],
-  titleRenderConfig: ConfigTableCellJsonConfig['titleRenderConfig']
+  titleRenderConfig: ConfigTableCellJsonConfig['titleRenderConfig'],
+  t: TIntl
 ) {
   const titleZH = configDetailIntlHelper(
     {
@@ -14,7 +14,7 @@ export function parseConfigTableCellTitleConfig(
       titleIntl,
     },
     'title',
-    tForRPPreview
+    t
   )
   if (!titleRenderConfig) {
     return titleZH

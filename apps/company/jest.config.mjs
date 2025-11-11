@@ -7,15 +7,16 @@ export default {
   testMatch: ['<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}', '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}'],
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': ['ts-jest', {
-      tsconfig: '<rootDir>/tsconfig.json'
-    }],
+    '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/tsconfig.json',
+      },
+    ],
     '^.+\\.css$': '<rootDir>/config/jest/cssTransform.js',
     '^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)': '<rootDir>/config/jest/fileTransform.js',
   },
-  transformIgnorePatterns: [
-    '/node_modules/(?!(@wind|react-resizable|lodash-es|@babel/runtime)/)'
-  ],
+  transformIgnorePatterns: ['/node_modules/(?!(@wind|react-resizable|lodash-es|@babel/runtime)/)'],
   modulePaths: ['<rootDir>/src'],
   moduleNameMapper: {
     '^react-native$': 'react-native-web',

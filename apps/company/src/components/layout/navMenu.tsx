@@ -4,15 +4,14 @@
  *
  * @format
  */
-import { Common, Scroll } from '@/utils'
+import { Scroll } from '@/utils'
 import { intlNoIndex } from '@/utils/intl'
 import { AutoComplete, Input, Spin, Tree } from '@wind/wind-ui'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { useGroupStore } from '../../store/group.ts'
 import { Nodata } from '../../utils/utils.tsx'
 import './styles/navMenu.less'
-import { isDeveloper } from '../../utils/common.ts'
-import { useGroupStore } from '../../store/group.ts'
-
+import { LayoutTreeNodeTitle } from './TreeNodeTitle'
 /**
  * 左侧菜单树
  * 通过treeData驱动，结合store
@@ -101,7 +100,13 @@ const LayoutNavMenu = () => {
 
   const renderOption = (res) => {
     return (
-      <AutoComplete.Option key={res.key} value={res.title}>
+      <AutoComplete.Option
+        key={res.key}
+        value={res.title}
+        data-uc-id="6RVweK095X"
+        data-uc-ct="autocomplete"
+        data-uc-x={res.key}
+      >
         <span>
           {res.beforeStr}
           <span style={{ color: '#00aec7' }}>{res.searchValue}</span>
@@ -110,20 +115,6 @@ const LayoutNavMenu = () => {
       </AutoComplete.Option>
     )
   }
-
-  const NodeTitle = (node) => (
-    <span className={`level-${node.level}`}>
-      {isDeveloper ? (
-        node.isVip ? (
-          <div className="nav-vip">V</div>
-        ) : node.isSvip ? (
-          <div className="nav-vip">S</div>
-        ) : null
-      ) : null}
-      {node.titleId ? intlNoIndex(node.titleId) : node.title || ''}
-      {node.num ? <span className="num">{node.num ? `（${Common.formatNumber(node.num)}）` : null}</span> : null}
-    </span>
-  )
 
   return (
     <div className="nav-menu-container" ref={navRef}>
@@ -136,8 +127,14 @@ const LayoutNavMenu = () => {
               onSearch={onSearch}
               onSelect={onSelect}
               dataSource={searchDataSource.map(renderOption)}
+              data-uc-id="uNtFl1K4c5"
+              data-uc-ct="autocomplete"
             >
-              <Input.Search placeholder={intlNoIndex('222764', '搜索菜单')} />
+              <Input.Search
+                placeholder={intlNoIndex('222764', '搜索菜单')}
+                data-uc-id="j_sUv2paUI"
+                data-uc-ct="input"
+              />
             </AutoComplete>
             <div className="menu-container">
               <Tree
@@ -157,15 +154,28 @@ const LayoutNavMenu = () => {
                   pointBuried({ opActive: 'nav', opEntity: record?.node?.title?.props?.title })
                 }}
                 onExpand={toggleExpanded}
+                data-uc-id="29fPbhz2RN"
+                data-uc-ct="tree"
               >
                 {filteredTreeData.map((node) => {
                   return (
                     <Tree.TreeNode
                       key={node.key}
-                      title={<NodeTitle {...node} level="1" />}
+                      title={<LayoutTreeNodeTitle {...node} level="1" />}
                       style={{ fontWeight: 'bold' }}
+                      data-uc-id="oFeAxoEgA-"
+                      data-uc-ct="tree"
+                      data-uc-x={node.key}
                     >
-                      {node?.children.map((n) => <Tree.TreeNode key={n.key} title={<NodeTitle {...n} level="2" />} />)}
+                      {node?.children.map((n) => (
+                        <Tree.TreeNode
+                          key={n.key}
+                          title={<LayoutTreeNodeTitle {...n} level="2" />}
+                          data-uc-id="1NR3lwqpPP"
+                          data-uc-ct="tree"
+                          data-uc-x={n.key}
+                        />
+                      ))}
                     </Tree.TreeNode>
                   )
                 })}

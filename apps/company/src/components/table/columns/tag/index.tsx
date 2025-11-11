@@ -1,9 +1,9 @@
 import { Tag } from '@wind/wind-ui'
-import './index.less'
 import { isArray } from 'lodash'
 import { isNil } from 'lodash/lang'
 import React, { FC } from 'react'
 import { IConfigDetailTableTagInfo, TConfigDetailTableColumn } from '../../../../types/configDetail/table.ts'
+import './index.less'
 
 export const TableColumnTag: FC<{
   record: Record<string, any>
@@ -21,13 +21,21 @@ export const TableColumnTag: FC<{
     if (!isArray(tags)) tags = [tags]
 
     const color = tagInfo.color
-    const type = tagInfo.type ?? 'primary'
+    const type = tagInfo.type ?? 'secondary'
     const size = tagInfo.size
     return (
       <>
         {tags.map((item) => (
-          // @ts-expect-error ttt
-          <Tag className="table-column-tag" key={item} type={type} color={color} size={size}>
+          <Tag
+            className="table-column-tag"
+            key={item}
+            type={type}
+            color={color}
+            size={size}
+            data-uc-id="St0iKSQyhm"
+            data-uc-ct="tag"
+            data-uc-x={item}
+          >
             {item}
           </Tag>
         ))}

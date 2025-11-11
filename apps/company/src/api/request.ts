@@ -48,6 +48,15 @@ export function request<T extends ApiPath>(api: T, options: ApiOptions<T> = {}):
 }
 
 /**
+ * 创建一个 path 固定的请求函数
+ */
+export function createRequestByPath<T extends ApiPath>(api: T) {
+  return function (options: ApiOptions<T> = {}): Promise<GetApiResponse<T>> {
+    return request(api, options)
+  }
+}
+
+/**
  * 流式数据API请求函数 - 使用 axios 实现，专为 SSE 格式数据优化
  * @param api - API路径(自动补全)
  * @param options - 流式API选项，包含onStreamData回调
@@ -201,8 +210,8 @@ export function createRequest(defaultOptions: Partial<ApiOptions<any>> = {}) {
       ...defaultOptions,
       ...options,
       params: {
-        ...defaultOptions.params,
-        ...options.params,
+        ...(defaultOptions.params ?? {}),
+        ...(options.params ?? {}),
       },
     })
   }
@@ -219,8 +228,8 @@ export function createStreamRequest(defaultOptions: Partial<StreamApiOptions<any
       ...defaultOptions,
       ...options,
       params: {
-        ...defaultOptions.params,
-        ...options.params,
+        ...(defaultOptions.params ?? {}),
+        ...(options.params ?? {}),
       },
     })
   }

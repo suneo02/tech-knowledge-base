@@ -37,6 +37,8 @@ export const showChain = (rate, row, header, apiParams, buryItem?) => {
             }
             wftCommon.showRoute(row.shareRoute, header, apiParams)
           }}
+          data-uc-id="LOnkBx39n7u"
+          data-uc-ct="div"
         ></div>
       </div>
     )
@@ -102,6 +104,8 @@ export const DetailLink = (props) => {
           wftCommon.jumpJqueryPage(url)
         }
       }}
+      data-uc-id="o-H-m_wEP8N"
+      data-uc-ct="a"
     >
       {txt}
     </a>
@@ -114,7 +118,7 @@ export const RimeDataLink: FC<{ url?: string; css?: string }> = (props) => {
     window.open(url)
   }
   return (
-    <div className={cn(styles['right-rime-tips'], props.css)} onClick={func}>
+    <div className={cn(styles['right-rime-tips'], props.css)} onClick={func} data-uc-id="97r8drEE-8_" data-uc-ct="div">
       <span className={styles['right-rime-tips-text']}>{intlNoNO('342096', '数据来源')}: </span>
       <RimeIcon width={68} height={14} />
     </div>
@@ -176,7 +180,16 @@ export const benfitRender = (data) => {
             data.companyCode
           )
         }}
-        icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+        icon={
+          <DownloadO
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+            data-uc-id="xfwClZW76v"
+            data-uc-ct="downloado"
+          />
+        }
+        data-uc-id="5AWf34S0RO"
+        data-uc-ct="button"
       >
         {intlNoNO('4698', '导出数据')}
       </Button>
@@ -189,23 +202,3 @@ export const expandHandle = ({ code, id, callback }) => {
     callback(res.Data)
   })
 }
-export const multiTabIds = [
-  'showIpoYield',
-  'showIpoSales',
-  'showIpoBusiness',
-  'showIpoStock',
-  'showFundSize',
-  'showPrivateFundInfo',
-  'getShareAndInvest',
-  'getrelation',
-  'showPledgedstock',
-  'showStockMortgage',
-  'showChattelmortgage',
-  'historyshowPledgedstock',
-  'historyshowChattelmortgage',
-  'getbrand',
-  'getpatent',
-  'biddingInfo',
-  'tiddingInfo',
-  'gettechscore',
-] // 单独使用multiTabId进行标志处理的模块

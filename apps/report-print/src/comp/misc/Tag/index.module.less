@@ -48,24 +48,24 @@
 }
 
 // Type variants
-.tag-primary {
+.tag-secondary {
   font-weight: normal;
 }
 
-.tag-secondary {
+.tag-primary {
   color: inherit;
   border: none;
 }
 
 // Color variant mixin
 .color-variant(@color, @opacity-bg-color) {
-  &.tag-primary {
+  &.tag-secondary {
     color: @color;
     background-color: @opacity-bg-color;
     border: none;
   }
 
-  &.tag-secondary {
+  &.tag-primary {
     border: 1px solid @color;
     color: @color;
   }

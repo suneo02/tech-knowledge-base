@@ -28,6 +28,28 @@ export const returnValue = (value: number | string | boolean | null | undefined 
 }
 
 /**
+ * 将 toLocaleString() 生成的本地化数字字符串转回数字
+ * @param {string} str - 本地化数字字符串（如 "1,234.56"、"1.234,56"）
+ * @returns {number} 转换后的数字
+ */
+export const parseLocaleNumber = (stringValue: string): number => {
+  try {
+    // 移除所有非数字字符（除了小数点、负号和指数符号）
+    const cleaned = stringValue.replace(/[^\d.-eE]/g, '')
+    const result = parseFloat(cleaned)
+
+    if (isNaN(result)) {
+      throw new Error(`无法解析数字: ${stringValue}`)
+    }
+
+    return result
+  } catch (error) {
+    console.error('数字解析错误:', error)
+    return 0 // 或者根据你的需求返回其他默认值
+  }
+}
+
+/**
  * 生成唯一的列名
  * @param name 基础名称，默认为"未命名"
  * @param list 现有列数组
@@ -36,7 +58,7 @@ export const returnValue = (value: number | string | boolean | null | undefined 
  * generateUniqueName(undefined, [{ name: '未命名' }]) // '未命名(1)'
  * generateUniqueName('未命名', [{ name: '未命名' }, { name: '未命名(2)' }]) // '未命名(1)'
  */
-export const generateUniqueName = <T extends Record<string, any>, K extends keyof T & string>({
+export const generateUniqueName = <T extends Record<string, unknown>, K extends keyof T & string>({
   name = '未命名',
   list = [] as T[],
   key = 'name' as K,

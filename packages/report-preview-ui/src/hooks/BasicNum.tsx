@@ -1,7 +1,7 @@
 import { useRequest } from 'ahooks'
 import { AxiosInstance } from 'axios'
 import { createWFCRequestWithAxios, createWFCSecureRequestWithAxios, isTrademarkBasicNumData } from 'gel-api'
-import { CorpBasicNumFront } from 'gel-types'
+import { CorpBasicNum, CorpBasicNumFront } from 'gel-types'
 import { mergeCorpBasicNum } from 'gel-util/corp'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -72,9 +72,13 @@ export const useBasicNumRequest = (corpCode: string, axiosInstance: AxiosInstanc
 
   const corpBasicNum = useMemo<Partial<CorpBasicNumFront>>(() => {
     if (isTrademarkBasicNumData(corpTrademarkBasicNumData?.Data)) {
-      return mergeCorpBasicNum(corpBasicNumData?.Data, corpPatentBasicNumData?.Data, corpTrademarkBasicNumData.Data)
+      return mergeCorpBasicNum(
+        corpBasicNumData?.Data as CorpBasicNum,
+        corpPatentBasicNumData?.Data,
+        corpTrademarkBasicNumData.Data
+      )
     }
-    return mergeCorpBasicNum(corpBasicNumData?.Data, corpPatentBasicNumData?.Data, undefined)
+    return mergeCorpBasicNum(corpBasicNumData?.Data as CorpBasicNum, corpPatentBasicNumData?.Data, undefined)
   }, [corpBasicNumData, corpPatentBasicNumData, corpTrademarkBasicNumData])
 
   const corpBasicNumFetched = useMemo(() => {

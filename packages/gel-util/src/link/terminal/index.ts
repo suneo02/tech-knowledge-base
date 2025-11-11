@@ -1,2 +1,2 @@
-export * from "./config";
-export * from "./handle";
+export * from './config'
+export * from './handle'

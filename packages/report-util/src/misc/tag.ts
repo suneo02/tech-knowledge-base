@@ -41,52 +41,48 @@ export const TagCfgByModuleMap: Partial<
 > = {
   ['company']: {
     color: 'color-2',
-    type: 'primary',
+    type: 'secondary',
   },
   ['companyProduct']: {
     color: 'color-1',
-    type: 'primary',
+    type: 'secondary',
   },
   ['featureCompany']: {
     color: 'color-2',
-    type: 'primary',
+    type: 'secondary',
   },
   ['stock']: {
     color: 'color-2',
-    type: 'primary',
+    type: 'secondary',
   },
   ['group']: {
     color: 'color-2',
-    type: 'primary',
+    type: 'secondary',
   },
 
   ['risk']: {
     color: 'color-4',
-    type: 'primary',
+    type: 'secondary',
   },
   ['rankDict']: {
     color: 'color-5',
-    type: 'primary',
+    type: 'secondary',
   },
   ['ultimateBeneficiary']: {
     color: 'color-3',
-    type: 'primary',
-    size: 'mini',
+    type: 'secondary',
   },
   ['actualController']: {
     color: 'color-2',
-    type: 'primary',
-    size: 'mini',
+    type: 'secondary',
   },
   ['isChangeName']: {
     color: 'color-3',
-    type: 'primary',
-    size: 'mini',
+    type: 'secondary',
   },
   ['relatedParties']: {
     color: 'color-1',
-    type: 'primary',
-    size: 'mini',
+    type: 'secondary',
   },
 }
 

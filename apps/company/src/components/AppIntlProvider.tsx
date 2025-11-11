@@ -3,12 +3,20 @@ import enUSui from '@wind/wind-ui/lib/locale-provider/en_US'
 import { client } from '@wind/windjs'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
-import { imlCn, imlEn } from 'gel-util/intl'
-import moment from 'moment'
-import 'moment/locale/zh-cn'
+import { I18nextProvider } from 'gel-ui'
+import { i18n, imlCn, imlEn } from 'gel-util/intl'
 import React from 'react'
 import intl, { getLang, getLocale } from '../utils/intl'
 import { wftCommon } from '../utils/utils'
+
+import { init as monitorInit, WindMonitorProvider } from '@wind/wind-monitor-client'
+
+// @ts-ignore
+const monitorClient = (window.monitorClient = monitorInit({
+  appName: 'Wind.WFC.Enterprise.Web.Font',
+  monitorBehavior: true,
+  circleMark: true,
+}))
 
 let locale
 let localUI
@@ -26,7 +34,6 @@ function init() {
     case 'en':
       locale = 'en-US'
       localUI = enUSui
-      moment.locale('en')
       dayjs.locale('en')
       break
     case 'zh':
@@ -34,7 +41,6 @@ function init() {
       lang = 'zh'
       locale = 'zh-CN'
       localUI = null
-      moment.locale('zh-cn')
       dayjs.locale('zh-cn')
       break
   }
@@ -77,8 +83,18 @@ class AppIntlProvider extends React.Component<{ children: React.ReactNode }, { i
   }
 
   render() {
-    // @ts-expect-error 类型错误
-    return this.state.initDone && <LocaleProvider locale={localUI}>{this.props.children}</LocaleProvider>
+    if (!this.state.initDone) {
+      return null
+    }
+    return (
+      <WindMonitorProvider client={monitorClient}>
+        {/* @ts-expect-error */}
+        <I18nextProvider i18n={i18n}>
+          {/* @ts-expect-error */}
+          <LocaleProvider locale={localUI}>{this.props.children}</LocaleProvider>
+        </I18nextProvider>
+      </WindMonitorProvider>
+    )
   }
 }
 

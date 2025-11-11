@@ -14,15 +14,17 @@ import { ParkBox } from './Park'
  */
 const CompanyScaleTooltipTitle: FC<{
   content?: string
-  onClickShowFeedBack: () => void
-}> = ({ content, onClickShowFeedBack }) => {
+  onClickFeedback: () => void
+}> = ({ content, onClickFeedback }) => {
   const FeedBack = (
     <Link
       // @ts-expect-error ttt
       style={{
         color: '#00aec7',
       }}
-      onClick={onClickShowFeedBack}
+      onClick={onClickFeedback}
+      data-uc-id="1A_UMIUNSM"
+      data-uc-ct="link"
     >
       {intl('142975', '反馈')}
     </Link>
@@ -68,11 +70,19 @@ const CompanyScaleTooltipTitle: FC<{
   }
 }
 
-export const corpInfoScaleRow = (onCorpScaleClick): HorizontalTableCol<ICorpBasicInfoFront> => ({
+export const getCorpInfoScaleRow = (onClickFeedback: () => void): HorizontalTableCol<ICorpBasicInfoFront> => ({
   title: (
     <>
       {intl('219343', '企业规模')}
-      <Tooltip title={<CompanyScaleTooltipTitle onClickShowFeedBack={onCorpScaleClick} />}>
+      <Tooltip
+        title={
+          <CompanyScaleTooltipTitle
+            onClickFeedback={onClickFeedback}
+            data-uc-id="FhVtIF0f7-"
+            data-uc-ct="companyscaletooltiptitle"
+          />
+        }
+      >
         <InfoCircleButton />
       </Tooltip>
     </>
@@ -117,7 +127,7 @@ export const corpInfoRegAddressRow: HorizontalTableCol<ICorpBasicInfoFront> = {
   dataIndex: 'reg_address',
   colSpan: 5,
   render: (title, row) => (
-    <ParkBox title={title} parkTitle={row?.registerPark} row={row} parkId={row?.registerParkId} />
+    <ParkBox title={title} parkTitle={row?.registerPark} row={row} parkId={row?.registerParkId} isBusAddress={false} />
   ),
 }
 
@@ -125,7 +135,9 @@ export const corpInfoBusAddressRow: HorizontalTableCol<ICorpBasicInfoFront> = {
   title: intl('1588', '办公地址'),
   dataIndex: 'bus_address',
   colSpan: 5,
-  render: (title, row) => <ParkBox title={title} parkTitle={row?.officePark} row={row} parkId={row?.officeParkId} />,
+  render: (title, row) => (
+    <ParkBox title={title} parkTitle={row?.officePark} row={row} parkId={row?.officeParkId} isBusAddress={true} />
+  ),
 }
 export const corpInfoBussScopeRow: HorizontalTableCol<ICorpBasicInfoFront> = {
   title: intl('9177', '经营范围'),
