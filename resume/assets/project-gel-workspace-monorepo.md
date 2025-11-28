@@ -2,111 +2,43 @@
 
 **角色**：项目经理 & 架构师
 
-**项目挑战**：多个独立应用存在依赖版本冲突、单应用构建 5-8 分钟、代码复用率<30%。
+**项目背景**：
+负责大型企业级前端应用集群的工程化重构，项目包含 8 个独立业务应用（Company, Report-AI, Report-Print 等）与 11 个共享功能包。面临多应用间依赖版本不一致、重复造轮子现象严重、以及 CI/CD 流水线构建缓慢（单次全量构建耗时 >40min）的痛点。
 
-**解决方案**：搭建 Turborepo + pnpm Monorepo，统一管理 8 个应用和 11 个共享包，建立工程化规范。
+**核心技术栈**：
+- **架构**: Monorepo (Turborepo 2.5 + pnpm Workspace)
+- **构建**: Vite 5.x + Webpack 5 + Rollup
+- **规范**: ESLint + Prettier + Commitlint + Husky
+- **工具**: Node.js Scripts (Custom CLI) + GitHub Actions
 
-## 项目背景
+## 🏗️ Monorepo 架构设计与落地
 
-大型企业级前端应用集群，服务于全球企业数据分析和 AI 报告生成场景，支持多个业务线的协同开发。项目规模：8 个业务应用 + 11 个共享包，总代码量 28 万+行，日均处理数千份企业报告生成请求。
+### 1. 三层依赖分级体系
+重构原有散乱的代码结构，设计清晰的依赖分层架构，杜绝循环依赖：
+- **基础层 (Foundation)**：`gel-types` (全局类型定义), `gel-util` (环境/格式化/存储工具), `gel-api` (Axios 封装与请求拦截)。
+- **业务层 (Domain)**：`gel-ui` (Wind UI 组件库), `indicator` (指标计算引擎), `detail-page-config` (动态详情页配置), `cde` (核心业务逻辑)。
+- **应用层 (Application)**：`apps/company` (企业详情), `apps/report-ai` (智能报告), `apps/report-print` (打印服务) 等 8 个业务入口。
 
-## 核心技术栈
+### 2. 高效构建工作流
+- **Turborepo 智能构建**：配置 `turbo.json` 管道，定义 `build`, `test`, `lint` 的任务拓扑。利用 Content-Addressable Storage (CAS) 缓存机制，实现跨分支、跨机器的构建缓存共享。
+- **并行化策略**：在 `local-ci.js` 中实现自定义并行构建逻辑，支持 `--continue-on-error` 模式与自动重试机制（失败重试 3 次），确保本地预构建的稳定性。
+- **依赖治理**：利用 pnpm 的硬链接（Hard Link）机制管理 `node_modules`，大幅减少磁盘占用；通过 `workspace:*` 协议统一内部包版本，确保所有应用使用同一版本的核心库。
 
-- **架构**: React 18 + TypeScript 5 + Redux Toolkit + Turborepo 2.5.3 + pnpm
-- **构建**: Vite 6.x + Webpack 5 + Turborepo 缓存
-- **UI**: Ant Design 5 + 自研 Wind UI 组件库
-- **状态管理**: Redux Toolkit + Zustand + RTK Query
-- **测试**: Vitest + Testing Library + Storybook
-- **工程化**: ESLint + Prettier + 16 项开发规范
+## 🛠️ 工程化工具链开发
 
-## 🏛️ Monorepo 搭建
+### 3. 统一命令行工具 (CLI)
+开发 `scripts/run-app.js` 交互式脚本，抹平不同应用的启动差异：
+- **命令标准化**：统一 `pnpm app dev <app-name>`、`pnpm app build --all` 等指令入口，无需记忆复杂的 Webpack/Vite 参数。
+- **环境注入**：集成 `dotenv` 与 `cross-env`，在启动时动态注入 `.env.dev` / `.env.prod` 环境变量，支持多环境（Local/Staging/Prod）无缝切换。
+- **交互式选择**：集成 `prompts` 库实现 CLI 交互菜单，支持多选应用进行批量启动或构建。
 
-### 技术实现
+### 4. 配置驱动 UI 架构
+在 `packages/detail-page-config` 中实现基于 JSON 的动态页面渲染引擎：
+- **元数据驱动**：通过 `singapore.json`, `TW.json` 等配置文件定义表格列、字段映射及渲染类型（`renderType: currency/date/custom`）。
+- **动态加载**：应用层根据 API 返回的国家/地区代码，动态加载对应的配置策略，实现无需改动代码即可支持新国家的数据展示。
 
-- **包管理**：配置 pnpm workspace，通过硬链接减少依赖体积 60-80%
-- **构建工具**：配置 Turborepo 2.5.3 缓存和并行构建，构建速度提升 3-5 倍
-- **缓存优化**：配置 turbo.json 缓存策略，命中率 70-90%
-- **依赖管理**：统一 package.json 的 peerDependencies，避免版本冲突
+## 📊 技术成果
+- **构建效率**：通过 Turborepo 缓存与并行构建，全量 CI 构建时间显著缩短，本地增量构建实现秒级响应。
+- **研发效能**：共享包机制消除了重复代码，新业务功能（如新增一个国家的数据展示）仅需编写 JSON 配置即可上线，开发周期大幅缩短。
+- **代码质量**：统一的 ESLint/Prettier 规范与 `gel-types` 类型约束，使得跨团队协作的代码风格高度一致，运行时类型错误显著减少。
 
-### 共享包分层
-
-```
-基础层: types → gel-util → gel-api
-业务层: gel-api → gel-ui → indicator → cde → report-util
-应用层: 8 个业务应用
-```
-
-## 📋 项目管理
-
-### 多应用协调
-
-- **统一命令**：编写 `run-app.js` 脚本，通过 `pnpm app dev company` 启动应用
-- **版本管理**：在根 package.json 统一依赖版本，避免冲突
-- **环境配置**：配置 .env.dev/.env.test/.env.prod 环境变量
-- **CI/CD**：配置 GitHub Actions 并行构建 8 个应用，总耗时从 40 分钟降至 12 分钟
-
-### 开发规范
-
-- **16 项规范**：编写 TypeScript、React、样式、API 请求等规范文档
-- **代码质量**：配置 ESLint + Prettier，代码一致性达 95%
-- **文档规范**：为核心 API 和组件编写 JSDoc，覆盖率 100%
-- **技术栈统一**：统一使用 ahooks + lodash + classnames
-
-## 🔧 工具开发
-
-### 本地 CI 脚本
-
-- 编写 `local-ci.js` 脚本，并行测试和构建 8 个应用
-- 实现失败重试 3 次，使用 chalk 输出彩色日志
-- 支持 `--continue-on-error` 参数，单个应用失败不影响其他应用
-- 实时显示"[2/8] Building company..."进度
-
-### 统一命令
-
-```bash
-pnpm app dev company          # 启动单个应用
-pnpm app build --all          # 构建所有应用
-pnpm app deploy-prod --all    # 部署到生产环境
-pnpm ci:local                 # 本地模拟 CI 流程
-```
-
-## 📊 量化成果
-
-### 构建效率
-
-- **构建速度**：单应用构建从 5-8 分钟降至 1-2 分钟，Turborepo 缓存命中率 70-90%
-- **依赖安装**：pnpm 硬链接使安装速度提升 2-3 倍，磁盘占用减少 60-80%
-- **热重载**：Vite HMR 使开发时等待时间从 3-5 秒降至<500ms
-- **代码复用**：共享包使代码复用率达 70%，新功能开发时间从 3 天降至 2 天
-
-### 质量稳定性
-
-- **类型安全**：TypeScript 严格模式使运行时错误减少 80%
-- **生产 Bug**：类型检查和测试覆盖使生产 Bug 减少 70%
-- **部署成功率**：GitHub Actions 自动化部署成功率达 99%
-
-### 团队协作
-
-- **代码审查**：16 项开发规范使代码审查时间减少 60%
-- **上手时间**：文档和工具使新人上手时间从 2 周缩短至 3-5 天
-- **重复咨询**：标准化流程使重复性问题咨询减少 40%
-
-## 🎯 核心能力
-
-### 技术选型
-
-- 选择 Turborepo + pnpm，构建速度提升 3-5 倍
-- 设计三层共享包结构，代码复用率达 70%
-- 配置 TypeScript 严格模式，运行时错误减少 80%
-
-### 团队管理
-
-- 编写 16 项开发规范，代码审查时间减少 60%
-- 开发统一命令工具，支持 8 个应用协调开发
-- 编写工具脚本，新人上手时间从 2 周缩短至 3-5 天
-
-### DevOps
-
-- 编写 local-ci.js 脚本，本地模拟 CI 流程
-- 配置 GitHub Actions，部署成功率达 99%
-- 集成 Sentry 错误追踪，实时监控生产问题

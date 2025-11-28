@@ -1,164 +1,44 @@
 # Report Print & Preview PDF 生成应用 | 2024.05 - 2024.09
 
-**角色**：核心开发（8,460 行代码）
+**角色**：核心开发
 
-**项目背景**：企业 PDF 报告生成应用，支持 30+企业类型、中英双语、多环境批量导出。日均生成 1000+份 PDF，单份 20-100 页。
+**项目背景**：
+针对企业征信报告的 PDF 导出需求，开发的高性能服务端渲染应用。支持 30+ 种不同企业类型的报告模板（如 CO/FCP 等），需在无头浏览器环境（Headless Browser）下精确还原复杂的 Web 报表样式，并解决 wkhtmltopdf 对现代 CSS/JS 特性的兼容性问题。
 
-## 技术挑战
+**核心技术栈**：
+- **渲染引擎**: wkhtmltopdf + Headless Chrome
+- **前端框架**: React 18 (Preview) + jQuery/ES5 (Print Legacy)
+- **构建工具**: Vite (Preview) + Webpack 5 (Print) + Babel
+- **算法**: DOM-based Pagination + Cell Splitting
 
-- **复杂分页**：表格跨页时保持 HTML 结构完整，避免内容截断
-- **工具兼容**：wkhtmltopdf 仅支持 ES5，Vite/Webpack 默认输出 ES6+
-- **批量处理**：30 企业 ×2 语言 ×3 环境=180 种组合的并行导出
-- **配置管理**：基于 JSON 配置的报告定制
+## 🏗️ 双模渲染架构设计
 
-## 🏗️ 核心设计
-
-### 双引擎实现
-
-- **report-print**：基于 wkhtmltopdf 的 PDF 生成，7,823 行代码
-- **report-preview**：基于 Vite + React 的预览界面，637 行代码
-- **技术互补**：print 专注 PDF 质量，preview 提供用户体验
-
-### 三层分页设计
-
-- **物理层**：PDFPage 类管理页面、页眉页脚
-- **逻辑层**：TableHandler 类处理表格行、常规分页
-- **微观层**：CellSplitter 类分割单元格、保持 HTML 结构
-
-## ⚙️ wkhtmltopdf 兼容性
-
+### 1. 差异化双引擎策略
 [📄](resume/assets/gel-workspace/apps/report-print/docs/core-architecture.md)
+采用"预览-打印"分离架构，平衡交互体验与打印精度：
+- **Preview 端 (report-preview)**：基于 Vite + React 构建，复用 `gel-ui` 组件库，提供毫秒级的 Canvas 预览与参数配置交互。
+- **Print 端 (report-print)**：基于 Webpack + Babel 构建，专为 wkhtmltopdf 优化。通过 `RPPrintRenderer` 统一调度，针对性解决 QT WebKit 内核对 Flexbox/Grid 的支持缺陷。
 
-### Webpack ES5 配置
-
-- **Babel 配置**：配置 @babel/preset-env targets IE11，禁用箭头函数、const/let、解构赋值
-- **降级策略**：通过 Babel 转译 ES6+代码为 ES5
-- **代码分割**：配置 Webpack splitChunks，控制 chunk 大小 20KB-100KB
-- **依赖管理**：动态生成 vendor 包，避免第三方依赖污染
-
-### wkhtmltopdf 配置
-
-- **调试**：使用 `--debug-javascript` 参数输出 JS 错误日志
-- **性能**：配置 `--javascript-delay 1000` 等待动态内容渲染
-- **精度**：使用 `--disable-smart-shrinking` 保持 CSS 像素精度
-
-## 📋 配置化生成
-
-[📄](resume/assets/gel-workspace/apps/report-print/docs/core-rendering-flow.md)
-
-### 配置驱动
-
-- **配置处理**：开发 TableSectionsGenerator 类，解析嵌套 JSON 配置
-- **数据绑定**：根据配置自动调用 API 获取数据
-- **多语言**：集成 i18n，支持中英文切换
-- **模块化**：根据配置动态生成表格、图表、文本模块
-
-### 企业预设
-
-- **企业类型**：支持 CO、FCP、FPC 等 30+企业类型
-- **环境配置**：配置 local/test/prod 环境
-- **JSON 配置**：基于 JSON 配置定制报告
-
-## 📐 PDF 分页算法
-
+### 2. 三层分页算法体系
 [📄](resume/assets/gel-workspace/apps/report-print/docs/pdf-pagination-architecture.md)
+为解决长表格跨页截断与表头丢失问题，设计了精细的分页控制系统：
+- **物理层 (Page Level)**：`PDFPage` 类管理 A4 纸张的物理尺寸、页眉页脚留白及水印注入。
+- **逻辑层 (Section Level)**：`TableHandler` 负责计算表格行高，识别自然分页点，并在新页自动重绘表头（Thead Repetition）。
+- **微观层 (Cell Level)**：`CellSplitter` 实现 DOM 级内容的深度分割。当单行文本高度超过页余量时，递归遍历 DOM 树，寻找最佳文本断点，确保 HTML 标签（如 `<b>`, `<span>`）在跨页时闭合完整，避免样式逃逸。
 
-### 分页决策
+## ⚙️ 关键技术攻坚
 
-[📄](resume/assets/gel-workspace/apps/report-print/docs/pdf-pagination-process.md)
+### 3. wkhtmltopdf 深度兼容
+[📄](resume/assets/gel-workspace/apps/report-print/docs/core-rendering-flow.md)
+- **ES5 降级构建**：配置 Webpack 与 `@babel/preset-env`，强制转译所有 ES6+ 语法（箭头函数、解构等）为 ES5，并注入 `core-js` Polyfill，确保在老旧 WebKit 内核中运行无报错。
+- **异步渲染同步**：利用 `window.status` 与 `--javascript-delay` 参数配合，开发 `isRenderingComplete` 信号机制，确保所有图表（ECharts）与动态图片加载完毕后再触发 PDF 截屏。
+- **CSS 像素对齐**：禁用 `--disable-smart-shrinking` 智能缩放，通过 DPI 精确计算 CSS 像素与打印毫米数的换算比例，实现 "所见即所得" 的打印效果。
 
-- **溢出检测**：动态添加内容，监测页面高度是否超过限制
-- **状态判断**：区分空白页溢出和常规溢出
-- **递归处理**：支持多级分页
+### 4. 配置驱动的工厂模式
+- **元数据驱动**：通过 `TableSectionsGenerator` 解析嵌套的 JSON 报告配置，自动实例化对应的 `HorizontalTable`, `VerticalTable`, `CrossTable` 组件。
+- **动态数据绑定**：设计 `TableProps` 泛型接口，统一处理 API 数据映射、国际化字段（i18n）替换及空值回退逻辑。
 
-### HTML 感知分割
-
-[📄](resume/assets/gel-workspace/apps/report-print/docs/dom-based-row-algorithm-implementation.md)
-
-- **DOM 分析**：将复杂 HTML 分解为最小单元(文本节点、标签)
-- **迭代适配**：逐个添加 HTML 单元并测试溢出，找到分割点
-- **结构保护**：确保 HTML 标签完整，避免格式错乱
-- **精细分割**：保持 HTML 结构的分割
-
-### 极端行处理
-
-[📄](resume/assets/gel-workspace/apps/report-print/docs/dom-based-row-problem-goals.md)
-
-- **递归分割**：处理单行超过整页的情况
-- **表头重复**：在新页重复表头
-- **错误恢复**：多层降级处理
-
-### 算法复杂度
-
-- **分页**：O(n×m) n=行数，m=每行复杂度
-- **单元格分割**：O(h×log(k)) h=HTML 单元数，k=分割精度
-- **溢出检测**：实时 DOM 高度监测<10ms
-
-## 🚀 批量处理
-
-[📄](resume/assets/gel-workspace/apps/report-print/docs/development.md)
-
-### 并行导出
-
-- **多维并行**：企业 × 语言 × 环境并行处理
-- **任务调度**：使用队列管理任务，按优先级调度
-- **错误隔离**：单个任务失败不影响其他任务
-
-### 多环境配置
-
-- **环境适配**：配置 local/test/main 环境变量
-- **动态配置**：运行时切换环境和参数
-- **会话管理**：动态获取和验证 sessionid
-
-### 错误处理
-
-- **日志记录**：记录每个任务的执行日志
-- **状态报告**：生成成功/失败统计
-- **重试处理**：支持失败任务重试
-- **进度监控**：实时显示"已完成 50/180"
-
-## 🎯 技术亮点
-
-### 1. wkhtmltopdf 兼容
-
-- **兼容性**：通过 Babel 配置实现 Vite/Webpack 与 wkhtmltopdf 兼容
-- **ES5 降级**：配置 @babel/preset-env targets IE11
-- **调试工具**：使用 `--debug-javascript` 追踪错误
-
-### 2. HTML 感知分页
-
-- **结构保持**：保持 HTML 标签完整的分页算法
-- **精确分割**：支持复杂表格的跨页分割
-- **格式保持**：解决传统 PDF 工具格式丢失问题
-
-### 3. 配置化生成
-
-- **JSON 配置**：基于 JSON 配置生成页面
-- **企业支持**：支持 30+企业类型预设
-- **开发效率**：新增企业类型从 2 天降至 2 小时
-
-### 4. 批量处理
-
-- **多维并行**：企业 × 语言 × 环境并行处理
-- **任务调度**：队列管理和错误隔离
-- **大规模导出**：支持 180 种组合批量导出
-
-## 📊 量化成果
-
-### 技术突破
-
-- **兼容性**：通过 Babel 配置实现 Vite/Webpack 与 wkhtmltopdf 兼容
-- **分页精度**：HTML 感知分页算法使复杂表格跨页格式保持率 100%
-- **配置化**：JSON 配置使新增企业类型开发时间从 2 天降至 2 小时
-
-### 性能指标
-
-- **生成速度**：单份 20 页报告<30 秒，批量导出 180 份<15 分钟
-- **批量处理**：支持 30 企业 ×2 语言 ×3 环境并行导出，失败率<5%
-- **分页算法**：O(n×m)复杂度，溢出检测<10ms
-
-### 业务价值
-
-- **导出效率**：批量导出使效率提升 10 倍
-- **质量保证**：HTML 结构保持使 PDF 格式错误率从 15%降至<1%
-- **维护成本**：配置化使开发和维护成本降低 80%
+## 📊 技术成果
+- **分页精度**：`CellSplitter` 算法成功解决了复杂富文本（Rich Text）的跨页截断问题，实现了表格行内内容的像素级无损分割。
+- **系统稳定性**：通过 `scripts/export.cjs` 封装的错误重试与进程守护机制，有效规避了 wkhtmltopdf 偶发的内存泄漏导致的进程崩溃。
+- **开发效能**：基于 JSON 配置的渲染工厂模式，使得新增一种企业报告类型仅需维护一份配置文件，无需编写重复的渲染逻辑。
