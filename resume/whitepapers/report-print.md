@@ -14,13 +14,13 @@
 ## 🏗️ 双模渲染架构设计
 
 ### 1. 差异化双引擎策略
-[📄](resume/assets/gel-workspace/apps/report-print/docs/core-architecture.md)
+[📄](../assets/gel-workspace/apps/report-print/docs/core-architecture.md)
 采用"预览-打印"分离架构，平衡交互体验与打印精度：
 - **Preview 端 (report-preview)**：基于 Vite + React 构建，复用 `gel-ui` 组件库，提供毫秒级的 Canvas 预览与参数配置交互。
 - **Print 端 (report-print)**：基于 Webpack + Babel 构建，专为 wkhtmltopdf 优化。通过 `RPPrintRenderer` 统一调度，针对性解决 QT WebKit 内核对 Flexbox/Grid 的支持缺陷。
 
 ### 2. 三层分页算法体系
-[📄](resume/assets/gel-workspace/apps/report-print/docs/pdf-pagination-architecture.md)
+[📄](../assets/gel-workspace/apps/report-print/docs/pdf-pagination-architecture.md)
 为解决长表格跨页截断与表头丢失问题，设计了精细的分页控制系统：
 - **物理层 (Page Level)**：`PDFPage` 类管理 A4 纸张的物理尺寸、页眉页脚留白及水印注入。
 - **逻辑层 (Section Level)**：`TableHandler` 负责计算表格行高，识别自然分页点，并在新页自动重绘表头（Thead Repetition）。
@@ -29,7 +29,7 @@
 ## ⚙️ 关键技术攻坚
 
 ### 3. wkhtmltopdf 深度兼容
-[📄](resume/assets/gel-workspace/apps/report-print/docs/core-rendering-flow.md)
+[📄](../assets/gel-workspace/apps/report-print/docs/core-rendering-flow.md)
 - **ES5 降级构建**：配置 Webpack 与 `@babel/preset-env`，强制转译所有 ES6+ 语法（箭头函数、解构等）为 ES5，并注入 `core-js` Polyfill，确保在老旧 WebKit 内核中运行无报错。
 - **异步渲染同步**：利用 `window.status` 与 `--javascript-delay` 参数配合，开发 `isRenderingComplete` 信号机制，确保所有图表（ECharts）与动态图片加载完毕后再触发 PDF 截屏。
 - **CSS 像素对齐**：禁用 `--disable-smart-shrinking` 智能缩放，通过 DPI 精确计算 CSS 像素与打印毫米数的换算比例，实现 "所见即所得" 的打印效果。
