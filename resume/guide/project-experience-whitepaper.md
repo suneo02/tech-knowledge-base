@@ -7,7 +7,7 @@
 
 ## 1. 知识提取框架 (Extraction Framework)
 
-请按照以下四个维度对项目进行深度扫描与文档化，这些维度对应基线的 **STAR-Plus** 全流程：
+请按照以下五个维度对项目进行深度扫描与文档化，这些维度对应基线的 **STAR-Plus** 全流程：
 
 ### 维度一：全景架构 (The Big Picture) -> 对应 S (Situation) & T (Task)
 
@@ -19,7 +19,17 @@
       - _Why Vite?_ -> 对比 Webpack 的构建速度数据。
       - _Why Zustand?_ -> 对比 Redux 的 Boilerplate 代码量。
 
-### 维度二：核心难点攻坚 (Deep Dive Case Study) -> 对应 A (Action) & R (Result)
+### 维度二：核心功能实现 (Core Features & Implementation) -> 对应 A (Action - Construction)
+
+- **生成目标**：记录业务系统的核心骨架，证明你不仅会修 Bug，更能“盖楼”。
+- **标准结构**：
+  1.  **功能模块 (Feature)**：列出 2-3 个核心业务模块（e.g., “即时通讯系统”、“动态表单引擎”）。
+  2.  **实现逻辑 (Implementation)**：
+      - _流程_：关键业务的时序图 (Sequence Diagram) 或 状态机 (State Machine)。
+      - _数据设计_：核心 Model 结构 / 数据库 Schema 设计。
+  3.  **复杂度 (Complexity)**：为什么这个功能难做？（e.g., “涉及多端状态同步”、“需要原子性操作”）。
+
+### 维度三：核心难点攻坚 (Deep Dive Case Study) -> 对应 A (Action - Optimization) & R (Result)
 
 - **生成目标**：证明你的技术深度超过 80% 的 CRUD 工程师。
 - **标准结构**：
@@ -30,7 +40,7 @@
       - _V2 (成功)_：最终方案的原理。
   4.  **代码 (Code Snippet)**：粘贴关键函数（< 20 行），并加注释说明（**符合基线 Rule #1**）。
 
-### 维度三：事故与反思 (Post-Mortem) -> 对应 A (Action) & L (Legacy)
+### 维度四：事故与反思 (Post-Mortem) -> 对应 A (Action) & L (Legacy)
 
 - **生成目标**：展示成熟工程师的“反脆弱”能力。
 - **标准结构**：
@@ -38,7 +48,7 @@
   2.  **Root Cause**：根本原因（不仅是 Bug，可能是流程或设计缺陷）。
   3.  **Action Item**：如何保证下次不犯？（e.g., "增加 E2E 测试", "配置 CI 卡点"）。
 
-### 维度四：知识库 (Wiki / Snippets) -> 对应 L (Legacy)
+### 维度五：知识库 (Wiki / Snippets) -> 对应 L (Legacy)
 
 - **生成目标**：沉淀可复用的代码片段或生僻知识点。
 - **内容**：
