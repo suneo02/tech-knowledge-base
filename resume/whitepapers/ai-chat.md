@@ -101,56 +101,7 @@ graph TD
 
 ## 3. 核心难点攻坚 (Deep Dive Case Study)
 
-### 案例一：多 Sheet 任务的竞态处理 (Race Condition Handling)
-
-#### 现象 (Symptoms)
-
-在多 Sheet 切换场景下，若前一个 Sheet 的 AI 任务仍在轮询，切换到新 Sheet 后，旧任务的状态更新会错误地写入当前视图，导致数据"串台"；且后台会残留大量无效的 "Zombie Requests"。
-
-#### 排查 (Investigation)
-
-分析发现，`useEffect` 的 cleanup 函数虽然能清除定时器，但无法阻断已经发出的异步 `fetch` 请求的回调执行。当异步操作返回时，组件状态已变更，但闭包中的逻辑仍在继续运行。
-
-#### 方案 (Solution)
-
-采用 **Ref-based Guard** 模式建立单一数据源：
-
-1.  使用 `activeSheetIdRef` 实时追踪当前激活的 Sheet ID。
-2.  在轮询函数 `poll()` 的每一处关键异步节点（Request 前、Response 后），强制比对 `sheetId === activeSheetIdRef.current`。
-3.  一旦发现不一致，立即通过 `AbortController` 中止后续逻辑并退出循环。
-
-#### 代码实证 (Code Snippet)
-
-```typescript
-// SheetTaskContext.tsx
-const poll = useCallback(async () => {
-  // 1. 检查当前 Ref 是否匹配
-  const sheetId = activeSheetIdRef.current;
-  if (!sheetId) return;
-
-  // ... 准备请求数据 ...
-
-  // 2. 再次检查（防止准备数据期间切换）
-  if (sheetId !== activeSheetIdRef.current) return;
-
-  try {
-    const response = await fetchTaskStatus(tasks);
-
-    // 3. 异步返回后，最后一次守卫检查
-    if (sheetId !== activeSheetIdRef.current) {
-      console.warn(`[Poll] Stale response ignored for sheet ${sheetId}`);
-      return;
-    }
-
-    // 安全更新状态
-    setTaskState((prev) => ({ ...prev, [sheetId]: response }));
-  } catch (e) {
-    // Error Handling
-  }
-}, []);
-```
-
-### 案例二：历史消息加载的滚动锚定 (Scroll Anchoring)
+### 案例一：历史消息加载的滚动锚定 (Scroll Anchoring)
 
 #### 现象 (Symptoms)
 
@@ -187,6 +138,48 @@ const restoreScrollPosition = useCallback(() => {
     });
   }
 }, []);
+```
+
+### 案例二：流式 Markdown 中的精准溯源注入 (Precise Citation Injection)
+
+#### 现象 (Symptoms)
+
+在 RAG 场景中，直接在 AI 返回的流式文本末尾追加引用标记（如 `[1]`）会导致严重渲染问题：
+
+1.  **破坏结构**：若标记插在 Markdown 表格行末，会导致表格渲染崩坏（缺少闭合 `|`）。
+2.  **视觉冗余**：当同一段落引用多个来源时，显示为 `[1][2][3]`，占用大量空间且不易阅读。
+
+#### 方案 (Solution)
+
+开发了 **语义感知注入管道 (Semantic-Aware Injection Pipeline)**，在 Markdown 渲染前对原始文本进行 AST 级别的预处理：
+
+1.  **段落合并 (Paragraph Merging)**：识别 `\n\n` 边界，将同一段落内的多处引用合并为紧凑格式 `【1(10~20，30~40)】`。
+2.  **表格守卫 (Table Guard)**：正则检测表格行，强制将标记插入到最后一个单元格闭合符 `|` 之前，而非行末。
+3.  **倒序插入 (Reverse Insertion)**：采用 O(k\*log k) 的倒序插入算法，避免前置插入导致后续索引偏移。
+
+#### 代码实证 (Code Snippet)
+
+```typescript
+// insertTraceMarkers.ts
+// 核心逻辑：智能定位插入点，防止破坏 Markdown 结构
+if (tableRows && tableRows.length >= 1) {
+  const lastPipeIndex = textBetween.lastIndexOf("|");
+  // 检查最后一个 | 后是否只有空白（确认为表格行结束符）
+  if (
+    lastPipeIndex !== -1 &&
+    text.substring(valuePos + lastPipeIndex + 1).trim() === ""
+  ) {
+    // 关键修正：插在最后一个 | 之前，保持表格完整性
+    // Before: | Value | [1]
+    // After:  | Value [1] |
+    paragraphEndPos = valuePos + lastPipeIndex - 1;
+  }
+}
+// 使用倒序插入防止位置偏移
+return batchInsert(
+  text,
+  insertPoints.sort((a, b) => b.position - a.position)
+);
 ```
 
 ## 4. 事故与反思 (Post-Mortem)
