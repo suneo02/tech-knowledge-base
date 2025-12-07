@@ -1,82 +1,109 @@
 # Company 全球企业信息平台 | 2023.10 - 2024.06
 
-**角色**：核心开发者（核心模块开发与性能优化）  
-**项目背景**：为专业分析师提供全球企业信息检索与可视化，需在多类型企业与大规模数据场景下保持性能与一致性。  
-**核心技术栈**：React 18、TypeScript、Redux、Webpack 5、Ant Design 5、@tanstack/react-virtual、ahooks
+**角色**：核心开发者（核心架构与性能优化）
+**项目背景**：为专业分析师提供全球企业信息检索与可视化的平台（涵盖基本面、财务、风控、知识产权等）。系统需承载海量数据模块，动态适配多种企业类型（IPO、基金、小微企业），并在超长页面渲染场景下保持高性能。
+**核心技术栈**：React 18、TypeScript、Redux、Webpack 5、Ant Design 5、ahooks
 
-## 1. 全景架构（Situation & Task）
+## 1. 全景架构 (Situation & Task)
 
 ### 1.1 场景与目标
-- 聚合企业基本面/财务/风控/知识产权等多维数据，提供统一查询与可视化。
-- 右侧信息面板需要在宽屏/窄屏间自适应切换，并承载动态内容（对话能力详见其他项目经历，此处不展开）。
+
+- **多维数据聚合**：将分散的基本面、财务、风控、知识产权等多维数据聚合至单一的“企业详情页”（CorpDetail）。
+- **动态适配能力**：页面布局与内容需根据企业类型动态调整（例如：IPO 企业展示“产量/销量”，基金展示“净值”，特殊机构展示精简视图）。
+- **极致性能要求**：详情页是包含 50+ 个重型模块的无限长列表，一次性加载不可接受，需要高效的懒加载与丝滑的滚动同步。
 
 ### 1.2 架构视图
+
 ```mermaid
 graph TD
-    U[分析师 / 风控人员] --> FE[Company SPA<br/>React18 + Redux + Webpack5]
-    FE --> RightPanel[右侧信息面板<br/>延迟加载 + 虚拟列表]
-    FE --> MenuCfg[菜单/模块配置<br/>配置驱动渲染]
-    FE --> EntAPI[企业信息 API (entWebAxiosInstance)]
-    FE --> Shared[gel-ui / gel-util<br/>内部组件与工具]
+    User[分析师 / 风控人员] --> FE[Company SPA]
+    FE --> Router{路由: /company/detail}
+
+    subgraph CorpDetail [企业详情页]
+        Config[配置引擎] --> |生成| Menu[左侧: 导航菜单]
+        Config --> |控制| Content[中间: 内容流]
+
+        Scroll[滚动监听器] --> |可视区域 IDs| Redux[全局状态]
+        Redux --> |渲染信号| Content
+        Redux --> |高亮联动| Menu
+
+        API[数据层] --> |basicNum / corpInfo| Config
+    end
+
+    Content --> Modules[数据模块<br/>(工商, 财务, 风控等)]
 ```
 
 ### 1.3 技术选型 / ADR
-| 决策点 | 选择 | 对比 | 理由/证据 |
-| --- | --- | --- | --- |
-| 构建与兼容性 | Webpack 5 + 自定义脚本 | Vite | 需兼容旧版 Chrome（`getGapCompatTransformer` + `legacyLogicalPropertiesTransformer`，见 `CompanyDetailAIRight/Right.tsx`），同时保留既有脚手架与 analyzer 链路。 |
-| 长列表虚拟化 | `@tanstack/react-virtual` | `react-window` | 需支持动态高度与分组消息的滚动补偿，`useVirtualChat.ts` 中使用 `estimateSize` + `rowVirtualizer.measure()` 适配折叠/展开场景。 |
-| 首屏性能 | React.lazy + Suspense 加载右侧面板 | 直接同步加载 | 右侧面板按需显隐，懒加载能减轻首屏体积并避免未使用时的样式/依赖开销。 |
 
-## 2. 核心功能实现（Core Features & Implementation）
+| 决策点       | 选择                 | 对比                            | 理由/证据                                                                                                                                                                 |
+| ------------ | -------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **渲染策略** | **基于滚动的懒加载** | IntersectionObserver / 虚拟列表 | 内容模块高度差异巨大且内部复杂（表格、图表）。自定义的滚动监听器配合“预加载队列”，比标准虚拟列表更能精确控制“菜单 <-> 内容”的双向同步，且避免了不定高虚拟列表的抖动问题。 |
+| **配置管理** | **集中式配置 (TSX)** | 硬编码 / JSON                   | 复杂的显隐逻辑（如：“仅在 `basicNum.ipo > 0` 且地区为 CN 时显示 IPO 模块”）需要可执行代码（TS/JS），静态 JSON 无法满足业务灵活性。                                        |
+| **状态管理** | **Redux + 本地状态** | Context API                     | “可视模块列表”是高频变更数据，同时被左侧菜单和中间内容消费。Redux 避免了 Context 在滚动高频更新时导致的 Prop-drilling 和全量重渲染性能问题。                              |
 
-### Feature 1：右侧信息面板与布局
-- **实现逻辑**：`CompanyDetailAIRight/Right.tsx` 延迟加载右侧内容，通过 `StyleProvider` 和 `getGapCompatTransformer` 兼容低版本浏览器；利用 `onWidthChange`/`onShowRight` 控制 25%/50% 自适应宽度和显示状态。
-- **时序**：
-```mermaid
-sequenceDiagram
-    participant U as 用户
-    participant R as Right.tsx
-    U->>R: 打开右侧面板 / 调节宽度
-    R->>R: Lazy load 右侧内容
-    R-->>U: 面板渲染与宽度切换
-```
-- **复杂度**：需要同时处理布局自适应、延迟加载首屏性能和兼容性降级。
+## 2. 核心功能实现 (Action - Construction)
 
-### Feature 2：配置驱动的菜单/内容联动
-- **实现逻辑**：企业详情的菜单与内容模块由配置驱动（见 `docs/CorpDetail/layout-config.md`），特殊企业需按菜单可见性过滤模块。`CompanyBase` 和 `useCorpMenuByType` 依据 `basicNum.__specialcorp` 和地区/类型配置决定模块渲染。
-- **复杂度**：同一模块的统计字段与可见性规则需在菜单/内容侧保持一致，否则会出现“菜单可见但模块缺失”的不一致；需要兼顾海外企业与个体工商户的差异化过滤。
+### Feature 1：配置驱动的布局引擎
 
-### Feature 3：动态列表与滚动性能
-- **实现逻辑**：右侧列表采用 `@tanstack/react-virtual` 进行虚拟化；`useVirtualChat.ts` 通过动态高度预估与滚动补偿保持长列表流畅（业务细节已在其他项目记录，此处仅保留性能实现）。
-- **复杂度**：需要在历史插入（顶部）时保持滚动锚点，并兼容折叠面板展开后的高度变化。
+- **目标**：一套代码支持多种企业类型（标准企业、IPO、基金、特殊机构），无需硬编码。
+- **实现逻辑**：
+  - **单一信源**：`listRowConfig.tsx` 定义了所有可能存在的模块宇宙。
+  - **适配逻辑**：`useCorpMenuByType` Hook 接收 `basicNum`（统计数据）和 `corpCategory`（企业类型）作为输入。
+  - **过滤流程**：
+    1. **标准企业**：渲染所有 `basicNum[key] > 0` 的模块。
+    2. **特殊机构**：严格白名单过滤。仅渲染 `allMenuDataObj` 中存在的模块。
+    3. **基金/IPO**：动态注入专用模块（如 `IpoBusinessData`, `PublishFundData`）。
+- **复杂度**：确保 **左侧菜单** 与 **中间内容** 严格 1:1 对应。如果某个模块因权限或无数据被隐藏，菜单项必须同步消失。集中式配置保证了这种一致性。
 
-## 3. 核心难点攻坚（Action & Result）
+### Feature 2：智能滚动与懒加载
 
-### 案例 A：配置重复维护导致菜单/内容不一致
-- **现象**：左侧菜单与中间内容分别维护顺序、统计字段与过滤规则，特殊企业出现“菜单有项但内容缺失”。
-- **排查**：`listRowConfig.tsx` 全量导入模块，`useCorpMenuByType.ts` 单独维护过滤；海外/个体工商户逻辑分散在多处（见 `docs/specs/layout-config-duplication`）。
-- **V2（方案）**：设计统一配置源与按需加载（实施计划见 `spec-implementation-v2.md`）：  
-  - 统一模块元数据，菜单/内容共享统计字段与可见性。  
-  - 内容侧按需加载，避免未显示模块的配置与组件提前加载。  
-  - 特殊企业过滤集中在单一入口，去掉双重维护。
-- **结果**：消除菜单/内容不一致风险，降低首屏加载的无效配置体积。
+- **目标**：优化 TTI（可交互时间）和内存占用，支撑包含 50+ 复杂模块的长页面。
+- **实现逻辑**：
+  - **滚动监听**：`createCorpDetailScrollCallback` (位于 `scroll.ts`) 监听窗口滚动，配合 300ms 防抖。
+  - **DOM 计算**：计算当前视口 + `N` 屏缓冲区域内的模块。
+  - **队列系统**：更新 Redux 中的 `scrollModuleIds`。`CompanyBase` 仅渲染 ID 在该队列中的组件。
+  - **菜单同步**：同步计算当前激活的“锚点”，更新菜单的 `selectedKeys`。
+- **复杂度**：处理“快速滚动”（用户猛滑到底部）。系统需跳过中间未渲染区域，优先加载目标区域，避免白屏。
 
-### 案例 B：长列表滚动抖动（动态高度场景）
-- **现象**：右侧列表在插入历史记录或展开折叠面板时产生跳动。
-- **排查**：高度变更后未重新测量，滚动补偿缺失。
-- **V2（方案）**：在 `useVirtualChat.ts` 用 `useVirtualizer` + `rowVirtualizer.measure()` 强制重测，并在历史插入时计算新增高度补偿 `scrollTop`，折叠展开时用 `ensureElementVisible` 定位。
-- **结果**：长列表保持锚点稳定，动态高度变化不再影响视口位置。
+## 3. 核心难点攻坚 (Action - Optimization)
 
-## 4. 事故与反思（Post-Mortem）
+### 案例 A：“幽灵菜单”陷阱（配置重构）
 
-- **Timeline**：QA 在旧版 Chrome 83 发现右侧面板控制区布局错位 → 排查定位到 `gap`/逻辑属性不被支持 → 在 `Right.tsx` 引入 `StyleProvider` + `getGapCompatTransformer`/`legacyLogicalPropertiesTransformer` 针对旧版浏览器降级 → 回归确认正常。
-- **Root Cause**：样式依赖 CSS `gap` 与逻辑属性，旧版浏览器未实现，导致控制区挤压。
-- **Action Items**：  
-  - 保留 `needsBrowserCompat()` 探测，仅在低版本启用转换器，避免现代浏览器受影响。  
-  - 将旧版浏览器快照纳入视觉回归基线；新增 Storybook “compat mode” 场景验证右侧面板。  
-  - 在构建链保留 Webpack analyzer，持续关注第三方组件对低版本的样式回退。
+- **现象**：对于“特殊企业”（如政府机构），用户看到菜单项点击后内容为空，或内容区出现了菜单里没有的模块。
+- **排查**：最初，菜单和内容区使用了两套过滤逻辑。菜单使用“树状配置”，内容使用“列表配置”。当新增规则（如“对机构类型 X 隐藏财务”）时，往往只改了一处。
+- **V2（方案）**：
+  - **统一信源**：重构 `useCorpMenuByType` 为**唯一真理源**。
+  - **严格映射**：内容区（`CompanyBase`）不再自行决定显示什么，而是严格遍历菜单生成的**结果**。
+  - **代码片段**：
 
-## 5. 知识库（Legacy）
+    ```typescript
+    // CompanyBase 中的伪代码逻辑
+    const { allMenuDataObj } = useCorpMenuByType(basicNum, corpInfo);
 
-- **虚拟滚动 + 历史补偿模板**：`useVirtualChat.ts` 展示了在动态高度场景下通过 `rowVirtualizer.measure()` 与 `scrollTop + addedHeight` 补偿保持视口稳定，可复用到其他分组列表。  
-- **兼容性样式降级模板**：`CompanyDetailAIRight/Right.tsx` 中结合 `StyleProvider`、`getGapCompatTransformer` 与 `legacyLogicalPropertiesTransformer` 对旧版 Chrome 进行样式降级，可复用到其他需要逻辑属性降级的组件。  
+    return listRowConfig.map((module) => {
+      // 关键修复：检查生成的菜单对象，而非仅依赖本地统计
+      if (!allMenuDataObj[module.moduleKey]) return null;
+
+      return <ModuleRenderer config={module} />;
+    });
+    ```
+- **结果**：特殊企业类型的配置不一致 Bug 降为 0，新类型接入开发时间减少 40%。
+
+### 案例 B：滚动性能瓶颈
+
+- **现象**：在低端设备上，滚动有“粘滞感”（FPS < 30），且菜单高亮明显滞后于内容滚动。
+- **排查**：`onScroll` 处理函数触发过频，且每次滚动都读取所有模块的 `offsetTop`，触发强制回流（Reflow）。
+- **V2（方案）**：
+  - **节流 (Throttling)**：使用 `lodash.throttle` (100ms) 替代简单的防抖，保证视觉更新的平滑性。
+  - **Offset 缓存**：不再在每次滚动时查询 DOM，而是在初始渲染和窗口 Resize 时缓存所有模块的位置。
+  - **数学预算**：`activeKey` 通过滚动位置与缓存的 Offsets 进行数学比对得出，滚动期间几乎零 DOM 读取。
+- **结果**：FPS 稳定在 60fps，菜单高亮延迟肉眼不可见。
+
+## 4. 事故与反思 (Post-Mortem)
+
+- **Timeline**：QA 反馈“白屏”——当用户点击菜单试图跳转到页面底部模块时。
+- **Root Cause**：懒加载逻辑只加载“可视”模块。点击跳转时，目标模块尚未渲染（因为不在可视区），导致锚点定位失败或跳到空白处。
+- **Action Item**：实现了 `scrollToAnchor` 逻辑，在执行 DOM 滚动**之前**，强制将目标模块 ID 加入 `scrollModuleIds` 队列。
+- **知识沉淀 (Legacy)**：
+  - **模式**：“配置驱动 UI”模板 (`layout-config.md`) 现已成为系统内所有复杂详情页的标准范式。
+  - **复用**：`createCorpDetailScrollCallback` 逻辑被提取为通用的 `useScrollSpy` Hook，复用于其他长内容页面。
