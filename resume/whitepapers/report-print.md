@@ -1,44 +1,167 @@
 # Report Print & Preview PDF 生成应用 | 2024.05 - 2024.09
 
 **角色**：核心开发
-
 **项目背景**：
 针对企业征信报告的 PDF 导出需求，开发的高性能服务端渲染应用。支持 30+ 种不同企业类型的报告模板（如 CO/FCP 等），需在无头浏览器环境（Headless Browser）下精确还原复杂的 Web 报表样式，并解决 wkhtmltopdf 对现代 CSS/JS 特性的兼容性问题。
+**核心技术栈**：React 18, Webpack 5, Vite, wkhtmltopdf, jQuery (Legacy Support)
 
-**核心技术栈**：
-- **渲染引擎**: wkhtmltopdf + Headless Chrome
-- **前端框架**: React 18 (Preview) + jQuery/ES5 (Print Legacy)
-- **构建工具**: Vite (Preview) + Webpack 5 (Print) + Babel
-- **算法**: DOM-based Pagination + Cell Splitting
+## 1. 全景架构 (The Big Picture)
 
-## 🏗️ 双模渲染架构设计
+### 1.1 业务背景
 
-### 1. 差异化双引擎策略
-[📄](../assets/gel-workspace/apps/report-print/docs/core-architecture.md)
-采用"预览-打印"分离架构，平衡交互体验与打印精度：
-- **Preview 端 (report-preview)**：基于 Vite + React 构建，复用 `gel-ui` 组件库，提供毫秒级的 Canvas 预览与参数配置交互。
-- **Print 端 (report-print)**：基于 Webpack + Babel 构建，专为 wkhtmltopdf 优化。通过 `RPPrintRenderer` 统一调度，针对性解决 QT WebKit 内核对 Flexbox/Grid 的支持缺陷。
+一句话解释：**为企业征信报告提供“所见即所得”的 PDF 导出服务，确保打印版与网页版像素级一致。**
 
-### 2. 三层分页算法体系
-[📄](../assets/gel-workspace/apps/report-print/docs/pdf-pagination-architecture.md)
-为解决长表格跨页截断与表头丢失问题，设计了精细的分页控制系统：
-- **物理层 (Page Level)**：`PDFPage` 类管理 A4 纸张的物理尺寸、页眉页脚留白及水印注入。
-- **逻辑层 (Section Level)**：`TableHandler` 负责计算表格行高，识别自然分页点，并在新页自动重绘表头（Thead Repetition）。
-- **微观层 (Cell Level)**：`CellSplitter` 实现 DOM 级内容的深度分割。当单行文本高度超过页余量时，递归遍历 DOM 树，寻找最佳文本断点，确保 HTML 标签（如 `<b>`, `<span>`）在跨页时闭合完整，避免样式逃逸。
+### 1.2 架构视图
 
-## ⚙️ 关键技术攻坚
+```mermaid
+graph TD
+    subgraph Input [输入源]
+        Config[JSON Config]
+        API[Data API]
+    end
 
-### 3. wkhtmltopdf 深度兼容
-[📄](../assets/gel-workspace/apps/report-print/docs/core-rendering-flow.md)
-- **ES5 降级构建**：配置 Webpack 与 `@babel/preset-env`，强制转译所有 ES6+ 语法（箭头函数、解构等）为 ES5，并注入 `core-js` Polyfill，确保在老旧 WebKit 内核中运行无报错。
-- **异步渲染同步**：利用 `window.status` 与 `--javascript-delay` 参数配合，开发 `isRenderingComplete` 信号机制，确保所有图表（ECharts）与动态图片加载完毕后再触发 PDF 截屏。
-- **CSS 像素对齐**：禁用 `--disable-smart-shrinking` 智能缩放，通过 DPI 精确计算 CSS 像素与打印毫米数的换算比例，实现 "所见即所得" 的打印效果。
+    subgraph Core [双模渲染引擎]
+        subgraph Preview [Preview Mode (Vite)]
+            React[React 18 Components]
+            Canvas[Canvas Preview]
+        end
 
-### 4. 配置驱动的工厂模式
-- **元数据驱动**：通过 `TableSectionsGenerator` 解析嵌套的 JSON 报告配置，自动实例化对应的 `HorizontalTable`, `VerticalTable`, `CrossTable` 组件。
-- **动态数据绑定**：设计 `TableProps` 泛型接口，统一处理 API 数据映射、国际化字段（i18n）替换及空值回退逻辑。
+        subgraph Print [Print Mode (Webpack)]
+            Legacy[ES5/Polyfills]
+            Alg[Pagination Algorithm]
+            DOM[DOM Manipulation]
+        end
+    end
 
-## 📊 技术成果
-- **分页精度**：`CellSplitter` 算法成功解决了复杂富文本（Rich Text）的跨页截断问题，实现了表格行内内容的像素级无损分割。
-- **系统稳定性**：通过 `scripts/export.cjs` 封装的错误重试与进程守护机制，有效规避了 wkhtmltopdf 偶发的内存泄漏导致的进程崩溃。
-- **开发效能**：基于 JSON 配置的渲染工厂模式，使得新增一种企业报告类型仅需维护一份配置文件，无需编写重复的渲染逻辑。
+    subgraph Output [输出端]
+        Headless[wkhtmltopdf / QT WebKit]
+        PDF[PDF File]
+    end
+
+    Input --> Preview
+    Input --> Print
+    Preview -- User Interaction --> User[用户配置]
+    Print -- Render HTML --> Headless
+    Headless -- Snapshot --> PDF
+```
+
+### 1.3 技术选型决策表 (ADR)
+
+| 决策点       | 选择                        | 对比                   | 理由/证据                                                                                                                                           |
+| :----------- | :-------------------------- | :--------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **渲染引擎** | **wkhtmltopdf**             | Puppeteer / Playwright | 虽然 Puppeteer 支持现代 Chrome，但 wkhtmltopdf 生成的 PDF 文件体积小 80%，且对矢量字体的处理更符合打印出版标准。                                    |
+| **构建工具** | **双构建 (Vite + Webpack)** | 单一构建               | 开发预览需要 Vite 的 HMR 秒级响应；打印端运行在老旧 QT WebKit 上，必须用 Webpack + Babel 强转 ES5，Vite 的 `legacy` 插件无法完美覆盖所有 Polyfill。 |
+| **分页策略** | **前端计算分页**            | 后端分页 / CSS 分页    | CSS `break-inside` 在复杂表格截断时经常失效且无法重复表头；后端分页无法感知渲染后的真实字体高度；前端 DOM 计算是唯一精确解。                        |
+
+## 2. 核心功能实现 (Core Features & Implementation)
+
+### Feature 1：三层分页算法体系 (Three-Layer Pagination)
+
+- **目标**：解决长表格跨页截断、表头丢失、行内文本溢出等打印痛点。
+- **实现逻辑**：
+  - **物理层 (Page Level)**：`PDFPage` 类管理 A4 纸张的物理尺寸、页眉页脚留白及水印注入。
+  - **逻辑层 (Row Level)**：`TableHandler` 负责计算表格行高，识别自然分页点，并在新页自动重绘表头（Thead Repetition）。
+  - **微观层 (Cell Level)**：`CellSplitter` 实现 DOM 级内容的深度分割。
+- **流程图**：
+  ```mermaid
+  graph TD
+      Row[待处理行] --> Check{高度溢出?}
+      Check -- No --> Append[添加到当前页]
+      Check -- Yes --> IsFirst{是当前页首行?}
+      IsFirst -- No --> NewPage[创建新页 & 重绘表头] --> Row
+      IsFirst -- Yes --> Split[调用 CellSplitter 微观分割]
+      Split --> Fit[适配部分 -> 当前页]
+      Split --> Remain[剩余部分 -> 下一页]
+  ```
+
+### Feature 2：差异化双引擎架构
+
+- **目标**：既要开发爽（现代技术栈），又要打印稳（兼容老旧内核）。
+- **实现逻辑**：
+  - **Report-Preview**：使用 Vite + React 18，提供流畅的参数配置和实时 Canvas 预览。
+  - **Report-Print**：使用 Webpack 5 + Babel，注入大量 Polyfill（如 `Promise`, `Object.assign`），甚至降级使用 jQuery 操作 DOM，确保在 wkhtmltopdf 的 QT 浏览器中不报错。
+- **复杂度**：需维护两套入口文件，并抽取公共组件库（`gel-ui`）以确保样式一致性。
+
+## 3. 核心难点攻坚 (Deep Dive Case Study)
+
+### 案例 A：富文本单元格的跨页截断 (The Cell Splitting Problem)
+
+- **现象 (Symptoms)**：
+  - 当一个单元格包含大量文本（超过一页高度）时，简单的 `CSS` 截断会导致文字被拦腰切断。
+  - 若单元格内包含 HTML 标签（如 `<b>重点</b>`），粗暴截断字符串会导致标签未闭合，下一页样式错乱。
+- **排查 (Investigation)**：
+  - 传统的基于字符数截断（`text.slice(0, n)`）无法感知渲染宽度和 HTML 结构。
+  - 必须在 DOM 层面进行“试探性渲染”。
+- **方案 (Solution)**：
+  - **V1 (Fail)**：纯文本估算。将 HTML 转为纯文本，按行高估算截断点。导致富文本格式丢失，且高度预测不准。
+  - **V2 (Success)**：**迭代式 DOM 适配算法 (Iterative DOM Fitting)**。
+    1.  将单元格内容解析为 `HtmlUnit` 队列（标签节点或文本节点）。
+    2.  逐个将 Unit 追加到临时容器中。
+    3.  实时检测 `container.scrollHeight > pageHeight`。
+    4.  一旦溢出，回退最后一个 Unit，并对该 Unit 进行更细粒度的文本分割。
+    5.  自动补全截断处的闭合标签（`Close Tags`）。
+- **代码**：
+  ```typescript
+  // 伪代码：基于 DOM 的试探性分割
+  function splitForSingleLineFit(units: HtmlUnit[], maxHeight: number) {
+    let currentHtml = "";
+    for (let i = 0; i < units.length; i++) {
+      const unit = units[i];
+      const testHtml = currentHtml + unit.html;
+
+      // 渲染并测量
+      if (measureHeight(testHtml) > maxHeight) {
+        // 溢出！进入微观分割
+        return splitTextUnit(unit, maxHeight - measureHeight(currentHtml));
+      }
+      currentHtml = testHtml;
+    }
+  }
+  ```
+
+### 案例 B：wkhtmltopdf 进程僵死与内存泄漏
+
+- **现象**：在批量导出 1000 份报告时，任务进行到第 200 份左右，Node.js 进程无响应，服务器内存耗尽。
+- **排查**：wkhtmltopdf 自身存在内存泄漏 bug，且对某些特定 CSS（如 `flex: 1`）处理极慢，可能导致死锁。
+- **方案**：
+  - **进程守护**：使用 `child_process.spawn` 启动 wkhtmltopdf，并设置超时时间（如 30s）。
+  - **错误重试**：捕获 `EPIPE` 或超时错误，自动重试 3 次。
+  - **样式降级**：在打印端禁用 Flexbox，回退到 `float` 或 `table` 布局。
+
+## 4. 事故与反思 (Post-Mortem)
+
+- **Timeline**：
+  - 15:00 上线新版报告，包含 ECharts 动态图表。
+  - 15:10 客服反馈 PDF 中图表区域空白。
+  - 15:30 排查发现 wkhtmltopdf 截图时 JS 尚未执行完毕。
+- **Root Cause**：wkhtmltopdf 默认在 `window.onload` 后立即截图，而 React/ECharts 的渲染是异步的。
+- **Action Item**：
+  - 引入信号机制：在页面中定义 `window.status`。
+  - 当所有图表渲染完成（监听 `finished` 事件）后，将 `window.status` 置为 `'ready'`。
+  - 启动参数添加 `--window-status ready`，强制等待信号。
+
+## 5. 知识库 (Wiki / Snippets)
+
+- **wkhtmltopdf 像素对齐参数**：
+  禁止智能缩放，确保 CSS 像素与打印毫米数严格对应。
+  ```bash
+  wkhtmltopdf \
+    --disable-smart-shrinking \
+    --dpi 96 \
+    --margin-top 0 \
+    --margin-bottom 0 \
+    --page-size A4
+  ```
+- **DOM 解析器 (Unit Parser)**：
+  将 HTML 字符串解析为可操作的 Unit 数组。
+  ```typescript
+  function getCellHtmlUnits(html: string): HtmlUnit[] {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return Array.from(div.childNodes).map((node) => ({
+      type: node.nodeType === 3 ? "text" : "tag",
+      content:
+        node.nodeType === 3 ? node.nodeValue : (node as Element).outerHTML,
+    }));
+  }
+  ```

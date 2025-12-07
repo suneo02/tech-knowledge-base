@@ -1,109 +1,137 @@
-# Company 全球企业信息平台 | 2023.10 - 2024.06
+# 企业详情页重构：配置化驱动与高性能长列表优化 | 2023.06 - 至今
 
-**角色**：核心开发者（核心架构与性能优化）
-**项目背景**：为专业分析师提供全球企业信息检索与可视化的平台（涵盖基本面、财务、风控、知识产权等）。系统需承载海量数据模块，动态适配多种企业类型（IPO、基金、小微企业），并在超长页面渲染场景下保持高性能。
-**核心技术栈**：React 18、TypeScript、Redux、Webpack 5、Ant Design 5、ahooks
+**角色**：核心开发
+**项目背景**：
+企业详情页是投资分析师的核心工作台，聚合了工商、财务、司法、舆情等 50+ 个业务维度的企业数据。旧版系统面临代码耦合严重、特殊企业（IPO、基金、海外）定制成本高、以及长列表加载卡顿等性能瓶颈。
+**核心技术栈**：React 18, TypeScript, Redux Toolkit, Config-Driven UI, Virtual Scroll Strategy
 
-## 1. 全景架构 (Situation & Task)
+## 1. 全景架构 (The Big Picture)
 
-### 1.1 场景与目标
+### 1.1 业务背景
 
-- **多维数据聚合**：将分散的基本面、财务、风控、知识产权等多维数据聚合至单一的“企业详情页”（CorpDetail）。
-- **动态适配能力**：页面布局与内容需根据企业类型动态调整（例如：IPO 企业展示“产量/销量”，基金展示“净值”，特殊机构展示精简视图）。
-- **极致性能要求**：详情页是包含 50+ 个重型模块的无限长列表，一次性加载不可接受，需要高效的懒加载与丝滑的滚动同步。
+一句话解释：**通过配置化引擎解决多企业类型的差异化展示难题，利用智能滚动策略实现海量数据的秒级渲染。**
 
 ### 1.2 架构视图
 
 ```mermaid
 graph TD
-    User[分析师 / 风控人员] --> FE[Company SPA]
-    FE --> Router{路由: /company/detail}
-
-    subgraph CorpDetail [企业详情页]
-        Config[配置引擎] --> |生成| Menu[左侧: 导航菜单]
-        Config --> |控制| Content[中间: 内容流]
-
-        Scroll[滚动监听器] --> |可视区域 IDs| Redux[全局状态]
-        Redux --> |渲染信号| Content
-        Redux --> |高亮联动| Menu
-
-        API[数据层] --> |basicNum / corpInfo| Config
+    subgraph Core [核心引擎]
+        Config[Config Engine]
+        Scroll[Scroll Observer]
+        State[Redux Store]
     end
 
-    Content --> Modules[数据模块<br/>(工商, 财务, 风控等)]
+    subgraph Input [输入源]
+        Basic[企业基本信息]
+        Type[企业类型/地区]
+        Stats[数据统计 basicNum]
+    end
+
+    subgraph Output [渲染层]
+        Menu[动态菜单树]
+        Content[流式内容区]
+        Modules[业务模块集合]
+    end
+
+    Input --> Config
+    Config -->|策略模式| Menu
+    Config -->|按需加载| Content
+
+    Scroll -->|计算视口| State
+    State -->|同步高亮| Menu
+    State -->|触发请求| Modules
 ```
 
-### 1.3 技术选型 / ADR
+### 1.3 技术选型决策表 (ADR)
 
-| 决策点       | 选择                 | 对比                            | 理由/证据                                                                                                                                                                 |
-| ------------ | -------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **渲染策略** | **基于滚动的懒加载** | IntersectionObserver / 虚拟列表 | 内容模块高度差异巨大且内部复杂（表格、图表）。自定义的滚动监听器配合“预加载队列”，比标准虚拟列表更能精确控制“菜单 <-> 内容”的双向同步，且避免了不定高虚拟列表的抖动问题。 |
-| **配置管理** | **集中式配置 (TSX)** | 硬编码 / JSON                   | 复杂的显隐逻辑（如：“仅在 `basicNum.ipo > 0` 且地区为 CN 时显示 IPO 模块”）需要可执行代码（TS/JS），静态 JSON 无法满足业务灵活性。                                        |
-| **状态管理** | **Redux + 本地状态** | Context API                     | “可视模块列表”是高频变更数据，同时被左侧菜单和中间内容消费。Redux 避免了 Context 在滚动高频更新时导致的 Prop-drilling 和全量重渲染性能问题。                              |
+| 决策点       | 选择                         | 对比         | 理由/证据                                                                                                                      |
+| :----------- | :--------------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| **架构模式** | **配置驱动 (Config-Driven)** | 逻辑硬编码   | 页面需适配普通、IPO、公募/私募基金、海外等多种企业形态。配置化将“显示什么”与“如何渲染”解耦，逻辑复用率提升 80%。               |
+| **加载策略** | **滚动懒加载 (Scroll Lazy)** | 一次性加载   | 50+ 个模块若全量请求会导致首屏 TTI > 3s。基于滚动的按需加载（可视区 + 预加载 N 个）将首屏接口数控制在 5 个以内。               |
+| **状态同步** | **Redux + Throttling**       | Context + IO | 菜单高亮需实时响应滚动，IntersectionObserver 在快速滚动时有延迟。采用 Redux 管理滚动状态配合 rAF 节流，实现 60fps 的丝滑联动。 |
 
-## 2. 核心功能实现 (Action - Construction)
+## 2. 核心功能实现 (Core Features & Implementation)
 
-### Feature 1：配置驱动的布局引擎
+### Feature 1：配置驱动 UI 开发 (Logic Reuse)
 
-- **目标**：一套代码支持多种企业类型（标准企业、IPO、基金、特殊机构），无需硬编码。
+- **目标**：一套代码支持所有企业类型的差异化展示，解决“改一个判断崩整个页面”的维护痛点。
 - **实现逻辑**：
-  - **单一信源**：`listRowConfig.tsx` 定义了所有可能存在的模块宇宙。
-  - **适配逻辑**：`useCorpMenuByType` Hook 接收 `basicNum`（统计数据）和 `corpCategory`（企业类型）作为输入。
-  - **过滤流程**：
-    1. **标准企业**：渲染所有 `basicNum[key] > 0` 的模块。
-    2. **特殊机构**：严格白名单过滤。仅渲染 `allMenuDataObj` 中存在的模块。
-    3. **基金/IPO**：动态注入专用模块（如 `IpoBusinessData`, `PublishFundData`）。
-- **复杂度**：确保 **左侧菜单** 与 **中间内容** 严格 1:1 对应。如果某个模块因权限或无数据被隐藏，菜单项必须同步消失。集中式配置保证了这种一致性。
+  - **元数据定义**：在 `listRowConfig` 中定义所有模块的标准元数据（API、UI 组件、依赖字段）。
+  - **策略分发**：`useCorpMenuByType` Hook 根据 `corpType` (IPO/基金) 和 `areaCode` (海外) 自动匹配对应的菜单配置策略。
+  - **数据驱动**：结合 `basicNum` 统计数据，动态过滤无数据模块，实现“千企千面”。
 
-### Feature 2：智能滚动与懒加载
+### Feature 2：长数据流性能优化 (Performance)
 
-- **目标**：优化 TTI（可交互时间）和内存占用，支撑包含 50+ 复杂模块的长页面。
+- **目标**：在包含 50+ 个复杂表格图表的长页面中，保持滚动流畅且不阻塞主线程。
 - **实现逻辑**：
-  - **滚动监听**：`createCorpDetailScrollCallback` (位于 `scroll.ts`) 监听窗口滚动，配合 300ms 防抖。
-  - **DOM 计算**：计算当前视口 + `N` 屏缓冲区域内的模块。
-  - **队列系统**：更新 Redux 中的 `scrollModuleIds`。`CompanyBase` 仅渲染 ID 在该队列中的组件。
-  - **菜单同步**：同步计算当前激活的“锚点”，更新菜单的 `selectedKeys`。
-- **复杂度**：处理“快速滚动”（用户猛滑到底部）。系统需跳过中间未渲染区域，优先加载目标区域，避免白屏。
+  - **虚拟占位**：未进入可视区的模块仅渲染高度固定的骨架屏（Skeleton），减少 DOM 节点数量。
+  - **智能预加载**：基于滚动方向和速度，动态计算预加载阈值（通常为可视区下方 2 个模块），平衡网络请求与渲染压力。
+  - **菜单联动优化**：将 DOM 查询操作（`offsetTop`）缓存至 Ref 中，滚动监听时仅做纯数值计算，避免强制重排（Reflow）。
 
-## 3. 核心难点攻坚 (Action - Optimization)
+## 3. 核心难点攻坚 (Deep Dive Case Study)
 
-### 案例 A：“幽灵菜单”陷阱（配置重构）
+### 案例 A：多形态企业配置的逻辑复用
 
-- **现象**：对于“特殊企业”（如政府机构），用户看到菜单项点击后内容为空，或内容区出现了菜单里没有的模块。
-- **排查**：最初，菜单和内容区使用了两套过滤逻辑。菜单使用“树状配置”，内容使用“列表配置”。当新增规则（如“对机构类型 X 隐藏财务”）时，往往只改了一处。
-- **V2（方案）**：
-  - **统一信源**：重构 `useCorpMenuByType` 为**唯一真理源**。
-  - **严格映射**：内容区（`CompanyBase`）不再自行决定显示什么，而是严格遍历菜单生成的**结果**。
-  - **代码片段**：
+- **现象**：IPO 企业需要展示“募集资金”，而私募基金需要展示“基金管理人”。早期代码中充斥着 `if (isIPO) ... else if (isFund) ...`，维护极易出错。
+- **方案**：
+  - 引入 **配置合成策略 (Configuration Composition)**。
+  - 基础配置 `BaseConfig` 包含工商、风险等通用模块。
+  - 特殊配置（如 `IpoConfig`）仅定义增量差异。
+  - 运行时通过 `merge(Base, Special)` 生成最终配置，并经过 `PermissionFilter` 过滤权限。
+- **代码实证**：
+  ```typescript
+  // hooks/useCorpMenuByType.ts
+  export const useCorpMenuByType = (info: CorpBasicInfo, basicNum: any) => {
+    // 1. 获取基础策略
+    let menuConfig = getBaseMenu();
 
-    ```typescript
-    // CompanyBase 中的伪代码逻辑
-    const { allMenuDataObj } = useCorpMenuByType(basicNum, corpInfo);
+    // 2. 应用特殊策略 (IPO/Fund/Overseas)
+    if (isIPO(info)) {
+      menuConfig = mergeConfig(menuConfig, IpoBusinessData);
+    } else if (isPrivateFund(info)) {
+      menuConfig = mergeConfig(menuConfig, PrivateFundData);
+    }
 
-    return listRowConfig.map((module) => {
-      // 关键修复：检查生成的菜单对象，而非仅依赖本地统计
-      if (!allMenuDataObj[module.moduleKey]) return null;
+    // 3. 数据驱动过滤 (Logic Reuse)
+    return filterEmptyModules(menuConfig, basicNum);
+  };
+  ```
 
-      return <ModuleRenderer config={module} />;
-    });
-    ```
-- **结果**：特殊企业类型的配置不一致 Bug 降为 0，新类型接入开发时间减少 40%。
+### 案例 B：滚动同步的高频事件优化
 
-### 案例 B：滚动性能瓶颈
-
-- **现象**：在低端设备上，滚动有“粘滞感”（FPS < 30），且菜单高亮明显滞后于内容滚动。
-- **排查**：`onScroll` 处理函数触发过频，且每次滚动都读取所有模块的 `offsetTop`，触发强制回流（Reflow）。
-- **V2（方案）**：
-  - **节流 (Throttling)**：使用 `lodash.throttle` (100ms) 替代简单的防抖，保证视觉更新的平滑性。
-  - **Offset 缓存**：不再在每次滚动时查询 DOM，而是在初始渲染和窗口 Resize 时缓存所有模块的位置。
-  - **数学预算**：`activeKey` 通过滚动位置与缓存的 Offsets 进行数学比对得出，滚动期间几乎零 DOM 读取。
-- **结果**：FPS 稳定在 60fps，菜单高亮延迟肉眼不可见。
+- **现象**：用户快速拖拽滚动条时，左侧菜单高亮延迟，且页面出现掉帧。
+- **排查**：`onScroll` 事件触发频率极高（每秒 100+ 次），回调中执行了 `document.getElementById().offsetTop`，触发了浏览器强制同步布局（Synchronous Layout）。
+- **方案**：
+  - **读写分离**：在 `useEffect` 初始化时一次性读取所有模块的 `offsetTop` 并存入 `positionMap`。
+  - **帧对齐**：使用 `requestAnimationFrame` 将状态更新锁定在每一帧的渲染周期内。
+- **结果**：Script 执行时间从 30ms/帧 降至 2ms/帧，FPS 稳定在 58-60。
 
 ## 4. 事故与反思 (Post-Mortem)
 
-- **Timeline**：QA 反馈“白屏”——当用户点击菜单试图跳转到页面底部模块时。
-- **Root Cause**：懒加载逻辑只加载“可视”模块。点击跳转时，目标模块尚未渲染（因为不在可视区），导致锚点定位失败或跳到空白处。
-- **Action Item**：实现了 `scrollToAnchor` 逻辑，在执行 DOM 滚动**之前**，强制将目标模块 ID 加入 `scrollModuleIds` 队列。
-- **知识沉淀 (Legacy)**：
-  - **模式**：“配置驱动 UI”模板 (`layout-config.md`) 现已成为系统内所有复杂详情页的标准范式。
-  - **复用**：`createCorpDetailScrollCallback` 逻辑被提取为通用的 `useScrollSpy` Hook，复用于其他长内容页面。
+- **Timeline**：
+  - 上线后，运营反馈某“上海工商联”特供版企业页面显示空白。
+- **Root Cause**：
+  - 该企业的 `basicNum.__specialcorp` 标识为 `true`，触发了白名单过滤逻辑。
+  - 但配置表中漏配了该类型对应的 `moduleKey`，导致过滤后模块列表为空。
+- **Action Item**：
+  - 增加 **配置完整性校验** 测试，确保所有注册的 `SpecialCorp` 都有对应的非空配置。
+  - 增加兜底逻辑：当过滤结果为空时，自动降级显示基础工商信息，避免白屏。
+
+## 5. 知识库 (Wiki / Snippets)
+
+- **滚动监听器工厂**：
+  ```typescript
+  // misc/scroll.ts
+  export const createCorpDetailScrollCallback = (
+    positions: ModulePosition[],
+    dispatch: Dispatch
+  ) => {
+    return throttle((scrollTop: number) => {
+      // 纯数值查找，无 DOM 操作
+      const active = positions.find(
+        (p) => scrollTop >= p.top - OFFSET && scrollTop < p.bottom
+      );
+      if (active) dispatch(setHighlightKey(active.key));
+    }, 16);
+  };
+  ```
