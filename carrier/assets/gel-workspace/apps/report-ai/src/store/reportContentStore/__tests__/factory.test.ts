@@ -5,7 +5,6 @@
 
 import { describe, expect, it } from 'vitest';
 import { createReportContentStore } from '../factory';
-import { rpContentSlice } from '../slice';
 
 describe('createReportContentStore', () => {
   it('应该创建独立的 store 实例', () => {
@@ -28,12 +27,8 @@ describe('createReportContentStore', () => {
     expect(initialState1).toEqual(initialState2);
     expect(initialState1).not.toBe(initialState2);
 
-    // 修改 store1 不应该影响 store2
-    store1.dispatch(rpContentSlice.actions.setReportName('Report 1'));
-    store2.dispatch(rpContentSlice.actions.setReportName('Report 2'));
-
-    expect(store1.getState().reportContent.reportName).toBe('Report 1');
-    expect(store2.getState().reportContent.reportName).toBe('Report 2');
+    expect(store1.getState().reportContent.reportInfo?.name).toBe('Report 1');
+    expect(store2.getState().reportContent.reportInfo?.name).toBe('Report 2');
   });
 
   it('应该正确配置 middleware', () => {
@@ -52,7 +47,7 @@ describe('createReportContentStore', () => {
     // 验证 reportContent reducer 存在
     expect(state.reportContent).toBeDefined();
     expect(state.reportContent.chapters).toEqual([]);
-    expect(state.reportContent.reportName).toBe('');
+    expect(state.reportContent.reportInfo?.name).toBe('');
     expect(state.reportContent.globalOp.kind).toBe('idle');
   });
 });

@@ -33,6 +33,7 @@ export const ReportEditor = forwardRef<ReportEditorRef, ReportEditorProps>(
       loading,
       textRewriteState,
       onTextRewriteDecision,
+      loadingChapters = [],
     },
     ref
   ) => {
@@ -56,11 +57,13 @@ export const ReportEditor = forwardRef<ReportEditorRef, ReportEditorProps>(
 
     const editorConfig = useMemo(() => createStaticEditorInit({ placeholder }), [placeholder]);
 
-    // 使用外部组件渲染器 hook - 直接传入 ref
+    // 使用外部组件渲染器 hook
+    // 外部组件（AIGC 按钮、Loading 指示器）完全由内部状态和 props 驱动，无需暴露手动渲染接口
     const { renderComponents, initializeHoverDetection } = useExternalComponentRenderer(editorFacadeRef, {
       onStop: onStopGenerating,
       onAIGCButtonClick,
       aigcButtonDisabled,
+      chapterLoadingChapters: loadingChapters,
     });
 
     // 根据 readonly 切换编辑器模式（design/readonly）

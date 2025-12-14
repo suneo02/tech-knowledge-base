@@ -2,11 +2,13 @@ import { ApiResponseForWFC } from '@/types'
 import { AxiosRequestConfig } from 'axios'
 import { ChatGroupIdIdentifier, RPDetailChapter, ReportIdIdentifier } from '../types'
 import { RPChapterSavePayload } from '../types/report/detail'
+import { RPReferencePriority } from '../types/report/report'
 import { reportAIFileApiPathMap, reportFileApiConfigMap } from './file'
 import { ReportAIReportTemplateApiPathMap } from './template'
 
 export interface ReportDetailChapterInfo {
   chapters: RPDetailChapter[]
+  referencePriority: RPReferencePriority
   id: string
   name: string
 }
@@ -34,9 +36,9 @@ export type ReportAIApiPathMap = reportAIFileApiPathMap &
         tempIdMapping: Record<string, string>
       }>
     }
-    'report/save': {
+    'report/update': {
       data: {
-        referencePriority: number
+        referencePriority: RPReferencePriority
       } & ReportIdIdentifier
       response: ApiResponseForWFC<string>
     }

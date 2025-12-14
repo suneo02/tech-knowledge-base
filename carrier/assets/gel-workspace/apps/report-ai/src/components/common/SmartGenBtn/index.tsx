@@ -1,3 +1,9 @@
+/**
+ * AIGC 智能生成按钮组件
+ *
+ * @description 章节标题 hover 时显示的智能生成按钮
+ * @see apps/report-ai/docs/issues/aigc-button-icon-color-issue.md - 图标颜色修复说明
+ */
 import { SmartGenIcon } from '@/assets/icon';
 import type { CSSProperties } from 'react';
 import { ActionIcon } from '../ActionIcon';

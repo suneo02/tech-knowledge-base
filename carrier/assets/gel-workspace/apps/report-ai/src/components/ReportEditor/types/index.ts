@@ -2,6 +2,7 @@
 
 import { RPReferenceType } from '@/domain/chat/ref';
 import type { AIInvokeFunction, SelectionSnapshot } from '@/types/editor';
+import type { ChapterLoadingOverlayState } from '../hooks/useChapterLoadingOverlay';
 import { SelectionUserDecision } from '@/types/editor/selection-types';
 
 /**
@@ -59,4 +60,6 @@ export interface ReportEditorProps {
   className?: string;
   /** 自定义内联样式 */
   style?: React.CSSProperties;
+  /** 章节 Loading 外部状态（由业务层输入） */
+  loadingChapters?: ChapterLoadingOverlayState[];
 }

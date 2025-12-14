@@ -13,8 +13,12 @@ export const selectReportContent = (state: { reportContent: ReportContentState }
 // 基础状态选择器
 export const selectReportId = createSelector(selectReportContent, (state) => state.reportId);
 
-export const selectReportName = createSelector(selectReportContent, (state) => state.reportName);
+export const selectReportName = createSelector(selectReportContent, (state) => state.reportInfo?.name);
 
+export const selectReferencePriority = createSelector(
+  selectReportContent,
+  (state) => state.reportInfo?.referencePriority
+);
 export const selectChapters = createSelector(selectReportContent, (state) => state.chapters);
 
 export const selectHydration = createSelector(selectReportContent, (state) => state.hydration);
@@ -41,12 +45,6 @@ export const selectLatestRequestedOperations = createSelector(
 );
 
 // 报告状态别名（兼容性）
-
-// 解析的报告内容消息
-export const selectParsedRPContentMessages = createSelector(
-  selectReportContent,
-  (state) => state.parsedRPContentMessages || []
-);
 
 /** 报告级文件列表（统一来源于 Redux） */
 export const selectReportFiles = createSelector(selectReportContent, (state) => state.reportFiles || []);

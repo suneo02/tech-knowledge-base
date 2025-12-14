@@ -60,6 +60,7 @@ export const mockApiResponses: Record<string, Awaited<ReturnType<ReportQuery>>> 
     Data: {
       id: 'mock-report-id',
       name: '2024年市场分析报告',
+      referencePriority: 'UserFile',
       chapters: outlineMock4,
     },
   },
@@ -70,6 +71,7 @@ export const mockApiResponses: Record<string, Awaited<ReturnType<ReportQuery>>> 
     Data: {
       id: 'loading-report-id',
       name: '',
+      referencePriority: 'UserFile',
       chapters: [],
     },
   },
@@ -80,6 +82,7 @@ export const mockApiResponses: Record<string, Awaited<ReturnType<ReportQuery>>> 
     Data: {
       id: 'partial-report-id',
       name: '2024年市场分析报告',
+      referencePriority: 'UserFile',
       chapters: partialChapters,
     },
   },
@@ -95,6 +98,7 @@ export const mockApiResponses: Record<string, Awaited<ReturnType<ReportQuery>>> 
     Data: {
       id: 'empty-report-id',
       name: '空报告',
+      referencePriority: 'UserFile',
       chapters: [],
     },
   },
@@ -105,6 +109,7 @@ export const mockApiResponses: Record<string, Awaited<ReturnType<ReportQuery>>> 
     Data: {
       id: 'large-report-id',
       name: '大型市场分析报告',
+      referencePriority: 'UserFile',
       chapters: largeChapters,
     },
   },

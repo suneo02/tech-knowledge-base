@@ -1,11 +1,11 @@
 export {
   getTextRewritePreviewContent,
   isReportChapterGenerationFinished,
-  isReportContentMessageFinished,
   isTextRewriteCompleted,
 } from './generationStatus';
 export {
   filterMessages,
+  getLatestAgentMessageByChapterId,
   getLatestMessage,
   getLatestMessageByChapterIdRole,
   getLatestMessageByChapterRole,

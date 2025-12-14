@@ -6,7 +6,6 @@ import { ReportDetailProvider } from '../../context/ReportDetail';
 import { useCollapsedSidebar } from '../../hooks/usePageSidebar';
 import { selectReportId, useReportContentSelector } from '../../store/reportContentStore';
 import { ReportContentRTKScope } from '../../store/reportContentStore/provider';
-import { ChatSync } from './ChatSync';
 import { ReportDetailHeader } from './Header';
 import { useInitReportContent } from './hook';
 import styles from './index.module.less';
@@ -36,7 +35,6 @@ const ReportDetailInner: React.FC = () => {
 
   return (
     <>
-      <ChatSync id={reportId} />
       <GenerationControllers />
       <div className={styles['report-detail']}>
         <div className={styles['report-detail-inner']}>

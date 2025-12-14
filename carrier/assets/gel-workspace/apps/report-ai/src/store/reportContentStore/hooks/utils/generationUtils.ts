@@ -10,7 +10,9 @@
 
 import { isLastReportChapter, isReportChapterGenerationFinished } from '@/domain/chat/rpContentAIMessages';
 import { AppDispatch } from '@/store/type';
+import { MessageParsedReportContent } from '@/types';
 import { RPContentSendInput } from '@/types/chat/RPContent';
+import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { ChatPresetQuestion } from 'gel-api';
 import { rpContentSlice } from '../../slice';
 import type { ReportContentState } from '../../types';
@@ -57,7 +59,7 @@ export class ChapterHookGenUtils {
   /**
    * 检查章节是否完成
    */
-  static isChapterFinished(chapterId: string, parsedMessages: ReportContentState['parsedRPContentMessages']): boolean {
+  static isChapterFinished(chapterId: string, parsedMessages: MessageInfo<MessageParsedReportContent>[]): boolean {
     return isReportChapterGenerationFinished(parsedMessages, chapterId);
   }
 

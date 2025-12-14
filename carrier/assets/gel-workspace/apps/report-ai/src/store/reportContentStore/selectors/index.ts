@@ -24,7 +24,7 @@ export {
   selectHydration,
   selectHydrationActiveOperations,
   selectLatestRequestedOperations,
-  selectParsedRPContentMessages,
+  selectReferencePriority,
   selectReportContent,
   selectReportFiles,
   selectReportId,
@@ -64,12 +64,7 @@ export {
 export { selectBaselineDocHash } from './documentHash';
 
 // ==================== 章节内容合成选择器 ====================
-export {
-  selectCanonicalChapterHtmlMap,
-  selectCanonicalDocHtml,
-  selectChapterAIMessageStatusMap,
-  selectChapterContentMap,
-} from './composition';
+export { selectCanonicalChapterHtmlMap, selectCanonicalDocHtml, selectChapterContentMap } from './composition';
 
 // ==================== 大纲视图模型选择器 ====================
 export { selectOutlineViewChapters } from './outlineView';
@@ -108,8 +103,6 @@ export {
   selectTextRewriteCorrelationId,
   selectTextRewriteData,
   selectTextRewriteError,
-  selectTextRewriteIsCompleted,
-  selectTextRewritePreviewContent,
   selectTextRewriteSnapshot,
   selectTextRewriteStartedAt,
   selectTextRewriteTaskType,

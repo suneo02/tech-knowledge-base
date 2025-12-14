@@ -17,7 +17,6 @@ import {
   selectIsFullDocGen,
   selectLatestRequestedOperations,
   selectLeafChapterMap,
-  selectParsedRPContentMessages,
 } from '../selectors';
 import { rpContentSlice } from '../slice';
 import { ChapterHookGenUtils } from './utils/generationUtils';
@@ -34,14 +33,12 @@ import { ChapterHookGenUtils } from './utils/generationUtils';
  */
 export const useFullDocGenerationController = (): void => {
   const dispatch = useReportContentDispatch();
-  const { sendRPContentMessage } = useReportDetailContext();
-
+  const { parsedRPContentMsgs, sendRPContentMsg, clearChapterMessages } = useReportDetailContext();
   // 从 Redux 获取状态
   const leafChapterMap = useReportContentSelector(selectLeafChapterMap);
   const isFullGenOp = useReportContentSelector(selectIsFullDocGen);
   const error = useReportContentSelector(selectFullDocGenError);
   const fullGenData = useReportContentSelector(selectFullDocGenData);
-  const parsedRPContentMessages = useReportContentSelector(selectParsedRPContentMessages);
   const latestRequestedOperations = useReportContentSelector(selectLatestRequestedOperations);
 
   /**
@@ -73,8 +70,8 @@ export const useFullDocGenerationController = (): void => {
     }
 
     // 发送生成请求
-    ChapterHookGenUtils.sendGenerationRequest(currentChapterId, correlationId, sendRPContentMessage, dispatch);
-  }, [isFullGenOp, fullGenData, leafChapterMap, sendRPContentMessage, dispatch, latestRequestedOperations]);
+    ChapterHookGenUtils.sendGenerationRequest(currentChapterId, correlationId, sendRPContentMsg, dispatch);
+  }, [isFullGenOp, fullGenData, leafChapterMap, sendRPContentMsg, dispatch, latestRequestedOperations]);
 
   /**
    * Effect 2: 监听流式消息，确认当前章节的生成是否结束
@@ -86,7 +83,7 @@ export const useFullDocGenerationController = (): void => {
     const currentChapterId = ChapterHookGenUtils.getCurrentChapterId(fullGenData.queue, fullGenData.currentIndex);
     if (!currentChapterId) return;
 
-    const isCurrentChapterFinished = ChapterHookGenUtils.isChapterFinished(currentChapterId, parsedRPContentMessages);
+    const isCurrentChapterFinished = ChapterHookGenUtils.isChapterFinished(currentChapterId, parsedRPContentMsgs);
 
     if (isCurrentChapterFinished) {
       const isLast = ChapterHookGenUtils.isLastChapter(fullGenData.currentIndex, fullGenData.queue.length);
@@ -98,12 +95,26 @@ export const useFullDocGenerationController = (): void => {
         return;
       }
 
+      // 合并消息到章节
       dispatch(
         rpContentSlice.actions.processSingleChapterCompletion({
           chapterId: currentChapterId,
+          messages: parsedRPContentMsgs,
           correlationId,
           extractRefData: true,
           overwriteExisting: true,
+        })
+      );
+
+      // 清理该章节的流式消息，确保渲染切换到 chapter.content
+      clearChapterMessages(currentChapterId);
+
+      // 触发注水任务（在消息清理后，确保使用 chapter.content）
+      dispatch(
+        rpContentSlice.actions.setHydrationTask({
+          type: 'chapter-rehydrate',
+          chapterIds: [currentChapterId],
+          correlationIds: [correlationId],
         })
       );
 
@@ -115,5 +126,5 @@ export const useFullDocGenerationController = (): void => {
         dispatch(rpContentSlice.actions.completeFullDocumentGeneration({ success: !error }));
       }
     }
-  }, [parsedRPContentMessages, isFullGenOp, fullGenData, dispatch, error, latestRequestedOperations]);
+  }, [parsedRPContentMsgs, isFullGenOp, fullGenData, dispatch, error, latestRequestedOperations]);
 };

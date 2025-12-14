@@ -11,9 +11,11 @@ import { createContext, FC, ReactNode, SetStateAction, useContext, useRef } from
 import { MessageParsedReportContent, RPContentAgentMsg } from '../types';
 
 export type ReportDetailCtx = {
-  sendRPContentMessage: (message: RPContentSendInput) => void;
-  parsedRPContentMessages: MessageInfo<MessageParsedReportContent>[];
-  setMessages: (action: SetStateAction<MessageInfo<RPContentAgentMsg>[]>) => void;
+  sendRPContentMsg: (message: RPContentSendInput) => void;
+  parsedRPContentMsgs: MessageInfo<MessageParsedReportContent>[];
+  rpContentAgentMsgs: MessageInfo<RPContentAgentMsg>[];
+  setMsgs: (action: SetStateAction<MessageInfo<RPContentAgentMsg>[]>) => void;
+  clearChapterMessages: (chapterId: string) => void;
   reportEditorRef: React.MutableRefObject<ReportEditorRef | null>;
   referenceViewRef: React.MutableRefObject<ReferenceViewHandle | null>;
 };
@@ -30,9 +32,10 @@ export const useReportDetailContext = () => {
 
 export const ReportDetailProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const {
-    sendMessage: sendRPContentMessage,
-    parsedMessages: parsedRPContentMessages,
-    setMessages,
+    sendMessage: sendRPContentMsg,
+    parsedMessages: parsedRPContentMsgs,
+    agentMessages: rpContentAgentMsgs,
+    setMessages: setMsgs,
   } = useRPContentChat();
 
   // 单点的编辑器 ref，通过 Context 在页面内共享，避免放入 Redux 导致被冻结
@@ -41,12 +44,34 @@ export const ReportDetailProvider: FC<{ children: ReactNode }> = ({ children }) 
   // 引用资料视图的 ref，用于外部程序化控制预览
   const referenceViewRef = useRef<ReferenceViewHandle | null>(null);
 
+  /**
+   * 清理指定章节的流式消息
+   * 用于章节完成后移除临时消息，确保渲染切换到 chapter.content
+   *
+   * @see {@link ../docs/issues/chapter-rendering-missing-source-data.md | 章节渲染缺失溯源数据问题}
+   */
+  const clearChapterMessages = (chapterId: string) => {
+    setMsgs((prevMessages) => {
+      return prevMessages.filter((msg) => {
+        // 保留用户消息
+        if (msg.message.role === 'user') return true;
+        // AI 消息：过滤掉指定章节的消息
+        if (msg.message.role === 'ai' && 'chapterId' in msg.message) {
+          return msg.message.chapterId !== chapterId;
+        }
+        return true;
+      });
+    });
+  };
+
   return (
     <Context.Provider
       value={{
-        sendRPContentMessage,
-        parsedRPContentMessages,
-        setMessages,
+        sendRPContentMsg: sendRPContentMsg,
+        parsedRPContentMsgs,
+        rpContentAgentMsgs,
+        setMsgs,
+        clearChapterMessages,
         reportEditorRef,
         referenceViewRef,
       }}

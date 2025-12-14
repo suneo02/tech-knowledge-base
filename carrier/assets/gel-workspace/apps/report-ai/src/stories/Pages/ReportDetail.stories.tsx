@@ -38,14 +38,62 @@ const createGetUserQuestionHandler = (finalResult: string) => {
   });
 };
 
-/** 创建流式输出 handler，支持自定义内容和延迟 */
-const createStreamHandler = (content: string, charDelay: number = 20) => {
+/**
+ * 流式输出行为类型
+ */
+type StreamBehavior = 'normal' | 'error' | 'stuck' | 'direct-error';
+
+/**
+ * 创建流式输出 handler（统一工厂函数）
+ * @param content 流式输出的内容
+ * @param options 配置选项
+ *   - charDelay: 每个字符的延迟时间（ms）。如果不传，则自动计算让总时长约为 20 秒
+ *   - behavior: 流式行为类型
+ *     - 'normal': 正常输出完整内容（默认）
+ *     - 'error': 输出一半后中断
+ *     - 'stuck': 输出一半后永久挂起
+ *     - 'direct-error': 直接返回 500 错误
+ */
+const createStreamHandler = (
+  content: string,
+  options?: {
+    charDelay?: number;
+    behavior?: StreamBehavior;
+  }
+) => {
+  const { charDelay, behavior = 'normal' } = options || {};
+
   return http.post('*/api/chat/getResult', async () => {
+    // 直接错误：立即返回 500
+    if (behavior === 'direct-error') {
+      return HttpResponse.json(
+        { ErrorCode: 'STREAM_ERROR', ErrorMsg: '流式服务暂时不可用，请稍后重试', result: null },
+        { status: 500 }
+      );
+    }
+
     const encoder = new TextEncoder();
+
+    // 确定输出长度
+    const outputLength = behavior === 'normal' ? content.length : Math.floor(content.length / 2);
+
+    // 自动计算延迟：让流式输出总是在 20 秒左右结束
+    let delay = charDelay;
+    if (delay === undefined) {
+      // 目标总时长：20 秒 = 20000 毫秒
+      const targetDuration = 10000;
+      // 根据输出长度计算每个字符的延迟
+      delay = outputLength > 0 ? targetDuration / outputLength : 50;
+      // 限制延迟范围：最小 10ms，最大 200ms
+      delay = Math.max(10, Math.min(200, delay));
+    }
+
     const stream = new ReadableStream<Uint8Array>({
       async start(controller) {
         const now = Date.now();
-        for (let i = 0; i < content.length; i++) {
+
+        // 输出内容
+        for (let i = 0; i < outputLength; i++) {
           const data = {
             id: `mock-sse-${i}`,
             object: 'chat.completion.chunk',
@@ -60,82 +108,24 @@ const createStreamHandler = (content: string, charDelay: number = 20) => {
             ],
           };
           controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-          await new Promise((r) => setTimeout(r, charDelay));
+          await new Promise((r) => setTimeout(r, delay));
         }
-        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-        controller.close();
+
+        // 根据行为类型处理结束
+        if (behavior === 'normal') {
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+          controller.close();
+        } else if (behavior === 'error') {
+          controller.close(); // 模拟中断
+        } else if (behavior === 'stuck') {
+          await new Promise(() => {}); // 永远不会 resolve，模拟卡住
+        }
       },
     });
 
     return new HttpResponse(stream as unknown as BodyInit, {
       headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache' },
     });
-  });
-};
-
-/** 创建流式错误 handler（输出部分内容后中断） */
-const createStreamErrorHandler = (content: string) => {
-  return http.post('*/api/chat/getResult', async () => {
-    const encoder = new TextEncoder();
-    const stream = new ReadableStream<Uint8Array>({
-      async start(controller) {
-        const now = Date.now();
-        for (let i = 0; i < content.length / 2; i++) {
-          const data = {
-            id: `mock-sse-${i}`,
-            object: 'chat.completion.chunk',
-            created: now + i,
-            model: 'mock-model',
-            choices: [{ index: 0, delta: { content: content[i], reasoning_content: '' }, finish_reason: null }],
-          };
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-          await new Promise((r) => setTimeout(r, 50));
-        }
-        controller.close(); // 模拟中断
-      },
-    });
-
-    return new HttpResponse(stream as unknown as BodyInit, {
-      headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache' },
-    });
-  });
-};
-
-/** 创建流式卡住 handler（输出部分内容后永久挂起） */
-const createStreamStuckHandler = (content: string) => {
-  return http.post('*/api/chat/getResult', async () => {
-    const encoder = new TextEncoder();
-    const stream = new ReadableStream<Uint8Array>({
-      async start(controller) {
-        const now = Date.now();
-        for (let i = 0; i < content.length / 2; i++) {
-          const data = {
-            id: `mock-sse-${i}`,
-            object: 'chat.completion.chunk',
-            created: now + i,
-            model: 'mock-model',
-            choices: [{ index: 0, delta: { content: content[i], reasoning_content: '' }, finish_reason: null }],
-          };
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-          await new Promise((r) => setTimeout(r, 50));
-        }
-        await new Promise(() => {}); // 永远不会 resolve，模拟卡住
-      },
-    });
-
-    return new HttpResponse(stream as unknown as BodyInit, {
-      headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache' },
-    });
-  });
-};
-
-/** 创建流式直接错误 handler（返回 500 错误） */
-const createStreamDirectErrorHandler = () => {
-  return http.post('*/api/chat/getResult', () => {
-    return HttpResponse.json(
-      { ErrorCode: 'STREAM_ERROR', ErrorMsg: '流式服务暂时不可用，请稍后重试', result: null },
-      { status: 500 }
-    );
   });
 };
 
@@ -207,52 +197,7 @@ const baseChatHandlers = [
 const chatHandlers = [
   ...baseChatHandlers,
   createGetUserQuestionHandler('请给我报告大纲\n请列出核心要点'),
-  createStreamHandler(
-    outlineMock4[0].children?.[0]?.content || '这是第一段回答。 这是第二段回答。 这是第三段回答。',
-    20
-  ),
-  http.post('*/api/chat/analysisEngine', () => {
-    return HttpResponse.json({
-      ErrorCode: ApiCodeForWfc.SUCCESS,
-      result: {
-        rawSentenceID: 'mock-raw-sentence-id',
-        itResult: { it: 'aireport.mock.intent', rewrite_sentence: '' },
-      },
-    });
-  }),
-  http.post('*/api/chat/addChatGroup', () => {
-    return HttpResponse.json({ ErrorCode: ApiCodeForWfc.SUCCESS, result: { chatId: 'mock-chat-id' } });
-  }),
-  http.post('*/api/chat/queryReference', () => {
-    return HttpResponse.json({ ErrorCode: ApiCodeForWfc.SUCCESS, result: null, finish: true });
-  }),
-  http.post('*/api/chat/getUserQuestion', async () => {
-    // 增加调用计数
-    getUserQuestionCallCount++;
-
-    // 模拟延迟（2秒）
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    // 前两次返回 finish: false，第三次返回 finish: true
-    const isFinished = getUserQuestionCallCount >= 3;
-
-    const res: ApiResponseForGetUserQuestion<string> = {
-      ErrorCode: ApiCodeForWfc.SUCCESS,
-      suggest: {
-        items: chatSuggestResMock1,
-      },
-      // @ts-expect-error
-      content: {
-        data: chatRefTableMock1,
-      },
-      result: isFinished ? '请给我报告大纲\n请列出核心要点' : `正在处理中... (${getUserQuestionCallCount}/3)`,
-      finish: isFinished,
-    };
-
-    console.log(`📞 getUserQuestion 调用 #${getUserQuestionCallCount}, finish: ${isFinished}`);
-
-    return HttpResponse.json(res);
-  }),
+  createStreamHandler(outlineMock4[0].children?.[0]?.content || '这是第一段回答。 这是第二段回答。 这是第三段回答。'),
 ];
 
 // 创建一个简化的测试组件
@@ -593,7 +538,7 @@ export const ShortStreamContent: Story = {
       handlers: [
         ...baseChatHandlers,
         createGetUserQuestionHandler('测试问题'),
-        createStreamHandler('这是测试内容。', 50),
+        createStreamHandler('这是测试内容。'), // 自动计算延迟，总时长约 20 秒
         http.get('*/api/report/query/*', () => {
           return HttpResponse.json(mockApiResponses.default);
         }),
@@ -605,11 +550,11 @@ export const ShortStreamContent: Story = {
 
 **特点**:
 - 流式内容仅为"这是测试内容。"（7个字符）
-- 每个字符间隔 50ms，总时长约 350ms
+- 自动计算延迟，总时长约 20 秒
 - 适合快速验证流式输出功能
 
 **Mock 数据**: 默认报告数据 + 短流式内容
-**MSW 配置**: 自定义流式输出 handler`,
+**MSW 配置**: 自定义流式输出 handler（20秒总时长）`,
       },
     },
   },
@@ -627,7 +572,7 @@ export const StreamError: Story = {
       handlers: [
         ...baseChatHandlers,
         createGetUserQuestionHandler('测试流式失败'),
-        createStreamErrorHandler('这是部分内容，即将失败...'),
+        createStreamHandler('这是部分内容，即将失败...', { behavior: 'error' }),
         http.get('*/api/report/query/*', () => {
           return HttpResponse.json(mockApiResponses.default);
         }),
@@ -662,7 +607,7 @@ export const StreamStuck: Story = {
       handlers: [
         ...baseChatHandlers,
         createGetUserQuestionHandler('测试流式卡住'),
-        createStreamStuckHandler('这是部分内容，然后就卡住了...'),
+        createStreamHandler('这是部分内容，然后就卡住了...', { behavior: 'stuck' }),
         http.get('*/api/report/query/*', () => {
           return HttpResponse.json(mockApiResponses.default);
         }),
@@ -698,7 +643,7 @@ export const StreamDirectError: Story = {
       handlers: [
         ...baseChatHandlers,
         createGetUserQuestionHandler('测试流式直接报错'),
-        createStreamDirectErrorHandler(),
+        createStreamHandler('', { behavior: 'direct-error' }),
         http.get('*/api/report/query/*', () => {
           return HttpResponse.json(mockApiResponses.default);
         }),

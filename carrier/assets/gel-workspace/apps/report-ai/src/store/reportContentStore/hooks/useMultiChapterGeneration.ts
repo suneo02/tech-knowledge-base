@@ -21,7 +21,6 @@ import {
   selectMultiChapterFailedChapters,
   selectMultiChapterGenerationProgress,
   selectMultiChapterGenerationQueue,
-  selectParsedRPContentMessages,
 } from '../selectors';
 
 import { useReportDetailContext } from '@/context';
@@ -63,7 +62,7 @@ export const useMultiChapterGeneration = (
   params?: UseMultiChapterGenerationParams
 ): UseMultiChapterGenerationReturn => {
   const { onGenerationStart, onChapterComplete } = params || {};
-  const { sendRPContentMessage, setMessages } = useReportDetailContext();
+  const { sendRPContentMsg, parsedRPContentMsgs, setMsgs, clearChapterMessages } = useReportDetailContext();
 
   const dispatch = useReportContentDispatch();
 
@@ -76,7 +75,6 @@ export const useMultiChapterGeneration = (
   const progress = useReportContentSelector(selectMultiChapterGenerationProgress);
   const generationQueue = useReportContentSelector(selectMultiChapterGenerationQueue);
   const failedChapters = useReportContentSelector(selectMultiChapterFailedChapters);
-  const parsedRPContentMessages = useReportContentSelector(selectParsedRPContentMessages);
   const latestRequestedOperations = useReportContentSelector(selectLatestRequestedOperations);
 
   /**
@@ -92,7 +90,7 @@ export const useMultiChapterGeneration = (
       try {
         // 🔑 关键：先清空 Context 中的历史消息，避免 ChatSync 重新同步回来
         // 这样可以防止 useCompletionHandler 重复检测到历史完成消息
-        setMessages([]);
+        setMsgs([]);
         // 1. 展开父章节为叶子节点
         const allLeafIds: string[] = [];
         chapterIds.forEach((id) => {
@@ -172,12 +170,12 @@ export const useMultiChapterGeneration = (
     }
 
     // 发送生成请求
-    ChapterHookGenUtils.sendGenerationRequest(currentChapterId, correlationId, sendRPContentMessage, dispatch);
+    ChapterHookGenUtils.sendGenerationRequest(currentChapterId, correlationId, sendRPContentMsg, dispatch);
   }, [
     isGenerating,
     progress.currentIndex,
     generationQueue,
-    sendRPContentMessage,
+    sendRPContentMsg,
     dispatch,
     latestRequestedOperations,
     leafChapterMap,
@@ -193,7 +191,7 @@ export const useMultiChapterGeneration = (
     const currentChapterId = ChapterHookGenUtils.getCurrentChapterId(generationQueue, progress.currentIndex);
     if (!currentChapterId) return;
 
-    const isCurrentChapterFinished = ChapterHookGenUtils.isChapterFinished(currentChapterId, parsedRPContentMessages);
+    const isCurrentChapterFinished = ChapterHookGenUtils.isChapterFinished(currentChapterId, parsedRPContentMsgs);
 
     if (isCurrentChapterFinished) {
       const isLast = ChapterHookGenUtils.isLastChapter(progress.currentIndex, generationQueue.length);
@@ -205,14 +203,29 @@ export const useMultiChapterGeneration = (
         dispatch(rpContentSlice.actions.markMultiChapterFailed({ chapterId: currentChapterId }));
         onChapterComplete?.(currentChapterId, false);
       } else {
+        // 合并消息到章节
         dispatch(
           rpContentSlice.actions.processSingleChapterCompletion({
             chapterId: currentChapterId,
+            messages: parsedRPContentMsgs,
             correlationId,
             extractRefData: true,
             overwriteExisting: true,
           })
         );
+
+        // 清理该章节的流式消息，确保渲染切换到 chapter.content
+        clearChapterMessages(currentChapterId);
+
+        // 触发注水任务（在消息清理后，确保使用 chapter.content）
+        dispatch(
+          rpContentSlice.actions.setHydrationTask({
+            type: 'chapter-rehydrate',
+            chapterIds: [currentChapterId],
+            correlationIds: [correlationId],
+          })
+        );
+
         onChapterComplete?.(currentChapterId, true);
       }
 
@@ -229,7 +242,7 @@ export const useMultiChapterGeneration = (
       }
     }
   }, [
-    parsedRPContentMessages,
+    parsedRPContentMsgs,
     isGenerating,
     progress.currentIndex,
     generationQueue,

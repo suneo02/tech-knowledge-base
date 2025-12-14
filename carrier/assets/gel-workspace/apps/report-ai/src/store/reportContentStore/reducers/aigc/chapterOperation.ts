@@ -52,8 +52,7 @@ export const chapterOperationReducers = {
       return;
     }
 
-    // 清空解析消息，避免重复完成判断
-    state.parsedRPContentMessages = [];
+    // 注意：消息清理已移至 Context 层，此处不再需要清空
 
     const now = Date.now();
     const correlationByChapter: Record<string, string> = {};

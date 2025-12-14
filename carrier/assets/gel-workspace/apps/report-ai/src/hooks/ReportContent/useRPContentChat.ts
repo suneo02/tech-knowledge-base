@@ -28,7 +28,7 @@ export const useRPContentChat = (defaultMessages?: DefaultMessageInfo<RPContentA
     create,
   });
 
-  const { onRequest, parsedMessages, setMessages } = useXChat<
+  const { onRequest, parsedMessages, setMessages, messages } = useXChat<
     RPContentAgentMsg,
     MessageParsedReportContent,
     { message: RPContentAgentMsgUser },
@@ -60,6 +60,7 @@ export const useRPContentChat = (defaultMessages?: DefaultMessageInfo<RPContentA
   return {
     content,
     parsedMessages,
+    agentMessages: messages,
     handleContentChange: setContent,
     sendMessage,
     setMessages,

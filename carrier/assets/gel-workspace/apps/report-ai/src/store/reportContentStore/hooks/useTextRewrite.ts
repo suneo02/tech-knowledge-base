@@ -63,7 +63,7 @@ export interface UseTextRewriteReturn {
  * ```
  */
 export function useTextRewrite(): UseTextRewriteReturn {
-  const { sendRPContentMessage, setMessages } = useReportDetailContext();
+  const { sendRPContentMsg, setMsgs } = useReportDetailContext();
 
   const dispatch = useReportContentDispatch();
 
@@ -90,7 +90,7 @@ export function useTextRewrite(): UseTextRewriteReturn {
       try {
         // 🔑 关键：先清空 Context 中的历史消息，避免 ChatSync 重新同步回来
         // 这样可以防止 useCompletionHandler 重复检测到历史完成消息
-        setMessages([]);
+        setMsgs([]);
         const { actionType, snapshot, chapterId } = data;
 
         // 生成 correlationId
@@ -110,7 +110,7 @@ export function useTextRewrite(): UseTextRewriteReturn {
         const content = buildRewriteContent(actionType, snapshot);
 
         // 调用 AI 操作
-        sendRPContentMessage({ content, chapterId });
+        sendRPContentMsg({ content, chapterId });
 
         requestedRef.current = newCorrelationId;
       } catch (err) {
@@ -124,7 +124,7 @@ export function useTextRewrite(): UseTextRewriteReturn {
         );
       }
     },
-    [isRewriting, sendRPContentMessage, dispatch]
+    [isRewriting, sendRPContentMsg, dispatch]
   );
 
   /**

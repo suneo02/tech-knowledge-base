@@ -73,6 +73,7 @@ flowchart TD
 ## 相关文档
 
 - [AIGC 核心流程](./aigc-core-flow.md) – 前置校验、异常收敛。
+- [Correlation ID 设计文档](./correlation-id-design.md) – 多章节 correlationId 管理与失败处理。
 - [单章节 AIGC 场景](./single-chapter-aigc-flow.md) – 被复用的基本单元。
 - [全文生成场景](./full-generation-flow.md) – 队列与注水基线。
 - [数据层指南](./data-layer-guide.md#26-与生成重生成的配合) – 草稿与锁定策略。

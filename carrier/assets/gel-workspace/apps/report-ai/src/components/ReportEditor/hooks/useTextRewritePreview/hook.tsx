@@ -21,6 +21,7 @@ import { EditorFacade } from '@/domain/reportEditor';
 import { restoreSelection } from '@/domain/reportEditor/selection';
 import { SelectionUserDecision } from '@/types/editor/selection-types';
 import { useCallback, useEffect, useRef } from 'react';
+import { createExternalComponentRenderer, EXTERNAL_COMPONENT_CONFIGS } from '../utils';
 import type { PreviewInstance, UseTextRewritePreviewOptions, UseTextRewritePreviewReturn } from './types';
 import { cleanupPreviewContainer, createPreviewContainer, isPreviewInstanceValid } from './utils';
 import { usePreviewRenderer } from './utils/previewRenderer';
@@ -58,6 +59,9 @@ export function useTextRewritePreview(
   // 从 props 获取状态
   const { isRewriting, correlationId, snapshot, previewContent, isCompleted } = rewriteState;
 
+  // 使用统一的外部组件渲染器（使用预定义配置）
+  const rendererRef = useRef(createExternalComponentRenderer<string>(EXTERNAL_COMPONENT_CONFIGS.TEXT_REWRITE_PREVIEW));
+
   // 预览实例引用
   const previewInstanceRef = useRef<PreviewInstance | null>(null);
 
@@ -69,7 +73,8 @@ export function useTextRewritePreview(
    */
   const cleanup = useCallback(() => {
     cancelPendingRender();
-    cleanupPreviewContainer(previewInstanceRef.current);
+    const currentCorrelationId = previewInstanceRef.current?.correlationId || null;
+    cleanupPreviewContainer(currentCorrelationId, rendererRef.current);
     previewInstanceRef.current = null;
   }, [cancelPendingRender]);
 
@@ -128,8 +133,8 @@ export function useTextRewritePreview(
     // 清理旧的预览实例
     cleanup();
 
-    // 创建新的预览实例
-    const instance = createPreviewContainer(editorFacade, correlationId);
+    // 创建新的预览实例（使用统一的渲染器）
+    const instance = createPreviewContainer(editorFacade, correlationId, rendererRef.current);
     if (instance) {
       previewInstanceRef.current = instance;
 
@@ -169,6 +174,7 @@ export function useTextRewritePreview(
   useEffect(() => {
     return () => {
       cleanup();
+      rendererRef.current?.cleanup();
     };
   }, [cleanup]);
 

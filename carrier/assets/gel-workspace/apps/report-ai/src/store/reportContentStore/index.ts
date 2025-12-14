@@ -43,7 +43,6 @@ export type {
 export {
   selectCanonicalChapterHtmlMap,
   selectCanonicalDocHtml,
-  selectChapterAIMessageStatusMap,
   selectChapterContentMap,
   selectChapterEpoch,
   selectChapterEpochs,
@@ -62,9 +61,9 @@ export {
   selectIsGlobalBusy,
   selectIsServerLoading,
   selectLatestRequestedOperations,
-  selectParsedRPContentMessages,
   selectReferenceMap,
   selectReferenceOrdinalMap,
+  selectReferencePriority,
   selectReportContent,
   selectReportId,
   selectReportName,

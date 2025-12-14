@@ -33,6 +33,7 @@ table th {
   white-space: normal;
   border: none !important;
   color: #333;
+  min-width: 80px;
 }
 
 table th.th-fix-width {
@@ -52,6 +53,7 @@ table td {
   white-space: normal;
   border: none !important;
   color: #333;
+  min-width: 80px;
 }
 table tr:nth-child(even) td {
   background: #f2f3f3;

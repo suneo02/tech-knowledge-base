@@ -1,4 +1,10 @@
-import { MessageParsedReportContent, RPContentSubQuestionMessage, RPContentSuggestionMessage } from '@/types';
+import {
+  MessageParsedReportContent,
+  RPContentAgentMsg,
+  RPContentAgentMsgAI,
+  RPContentSubQuestionMessage,
+  RPContentSuggestionMessage,
+} from '@/types';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { RPChapter } from 'gel-api';
 import { AIMessageReportContent } from 'gel-ui';
@@ -314,4 +320,29 @@ export const getLatestMessageByChapterIdRole = <T extends MessageRoleType>(
   role: T
 ): MessageInfo<RoleToMessageMap[T]> | undefined => {
   return getLatestMessage(messages, { chapterIds: [chapterId], role });
+};
+
+/**
+ * 从 Agent 消息列表中获取指定章节的最新 AI 消息
+ * 用于状态判断，直接使用原始 Agent 消息而不是解析后的消息
+ *
+ * @param messages Agent 消息列表
+ * @param chapterId 章节ID
+ * @returns 最新的 AI Agent 消息，如果没有找到则返回 undefined
+ *
+ * @example
+ * ```typescript
+ * const latestAgentMsg = getLatestAgentMessageByChapterId(agentMessages, '1')
+ * ```
+ */
+export const getLatestAgentMessageByChapterId = (
+  messages: MessageInfo<RPContentAgentMsg>[],
+  chapterId: string
+): MessageInfo<RPContentAgentMsgAI> | undefined => {
+  // 筛选出指定章节的 AI 消息
+  const filteredMessages = messages.filter(
+    (msg) => msg.message.role === 'ai' && msg.message.chapterId === chapterId
+  ) as MessageInfo<RPContentAgentMsgAI>[];
+
+  return getLatestFromMessages(filteredMessages, 'getLatestAgentMessageByChapterId', { chapterId });
 };

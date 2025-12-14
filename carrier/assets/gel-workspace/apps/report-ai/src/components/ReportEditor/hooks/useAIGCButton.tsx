@@ -8,67 +8,60 @@
 
 import { SmartGenBtn } from '@/components/common/SmartGenBtn';
 import type { EditorFacade } from '@/domain/reportEditor/editor';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { type ChapterHoverInfo } from './useChapterHoverWithInit';
 import {
   calculateAIGCButtonPositionForChapter,
   createExternalComponentRenderer,
-  createGlobalContainerConfig,
-  ExternalComponentRenderer,
+  EXTERNAL_COMPONENT_CONFIGS,
   getEditorBody,
   isEditorReady,
 } from './utils';
 
 /**
+ * 渲染器注册接口
+ */
+type ExternalRendererRegistration = {
+  id: string;
+  render: () => void;
+};
+
+/**
  * AIGC 按钮 Hook 的配置选项
  */
 export interface UseAIGCButtonOptions {
+  /** 当前悬停的章节信息 */
+  hoveredChapter: ChapterHoverInfo | null;
   /** AIGC 按钮点击回调 */
   onClick?: (chapterId: string) => void;
   /** 按钮是否禁用 */
   disabled?: boolean;
-}
-
-/**
- * AIGC 按钮 Hook 的返回值
- */
-export interface UseAIGCButtonReturn {
-  /** 渲染 AIGC 按钮 */
-  renderAIGCButton: (hoveredChapter: ChapterHoverInfo | null) => void;
-  /** 清理 AIGC 按钮资源 */
-  cleanupAIGCButton: () => void;
+  /** 渲染器注册函数（来自 useExternalComponentRenderer） */
+  registerRenderer: (renderer: ExternalRendererRegistration) => () => void;
+  /** 请求渲染函数（来自 useExternalComponentRenderer） */
+  requestRender: () => void;
 }
 
 /**
  * AIGC 按钮 Hook
  *
+ * @description
+ * 使用注册器模式，与 Loading Overlay 保持一致的架构。
+ * 通过 registerRenderer 注册到统一调度器中。
+ *
  * @param editorRef 编辑器实例引用
  * @param options 配置选项
- * @returns AIGC 按钮渲染和控制函数
  */
-export const useAIGCButton = (
-  editorRef: React.RefObject<EditorFacade | null>,
-  options: UseAIGCButtonOptions = {}
-): UseAIGCButtonReturn => {
-  const { onClick, disabled = false } = options;
+export const useAIGCButton = (editorRef: React.RefObject<EditorFacade | null>, options: UseAIGCButtonOptions): void => {
+  const { hoveredChapter, onClick, disabled = false, registerRenderer, requestRender } = options;
 
-  // 使用统一的外部组件渲染器
-  const rendererRef = useRef<ExternalComponentRenderer<string>>();
+  // 使用统一的外部组件渲染器（使用预定义配置）
+  const rendererRef = useRef(createExternalComponentRenderer<string>(EXTERNAL_COMPONENT_CONFIGS.AIGC_BUTTON));
   const activeChapterIdRef = useRef<string | null>(null);
+  const hoveredChapterRef = useRef<ChapterHoverInfo | null>(null);
 
-  // 初始化渲染器
-  if (!rendererRef.current) {
-    const config = createGlobalContainerConfig('aigc-button', 10000);
-    rendererRef.current = createExternalComponentRenderer<string>(config);
-  }
-
-  /**
-   * 清理 AIGC 按钮相关资源
-   */
-  const cleanupAIGCButton = useCallback(() => {
-    rendererRef.current?.cleanup();
-    activeChapterIdRef.current = null;
-  }, []);
+  // 更新 hover 状态的 ref
+  hoveredChapterRef.current = hoveredChapter;
 
   /**
    * 渲染 AIGC 按钮组件
@@ -104,47 +97,62 @@ export const useAIGCButton = (
   );
 
   /**
-   * 渲染 AIGC 按钮
+   * 渲染 AIGC 按钮（从 ref 读取最新状态）
    */
-  const renderAIGCButton = useCallback(
-    (hoveredChapter: ChapterHoverInfo | null) => {
-      try {
-        // 确保编辑器已经初始化
-        if (!isEditorReady(editorRef.current)) {
-          return;
-        }
+  const renderAIGCButton = useCallback(() => {
+    try {
+      const currentHoveredChapter = hoveredChapterRef.current;
 
-        const editorBody = getEditorBody(editorRef.current);
-        if (!editorBody) {
-          return;
-        }
-
-        const renderer = rendererRef.current;
-        if (!renderer) {
-          return;
-        }
-
-        // 如果没有悬停的章节，隐藏当前激活的按钮
-        if (!hoveredChapter) {
-          const activeChapterId = activeChapterIdRef.current;
-          if (activeChapterId) {
-            renderer.hideInstance(activeChapterId);
-          }
-          activeChapterIdRef.current = null;
-          return;
-        }
-
-        // 渲染按钮组件
-        renderAIGCButtonComponent(hoveredChapter);
-      } catch (error) {
-        console.error('[AIGCButton] Error rendering AIGC button:', error);
+      // 确保编辑器已经初始化
+      if (!isEditorReady(editorRef.current)) {
+        return;
       }
-    },
-    [editorRef, renderAIGCButtonComponent]
-  );
 
-  return {
-    renderAIGCButton,
-    cleanupAIGCButton,
-  };
+      const editorBody = getEditorBody(editorRef.current);
+      if (!editorBody) {
+        return;
+      }
+
+      const renderer = rendererRef.current;
+      if (!renderer) {
+        return;
+      }
+
+      // 如果没有悬停的章节，隐藏当前激活的按钮
+      if (!currentHoveredChapter) {
+        const activeChapterId = activeChapterIdRef.current;
+        if (activeChapterId) {
+          renderer.hideInstance(activeChapterId);
+        }
+        activeChapterIdRef.current = null;
+        return;
+      }
+
+      // 渲染按钮组件
+      renderAIGCButtonComponent(currentHoveredChapter);
+    } catch (error) {
+      console.error('[AIGCButton] Error rendering AIGC button:', error);
+    }
+  }, [editorRef, renderAIGCButtonComponent]);
+
+  /**
+   * 监听 hover 状态变化，触发重新渲染
+   */
+  useEffect(() => {
+    requestRender();
+  }, [hoveredChapter, requestRender]);
+
+  /**
+   * 注册 AIGC 按钮渲染器
+   */
+  useEffect(() => {
+    const unregister = registerRenderer({
+      id: 'aigc-button',
+      render: renderAIGCButton,
+    });
+    return () => {
+      unregister();
+      rendererRef.current?.cleanup();
+    };
+  }, [registerRenderer, renderAIGCButton]);
 };

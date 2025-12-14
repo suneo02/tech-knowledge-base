@@ -20,6 +20,7 @@ export * from './positionCalculator';
 
 // 通用工具
 export * from './chapterLeafUtils';
+export * from './externalComponentConfig';
 export * from './externalComponentRenderer';
 export * from './rafThrottle';
 export * from './reactInstanceManager';
@@ -27,4 +28,3 @@ export * from './reactInstanceManager';
 // 业务特定工具（保持向后兼容）
 export * from './aigcButtonDomUtils';
 export * from './chapterHoverDomUtils';
-export * from './loadingPlaceholderDomUtils';

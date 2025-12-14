@@ -7,10 +7,9 @@ import {
   replaceSelectedText,
   restoreSelection,
   setChapterContent,
-  setChapterLoading,
   setEditorContent,
 } from '@/domain/reportEditor';
-import { ReportEditorRef } from '@/types/editor';
+import { ReportEditorRef, SelectionSnapshot } from '@/types/editor';
 import { useCallback, useImperativeHandle } from 'react';
 import { EditorDomSyncOptions, useEditorDomSync } from './useEditorDomSync';
 import { useEditorFacade } from './useEditorFacade';
@@ -70,7 +69,7 @@ export const useReportEditorRef = (
   );
 
   const restoreSelectionWrapper = useCallback(
-    (snapshot: any) => {
+    (snapshot: SelectionSnapshot) => {
       const editor = requireEditor();
       if (!editor) {
         throw new Error('Editor not available');
@@ -209,37 +208,14 @@ export const useReportEditorRef = (
         });
       },
 
-      setChapterLoading: (chapterId, loadingType, options = {}) => {
-        const editor = requireEditor();
-        if (!editor) {
-          return { success: false, error: 'Editor not available' };
-        }
-        return setChapterLoading(editor, chapterId, loadingType, options);
-      },
-
-      clearChapterLoading: (chapterId, options = {}) => {
-        const editor = requireEditor();
-        if (!editor) {
-          return { success: false, error: 'Editor not available' };
-        }
-        return setChapterLoading(editor, chapterId, 'none', options);
-      },
-
       isEditorReady: () => {
         const editor = facadeRef.current;
         return editor ? editor.isReady() : false;
       },
 
-      applyIdMap: (idMap, _options = {}) => applyIdMap(idMap),
+      applyIdMap: (idMap) => applyIdMap(idMap),
     }),
-    [
-      applyIdMap,
-      facadeRef,
-      requireEditor,
-      requestDomSync,
-      replaceSelectedTextWrapper,
-      restoreSelectionWrapper,
-    ]
+    [applyIdMap, facadeRef, requireEditor, requestDomSync, replaceSelectedTextWrapper, restoreSelectionWrapper]
   );
 
   const attachEditor = useCallback(

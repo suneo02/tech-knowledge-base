@@ -11,7 +11,6 @@ import { draftTreeReducers } from './draftTreeReducers';
 import { globalOpReducers } from './globalOp';
 import { hydrationReducers } from './hydrationReducers';
 import { reportFilesReducers } from './reportFilesReducers';
-import { uiControlReducers } from './uiControlReducers';
 
 /**
  * 合并所有reducer模块
@@ -37,9 +36,6 @@ export const allReducers = {
 
   // AIGC - AI 生成与改写（统一管理）
   ...aigcReducers,
-
-  // UI Control - 控制层操作
-  ...uiControlReducers,
 };
 
 // 导出各个模块便于单独使用
@@ -51,7 +47,6 @@ export {
   globalOpReducers,
   hydrationReducers,
   reportFilesReducers,
-  uiControlReducers,
 };
 
 /**
@@ -87,10 +82,5 @@ export const reducerModules = {
     name: 'AIGC Operations',
     description: '管理 AI 生成与改写：全文生成、多章节生成、单章节重生成、文本改写',
     reducers: Object.keys(aigcReducers),
-  },
-  uiControl: {
-    name: 'UI Control Layer',
-    description: '管理UI控制层：编辑器状态、消息等',
-    reducers: Object.keys(uiControlReducers),
   },
 } as const;

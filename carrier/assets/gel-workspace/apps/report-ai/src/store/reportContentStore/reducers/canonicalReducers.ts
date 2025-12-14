@@ -7,6 +7,8 @@
  * - 报告基本信息
  */
 
+import { MessageParsedReportContent } from '@/types';
+import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { PayloadAction } from '@reduxjs/toolkit';
 import type { RPDetailChapter } from 'gel-api';
 import { ReportContentState } from '../types';
@@ -30,13 +32,6 @@ export const canonicalReducers = {
   },
 
   /**
-   * 设置报告名称
-   */
-  setReportName: (state: ReportContentState, action: PayloadAction<string>) => {
-    state.reportName = action.payload;
-  },
-
-  /**
    * 处理单个章节完成（统一入口）
    *
    * 整合消息合并、状态更新、重注水触发的完整流程
@@ -47,6 +42,8 @@ export const canonicalReducers = {
     action: PayloadAction<{
       /** 目标章节ID */
       chapterId: string;
+      /** 解析后的消息列表（从 Context 传入） */
+      messages: MessageInfo<MessageParsedReportContent>[];
       /** 关联ID（可选） */
       correlationId?: string;
       /** 是否提取引用数据 */

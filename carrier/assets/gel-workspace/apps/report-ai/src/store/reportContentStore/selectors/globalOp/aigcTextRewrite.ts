@@ -7,11 +7,9 @@
  * @see apps/report-ai/docs/specs/text-ai-rewrite-implementation/spec-design-v1.md
  */
 
-import { getTextRewritePreviewContent, isTextRewriteCompleted } from '@/domain/chat/rpContentAIMessages';
 import { isTextRewriteOp } from '@/domain/globalOperation';
 import type { TextRewriteOperationData } from '@/types/editor';
 import { createSelector } from '@reduxjs/toolkit';
-import { selectParsedRPContentMessages } from '../base';
 import { selectGlobalOp } from './base';
 
 /**
@@ -62,25 +60,3 @@ export const selectTextRewriteError = createSelector(selectGlobalOp, (op) => {
 export const selectTextRewriteStartedAt = createSelector(selectGlobalOp, (op) => {
   return op.kind === 'text_rewrite' ? op.startedAt : null;
 });
-
-/**
- * 获取改写是否已完成
- */
-export const selectTextRewriteIsCompleted = createSelector(
-  [selectGlobalOp, selectParsedRPContentMessages, selectTextRewriteCorrelationId],
-  (op, messages, correlationId) => {
-    return op.kind === 'text_rewrite' ? isTextRewriteCompleted(messages, correlationId) : false;
-  }
-);
-
-/**
- * 获取预览内容
- *
- * 使用 domain 层的 getTextRewritePreviewContent 函数来获取最新内容
- */
-export const selectTextRewritePreviewContent = createSelector(
-  [selectParsedRPContentMessages, selectTextRewriteCorrelationId],
-  (messages, correlationId) => {
-    return getTextRewritePreviewContent(messages, correlationId);
-  }
-);

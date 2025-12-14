@@ -41,6 +41,7 @@ export const useInitReportContent = () => {
             rpContentActions.chapterLoadingSuccess({
               chapters: data.Data?.chapters || [],
               reportName: data.Data?.name || '',
+              referencePriority: data.Data?.referencePriority,
               loadedAt: Date.now(),
             })
           );

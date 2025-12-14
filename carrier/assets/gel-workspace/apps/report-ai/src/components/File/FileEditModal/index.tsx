@@ -19,6 +19,7 @@ interface FileEditModalProps {
 // 表单数据类型
 interface FileEditFormData {
   companyId?: string;
+  companyName?: string;
 }
 
 // API 错误类型
@@ -33,9 +34,12 @@ export const FileEditModal: React.FC<FileEditModalProps> = ({ visible, file, onC
   const [, setSelectedCorpId] = useState<string>(file?.fileRelateCode || '');
 
   // 处理企业选择
-  const handleCorpChange = (corpId: string) => {
+  const handleCorpChange = (corpId: string, corpName: string) => {
     setSelectedCorpId(corpId);
-    form.setFieldsValue({ companyId: corpId });
+    form.setFieldsValue({
+      companyId: corpId,
+      companyName: corpName,
+    });
   };
 
   // 更新文件信息
@@ -48,6 +52,7 @@ export const FileEditModal: React.FC<FileEditModalProps> = ({ visible, file, onC
       const response = await requestToChat('report/fileUpdate', {
         fileID: file?.fileID,
         fileRelateCode: values.companyId,
+        fileRelateName: values.companyName,
         fileTags: tags,
       });
       return response;
@@ -85,6 +90,7 @@ export const FileEditModal: React.FC<FileEditModalProps> = ({ visible, file, onC
     if (file && visible) {
       form.setFieldsValue({
         companyId: file.fileRelateCode,
+        companyName: file.fileRelateName,
       });
       setTags(file.tags || []);
       setSelectedCorpId(file.fileRelateCode || '');

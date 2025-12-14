@@ -1,12 +1,15 @@
 /**
  * 悬浮预览容器管理工具
  *
- * 负责创建、管理和清理悬浮预览容器
+ * @description
+ * 使用统一的 createExternalComponentRenderer 管理预览容器。
+ * 与其他外部组件（Loading Overlay、AIGC Button）保持一致的架构。
+ *
+ * @see apps/report-ai/src/components/ReportEditor/hooks/utils/externalComponentRenderer.ts
  */
 
 import { EditorFacade } from '@/domain/reportEditor';
-import { createRoot } from 'react-dom/client';
-import { createContainer, deferredCleanup, isEditorReady, safeRemoveElement } from '../../utils/editorDomUtils';
+import { ExternalComponentRenderer, isEditorReady } from '../../utils';
 import type { PreviewInstance } from '../types';
 import { calculatePreviewPosition } from './calculatePreviewPosition';
 
@@ -25,13 +28,19 @@ const PREVIEW_CONTAINER_STYLES = {
 /**
  * 创建预览容器
  *
+ * @description
+ * 使用统一的 createExternalComponentRenderer 创建容器。
+ * 与 Loading Overlay 和 AIGC Button 保持一致的实现方式。
+ *
  * @param editorFacade 编辑器引用
  * @param correlationId 关联 ID
+ * @param renderer 外部组件渲染器
  * @returns 预览容器实例，如果创建失败则返回 null
  */
 export function createPreviewContainer(
   editorFacade: EditorFacade | null,
-  correlationId: string
+  correlationId: string,
+  renderer: ExternalComponentRenderer<string>
 ): PreviewInstance | null {
   if (!isEditorReady(editorFacade)) {
     return null;
@@ -44,26 +53,27 @@ export function createPreviewContainer(
   }
 
   try {
-    // 使用统一的容器创建工具
-    const container = createContainer('text-rewrite-preview-container', {
-      ...position,
-      ...PREVIEW_CONTAINER_STYLES,
+    // 使用统一的渲染器创建实例
+    const instance = renderer.getOrCreateInstance(correlationId, {
+      className: 'text-rewrite-preview-container',
+      styles: {
+        ...position,
+        ...PREVIEW_CONTAINER_STYLES,
+      },
     });
 
-    // 添加到 body
-    document.body.appendChild(container);
+    // 显示实例
+    renderer.showInstance(correlationId);
 
-    // 创建 React Root
-    const root = createRoot(container);
-
-    const instance: PreviewInstance = {
-      container,
-      root,
+    const previewInstance: PreviewInstance = {
+      container: instance.container,
+      root: instance.root,
       correlationId,
     };
 
-    return instance;
+    return previewInstance;
   } catch (error) {
+    console.error('[TextRewritePreview] Failed to create preview container:', error);
     return null;
   }
 }
@@ -71,34 +81,25 @@ export function createPreviewContainer(
 /**
  * 清理预览容器
  *
- * @param instance 预览容器实例
+ * @description
+ * 使用统一的渲染器清理容器。
+ *
+ * @param correlationId 关联 ID
+ * @param renderer 外部组件渲染器
  */
-export function cleanupPreviewContainer(instance: PreviewInstance | null): void {
-  if (!instance) {
+export function cleanupPreviewContainer(
+  correlationId: string | null,
+  renderer: ExternalComponentRenderer<string>
+): void {
+  if (!correlationId) {
     return;
   }
 
-  const { container, root } = instance;
-  const element = container as HTMLElement;
-
-  if (element.dataset.previewUnmounting === 'true') {
-    return;
+  try {
+    renderer.deleteInstance(correlationId);
+  } catch (error) {
+    console.error('[TextRewritePreview] Failed to cleanup preview container:', error);
   }
-  element.dataset.previewUnmounting = 'true';
-
-  const performCleanup = () => {
-    try {
-      root.unmount();
-    } catch (error) {
-      // Silent cleanup
-    } finally {
-      safeRemoveElement(element);
-      delete element.dataset.previewUnmounting;
-    }
-  };
-
-  // 使用统一的延迟清理工具
-  deferredCleanup(performCleanup);
 }
 
 /**

@@ -41,7 +41,7 @@ export interface UseChapterRegenerationReturn {
  * - 注水逻辑（由 useRehydrationOrchestrator 处理）
  */
 export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
-  const { sendRPContentMessage, setMessages } = useReportDetailContext();
+  const { sendRPContentMsg, setMsgs } = useReportDetailContext();
   const dispatch = useReportContentDispatch();
 
   // 从Redux获取状态
@@ -65,7 +65,7 @@ export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
       try {
         // 🔑 关键：先清空 Context 中的历史消息，避免 ChatSync 重新同步回来
         // 这样可以防止 useCompletionHandler 重复检测到历史完成消息
-        setMessages([]);
+        setMsgs([]);
         // 触发共享的章节操作启动逻辑：负责锁定章节、清空 canonical 内容并生成 correlationId
         dispatch(
           rpContentSlice.actions.startChapterOperation({
@@ -84,7 +84,7 @@ export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
         );
       }
     },
-    [dispatch, isGlobalBusy, setMessages]
+    [dispatch, isGlobalBusy, setMsgs]
   );
 
   /**
@@ -127,7 +127,7 @@ export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
     }
 
     // 发送生成请求
-    sendRPContentMessage({
+    sendRPContentMsg({
       content: ChatPresetQuestion.GENERATE_FULL_TEXT,
       chapterId: currentChapterId,
     });
@@ -140,7 +140,7 @@ export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
         correlationId,
       })
     );
-  }, [dispatch, isRegenerating, currentChapterId, globalOperation, latestRequestedOperations, sendRPContentMessage]);
+  }, [dispatch, isRegenerating, currentChapterId, globalOperation, latestRequestedOperations, sendRPContentMsg]);
 
   /**
    * 章节重生成结束或被取消时清理请求标记，允许后续重新生成。

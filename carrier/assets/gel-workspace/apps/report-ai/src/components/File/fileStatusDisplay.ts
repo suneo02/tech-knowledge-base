@@ -1,7 +1,7 @@
 /**
  * 文件解析状态展示工具
  *
- * @description 提供文件解析状态的显示文本、图标和样式
+ * @description 提供文件解析状态的显示文本和样式
  */
 
 import { RPFileStatus } from 'gel-api';
@@ -33,6 +33,11 @@ export interface FileStatusDisplay {
  * const display = getFileStatusDisplay(RPFileStatus.UPLOADED);
  * // { text: '解析中', type: 'processing', loading: true }
  * ```
+ * 
+ * 财报相关状态会在文件名称下提示：
+ * - 财报诊断-信息确认（需要确认财报信息）
+ * - 财报诊断-未配平（需要平衡诊断或未配平）
+ * 并提供点击查看按钮
  */
 export function getFileStatusDisplay(status?: RPFileStatus): FileStatusDisplay {
   if (status === undefined) {
@@ -46,14 +51,12 @@ export function getFileStatusDisplay(status?: RPFileStatus): FileStatusDisplay {
     case RPFileStatus.FINISHED:
       return {
         text: '已完成',
-        icon: '✓',
         type: 'success',
       };
 
     case RPFileStatus.UPLOADED:
       return {
         text: '解析中',
-        icon: '⏳',
         type: 'processing',
         loading: true,
       };
@@ -61,7 +64,6 @@ export function getFileStatusDisplay(status?: RPFileStatus): FileStatusDisplay {
     case RPFileStatus.OUTLINE_PARSED:
       return {
         text: '大纲已解析',
-        icon: '📝',
         type: 'processing',
         loading: true,
       };
@@ -69,30 +71,26 @@ export function getFileStatusDisplay(status?: RPFileStatus): FileStatusDisplay {
     case RPFileStatus.FAILED:
       return {
         text: '解析失败',
-        icon: '✗',
         type: 'error',
       };
 
     case RPFileStatus.FINANCE_INFO_PENDING:
       return {
-        text: '财报-待信息确认',
-        icon: '📋',
+        text: '财报诊断-信息确认',
         type: 'error',
         showViewButton: true,
       };
 
     case RPFileStatus.FINANCE_BALANCE_PENDING:
       return {
-        text: '财报-待平衡诊断',
-        icon: '⚖️',
+        text: '财报诊断-未配平',
         type: 'error',
         showViewButton: true,
       };
 
     case RPFileStatus.FINANCE_NOT_BALANCED:
       return {
-        text: '财报-未配平',
-        icon: '⚠️',
+        text: '财报诊断-未配平',
         type: 'error',
         showViewButton: true,
       };

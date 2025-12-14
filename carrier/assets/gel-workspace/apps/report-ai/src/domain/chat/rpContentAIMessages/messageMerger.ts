@@ -104,10 +104,7 @@ export const mergeMessagesToChapters = (
       }
 
       // 检查消息是否已完成
-      if (
-        latestAIContentMessage.message.status !== 'finish' &&
-        latestAIContentMessage.message.status !== 'stream_finish'
-      ) {
+      if (latestAIContentMessage.message.status !== 'finish') {
         continue;
       }
 
@@ -195,7 +192,7 @@ export const shouldMergeChapter = (
   }
 
   // 只有完成的消息才需要合并
-  return latestMessage.message.status === 'finish' || latestMessage.message.status === 'stream_finish';
+  return latestMessage.message.status === 'finish';
 };
 
 /**

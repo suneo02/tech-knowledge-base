@@ -31,7 +31,7 @@ export interface UseHydrationExecutorOptions {
  * @description 读取 Redux 任务，执行编辑器操作
  */
 export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
-  const { editorRef  } = options;
+  const { editorRef } = options;
   const dispatch = useReportContentDispatch();
 
   const currentTask = useReportContentSelector(selectCurrentHydrationTask);
@@ -64,11 +64,8 @@ export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
     // 执行对应的注水操作
     const executeTask = async () => {
       try {
-
-
         switch (currentTask.type) {
           case 'full-init': {
-    
             // 生成完整 HTML 并注入编辑器
             // 当 Redux 中的 chapter.content 被清空后，这里会将空内容注入 TinyMCE
             await editorRef.current?.setFullContent(docHtml);
@@ -77,7 +74,6 @@ export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
           }
 
           case 'full-rehydrate': {
-
             // 生成完整 HTML 并注入编辑器
             // 全文生成开始时，Redux 中的 chapter.content 已被清空，这里会将空内容同步到编辑器
             // @see {@link ../../../../docs/RPDetail/ContentManagement/full-generation-flow.md#清空流程 | 全文生成流程 - 清空流程}
@@ -87,7 +83,6 @@ export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
           }
 
           case 'chapter-rehydrate': {
-
             // 逐个章节注水
             for (let i = 0; i < currentTask.chapterIds.length; i++) {
               const chapterId = currentTask.chapterIds[i];
@@ -95,7 +90,7 @@ export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
 
               if (chapterContentHtml) {
                 await editorRef.current?.updateChapterContent(chapterId, chapterContentHtml);
-              } 
+              }
             }
 
             // 完成任务
@@ -104,10 +99,10 @@ export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
           }
 
           default:
-              console.warn('[HydrationExecutor] Unknown task type:', currentTask);
+            console.warn('[HydrationExecutor] Unknown task type:', currentTask);
         }
       } catch (error) {
-          console.error('[HydrationExecutor] Task execution failed:', error);
+        console.error('[HydrationExecutor] Task execution failed:', error);
         // 失败也要重置任务，避免卡住
         dispatch(
           rpContentSlice.actions.setHydrationTask({

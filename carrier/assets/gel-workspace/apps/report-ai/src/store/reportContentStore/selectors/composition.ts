@@ -1,18 +1,18 @@
 /**
  * 章节内容合成相关选择器
  *
- * 将 Canonical 层的章节数据与已解析的消息合成为渲染所需的内容和状态
+ * 将 Canonical 层的章节数据合成为渲染所需的内容
  * 按照三层架构：直接从 RPDetailChapter 派生渲染数据，避免中间类型
+ *
+ * 注意：流式预览和状态映射函数已移至 domain 层
+ * @see {@link ../../../domain/reportEditor/chapter/composition.ts}
  */
 
-import { determineChapterAIMessageStatus } from '@/domain/chapter';
-import { getLatestMessageByChapterIdRole } from '@/domain/chat/rpContentAIMessages';
 import { renderChapter, renderContentFromChapter, renderFullDocument } from '@/domain/reportEditor';
 import { RPChapterEnriched } from '@/types';
-import { ChapterGenerationStatus } from '@/types/editor';
 import { createSelector } from '@reduxjs/toolkit';
 import type { RPDetailChapter } from 'gel-api';
-import { selectChapters, selectParsedRPContentMessages, selectReportName } from './base';
+import { selectChapters, selectReportName } from './base';
 import { selectCanonicalChaptersEnriched, selectReferenceOrdinalMap } from './chaptersCanonical';
 
 /**
@@ -47,21 +47,29 @@ export const selectCanonicalChapterHtmlMap = createSelector(
   }
 );
 
+// 注意：createChapterStreamPreviewMap 已移至 domain 层
+// 请从 @/domain/reportEditor/chapter 导入
+
 /**
- * 选择器：章节内容映射（仅内容，用于流式更新）
- * 返回 chapterId -> contentHtml 的映射，不包含标题和外层结构
- * 专门用于流式更新时更新 contentContainer
+ * 选择器：章节注水内容映射
+ * 返回 chapterId -> contentHtml 的映射，用于注水到编辑器
+ *
+ * ⚠️ 注意：此选择器不依赖 messages，直接使用 chapter.content
+ * - 确保注水时使用包含完整溯源数据的内容（DPU、RAG、files）
+ * - 用于章节完成后的注水操作
+ *
+ * @see {@link ../../../docs/issues/chapter-rendering-missing-source-data.md | 章节渲染缺失溯源数据问题}
  */
 export const selectChapterContentMap = createSelector(
-  [selectChapters, selectParsedRPContentMessages, selectReferenceOrdinalMap],
-  (chapters, messages, referenceOrdinalMap): Record<string, string> => {
+  [selectChapters, selectReferenceOrdinalMap],
+  (chapters, referenceOrdinalMap): Record<string, string> => {
     const contentMap: Record<string, string> = {};
 
     const traverseChapters = (chapterList: RPDetailChapter[]) => {
       chapterList.forEach((chapter) => {
         const chapterId = String(chapter.chapterId);
-        const message = getLatestMessageByChapterIdRole(messages || [], chapterId, 'aiReportContent');
-        contentMap[chapterId] = renderContentFromChapter(chapter, message, referenceOrdinalMap);
+        // 直接使用 chapter.content，不依赖 messages
+        contentMap[chapterId] = renderContentFromChapter(chapter, undefined, referenceOrdinalMap);
 
         if (chapter.children?.length) {
           traverseChapters(chapter.children);
@@ -74,31 +82,8 @@ export const selectChapterContentMap = createSelector(
   }
 );
 
-/**
- * 选择器：章节 AI 消息状态映射
- * 返回 chapterId -> status 的映射，用于UI控制
- */
-export const selectChapterAIMessageStatusMap = createSelector(
-  [selectChapters, selectParsedRPContentMessages],
-  (chapters, messages): Record<string, ChapterGenerationStatus> => {
-    const statusMap: Record<string, ChapterGenerationStatus> = {};
-
-    const traverseChapters = (chapterList: RPDetailChapter[]) => {
-      chapterList.forEach((chapter) => {
-        const chapterId = String(chapter.chapterId);
-        const message = getLatestMessageByChapterIdRole(messages || [], chapterId, 'aiReportContent');
-        statusMap[chapterId] = determineChapterAIMessageStatus(message, chapter);
-
-        if (chapter.children?.length) {
-          traverseChapters(chapter.children);
-        }
-      });
-    };
-
-    traverseChapters(chapters);
-    return statusMap;
-  }
-);
+// 注意：createChapterAIMessageStatusMap 已移至 domain 层
+// 请从 @/domain/reportEditor/chapter 导入
 
 /**
  * 选择器：完整 Canonical HTML 文档

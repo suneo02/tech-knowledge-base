@@ -12,13 +12,14 @@
  * 原名：useStreamingGenerationHydration
  */
 
+import { useReportDetailContext } from '@/context';
+import { createChapterAIMessageStatusMap, createChapterStreamPreviewMap } from '@/domain/reportEditor/chapter';
 import { SectionDeduper } from '@/domain/reportEditor/editor';
 import { ReportEditorRef } from '@/types/editor';
 import type { RefObject } from 'react';
 import { useEffect, useRef } from 'react';
 import { useReportContentSelector } from '../../hooksRedux';
-import { selectChapterAIMessageStatusMap, selectChapterContentMap, selectIsChapterAIGCOp } from '../../selectors';
-import { selectParsedRPContentMessages } from '../../selectors/base';
+import { selectChapters, selectIsChapterAIGCOp, selectReferenceOrdinalMap } from '../../selectors';
 
 export interface UseStreamingPreviewOptions {
   editorRef: RefObject<ReportEditorRef> | null;
@@ -28,10 +29,15 @@ export interface UseStreamingPreviewOptions {
 export const useChapterStreamPreview = (options: UseStreamingPreviewOptions) => {
   const { editorRef, enableStreaming = true } = options;
 
+  const { parsedRPContentMsgs, rpContentAgentMsgs } = useReportDetailContext();
+
   const isChapterAigc = useReportContentSelector(selectIsChapterAIGCOp);
-  const contentMap = useReportContentSelector(selectChapterContentMap);
-  const statusMap = useReportContentSelector(selectChapterAIMessageStatusMap);
-  const parsedMessages = useReportContentSelector(selectParsedRPContentMessages);
+  const chapters = useReportContentSelector(selectChapters);
+  const referenceOrdinalMap = useReportContentSelector(selectReferenceOrdinalMap);
+
+  // 使用函数生成内容映射和状态映射
+  const contentMap = createChapterStreamPreviewMap(chapters, parsedRPContentMsgs, referenceOrdinalMap);
+  const statusMap = createChapterAIMessageStatusMap(chapters, rpContentAgentMsgs);
 
   // 去重器（跨渲染周期缓存）
   const deduperRef = useRef(new SectionDeduper());
@@ -42,7 +48,7 @@ export const useChapterStreamPreview = (options: UseStreamingPreviewOptions) => 
     if (!isChapterAigc) return;
     if (!editorRef?.current) return;
     if (!contentMap || Object.keys(contentMap).length === 0) return;
-    if (!parsedMessages || parsedMessages.length === 0) return;
+    if (!parsedRPContentMsgs || parsedRPContentMsgs.length === 0) return;
 
     const editorRef_current = editorRef.current;
     if (!editorRef_current.isEditorReady()) return;
@@ -75,7 +81,11 @@ export const useChapterStreamPreview = (options: UseStreamingPreviewOptions) => 
         failureCount++;
       }
     }
-  }, [enableStreaming, isChapterAigc, parsedMessages, contentMap, statusMap, editorRef]);
+
+    // 注意：外部组件（Loading 指示器、AIGC 按钮）的渲染已经通过 props 和内部状态自动驱动
+    // statusMap 变化会自动触发 loadingChapters 更新，进而触发外部组件重新渲染
+    // 因此这里不需要手动调用 renderExternalComponents
+  }, [enableStreaming, isChapterAigc, parsedRPContentMsgs, contentMap, statusMap, editorRef]);
 
   // 生成结束后重置去重缓存
   useEffect(() => {

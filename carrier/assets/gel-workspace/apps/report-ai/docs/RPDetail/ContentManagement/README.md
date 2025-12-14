@@ -112,6 +112,7 @@ flowchart LR
 - [报告编辑器设计](../README.md) - 编辑器整体设计
 - [生命周期与控制](./lifecycle-flow.md) - 核心流程与互斥编排
 - [数据层指南](./data-layer-guide.md) - 数据模型与状态管理
+- [Correlation ID 设计](./correlation-id-design.md) - 操作追踪机制详解
 
 ### AIGC 流程体系
 

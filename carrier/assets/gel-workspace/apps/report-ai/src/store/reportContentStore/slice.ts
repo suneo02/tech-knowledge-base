@@ -20,7 +20,6 @@ const createInitialState = (): ReportContentState => ({
   // === Canonical Layer - 已确认层 ===
   chapters: [],
   reportId: undefined,
-  reportName: '',
 
   // === Draft Layer - 会话层 ===
   documentDraft: null,
@@ -40,7 +39,6 @@ const createInitialState = (): ReportContentState => ({
     data: null,
     error: null,
   },
-  parsedRPContentMessages: [],
   chapterStates: {},
 
   // === 文件状态管理 ===

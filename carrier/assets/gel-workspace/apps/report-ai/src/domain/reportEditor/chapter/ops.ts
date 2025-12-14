@@ -1,7 +1,7 @@
 import { ChapterGenerationStatus } from '@/types/editor';
 import { ChapterContentUpdateResult, EditorContentUpdateOptions } from '../editor';
 import type { EditorFacade } from '../editor/editorFacade';
-import { findChapterDOMById, findChapterHeading } from './query';
+import { findChapterDOMById } from './query';
 
 /**
  * 流式内容更新选项
@@ -12,11 +12,6 @@ export interface StreamingUpdateOptions extends EditorContentUpdateOptions {
   /** 渲染完成回调 */
   onRendered?: (chapterId: string, html: string, status: ChapterGenerationStatus) => void;
 }
-
-/**
- * Loading 状态类型
- */
-export type ChapterEditorLoadingType = 'pending' | 'receiving' | 'none';
 
 /**
  * 设置指定章节的内容
@@ -84,56 +79,11 @@ export const setChapterContent = (
 };
 
 /**
- * 设置章节 Loading 状态
- *
- * @param editor EditorFacade 实例
- * @param chapterId 章节ID
- * @param loadingType Loading 类型
- * @param options 更新选项
- * @returns 更新结果
- */
-export const setChapterLoading = (
-  editor: EditorFacade,
-  chapterId: string | number,
-  loadingType: ChapterEditorLoadingType,
-  options: EditorContentUpdateOptions = {}
-): ChapterContentUpdateResult => {
-  const { debug = false } = options;
-
-  try {
-    if (!editor.isReady()) {
-      return { success: false, error: 'Editor is not ready' };
-    }
-
-    const headingElement = findChapterHeading(editor, chapterId);
-    if (!headingElement) {
-      return { success: false, error: `Chapter heading not found for chapter ${chapterId}` };
-    }
-
-    // 移除所有 loading 相关的类名
-    headingElement.classList.remove('loading', 'pending', 'receiving');
-
-    // 设置新的 loading 状态
-    if (loadingType !== 'none') {
-      headingElement.classList.add('loading', loadingType);
-    }
-
-    if (debug) {
-      console.log(`[setChapterLoading] Set chapter ${chapterId} loading: ${loadingType}`);
-    }
-
-    return { success: true, contentLength: 0 };
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    if (debug) {
-      console.error(`[setChapterLoading] Failed to set chapter loading ${chapterId}:`, error);
-    }
-    return { success: false, error: errorMessage };
-  }
-};
-
-/**
  * 应用流式更新到章节
+ *
+ * @description
+ * 根据章节状态更新编辑器内容。Loading 指示器由外部浮层组件（useChapterLoadingOverlay）
+ * 负责显示，不再通过 DOM class 控制。
  *
  * @param editor EditorFacade 实例
  * @param chapterId 章节ID
@@ -141,6 +91,8 @@ export const setChapterLoading = (
  * @param status 章节状态
  * @param options 流式更新选项
  * @returns 更新结果
+ *
+ * @see apps/report-ai/docs/specs/chapter-title-loading-indicator/spec-core-v1.md
  */
 export const applyStreamingUpdate = (
   editor: EditorFacade,
@@ -161,11 +113,8 @@ export const applyStreamingUpdate = (
 
     switch (status) {
       case 'pending': {
-        // 清空内容并设置 pending loading
+        // 清空内容（Loading 指示器由外部浮层显示，不需要 DOM class）
         result = setChapterContent(editor, chapterId, '', updateOptions);
-        if (result.success) {
-          setChapterLoading(editor, chapterId, 'pending', updateOptions);
-        }
         break;
       }
 
@@ -174,11 +123,8 @@ export const applyStreamingUpdate = (
           result = { success: false, error: 'No HTML content for receiving status' };
           break;
         }
-        // 更新内容并设置 receiving loading
+        // 更新流式内容
         result = setChapterContent(editor, chapterId, html, updateOptions);
-        if (result.success) {
-          setChapterLoading(editor, chapterId, 'receiving', updateOptions);
-        }
         break;
       }
 
@@ -187,11 +133,8 @@ export const applyStreamingUpdate = (
           result = { success: false, error: 'No HTML content for finish status' };
           break;
         }
-        // 设置最终内容并清除 loading
+        // 设置最终内容
         result = setChapterContent(editor, chapterId, html, updateOptions);
-        if (result.success) {
-          setChapterLoading(editor, chapterId, 'none', updateOptions);
-        }
         break;
       }
 

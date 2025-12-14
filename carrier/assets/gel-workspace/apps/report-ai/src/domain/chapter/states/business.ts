@@ -9,16 +9,17 @@
  * @module chapter/states/business
  */
 
-import { MessageParsedReportContent } from '@/types';
+import { MessageParsedReportContent, RPContentAgentMsgAI } from '@/types';
 import { ChapterGenerationStatus } from '@/types/editor';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { RPDetailChapter } from 'gel-api';
 
 /**
  * 确定章节关联的 AI 消息状态（纯函数）
+ * 支持解析后的消息和原始 Agent 消息
  */
 export const determineChapterAIMessageStatus = (
-  message?: MessageInfo<MessageParsedReportContent>,
+  message?: MessageInfo<MessageParsedReportContent | RPContentAgentMsgAI>,
   chapter?: RPDetailChapter
 ): ChapterGenerationStatus => {
   if (!message) {

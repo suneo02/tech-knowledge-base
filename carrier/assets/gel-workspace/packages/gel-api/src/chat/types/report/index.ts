@@ -15,4 +15,5 @@ export type {
   RPChapterIdIdentifier,
   RPChapterOperation,
 } from './outline'
+export type { RPReferencePriority } from './report'
 export type { ReportTemplateItem } from './template'

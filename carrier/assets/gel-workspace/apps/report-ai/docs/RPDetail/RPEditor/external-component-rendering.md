@@ -3,148 +3,225 @@
 > 📖 本文档遵循 [设计文档编写规范](../../../docs/rule/design-doc.md)  
 > ↩️ 回链：[ReportEditor 设计](./design.md)
 
-## 🧭 设计概览
+## 🎯 设计目标
 
-在 TinyMCE iframe 外部渲染 React 组件（加载占位、AIGC 按钮、文本改写预览），提供实时反馈与交互提示。
+在 TinyMCE iframe 外部渲染 React 组件，提供实时反馈与交互提示，同时保持编辑器内容纯净。
 
-## 🗺 架构与组件关系
+## 🏗 架构概览
 
-```mermaid
-graph TD
-  Editor[ReportEditor] --> Renderer[useExternalComponentRenderer]
-  Renderer --> Loading[useLoadingPlaceholders]
-  Renderer --> Hover[useChapterHoverWithInit]
-  Renderer --> Button[useAIGCButton]
+### 组件分层
 
-  TextRewrite[文本改写流程] --> Preview[useTextRewritePreview]
+```
+useExternalComponentRenderer (协调层)
+├── 注册器机制 - 统一调度多个外部组件
+├── RAF 调度 - microtask + RAF 两阶段渲染
+└── 状态协调 - hover、loading 等共享状态
 
-  Loading --> DOM1[编辑器内占位容器]
-  Button --> DOM2[body 全局容器]
-  Preview --> DOM3[body 全局容器]
+外部组件 (渲染层)
+├── Loading Overlay - 章节生成时的加载指示
+├── AIGC Button - 章节悬停时的操作按钮
+└── Text Rewrite Preview - 文本改写预览（独立调度）
 
-  Hover -.检测.-> Button
+工具层
+├── createExternalComponentRenderer - 统一渲染器
+├── 定位工具 - getEditorFrameOffset 等
+└── DOM 工具 - isEditorReady 等
 ```
 
-**分层职责**：
+### 渲染策略
 
-- 协调层：`useExternalComponentRenderer` 统一调度加载占位与 AIGC 按钮
-- 独立层：`useTextRewritePreview` 独立管理文本改写预览
-- 检测层：`useChapterHoverWithInit` 提供章节悬停检测
+| 组件            | 位置            | 生命周期 | 调度方式     |
+| --------------- | --------------- | -------- | ------------ |
+| Loading Overlay | `document.body` | 生成期间 | 注册器 + RAF |
+| AIGC Button     | `document.body` | 悬停期间 | 注册器 + RAF |
+| Text Rewrite    | `document.body` | 改写会话 | 独立 RAF     |
 
-## 🧱 渲染策略
+**关键特性：**
 
-| 组件类型     | 渲染位置        | 生命周期     | 定位方式 | 实现 Hook                |
-| ------------ | --------------- | ------------ | -------- | ------------------------ |
-| 加载占位     | 编辑器内部 DOM  | 跟随章节内容 | 静态内联 | `useLoadingPlaceholders` |
-| AIGC 按钮    | `document.body` | 悬停期间     | 绝对定位 | `useAIGCButton`          |
-| 文本改写预览 | `document.body` | 改写会话期间 | 绝对定位 | `useTextRewritePreview`  |
+- 所有组件渲染在 `document.body`，不污染编辑器 DOM
+- 使用绝对定位，基于 iframe 偏移计算位置
+- 通过 RAF 批量渲染，减少重排/重绘
 
-**渲染时机**：使用 `Promise.resolve().then(() => requestAnimationFrame(...))` 延迟，避免与流式 DOM 更新竞争。
+## 🎨 设计规范
 
-## 🔄 核心 Hook
+### 1. 统一渲染器
 
-### useExternalComponentRenderer（协调器）
+所有外部组件必须使用 `createExternalComponentRenderer`。
 
-统一调度加载占位与 AIGC 按钮的渲染时机。
+**配置管理：**
 
-**代码**：`@/components/ReportEditor/hooks/useExternalComponentRenderer.tsx`
+- 使用 `EXTERNAL_COMPONENT_CONFIGS` 预定义配置
+- 统一管理 z-index 层级和组件 ID
 
----
-
-### useLoadingPlaceholders（加载占位）
-
-在章节生成时渲染加载动画与停止按钮。
-
-**流程**：查找 `[data-chapter-loading="true"]` 容器 → 创建挂载点 `loading-mount-{chapterId}` → 渲染 `<AliceGenerating />` → 清理已消失章节。
-
-**代码**：`@/components/ReportEditor/hooks/useLoadingPlaceholders.tsx`  
-**工具**：`@/components/ReportEditor/hooks/utils/loadingPlaceholderDomUtils.ts`
+**收益：** 统一的生命周期、实例缓存、清理逻辑
 
 ---
 
-### useChapterHoverWithInit（悬停检测）
+### 2. 注册器模式
 
-检测鼠标悬停在章节标题（h1-h6）上的状态。
+需要统一调度的组件使用注册器模式。
 
-**策略**：
+**适用场景：**
 
-- 使用 `document.elementFromPoint` 快速定位
-- 在 `requestAnimationFrame` 中执行检测
-- 按钮守卫：标题离开时不立即清空，等待按钮接管；按钮 hover 期间锁定章节信息
+- ✅ 需要与其他组件同步渲染（如 Loading + AIGC Button）
+- ❌ 完全独立的生命周期（如 Text Rewrite）
 
-**输出**：
+**实现：** 通过 `registerRenderer` 注册，返回 `unregister` 函数清理
 
-```typescript
-interface ChapterHoverInfo {
-  chapterId: string;
-  element: HTMLElement;
-  position: { top: number; left: number };
-}
+---
+
+### 3. Props 驱动
+
+所有外部状态通过 props 传入，避免内部订阅 Redux。
+
+**原则：**
+
+- ✅ 状态由父组件计算并传入
+- ✅ 使用 selector 计算派生状态
+- ❌ 不在 hook 内部直接订阅 Redux
+
+---
+
+### 4. 统一定位
+
+使用统一的定位工具计算位置。
+
+**核心工具：**
+
+- `getEditorFrameOffset()` - 获取 iframe 偏移
+- `getBoundingClientRect()` - 获取元素位置
+- `calculateFloatingPosition()` - 计算浮层位置
+
+---
+
+### 5. RAF 调度
+
+所有渲染在 RAF 中执行，避免与 TinyMCE DOM 更新冲突。
+
+**调度流程：**
+
+```
+业务触发 → queueMicrotask → RAF → 批量渲染
 ```
 
-**代码**：`@/components/ReportEditor/hooks/useChapterHoverWithInit.tsx`  
-**工具**：`@/components/ReportEditor/hooks/utils/chapterHoverDomUtils.ts`
+## 📦 核心组件
+
+### useExternalComponentRenderer
+
+**职责：** 协调所有外部组件的渲染
+
+**关键功能：**
+
+- 提供 `registerRenderer` 注册机制
+- 提供 `requestRender` 触发渲染
+- 通过 microtask + RAF 合并渲染请求
+- 错误隔离（单个组件失败不影响其他）
+
+**代码：** `hooks/useExternalComponentRenderer.tsx`
 
 ---
 
-### useAIGCButton（AIGC 按钮）
+### useChapterLoadingOverlay
 
-在悬停章节标题时显示 AIGC 按钮。
+**职责：** 显示章节生成时的 Loading 指示
 
-**策略**：
+**特点：**
 
-- 全局容器：在 `document.body` 创建固定定位容器
-- 按钮实例：每个章节对应一个实例，复用 React Root
-- 显示控制：通过 CSS `display` 切换可见性
+- 使用注册器模式
+- 完全由 props 驱动（`activeChapters`）
+- 定位到标题正下方
+- 自动清理实例
 
-**流程**：检测章节悬停 → 计算位置（基于 `getBoundingClientRect()` + iframe 偏移） → 创建/复用实例 → 渲染组件 → 鼠标移动到按钮时锁定 → 离开时隐藏。
-
-**代码**：`@/components/ReportEditor/hooks/useAIGCButton.tsx`  
-**工具**：`@/components/ReportEditor/hooks/utils/aigcButtonDomUtils.ts`
-
----
-
-### useTextRewritePreview（文本改写预览）
-
-在文本改写时显示悬浮预览组件。
-
-**生命周期**：mount（创建容器 + 加载状态） → update（流式更新，100ms 节流） → complete（显示最终内容 + 操作按钮） → unmount（用户决策后清理）。
-
-**定位**：基于选区位置，优先下方，空间不足时上方，边界处理降级到居中。
-
-**模块**：`hook.tsx`（主 Hook）、`types.ts`（类型）、`utils/calculatePreviewPosition.ts`（位置）、`utils/previewContainerManager.ts`（容器）、`utils/previewRenderer.tsx`（渲染）。
-
-**代码**：`@/components/ReportEditor/hooks/useTextRewritePreview/`  
-**设计**：`@/docs/specs/text-ai-rewrite-preview-floating/spec-preview-floating-v1.md`
-
-## 🛠 通用工具
-
-### positionCalculator
-
-统一的浮层位置计算逻辑。
-
-**代码**：`@/components/ReportEditor/hooks/utils/positionCalculator.ts`
+**代码：** `hooks/useChapterLoadingOverlay.tsx`  
+**Spec：** `specs/chapter-title-loading-indicator/spec-core-v1.md`
 
 ---
 
-### editorDomUtils
+### useAIGCButton
 
-编辑器 DOM 操作工具：`isEditorReady()`、`getEditorBody()`、`getEditorFrameOffset()`、`applyStylesToElement()`、`deferredCleanup()`。
+**职责：** 显示章节悬停时的 AIGC 按钮
 
-**代码**：`@/components/ReportEditor/hooks/utils/editorDomUtils.ts`
+**特点：**
 
-## 📋 错误处理
+- 使用注册器模式
+- 基于 hover 状态显示/隐藏
+- 复用 React Root
+- 定位到标题右侧
 
-| 场景           | 处理策略                 |
-| -------------- | ------------------------ |
-| 编辑器未就绪   | 静默跳过渲染             |
-| 容器查找失败   | 静默跳过，等待下次渲染   |
-| React 渲染异常 | 捕获错误，清理容器，日志 |
-| 定位计算失败   | 降级到居中布局           |
+**代码：** `hooks/useAIGCButton.tsx`  
+**Spec：** `specs/aigc-button-on-hover/spec-design-v1.md`
 
-**原则**：外部组件渲染失败不影响编辑器核心功能，所有错误静默处理。
+---
 
-## 相关文档
+### useTextRewritePreview
+
+**职责：** 显示文本改写预览
+
+**特点：**
+
+- 独立调度（不使用注册器）
+- 生命周期与改写会话绑定
+- 基于选区位置定位
+- 流式更新内容
+
+**代码：** `hooks/useTextRewritePreview/`  
+**Spec：** `specs/text-ai-rewrite-preview-floating/spec-preview-floating-v1.md`
+
+## 🛠 工具函数
+
+### 渲染器工具
+
+- `createExternalComponentRenderer()` - 创建渲染器实例
+- `createGlobalContainerConfig()` - 创建配置
+- `EXTERNAL_COMPONENT_CONFIGS` - 预定义配置
+
+**代码：** `hooks/utils/externalComponentRenderer.ts`
+
+---
+
+### 定位工具
+
+- `getEditorFrameOffset()` - 获取 iframe 偏移
+- `calculateFloatingPosition()` - 计算浮层位置
+- `getFallbackCenterPosition()` - 降级居中定位
+
+**代码：** `hooks/utils/positionCalculator.ts`
+
+---
+
+### DOM 工具
+
+- `isEditorReady()` - 检查编辑器就绪
+- `getEditorBody()` - 获取编辑器 body
+- `getEditorDocumentContext()` - 获取 iframe 上下文
+
+**代码：** `hooks/utils/editorDomUtils.ts`
+
+## ⚠️ 错误处理
+
+**原则：** 外部组件渲染失败不影响编辑器核心功能
+
+**策略：**
+
+- 编辑器未就绪 → 静默跳过
+- 元素查找失败 → 等待下次渲染
+- React 渲染异常 → 捕获错误，清理容器
+- 定位计算失败 → 降级到居中布局
+- 单个渲染器失败 → 错误隔离，记录日志
+
+## 📚 相关文档
+
+**设计文档：**
 
 - [ReportEditor 设计](./design.md)
-- [文本改写预览 Spec](../../specs/text-ai-rewrite-preview-floating/spec-preview-floating-v1.md)
+
+**Spec 文档：**
+
+- [Loading 指示器](../../specs/chapter-title-loading-indicator/spec-core-v1.md)
+- [AIGC 按钮](../../specs/aigc-button-on-hover/spec-design-v1.md)
+- [文本改写预览](../../specs/text-ai-rewrite-preview-floating/spec-preview-floating-v1.md)
+
+**审查报告：**
+
+- [外部组件审查](../../specs/chapter-title-loading-indicator/EXTERNAL_COMPONENTS_REVIEW.md)
+- [统一完成报告](../../specs/chapter-title-loading-indicator/UNIFICATION_COMPLETE.md)

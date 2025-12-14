@@ -30,8 +30,6 @@ export {
   selectTextRewriteCorrelationId,
   selectTextRewriteData,
   selectTextRewriteError,
-  selectTextRewriteIsCompleted,
-  selectTextRewritePreviewContent,
   selectTextRewriteSnapshot,
   selectTextRewriteStartedAt,
   selectTextRewriteTaskType,

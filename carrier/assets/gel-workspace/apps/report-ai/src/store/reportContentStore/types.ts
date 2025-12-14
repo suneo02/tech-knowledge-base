@@ -7,7 +7,7 @@
  */
 
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
-import { RPDetailChapter, RPFile } from 'gel-api';
+import { RPDetailChapter, RPFile, RPReferencePriority } from 'gel-api';
 
 // 引用核心业务类型
 import { MessageParsedReportContent } from '@/types';
@@ -49,10 +49,11 @@ export interface ReportContentState {
 
   /** 报告基本信息 */
   reportId: string | undefined;
-  reportName: string;
+  reportInfo?: {
+    name: string;
+    referencePriority: RPReferencePriority | undefined;
+  };
 
-  /** AI 生成消息 - 使用 MessageParsedReportContent 确保兼容性 */
-  parsedRPContentMessages: MessageInfo<MessageParsedReportContent>[];
 
   /** 章节前端状态 - 与数据模型分离的前端状态 */
   chapterStates: Record<string, ChapterFrontendState>;

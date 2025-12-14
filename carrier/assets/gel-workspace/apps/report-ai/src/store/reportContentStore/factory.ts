@@ -25,13 +25,7 @@ export const createReportContentStore = () => {
       getDefaultMiddleware({
         serializableCheck: {
           // 忽略这些 action types 的序列化检查
-          ignoredActions: [
-            'reportContent/setChapters',
-            'reportContent/updateChapter',
-            'reportContent/setParsedRPContentMessages',
-          ],
-          // 忽略这些字段的序列化检查
-          ignoredPaths: ['reportContent.parsedRPContentMessages'],
+          ignoredActions: ['reportContent/setChapters', 'reportContent/updateChapter'],
         },
       }),
     // 开发环境下启用 Redux DevTools，生产环境下禁用

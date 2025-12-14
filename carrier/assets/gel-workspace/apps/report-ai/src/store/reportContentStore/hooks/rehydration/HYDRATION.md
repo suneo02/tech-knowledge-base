@@ -29,11 +29,11 @@
 
 ### 3.2 三层分工
 
-| 层         | 责任                                                         | 关键动作                                                                                                     | 主要文件                                                                               |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
-| **操作层** | 发起章节请求时生成 `correlationId` 并记录 `activeOperations` | `startChapterOperation`（单章：mode=`single` / 全文：mode=`batch`）                                          | `reducers/chapterOperationReducers.ts`                                                |
-| **合并层** | 收到完成信号后合并消息，设置章节级注水任务                   | `processSingleChapterCompletion`                                                    | `utils/chapterProcessing.ts`                                         |
-| **执行层** | Orchestrator 消费注水任务，写入 TinyMCE，成功后完成任务      | `useHydrationExecutor`                                                              | `hooks/rehydration/useHydrationExecutor.ts`                          |
+| 层         | 责任                                                         | 关键动作                                                            | 主要文件                                    |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------------------- |
+| **操作层** | 发起章节请求时生成 `correlationId` 并记录 `activeOperations` | `startChapterOperation`（单章：mode=`single` / 全文：mode=`batch`） | `reducers/chapterOperationReducers.ts`      |
+| **合并层** | 收到完成信号后合并消息，设置章节级注水任务                   | `processSingleChapterCompletion`                                    | `utils/chapterProcessing.ts`                |
+| **执行层** | Orchestrator 消费注水任务，写入 TinyMCE，成功后完成任务      | `useHydrationExecutor`                                              | `hooks/rehydration/useHydrationExecutor.ts` |
 
 ### 3.3 生命周期
 
@@ -94,7 +94,7 @@ sequenceDiagram
 2. **全文生成**（逐章节注水）
 
    - `startChapterOperation(mode='batch')`：批量创建 `correlationId`，锁定章节并登记 `activeOperations`
-    和 `latestRequestedOperations`
+     和 `latestRequestedOperations`
    - `startFullDocumentGeneration`：写入生成队列和进度基线
    - `useFullDocumentGeneration`：读取 `latestRequestedOperations` 逐章发送消息（发送后标记 `requested=true`）
    - 同一 Hook 监听完成消息 → 调用 `processSingleChapterCompletion` → dispatch `progressToNextChapter`
@@ -123,7 +123,7 @@ sequenceDiagram
 | `hydrationReducers.setHydrationTask`                     | 设置当前注水任务（`full-init`、`full-rehydrate`、`chapter-rehydrate`、`idle`）。               |
 | `hydrationReducers.completeHydrationTask`                | 完成注水任务：重置为 `idle`，清理 Draft 状态。                                                 |
 | `generationReducers.startFullDocumentGeneration`         | 初始化全文生成：为每个章节创建 `correlationId`，记录到 `activeOperations` 和 `chapterStates`。 |
-| `generationReducers.progressToNextChapter`               | 推进全文生成索引、更新当前章节指针，保持进度一致。                                            |
+| `generationReducers.progressToNextChapter`               | 推进全文生成索引、更新当前章节指针，保持进度一致。                                             |
 | `utils/chapterProcessing.processSingleChapterCompletion` | 合并消息、更新章节状态、设置 `currentTask = chapter-rehydrate`。                               |
 | `hooks/useRehydrationOrchestrator`                       | 统一调度各个注水 Hook：`useHydrationExecutor`、`useStreamingPreview`、`useCompletionHandler`。 |
 | `hooks/rehydration/useHydrationExecutor`                 | **核心执行层**：读取 `currentTask`，执行对应的注水操作（全量/章节级）。                        |
@@ -163,6 +163,7 @@ sequenceDiagram
 ### 设计文档
 
 - [内容管理模块总览](../../../../docs/RPDetail/ContentManagement/README.md) - 整体架构与流程蓝图
+- [Correlation ID 设计文档](../../../../docs/RPDetail/ContentManagement/correlation-id-design.md) - 操作追踪机制详解
 - [数据与状态管理](../../../../docs/RPDetail/ContentManagement/data-layer-guide.md) - Canonical/Draft 分层、哈希判定、保存流程
 - [生命周期与交互控制](../../../../docs/RPDetail/ContentManagement/lifecycle-flow.md) - AIGC 生成与用户编辑的互斥编排
 - [全文生成流程详解](../../../../docs/RPDetail/ContentManagement/full-generation-flow.md) - 全文生成的完整流程、涉及模块、关键逻辑

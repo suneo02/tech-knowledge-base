@@ -9,18 +9,19 @@
  * @since 3.0 (移除 needsRehydration 依赖)
  */
 
+import { useReportDetailContext } from '@/context';
 import { useEffect } from 'react';
 import { useReportContentDispatch, useReportContentSelector } from '../../hooksRedux';
 import { selectChapters, selectGlobalOperationKind } from '../../selectors';
-import { selectHydration, selectParsedRPContentMessages } from '../../selectors/base';
+import { selectHydration } from '../../selectors/base';
 import { rpContentSlice } from '../../slice';
 
 export const useCompletionHandler = () => {
   const dispatch = useReportContentDispatch();
+  const { clearChapterMessages, parsedRPContentMsgs: parsedMessages } = useReportDetailContext();
 
   const chapters = useReportContentSelector(selectChapters);
   const hydration = useReportContentSelector(selectHydration);
-  const parsedMessages = useReportContentSelector(selectParsedRPContentMessages);
   const globalOpKind = useReportContentSelector(selectGlobalOperationKind);
 
   // ========== 职责 1: 检测章节完成 ==========
@@ -33,9 +34,7 @@ export const useCompletionHandler = () => {
 
     for (const msg of tail) {
       const isFinish =
-        msg.message.role === 'aiReportContent' &&
-        msg.message.chapterId &&
-        (msg.message.status === 'finish' || msg.message.status === 'stream_finish');
+        msg.message.role === 'aiReportContent' && msg.message.chapterId && msg.message.status === 'finish';
 
       if (!isFinish) continue;
 
@@ -56,13 +55,26 @@ export const useCompletionHandler = () => {
       // 使用最新的操作
       const latest = operations.sort((a, b) => b.startTime - a.startTime)[0];
 
-      // 合并消息并标记待注水（由 useScenarioHydration 消费）
+      // 合并消息到章节
       dispatch(
         rpContentSlice.actions.processSingleChapterCompletion({
           chapterId,
+          messages: parsedMessages,
           correlationId: latest.correlationId,
           extractRefData: true,
           overwriteExisting: true,
+        })
+      );
+
+      // 清理该章节的流式消息，确保渲染切换到 chapter.content
+      clearChapterMessages(chapterId);
+
+      // 触发注水任务（在消息清理后，确保使用 chapter.content）
+      dispatch(
+        rpContentSlice.actions.setHydrationTask({
+          type: 'chapter-rehydrate',
+          chapterIds: [chapterId],
+          correlationIds: [latest.correlationId],
         })
       );
     }

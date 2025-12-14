@@ -11,21 +11,6 @@ import { MessageParsedReportContent } from '@/types';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 
 /**
- * 检查报告内容消息是否为完成状态
- *
- * @param message 消息对象
- * @returns 是否为完成状态
- *
- * @example
- * ```typescript
- * const isFinished = isReportContentMessageFinished(message)
- * ```
- */
-export const isReportContentMessageFinished = (message: MessageInfo<MessageParsedReportContent>): boolean => {
-  return message.message.status === 'finish' || message.message.status === 'stream_finish';
-};
-
-/**
  * 检查指定报告章节是否生成完成
  *
  * @param messages 消息列表
@@ -43,9 +28,7 @@ export const isReportChapterGenerationFinished = (
 ): boolean => {
   return messages.some(
     (msg) =>
-      msg.message.role === 'aiReportContent' &&
-      msg.message.chapterId === chapterId &&
-      isReportContentMessageFinished(msg)
+      msg.message.role === 'aiReportContent' && msg.message.chapterId === chapterId && msg.message.status === 'finish'
   );
 };
 
@@ -76,11 +59,7 @@ export const isTextRewriteCompleted = (
   // 查找完成状态的 aiReportContent 消息
   // TODO: 需要在消息中添加 correlationId 字段来精确匹配
   // 目前简化实现：假设最近的 aiReportContent 完成消息就是当前操作的完成
-  return messages.some(
-    (msg) =>
-      msg.message.role === 'aiReportContent' &&
-      (msg.message.status === 'finish' || msg.message.status === 'stream_finish')
-  );
+  return messages.some((msg) => msg.message.role === 'aiReportContent' && msg.message.status === 'finish');
 };
 
 /**

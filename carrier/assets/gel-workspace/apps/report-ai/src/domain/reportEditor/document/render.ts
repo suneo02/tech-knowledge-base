@@ -27,7 +27,7 @@ export const renderReportTitle = (reportName: string): string => {
 export const renderFullDocument = (
   chapters: RPDetailChapter[],
   htmlMap: Record<string, string>,
-  reportName: string,
+  reportName: string | undefined,
   options?: Pick<ReportComposerOptions, 'includeReportTitle' | 'sectionSeparator'>
 ): string => {
   const { includeReportTitle = true, sectionSeparator = '\n' } = options || {};

@@ -1,11 +1,15 @@
 import { findChapterById, findChapterPathById } from '@/domain/chapter';
 import { mergeMessagesToChapters } from '@/domain/chat/rpContentAIMessages';
+import { MessageParsedReportContent } from '@/types';
+import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { setTreeNodeByPath } from 'gel-util/common';
 import { ReportContentState } from '../types';
 
 export interface ProcessSingleChapterCompletionParams {
   /** 目标章节ID */
   chapterId: string;
+  /** 解析后的消息列表（从 Context 传入） */
+  messages: MessageInfo<MessageParsedReportContent>[];
   /** 关联ID（可选） */
   correlationId?: string;
   /** 是否提取引用数据 */
@@ -24,7 +28,7 @@ export const processSingleChapterCompletion = (
   state: ReportContentState,
   params: ProcessSingleChapterCompletionParams
 ): void => {
-  const { chapterId, correlationId, extractRefData = true, overwriteExisting = true } = params;
+  const { chapterId, messages, correlationId, extractRefData = true, overwriteExisting = true } = params;
 
   // 查找目标章节
   const chapter = findChapterById(state.chapters, chapterId);
@@ -34,7 +38,7 @@ export const processSingleChapterCompletion = (
   }
 
   // 使用工具函数合并单个章节的消息
-  const mergeResult = mergeMessagesToChapters([chapter], state.parsedRPContentMessages, {
+  const mergeResult = mergeMessagesToChapters([chapter], messages, {
     extractRefData,
     overwriteExisting,
   });
@@ -54,14 +58,9 @@ export const processSingleChapterCompletion = (
     state.chapterStates[chapterId].epoch = Date.now();
     state.chapterStates[chapterId].lastModified = Date.now();
 
-    // 设置章节级注水任务
-    if (correlationId) {
-      state.hydration.currentTask = {
-        type: 'chapter-rehydrate',
-        chapterIds: [chapterId],
-        correlationIds: [correlationId],
-      };
-    }
+    // 注意：注水任务不在此处触发，而是在消息清理后由调用方手动触发
+    // 这样可以确保注水时使用的是 chapter.content 而非流式消息
+    // @see {@link ../../../docs/issues/chapter-rendering-missing-source-data.md | 章节渲染缺失溯源数据问题}
 
     if (correlationId) {
       const operation = state.hydration.activeOperations[correlationId];

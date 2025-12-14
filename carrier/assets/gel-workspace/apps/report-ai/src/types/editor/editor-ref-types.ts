@@ -93,31 +93,9 @@ export interface ReportEditorRef {
     }
   ) => { success: boolean; error?: string; contentLength?: number };
 
-  /** 设置章节 Loading 状态 */
-  setChapterLoading: (
-    chapterId: string | number,
-    loadingType: 'pending' | 'receiving' | 'none',
-    options?: {
-      debug?: boolean;
-    }
-  ) => { success: boolean; error?: string; contentLength?: number };
-
-  /** 清除章节 Loading 状态 */
-  clearChapterLoading: (
-    chapterId: string | number,
-    options?: {
-      debug?: boolean;
-    }
-  ) => { success: boolean; error?: string; contentLength?: number };
-
   /** 检查编辑器是否就绪 */
   isEditorReady: () => boolean;
 
   /** 根据 idMap 替换 DOM 中的章节 ID */
-  applyIdMap: (
-    idMap: Record<string, string>,
-    options?: {
-      debug?: boolean;
-    }
-  ) => ApplyIdMapResult;
+  applyIdMap: (idMap: Record<string, string>) => ApplyIdMapResult;
 }

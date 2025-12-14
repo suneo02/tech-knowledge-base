@@ -16,15 +16,17 @@ import {
 } from '@/store/reportContentStore';
 import { useTextRewrite } from '@/store/reportContentStore/hooks';
 
+import { getTextRewritePreviewContent, isTextRewriteCompleted } from '@/domain/chat/rpContentAIMessages';
+import { createChapterAIMessageStatusMap } from '@/domain/reportEditor';
+import { createChapterAIMsgLoadingStatusMap } from '@/domain/reportEditor/chapter/composition';
 import {
+  selectChapters,
   selectIsTextRewriting,
   selectLeafChapterMap,
+  selectReferencePriority,
   selectTextRewriteCorrelationId,
-  selectTextRewriteIsCompleted,
-  selectTextRewritePreviewContent,
   selectTextRewriteSnapshot,
 } from '@/store/reportContentStore/selectors';
-import { SelectionSnapshot } from '@/types/editor';
 import { SelectionUserDecision } from '@/types/editor/selection-types';
 import { ChatRoomProvider } from 'ai-ui';
 import { FC, useCallback, useEffect, useState } from 'react';
@@ -34,14 +36,19 @@ import styles from './index.module.less';
 import { ReportContentHeader } from './ReportContentHeader';
 import { useEditorInitialValue } from './useEditorInitialValue';
 
+// 创建更新报告的请求函数
 const ReportContentInner: React.FC = () => {
+  // 从页面上下文获取全局共享的编辑器 ref、引用资料视图 ref 和消息
+  const { reportEditorRef, referenceViewRef, parsedRPContentMsgs, rpContentAgentMsgs } = useReportDetailContext();
+
   // ✅ 直接从 Redux 获取所有状态
   const fullDocumentHtml = useReportContentSelector(selectCanonicalDocHtml);
   const leafChapterMap = useReportContentSelector(selectLeafChapterMap);
   const reportId = useReportContentSelector(selectReportId);
-
-  // 从页面上下文获取全局共享的编辑器 ref 和引用资料视图 ref
-  const { reportEditorRef, referenceViewRef } = useReportDetailContext();
+  const referencePriority = useReportContentSelector(selectReferencePriority);
+  const chapters = useReportContentSelector(selectChapters);
+  const chapterStatusMap = createChapterAIMessageStatusMap(chapters, rpContentAgentMsgs);
+  const loadingChapters = createChapterAIMsgLoadingStatusMap(chapterStatusMap);
 
   // 加载状态
   const loading = useReportContentSelector(selectIsServerLoading);
@@ -81,8 +88,10 @@ const ReportContentInner: React.FC = () => {
   const isRewriting = useReportContentSelector(selectIsTextRewriting);
   const correlationId = useReportContentSelector(selectTextRewriteCorrelationId);
   const snapshot = useReportContentSelector(selectTextRewriteSnapshot);
-  const previewContent = useReportContentSelector(selectTextRewritePreviewContent);
-  const isCompleted = useReportContentSelector(selectTextRewriteIsCompleted);
+
+  // 从 Context 获取消息，计算预览内容和完成状态
+  const previewContent = getTextRewritePreviewContent(parsedRPContentMsgs, correlationId);
+  const isCompleted = globalOpKind === 'text_rewrite' && isTextRewriteCompleted(parsedRPContentMsgs, correlationId);
 
   // 构建文本改写状态对象
   const textRewriteState = {
@@ -95,7 +104,7 @@ const ReportContentInner: React.FC = () => {
 
   // 处理文本改写用户决策
   const handleTextRewriteDecision = useCallback(
-    (decision: SelectionUserDecision, content: string, snapshot: SelectionSnapshot) => {
+    (decision: SelectionUserDecision) => {
       if (decision === 'apply') {
         // 用户确认应用改写结果
         // 内容替换由 EditorFacade 在预览组件中完成
@@ -179,18 +188,6 @@ const ReportContentInner: React.FC = () => {
     setTimeout(updateUndoRedoState, 0);
   }, [reportEditorRef, updateUndoRedoState]);
 
-  // 处理选择引用数据
-  // 暂时不实现具体逻辑，因为引用数据选择功能需要更多的UI设计
-  // 可以考虑：打开引用面板、显示引用选择对话框等
-  const handleSelectReference = useCallback(() => {
-    console.log('选择引用数据 - 功能待设计');
-    // TODO: 实现引用数据选择的具体交互
-    // 可能的实现方式：
-    // 1. 打开引用资料面板（如果已关闭）
-    // 2. 显示引用数据选择对话框
-    // 3. 高亮显示可选择的引用资料
-  }, []);
-
   // 显示加载状态
   if (loading) {
     return (
@@ -204,6 +201,7 @@ const ReportContentInner: React.FC = () => {
     <ChatRoomProvider>
       <div className={styles['report-content']}>
         <ReportContentHeader
+          reportId={reportId ?? undefined}
           onSave={() => {
             persistence.saveNow().catch((error) => {
               console.warn('[ReportContent] 手动保存失败', error);
@@ -213,11 +211,11 @@ const ReportContentInner: React.FC = () => {
           onRedo={handleRedo}
           canUndo={canUndo}
           canRedo={canRedo}
-          onSelectReference={handleSelectReference}
           onGenerateFullText={startGeneration}
           isGenerating={globalOpKind === 'full_generation'}
           generationProgress={generationProgress}
           disableGeneration={isGlobalBusy || leafChapterMap.size === 0}
+          referencePriority={referencePriority}
           saving={persistence.saving}
           hasUnsaved={persistence.hasUnsaved}
           lastSavedAt={persistence.lastSavedAt}
@@ -241,6 +239,8 @@ const ReportContentInner: React.FC = () => {
             onAIInvoke={startRewrite}
             textRewriteState={textRewriteState}
             onTextRewriteDecision={handleTextRewriteDecision}
+            // 暂时下线章节预览，还未完全开发好
+            loadingChapters={[]}
           />
         </div>
       </div>

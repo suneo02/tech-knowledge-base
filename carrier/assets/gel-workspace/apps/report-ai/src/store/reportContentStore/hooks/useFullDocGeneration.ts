@@ -49,7 +49,7 @@ export const useFullDocGeneration = (
 
   const dispatch = useReportContentDispatch();
 
-  const { setMessages } = useReportDetailContext();
+  const { setMsgs } = useReportDetailContext();
 
   // 从Redux获取状态
   const leafChapters = useReportContentSelector(selectLeafChapters);
@@ -72,7 +72,7 @@ export const useFullDocGeneration = (
     try {
       // 🔑 关键：先清空 Context 中的历史消息，避免 ChatSync 重新同步回来
       // 这样可以防止 useCompletionHandler 重复检测到历史完成消息
-      setMessages([]);
+      setMsgs([]);
 
       // 1. 准备章节队列 - 只生成叶子节点（没有子章节的章节）
       if (leafChapters.length === 0) {

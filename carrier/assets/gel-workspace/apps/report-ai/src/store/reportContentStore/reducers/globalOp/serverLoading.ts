@@ -5,7 +5,7 @@
  */
 
 import { PayloadAction } from '@reduxjs/toolkit';
-import type { RPDetailChapter } from 'gel-api';
+import type { RPDetailChapter, RPReferencePriority } from 'gel-api';
 import type { ReportContentState } from '../../types';
 import { setGlobalOpToError, setGlobalOpToIdle, setGlobalOpToServerLoading } from './shared';
 
@@ -15,6 +15,7 @@ import { setGlobalOpToError, setGlobalOpToIdle, setGlobalOpToServerLoading } fro
 export interface ChapterLoadResult {
   chapters: RPDetailChapter[];
   reportName: string;
+  referencePriority: RPReferencePriority | undefined;
   loadedAt: number;
 }
 
@@ -30,11 +31,14 @@ export const serverLoadingReducers = {
    * 章节加载成功
    */
   chapterLoadingSuccess: (state: ReportContentState, action: PayloadAction<ChapterLoadResult>) => {
-    const { chapters, reportName } = action.payload;
+    const { chapters, reportName, referencePriority } = action.payload;
 
     // 更新章节数据（Canonical Layer）
     state.chapters = chapters;
-    state.reportName = reportName;
+    state.reportInfo = {
+      name: reportName,
+      referencePriority,
+    };
 
     // 页面加载：直接设置全量初始化任务
     state.hydration.currentTask = {
