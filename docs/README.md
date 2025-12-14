@@ -1,270 +1,80 @@
-# Hidetoshi Tech Knowledge Base
+# 文档索引
 
-> Hidetoshi's comprehensive tech knowledge base covering programming languages, databases, networks, front-end development, and related technologies.
+项目文档的完整导航和索引。
 
-## 📚 知识领域导航 {#knowledge-domains}
+## 📁 文档结构
 
-### 🖥️ Program Language
-- **入口**: [./program-language/README.md](./program-language/README.md)
-- **HTML** - Web 标记语言基础
-- **CSS** - 样式与布局技术  
-- **JavaScript** - 核心语言概念与 ES6+ 特性
-- **TypeScript** - 类型安全的 JavaScript 开发
-
-### 🗄️ Database Systems
-- **入口**: [./database-systems/README.md](./database-systems/README.md)
-- **Database Concepts** - 数据库核心原理
-- **Design & Implementation** - 数据库设计模式与最佳实践
-- **读书笔记** - Database Systems: Design, Implementation & Management
-
-### 🌐 Network
-- **入口**: [./network/README.md](./network/README.md)
-- **Computer Networking** - 网络协议与架构
-- **Network Layers** - 应用层、传输层、网络层概念
-- **Network Carrier** - 分层模型详解
-
-### ⚡ Node.js
-- **Learning Node** - 服务端 JavaScript 开发
-- **Moving to Server Side** - Node.js 进阶概念
-
-### 🎨 Web Front End
-- **入口**: [./front-end/README.md](./front-end/README.md)
-- **Foundations** - 浏览器原理、网络基础、安全实践
-- **Frameworks** - React、Vue 等现代框架
-- **Performance** - 性能优化技术
-- **Scenarios** - 实际场景解决方案
-- **Tooling** - 工程化工具（Webpack、Vite、包管理等）
-- **Visualization** - 数据可视化
-
-### 🔗 Web 3
-- **Areas to be Explored** - 新兴 Web 技术探索
-
-### 💡 Resources
-- **全局资源**: [./resources/README.md](./resources/README.md)
-- **前端资源**: [./front-end/resources/README.md](./front-end/resources/README.md)
-- **程序资源**: [./program-resource.md](./program-resource.md)
-
----
-
-## 📐 知识库架构
-
-### 整体结构设计
-
-本知识库采用 **领域（Domain）→ 子域（Subdomain）→ 主题（Topic）** 的三层组织结构：
-
-```mermaid
-graph TD
-  ROOT[docs/] --> FE[front-end/]
-  ROOT --> PL[program-language/]
-  ROOT --> NET[network/]
-  ROOT --> DB[database-systems/]
-  ROOT --> OS[OS/]
-  ROOT --> AE[areas-to-be-explored/]
-  ROOT --> RES[resources/]
-  
-  FE --> FE_FOUND[foundations/]
-  FE --> FE_FW[frameworks/]
-  FE --> FE_PERF[performance/]
-  FE --> FE_SCN[scenarios/]
-  FE --> FE_TOOL[tooling/]
-  FE --> FE_RES[resources/]
-  
-  PL --> CSS[css/]
-  PL --> HTML[html/]
-  PL --> JS[js/]
-  PL --> TS[ts/]
-  
-  NET --> NC[network-carrier/]
-  NET --> BOOK[computer-networking-a-top-down-approach/]
-  
-  DB --> BOOKDB[database-systems-design-implementation-management/]
+```
+docs/
+├── README.md                   # 本文档
+├── development.md              # 开发指南
+├── deployment.md               # 本地部署
+├── staging-deployment.md       # 预发布部署
+├── architecture.md             # 项目架构
+├── intl/                       # 国际化文档
+└── rule/                       # 开发规范
 ```
 
-### 目录结构说明
+## 📋 核心文档
 
-#### 已完成规范化的领域
-- **front-end/** - 前端开发：已完成 foundations/frameworks/performance/scenarios/tooling/resources 分层
-- **program-language/** - 编程语言：css/html/js/ts 子目录，每个子目录以 README.md 为入口
-- **network/** - 计算机网络：包含理论知识（network-carrier）和读书笔记（computer-networking-a-top-down-approach）
-- **database-systems/** - 数据库系统：以读书笔记为主（database-systems-design-implementation-management）
+| 文档 | 说明 | 目标用户 |
+|------|------|---------|
+| [开发指南](./development.md) | 开发环境搭建、工具使用、代码规范 | 开发者 |
+| [本地部署](./deployment.md) | 本地构建、SVN 部署流程 | 开发者 |
+| [预发布部署](./staging-deployment.md) | 预发布环境部署、Nginx 配置 | 开发者/运维 |
+| [项目架构](./architecture.md) | 整体架构设计、模块说明 | 架构师/开发者 |
 
-#### 待探索与临时区域
-- **areas-to-be-explored/** - 待探索主题（AI、Web3、Bywork），保留为临时收纳区
-- **resources-to-be-organized/** - 临时资源收集区，后续将并入对应领域的 resources/
+## 📚 规范文档
 
-### 统一约定
+### 开发规范
+- [TypeScript 规范](./rule/typescript-rule.md) - 类型定义与代码风格
+- [React 规范](./rule/react-rule.md) - 组件与状态管理
+- [样式规范](./rule/style-rule.md) - Less Module + BEM
+- [API 请求规范](./rule/api-request-rule.md) - API 调用与数据请求
 
-#### 命名规范
-- **文件与目录**：统一使用英文 kebab-case（短横线分隔）
-- **入口文件**：每个目录内统一使用 `README.md` 作为索引入口
-- **资源文件**：描述性命名，如 `react-rendering-flow.png`
+### 文档规范
+- [文档规范](./rule/documentation-rule.md) - 通用文档编写
+- [README 规范](./rule/readme-rule.md) - 目录说明文档
+- [需求规范](./rule/require-doc.md) - 需求文档编写
+- [设计规范](./rule/design-doc.md) - 设计文档编写
 
-#### 导航策略
-- **总索引**：`docs/README.md`（本文）提供全局概览
-- **领域索引**：每个顶层领域都有 `README.md` 概览与导航
-- **交叉引用**：使用相对路径，保持就近链接原则
-- **延伸阅读**：同域页面末尾添加相关链接
+## 🌐 国际化
 
-#### 资源管理
-- **就近原则**：各领域资源存放在对应的 `assets/` 目录下
-  - 例如：`front-end/assets/`、`program-language/css/assets/`
-- **避免跨域引用**：减少复杂的相对路径
-- **外链集中**：外部资源链接集中在各域的 `resources/README.md`
+| 语言 | 文档 | 说明 |
+|------|------|------|
+| 中文 | [国际化文档](./intl/) | 国际化实现指南 |
+| 英文 | [Internationalization](./intl/README_EN.md) | Internationalization Guide |
 
-#### 图示规范
-- **优先使用** Mermaid 绘制流程图、架构图
-- **位图格式**：使用 webp/png，控制尺寸与密度
-- **图片说明**：添加清晰的 alt 文本和图注
+## 🔧 开发工具
 
----
+### 脚本工具
+- [脚本工具集](../scripts/README.md) - 构建、部署和开发工具
+- [应用管理](../scripts/run-app.js) - 统一应用管理入口
+- [部署脚本](../scripts/deploy.js) - 统一部署流程
 
-## 🚀 快速开始
+### 部署器
+- [本地部署器](../scripts/deployers/LocalDeployer.js) - 本地 SVN 部署
+- [预发布部署器](../scripts/deployers/StagingDeployer.js) - 预发布环境部署
 
-### 浏览文档
+## 🚀 快速导航
 
-通过上方的[知识领域导航](#knowledge-domains)选择感兴趣的主题，点击入口链接开始学习。
+### 新手入门
+1. 阅读 [项目根 README](../README.md) 了解项目概览
+2. 查看 [开发指南](./development.md) 搭建开发环境
+3. 参考 [本地部署](./deployment.md) 了解部署流程
 
-**推荐学习路径：**
+### 开发者
+1. 遵循 [开发规范](./rule/) 进行编码
+2. 使用 [应用管理工具](../scripts/run-app.js) 进行开发
+3. 参考 [项目架构](./architecture.md) 理解系统设计
 
-1. **前端开发者**：
-  - 基础 → [Browser](./front-end/foundations/browser.md) + [Network](./front-end/foundations/network.md)
-  - 框架 → [React](./front-end/frameworks/react.md) 或 [Vue](./front-end/frameworks/vue/README.md)
-  - 工程化 → [Tooling](./front-end/tooling/README.md)
+### 运维部署
+1. 查看 [本地部署](./deployment.md) 进行本地部署
+2. 参考 [预发布部署](./staging-deployment.md) 进行预发布部署
+3. 使用 [脚本工具](../scripts/) 进行自动化操作
 
-2. **全栈开发者**：
-  - 语言基础 → [JavaScript](./program-language/js/index.md) + [TypeScript](./program-language/ts/README.md)
-  - 网络知识 → [Network](./network/README.md)
-  - 数据库 → [Database Systems](./database-systems/README.md)
+## 📞 联系信息
 
-3. **系统工程师**：
-  - 网络协议 → [Network Layers](./network/README.md)
-  - 操作系统 → [OS](./OS/README.md)
-  - 数据库原理 → [Database Concepts](./database-systems/README.md)
-
-### 搜索功能
-
-使用站点搜索功能（通常在页面顶部）快速查找特定主题或关键词。
-
----
-
-## 📖 文档编写指南
-
-本知识库遵循统一的文档编写规范，详见项目根目录的 `meta/writing-guidelines.md` 文件
-
-### 核心原则
-
-1. **内容优先**：避免过度拆分，单个文档可以较长（≤1000行）以保持主题完整性
-2. **可读性**：清晰的层级结构，使用目录导航，合理的段落分隔
-3. **可维护性**：统一命名、相对路径、定期检查
-4. **渐进式**：从概述到细节，先核心后进阶
-
-### 文档拆分决策
-
-**保持单一文档的情况：**
-- 内容紧密相关，需要连贯阅读
-- 文档长度在 1000 行以内
-- 主题单一且完整
-
-**拆分文档的情况：**
-- 文档超过 1000 行且包含多个独立子主题
-- 内容可以独立阅读和理解
-- 面向不同受众群体
-
-### 快速参考
-
-```markdown
-# 文档标题（H1，每个文档只有一个）
-
-## 主要章节（H2）
-
-### 子章节（H3）
-
-- 使用 kebab-case 命名文件
-- 使用相对路径链接
-- 代码块指定语言类型
-- 图片存放在就近的 assets/ 目录
-```
-
----
-
-## 🔧 渐进式改进计划
-
-### 已完成
-- ✅ 前端领域完成结构规范化（foundations/frameworks/performance/scenarios/tooling）
-- ✅ 建立统一的文档编写规范（见 `meta/writing-guidelines.md`）
-- ✅ 统一命名约定（kebab-case）
-
-### 进行中
-- 🔄 完善各领域的 README.md 入口与导航
-- 🔄 图片资源就近化（迁移到各域 assets/）
-- 🔄 外链资源整理到 resources/
-
-### 计划中
-1. **补全入口导航**
-   - 在 `network/`、`database-systems/`、`program-language/` 完善 README.md
-   - 确保每个子域都有清晰的导航
-
-2. **资源归位**
-   - 将散落的图片迁至各自领域的 `assets/` 目录
-   - 批量更新图片引用路径
-   - 清理顶层 `assets/` 目录（仅保留通用资源）
-
-3. **清理历史遗留**
-   - 清理 `front-end/web-*` 旧目录（确认无引用后删除）
-   - 将 `program-resource.md` 合并到 `resources/README.md`
-
-4. **质量保证**
-   - 增加链接检查脚本（markdown-link-check）
-   - 增加图片引用检查
-   - 统一 Lint/格式化工具
-
----
-
-## 🎯 主要入口索引
-
-| 领域 | 入口文档 | 说明 |
-|------|---------|------|
-| 总览 | [docs/README.md](./README.md) | 本文档 |
-| 前端开发 | [front-end/README.md](./front-end/README.md) | 已完成规范化 |
-| 编程语言 | [program-language/README.md](./program-language/README.md) | 建议完善 |
-| 计算机网络 | [network/README.md](./network/README.md) | 建议新增 |
-| 数据库系统 | [database-systems/README.md](./database-systems/README.md) | 建议新增 |
-| 全局资源 | [resources/README.md](./resources/README.md) | 建议新增 |
-| 编写规范 | `meta/writing-guidelines.md` | 文档标准 |
-
----
-
-## 📝 贡献与反馈
-
-### 添加新内容
-
-1. **选择合适的领域**：确定内容归属的领域目录
-2. **遵循命名规范**：使用 kebab-case 命名文件
-3. **使用文档模板**：参考 `meta/writing-guidelines.md` 中的模板
-4. **更新导航**：在对应领域的 README.md 中添加链接
-5. **本地测试**：运行 `mkdocs serve` 检查效果
-
-### 更新现有文档
-
-1. **小改动**：直接编辑，保持原有风格
-2. **大改动**：考虑版本备份，更新相关链接
-3. **质量检查**：运行 `mkdocs build --strict` 检查断链
-
-### 反馈问题
-
-如发现文档错误、断链或有改进建议，欢迎提交 Issue 或 Pull Request。
-
----
-
-## 🔗 相关资源
-
-- **MkDocs 官方文档**: [https://www.mkdocs.org/](https://www.mkdocs.org/)
-- **Material for MkDocs**: [https://squidfunk.github.io/mkdocs-material/](https://squidfunk.github.io/mkdocs-material/)
-- **Markdown 指南**: [https://www.markdownguide.org/](https://www.markdownguide.org/)
-
----
-
-*本知识库持续更新中，记录个人学习与探索的技术知识。* 
-
-**最后更新**: 2024-10  
-**维护者**: Hidetoshi Dekisugi
+如有文档相关问题，请联系：
+- 项目维护者：your-email@example.com
+- 文档维护：docs@example.com

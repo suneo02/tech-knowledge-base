@@ -1,46 +1,77 @@
-# Hidetoshi Tech Knowledge Base
+# GEL Workspace
 
-A structured personal tech knowledge base covering programming, networking, databases, front-end development, and related technologies. Built with MkDocs + Material theme, deployed to Cloudflare Pages.
+基于 Monorepo 架构的前端项目，统一管理多个业务应用和共享包，提供完整的企业级开发框架。
 
-## 📚 Writing Guidelines
+## 目录结构
 
-本项目使用统一的文档规范以确保一致性、可读性和可维护性。详情见：[meta/writing-guidelines.md](meta/writing-guidelines.md)
+```
+gel-workspace/
+├── apps/                          # 应用程序层
+│   ├── ai-chat/                   # AI聊天应用 (端口3000)
+│   ├── company/                   # 企业管理系统 (端口3001)
+│   ├── report-config/             # 报表配置应用 (端口3002)
+│   ├── report-preview/            # 报表预览应用 (端口3003)
+│   └── report-print/              # 报表打印应用 (端口3004)
+├── packages/                      # 共享包层
+│   ├── gel-api/                   # API统一管理包
+│   ├── gel-ui/                    # UI组件库
+│   ├── gel-util/                  # 工具函数库
+│   ├── indicator/                 # 指标功能包
+│   ├── cde/                       # CDE功能包
+│   ├── detail-page-config/        # 详情页配置包
+│   └── types/                     # 类型定义包
+├── docs/                          # 文档目录
+└── scripts/                       # 构建和部署脚本
+```
 
-### 核心原则
-- 内容优先：避免过度拆分，保持主题完整性（必要时单文档可达 1000 行）
-- 可读性：清晰层级、目录导航、合理视觉分组
-- 可维护性：统一 kebab-case 命名、相对路径链接、定期更新
-- 渐进式：从概述到细节，先核心后进阶
+## 关键文件
 
-### 规范要点
-- 文件命名：kebab-case，例如 `react-hooks.md`
-- 文档组织：相关内容尽量保持在同一文档内，避免碎片化
-- 内容格式：标准 Markdown，代码块标注语言，必要时使用图表
-- 质量保证：发布前检查清单，定期巡检 broken links/过时内容
+| 文件 | 作用 |
+|------|------|
+| `package.json` | 项目依赖和脚本配置 |
+| `turbo.json` | Turborepo构建配置 |
+| `pnpm-workspace.yaml` | pnpm工作空间配置 |
+| `apps/*/vite.config.ts` | 各应用的Vite构建配置 |
 
-## 🔎 View the Knowledge Base
+## 依赖关系
 
-Cloudflare Pages 自动部署，首版成功后可通过分配的 Pages 域名访问，例如：
+```mermaid
+graph LR
+    subgraph "应用层"
+        A[ai-chat]
+        B[company]
+        C[report-*]
+    end
 
-`https://hidetoshi-tech-knowledge-base.pages.dev`
+    subgraph "共享包层"
+        D[gel-api]
+        E[gel-ui]
+        F[gel-util]
+        G[indicator]
+    end
 
-如果你使用自定义域名，请在 Cloudflare 中完成 CNAME 关联。
+    A --> D & E & F
+    B --> D & E & F
+    C --> D & E & F & G
+```
 
-## 🧭 Setup & Deployment
+## 快速开始
 
-为保持 README 聚焦内容本身，开发、构建与部署细节已迁移至独立文档：
-- 参见部署与本地开发指南：docs/meta/deployment.md
+```bash
+# 安装依赖
+pnpm install
 
-## 🧭 Repository Layout
+# 启动所有应用
+pnpm dev
 
-- `docs/`：知识文档主体内容
-- `mkdocs.yml`：站点与导航配置
-- `overrides/`：Material 主题模板覆盖
-- `site/`：构建产物（CI/CD 生成）
-- `.github/workflows/`：CI 配置（若存在）
+# 构建所有包
+pnpm build
+```
 
-## 📝 Contribution (个人协作约定)
+## 相关文档
 
-- 新增或重构内容前先规划文档结构与导航位置
-- 每次提交说明变更动机与影响范围，避免仅“更新文档”
-- 对大规模调整采用分支与 PR 审阅流程
+- [开发规范](./docs/rule/) - TypeScript、React、样式等开发规范
+- [脚本工具集](./scripts/README.md) - 构建、部署和开发工具
+- [开发指南](./scripts/DEVELOPMENT.md) - 开发环境配置
+- [本地部署](./scripts/LOCAL-DEPLOYMENT.md) - 本地部署流程
+- [预发布部署](./scripts/staging/README.md) - 预发布环境部署

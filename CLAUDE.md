@@ -1,50 +1,42 @@
-# Project Overview
+# 前端开发规范引用指南
 
-This directory contains a personal knowledge base built with MkDocs and the Material for MkDocs theme. It serves as a comprehensive repository of information on various technical topics, including programming languages, database systems, networking, and front-end development. The content is written in Markdown and organized into a hierarchical structure.
+## 🎯 核心原则
 
-## Building and Running
+- **面向AI**: 清晰结构，标准格式
+- **工具集成**: ahooks + lodash + classnames + pnpm
+- **代码质量**: TypeScript + 统一规范 + 完整测试
+- **文档关联**: 代码与文档互相引用，持续维护
 
-To work with this project, you need Python and `pip` installed.
+## 📚 开发规范索引
 
-1.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+### 🔧 代码开发规范
 
-2.  **Run the local development server:**
-    ```bash
-    mkdocs serve
-    ```
-    The site will be available at `http://127.0.0.1:8000` and will automatically reload upon changes.
+- [TypeScript 规范](../../docs/rule/typescript-rule.md) - 类型定义与代码风格
+- [React 规范](../../docs/rule/react-rule.md) - 组件与状态管理
+- [样式规范](../../docs/rule/style-rule.md) - Less Module + BEM
+- [测试规范](../../docs/rule/testing-rule.md) - Vitest + Storybook
+- [错误处理规范](../../docs/rule/error-handling-rule.md) - 错误边界与异常处理
+- [项目结构规范](../../docs/rule/project-structure.md) - 目录组织与命名
+- [API 请求规范](../../docs/rule/api-request-rule.md) - API 调用与数据请求
 
-3.  **Build the static site:**
-    ```bash
-    mkdocs build --strict
-    ```
-    This command builds the static site into the `site/` directory. The `--strict` flag ensures that the build will fail on any warnings, such as broken links.
+### 📖 文档编写规范
 
-## Development Conventions
+- [文档规范](../../docs/rule/documentation-rule.md) - 通用文档编写
+- [README 规范](../../docs/rule/readme-rule.md) - 目录说明文档
+- [需求规范](../../docs/rule/require-doc.md) - 需求文档编写
+- [设计规范](../../docs/rule/design-doc.md) - 设计文档编写
+- [Spec 规范](../../docs/rule/spec-doc-rule.md) - 任务方案与交付说明
+- [Issue 规范](../../docs/rule/issue-doc-rule.md) - 问题文档编写
 
-The project follows a set of conventions to ensure consistency and maintainability.
+## 📋 使用场景指南
 
-*   **File and Directory Naming:** All files and directories should use `kebab-case` (e.g., `my-topic.md`).
-*   **Directory Structure:** The knowledge base is organized by domain (e.g., `front-end`, `database-systems`). Each domain has its own directory containing relevant topics.
-*   **Entry Point:** Each directory should have a `README.md` file that serves as an index for that section.
-*   **Linking:** Use relative paths for internal links.
-
-### Writing Guidelines
-
-Detailed writing guidelines are available in `meta/writing-guidelines.md`. These guidelines are important for maintaining the quality and consistency of the knowledge base. Key principles include:
-
-*   **Content-First:** Focus on writing comprehensive content for a single topic before splitting it into multiple files.
-*   **Readability:** Use clear headings, lists, and other Markdown features to structure content for easy reading.
-*   **Maintainability:** Use consistent naming conventions and relative paths to make the content easy to update.
-*   **Progressive Disclosure:** Present information in a logical order, starting with a high-level overview and then diving into details.
-
-## Key Files
-
-*   `mkdocs.yml`: The main configuration file for the MkDocs site. It defines the site's structure, theme, and plugins.
-*   `requirements.txt`: Lists the Python dependencies required to build and serve the site.
-*   `docs/`: This directory contains all the Markdown content for the knowledge base.
-    *   `docs/README.md`: The main entry point and overview of the entire knowledge base.
-*   `overrides/`: This directory contains customizations for the MkDocs theme, such as extra CSS and JavaScript.
+| 场景     | 使用规范                                           |
+| -------- | -------------------------------------------------- |
+| 需求分析 | require-doc.md                                     |
+| 功能设计 | design-doc.md                                      |
+| 代码开发 | typescript-rule.md + react-rule.md + style-rule.md |
+| API 调用 | api-request-rule.md                                |
+| 测试编写 | testing-rule.md                                    |
+| 问题排查 | issue-doc-rule.md                                  |
+| 任务拆解 | spec-doc-rule.md                                   |
+| 文档整理 | readme-rule.md + documentation-rule.md             |
