@@ -87,11 +87,11 @@ pages_build_output_dir = "site"
 
 ## Git Subtree 维护
 
-项目使用 Git Subtree 管理嵌套的代码仓库，用于在简历中引用外部项目源码作为参考资料。
+项目使用 Git Subtree 管理嵌套的代码仓库，用于在 `carrier/` 相关材料中引用外部项目源码作为参考资料。
 
 ### 当前 Subtree 配置
 
-- **路径**：`resume/assets/gel-workspace`
+- **路径**：`carrier/assets/gel-workspace`
 - **远程仓库**：`git@gitee_suneo:honekawa-suneo/gel-workspace.git`
 - **分支**：`main`
 
@@ -100,7 +100,7 @@ pages_build_output_dir = "site"
 当上游仓库有更新时，可以拉取最新代码：
 
 ```bash
-git subtree pull --prefix=resume/assets/gel-workspace git@gitee_suneo:honekawa-suneo/gel-workspace.git main --squash
+git subtree pull --prefix=carrier/assets/gel-workspace git@gitee_suneo:honekawa-suneo/gel-workspace.git main --squash
 ```
 
 ### 推送修改到上游（可选）
@@ -108,7 +108,7 @@ git subtree pull --prefix=resume/assets/gel-workspace git@gitee_suneo:honekawa-s
 如果在本地修改了 subtree 中的代码，并希望推送回上游仓库：
 
 ```bash
-git subtree push --prefix=resume/assets/gel-workspace \
+git subtree push --prefix=carrier/assets/gel-workspace \
   git@gitee_suneo:honekawa-suneo/gel-workspace.git main
 ```
 
