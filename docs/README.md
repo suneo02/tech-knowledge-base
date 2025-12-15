@@ -11,6 +11,11 @@
 - **JavaScript** - 核心语言概念与 ES6+ 特性
 - **TypeScript** - 类型安全的 JavaScript 开发
 
+### 🗣️ Foreign Languages
+- **入口**: [./foreign-languages/README.md](./foreign-languages/README.md)
+- **English** - 英语学习资料
+- **French** - 法语学习资料
+
 ### 🗄️ Database Systems
 - **入口**: [./database-systems/README.md](./database-systems/README.md)
 - **Database Concepts** - 数据库核心原理
