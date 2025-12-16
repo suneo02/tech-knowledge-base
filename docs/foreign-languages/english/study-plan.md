@@ -21,12 +21,15 @@
     *   *Advanced*: NPR, The Daily, TED.
 
 ## 2) Speaking: "Output Frequency" > "Pronunciation Class"
-*You don't need a class, you need to open your mouth daily.*
+*Weekdays: Internalize. Weekends: Vocalize.*
 
-*   **Routine (10–15 mins/day)**:
-    *   **Shadowing (5 mins)**: 30–60s native audio, mimic intonation sentence by sentence.
-    *   **Improvisation (5 mins)**: Timer for 1 min answer: "Describe your day / opinion on X / a problem solved".
-    *   **Correction (3–5 mins)**: Write down what you said (5–8 sentences), pick 2 to rewrite more authentically.
+*   **Weekday Strategy (Silent)**:
+    *   **Internal Monologue**: Think in English. Narrate your coding logic or daily tasks silently.
+    *   **Non-Verbal Recall**: When you hear a phrase, pause and mentally repeat it.
+*   **Weekend Strategy (Active Output)**:
+    *   **Shadowing (10-15 mins)**: Mimic native audio intonation.
+    *   **Improvisation (10-15 mins)**: "Describe your work week / technical challenge". Record yourself.
+    *   **Correction**: Transcribe your recording, find errors, and rewrite better versions.
 *   **Alternatives to Partners**:
     *   Language Exchange (Focus on high frequency, short duration).
     *   Self-recording: Weekly monologue (2 mins), compare with previous week.
@@ -64,16 +67,19 @@
 
 ## 6) 📅 Weekly Schedule (Replicable)
 
-**Weekdays (40–60 mins/day)**
-*   **Duolingo**: 10–15 mins (Maintain streak).
-*   **Listening**: Intensive + Shadowing (20 mins).
-*   **Speaking**: Improvisation (10 mins).
-*   **Reading/Writing**: Alternate (15 mins).
+**Weekdays (Work Mode: Input Focused)**
+*   **Listening (Priority #1)**:
+    *   *Commute/Chores*: Extensive Listening (Podcasts/Tech News) - Maximize this time.
+    *   *Dedicated Session (20 mins)*: Intensive Listening (Dictation/Transcription). No speaking required.
+*   **Reading/Writing (Priority #2)**:
+    *   Read 1 technical article or doc section.
+    *   Write a short summary (3-5 sentences) or journal entry.
+*   **Speaking**: None (Silent internal monologue only).
 
-**Weekends (2–3 Hours)**
-*   Long Reading + 3-sentence Summary.
-*   Write 1 short essay + Rewrite.
-*   Review weekly errors (Grammar/Collocations/Pronunciation).
+**Weekends (Deep Output Mode)**
+*   **Speaking Sprint**: 30-45 mins of dedicated Speaking (Shadowing/Improvisation).
+*   **Long Reading**: Deep dive into complex texts.
+*   **Review**: Go over the week's dictations and written summaries.
 
 ## 7) 🔑 Key Mindset: "Use English to Do Things"
 *   Read professional/industry content in English.
