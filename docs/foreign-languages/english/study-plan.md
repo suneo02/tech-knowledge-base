@@ -12,12 +12,12 @@ _Replace "question brushing" with real input._
 
 - **Goal**: Move from "hearing test points" to "hearing real speed & expression".
 - **Routine (20–40 mins/session)**:
-  - **Extensive Listening (10–15 mins)**: Podcasts/YouTube/TV clips. Don't pause, train to keep up with rhythm.
-  - **Intensive Listening (10 mins)**: Same 1–2 min audio, loop it:
-    1. Dictation or keywords.
-    2. Check against subtitles for misses.
+  - **Extensive Listening (10–15 mins)**: Listen to the **entire material** (e.g., an 18-minute podcast or video) without pausing. Train to keep up with the rhythm. **(Note: Do not look up words here; focus on main ideas and guess context from the flow).**
+  - **Intensive Listening (10 mins)**: From your chosen longer material, **select a 1-2 minute segment** that you want to deeply analyze (or use a short, dedicated audio clip). Loop this segment through the following steps:
+    1. Dictation or keywords: Write down what you hear.
+    2. Check against subtitles for misses and look up unknown words/expressions.
     3. Listen again & Shadow (follow reading).
-  - **Retelling (3–5 mins)**: Close subtitles, retell in your own words (focus on complete expression, not perfection).
+  - **Retelling (3–5 mins)**: After intensive listening to the segment, close subtitles and retell its content in your own words (focus on complete expression, not perfection).
 - **Materials**:
   - _Beginner_: VOA Learning English / BBC Learning English.
   - _Advanced_: NPR, The Daily, TED.
@@ -68,7 +68,8 @@ _Improvement comes from rewriting, not just writing more._
 _Don't memorize lists. Focus on Collocations & Chunks._
 
 - **Focus**: `take responsibility for...`, `be skeptical about...`, `a growing body of evidence suggests...`
-- **Action**: Good expression → Record sentence/phrase → Anki (or similar).
+- **Action**: Good expression → Record sentence/phrase → **Anki** (Spaced Repetition System).
+  - _Tip: Add new chunks found during the "Intensive Listening" subtitle check._
 - **Volume**: 10 cards/day (Consistency > Intensity).
 
 ## 6) 📅 Weekly Schedule (Replicable)
