@@ -1,1 +1,0 @@
-export { getIfOverseaByUserInfo } from './oversea'

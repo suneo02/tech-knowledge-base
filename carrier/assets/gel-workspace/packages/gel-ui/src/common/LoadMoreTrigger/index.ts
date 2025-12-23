@@ -1,1 +1,0 @@
-export { LoadMoreTrigger } from './LoadMoreTrigger'

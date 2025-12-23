@@ -1,5 +1,0 @@
-packages:
-  # 所有 packages/ 目录下的包
-  - 'packages/*' 
-  # 所有 apps/ 目录下的包
-  - 'apps/*'

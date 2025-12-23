@@ -1,1 +1,0 @@
-export const REPORT_OUTLINE_CHAT_USER_QUESTION_INTERVAL = 10000; // 报告大纲聊天用户问题间隔时间
