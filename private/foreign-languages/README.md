@@ -1,43 +1,33 @@
-# Foreign Languages
+# Foreign Languages Learning Hub
 
-This section is dedicated to learning and improving foreign language skills, with a current focus on English and French.
+This directory is dedicated to the systematic learning of foreign languages, aligned with my global career strategy.
 
-## 👤 My Language Profile {#my-language-profile}
-**Native Language**: Chinese
-
-### 🇬🇧 English Profile
-- **Learning History**: From primary school to undergraduate studies.
-- **Proficiency**: CET-6, 532 points.
-- **Current Engagement**: Actively using Duolingo.
-
-### 🇫🇷 French Profile
-- **Proficiency**: Absolute Beginner.
-- **Motivation**: For hobby only, no professional or academic pressure.
+> **👤 User Profile:** For my current language proficiency (CET-6 Score), target IELTS scores, and language mandates for specific countries, please refer to the **[Personal Career Profile](../carrier/background.md)**.
 
 ---
 
-## 📚 Languages
+## 📚 Active Learning Tracks
 
-### 🇬🇧 English
-- **Current Focus**: Comprehensive improvement (Listening, Speaking, Reading, Writing)
-- **Status**: Active
-- [👉 View Detailed Study Plan](./english/study-plan.md)
+### 🇬🇧 English (Strategic Priority)
+*   **Goal:** Professional Fluency (IELTS 8777 target for Canada/Australia).
+*   **Status:** **Active** (Daily Focus)
+*   [👉 View Detailed Study Plan](./english/study-plan.md)
 
-### 🇫🇷 French
-- **Current Focus**: Foundations & Core Skills
-- **Status**: Planning
-- [👉 View Detailed Study Plan](./french/study-plan.md)
+### 🇫🇷 French (Hobby/Potential)
+*   **Goal:** Basic conversational skills (A2) for potential European mobility.
+*   **Status:** **Planning/Hobby**
+*   [👉 View Detailed Study Plan](./french/study-plan.md)
 
 ---
 
-## 📝 General Learning Philosophy
+## 📝 Learning Philosophy
 
 ### Key Principles
-1.  **Consistency**: Small daily habits beat occasional marathon sessions.
-2.  **Input + Output**: Balance consuming content with creating it.
-3.  **Real-World Application**: Use the language to do things, not just study it.
+1.  **Consistency**: Small daily habits (15 mins) > Occasional marathons.
+2.  **Input + Output**: Balance consuming content (Podcasts/Reading) with creating it (Speaking/Writing).
+3.  **Immersion**: Change device languages, consume tech news in target language.
 
-### Tools & Resources
-- **Anki**: For vocabulary spaced repetition.
-- **Duolingo**: For daily habit maintenance.
-- **Podcasts/YouTube**: For comprehensible input.
+### Recommended Tools
+*   **Anki**: For vocabulary spaced repetition.
+*   **Duolingo**: For maintaining streaks and basic grammar.
+*   **YouTube/Podcasts**: For comprehensible input (Tech talks, Vlogs).
