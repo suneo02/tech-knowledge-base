@@ -4,6 +4,8 @@ site_url: https://hidetoshi20.github.io/hidetoshi-tech-knowledge-base/
 site_author: Hidetoshi Dekisugi
 site_description: "Hidetoshi's comprehensive tech knowledge base covering programming languages, databases, networks, front-end development, and related technologies."
 
+docs_dir: library
+
 # Repository Information
 repo_url: https://github.com/Hidetoshi20/hidetoshi-tech-knowledge-base
 repo_name: hidetoshi-tech-knowledge-base
