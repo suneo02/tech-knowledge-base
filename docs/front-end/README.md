@@ -48,7 +48,7 @@ graph TD
 - **[网络基础](foundations/network.md)** - HTTP/HTTPS、WebSocket、CORS 跨域、浏览器并发限制
 - **[安全实践](foundations/security/README.md)** - XSS、CSRF、CSP 等前端安全主题
 
-> **延伸阅读**：深入网络协议层请参考 [计算机网络](../network/computer-networking-a-top-down-approach/README.md)
+> **延伸阅读**：深入网络协议层请参考 [计算机网络](../computer-science/network/computer-networking-a-top-down-approach/README.md)
 
 ### 框架与库 (Frameworks)
 
@@ -207,7 +207,7 @@ docs/front-end/
 ### 按主题查找
 
 - **浏览器相关**：[浏览器原理](foundations/browser.md) | [性能优化](performance/README.md)
-- **网络相关**：[网络基础](foundations/network.md) | [深入网络协议](../network/README.md)
+- **网络相关**：[网络基础](foundations/network.md) | [深入网络协议](../computer-science/network/README.md)
 - **安全相关**：[Web 安全](foundations/security/README.md)
 - **React 相关**：[React 指南](frameworks/react.md)
 - **Vue 相关**：[Vue 指南](frameworks/vue/README.md)

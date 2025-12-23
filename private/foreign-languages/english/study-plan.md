@@ -8,7 +8,7 @@
 ## 1) Listening: "Comprehensible Input + Intensive Listening & Retelling"
 *Replace "question brushing" with real input.*
 
-*   **Goal**: Move from "hearing test points" to "hearing real speed & expression".
+   **Goal**: Move from "hearing test points" to "hearing real speed & expression".
 *   **Routine (20–40 mins/session)**:
     *   **Extensive Listening (10–15 mins)**: Podcasts/YouTube/TV clips. Don't pause, train to keep up with rhythm.
     *   **Intensive Listening (10 mins)**: Same 1–2 min audio, loop it:

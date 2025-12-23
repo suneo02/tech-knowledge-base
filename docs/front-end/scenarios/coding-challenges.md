@@ -158,7 +158,7 @@ JavaScript 超过 Number 最大值的数怎么处理？
 ## 相关知识点 {#相关知识点}
 
 ### 延伸阅读
-- [JavaScript 基础](../../program-language/js/index.md) - JavaScript 核心概念
+- [JavaScript 基础](../../computer-science/program-language/js/index.md) - JavaScript 核心概念
 - [算法与数据结构](https://leetcode.com/) - LeetCode 练习
 
 ---

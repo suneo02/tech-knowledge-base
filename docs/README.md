@@ -5,25 +5,20 @@
 ## 📚 知识领域导航 {#knowledge-domains}
 
 ### 🖥️ Program Language
-- **入口**: [./program-language/README.md](./program-language/README.md)
+- **入口**: [./computer-science/program-language/README.md](./computer-science/program-language/README.md)
 - **HTML** - Web 标记语言基础
 - **CSS** - 样式与布局技术  
 - **JavaScript** - 核心语言概念与 ES6+ 特性
 - **TypeScript** - 类型安全的 JavaScript 开发
 
-### 🗣️ Foreign Languages
-- **入口**: [./foreign-languages/README.md](./foreign-languages/README.md)
-- **English** - 英语学习资料
-- **French** - 法语学习资料
-
 ### 🗄️ Database Systems
-- **入口**: [./database-systems/README.md](./database-systems/README.md)
+- **入口**: [./computer-science/database-systems/README.md](./computer-science/database-systems/README.md)
 - **Database Concepts** - 数据库核心原理
 - **Design & Implementation** - 数据库设计模式与最佳实践
 - **读书笔记** - Database Systems: Design, Implementation & Management
 
 ### 🌐 Network
-- **入口**: [./network/README.md](./network/README.md)
+- **入口**: [./computer-science/network/README.md](./computer-science/network/README.md)
 - **Computer Networking** - 网络协议与架构
 - **Network Layers** - 应用层、传输层、网络层概念
 - **Network Carrier** - 分层模型详解
@@ -47,7 +42,7 @@
 ### 💡 Resources
 - **全局资源**: [./resources/README.md](./resources/README.md)
 - **前端资源**: [./front-end/resources/README.md](./front-end/resources/README.md)
-- **程序资源**: [./program-resource.md](./program-resource.md)
+- **程序资源**: [./computer-science/program-resource.md](./computer-science/program-resource.md)
 
 ---
 
@@ -60,10 +55,7 @@
 ```mermaid
 graph TD
   ROOT[docs/] --> FE[front-end/]
-  ROOT --> PL[program-language/]
-  ROOT --> NET[network/]
-  ROOT --> DB[database-systems/]
-  ROOT --> OS[OS/]
+  ROOT --> CS[computer-science/]
   ROOT --> AE[areas-to-be-explored/]
   ROOT --> RES[resources/]
   
@@ -73,6 +65,11 @@ graph TD
   FE --> FE_SCN[scenarios/]
   FE --> FE_TOOL[tooling/]
   FE --> FE_RES[resources/]
+  
+  CS --> PL[program-language/]
+  CS --> NET[network/]
+  CS --> DB[database-systems/]
+  CS --> OS[OS/]
   
   PL --> CSS[css/]
   PL --> HTML[html/]
@@ -89,9 +86,9 @@ graph TD
 
 #### 已完成规范化的领域
 - **front-end/** - 前端开发：已完成 foundations/frameworks/performance/scenarios/tooling/resources 分层
-- **program-language/** - 编程语言：css/html/js/ts 子目录，每个子目录以 README.md 为入口
-- **network/** - 计算机网络：包含理论知识（network-carrier）和读书笔记（computer-networking-a-top-down-approach）
-- **database-systems/** - 数据库系统：以读书笔记为主（database-systems-design-implementation-management）
+- **computer-science/program-language/** - 编程语言：css/html/js/ts 子目录，每个子目录以 README.md 或 index.md 为入口
+- **computer-science/network/** - 计算机网络：包含理论知识（network-carrier）和读书笔记（computer-networking-a-top-down-approach）
+- **computer-science/database-systems/** - 数据库系统：以读书笔记为主（database-systems-design-implementation-management）
 
 #### 待探索与临时区域
 - **areas-to-be-explored/** - 待探索主题（AI、Web3、Bywork），保留为临时收纳区
@@ -101,7 +98,7 @@ graph TD
 
 #### 命名规范
 - **文件与目录**：统一使用英文 kebab-case（短横线分隔）
-- **入口文件**：每个目录内统一使用 `README.md` 作为索引入口
+- **入口文件**：每个目录内统一使用 `README.md` 或 `index.md` 作为索引入口
 - **资源文件**：描述性命名，如 `react-rendering-flow.png`
 
 #### 导航策略
@@ -112,7 +109,7 @@ graph TD
 
 #### 资源管理
 - **就近原则**：各领域资源存放在对应的 `assets/` 目录下
-  - 例如：`front-end/assets/`、`program-language/css/assets/`
+  - 例如：`front-end/assets/`、`computer-science/program-language/css/assets/`
 - **避免跨域引用**：减少复杂的相对路径
 - **外链集中**：外部资源链接集中在各域的 `resources/README.md`
 
@@ -137,14 +134,14 @@ graph TD
   - 工程化 → [Tooling](./front-end/tooling/README.md)
 
 2. **全栈开发者**：
-  - 语言基础 → [JavaScript](./program-language/js/index.md) + [TypeScript](./program-language/ts/README.md)
-  - 网络知识 → [Network](./network/README.md)
-  - 数据库 → [Database Systems](./database-systems/README.md)
+  - 语言基础 → [JavaScript](./computer-science/program-language/js/index.md) + [TypeScript](./computer-science/program-language/ts/README.md)
+  - 网络知识 → [Network](./computer-science/network/README.md)
+  - 数据库 → [Database Systems](./computer-science/database-systems/README.md)
 
 3. **系统工程师**：
-  - 网络协议 → [Network Layers](./network/README.md)
-  - 操作系统 → [OS](./OS/README.md)
-  - 数据库原理 → [Database Concepts](./database-systems/README.md)
+  - 网络协议 → [Network Layers](./computer-science/network/README.md)
+  - 操作系统 → [OS](./computer-science/OS/README.md)
+  - 数据库原理 → [Database Concepts](./computer-science/database-systems/README.md)
 
 ### 搜索功能
 
@@ -231,9 +228,9 @@ graph TD
 |------|---------|------|
 | 总览 | [docs/README.md](./README.md) | 本文档 |
 | 前端开发 | [front-end/README.md](./front-end/README.md) | 已完成规范化 |
-| 编程语言 | [program-language/README.md](./program-language/README.md) | 建议完善 |
-| 计算机网络 | [network/README.md](./network/README.md) | 建议新增 |
-| 数据库系统 | [database-systems/README.md](./database-systems/README.md) | 建议新增 |
+| 编程语言 | [computer-science/program-language/README.md](./computer-science/program-language/README.md) | 建议完善 |
+| 计算机网络 | [computer-science/network/README.md](./computer-science/network/README.md) | 建议新增 |
+| 数据库系统 | [computer-science/database-systems/README.md](./computer-science/database-systems/README.md) | 建议新增 |
 | 全局资源 | [resources/README.md](./resources/README.md) | 建议新增 |
 | 编写规范 | `meta/writing-guidelines.md` | 文档标准 |
 

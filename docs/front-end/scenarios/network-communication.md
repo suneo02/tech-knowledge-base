@@ -75,7 +75,7 @@
 
 ### 延伸阅读
 - [网络基础](../foundations/network.md) - HTTP、WebSocket 等网络协议
-- [计算机网络](../../network/README.md) - 深入网络协议栈
+- [计算机网络](../../computer-science/network/README.md) - 深入网络协议栈
 
 ---
 
