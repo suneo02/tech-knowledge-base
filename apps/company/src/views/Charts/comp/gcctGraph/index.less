@@ -1,0 +1,26 @@
+// 将样式提到最前面并提高优先级
+body.width-auto-mode {
+  #root {
+    min-width: auto !important;
+  }
+}
+
+.gcctGraph {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 360px;
+  &.gcctGraph-empty {
+    min-height: auto;
+  }
+  .operator {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    > .charts-operator-right {
+      margin-right: 12px;
+    }
+  }
+}

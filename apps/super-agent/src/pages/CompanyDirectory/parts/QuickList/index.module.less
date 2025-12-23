@@ -1,0 +1,39 @@
+@prefix: quick-list;
+
+.@{prefix} {
+  display: flex;
+  flex-direction: column;
+
+  &-item {
+    display: flex;
+    // align-items: center;
+    flex-direction: column;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--basic-14);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fff;
+    margin-bottom: 8px;
+  }
+  &-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  }
+  &-item[data-selected='true'] {
+    border-color: var(--click-4);
+    background: rgba(19, 104, 255, 0.06);
+  }
+
+  &-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-title {
+    font-size: 13px;
+    color: #333;
+  }
+}

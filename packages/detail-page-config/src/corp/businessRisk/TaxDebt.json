@@ -1,0 +1,53 @@
+{
+  "api": "/detail/company/get_UnpaidTax",
+  "countKey": "taxdebtsCount",
+  "downDocType": "unpaidtax",
+  "downDocTypeName": "老的导出",
+  "isRiskModule": true,
+  "key": "TaxDebt",
+  "title": "欠税信息",
+  "titleIntl": "138424",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "time",
+      "renderType": "date",
+      "title": "公示日期",
+      "titleIntl": "138143",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "owingTaxType",
+      "title": "欠税税种",
+      "titleIntl": "138194",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "owingTaxKind",
+      "title": "欠税类型",
+      "titleIntl": "138566",
+      "width": "14%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "owingTaxBalance",
+      "renderType": "number",
+      "title": "欠款余额(元)",
+      "titleIntl": "364153",
+      "width": "15%",
+      "renderConfig": {
+        "useThousandSeparator": true
+      }
+    },
+    {
+      "align": "left",
+      "dataIndex": "taxAuthority",
+      "title": "主管税务机关",
+      "titleIntl": "138218",
+      "width": "39%"
+    }
+  ]
+}

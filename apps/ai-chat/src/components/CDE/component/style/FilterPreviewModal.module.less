@@ -1,0 +1,142 @@
+@import './var.less';
+.cde-modal {
+  &--body {
+    height: 80%;
+    width: 80vw;
+    min-height: 800px;
+    max-height: 1080px;
+    min-width: 1280px;
+
+    > * {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &-content {
+    position: relative;
+    height: 100%;
+  }
+
+  &--wrapper {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
+    :global {
+      .w-modal-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .w-modal-body {
+        height: 100%;
+        overflow: auto;
+        padding: 0;
+      }
+
+      .w-modal-footer {
+        margin-top: 24px;
+      }
+    }
+  }
+}
+
+@cde-filter-console-menu-width: 184px;
+
+@cde-filter-console-gap: 16px;
+
+// border style
+@cde-filter-console-border-color: #f0f0f0;
+@cde-filter-console-border-radius: 4px;
+
+.console {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+
+  .loading-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 10;
+  }
+
+  .content-area {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+
+    &-filter {
+      &-left {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        width: @cde-filter-console-menu-width;
+
+        &-btn {
+          // border-top: 1px solid @cde-filter-console-border-color;
+          height: @cde-console-footer-height;
+          box-sizing: border-box;
+          padding-left: 24px;
+          padding-bottom: 8px;
+
+          display: flex;
+          align-items: flex-end;
+        }
+      }
+
+      .menu {
+        flex: 1;
+        width: 100%;
+        flex-shrink: 0;
+        padding: 8px;
+      }
+
+      &-main {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+
+        border-radius: @cde-filter-console-border-radius;
+        border-left: 1px solid @cde-filter-console-border-color;
+
+        .filterList {
+          flex: 1;
+        }
+      }
+    }
+
+    &--subscribe {
+      flex-direction: column;
+      padding: 12px;
+      & > *:not(:last-child) {
+        margin-bottom: @cde-filter-console-gap;
+      }
+
+      .sub-overview {
+        flex: 1;
+        overflow: auto;
+        padding: 12px;
+        border-bottom: 1px solid @cde-filter-console-border-color;
+
+        &--empty {
+          flex: 1;
+          margin-top: 16px !important;
+        }
+      }
+    }
+  }
+  .hidden {
+    display: none;
+  }
+}

@@ -1,0 +1,52 @@
+@import 'gel-ui/variables.less';
+
+.pdf-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: @color-bg-1;
+  border-radius: @border-radius-base;
+  overflow: hidden;
+
+  // TODO: 全局覆盖 react-pdf-viewer 样式以适配设计系统
+  :global {
+    .rpv-core__viewer {
+      background: @color-bg-1;
+    }
+
+    .rpv-default-layout__container {
+      border: none;
+      background: @color-bg-1;
+    }
+
+    .rpv-toolbar {
+      background: @color-bg-2;
+      border-bottom: 1px solid @border-color-split;
+      padding: @component-space-sm @spacing-sm;
+    }
+
+    .rpv-toolbar__item {
+      margin: 0 @component-space-xs;
+    }
+
+    .rpv-core__page-layer {
+      background: @color-bg-1;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: @screen-md) {
+  .pdf-preview-wrapper {
+    :global {
+      .rpv-toolbar {
+        padding: 6px @component-space;
+
+        .rpv-toolbar__item {
+          margin: 0 2px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>HOT(三角）@1x</title>
+    <g id="PC" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="10-名单-模板库" transform="translate(-528.000000, -212.000000)">
+            <g id="HOT(三角）" transform="translate(528.000000, 212.000000)">
+                <path d="M0,0 L22,0 C23.1045695,-2.02906125e-16 24,0.8954305 24,2 L24,24 L24,24 L0,0 Z" id="矩形" fill="#FF453A"></path>
+                <text id="HOT" transform="translate(15.792893, 8.292893) rotate(45.000000) translate(-15.792893, -8.292893) " font-family="PingFangSC-Medium, PingFang SC" font-size="7" font-weight="400" line-spacing="8" fill="#FFFFFF">
+                    <tspan x="8.29289322" y="11.2928932">HOT</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,95 @@
+@import '~@/styles/colorVariables.less';
+@import '~@/styles/variables.less';
+
+.charts-operator-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .operator-item {
+    display: inline-flex;
+    align-items: center;
+    padding-right: 4px;
+    padding-left: 4px;
+    cursor: pointer;
+    &:hover {
+      color: @primary-hover;
+      .wicon-svg {
+        color: @primary-hover;
+      }
+      .w-switch {
+        background-color: @primary-hover;
+      }
+    }
+    &:active {
+      color: @primary-active;
+      .wicon-svg {
+        color: @primary-active;
+      }
+      .w-switch {
+        background-color: @primary-active;
+      }
+    }
+    .wicon-svg,
+    .w-switch {
+      font-size: 16px;
+      margin-right: 4px;
+      color: @basic-7;
+    }
+    // .w-switch {
+    //   background-color: @basic-7;
+    // }
+  }
+
+  .operator-item-minus,
+  .operator-item-plus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    &:hover {
+      color: @primary-hover;
+      .wicon-svg {
+        color: @primary-hover;
+      }
+    }
+    &:active {
+      color: @primary-active;
+      .wicon-svg {
+        color: @primary-active;
+      }
+    }
+  }
+
+  .wicon-minus-o,
+  .wicon-plus-o {
+    font-size: 18px;
+    color: @basic-7;
+  }
+
+  .operator-item-disabled {
+    color: #ccc;
+    .wicon-svg {
+      cursor: not-allowed;
+    }
+  }
+
+  .operator-item-number-input {
+    position: relative;
+    .w-input-number {
+      width: 64px;
+      margin: 0 4px;
+      .w-input-number-handler-wrap {
+        display: none;
+      }
+    }
+    .operator-item-percent {
+      position: absolute;
+      right: 12px;
+      top: 0;
+      font-size: 12px;
+      user-select: none;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "api": "detail/company/getstructuralsubject",
+  "countKey": true,
+  "downDocTypeName": "不存在导出",
+  "id": "1-10",
+  "key": "1-10",
+  "level": 2,
+  "title": "结构性主体",
+  "titleIntl": "410253",
+  "tooltips": "<i><div><span>结构性主体是一种为了特定目的而设立的独立法律实体，具有资产隔离、有限业务活动和风险隔离等特点，常用于金融交易、资产证券化、风险管理等活动。</span></div></i>",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "controlledCompanyName",
+      "title": "企业名称",
+      "titleIntl": "138677",
+      "width": "30%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "state",
+      "title": "经营状态",
+      "titleIntl": "138416",
+      "width": "20%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "controlledCompanyRegCapital",
+      "title": "注册资本（万）",
+      "titleIntl": "265705",
+      "width": "20%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "votePercent|formatPercent",
+      "title": "参股比例（%）",
+      "titleIntl": "410273",
+      "width": "30%"
+    }
+  ]
+}

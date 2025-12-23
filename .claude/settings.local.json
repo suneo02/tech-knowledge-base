@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run type-check:*)",
+      "Bash(npm run)",
+      "Bash(npm run tsc:*)",
+      "Bash(npm run lint)",
+      "Bash(npx eslint:*)",
+      "Bash(npm run type-check:report-ai:*)",
+      "Bash(pnpm run tsc)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(node:*)",
+      "Bash(echo:*)",
+      "Bash(tree:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm run lint:fix:*)",
+      "Bash(pnpm run lint)",
+      "Bash(pnpm run tsc:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

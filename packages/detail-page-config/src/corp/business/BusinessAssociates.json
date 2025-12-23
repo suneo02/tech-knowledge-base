@@ -1,0 +1,33 @@
+{
+  "api": "detail/company/getrelatedparty",
+  "countKey": "relate_dparty_num",
+  "downDocTypeName": "不存在导出",
+  "id": "6-15",
+  "key": "6-15",
+  "level": 2,
+  "title": "业务关联方",
+  "titleIntl": "222763",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "relatedPartyType",
+      "title": "关联方类型",
+      "titleIntl": "222781",
+      "width": "42%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "relatedPartyName",
+      "title": "关联方名称",
+      "titleIntl": "222782",
+      "width": "54%"
+    }
+  ]
+}

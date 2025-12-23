@@ -1,0 +1,101 @@
+@import 'gel-ui/variables.less';
+
+.chapter-item {
+  .chapter-content {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 2px;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+
+    &.chapter-selected {
+      background-color: @click-2;
+    }
+  }
+
+  .icon-container {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .expand-icon {
+    width: 16px;
+    height: 16px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    transform: rotate(-90deg); // 默认向右
+
+    &.expanded-icon {
+      transform: rotate(0deg) !important; // 展开时向下
+    }
+  }
+
+  .icon-placeholder {
+    width: 16px;
+    height: 16px;
+  }
+
+  .chapter-node {
+    display: flex;
+    align-items: center;
+    /* 替代 gap: 8px */
+    flex: 1;
+
+    .chapter-title {
+      flex: 1;
+      font-size: 14px;
+      color: @font-color-1;
+      line-height: 1.4;
+
+      // 一级标题 - 最粗
+      &.chapter-title-level-0 {
+        font-weight: 500;
+        font-size: 15px;
+      }
+
+      // 二级标题 - 中等粗细
+      &.chapter-title-level-1 {
+        font-weight: 400;
+        font-size: 14px;
+      }
+
+      // 三级及以下标题 - 正常粗细
+      &.chapter-title-level-2 {
+        font-weight: 400;
+        font-size: 14px;
+      }
+    }
+  }
+  
+  .chapter-node > * + * {
+    margin-left: 8px;
+  }
+
+  .chapter-children {
+    margin-left: 16px;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

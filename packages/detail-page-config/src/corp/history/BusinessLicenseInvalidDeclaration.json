@@ -1,0 +1,54 @@
+{
+  "api": "detail/company/getlicenseabolish_licenseAbolish",
+  "countKey": "license_abolish_num",
+  "downDocTypeName": "不存在导出",
+  "id": "11-10",
+  "key": "11-10",
+  "level": 2,
+  "title": "作废声明",
+  "titleIntl": "149696",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "declaration_date|formatTime",
+      "title": "声明日期",
+      "titleIntl": "145866",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "original_or_copy",
+      "title": "正副本",
+      "titleIntl": "145867",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "declaration_content",
+      "title": "声明内容",
+      "titleIntl": "145868",
+      "width": "25%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "duplicate_no",
+      "title": "副本编号",
+      "titleIntl": "145869",
+      "width": "17%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "replacement_status",
+      "title": "补领情况",
+      "titleIntl": "145870",
+      "width": "24%"
+    }
+  ]
+}

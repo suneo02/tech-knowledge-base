@@ -1,0 +1,40 @@
+{
+  "api": "detail/company/getreportinfo",
+  "countKey": "report_num",
+  "downDocTypeName": "不存在导出",
+  "id": "6-7",
+  "key": "6-7",
+  "level": 2,
+  "title": "公司研报",
+  "titleIntl": "138775",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "title",
+      "title": "报告标题",
+      "titleIntl": "1786",
+      "width": "71%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "broker",
+      "title": "来源",
+      "titleIntl": "9754",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "date|formatTime",
+      "title": "发布日期",
+      "titleIntl": "138908",
+      "width": "10%"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+.w-filter-container {
+  display: flex;
+  form {
+    > div:last-child {
+      margin-inline-end: 0;
+    }
+  }
+}

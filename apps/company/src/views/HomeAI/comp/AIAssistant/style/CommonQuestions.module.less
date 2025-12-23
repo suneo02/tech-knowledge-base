@@ -1,0 +1,40 @@
+@import 'gel-ui/variables.less';
+
+.commonQuestions {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+
+  .title {
+    display: block;
+    color: @font-color-2;
+  }
+
+  .questionsContainer {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .questionItem {
+    padding: 6px 12px;
+    margin-left: 20px;
+    background: #ffffff;
+    border-radius: 2px;
+
+    color: @font-color-2;
+    cursor: pointer;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      color: #00aec7;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "api": "detail/company/getgovhugeproject",
+  "countKey": "gov_major_project_num",
+  "downDocTypeName": "不存在导出",
+  "id": "6-8",
+  "key": "6-8",
+  "level": 2,
+  "title": "政府重大项目",
+  "titleIntl": "314693",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "project_name",
+      "title": "项目名称",
+      "titleIntl": "34886",
+      "width": "33%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "project_area",
+      "title": "项目所在地",
+      "titleIntl": "314694",
+      "width": "13%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "project_type",
+      "title": "项目类型",
+      "titleIntl": "15433",
+      "width": "13%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "project_status",
+      "title": "项目建设状态",
+      "titleIntl": "314714",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "project_year",
+      "title": "项目年度",
+      "titleIntl": "314695",
+      "width": "9%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "project_amount|formatMoneyComma",
+      "title": "项目总投资金额(万)",
+      "titleIntl": "314696",
+      "width": "16%"
+    }
+  ]
+}

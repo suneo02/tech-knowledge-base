@@ -1,0 +1,62 @@
+{
+  "api": "detail/company/gethisinvest",
+  "countKey": "his_invest_num",
+  "downDocType": "hisinvest",
+  "downDocTypeName": "老的导出",
+  "id": "11-5",
+  "key": "11-5",
+  "level": 2,
+  "title": "历史对外投资",
+  "titleIntl": "142472",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "investcompany_name",
+      "title": "被投企业",
+      "titleIntl": "265558",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "legal_name",
+      "title": "被投企业法人",
+      "titleIntl": "261159",
+      "width": "15%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "registeredCapital",
+      "title": "注册资本",
+      "titleIntl": "35779",
+      "width": "16%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "invest_radio|formatPercent",
+      "title": "退出前持股比例",
+      "titleIntl": "356653",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "start_date|formatTime",
+      "title": "投资日期",
+      "titleIntl": "101026",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "exit_date|formatTime",
+      "title": "退出日期",
+      "titleIntl": "63486",
+      "width": "10%"
+    }
+  ]
+}

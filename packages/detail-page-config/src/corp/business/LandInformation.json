@@ -1,0 +1,202 @@
+{
+  "countKey": "landinfo_num",
+  "downDocTypeName": "不存在导出",
+  "id": "6-12",
+  "key": "6-12",
+  "level": 2,
+  "title": "土地信息",
+  "titleIntl": "114647",
+  "type": "子菜单",
+  "children": [
+    {
+      "api": "/detail/company/getlandanns",
+      "countKey": "landanns_num",
+      "downDocTypeName": "不存在导出",
+      "id": "6-12-1",
+      "key": "6-12-1",
+      "level": 3,
+      "title": "地块公示",
+      "titleIntl": "205431",
+      "type": "表格",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "landLoc",
+          "title": "地块位置",
+          "titleIntl": "205434",
+          "width": "40%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "regionCode",
+          "title": "行政区",
+          "titleIntl": "205383",
+          "width": "20%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "relAgency",
+          "title": "发布机关",
+          "titleIntl": "205435",
+          "width": "20%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "relDate|formatTime",
+          "title": "发布日期",
+          "titleIntl": "138908",
+          "width": "10%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "decs",
+          "title": "操作",
+          "titleIntl": "36348",
+          "width": "6%"
+        }
+      ]
+    },
+    {
+      "api": "/detail/company/getlandpurchase",
+      "countKey": "landpurchase_num",
+      "downDocTypeName": "不存在导出",
+      "id": "6-12-2",
+      "key": "6-12-2",
+      "level": 3,
+      "title": "拿地信息",
+      "titleIntl": "348190",
+      "type": "表格",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "projPos",
+          "title": "地块位置",
+          "titleIntl": "205434",
+          "width": "17%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "landUsage",
+          "title": "土地用途",
+          "titleIntl": "100868",
+          "width": "18%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "landHa",
+          "title": "土地面积(公顷)",
+          "titleIntl": "205389",
+          "width": "15%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "dealPrice|formatMoneyComma",
+          "title": "成交价格(万元)",
+          "titleIntl": "205386",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "regionCode",
+          "title": "行政区",
+          "titleIntl": "205383",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "contractDate|formatTime",
+          "title": "合同签订日期",
+          "titleIntl": "205436",
+          "width": "10%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "decs",
+          "title": "操作",
+          "titleIntl": "36348",
+          "width": "6%"
+        }
+      ]
+    },
+    {
+      "api": "/detail/company/getlandtrans",
+      "countKey": "landtrans_num",
+      "downDocTypeName": "不存在导出",
+      "id": "6-12-3",
+      "key": "6-12-3",
+      "level": 3,
+      "title": "土地转让",
+      "titleIntl": "205433",
+      "type": "表格",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "landPos",
+          "title": "地块位置",
+          "titleIntl": "205434",
+          "width": "17%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "oldUser",
+          "title": "原土地使用权人",
+          "titleIntl": "205439",
+          "width": "18%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "curUser",
+          "title": "现土地使用权人",
+          "titleIntl": "205438",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "landHa",
+          "title": "土地面积(公顷)",
+          "titleIntl": "205389",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "transPrice",
+          "title": "转让价格(万元)",
+          "titleIntl": "205396",
+          "width": "15%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "dealTime|formatTime",
+          "title": "成交日期",
+          "titleIntl": "2811",
+          "width": "10%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "decs",
+          "title": "操作",
+          "titleIntl": "36348",
+          "width": "6%"
+        }
+      ]
+    }
+  ]
+}

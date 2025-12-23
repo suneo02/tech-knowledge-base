@@ -1,0 +1,59 @@
+@import '@/styles/variables.less';
+
+.card-header-title {
+  --fontSize: @font-size-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fontSize);
+  color: var(--font-color-2);
+  font-weight: bold;
+  margin-bottom: 4px;
+
+  .title {
+    // display: flex;
+    // align-items: center;
+    .svg {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 16px;
+      margin-inline-start: 2px;
+
+      &::after {
+        top: 2px;
+        content: '';
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: url(../../../../assets/common/NEW-copy.svg) no-repeat center;
+        background-size: 100%;
+      }
+    }
+  }
+
+  .title-num {
+    margin-left: 6px;
+    color: var(--font-color-4);
+    font-weight: normal;
+    font-size: var(--fontSize);
+  }
+
+  .title-remark {
+    color: var(--font-color-4);
+    font-size: @font-size-mn;
+    margin-left: 6px;
+    font-weight: normal;
+  }
+
+  .card-header-options {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .search-filters-container {
+    display: flex;
+    align-items: center;
+  }
+}

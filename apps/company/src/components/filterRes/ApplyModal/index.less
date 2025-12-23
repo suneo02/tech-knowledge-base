@@ -1,0 +1,87 @@
+.applyModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --input-border: rgba(230, 235, 242, 1);
+
+  :global {
+    .w-modal-content {
+      border-radius: 0;
+    }
+    .w-modal-body {
+      padding: 20px 50px;
+    }
+    .w-modal-close {
+      top: 16px;
+      color: #999;
+      .w-modal-close-x {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .title {
+    margin-top: 42px;
+    margin-bottom: 36px;
+    text-align: center;
+    font-size: 22px;
+    color: #333333;
+    letter-spacing: 0;
+    font-weight: bold;
+  }
+
+  .row {
+    /* display: flex;
+    align-items: center; */
+  }
+
+  .row + .row {
+    margin-top: 20px;
+  }
+
+  .input {
+    flex: 1;
+    height: 46px !important;
+    padding-left: 20px;
+  }
+
+  .smsButton {
+    width: 96px;
+    height: 46px;
+    margin-left: 20px;
+    border-color: rgba(230, 235, 242, 1);
+    color: #999;
+  }
+
+  .errText {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #df262c;
+    letter-spacing: 0;
+    line-height: 14px;
+    font-weight: 500;
+  }
+
+  .submitButton {
+    width: 100%;
+    height: 46px;
+    margin-top: 50px;
+    font-size: 16px;
+  }
+
+  .contactText {
+    text-align: center;
+    margin-top: 28px;
+    margin-bottom: 22px;
+    color: #999;
+  }
+
+  .contactText span {
+    color: #00aec7;
+    font-weight: bold;
+  }
+
+  .borderRed {
+    border-color: #df262c;
+  }
+}

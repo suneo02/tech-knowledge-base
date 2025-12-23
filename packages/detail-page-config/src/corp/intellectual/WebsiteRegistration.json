@@ -1,0 +1,61 @@
+{
+  "api": "detail/company/getdomain",
+  "countKey": "domain_num",
+  "downDocTypeName": "不存在导出",
+  "id": "8-7",
+  "key": "8-7",
+  "level": 2,
+  "title": "网站备案",
+  "titleIntl": "138804",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "web_name|formatCont",
+      "title": "ICP备案名称",
+      "titleIntl": "303753",
+      "width": "21%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "web_home_page",
+      "title": "网址",
+      "titleIntl": "138805",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "domain_name|formatCont",
+      "title": "域名",
+      "titleIntl": "138266",
+      "width": "16%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "web_number|formatCont",
+      "title": "网站备案/许可证号",
+      "titleIntl": "138328",
+      "width": "18%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "audit_transit_time|formatTime",
+      "title": "审核通过日期",
+      "titleIntl": "348177",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "detailId-1",
+      "title": "网站信息",
+      "titleIntl": "348170",
+      "width": "9%"
+    }
+  ]
+}

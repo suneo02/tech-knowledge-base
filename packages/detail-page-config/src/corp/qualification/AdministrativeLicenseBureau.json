@@ -1,0 +1,47 @@
+{
+  "api": "/detail/company/getpermissionnew",
+  "countKey": "adminLicenceCount",
+  "downDocTypeName": "不存在导出",
+  "key": "AdministrativeLicenseBureau",
+  "title": "行政许可[工商局]",
+  "titleIntl": "222480",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "permissionFileNumber",
+      "title": "许可文件编号",
+      "titleIntl": "138376",
+      "width": "24%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "permissionFileName",
+      "title": "许可文件名称",
+      "titleIntl": "138375",
+      "width": "19%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "effectiveStartDate",
+      "renderType": "date",
+      "title": "有效期",
+      "titleIntl": "21235",
+      "width": "22%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "licenseDepartment",
+      "title": "发证机关",
+      "titleIntl": "216395",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "licenseContent",
+      "title": "许可内容",
+      "titleIntl": "138378",
+      "width": "30%"
+    }
+  ]
+}

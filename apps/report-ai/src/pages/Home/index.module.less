@@ -1,0 +1,38 @@
+@import '../../styles/variables.less';
+
+@content-width: min(calc(100% - 180px), 1120px);
+
+.home-content {
+  height: 100%;
+  position: relative;
+  padding-top: min(100px, 10vh);
+  display: flex;
+  flex-direction: column;
+
+  &-inner {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    width: 100%;
+
+    max-width: @content-width;
+    min-width: 320px;
+  }
+
+  .chat-sender {
+    width: 100%;
+    margin-top: 60px;
+    max-width: unset;
+    textarea {
+      min-height: 60px !important;
+    }
+  }
+  .report-template-list {
+    margin: 60px 40px;
+    padding: 20px 0;
+  }
+}
+.home-logo-section {
+  width: 100%;
+}

@@ -1,0 +1,93 @@
+@keyframes intro-animation-max {
+  0% {
+    -webkit-transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+  }
+}
+.product-intro-map {
+  text-align: center;
+  width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+  .animation {
+    transform: scale(1.1);
+    animation: intro-animation-max 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .product-intro-card {
+    cursor: pointer;
+    background-color: #fff;
+    margin-top: -40px;
+    .intro-header {
+      width: 344px;
+      height: 126px;
+      text-align: center;
+      line-height: 126px;
+      font-size: 24px;
+    }
+    .vip-header {
+      background: url(../../assets/imgs/vipbg.png);
+
+      color: #a86714;
+    }
+    .svip-header {
+      background: url(../../assets/imgs/svipbg.png);
+
+      color: #a86714;
+    }
+    .corp-header {
+      background: url(../../assets/imgs/bg.png);
+
+      color: #fff;
+    }
+    .intro-main {
+      margin: 50px auto;
+      color: #000;
+      .product-intro-li-price {
+        width: 344px;
+        font-size: 16px;
+        line-height: 68px;
+        .price {
+          color: #a86714;
+          font-size: 41px;
+        }
+      }
+      .product-intro-li-text {
+        width: 344px;
+        font-size: 16px;
+      }
+      .product-intro-li-txt {
+        line-height: 28px;
+        margin-top: -10px;
+        color: #666;
+      }
+      .product-intro-li-btn {
+        margin-top: 50px;
+        .btn {
+          background: #f8daba;
+          color: #a76412;
+          border: 0px;
+        }
+      }
+    }
+  }
+}
+.main-price {
+  * {
+    box-sizing: content-box;
+  }
+  padding: 0;
+  width: 1300px;
+  background: #fff;
+  border-radius: 10px;
+  margin-top: 40px;
+}
+
+.w-card-body {
+  padding: 0;
+}
+
+// 价格表其他行样式已移至 ./comp/PriceTableOtherRow.less

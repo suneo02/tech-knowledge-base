@@ -1,0 +1,299 @@
+{
+  "$ref": "#/definitions/ReportDetailCustomNodeJson",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Record<string,string>": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "ReportDetailCustomNodeJson": {
+      "description": "自定义节点\n\n实在无法用 json 配置的节点\n\n根据对应的 key 来做渲染",
+      "properties": {
+        "api": {
+          "type": "string"
+        },
+        "apiOptions": {
+          "additionalProperties": false,
+          "properties": {
+            "method": {
+              "enum": ["GET", "POST"],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "apiType": {
+          "const": "operation",
+          "description": "接口类型，默认是 gel/detail/company operation 即为 operation/get/...",
+          "type": "string"
+        },
+        "extraParams": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "properties": {
+            "companyCode": {
+              "type": "string"
+            }
+          },
+          "required": ["companyCode"],
+          "type": "object"
+        },
+        "extraPayload": {
+          "$ref": "#/definitions/Record%3Cstring%2Cstring%3E"
+        },
+        "hiddenTitle": {
+          "type": "boolean"
+        },
+        "key": {
+          "$ref": "#/definitions/TCorpDetailNodeKey"
+        },
+        "title": {
+          "type": "string"
+        },
+        "titleIntl": {
+          "type": ["string", "number"]
+        },
+        "type": {
+          "const": "custom",
+          "type": "string"
+        }
+      },
+      "required": ["key", "title", "type"],
+      "type": "object"
+    },
+    "TCorpDetailNodeKey": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/corpDetailBaseInfoKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailBusinessDataKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailFinanceKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailBusinessInfoKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailIntellectualKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailQualificationKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailRiskKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailBusinessRiskKey"
+        },
+        {
+          "$ref": "#/definitions/corpDetailHistoryKey"
+        }
+      ],
+      "description": "定义企业详情各节点的 key，有可能是 表格，有可能是图 也有可能是多个表格的 父节点的 key ，父节点内部的多个表格一般是上下排列 node 与章节 key 不同的是，章节内部的节点都较为独立，而 node 内部的节点可能较为关联，例如发行股票内部的两个表格非常相似，所以看作一个节点"
+    },
+    "corpDetailBaseInfoKey": {
+      "enum": [
+        "BussInfo",
+        "HKCorpInfo",
+        "HKCorpInfoDirector",
+        "HKCorpInfoSecretary",
+        "HKCorpInfoShareholder",
+        "HKCorpInfoEquityStructure",
+        "BelongIndustry",
+        "ActualController",
+        "ActualControllerReport",
+        "ActualControllerSuspect",
+        "ShareholderInfomation",
+        "ShareholderBig",
+        "ShareholderReport",
+        "ShareholderUnregular",
+        "ShareholderPenetration",
+        "ShareholderPenetrationGraph",
+        "ShareholderChange",
+        "BranchStructure",
+        "HoldCompany",
+        "OverseasInvestment",
+        "FinalBeneficiary",
+        "FinalBeneficiaryBeneficiary",
+        "FinalBeneficiaryNatural",
+        "FinalBeneficiaryInstitution",
+        "MainPersonnel",
+        "MainPersonnelLatest",
+        "MainPersonnelHistory",
+        "CoreTeam",
+        "GroupSystem",
+        "GroupMainMember",
+        "GroupMember",
+        "Competitor",
+        "CorpChangeInfo",
+        "ShareholderAndCapitalContribution",
+        "EquityChangeInformation",
+        "TaxPayer"
+      ],
+      "type": "string"
+    },
+    "corpDetailBusinessDataKey": {
+      "enum": [
+        "ProfitStatement",
+        "BalanceSheet",
+        "CashFlowStatement",
+        "BussDataOutputCumulative",
+        "BussDataOutputCurrent",
+        "BussDataSalesCumulative",
+        "BussDataSalesCurrent",
+        "BussDataBusinessCumulative",
+        "BussDataBusinessCurrent",
+        "BussDataInventoryCumulative",
+        "BussDataInventoryCurrent",
+        "FinancialIndicator",
+        "MainBusinessScope"
+      ],
+      "type": "string"
+    },
+    "corpDetailBusinessInfoKey": {
+      "enum": [
+        "EnterpriseBusiness",
+        "AppProducts",
+        "Hotels",
+        "CompanyReports",
+        "GovernmentMajorProjects",
+        "TenderingAnnouncements",
+        "BiddingAnnouncements",
+        "Recruitment",
+        "LandInformation",
+        "PrivateEquityFunds",
+        "CustomersAndSuppliers",
+        "BusinessAssociates",
+        "GovernmentSubsidies",
+        "GovernmentSupport"
+      ],
+      "type": "string"
+    },
+    "corpDetailBusinessRiskKey": {
+      "enum": [
+        "ManageAbnormal",
+        "SeriousViolation",
+        "JudicialAuction",
+        "Appraisal",
+        "AppraisalResult",
+        "AppraisalSelected",
+        "BankruptcyReorganization",
+        "LiquidationInfo",
+        "CancellationRecord",
+        "InspectionCheck",
+        "EquityPledge",
+        "EquityPledgePledgor",
+        "EquityPledgePledgee",
+        "EquityPledgePledgeeTarget",
+        "StockPledge",
+        "StockPledgePledgor",
+        "StockPledgePledgee",
+        "StockPledgePledgeeTarget",
+        "IntellectualPropertyPledge",
+        "IntellectualPropertyPledgeNational",
+        "IntellectualPropertyPledgeBusiness"
+      ],
+      "type": "string"
+    },
+    "corpDetailFinanceKey": {
+      "enum": [
+        "SharedStock",
+        "SharedStockFirst",
+        "SharedStockSecond",
+        "InfoAwaitListing",
+        "DebtRating",
+        "BondIssue",
+        "InvestAgency",
+        "InvestEvent",
+        "PEVCFinance",
+        "PEVCQuit",
+        "MergerInfo",
+        "BankCredit",
+        "ABSInfo",
+        "ChattelFinancing",
+        "ChattelMortgage",
+        "ChattelMortgageMortgager",
+        "ChattelMortgageMortgagee"
+      ],
+      "type": "string"
+    },
+    "corpDetailHistoryKey": {
+      "enum": [
+        "HistoryBusinessInfo",
+        "HistoryShareholder",
+        "HistoryLegalRepresentative",
+        "HistoryOverseasInvestment",
+        "HistoryAdministrativeLicenseBureau",
+        "HistoryAdministrativeLicenseCreditChina",
+        "HistoryWebsiteRegistration",
+        "HistoryEquityPledge",
+        "HistoryEquityPledgePledgor",
+        "HistoryEquityPledgePledgee",
+        "HistoryEquityPledgePledgeeTarget",
+        "HistoryLandMortgage",
+        "MultiCertificate",
+        "BusinessLicenseInvalidDeclaration"
+      ],
+      "type": "string"
+    },
+    "corpDetailIntellectualKey": {
+      "enum": [
+        "Trademark",
+        "TrademarkTheCompany",
+        "TrademarkBranch",
+        "TrademarkHoldCompany",
+        "TrademarkOverseasInvestment",
+        "Patent",
+        "PatentTheCompany",
+        "PatentBranch",
+        "PatentHoldCompany",
+        "PatentOutboundInvestment",
+        "SoftwareCopyright",
+        "WorkCopyright",
+        "StandardInfo",
+        "WebsiteRegistration",
+        "WechatPublic",
+        "MicroblogAccount",
+        "TodayHeadline"
+      ],
+      "type": "string"
+    },
+    "corpDetailQualificationKey": {
+      "enum": [
+        "AdministrativeLicense",
+        "AdministrativeLicenseBureau",
+        "AdministrativeLicenseCreditChina",
+        "TelecomLicense",
+        "BuildingQualification",
+        "RealEstateDevelopmentQualification",
+        "LogisticsRating",
+        "ImportExportCredit",
+        "AExcellentTaxpayer"
+      ],
+      "type": "string"
+    },
+    "corpDetailRiskKey": {
+      "enum": [
+        "JudicialDocument",
+        "CreditDishonest",
+        "Enforcement",
+        "LimitHighConsumption",
+        "EndCase",
+        "FilingInfo",
+        "TrialNotice",
+        "CourtNotice",
+        "DeliveryAnnouncement",
+        "IntegrityInformation",
+        "WarrantyInformation",
+        "TaxViolation",
+        "TaxDebt"
+      ],
+      "type": "string"
+    }
+  }
+}

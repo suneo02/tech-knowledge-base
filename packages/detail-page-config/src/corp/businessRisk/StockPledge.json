@@ -1,0 +1,156 @@
+{
+  "key": "StockPledge",
+  "title": "股票质押",
+  "titleIntl": "132933",
+  "type": "nodeWithChildren",
+  "children": [
+    {
+      "api": "detail/company/getstockpledge",
+      "countKey": "stock_pledgers_num",
+      "downDocTypeName": "不存在导出",
+      "key": "StockPledgePledgor",
+      "title": "出质人",
+      "titleIntl": "138447",
+      "type": "verticalTable",
+      "extraPayload": {
+        "dataType": "1"
+      },
+      "columns": [
+        {
+          "align": "left",
+          "dataIndex": "pledger_name",
+          "title": "出质人",
+          "titleIntl": "138447",
+          "width": "26%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "pledgee_name",
+          "title": "质权方",
+          "titleIntl": "252082",
+          "width": "26%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "plex_name",
+          "title": "出质股权标的的企业",
+          "titleIntl": "354213",
+          "width": "26%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "amount",
+          "title": "质押数量(万股)",
+          "titleIntl": "205511",
+          "width": "18%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "isRelease",
+          "title": "是否解押",
+          "titleIntl": "205512",
+          "width": "10%"
+        }
+      ]
+    },
+    {
+      "api": "detail/company/getstockpledge",
+      "countKey": "stock_pledgees_num",
+      "downDocTypeName": "不存在导出",
+      "key": "StockPledgePledgee",
+      "title": "质权人",
+      "titleIntl": "138446",
+      "type": "verticalTable",
+      "extraPayload": {
+        "dataType": "2"
+      },
+      "columns": [
+        {
+          "align": "left",
+          "dataIndex": "pledger_name",
+          "title": "出质人",
+          "titleIntl": "138447",
+          "width": "26%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "pledgee_name",
+          "title": "质权方",
+          "titleIntl": "252082",
+          "width": "26%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "plex_name",
+          "title": "出质股权标的的企业",
+          "titleIntl": "354213",
+          "width": "26%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "amount",
+          "title": "质押数量(万股)",
+          "titleIntl": "205511",
+          "width": "18%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "isRelease",
+          "title": "是否解押",
+          "titleIntl": "205512",
+          "width": "10%"
+        }
+      ]
+    },
+    {
+      "api": "detail/company/getstockpledge",
+      "countKey": "equitypledgedCountbycomid",
+      "downDocTypeName": "不存在导出",
+      "key": "StockPledgePledgeeTarget",
+      "title": "出质标的",
+      "titleIntl": "138527",
+      "type": "verticalTable",
+      "extraPayload": {
+        "dataType": "3"
+      },
+      "columns": [
+        {
+          "align": "left",
+          "dataIndex": "pledger_name",
+          "title": "出质人",
+          "titleIntl": "138447",
+          "width": "26%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "pledgee_name",
+          "title": "质权方",
+          "titleIntl": "252082",
+          "width": "26%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "plex_name",
+          "title": "出质股权标的的企业",
+          "titleIntl": "354213",
+          "width": "26%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "amount",
+          "renderType": "number",
+          "title": "质押数量(万股)",
+          "titleIntl": "205511",
+          "width": "18%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "isRelease",
+          "title": "是否解押",
+          "titleIntl": "205512",
+          "width": "18%"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+.select-container {
+  width: 116px;
+  position: relative;
+  > .vip-icon {
+    &.vip {
+      background: url(../../../../../../assets/imgs/vipjb.png) center no-repeat;
+      background-size: 100%;
+      width: 18px;
+    }
+    &.svip {
+      background: url(../../../../../../assets/imgs/svip.png) center no-repeat;
+      background-size: 100%;
+      width: 20px;
+    }
+
+    height: 12px;
+    position: absolute;
+    top: -2px;
+    right: 35px;
+    z-index: 2;
+  }
+  .w-select-selection-placeholder {
+    color: rgba(0, 0, 0, 0.88);
+  }
+  .w-select-selector {
+    border: 0 !important;
+  }
+}
+
+.select-dropdown-container {
+  .options-item {
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.88);
+  }
+}

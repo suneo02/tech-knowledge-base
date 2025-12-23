@@ -1,0 +1,76 @@
+.collapsible-info {
+  margin-top: 12px;
+
+  .collapsible-header {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .title {
+      color: #666;
+      font-size: 13px;
+      margin-right: 4px;
+    }
+
+    .icon {
+      font-size: 12px;
+      color: #999;
+    }
+  }
+
+  .collapsible-content {
+    margin-top: 8px;
+    transition: all 0.2s;
+
+    &.collapsed {
+      height: 0;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .info-item {
+      color: #666;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 4px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .color-corp {
+    color: #4d91b4;
+    background-color: #4d91b426;
+    margin: 0;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    border: none;
+    pointer-events: none;
+    padding: 0 8px;
+    border-radius: 2px;
+    margin-right: 8px;
+  }
+  .color-DPU {
+    color: #5fbebf;
+    background-color: #5fbfbf26;
+    margin: 0;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    border: none;
+    pointer-events: none;
+    padding: 0 8px;
+    border-radius: 2px;
+    margin-right: 8px;
+  }
+}

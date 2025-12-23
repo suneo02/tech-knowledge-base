@@ -1,0 +1,51 @@
+{
+  "name": "detail-page-config",
+  "version": "0.1.0",
+  "description": "Configuration package for detail pages",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "corp": [
+        "./dist/types/corp/index.d.ts"
+      ],
+      "handle": [
+        "./dist/types/handle/index.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./corp": {
+      "import": "./dist/corp/index.mjs",
+      "types": "./dist/types/corp/index.d.ts"
+    },
+    "./validation": {
+      "import": "./dist/validation/index.mjs",
+      "types": "./dist/types/validation/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "node ../../scripts/clean.cjs dist",
+    "build": "npm run clean && vite build",
+    "dev": "vite build --watch --mode development --minify false --sourcemap",
+    "build:staging": "npm run clean && vite build --mode staging",
+    "typecheck": "tsc --noEmit",
+    "tsc": "npm run typecheck",
+    "check:circular": "madge --circular --extensions ts,tsx src/"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gel-types": "workspace:*",
+    "typescript": "^5.0.0"
+  },
+  "sideEffects": false
+}

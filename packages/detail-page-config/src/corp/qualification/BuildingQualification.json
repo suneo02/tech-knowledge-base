@@ -1,0 +1,55 @@
+{
+  "api": "detail/company/getbuildqualificationslist",
+  "countKey": "build_qualification_num",
+  "downDocTypeName": "不存在导出",
+  "key": "BuildingQualification",
+  "title": "建筑资质",
+  "titleIntl": "216392",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "qualificationClassify",
+      "title": "资质分类",
+      "titleIntl": "216396",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "certificateNumber",
+      "title": "证书编号",
+      "titleIntl": "138197",
+      "width": "17%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "qualificationNameList",
+      "title": "资质名称",
+      "titleIntl": "216393",
+      "width": "25%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "issuseDate",
+      "renderType": "date",
+      "title": "发证日期",
+      "titleIntl": "138245",
+      "width": "12%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "certificateDueDate",
+      "renderType": "date",
+      "title": "有效期到期日期",
+      "titleIntl": "390613",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "issuingAuthority",
+      "title": "发证机关",
+      "titleIntl": "216395",
+      "width": "14%"
+    }
+  ]
+}

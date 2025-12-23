@@ -1,0 +1,14 @@
+.underline {
+  text-decoration: 1px underline #c5c5c5;
+  text-underline-offset: 4px;
+  color: inherit;
+}
+.flex3 {
+  display: flex;
+  flex-wrap: wrap;
+  > span {
+    // flex: 1 1 33%;
+    min-width: calc(100% / 3.5);
+    margin-block-start: 4px;
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "key": "MainPersonnel",
+  "title": "主要人员",
+  "titleIntl": "138503",
+  "type": "nodeWithChildren",
+  "children": [
+    {
+      "api": "detail/company/getprimarymembers",
+      "countKey": "lastNotice",
+      "downDocType": "download/createtempfile/getprimarymembers",
+      "downDocTypeName": "新的导出",
+      "key": "MainPersonnelLatest",
+      "title": "最新公示",
+      "titleIntl": "342094",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "personName",
+          "title": "姓名 ",
+          "titleIntl": "34979",
+          "width": "46%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "personTitle",
+          "title": "职务",
+          "titleIntl": "138728",
+          "width": "50%"
+        }
+      ]
+    },
+    {
+      "api": "detail/company/getprimarymembers",
+      "countKey": "industrialRegist",
+      "downDocTypeName": "不存在导出",
+      "key": "MainPersonnelHistory",
+      "title": "工商登记",
+      "titleIntl": "312175",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "personName",
+          "title": "姓名 ",
+          "titleIntl": "34979",
+          "width": "46%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "personTitle",
+          "title": "职务",
+          "titleIntl": "138728",
+          "width": "50%"
+        }
+      ]
+    }
+  ]
+}

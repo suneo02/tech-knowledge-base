@@ -1,0 +1,137 @@
+{
+  "key": "IntellectualPropertyPledge",
+  "title": "知识产权出质",
+  "titleIntl": "204944",
+  "type": "nodeWithChildren",
+  "children": [
+    {
+      "api": "detail/company/getIntellectualPropertyPledge",
+      "countKey": "ipPledgeCount",
+      "downDocType": "download/createtempfile/getIntellectualPropertyPledge",
+      "downDocTypeName": "新的导出",
+      "key": "IntellectualPropertyPledgeNational",
+      "title": "知识产权质押（国家知识产权局）",
+      "titleIntl": "409425",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "left",
+          "dataIndex": "patentName",
+          "title": "名称",
+          "titleIntl": "29979",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "registrationNo",
+          "title": "登记号",
+          "titleIntl": "138482",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "pledgerName",
+          "title": "出质人",
+          "titleIntl": "138447",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "pledgeeName",
+          "title": "质权方",
+          "titleIntl": "252082",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "startDate",
+          "renderType": "date",
+          "title": "登记日期",
+          "titleIntl": "87749",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "endDate",
+          "renderType": "date",
+          "title": "注销日期",
+          "titleIntl": "138186",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "announcementDate",
+          "renderType": "date",
+          "title": "事务数据公告日",
+          "titleIntl": "409427",
+          "width": "16%"
+        }
+      ]
+    },
+    {
+      "api": "detail/company/getintellectualpledgeds",
+      "countKey": "intellectual_pledgeds_num",
+      "downDocTypeName": "不存在导出",
+      "key": "IntellectualPropertyPledgeBusiness",
+      "title": "知识产权质押（工商局）",
+      "titleIntl": "409426",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "left",
+          "dataIndex": "regNo",
+          "title": "知识产权登记证号",
+          "titleIntl": "204945",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "intel_name",
+          "title": "名称",
+          "titleIntl": "29979",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "intel_category",
+          "title": "知识产权种类",
+          "titleIntl": "246842",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "pledger",
+          "title": "出质人",
+          "titleIntl": "138447",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "pledgee",
+          "title": "质权人",
+          "titleIntl": "138446",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "regLimit",
+          "renderType": "custom",
+          "title": "质权登记期限",
+          "titleIntl": "204946",
+          "width": "16%",
+          "renderConfig": {
+            "customRenderName": "dateRangeInOneField"
+          }
+        },
+        {
+          "align": "left",
+          "dataIndex": "regDate",
+          "renderType": "date",
+          "title": "公示日期",
+          "titleIntl": "138143",
+          "width": "16%"
+        }
+      ]
+    }
+  ]
+}

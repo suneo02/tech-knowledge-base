@@ -1,0 +1,21 @@
+.inputWithSearchWrapper {
+  display: flex;
+  flex-direction: column;
+
+  .select {
+    margin-top: 5px;
+    width: 100%;
+    max-width: unset;
+  }
+}
+
+.select-dropdown {
+  :global {
+    .w-select-list-holder {
+      max-width: unset !important;
+    }
+    .w-select-item-empty {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/down_fill</title>
+    <g id="PC" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03-短信登录1" transform="translate(-632.000000, -350.000000)">
+            <g id="Icon/down_fill_999" transform="translate(640.000000, 358.000000) scale(1, -1) translate(-640.000000, -358.000000) translate(632.000000, 350.000000)">
+                <rect id="矩形" x="0" y="0" width="16" height="16"></rect>
+                <polygon id="三角形" stroke="" fill="currentColor" stroke-linejoin="round" points="8 6 11 10 5 10"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

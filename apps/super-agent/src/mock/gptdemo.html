@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Agent Hyper · 表格+地图 · 多页Demo</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+:root{
+  --bg:#0b0f17; --panel:#0f1625cc; --line:#203456; --muted:#9bb5e6;
+  --fg:#e8f1ff; --neon:#7cf3ff; --vio:#a78bfa; --ok:#34d399; --warn:#fb7185;
+}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;font:14px/1.6 ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei";color:var(--fg);background:
+radial-gradient(1200px 700px at 20% -10%, #1a2458 0%, transparent 50%),
+radial-gradient(900px 600px at 100% 0%, #00414a 0%, transparent 60%),
+linear-gradient(180deg,#060a12, #0b0f17 40%, #0b0f17 100%);}
+a{color:inherit;text-decoration:none}
+.container{max-width:1180px;margin:0 auto;padding:24px}
+header.nav{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#0a0a0a,#191919);
+display:grid;place-items:center;font-weight:800;color:var(--neon);box-shadow:inset 0 0 18px #000,0 0 14px #00e5ff33}
+.navbtn{border:1px solid var(--line);background:#0d1423ad;color:var(--fg);padding:10px 14px;border-radius:12px;backdrop-filter:blur(10px);cursor:pointer}
+.navbtn:hover{transform:translateY(-1px);border-color:#39507e}
+.badge{font-size:10px;padding:4px 8px;border-radius:999px;border:1px solid #29405f;color:#9bc2ff;background:#0b1220}
+.btn{border:1px solid var(--line);background:#0d1423ad;color:var(--fg);padding:10px 14px;border-radius:12px;cursor:pointer}
+.btn.primary{background:linear-gradient(135deg,#00bcd44d,#6d28d94d);border-color:#3a4f79}
+.btn.ghost{background:#0c1322;border:1px solid #2a3b60}
+.input{width:100%;border:1px solid var(--line);border-radius:14px;padding:14px;background:#0b1220cc;color:var(--fg);outline:none}
+.h1{font-weight:900;font-size:40px;line-height:1.15;margin:0;text-shadow:0 0 24px #00e5ff1a}
+.h1 .g{background:linear-gradient(90deg,var(--neon),var(--vio));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:center}
+.card{border:1px solid var(--line);border-radius:20px;background:var(--panel);backdrop-filter:blur(14px);box-shadow:0 20px 60px #0006}
+.sec{margin-top:28px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip,.pill{font-size:11px;padding:6px 9px;border-radius:999px;background:#11213d;border:1px dashed #274066;color:#a6bee8}
+.pill{border-style:solid;border-color:#29466f;background:#0a1a33;color:#98b9ff}
+.page{display:none;opacity:0;transform:translateY(12px);transition:.24s}
+.page.show{display:block;opacity:1;transform:translateY(0)}
+.breadcrumbs{color:#86a5e0;font-size:12px;margin:8px 0 16px}
+.link{color:#9ec8ff;text-decoration:underline dotted}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0c1321;border:1px solid #274066;color:#e8f1ff;padding:10px 14px;border-radius:10px;opacity:0;transition:.2s;z-index:60}
+.toast.show{opacity:1;transform:translate(-50%,-6px)}
+/* 表格 */
+.tableWrap{border:1px solid var(--line);border-radius:16px;overflow:auto;background:var(--panel)}
+table{width:100%;border-collapse:separate;border-spacing:0}
+thead th{position:sticky;top:0;background:#0c1426;border-bottom:1px solid #233a63;padding:10px;text-align:left;font-weight:700}
+tbody td{border-bottom:1px dashed #233a63;padding:10px;vertical-align:top}
+th.sortable{cursor:pointer}
+.rowActions{display:flex;gap:8px}
+pre.note{white-space:pre-wrap;background:#0a1324;border:1px solid #20365f;border-radius:10px;padding:8px;margin:6px 0 0}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.viewTabs{display:flex;gap:6px}
+.viewTabs .btn.active{background:#11213d;border-color:#3b5a94}
+/* 地图 */
+#map{height:540px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.leaflet-popup-content{margin:8px;line-height:1.4}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="nav">
+      <div class="brand">
+        <div class="logo">A</div>
+        <div style="font-weight:800;letter-spacing:.4px">Agent Hyper</div>
+        <span class="badge">表格 + 地图 · 多页</span>
+      </div>
+      <nav style="display:flex;gap:8px">
+        <a href="#/" class="navbtn">首页</a>
+        <a href="#/assets" class="navbtn">我的资产</a>
+        <button id="btnReset" class="navbtn">清空演示</button>
+      </nav>
+    </header>
+
+    <!-- 首页 -->
+    <section id="page-home" class="page show">
+      <div class="grid2 sec">
+        <div>
+          <h1 class="h1">一句话告诉我你是谁，<span class="g">系统自动推荐</span>最合适的 Agent。</h1>
+          <p class="sub">示例：我是上海云杉软件，想把设备健康监测SaaS卖给制造业</p>
+          <div class="sec" style="display:flex;gap:10px;align-items:center">
+            <input id="homeText" class="input" placeholder="输入企业名或一句话目标描述"/>
+            <button id="homeDetect" class="btn primary">识别并推荐</button>
+            <button id="homeLocate" class="btn ghost" title="使用当前位置寻找附近潜客">📍附近</button>
+          </div>
+          <p class="sub" style="font-size:12px;margin-top:6px">按 Enter 也可识别 · 点击 📍 可直接进入“附近潜客”</p>
+        </div>
+        <div class="card" style="padding:18px">
+          <div style="font-size:12px;color:#9db7ff">系统将自动：</div>
+          <div class="chips sec">
+            <span class="chip">企业画像补全</span><span class="chip">Agent推荐</span><span class="chip">市场默认值</span><span class="chip">附近潜客</span>
+          </div>
+          <div class="sec"><a class="link" href="#/agent">跳过示例，直接看推荐页 »</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 推荐页 -->
+    <section id="page-agent" class="page">
+      <div class="breadcrumbs">首页 / 推荐 Agent</div>
+      <div class="grid2">
+        <div>
+          <h2 class="h1" style="font-size:32px">系统推荐：<span id="recoTitle">软件行业找客户 Agent</span></h2>
+          <p class="sub" id="recoDesc">基于你的企业画像，按产品×行业痛点直达客户。</p>
+          <div id="recoChips" class="chips sec"></div>
+          <div class="sec" style="display:flex;gap:10px">
+            <a id="toConfig" class="btn primary" href="#/config">开始配置</a>
+            <button id="switchAgent" class="btn ghost">换一个</button>
+          </div>
+          <p class="sub" style="font-size:12px;margin-top:8px"><a class="link" href="#/">返回首页</a></p>
+        </div>
+        <div class="card" style="padding:18px">
+          <div style="font-size:12px;color:#9db7ff">其它可选 Agent</div>
+          <table class="table sec" id="agentTable">
+            <thead><tr><th>名称</th><th>标签</th><th style="width:120px">选择</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 配置页 -->
+    <section id="page-config" class="page">
+      <div class="breadcrumbs">首页 / 推荐 Agent / 配置</div>
+      <h2 class="h1" style="font-size:30px"><span id="cfgAgent">软件行业找客户</span> · 配置</h2>
+      <div class="card sec" style="padding:18px">
+        <div class="chips"><span class="chip">最少输入：1~2 项</span><span class="chip">其余自动补全</span></div>
+        <div class="sec" style="display:grid;grid-template-columns:1fr;gap:12px">
+          <label>产品/服务（一句话）<span style="color:var(--warn)">*</span>
+            <input id="inpProduct" class="input" placeholder="如：面向制造业的设备健康监测SaaS"/>
+          </label>
+          <label>目标市场（行业/地区，可留空）
+            <input id="inpMarket" class="input" placeholder="如：新能源｜长三角"/>
+          </label>
+        </div>
+        <div class="sec" style="display:flex;gap:10px;flex-wrap:wrap">
+          <a id="toResults" class="btn primary" href="#/results">生成名单并跳转</a>
+          <button id="cfgAuto" class="btn ghost">自动补全示例</button>
+          <a class="btn ghost" href="#/agent">上一步</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 结果页 -->
+    <section id="page-results" class="page">
+      <div class="breadcrumbs">首页 / 推荐 Agent / 配置 / 结果</div>
+      <div class="toolbar">
+        <h2 class="h1" style="font-size:30px">潜客结果</h2>
+        <div class="viewTabs">
+          <button id="tabTable" class="btn active">表格</button>
+          <button id="tabMap" class="btn">地图</button>
+          <button id="btnSave" class="btn ghost">保存名单</button>
+          <button id="btnCSV" class="btn primary">下载 CSV</button>
+        </div>
+      </div>
+
+      <div class="card sec" style="padding:12px">
+        <div class="chips">
+          <span class="pill">快速筛选：</span>
+          <button class="pill" data-refine="industry:新能源">行业·新能源</button>
+          <button class="pill" data-refine="industry:制造">行业·制造</button>
+          <button class="pill" data-refine="region:上海">地区·上海</button>
+          <button class="pill" data-refine="region:深圳">地区·深圳</button>
+          <button class="pill" data-refine="signal:招投标">信号·招投标</button>
+          <button class="pill" data-refine="signal:招聘">信号·招聘</button>
+          <button class="pill" id="btnNear">📍 附近10km</button>
+          <button class="pill" id="btnResetFilter">重置</button>
+        </div>
+      </div>
+
+      <!-- 表格视图 -->
+      <div id="viewTable" class="tableWrap sec">
+        <table id="resultTable">
+          <thead>
+            <tr>
+              <th class="sortable" data-sort="name">企业名</th>
+              <th class="sortable" data-sort="industry">行业</th>
+              <th class="sortable" data-sort="region">地区</th>
+              <th>规模</th>
+              <th>动态信号</th>
+              <th class="sortable" data-sort="score">分数</th>
+              <th>推荐理由</th>
+              <th>话术（点击复制）</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- 地图视图 -->
+      <div id="viewMap" class="sec" style="display:none">
+        <div id="map"></div>
+      </div>
+    </section>
+
+    <!-- 资产页 -->
+    <section id="page-assets" class="page">
+      <div class="breadcrumbs">首页 / 我的资产</div>
+      <h2 class="h1" style="font-size:30px">我的资产</h2>
+      <div class="card sec" style="padding:14px">
+        <table class="table" id="assetsTable">
+          <thead><tr><th>标题</th><th>说明</th><th>时间</th><th style="width:140px">操作</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="sub" style="font-size:12px;margin-top:8px"><a class="link" href="#/">返回首页</a></p>
+    </section>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ===== util ===== */
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+function toast(t){const n=$("#toast");n.textContent=t;n.classList.add("show");setTimeout(()=>n.classList.remove("show"),1600)}
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function sample(arr,n){const cp=[...arr], out=[]; for(let i=0;i<n;i++){ const k=rand(0,cp.length-1); out.push(cp.splice(k,1)[0]); } return out}
+function csvDownload(rows, fname){const csv = rows.map(r=>r.map(v=>{const s=String(v).replace(/"/g,'""');return /[",\n]/.test(s)?`"${s}"`:s}).join(',')).join('\n');
+const blob = new Blob([csv], {type:'text/csv;charset=utf-8'}); const url = URL.createObjectURL(blob);
+const a = document.createElement('a'); a.href=url; a.download=fname; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);}
+function showPage(id){$$('.page').forEach(p=>p.classList.remove('show')); $(id).classList.add('show')}
+
+/* ===== catalog & rules ===== */
+const catalog = [
+  { key:'software', title:'软件行业找客户 Agent', badge:'SaaS', desc:p=>`基于你的画像（行业：${p.industry||'软件'} / 地区：${p.region||'—'} / 规模：${p.size||'—'}），按软件品类×行业痛点直达客户。`, chips:['CRM / HR / MES / 低代码','行业适配话术','即时评分'] },
+  { key:'manufacturing', title:'制造业找客户 Agent', badge:'制造', desc:p=>`聚焦改造/采购项目，优先招投标&招聘信号，覆盖产业带高密区。`, chips:['设备改造机会','招投标热度','区域产业带'] },
+  { key:'bank', title:'银行对公拓客 Agent', badge:'金融', desc:p=>`按规模/资质推荐授信&结算客户，内置基础风控筛选。`, chips:['授信偏好','票据/结算','风控标签'] },
+  { key:'supplier', title:'找供应商 Agent', badge:'采购', desc:p=>`围绕BOM反推关键物料供应商，评估交付周期与质量口碑。`, chips:['BOM反推','交付能力','质量口碑'] },
+];
+const rules = [
+  {keys:['软件','SaaS','信息','互联网','科技','数据'], agent:'software'},
+  {keys:['制造','装备','机电','设备','工厂','自动化','零部件','机器人'], agent:'manufacturing'},
+  {keys:['银行','金融','金控','信托','资管'], agent:'bank'},
+  {keys:['新能源','整车','电池'], agent:'manufacturing'}
+];
+
+/* ===== geo city centers (粗粒度) ===== */
+const cityCenters = {
+  '上海':[31.2304,121.4737], '北京':[39.9042,116.4074], '深圳':[22.5431,114.0579], '杭州':[30.2741,120.1551],
+  '广州':[23.1291,113.2644], '南京':[32.0603,118.7969], '苏州':[31.2989,120.5853], '合肥':[31.8206,117.2290],
+  '天津':[39.0842,117.2009], '重庆':[29.5630,106.5516]
+};
+function jitter([lat,lng], km=5){
+  // 近似：1度纬度≈111km，经度≈111km·cos(lat)
+  const dLat = (Math.random()-0.5) * (km/55); // 粗抖动
+  const dLng = (Math.random()-0.5) * (km/(55*Math.cos(lat*Math.PI/180)));
+  return [lat+dLat, lng+dLng];
+}
+
+/* ===== state ===== */
+let profile={name:'',industry:'',region:'',size:''};
+let agent=catalog[0];
+let results=[];      // 全量结果
+let filtered=[];     // 当前筛选视图
+let currentPos=null; // [lat,lng]
+let map=null, markersLayer=null;
+
+/* ===== routing ===== */
+function router(){
+  const hash = location.hash || '#/';
+  if(hash.startsWith('#/agent')){ renderAgentPage(); showPage('#page-agent'); return; }
+  if(hash.startsWith('#/config')){ renderConfigPage(); showPage('#page-config'); return; }
+  if(hash.startsWith('#/results')){ renderResultsPage(); showPage('#page-results'); return; }
+  if(hash.startsWith('#/assets')){ renderAssetsPage(); showPage('#page-assets'); return; }
+  showPage('#page-home');
+}
+window.addEventListener('hashchange', router);
+
+/* ===== home ===== */
+$('#homeDetect').onclick = detectFromHome;
+$('#homeText').addEventListener('keydown',e=>{ if(e.key==='Enter') detectFromHome(); });
+$('#homeLocate').onclick = locateNearby;
+$('#btnReset').onclick = ()=>{ localStorage.clear(); toast('已清空演示数据'); }
+function detectFromHome(){
+  const txt = $('#homeText').value.trim();
+  if(!txt){ toast('请输入一句话或企业名'); return; }
+  // 简单解析
+  profile = {
+    name: (txt.match(/(上海|北京|深圳|杭州|广州|南京|苏州|合肥).{1,10}(公司|银行)/)?.[0]) || txt.split(/，|,|。/)[0],
+    industry: guessIndustry(txt),
+    region: guessRegion(txt),
+    size: guessSize()
+  };
+  const rule = rules.find(r=> r.keys.some(k=> txt.includes(k)));
+  agent = catalog.find(c=> c.key === (rule?rule.agent:'software')) || catalog[0];
+  location.hash = '#/agent';
+}
+function locateNearby(){
+  if(!navigator.geolocation){ toast('当前浏览器不支持定位'); return; }
+  navigator.geolocation.getCurrentPosition((pos)=>{
+    currentPos=[pos.coords.latitude, pos.coords.longitude];
+    // 直接生成附近潜客（无需配置）
+    const prod='附近拓展'; const market=''; results = synthesizeLeads(prod, market, agent.key, currentPos);
+    filtered=[...results];
+    location.hash='#/results';
+    setTimeout(()=>{ // 切到地图
+      $('#tabMap').click();
+      focusNear(currentPos, 10);
+    },80);
+  }, ()=>{ toast('定位失败，已使用默认城市上海'); currentPos=[31.23,121.47]; location.hash='#/results'; });
+}
+function guessIndustry(n){ if(/软件|信息|数据|科技|互联网/.test(n)) return '软件'; if(/银行|金融|信托/.test(n)) return '金融'; if(/制造|装备|机电|机械|机器人|自动化/.test(n)) return '制造'; return '软件'; }
+function guessRegion(n){ return Object.keys(cityCenters).find(c=>n.includes(c)) || '上海' }
+function guessSize(){ return ['小型','中型','大型'][rand(0,2)] }
+
+/* ===== agent page ===== */
+function renderAgentPage(){
+  $('#recoTitle').textContent = agent.title;
+  $('#recoDesc').textContent  = agent.desc(profile);
+  $('#recoChips').innerHTML   = agent.chips.map(c=>`<span class="chip">${c}</span>`).join('');
+  $('#cfgAgent').textContent  = agent.title.replace(' Agent','');
+
+  const tbody = $('#agentTable tbody'); tbody.innerHTML='';
+  catalog.forEach(c=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${c.title.replace(' Agent','')}</td><td><span class="pill">${c.badge}</span></td>
+      <td><button class="btn ghost" data-pick="${c.key}">${c.key===agent.key?'已选择':'选择'}</button></td>`;
+    tr.addEventListener('click', (e)=>{
+      const btn = e.target.closest('[data-pick]'); if(!btn) return;
+      agent = catalog.find(x=> x.key === btn.getAttribute('data-pick')) || agent;
+      renderAgentPage();
+    });
+    tbody.appendChild(tr);
+  });
+
+  $('#switchAgent').onclick = ()=>{
+    const idx = catalog.findIndex(c=>c.key===agent.key);
+    agent = catalog[(idx+1)%catalog.length]; renderAgentPage();
+  };
+}
+
+/* ===== config page ===== */
+function renderConfigPage(){
+  $('#cfgAgent').textContent = agent.title.replace(' Agent','');
+  $('#cfgAuto').onclick = ()=>{
+    $('#inpProduct').value = (agent.key==='supplier') ? '采购动力电池铝型材与CNC加工件'
+      : (agent.key==='software') ? '面向制造业的设备健康监测SaaS'
+      : (agent.key==='bank') ? '对公结算与供应链金融套餐'
+      : '机器视觉缺陷检测系统';
+    $('#inpMarket').value = (agent.key==='bank') ? '供应链企业｜华东' : '新能源｜长三角';
+  };
+  $('#toResults').onclick = (e)=>{
+    const prod = $('#inpProduct').value.trim();
+    if(!prod){ e.preventDefault(); toast('请填写产品/服务'); return; }
+    const market = $('#inpMarket').value.trim();
+    results = synthesizeLeads(prod, market, agent.key);
+    filtered=[...results];
+  };
+}
+
+/* ===== synthesize & scoring & geo ===== */
+function synthesizeLeads(prod, market, key, aroundPos=null){
+  const inds = (key==='software')?['制造','新能源','汽车','物流','化工']
+              : (key==='bank')?['制造','批发零售','外贸','基建','物流']
+              : (key==='supplier')?['材料','机械','注塑','CNC','电池'] : ['制造','新能源','汽车','电子','医药'];
+  const regs = Object.keys(cityCenters);
+  const signals = ['招投标','招聘','资质','新设','研发','出口'];
+  const list=[];
+  for(let i=0;i<80;i++){
+    const industry = pickNear(inds, market);
+    const region = pickNear(regs, market) || '上海';
+    const size = ['小型','中型','大型'][rand(0,2)];
+    const tags = sample(signals, rand(1,3));
+    const score = calcScore({industry,region,size,tags}, market);
+    // 地理坐标
+    let baseLatLng = cityCenters[region] || [31.23,121.47];
+    if(aroundPos){ baseLatLng = aroundPos; }
+    const [lat,lng] = jitter(baseLatLng, aroundPos? 8 : 12);
+    const reason = `行业匹配：${industry} · 地区：${region} · 动态：${tags.join('、')} · 规模：${size}`;
+    list.push({ id:`U${i}_${Date.now()}`, name:`${region}${industry}科技第${100+i}号`, industry, region, size, tags, score, reason, prod, lat, lng });
+  }
+  return list.sort((a,b)=>b.score-a.score);
+}
+function pickNear(arr, market){ if(!market) return arr[rand(0,arr.length-1)]; const hit = arr.find(x=> market.includes(x)); return hit || arr[rand(0,arr.length-1)] }
+function calcScore(item, market){
+  let s=0; s += market && market.includes(item.industry) ? 42 : 26;
+  s += market && market.includes(item.region) ? 18 : 10;
+  s += (item.tags.includes('招投标')||item.tags.includes('招聘')) ? 20 : 12;
+  s += (item.size!=='小型') ? 14 : 9;
+  s += rand(-3,3);
+  return Math.max(0,Math.min(100,s));
+}
+function buildPitch(it, style='formal'){
+  const company = profile.name || '我们';
+  const hook = style==='friendly' ? `嗨～注意到贵司在${it.industry}领域近期有${it.tags[0]||'项目'}动态。`
+             : style==='expert' ? `结合贵司在${it.industry}赛道的项目节奏与${it.tags[0]||'业务扩张'}信号，我们有更契合的路径。`
+             : `您好，留意到贵司近期在${it.industry}方向的${it.tags[0]||'业务'}动态。`;
+  const body = (agent.key==='supplier')
+      ? `${company}正在「${it.prod}」，我们提供可视化质量与交付管控方案，覆盖来料检验—过程追溯—验收。`
+      : `${company}推出「${it.prod}」，已在同类企业落地，可显著提升${it.industry}场景的人效与质量。`;
+  const cta = style==='friendly' ? `这周可否来个 20 分钟小聊？我带上案例和报价参考。`
+             : style==='expert' ? `建议先做 20 分钟需求澄清，按${it.size}企业标准核算人效回报与上线路径。`
+             : `是否方便安排一次 20 分钟沟通？我们准备了匹配${it.region}${it.industry}的实施方案与测算。`;
+  return `${hook}\n${body}\n${cta}`;
+}
+
+/* ===== results page ===== */
+let sortKey='score', sortAsc=false;
+let currentFilter=null;
+
+function renderResultsPage(){
+  // 初次进入兜底
+  if(!results.length){ results = synthesizeLeads('解决方案','新能源｜长三角', agent.key); filtered=[...results]; }
+  // 视图绑定
+  $('#tabTable').onclick=()=>{ $('#tabTable').classList.add('active'); $('#tabMap').classList.remove('active'); $('#viewTable').style.display='block'; $('#viewMap').style.display='none'; };
+  $('#tabMap').onclick=()=>{ $('#tabMap').classList.add('active'); $('#tabTable').classList.remove('active'); $('#viewTable').style.display='none'; $('#viewMap').style.display='block'; initMap(); };
+  $('#btnCSV').onclick = ()=> exportCSV(filtered);
+  $('#btnSave').onclick = saveList;
+  $('#btnNear').onclick = ()=> {
+    if(!navigator.geolocation){ toast('浏览器不支持定位'); return; }
+    navigator.geolocation.getCurrentPosition((pos)=>{
+      currentPos=[pos.coords.latitude, pos.coords.longitude];
+      filtered = results.filter(r => haversine([r.lat,r.lng], currentPos) <= 10);
+      renderTable(); if(map){ map.setView(currentPos, 12); renderMarkers(filtered); }
+      toast('已筛选附近10km');
+    }, ()=> toast('定位失败'));
+  };
+  $('#btnResetFilter').onclick = ()=>{ filtered=[...results]; currentFilter=null; renderTable(); if(map) renderMarkers(filtered); };
+
+  // 筛选 chips
+  $('#page-results').addEventListener('click', (e)=>{
+    const b=e.target.closest('[data-refine]'); if(!b) return;
+    const [k,v]=b.getAttribute('data-refine').split(':');
+    currentFilter={k,v};
+    filtered = results.filter(x => k==='industry' ? x.industry.includes(v)
+                               : k==='region'   ? x.region.includes(v)
+                               : x.tags.includes(v));
+    renderTable(); if(map) renderMarkers(filtered);
+    toast(`已应用：${k}=${v}`);
+  });
+
+  // 初始渲染
+  renderTable();
+  // 地图懒初始化
+}
+
+function renderTable(){
+  // 排序
+  filtered.sort((a,b)=>{
+    if(a[sortKey]===b[sortKey]) return 0;
+    return sortAsc ? (a[sortKey] > b[sortKey] ? 1 : -1) : (a[sortKey] < b[sortKey] ? 1 : -1);
+  });
+  const tb = $('#resultTable tbody'); tb.innerHTML='';
+  filtered.slice(0,100).forEach(it=>{
+    const tr=document.createElement('tr');
+    const pitch = buildPitch(it,'formal');
+    tr.innerHTML = `
+      <td>${it.name}</td>
+      <td>${it.industry}</td>
+      <td>${it.region}</td>
+      <td>${it.size}</td>
+      <td>${it.tags.join('、')}</td>
+      <td>${it.score}</td>
+      <td>${it.reason}</td>
+      <td>
+        <div class="rowActions">
+          <button class="btn ghost" data-pitch="${it.id}" data-style="formal">正式</button>
+          <button class="btn ghost" data-pitch="${it.id}" data-style="friendly">轻松</button>
+          <button class="btn ghost" data-pitch="${it.id}" data-style="expert">专业</button>
+          <button class="btn" data-copy="${it.id}">复制</button>
+        </div>
+        <pre id="p_${it.id}" class="note">${pitch}</pre>
+      </td>`;
+    tr.addEventListener('click', (e)=>{
+      const ps=e.target.closest('[data-pitch]'); if(ps){ const st=ps.getAttribute('data-style'); $('#p_'+ps.getAttribute('data-pitch')).textContent=buildPitch(it,st); }
+      const cp=e.target.closest('[data-copy]'); if(cp){ const txt=$('#p_'+cp.getAttribute('data-copy')).textContent; navigator.clipboard.writeText(txt).then(()=>toast('已复制话术')); }
+    });
+    tb.appendChild(tr);
+  });
+
+  // 绑定列头排序
+  $$('#resultTable thead th.sortable').forEach(th=>{
+    th.onclick = ()=>{
+      const key = th.getAttribute('data-sort');
+      if(sortKey===key) sortAsc=!sortAsc; else { sortKey=key; sortAsc=true; }
+      renderTable();
+    };
+  });
+}
+
+function exportCSV(list){
+  const rows=[['name','industry','region','size','tags','score','reason','lat','lng'],
+    ...list.map(it=>[it.name,it.industry,it.region,it.size,it.tags.join('|'),it.score,it.reason,it.lat,it.lng])];
+  csvDownload(rows,'leads.csv');
+}
+
+/* ===== map ===== */
+function initMap(){
+  if(map) { renderMarkers(filtered); return; }
+  map = L.map('map',{zoomControl:true}).setView([31.23,121.47], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
+  markersLayer = L.layerGroup().addTo(map);
+  renderMarkers(filtered);
+}
+function renderMarkers(list){
+  markersLayer.clearLayers();
+  list.forEach(it=>{
+    const m = L.marker([it.lat,it.lng]).addTo(markersLayer);
+    const html = `<b>${it.name}</b><br>${it.region} · ${it.industry} · ${it.size}<br/>分数：<b>${it.score}</b><br/><small>${it.reason}</small><br/><button data-mid="${it.id}" class="leaf-copy">复制话术</button>`;
+    m.bindPopup(html);
+    m.on('popupopen', (e)=>{
+      const btn = e.popup._contentNode.querySelector('.leaf-copy');
+      if(btn){
+        btn.addEventListener('click', ()=>{
+          const txt = buildPitch(it,'formal');
+          navigator.clipboard.writeText(txt).then(()=>toast('已复制话术'));
+        });
+      }
+    });
+  });
+}
+function focusNear(center, km=10){
+  if(!map) initMap();
+  map.setView(center, 12);
+  // 用圆圈示意范围
+  L.circle(center,{radius:km*1000,color:'#22d3ee',fill:false}).addTo(map);
+}
+function haversine([lat1,lon1],[lat2,lon2]){
+  const toRad = d=>d*Math.PI/180, R=6371;
+  const dLat=toRad(lat2-lat1), dLon=toRad(lon2-lon1);
+  const a=Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(a)); // km
+}
+
+/* ===== assets ===== */
+const cacheKey='hyper_map_lists';
+function saveList(){
+  if(!filtered.length) return toast('没有可保存的数据');
+  const rec={ id:'L'+Date.now(), title:`${profile.name||'未命名'} · ${results[0]?.prod||'方案'}`, detail:`条目：${filtered.length}`, ts:new Date().toLocaleString(),
+    items: filtered.map(it=>[it.name,it.industry,it.region,it.size,it.tags.join('|'),it.score,it.reason,it.lat,it.lng]) };
+  const box=JSON.parse(localStorage.getItem(cacheKey)||'[]'); box.unshift(rec); localStorage.setItem(cacheKey,JSON.stringify(box));
+  toast('已保存到资产'); location.hash="#/assets";
+}
+function renderAssetsPage(){
+  const data=JSON.parse(localStorage.getItem(cacheKey)||'[]');
+  const tbody=$('#assetsTable tbody'); tbody.innerHTML='';
+  if(!data.length){ tbody.innerHTML = `<tr><td colspan="4" style="color:#9db7ff">暂无保存的名单。</td></tr>`; return; }
+  data.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML = `<td>${r.title}</td><td>${r.detail}</td><td>${r.ts}</td>
+      <td><button class="btn ghost" data-exp="${i}">导出</button> <button class="btn ghost" data-del="${i}">删除</button></td>`;
+    tr.addEventListener('click',e=>{
+      const ex=e.target.closest('[data-exp]'); const dl=e.target.closest('[data-del]');
+      if(ex){ const idx=+ex.getAttribute('data-exp'); const rows=[['name','industry','region','size','tags','score','reason','lat','lng'], ...data[idx].items]; csvDownload(rows, `${data[idx].title}.csv`); }
+      if(dl){ const idx=+e.target.getAttribute('data-del'); const arr=JSON.parse(localStorage.getItem(cacheKey)||'[]'); arr.splice(idx,1); localStorage.setItem(cacheKey,JSON.stringify(arr)); renderAssetsPage(); toast('已删除'); }
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+/* ===== boot & router ===== */
+router();
+// 便捷：从首页自动推荐
+function autoSeedFromText(text){
+  $('#homeText').value=text; detectFromHome();
+}
+// 可按需打开：autoSeedFromText('我是上海云杉软件，想卖SaaS给制造业');
+</script>
+</body>
+</html>

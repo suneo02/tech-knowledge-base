@@ -1,0 +1,48 @@
+{
+  "api": "detail/company/logisticscreditrating",
+  "countKey": "logisticsCreditRate",
+  "downDocTypeName": "不存在导出",
+  "key": "LogisticsRating",
+  "title": "物流评级",
+  "titleIntl": "448359",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "creditRatingName",
+      "title": "信用评价等级",
+      "titleIntl": "315149",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "publishDate",
+      "renderType": "date",
+      "title": "发布日期",
+      "titleIntl": "138908",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "expireDate",
+      "renderType": "date",
+      "title": "有效期",
+      "titleIntl": "21235",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "evaluationAgencyName",
+      "title": "评估机构",
+      "titleIntl": "11253",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "ststus",
+      "title": "状态",
+      "titleIntl": "32098",
+      "width": "16%"
+    }
+  ]
+}

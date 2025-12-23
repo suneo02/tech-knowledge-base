@@ -1,0 +1,45 @@
+{
+  "api": "/detail/company/getbalancesheet",
+  "key": "BalanceSheet",
+  "title": "资产负债表",
+  "titleIntl": "27166",
+  "type": "crossTable",
+  "cellConfig": {
+    "renderType": "number",
+    "renderConfig": {
+      "useThousandSeparator": true
+    }
+  },
+  "columnHeader": {
+    "align": "right",
+    "dataIndex": "_reportDate",
+    "width": 120
+  },
+  "firstRowFirstColumnConfig": {
+    "title": "报告期",
+    "titleIntl": "1794",
+    "width": "20%"
+  },
+  "rowHeaders": [
+    {
+      "dataIndex": "_sumOfAsset",
+      "title": "资产总计",
+      "titleIntl": "437709"
+    },
+    {
+      "dataIndex": "_sumOfDebt",
+      "title": "负债合计",
+      "titleIntl": "437710"
+    },
+    {
+      "dataIndex": "_sumOfHolderRightsAndInterests1",
+      "title": "归属母公司股东权益",
+      "titleIntl": "417645"
+    },
+    {
+      "dataIndex": "_sumOfHolderRightsAndInterests2",
+      "title": "股东权益合计",
+      "titleIntl": "138784"
+    }
+  ]
+}

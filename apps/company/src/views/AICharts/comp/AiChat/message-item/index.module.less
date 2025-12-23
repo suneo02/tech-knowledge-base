@@ -1,0 +1,111 @@
+.root {
+  margin-bottom: 42px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.robotRoot {
+  display: flex;
+}
+.robotRootContent {
+  flex: 1;
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.robotMessage {
+  font-size: 14px;
+  color: #333;
+}
+.aliceLogo {
+  width: 42px;
+  height: 42px;
+}
+.ownRoot {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 42px;
+}
+.ownContent {
+  padding: 12px 16px;
+  background: #f3f5f7;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.snapshotBox {
+  display: inline-block;
+  margin: 12px 0;
+  padding: 21px 0;
+  border: 1px solid #00aec7;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  & img {
+    width: 124px;
+    height: 82px;
+  }
+}
+.snapshotVersion {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 3px 0 6px 0;
+  background-color: #00aec7;
+  padding: 0 8px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+.iconBox {
+  display: flex;
+  // margin-top: 16px;
+  & svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.chatFileBox,
+.chatMarkdownBox {
+  display: flex;
+  // align-items: center;
+  background: #fff;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 4px;
+}
+.chatFileItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #333;
+  font-weight: 400;
+  border-radius: 4px;
+  position: relative;
+}
+
+.chatFileName {
+  margin-left: 6px;
+  margin-right: 12px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chatFileIcon {
+  font-size: 24px;
+}
+.chatMarkdownIcon {
+  font-size: 18px;
+  margin-right: 6px;
+}
+.summaryItem {
+  :global(.ant-bubble .ant-bubble-content-filled) {
+    background-color: #fff;
+  }
+}

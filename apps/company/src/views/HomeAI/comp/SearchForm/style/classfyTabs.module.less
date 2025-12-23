@@ -1,0 +1,51 @@
+@import 'gel-ui/variables.less';
+.classifyTabs {
+  height: 30px;
+  background: transparent !important;
+
+  :global {
+    .w-tabs {
+      height: 30px;
+      background: transparent;
+    }
+
+    .w-tabs-nav,
+    .w-tabs-new-nav {
+      height: 30px;
+      background: transparent;
+      justify-content: center;
+
+      .w-tabs-tab {
+        height: 30px;
+
+        font-size: 16px;
+        line-height: 24px;
+
+        padding: 0;
+        background: transparent;
+
+        margin: 0 36px !important;
+
+        font-size: 18px;
+        color: @font-color-2;
+        opacity: 0.8;
+        letter-spacing: 0;
+        text-align: justify;
+      }
+      .w-tabs-tab-active,
+      .w-tabs-tab-active:hover,
+      .w-tabs-tab:hover {
+        color: @click-7;
+        opacity: 1;
+      }
+    }
+
+    .w-tabs-nav-list {
+      justify-content: center;
+    }
+
+    .w-tabs-content {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@import 'gel-ui/variables.less';
+@prefix: subscribe-item;
+
+@space: 12px;
+
+.@{prefix} {
+  &-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  &-empty {
+    width: 100%;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+    padding: 16px;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; // 防止item被压缩
+    min-width: 0; // 允许内容收缩
+    margin-block-end: @space;
+    margin-inline-end: @space;
+
+    &-title {
+      font-size: 14px;
+      margin-inline-end: 6px;
+      color: var(--basic-4);
+    }
+    &-tags {
+      :global {
+        .w-tag {
+          display: inline-flex;
+        }
+      }
+    }
+  }
+}
+
+.@{prefix}-popover-container {
+  max-width: 30vw;
+  max-height: 30vh;
+  overflow-y: auto;
+  .scrollbar-style();
+  > div {
+    margin-block-end: @space;
+  }
+}

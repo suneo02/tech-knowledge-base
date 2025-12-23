@@ -1,0 +1,72 @@
+@import 'gel-ui/variables.less';
+
+.section {
+  margin-bottom: 24px;
+
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #333;
+  }
+
+  .content {
+    .item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+      line-height: 1.6;
+
+      .text {
+        color: #333;
+      }
+    }
+  }
+}
+
+.platform {
+  margin-top: 32px;
+
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #333;
+  }
+
+  .content {
+    p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .label {
+      color: #666;
+      margin-right: 8px;
+    }
+
+    a {
+      color: @primary;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .restrictions {
+      margin-top: 16px;
+
+      .restriction {
+        padding-left: 24px;
+      }
+    }
+  }
+}
+
+.underline {
+  text-decoration: underline !important;
+}
+.bold {
+  font-weight: bold !important;
+}

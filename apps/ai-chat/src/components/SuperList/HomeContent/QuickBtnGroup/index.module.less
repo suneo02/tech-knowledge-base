@@ -1,0 +1,87 @@
+@prefix: quick-btn-group;
+
+.@{prefix} {
+  &-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    margin-block-end: 24px;
+    // position: relative;
+    // overflow: hidden;
+  }
+  &-card-button {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid #dbdcdf;
+    // margin: 0 12px;
+    &:nth-child(1) {
+      margin-inline-end: 6px;
+    }
+    &:nth-child(2) {
+      margin-inline-start: 6px;
+    }
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 1px 5px #81a0bf8f;
+    }
+  }
+  &-btn-content {
+    display: flex;
+    align-items: center;
+  }
+  &-btn-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    margin-inline-end: 20px;
+  }
+  &-btn-text {
+    display: flex;
+    flex-direction: column;
+  }
+  &-btn-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--basic-2);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    &-tag {
+      color: var(--basic-10);
+      font-size: 12px;
+      margin-inline-start: 8px;
+    }
+    &-beta-tag {
+      padding: 2px;
+      font-size: 12px;
+      font-weight: 800;
+      border-radius: 4px;
+      margin-inline-start: 4px;
+      position: relative;
+      color: transparent;
+      background-image:
+        linear-gradient(90deg, #3862ed, #274cda 11.98%, #00aec7 39.47%, #17d9cb 64.8%, #b388e8),
+        linear-gradient(#fff, #fff);
+      background-repeat: no-repeat;
+      -webkit-background-clip: text, padding-box;
+      background-clip: text, padding-box;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #3862ed, #274cda 11.98%, #00aec7 39.47%, #17d9cb 64.8%, #b388e8);
+      }
+    }
+  }
+  &-btn-desc {
+    font-size: 14px;
+    color: var(--basic-6);
+    line-height: 1.5;
+  }
+}

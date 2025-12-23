@@ -1,0 +1,70 @@
+/**
+ * 快捷键提示Tooltip样式
+ */
+
+@import 'gel-ui/variables.less';
+
+.shortcut-tooltip {
+  max-width: 300px;
+  padding: @component-space-xs;
+
+  &__title {
+    font-weight: bold;
+    margin: 0 0 @component-space-xs 0;
+    color: @font-color-2;
+    font-size: 13px;
+  }
+
+  &__shortcuts {
+    margin: 0;
+  }
+
+  &__item {
+    margin: 0 0 @component-space-xs 0;
+    font-size: 12px;
+    color: @font-color-3;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+
+    // 替代 gap: @component-space-sm
+    > * + * {
+      margin-left: @component-space-sm;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__key {
+    display: inline-block;
+    padding: 2px 6px;
+    background: @basic-15;
+    border: 1px solid @border-color-base;
+    border-radius: 3px;
+    font-size: 11px;
+    font-family: monospace;
+    color: @font-color-2;
+    min-width: 24px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// 自定义Tooltip overlay样式
+:global(.shortcut-tooltip-overlay) {
+  .ant-tooltip-inner {
+    background: @basic-16;
+    border: 1px solid @border-color-base;
+    box-shadow: @shadow-normal;
+    padding: @component-space-sm;
+  }
+
+  .ant-tooltip-arrow {
+    &::before {
+      background: @basic-16;
+      border: 1px solid @border-color-base;
+    }
+  }
+}

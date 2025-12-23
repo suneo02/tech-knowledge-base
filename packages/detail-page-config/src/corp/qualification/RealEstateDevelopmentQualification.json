@@ -1,0 +1,33 @@
+{
+  "api": "detail/company/realtydevelopaptitudev2",
+  "countKey": "realestateCertificate",
+  "downDocTypeName": "不存在导出",
+  "key": "RealEstateDevelopmentQualification",
+  "title": "房地产企业开发资质",
+  "titleIntl": "348194",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "qualificationLevelName",
+      "title": "资质等级",
+      "titleIntl": "337893",
+      "width": "25%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "qualificationStatusName",
+      "title": "资格状态",
+      "titleIntl": "337874",
+      "width": "25%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "validDateStart",
+      "renderType": "date",
+      "title": "有效期",
+      "titleIntl": "21235",
+      "width": "50%"
+    }
+  ]
+}

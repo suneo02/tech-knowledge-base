@@ -1,0 +1,72 @@
+{
+  "name": "indicator",
+  "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "style": "./dist/index.css",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./dist/index.css": "./dist/index.css"
+  },
+  "scripts": {
+    "clean": "node ../../scripts/clean.cjs dist",
+    "dev": "vite build --watch --mode development --minify false --sourcemap",
+    "build": "npm run clean && vite build",
+    "build:staging": "npm run clean && vite build --mode staging",
+    "preview": "vite preview",
+    "lint": "pnpm -s eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "tsc": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build-storybook": "storybook build",
+    "check:circular": "madge --circular --extensions ts,tsx src/"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.6.1",
+    "@wind/icons": "^1.1.83",
+    "@wind/wind-ui": "4.5.9",
+    "@wind/wind-ui-table": "^2.2.44",
+    "ahooks": "^3.8.4",
+    "classnames": "^2.5.1",
+    "dayjs": "^1.11.13",
+    "gel-api": "workspace:*",
+    "gel-ui": "workspace:*",
+    "gel-util": "workspace:*",
+    "lodash": "^4.17.21",
+    "xlsx": "0.18.5",
+    "qs": "^6.14.0",
+    "path-browserify": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.3.4",
+    "@types/lodash": "^4.17.15",
+    "@types/node": "^22.13.9",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.19",
+    "axios": "^1.6.8",
+    "gel-api": "workspace:*",
+    "gel-ui": "workspace:*",
+    "gel-util": "workspace:*",
+    "identity-obj-proxy": "^3.0.0",
+    "less": "^4.2.2",
+    "typescript": "^5.2.2"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/*.less",
+    "**/*.scss"
+  ]
+}

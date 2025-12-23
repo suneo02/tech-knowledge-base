@@ -1,0 +1,48 @@
+.movezx-article h2 {
+  font-size: 1.25rem;
+}
+
+.movezx-article h3 {
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
+/*表格每个单元格都有边框*/
+.movezx-article .esg-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.movezx-article .esg-table thead {
+  /* 表头淡红色背景，红色实线的边框 */
+  background-color: #f8d7da;
+  border: 1px solid #dc3545;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.movezx-article .esg-table thead th {
+  /* 红色实线边框应用于表头单元格 */
+  border: 1px solid #dc3545;
+  padding: 8px; /* 单元格内边距 */
+  text-align: left; /* 左对齐，方便展示 */
+}
+
+.movezx-article .esg-table th {
+  /* 红色实线边框应用于表头单元格 */
+  border: 1px dashed #dc3545;
+  padding: 8px; /* 单元格内边距 */
+  text-align: left; /* 左对齐，方便展示 */
+}
+
+.movezx-article .esg-table td {
+  /* 红色实线边框应用于表头单元格 */
+  border: 1px dashed #dc3545;
+  padding: 8px; /* 单元格内边距 */
+  text-align: left; /* 左对齐，方便展示 */
+}
+
+/* table 最下面边框实线 */
+.movezx-article .esg-table {
+  border-bottom: 1px solid #dc3545;
+}

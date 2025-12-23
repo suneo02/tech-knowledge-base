@@ -1,0 +1,59 @@
+---
+globs: *.tsx
+---
+
+# React 18 组件与导入风格
+
+## 顶部命名导入 Hooks 与 API
+
+- 从 `react` 顶部命名导入常用 Hooks 与 API，不使用 `React.useEffect` 形式：
+
+```ts
+import { useEffect, useMemo, useState, useRef, useCallback } from 'react'
+```
+
+- 组件中直接使用 `useEffect`/`useMemo` 等。
+
+## 组件声明
+
+- 使用箭头函数与 `const` 声明组件，避免 `function` 声明：
+
+```tsx
+import { useEffect } from 'react'
+
+const Example: React.FC = () => {
+  useEffect(() => {}, [])
+  return <div />
+}
+
+export default Example
+```
+
+## 组件组织
+
+- UI 组件优先使用 Wind UI，避免混用其他 UI 库。
+- 组件文件命名使用 `PascalCase`（如 `UserCard.tsx`）。
+- 每个组件/页面的样式通过 `index.module.less` 引入：
+
+```tsx
+import styles from './index.module.less'
+```
+
+## Redux Toolkit 使用
+
+- 组件内访问 store：
+
+```tsx
+import { useSelector, useDispatch } from 'react-redux'
+```
+
+- 需要复杂异步时结合 `ahooks` 的 `useRequest`。
+
+## 事件与回调
+
+- 使用 `useCallback` 包裹稳定回调，传递给子组件。
+- 避免在 JSX 中定义内联大函数，抽出为常量回调。
+
+## 类型
+
+- 组件 props/状态使用 `TypeScript` 接口或类型别名，避免 `any`。

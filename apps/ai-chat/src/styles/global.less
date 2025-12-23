@@ -1,0 +1,47 @@
+@import './variables.less';
+
+// 重置列表样式
+ul,
+li {
+  list-style: none;
+}
+
+// 重置其他常用元素样式
+* {
+  box-sizing: border-box;
+  // 全局禁止文本选择和复制
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+// 尝试多种可能的选择器，确保能够匹配到 ai 和 user 角色
+.bubble-list-container {
+  // 使用通用选择器，匹配所有可能的 ai 和 user 角色元素
+  [class*='bubble'][class*='ai'] *,
+  [class*='bubble'][class*='user'] *,
+  [data-role='ai'] *,
+  [data-role='user'] *,
+  [role='ai'] *,
+  [role='user'] * {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+  }
+}
+
+// 移除 Ant Design X 组件中的列表默认样式
+:where(.css-dev-only-do-not-override-*) ul,
+:where(.css-dev-only-do-not-override-*) li {
+  list-style: none;
+}
+
+// 关于wind-UI 的统一修改放这里
+
+// 修改了Resizer的默认宽度变成1
+.w-resizer-e.w-resizer-divider-normal .w-resizer-line-middle,
+.w-resizer-w.w-resizer-divider-normal .w-resizer-line-middle {
+  width: 1px;
+}

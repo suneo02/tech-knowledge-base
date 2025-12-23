@@ -1,0 +1,44 @@
+@import 'gel-ui/variables.less';
+
+.file-status-badge {
+  // 定位
+  display: flex;
+  align-items: center;
+
+  // 盒模型
+  // 替代 gap: 4px
+  > * + * {
+    margin-left: 4px;
+  }
+  font-size: 12px;
+  line-height: 20px;
+  white-space: nowrap;
+  width: 100%;
+
+  // 子元素
+  &__text {
+    // 盒模型
+    line-height: 1;
+
+    // 修饰符
+    &--error {
+      // 视觉
+      color: @danger;
+    }
+  }
+
+  &__loading {
+    // 盒模型
+    margin-left: 4px;
+  }
+
+  &__view-button {
+    // 盒模型
+    height: 20px;
+    padding: 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+}

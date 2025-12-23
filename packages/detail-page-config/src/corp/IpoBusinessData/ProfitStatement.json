@@ -1,0 +1,45 @@
+{
+  "api": "/detail/company/getprofit",
+  "key": "ProfitStatement",
+  "title": "利润表",
+  "titleIntl": "27167",
+  "type": "crossTable",
+  "cellConfig": {
+    "renderType": "number",
+    "renderConfig": {
+      "useThousandSeparator": true
+    }
+  },
+  "columnHeader": {
+    "align": "right",
+    "dataIndex": "_reportDate",
+    "width": 120
+  },
+  "firstRowFirstColumnConfig": {
+    "title": "报告期",
+    "titleIntl": "1794",
+    "width": "20%"
+  },
+  "rowHeaders": [
+    {
+      "dataIndex": "_sumBusinessIncome",
+      "title": "营业总收入",
+      "titleIntl": "35216"
+    },
+    {
+      "dataIndex": "_businessProfit",
+      "title": "营业利润",
+      "titleIntl": "437706"
+    },
+    {
+      "dataIndex": "_sumProfit",
+      "title": "税前利润",
+      "titleIntl": "437707"
+    },
+    {
+      "dataIndex": "_netProfit2",
+      "title": "归属母公司股东净利润",
+      "titleIntl": "417696"
+    }
+  ]
+}

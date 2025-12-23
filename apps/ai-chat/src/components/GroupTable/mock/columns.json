@@ -1,0 +1,89 @@
+{
+  "result": {
+    "columns": [
+      {
+        "columnId": "ezWQag7r-_IKc_",
+        "columnIndex": 0,
+        "columnName": "企业名称",
+        "dataType": 0,
+        "isFrozen": true,
+        "initSourceType": 1,
+        "filterItems": []
+      },
+      {
+        "columnId": "rUMRd2CcDS5jW1",
+        "columnIndex": 1,
+        "columnName": "统一社会信用代码",
+        "dataType": 0,
+        "isFrozen": false,
+        "initSourceType": 1,
+        "filterItems": []
+      },
+      {
+        "columnId": "bi3uKvpIi77Gq3",
+        "columnIndex": 2,
+        "columnName": "法定代表人",
+        "dataType": 0,
+        "isFrozen": false,
+        "initSourceType": 1,
+        "filterItems": []
+      },
+      {
+        "columnId": "4gjN6iufNuVK05",
+        "columnIndex": 3,
+        "columnName": "注册资本(万)",
+        "dataType": 0,
+        "isFrozen": false,
+        "initSourceType": 1,
+        "filterItems": []
+      },
+      {
+        "columnId": "3wbUCwtq_WMQDG",
+        "columnIndex": 4,
+        "columnName": "省份地区",
+        "dataType": 0,
+        "isFrozen": false,
+        "initSourceType": 1,
+        "filterItems": []
+      },
+      {
+        "columnId": "nmG7atAhj0hzZN",
+        "columnIndex": 5,
+        "columnName": "注册地址",
+        "dataType": 0,
+        "isFrozen": false,
+        "initSourceType": 1,
+        "filterItems": []
+      },
+      {
+        "columnId": "05d1vXhrH3fwHI",
+        "columnIndex": 6,
+        "columnName": "经营状态",
+        "dataType": 0,
+        "isFrozen": false,
+        "initSourceType": 1,
+        "filterItems": []
+      },
+      {
+        "columnId": "Tt-eHHTdsXNKrz",
+        "columnIndex": 7,
+        "columnName": "成立日期",
+        "dataType": 0,
+        "isFrozen": false,
+        "initSourceType": 1,
+        "filterItems": []
+      },
+      {
+        "columnId": "2haGRR5HR5xuJb",
+        "columnIndex": 8,
+        "columnName": "分组",
+        "dataType": 0,
+        "isFrozen": false,
+        "initSourceType": null,
+        "filterItems": []
+      }
+    ]
+  },
+  "message": "Success.",
+  "status": "0"
+}

@@ -1,0 +1,110 @@
+@prefix: home-logo-section;
+
+.@{prefix} {
+  &-container {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    // flex-direction: column;
+    text-align: center;
+    // padding: 0px 20px 24px 0;
+    margin-block-end: 24px;
+  }
+  &-logo-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    // width: 200px;
+    margin-inline-end: 12px;
+  }
+  &-logo-container {
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-logo-hi {
+    height: 60px;
+  }
+  &-logo-right {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex: 1;
+    > div {
+      flex: 1;
+    }
+  }
+}
+
+.logoImg {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  // margin-inline-end: 20px;
+  // margin-bottom: 20px;
+}
+
+.logoRight {
+  // position: relative;
+}
+
+.logoHi {
+  height: 60px;
+  // width: 50px;
+  // position: absolute;
+  // top: -10px;
+  // right: -45px;
+  // transform: rotate(23deg);
+}
+
+.logoDesc {
+  font-size: 26px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.6;
+  margin-inline-start: 14px;
+  text-align: left;
+
+  span {
+    display: inline-block;
+  }
+}
+.animatedNumberContainer {
+  padding: 0 8px;
+}
+.animatedDigit {
+  display: inline-block;
+  animation: rotateX 10s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  transform-origin: center center;
+  /* backface-visibility: hidden; */
+  perspective: 400px;
+  background: linear-gradient(45deg, #3862ed 0%, #274cda 29%, #00aec7 62%, #12cbbe 76%, #9d9ae3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 38px;
+  font-weight: 600;
+}
+
+@keyframes rotateX {
+  from {
+    opacity: 0;
+    transform: rotateX(-720deg);
+  }
+  30%,
+  to {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+}
+
+.logoContainer {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin-inline-end: 20px;
+}

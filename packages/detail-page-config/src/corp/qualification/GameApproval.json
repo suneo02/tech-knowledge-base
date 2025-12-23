@@ -1,0 +1,76 @@
+{
+  "api": "detail/company/getgameapproval",
+  "countKey": "gameApprovalCount",
+  "downDocTypeName": "不存在导出",
+  "id": "7-8",
+  "key": "7-8",
+  "level": 2,
+  "title": "游戏审批",
+  "titleIntl": "354853",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "序号",
+      "titleIntl": "28846",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "gameName",
+      "title": "游戏名称",
+      "titleIntl": "354858",
+      "width": "12%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "approvalType",
+      "title": "审批类型",
+      "titleIntl": "354818",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "declarationCategory",
+      "title": "申报类型",
+      "titleIntl": "354854",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "operatingUnit",
+      "title": "运营单位",
+      "titleIntl": "354819",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "publisher",
+      "title": "出版单位",
+      "titleIntl": "354820",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "documentNumber",
+      "title": "文号",
+      "titleIntl": "138522",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "publicationNumber",
+      "title": "出版物号",
+      "titleIntl": "354855",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "year|formatTime",
+      "title": "批准日期",
+      "titleIntl": "148644",
+      "width": "10%"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+.CompanyTechScore-card {
+  margin-bottom: 32px;
+
+  .techScoreRankRow {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    padding-top: 12px;
+
+    // .corp-industry-tree
+    .w-tree-switcher-noop {
+      visibility: hidden;
+    }
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    .w-tree-node-content-wrapper {
+      white-space: normal !important;
+    }
+  }
+
+  .wind-ui-table {
+    margin-top: 12px;
+
+    .wind-ui-table-item-title {
+      font-weight: bold;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .wind-ui-table-body {
+      border-bottom: 1px solid #dfdfdf;
+
+      td {
+        line-height: 2em;
+      }
+    }
+  }
+
+  .wi-btn-color {
+    font-size: 13px;
+
+    &:first-of-type {
+      margin-right: 3em;
+      position: relative;
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -8px;
+        right: -23px;
+        color: #f2bd5f;
+        width: 25px;
+        height: 12px;
+        background: url('../../../../assets/imgs/svip.png');
+        background-size: 100%;
+      }
+    }
+  }
+
+  .techScoreRank-history {
+    .wi-btn-color {
+      margin-left: 1em;
+      position: relative;
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -8px;
+        right: -23px;
+        color: #f2bd5f;
+        width: 25px;
+        height: 12px;
+        background: url('../../../../assets/imgs/svip.png');
+        background-size: 100%;
+      }
+    }
+  }
+}
+
+.CompanyTechScoreModal {
+  .w-tree-switcher-noop {
+    visibility: hidden;
+  }
+
+  .w-tree-node-content-wrapper {
+    white-space: normal !important;
+  }
+}

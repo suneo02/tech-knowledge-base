@@ -1,0 +1,358 @@
+[
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Pharmaceutical manufacturing industry",
+        "code": "35687509036",
+        "name": "医药制造业",
+        "parentId": "35687509035"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Manufacture of medical equipment",
+        "code": "35687509037",
+        "name": "医疗设备制造",
+        "parentId": "35687509035"
+      }
+    ],
+    "description": "",
+    "level": 1,
+    "nameEn": "Pharmaceutical and medical industry",
+    "code": "35687509035",
+    "name": "医药医疗产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Environmental protection equipment and instruments manufacturing industry",
+        "code": "35687509039",
+        "name": "环保专用设备仪器制造业",
+        "parentId": "35687509038"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Manufacture of environmental pollution treatment drug materials",
+        "code": "35687509040",
+        "name": "环境污染处理专用药剂材料制造",
+        "parentId": "35687509038"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Environmental protection-related activities",
+        "code": "35687509041",
+        "name": "环保相关活动",
+        "parentId": "35687509038"
+      }
+    ],
+    "description": "",
+    "level": 1,
+    "nameEn": "Environmental protection industry",
+    "code": "35687509038",
+    "name": "环保产业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Research and development services",
+        "code": "35687509043",
+        "name": "研究和试验发展服务",
+        "parentId": "35687509042"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Professional design services",
+        "code": "35687509044",
+        "name": "专业化设计服务",
+        "parentId": "35687509042"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Technology promotion services",
+        "code": "35687509045",
+        "name": "技术推广服务",
+        "parentId": "35687509042"
+      }
+    ],
+    "description": "",
+    "level": 1,
+    "nameEn": "Research and development, design and technical services",
+    "code": "35687509042",
+    "name": "研发、设计和技术服务业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Manufacturing of communication equipment, radar and supporting equipment",
+        "code": "35678462540",
+        "name": "通信设备、雷达及配套设备制造",
+        "parentId": "35678462539"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Computer Manufacturing",
+        "code": "35678462541",
+        "name": "计算机制造",
+        "parentId": "35678462539"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Broadcast and television equipment manufacturing",
+        "code": "35678462542",
+        "name": "广播电视设备制造",
+        "parentId": "35678462539"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Electronic device manufacturing",
+        "code": "35678462543",
+        "name": "电子器件制造",
+        "parentId": "35678462539"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Electronic Components and Electronic Special Materials Manufacturing",
+        "code": "35678462544",
+        "name": "电子元件及电子专用材料制造",
+        "parentId": "35678462539"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Electronic Special Equipment Manufacturing",
+        "code": "35678462545",
+        "name": "电子专用设备制造",
+        "parentId": "35678462539"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Smart consumption equipment manufacturing",
+        "code": "35678462546",
+        "name": "智能消费设备制造",
+        "parentId": "35678462539"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Other electronic equipment manufacturing",
+        "code": "35678462547",
+        "name": "其他电子设备制造",
+        "parentId": "35678462539"
+      }
+    ],
+    "description": "",
+    "level": 1,
+    "nameEn": "Information and communication technology manufacturing industry",
+    "code": "35678462539",
+    "name": "信息通信技术制造业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Communication and satellite transmission",
+        "code": "35678462549",
+        "name": "通信和卫星传输",
+        "parentId": "35678462548"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Internet Services",
+        "code": "35687509019",
+        "name": "互联网服务",
+        "parentId": "35678462548"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Software Development",
+        "code": "35687509020",
+        "name": "软件开发",
+        "parentId": "35678462548"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Information Technology Services",
+        "code": "35687509021",
+        "name": "信息技术服务",
+        "parentId": "35678462548"
+      }
+    ],
+    "description": "",
+    "level": 1,
+    "nameEn": "Information and communication technology service industry",
+    "code": "35678462548",
+    "name": "信息通信技术服务业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "General equipment manufacturing",
+        "code": "35687509023",
+        "name": "通用设备制造",
+        "parentId": "35687509022"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Special equipment manufacturing",
+        "code": "35687509024",
+        "name": "专用设备制造",
+        "parentId": "35687509022"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Aircraft, spacecraft and equipment manufacturing",
+        "code": "35687509025",
+        "name": "航空、航天器及设备制造",
+        "parentId": "35687509022"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Manufacturing of automotive and rail equipment",
+        "code": "35687509026",
+        "name": "汽车与轨道设备制造",
+        "parentId": "35687509022"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Electrical equipment manufacturing",
+        "code": "35687509027",
+        "name": "电气设备制造",
+        "parentId": "35687509022"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Manufacturing of instruments and meters equipment",
+        "code": "35687509028",
+        "name": "仪器仪表设备制造",
+        "parentId": "35687509022"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Other equipment manufacturing",
+        "code": "35687509029",
+        "name": "其他装备制造",
+        "parentId": "35687509022"
+      }
+    ],
+    "description": "",
+    "level": 1,
+    "nameEn": "New equipment manufacturing",
+    "code": "35687509022",
+    "name": "新装备制造业",
+    "parentId": ""
+  },
+  {
+    "childFlag": 0,
+    "node": [
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Manufacturing of chemical raw materials and chemical products",
+        "code": "35687509033",
+        "name": "化学原料及化学制品制造",
+        "parentId": "35687509030"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Chemical fiber manufacturing",
+        "code": "35687509034",
+        "name": "化学纤维制造",
+        "parentId": "35687509030"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Manufacture of metal materials",
+        "code": "35687509031",
+        "name": "金属材料制造",
+        "parentId": "35687509030"
+      },
+      {
+        "childFlag": 1,
+        "description": "",
+        "level": 2,
+        "nameEn": "Manufacturing of non-metallic materials",
+        "code": "35687509032",
+        "name": "非金属材料制造",
+        "parentId": "35687509030"
+      }
+    ],
+    "description": "",
+    "level": 1,
+    "nameEn": "New materials manufacturing industry",
+    "code": "35687509030",
+    "name": "新材料制造业",
+    "parentId": ""
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "api": "detail/company/getprodrecall",
+  "countKey": "prodrecall_num",
+  "downDocTypeName": "不存在导出",
+  "key": "ProductRecall",
+  "title": "产品召回",
+  "titleIntl": "120790",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "title",
+      "title": "公告标题",
+      "titleIntl": "90845",
+      "width": "29%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "product",
+      "title": "召回产品",
+      "titleIntl": "232862",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "productType",
+      "title": "产品类型",
+      "titleIntl": "2483",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "corps",
+      "title": "召回企业",
+      "titleIntl": "232863",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "announceDate|formatTime",
+      "title": "发布日期",
+      "titleIntl": "138908",
+      "width": "17%"
+    }
+  ]
+}

@@ -1,0 +1,315 @@
+import type { Meta, StoryObj } from '@storybook/react'
+import { FilterMenu, FilterFormRef } from '../components/CdeMenu/index'
+import React, { useRef } from 'react'
+import mock from '../components/CdeMenu/config/mock.json'
+import { Button } from 'antd'
+
+const meta: Meta<typeof FilterMenu> = {
+  title: 'Components/FilterMenu',
+  component: FilterMenu,
+  tags: ['autodocs'],
+  decorators: [(Story) => <Story />],
+}
+
+export default meta
+type Story = StoryObj<typeof FilterMenu>
+
+export const Default: Story = {
+  args: {
+    config: [
+      { label: '菜单一', value: '1', id: '1' },
+      { label: '菜单二', value: '2', id: '2' },
+      { label: '菜单三', value: '3', id: '3' },
+    ],
+  },
+}
+
+export const WithFeatures: Story = {
+  args: {
+    config: [
+      {
+        label: '热门推荐',
+        value: '1',
+        id: '1',
+        isHot: true,
+      },
+      {
+        label: '最新上架',
+        value: '2',
+        id: '2',
+        isNew: true,
+        badgeCount: 99,
+      },
+      { label: '普通菜单', value: '3', id: '3' },
+      { label: '很多消息的菜单', value: '4', id: '4', badgeCount: 123 },
+    ],
+    initialSelectedKey: '2',
+  },
+  name: '带标签和角标',
+}
+
+export const WithMockData: Story = {
+  args: {
+    showFooter: true,
+    config: mock.map((item) => ({
+      label: item.category,
+      value: item.categoryId,
+      id: item.categoryId,
+      children: item.newFilterItemList,
+    })),
+    // initialSelectedKey: '2',
+    initialValues: [
+      {
+        field: 'data_from',
+        itemId: 78,
+        logic: 'any',
+        title: '机构类型',
+        value: ['298010000,298020000,298040000', '160300000', '298030000'],
+      },
+      {
+        field: 'govlevel',
+        itemId: 77,
+        logic: 'any',
+        title: '营业状态',
+        value: ['存续', '迁出', '注销'],
+      },
+      {
+        itemId: 1,
+        logic: 'any',
+        value: ['1'],
+        title: '企业名称',
+        field: 'corp_name',
+      },
+      {
+        itemId: 3,
+        logic: 'any',
+        value: ['2'],
+        title: '经营范围',
+        field: 'biz_scope',
+      },
+      {
+        itemId: 107,
+        logic: 'any',
+        value: ['3'],
+        title: '产品',
+        field: 'wkg_tags',
+      },
+      {
+        itemId: 4,
+        logic: 'any',
+        value: ['5'],
+        title: '法人姓名',
+        field: 'artificial_person',
+      },
+      {
+        itemId: 5,
+        logic: 'any',
+        value: ['6'],
+        title: '股东-自然人',
+        field: 'stockholder_people',
+      },
+      {
+        itemId: 6,
+        logic: 'any',
+        value: ['7'],
+        title: '股东-企业名称',
+        field: 'stockholder_corp',
+      },
+      {
+        itemId: 7,
+        logic: 'any',
+        value: ['9'],
+        title: '企业简介',
+        field: 'brief.search',
+      },
+      {
+        itemId: 8,
+        logic: 'any',
+        value: ['0'],
+        title: '注册地址',
+        field: 'register_address',
+      },
+      {
+        itemId: 9,
+        logic: 'any',
+        value: ['1'],
+        title: '办公地址',
+        field: 'business_address',
+      },
+      {
+        itemId: 89,
+        logic: 'prefix',
+        value: [
+          '0301010116',
+          '0303010111',
+          '0303010101',
+          '0303010112',
+          '0303010108',
+          '0303010104',
+          '0303010106',
+          '0303010113',
+          '0303010107',
+          '0303010115',
+          '0303010114',
+          '0303010105',
+          '0303010110',
+          '0303010109',
+          '0303010102',
+          '0303010116',
+        ],
+        title: '地区',
+        field: 'area_code',
+      },
+      {
+        itemId: 90,
+        logic: 'prefix',
+        value: [
+          '74110104',
+          '74110102',
+          '74110101',
+          '74110105',
+          '740318',
+          '740316',
+          '740315',
+          '740331',
+          '740330',
+          '740329',
+          '740328',
+          '740322',
+          '740301',
+          '740321',
+          '740320',
+          '740319',
+          '740324',
+          '740306',
+          '740307',
+          '740305',
+          '740304',
+          '740303',
+          '740302',
+          '740323',
+          '740327',
+          '740314',
+          '740313',
+          '740312',
+          '740311',
+          '740310',
+          '740309',
+          '740308',
+          '740326',
+          '740325',
+        ],
+        title: '国民经济行业分类',
+        field: 'industry_code',
+      },
+      {
+        itemId: 12,
+        logic: 'range',
+        value: ['20250701-20250704'],
+        title: '成立日期',
+        field: 'established_time',
+      },
+      {
+        itemId: 79,
+        logic: 'any',
+        value: ['股份有限公司', '联营企业'],
+        title: '企业类型',
+        field: 'corp_type_filter',
+      },
+      {
+        itemId: 37,
+        logic: 'range',
+        value: ['30'],
+        title: '注销日期',
+        field: 'cancel_time',
+      },
+      {
+        itemId: 10,
+        logic: 'range',
+        value: ['500-1000', '1-3'],
+        title: '注册资本',
+        field: 'register_capital',
+      },
+      {
+        itemId: 57,
+        logic: 'range',
+        value: ['4-5', '500-1000'],
+        title: '实缴资本',
+        field: 'contributed_capital',
+      },
+      {
+        itemId: 58,
+        logic: 'any',
+        value: ['USD'],
+        title: '实缴资本币种',
+        field: 'contributed_capital_currency',
+      },
+      {
+        itemId: 84,
+        logic: 'any',
+        value: ['企业规模:小型企业', '企业规模:微型企业'],
+        title: '企业规模',
+        field: 'corporation_tags3',
+      },
+      {
+        itemId: 230,
+        logic: 'any',
+        value: ['2010100299', '2010100311'],
+        title: '企业所有制性质',
+        field: 'ownerShipCode',
+      },
+      {
+        itemId: 85,
+        logic: 'range',
+        value: ['200-499', '100-199', '0-100'],
+        title: '参保人数',
+        field: 'endowment_num',
+      },
+      {
+        itemId: 180,
+        logic: 'any',
+        value: ['主体公司'],
+        title: '集团公司类型',
+        field: 'group_type',
+      },
+      {
+        itemId: 80,
+        logic: 'bool',
+        value: ['true'],
+        title: '有无电话',
+        field: 'tel',
+      },
+    ],
+  },
+  name: '企业数据浏览器',
+  render: (args) => {
+    const ref = useRef<FilterFormRef>(null)
+
+    const handleReset = () => {
+      ref.current?.resetFields()
+    }
+
+    const handleSubmit = () => {
+      ref.current?.submit()
+    }
+
+    const handleValuesChange = (values: any, allValues: any) => {
+      console.log('values', values)
+      console.log('allValues', allValues)
+    }
+
+    return (
+      <div>
+        <FilterMenu {...args} ref={ref} onValuesChange={handleValuesChange} />
+        <div style={{ marginTop: 16, borderTop: '1px solid #f0f0f0', paddingTop: 16 }}>
+          <Button style={{ marginRight: 8 }} onClick={handleReset}>
+            重置
+          </Button>
+          <Button type="primary" onClick={handleSubmit}>
+            确定
+          </Button>
+        </div>
+      </div>
+    )
+  },
+}

@@ -1,0 +1,103 @@
+import { IBuryPointConfig } from './type'
+import { PageModuleEnum } from '@/api/pointBuried/module.ts'
+
+export const groupInfoTracker: IBuryPointConfig[] = [
+  {
+    moduleId: 922602100959,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击地区分布tab',
+    opActive: 'click',
+  },
+  {
+    moduleId: 922602100974,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击行业分布tab',
+    opActive: 'click',
+  },
+  {
+    moduleId: 922602100975,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击上市状态tab',
+    opActive: 'click',
+  },
+  {
+    moduleId: 922602100976,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击注册资本tab',
+    opActive: 'click',
+  },
+  {
+    moduleId: 922602100977,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击企业规模tab',
+    opActive: 'click',
+  },
+  {
+    moduleId: 922602100978,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击科创企业tab',
+    opActive: 'click',
+  },
+  {
+    moduleId: 922602100979,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击企业类型tab',
+    opActive: 'click',
+  },
+  {
+    moduleId: 922602100980,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击筛选企业上市状态',
+    opActive: 'filter',
+  },
+  {
+    moduleId: 922602100981,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击筛选行业',
+    opActive: 'filter',
+  },
+  {
+    moduleId: 922602100982,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击筛选地区',
+    opActive: 'filter',
+  },
+  {
+    moduleId: 922602100983,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击导出数据按钮',
+    opActive: 'filter',
+  },
+  {
+    moduleId: 922602100984,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击全屏查看成员关系图谱',
+    opActive: 'click',
+  },
+  {
+    moduleId: 922602100985,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击切换统计分析（按企业）',
+    opActive: 'click',
+  },
+  {
+    moduleId: 922602100986,
+    pageId: PageModuleEnum.GROUP_INFO,
+    pageName: 'PC-集团系',
+    describe: '点击切换统计分析（按地区）',
+    opActive: 'click',
+  },
+]

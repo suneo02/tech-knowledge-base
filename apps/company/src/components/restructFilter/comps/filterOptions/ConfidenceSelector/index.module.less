@@ -1,0 +1,25 @@
+@prefix: confidence-selector;
+
+.@{prefix} {
+  @space-small: 4px;
+  @space: 8px;
+  @space-medium: 12px;
+  @space-large: 20px;
+
+  &-container {
+    margin-block-end: @space;
+    display: flex;
+    align-items: center;
+  }
+  &-selector {
+    min-width: 120px;
+    margin-inline-end: @space-small;
+  }
+  &-tooltip {
+    // padding: @space-medium;
+    ul {
+      list-style: disc;
+      padding-left: @space-large;
+    }
+  }
+}

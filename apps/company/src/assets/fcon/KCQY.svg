@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/科创企业</title>
+    <g id="Icon/科创企业" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <rect id="矩形" fill="#0596B3" x="8" y="18" width="20" height="3"></rect>
+        <path d="M35,2 L35,5 L33,5 L33,23 L35,23 L35,26 L24.722,26 L29.0980762,33.580127 L26.5,35.080127 L21.257,26 L19.5,26 L19.5,35 L16.5,35 L16.5,26 L14.74,26 L9.49807621,35.080127 L6.9,33.580127 L11.276,26 L1,26 L1,23 L3,23 L3,5 L1,5 L1,2 L35,2 Z M30,5 L6,5 L6,23 L30,23 L30,5 Z" id="形状结合" fill="#666666"></path>
+        <rect id="矩形" fill="#0596B3" transform="translate(16.4826, 12.8526) rotate(45) translate(-16.4826, -12.8526)" x="11.9826407" y="11.3526407" width="9" height="3"></rect>
+        <rect id="矩形" fill="#0596B3" transform="translate(11.5355, 13.557) rotate(-45) translate(-11.5355, -13.557)" x="8.03553391" y="12.0570058" width="7" height="3"></rect>
+        <rect id="矩形" fill="#0596B3" transform="translate(22.4433, 11.1296) rotate(-45) translate(-22.4433, -11.1296)" x="16.4433009" y="9.62964339" width="12" height="3"></rect>
+    </g>
+</svg>

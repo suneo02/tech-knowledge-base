@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/查公司</title>
+    <g id="Icon/查公司" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <path d="M21,1 L21,35 L4,35 L4,6 L21,1 Z M18,4.99859943 L7,8.24703805 L7,32 L18,32 L18,4.99859943 Z" id="形状结合" fill="#0596B3"></path>
+        <path d="M32,17 L32,35 L23,35 L23,17 L32,17 Z M29,20 L26,20 L26,32 L29,32 L29,20 Z" id="形状结合" fill="#666666"></path>
+        <rect id="矩形" fill="#0596B3" x="9" y="11" width="7" height="3"></rect>
+        <rect id="矩形" fill="#0596B3" x="9" y="16" width="7" height="3"></rect>
+        <rect id="矩形" fill="#0596B3" x="9" y="21" width="7" height="3"></rect>
+        <rect id="矩形" fill="#666666" x="1" y="32" width="34" height="3"></rect>
+    </g>
+</svg>
