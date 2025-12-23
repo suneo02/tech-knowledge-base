@@ -1,0 +1,51 @@
+// ============================================================================
+// GEL UI 设计变量
+// ============================================================================
+// 此文件作为统一入口，导入所有设计变量
+// 内部按功能拆分为多个文件，便于维护和查找
+
+// 间距变量（页面间距、组件间距）
+@import './_spacing.less';
+
+// 颜色变量（色系、色板、透明度）
+@import './_colors.less';
+
+// 字体变量（字体颜色、字体大小、行高）
+@import './_typography.less';
+
+// 语义化颜色（主题色、状态色、边框色、背景色等）
+@import './_semantic.less';
+
+// 组件变量（各组件的专属变量）
+@import './_components.less';
+
+// 主题变量（暗色主题、Alice 渐变等）
+@import './_theme.less';
+
+// ============================================================================
+// 通用 Mixins
+// ============================================================================
+
+// 通用滚动条样式
+.scrollbar-style() {
+  &::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  // 默认隐藏滚动条
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  // 仅在滚动时显示滚动条
+  &:hover::-webkit-scrollbar-thumb,
+  &:active::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}

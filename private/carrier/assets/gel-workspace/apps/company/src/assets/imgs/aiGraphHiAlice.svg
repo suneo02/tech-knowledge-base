@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="164px" height="25px" viewBox="0 0 164 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>企业图谱Alice</title>
+    <defs>
+        <linearGradient x1="-7.2979485%" y1="50.5202592%" x2="109.286456%" y2="49.5181085%" id="linearGradient-1">
+            <stop stop-color="#3862ED" offset="0%"></stop>
+            <stop stop-color="#274CDA" offset="11.9837194%"></stop>
+            <stop stop-color="#00AEC7" offset="39.4718875%"></stop>
+            <stop stop-color="#17D9CB" offset="64.7999177%"></stop>
+            <stop stop-color="#B388E8" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="ai生成图谱" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="PingFangSC-Semibold, PingFang SC" font-size="26" font-weight="500" line-spacing="34">
+        <g id="企业库终端-查关系图谱-供应链探查-弹窗" transform="translate(-786.000000, -388.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+            <g id="编组-26" transform="translate(580.000000, 285.000000)">
+                <g id="编组-4" transform="translate(0.000000, 22.000000)">
+                    <text id="企业图谱Alice">
+                        <tspan x="206" y="105">企业图谱Alice</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

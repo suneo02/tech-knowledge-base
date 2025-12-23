@@ -1,0 +1,61 @@
+{
+  "api": "detail/company/getlandmortgage",
+  "countKey": "landmortgage_num",
+  "downDocTypeName": "不存在导出",
+  "id": "11-8",
+  "key": "11-8",
+  "level": 2,
+  "title": "历史土地抵押",
+  "titleIntl": "332513",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "landPos",
+      "title": "地块位置",
+      "titleIntl": "205434",
+      "width": "19%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "landMger",
+      "title": "抵押人",
+      "titleIntl": "138392",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "landMgee",
+      "title": "抵押权人",
+      "titleIntl": "138391",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "landHa",
+      "title": "抵押面积(公顷)",
+      "titleIntl": "205408",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "landMgAmt|formatMoneyComma",
+      "title": "抵押金额(万元)",
+      "titleIntl": "205409",
+      "width": "15%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "landMgStart",
+      "title": "起止日期",
+      "titleIntl": "205394",
+      "width": "17%"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+export { copyTextAndMessage } from './copyTextAndMessage'

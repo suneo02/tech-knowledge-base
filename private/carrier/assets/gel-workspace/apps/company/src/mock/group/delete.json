@@ -1,0 +1,239 @@
+[
+  {
+    "titleId": "138592",
+    "countKey": "debetor_num",
+    "type": "table",
+    "hiddenTitle": true,
+    "api": "getpersonenforced",
+    "downDocType": "groupexecution",
+    "search": true,
+    "columns": [
+      { "titleId": "138741", "align": "left", "dataIndex": "NO." },
+      { "titleId": "265441", "align": "left", "dataIndex": "concerned_person_name" },
+      { "titleId": "142954", "align": "left", "dataIndex": "case_no" },
+      { "titleId": "138294", "align": "left", "dataIndex": "filing_time|formatCont" },
+      { "titleId": "216397", "align": "right", "dataIndex": "execution_target" },
+      { "titleId": "138228", "align": "right", "dataIndex": "execution_court" }
+    ],
+    "title": "被执行人"
+  },
+  {
+    "titleId": "138358",
+    "countKey": "judicail_assist_num",
+    "type": "table",
+    "hiddenTitle": true,
+    "api": "getgroupjudicialassiant",
+    "downDocType": "groupjudicialassiant",
+    "search": true,
+    "columns": [
+      { "titleId": "138741", "align": "left", "dataIndex": "NO." },
+      {
+        "titleId": "265441",
+        "align": "left",
+        "dataIndex": "executed_person",
+        "companyLinks": { "id_key": "executed_person_id" }
+      },
+      { "titleId": "283582", "align": "right", "dataIndex": "stock_share|formatMoneyComma" },
+      { "titleId": "138523", "align": "left", "dataIndex": "exe_notice_no|formatCont" },
+      { "titleId": "138228", "align": "left", "dataIndex": "exe_court|formatCont" },
+      { "titleId": "30034", "align": "left", "dataIndex": "status|formatCont" }
+    ],
+    "expandable": {
+      "columns": [
+        [
+          { "titleId": "138228", "dataIndex": "exe_court" },
+          { "titleId": "138336", "dataIndex": "exe_item" },
+          { "titleId": "149982", "dataIndex": "exe_ruling_no" },
+          { "titleId": "138523", "dataIndex": "exe_notice_no" },
+          { "titleId": "265441", "dataIndex": "executed_person" },
+          { "titleId": "138616", "dataIndex": "stock_share+currency" }
+        ],
+        [
+          { "titleId": "138307", "dataIndex": "start_freeze_date" },
+          { "titleId": "138308", "dataIndex": "end_freeze_date" },
+          { "titleId": "138306", "dataIndex": "freeze_due_date" },
+          { "titleId": "138143", "dataIndex": "announce_date" },
+          { "titleId": "138277", "dataIndex": "belong_corp" }
+        ],
+        [
+          { "titleId": "138238", "dataIndex": "" },
+          { "titleId": "138143", "dataIndex": "" }
+        ],
+        [
+          { "titleId": "138290", "dataIndex": "" },
+          { "titleId": "138291", "dataIndex": "" },
+          { "titleId": "138143", "dataIndex": "" }
+        ],
+        [
+          { "titleId": "138163", "dataIndex": "" },
+          { "titleId": "138330", "dataIndex": "" },
+          { "titleId": "138333", "dataIndex": "" },
+          { "titleId": "138143", "dataIndex": "" }
+        ]
+      ],
+      "api": "judicailassistdetail",
+      "paramKeys": { "windId": "reference_id" }
+    },
+    "title": "司法协助"
+  },
+  {
+    "titleId": "222835",
+    "countKey": "",
+    "withTab": true,
+    "downDocType": "grouppenalties",
+    "hiddenTitle": true,
+    "children": [
+      {
+        "type": "table",
+        "title": "金融监管处罚",
+        "titleId": "143319",
+        "api": "getgroupfinancesupversion",
+        "countKey": "finance_punishment_num",
+        "columns": [
+          { "titleId": "138741", "dataIndex": "NO." },
+          { "titleId": "258986", "dataIndex": "corpName", "companyLinks": { "id_key": "corpId" } },
+          { "titleId": "222774", "dataIndex": "titleId" },
+          { "titleId": "222772", "dataIndex": "docId" },
+          { "titleId": "153359", "dataIndex": "decisionDate|formatTime" },
+          { "titleId": "138143", "dataIndex": "announcementDate|formatTime" },
+          {
+            "titleId": "265498",
+            "dataIndex": "orgName",
+            "windLinks": {
+              "mode": "company",
+              "id": "orgId"
+            }
+          }
+        ],
+        "expandable": {
+          "columns": [
+            [{ "titleId": "222774", "dataIndex": "titleId", "colSpan": 3 }],
+            [
+              { "titleId": "222814", "dataIndex": "docId" },
+              { "titleId": "265498", "dataIndex": "orgName", "companyLinks": { "id_key": "orgId" } }
+            ],
+            [
+              { "titleId": "153359", "dataIndex": "orgName" },
+              { "titleId": "138143", "dataIndex": "decisionDate|formatTime" }
+            ],
+            [
+              { "titleId": "222812", "dataIndex": "ss" },
+              { "titleId": "233037", "dataIndex": "legalPersonName" }
+            ],
+            [
+              { "titleId": "265479", "dataIndex": "type" },
+              { "titleId": "138461", "dataIndex": "basis" }
+            ],
+            [
+              { "titleId": "145345", "dataIndex": "cause" },
+              { "titleId": "222810", "dataIndex": "result" }
+            ]
+          ],
+          "api": "getfinancepunishmentdetail",
+          "paramKeys": { "detailId": "detailId" }
+        }
+      },
+      {
+        "title": "市场监管处罚",
+        "type": "table",
+        "titleId": "222836",
+        "countKey": "market_punishment_num",
+        "api": "getgroupmarketsupversion",
+        "columns": [
+          { "titleId": "138741", "dataIndex": "NO." },
+          { "titleId": "258986", "dataIndex": "corpName", "companyLinks": { "id_key": "corpId" } },
+          { "titleId": "222774", "dataIndex": "titleId" },
+          { "titleId": "222772", "dataIndex": "docId" },
+          { "titleId": "153359", "dataIndex": "decisionDate|formatTime" },
+          { "titleId": "138143", "dataIndex": "announcementDate|formatTime" },
+          {
+            "titleId": "265498",
+            "dataIndex": "orgName",
+            "windLinks": {
+              "mode": "company",
+              "id": "orgId"
+            }
+          }
+        ],
+        "expandable": {
+          "columns": [
+            [{ "titleId": "222774", "dataIndex": "title", "colSpan": 3 }],
+            [
+              { "titleId": "222814", "dataIndex": "docId" },
+              { "titleId": "265498", "dataIndex": "orgName", "companyLinks": { "id_key": "orgId" } }
+            ],
+            [
+              { "titleId": "153359", "dataIndex": "orgName" },
+              { "titleId": "138143", "dataIndex": "decisionDate|formatTime" }
+            ],
+            [
+              { "titleId": "222812", "dataIndex": "ss" },
+              { "titleId": "233037", "dataIndex": "legalPersonName" }
+            ],
+            [
+              { "titleId": "265479", "dataIndex": "type" },
+              { "titleId": "138461", "dataIndex": "basis" }
+            ],
+            [
+              { "titleId": "145345", "dataIndex": "cause" },
+              { "titleId": "222810", "dataIndex": "result" }
+            ]
+          ],
+          "api": "getmarketpunishmentdetail",
+          "paramKeys": { "detailId": "detailId" }
+        }
+      },
+      {
+        "title": "食药监处罚",
+        "type": "table",
+        "titleId": "143396",
+        "countKey": "foodanddrug_punishment_num",
+        "api": "getgroupfdsupervision",
+        "columns": [
+          { "titleId": "138741", "dataIndex": "NO." },
+          { "titleId": "258986", "dataIndex": "corpName", "companyLinks": { "id_key": "corpId" } },
+          { "titleId": "222774", "dataIndex": "titleId" },
+          { "titleId": "222772", "dataIndex": "docId" },
+          { "titleId": "153359", "dataIndex": "decisionDate|formatTime" },
+          { "titleId": "138143", "dataIndex": "announcementDate|formatTime" },
+          {
+            "titleId": "265498",
+            "dataIndex": "orgName",
+            "windLinks": {
+              "mode": "company",
+              "id": "orgId"
+            }
+          }
+        ],
+        "expandable": {
+          "columns": [
+            [{ "titleId": "222774", "dataIndex": "titleId", "colSpan": 3 }],
+            [
+              { "titleId": "222814", "dataIndex": "docId" },
+              { "titleId": "265498", "dataIndex": "orgName", "companyLinks": { "id_key": "orgId" } }
+            ],
+            [
+              { "titleId": "153359", "dataIndex": "orgName" },
+              { "titleId": "138143", "dataIndex": "decisionDate|formatTime" }
+            ],
+            [
+              { "titleId": "222812", "dataIndex": "ss" },
+              { "titleId": "233037", "dataIndex": "legalPersonName" }
+            ],
+            [
+              { "titleId": "265479", "dataIndex": "type" },
+              { "titleId": "138461", "dataIndex": "basis" }
+            ],
+            [
+              { "titleId": "145345", "dataIndex": "cause" },
+              { "titleId": "222810", "dataIndex": "result" }
+            ]
+          ],
+          "api": "getfinancepunishmentdetail",
+          "paramKeys": { "detailId": "detailId" }
+        }
+      }
+    ],
+    "title": "监管处罚"
+  }
+]

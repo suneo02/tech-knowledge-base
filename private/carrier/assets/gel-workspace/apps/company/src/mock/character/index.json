@@ -1,0 +1,1545 @@
+[
+  {
+    "id": 1723625960432,
+    "name": "人物-关联企业",
+    "title": "关联企业",
+    "children": [
+      {
+        "name": "人物-关联企业-全部关联企业",
+        "title": "全部关联企业",
+        "display": true,
+        "component": {
+          "name": "人物-全部关联企业",
+          "title": "全部关联企业",
+          "api": "detail/person/getPersonRelativeCompany/",
+          "type": 2,
+          "showIndex": true,
+          "columns": [
+            {
+              "title": "企业名称",
+              "width": "24%",
+              "dataIndex": "companyName",
+              "type": 8,
+              "links": {
+                "module": 1,
+                "id": "companyCode",
+                "bury": {
+                  "id": 922602101084
+                }
+              },
+              "titleId": "138677"
+            },
+            {
+              "title": "状态",
+              "width": "8%",
+              "dataIndex": "state",
+              "titleId": "32098"
+            },
+            {
+              "title": "国家/地区",
+              "dataIndex": "areaName",
+              "titleId": "6886"
+            },
+            {
+              "title": "国民经济行业",
+              "dataIndex": "industryName",
+              "titleId": "312254"
+            },
+            {
+              "title": "成立日期",
+              "dataIndex": "startDate",
+              "type": 7,
+              "width": "10%",
+              "titleId": "138860"
+            },
+            {
+              "title": "角色",
+              "dataIndex": "relation",
+              "type": "array",
+              "titleId": "138496"
+            }
+          ],
+          "searchOptions": [
+            {
+              "default": "全部状态",
+              "key": "state",
+              "type": "select",
+              "aggsKey": "agg_govlevel",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101085
+              },
+              "defaultId": "113998"
+            },
+            {
+              "default": "全部国家/地区",
+              "key": "areaCode",
+              "type": "select",
+              "aggsKey": "agg_province",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101086
+              },
+              "defaultId": "437186"
+            },
+            {
+              "default": "全部行业",
+              "key": "industryCode",
+              "type": "select",
+              "aggsKey": "agg_industry",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101087
+              },
+              "defaultId": "294517"
+            },
+            {
+              "default": "全部角色",
+              "key": "relationType",
+              "type": "select",
+              "aggsKey": "agg_relationTypes",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101088
+              },
+              "defaultId": "437688"
+            }
+          ],
+          "id": 1723622487615,
+          "titleId": "437185"
+        },
+        "titleId": "437185"
+      },
+      {
+        "name": "人物-关联企业-担任法人",
+        "title": "担任法人",
+        "component": {
+          "name": "人物-担任法人",
+          "title": "担任法人",
+          "api": "detail/person/getServeAsLegalPerson",
+          "type": 2,
+          "showIndex": true,
+          "columns": [
+            {
+              "title": "企业名称",
+              "width": "24%",
+              "dataIndex": "companyName",
+              "links": {
+                "module": 1,
+                "id": "companyCode",
+                "bury": {
+                  "id": 922602101089
+                }
+              },
+              "titleId": "138677"
+            },
+            {
+              "title": "状态",
+              "width": "8%",
+              "dataIndex": "state",
+              "titleId": "32098"
+            },
+            {
+              "title": "国家/地区",
+              "dataIndex": "areaName",
+              "titleId": "6886"
+            },
+            {
+              "title": "国民经济行业",
+              "dataIndex": "industryName",
+              "titleId": "312254"
+            },
+            {
+              "title": "注册资本（万）",
+              "type": 6,
+              "align": "right",
+              "dataIndex": "regCap",
+              "currencyUnit": "regCapUnit",
+              "titleId": "451220"
+            }
+          ],
+          "searchOptions": [
+            {
+              "default": "全部状态",
+              "key": "state",
+              "type": "select",
+              "aggsKey": "state",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101090
+              },
+              "defaultId": "113998"
+            },
+            {
+              "default": "全部国家/地区",
+              "key": "areaCode",
+              "type": "select",
+              "aggsKey": "areaCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101091
+              },
+              "defaultId": "437186"
+            },
+            {
+              "default": "全部行业",
+              "key": "industryCode",
+              "type": "select",
+              "aggsKey": "industryCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101092
+              },
+              "defaultId": "294517"
+            }
+          ],
+          "countKey": "legalPersonNum",
+          "id": 336562625333346,
+          "titleId": "437720"
+        },
+        "titleId": "437720"
+      },
+      {
+        "name": "人物-关联企业-对外投资",
+        "title": "对外投资",
+        "component": {
+          "name": "人物-对外投资",
+          "title": "对外投资",
+          "api": "detail/person/getInvestmentByPerson",
+          "type": 2,
+          "showIndex": true,
+          "columns": [
+            {
+              "title": "企业名称",
+              "width": "24%",
+              "dataIndex": "companyName",
+              "links": {
+                "module": 1,
+                "id": "companyCode",
+                "bury": {
+                  "id": 922602101093
+                }
+              },
+              "titleId": "138677"
+            },
+            {
+              "title": "持股比例",
+              "dataIndex": "shareholdRatio",
+              "align": "right",
+              "type": 5,
+              "titleId": "451217"
+            },
+            {
+              "title": "状态",
+              "width": "8%",
+              "dataIndex": "state",
+              "titleId": "32098"
+            },
+            {
+              "title": "国家/地区",
+              "dataIndex": "areaName",
+              "titleId": "6886"
+            },
+            {
+              "title": "国民经济行业",
+              "dataIndex": "industryName",
+              "date": {
+                "separator": "-"
+              },
+              "currencyUnit": "regCapUnit",
+              "titleId": "312254"
+            },
+            {
+              "title": "注册资本（万）",
+              "dataIndex": "regCap",
+              "type": 6,
+              "align": "right",
+              "currencyUnit": "regCapUnit",
+              "titleId": "451220"
+            }
+          ],
+          "searchOptions": [
+            {
+              "default": "全部状态",
+              "key": "state",
+              "type": "select",
+              "aggsKey": "state",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101094
+              },
+              "defaultId": "113998"
+            },
+            {
+              "default": "全部国家/地区",
+              "key": "areaCode",
+              "type": "select",
+              "aggsKey": "areaCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101095
+              },
+              "defaultId": "437186"
+            },
+            {
+              "default": "全部行业",
+              "key": "industryCode",
+              "type": "select",
+              "aggsKey": "industryCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101096
+              },
+              "defaultId": "294517"
+            }
+          ],
+          "countKey": "investmentNum",
+          "id": 336562625333349,
+          "titleId": "138724"
+        },
+        "titleId": "138724"
+      },
+      {
+        "name": "人物-关联企业-在外任职",
+        "title": "在外任职",
+        "component": {
+          "id": 1723625835816,
+          "type": 1,
+          "name": "人物-在外任职组件集",
+          "title": "在外任职",
+          "children": [
+            {
+              "name": "人物-在外任职-最新公示",
+              "title": "最新公示",
+              "api": "detail/person/getWorkingOutside",
+              "type": 2,
+              "showIndex": true,
+              "columns": [
+                {
+                  "title": "企业名称",
+                  "width": "24%",
+                  "dataIndex": "companyName",
+                  "links": {
+                    "module": 1,
+                    "id": "companyCode",
+                    "bury": {
+                      "id": 922602101097,
+                      "tab": "最新公示"
+                    }
+                  },
+                  "titleId": "138677"
+                },
+                {
+                  "title": "职位",
+                  "dataIndex": "position",
+                  "titleId": "35650"
+                },
+                {
+                  "title": "状态",
+                  "width": "8%",
+                  "dataIndex": "state",
+                  "titleId": "32098"
+                },
+                {
+                  "title": "上任日期",
+                  "dataIndex": "startDate",
+                  "type": 7,
+                  "width": "10%",
+                  "titleId": "261229"
+                },
+                {
+                  "title": "国家/地区",
+                  "dataIndex": "areaName",
+                  "titleId": "6886"
+                },
+                {
+                  "title": "国民经济行业",
+                  "dataIndex": "industryName",
+                  "titleId": "312254"
+                }
+              ],
+              "searchOptions": [
+                {
+                  "default": "全部状态",
+                  "key": "state",
+                  "type": "select",
+                  "aggsKey": "state",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101098,
+                    "tab": "最新公示"
+                  },
+                  "defaultId": "113998"
+                },
+                {
+                  "default": "全部国家/地区",
+                  "key": "areaCode",
+                  "type": "select",
+                  "aggsKey": "areaCode",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101099,
+                    "tab": "最新公示"
+                  },
+                  "defaultId": "437186"
+                },
+                {
+                  "default": "全部行业",
+                  "key": "industryCode",
+                  "type": "select",
+                  "aggsKey": "industryCode",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101100,
+                    "tab": "最新公示"
+                  },
+                  "defaultId": "294517"
+                }
+              ],
+              "countKey": "employeedLastnoticeNum",
+              "apiExtra": [
+                {
+                  "type": "static",
+                  "apiKey": "source",
+                  "value": "0"
+                }
+              ],
+              "id": 336562625333359,
+              "titleId": "342094"
+            },
+            {
+              "name": "人物-在外任职-工商登记",
+              "title": "工商登记",
+              "api": "detail/person/getWorkingOutside",
+              "type": 2,
+              "showIndex": true,
+              "columns": [
+                {
+                  "title": "企业名称",
+                  "width": "24%",
+                  "dataIndex": "companyName",
+                  "links": {
+                    "module": 1,
+                    "id": "companyCode",
+                    "bury": {
+                      "id": 922602101097,
+                      "tab": "工商登记"
+                    }
+                  },
+                  "titleId": "138677"
+                },
+                {
+                  "title": "职位",
+                  "dataIndex": "position",
+                  "titleId": "35650"
+                },
+                {
+                  "title": "状态",
+                  "width": "8%",
+                  "dataIndex": "state",
+                  "titleId": "32098"
+                },
+                {
+                  "title": "上任日期",
+                  "dataIndex": "startDate",
+                  "type": 7,
+                  "width": "10%",
+                  "titleId": "261229"
+                },
+                {
+                  "title": "国家/地区",
+                  "dataIndex": "areaName",
+                  "titleId": "6886"
+                },
+                {
+                  "title": "国民经济行业",
+                  "dataIndex": "industryName",
+                  "titleId": "312254"
+                }
+              ],
+              "searchOptions": [
+                {
+                  "default": "全部状态",
+                  "key": "state",
+                  "type": "select",
+                  "aggsKey": "state",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101098,
+                    "tab": "工商登记"
+                  },
+                  "defaultId": "113998"
+                },
+                {
+                  "default": "全部国家/地区",
+                  "key": "areaCode",
+                  "type": "select",
+                  "aggsKey": "areaCode",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101099,
+                    "tab": "工商登记"
+                  },
+                  "defaultId": "437186"
+                },
+                {
+                  "default": "全部行业",
+                  "key": "industryCode",
+                  "type": "select",
+                  "aggsKey": "industryCode",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101100,
+                    "tab": "工商登记"
+                  },
+                  "defaultId": "294517"
+                }
+              ],
+              "countKey": "employeedIndustrialregistNum",
+              "id": 336562625333350,
+              "titleId": "312175"
+            }
+          ],
+          "titleId": "437721"
+        },
+        "titleId": "437721"
+      },
+      {
+        "name": "人物-关联企业-最终受益",
+        "title": "最终受益",
+        "component": {
+          "type": 1,
+          "name": "人物-最终受益组件集",
+          "title": "最终受益",
+          "tooltip": "依据银发【2017】235号文件\n受益所有人为依据相关政策文件识别标准，层层深入并最终明确为掌握控制权或者获取收益的一个或多个自然人。\n受益自然人为拥有25%（含）以上股权或疑似拥有合伙权益或收益权的自然人及对法人或非法人组织进行实际控制的多个自然人。\n受益机构为拥有25%（含）以上股权或疑似拥有合伙权益或收益权的法人及对法人或非法人组织进行实际控制的多个法人。\n该结果仅供用户参考，并不代表万得的任何观点或保证。",
+          "id": 1723625835817,
+          "children": [
+            {
+              "name": "人物-最终受益-作为受益所有人",
+              "title": "作为受益所有人",
+              "api": "detail/person/getAsBeneficiaryOwner",
+              "type": 2,
+              "showIndex": true,
+              "columns": [
+                {
+                  "title": "企业名称",
+                  "width": "24%",
+                  "dataIndex": "companyName",
+                  "links": {
+                    "module": 1,
+                    "id": "companyCode",
+                    "bury": {
+                      "id": 922602101101,
+                      "tab": "受益所有人"
+                    }
+                  },
+                  "titleId": "138677"
+                },
+                {
+                  "title": "最终受益股份",
+                  "dataIndex": "shareRoute",
+                  "type": 13,
+                  "bury": {
+                    "id": 922602101129
+                  },
+                  "shareRouteParams": {
+                    "api": "detail/person/getPersonShareRoute",
+                    "params": [
+                      {
+                        "type": "dynamic",
+                        "apiKey": "detailId",
+                        "key": "detailId"
+                      },
+                      {
+                        "type": "dynamic",
+                        "apiKey": "companyCode",
+                        "key": "companyCode"
+                      }
+                    ]
+                  },
+                  "align": "right",
+                  "titleId": "261486"
+                },
+                {
+                  "title": "状态",
+                  "width": "8%",
+                  "dataIndex": "state",
+                  "titleId": "32098"
+                },
+                {
+                  "title": "受益类型",
+                  "dataIndex": "beneficiaryTypeName",
+                  "titleId": "326073"
+                },
+                {
+                  "title": "判定理由",
+                  "dataIndex": "judgeReason",
+                  "titleId": "326074"
+                }
+              ],
+              "searchOptions": [
+                {
+                  "default": "全部状态",
+                  "key": "state",
+                  "type": "select",
+                  "aggsKey": "state",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "defaultId": "113998"
+                },
+                {
+                  "default": "全部受益类型",
+                  "key": "beneficiaryType",
+                  "type": "select",
+                  "aggsKey": "beneficiaryType",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101131
+                  },
+                  "defaultId": "437689"
+                }
+              ],
+              "countKey": "beneficiaryOwnerNum",
+              "id": 336562625333351,
+              "titleId": "437187"
+            },
+            {
+              "name": "人物-最终受益-作为受益自然人",
+              "title": "作为受益自然人",
+              "api": "detail/person/getAsBeneficiaryNaturalPersion",
+              "type": 2,
+              "showIndex": true,
+              "columns": [
+                {
+                  "title": "企业名称",
+                  "width": "24%",
+                  "dataIndex": "companyName",
+                  "links": {
+                    "module": 1,
+                    "id": "companyCode",
+                    "bury": {
+                      "id": 922602101101,
+                      "tab": "受益自然人"
+                    }
+                  },
+                  "titleId": "138677"
+                },
+                {
+                  "title": "最终受益股份",
+                  "dataIndex": "shareRoute",
+                  "align": "right",
+                  "type": 13,
+                  "bury": {
+                    "id": 922602101129
+                  },
+                  "shareRouteParams": {
+                    "api": "detail/person/getPersonShareRoute",
+                    "params": [
+                      {
+                        "type": "dynamic",
+                        "apiKey": "detailId",
+                        "key": "detailId"
+                      },
+                      {
+                        "type": "dynamic",
+                        "apiKey": "companyCode",
+                        "key": "companyCode"
+                      }
+                    ]
+                  },
+                  "titleId": "261486"
+                },
+                {
+                  "title": "状态",
+                  "width": "8%",
+                  "dataIndex": "state",
+                  "titleId": "32098"
+                },
+                {
+                  "title": "受益类型",
+                  "dataIndex": "beneficiaryTypeName",
+                  "titleId": "326073"
+                },
+                {
+                  "title": "任职类型",
+                  "dataIndex": "jobType",
+                  "titleId": "326093"
+                }
+              ],
+              "searchOptions": [
+                {
+                  "default": "全部状态",
+                  "key": "state",
+                  "type": "select",
+                  "aggsKey": "state",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "defaultId": "113998"
+                },
+                {
+                  "default": "全部受益类型",
+                  "key": "beneficiaryType",
+                  "type": "select",
+                  "aggsKey": "beneficiaryType",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101131
+                  },
+                  "defaultId": "437689"
+                }
+              ],
+              "countKey": "beneficiaryNaturalNum",
+              "id": 336562625333352,
+              "titleId": "437690"
+            }
+          ],
+          "titleId": "437194"
+        },
+        "titleId": "437194"
+      },
+      {
+        "name": "人物-关联企业-疑似实控",
+        "title": "疑似实控",
+        "component": {
+          "type": 1,
+          "name": "人物-疑似实控组件集",
+          "title": "疑似实控",
+          "tooltip": "实际控制人指通过投资关系、协议或者其他安排，能够实际支配公司行为的自然人、法人或者其他组织。\ni.公告披露：企业年报、公告披露的实际控制人。\n ii.疑似实控人：全球企业库依据股权穿透计算后得出疑似实际控制人，企业在公司章程或股东协议中或许有其他安排，在使用该数据前建议跟企业做进一步核实。数据仅供用户参考，不代表全球企业库的任何明示、暗示之观点或保证。",
+          "id": 1723625835818,
+          "children": [
+            {
+              "name": "人物-疑似实控-公告披露",
+              "title": "公告披露",
+              "api": "detail/person/getAsActControlller",
+              "type": 2,
+              "showIndex": true,
+              "columns": [
+                {
+                  "title": "企业名称",
+                  "width": "24%",
+                  "dataIndex": "companyName",
+                  "links": {
+                    "module": 1,
+                    "id": "companyCode",
+                    "bury": {
+                      "id": 922602101105,
+                      "tab": "公告披露"
+                    }
+                  },
+                  "titleId": "138677"
+                },
+                {
+                  "title": "持股比例",
+                  "dataIndex": "shareholdRatio",
+                  "align": "right",
+                  "type": 5,
+                  "titleId": "451217"
+                },
+                {
+                  "title": "状态",
+                  "width": "8%",
+                  "dataIndex": "state",
+                  "titleId": "32098"
+                },
+                {
+                  "title": "国家/地区",
+                  "dataIndex": "areaName",
+                  "titleId": "6886"
+                },
+                {
+                  "title": "国民经济行业",
+                  "dataIndex": "industryName",
+                  "titleId": "312254"
+                },
+                {
+                  "title": "注册资本（万）",
+                  "dataIndex": "regCap",
+                  "type": 6,
+                  "align": "right",
+                  "currencyUnit": "regCapUnit",
+                  "titleId": "451220"
+                }
+              ],
+              "searchOptions": [
+                {
+                  "default": "全部状态",
+                  "key": "state",
+                  "type": "select",
+                  "aggsKey": "state",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101106,
+                    "tab": "公告披露"
+                  },
+                  "defaultId": "113998"
+                },
+                {
+                  "default": "全部国家/地区",
+                  "key": "areaCode",
+                  "type": "select",
+                  "aggsKey": "areaCode",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101107,
+                    "tab": "公告披露"
+                  },
+                  "defaultId": "437186"
+                },
+                {
+                  "default": "全部行业",
+                  "key": "industryCode",
+                  "type": "select",
+                  "aggsKey": "industryCode",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101108,
+                    "tab": "公告披露"
+                  },
+                  "defaultId": "294517"
+                }
+              ],
+              "countKey": "controllerLastnoticeNum",
+              "apiExtra": [
+                {
+                  "type": "static",
+                  "apiKey": "source",
+                  "value": "0"
+                }
+              ],
+              "id": 336562625333353,
+              "titleId": "312174"
+            },
+            {
+              "name": "人物-疑似实控-疑似实控人",
+              "title": "疑似实控人",
+              "api": "detail/person/getAsActControlller",
+              "type": 2,
+              "showIndex": true,
+              "columns": [
+                {
+                  "title": "企业名称",
+                  "width": "24%",
+                  "dataIndex": "companyName",
+                  "links": {
+                    "module": 1,
+                    "id": "companyCode",
+                    "bury": {
+                      "id": 922602101105,
+                      "tab": "疑似实控人"
+                    }
+                  },
+                  "titleId": "138677"
+                },
+                {
+                  "title": "持股比例",
+                  "dataIndex": "shareholdRatio",
+                  "align": "right",
+                  "type": 5,
+                  "titleId": "451217"
+                },
+                {
+                  "title": "状态",
+                  "width": "8%",
+                  "dataIndex": "state",
+                  "titleId": "32098"
+                },
+                {
+                  "title": "国家/地区",
+                  "dataIndex": "areaName",
+                  "titleId": "6886"
+                },
+                {
+                  "title": "国民经济行业",
+                  "dataIndex": "industryName",
+                  "titleId": "312254"
+                },
+                {
+                  "title": "注册资本（万）",
+                  "dataIndex": "regCap",
+                  "type": 6,
+                  "align": "right",
+                  "currencyUnit": "regCapUnit",
+                  "titleId": "451220"
+                }
+              ],
+              "searchOptions": [
+                {
+                  "default": "全部状态",
+                  "key": "state",
+                  "type": "select",
+                  "aggsKey": "state",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101106,
+                    "tab": "疑似实控人"
+                  },
+                  "defaultId": "113998"
+                },
+                {
+                  "default": "全部国家/地区",
+                  "key": "areaCode",
+                  "type": "select",
+                  "aggsKey": "areaCode",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101107,
+                    "tab": "疑似实控人"
+                  },
+                  "defaultId": "437186"
+                },
+                {
+                  "default": "全部行业",
+                  "key": "industryCode",
+                  "type": "select",
+                  "aggsKey": "industryCode",
+                  "aggsParams": {
+                    "label": "name",
+                    "value": "key",
+                    "count": "doc_count"
+                  },
+                  "bury": {
+                    "id": 922602101108,
+                    "tab": "疑似实控人"
+                  },
+                  "defaultId": "294517"
+                }
+              ],
+              "countKey": "controllerCalculateNum",
+              "id": 336562625333354,
+              "titleId": "261456"
+            }
+          ],
+          "titleId": "437195"
+        },
+        "titleId": "437195"
+      }
+    ],
+    "titleId": "138661"
+  },
+  {
+    "disabled": true,
+    "title": "关联人物",
+    "id": 1723625985626,
+    "children": [
+      {
+        "name": "人物-合作伙伴（子菜单）",
+        "title": "合作伙伴",
+        "display": true,
+        "component": {
+          "tooltip": "合作伙伴指疑似在同一公司内共事的自然人，主要根据人名进行匹配，可能存在同名同姓匹配不精准问题，展示结果仅供参考，该成果并不代表万得的任何明示、暗示之观点或保证。",
+          "name": "人物-合作伙伴",
+          "title": "合作伙伴",
+          "api": "detail/person/getCollaboratePartner",
+          "type": 2,
+          "showIndex": true,
+          "columns": [
+            {
+              "title": "合作伙伴名称",
+              "width": "18%",
+              "dataIndex": "personName",
+              "links": {
+                "module": 3,
+                "id": "personId",
+                "bury": {
+                  "id": 922602101109
+                }
+              },
+              "titleId": "437722"
+            },
+            {
+              "title": "合作企业",
+              "dataIndex": "companyName",
+              "customId": "character_hzhb_1",
+              "info": {
+                "type": 2,
+                "id": "personId",
+                "component": {
+                  "apiExtra": [
+                    {
+                      "type": "dynamic",
+                      "apiKey": "relatedPersonId",
+                      "key": "id"
+                    }
+                  ],
+                  "pagination": false,
+                  "api": "detail/person/getCollaboratePartnerCompany",
+                  "showIndex": true,
+                  "type": 2,
+                  "hideTableHeader": true,
+                  "columns": [
+                    {
+                      "title": "合作企业",
+                      "width": "50%",
+                      "dataIndex": "companyName",
+                      "links": {
+                        "module": 1,
+                        "id": "companyCode"
+                      },
+                      "titleId": "437723"
+                    },
+                    {
+                      "title": "担任职务",
+                      "dataIndex": "ownRole",
+                      "type": "array",
+                      "titleId": "437724"
+                    },
+                    {
+                      "title": "合作伙伴担任职务",
+                      "dataIndex": "partnerRole",
+                      "type": "array",
+                      "titleId": "437692"
+                    }
+                  ]
+                }
+              },
+              "titleId": "437723"
+            }
+          ],
+          "id": 336562625333355,
+          "titleId": "437691"
+        },
+        "titleId": "437691"
+      }
+    ],
+    "titleId": "437188"
+  },
+  {
+    "searchTitle": "历史数据",
+    "title": "历史数据",
+    "id": 1723625985620,
+    "children": [
+      {
+        "name": "人物-历史数据-历史担任法人",
+        "title": "担任法人",
+        "component": {
+          "name": "人物-历史担任法人",
+          "title": "历史担任法人",
+          "api": "detail/person/getHisServeAsLegalPerson",
+          "type": 2,
+          "showIndex": true,
+          "columns": [
+            {
+              "title": "企业名称",
+              "width": "24%",
+              "dataIndex": "companyName",
+              "links": {
+                "module": 1,
+                "id": "companyCode",
+                "bury": {
+                  "id": 922602101111
+                }
+              },
+              "titleId": "138677"
+            },
+            {
+              "title": "状态",
+              "width": "8%",
+              "dataIndex": "state",
+              "titleId": "32098"
+            },
+            {
+              "title": "上任日期",
+              "dataIndex": "startDate",
+              "type": 7,
+              "date": {
+                "separator": "-"
+              },
+              "width": "10%",
+              "titleId": "261229"
+            },
+            {
+              "title": "离任日期",
+              "dataIndex": "endDate",
+              "type": 7,
+              "width": "10%",
+              "titleId": "259985"
+            },
+            {
+              "title": "国家/地区",
+              "dataIndex": "areaName",
+              "titleId": "6886"
+            },
+            {
+              "title": "国民经济行业",
+              "dataIndex": "industryName",
+              "titleId": "312254"
+            }
+          ],
+          "searchOptions": [
+            {
+              "default": "全部状态",
+              "key": "state",
+              "type": "select",
+              "aggsKey": "state",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101112
+              },
+              "defaultId": "113998"
+            },
+            {
+              "default": "全部国家/地区",
+              "key": "areaCode",
+              "type": "select",
+              "aggsKey": "areaCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101113
+              },
+              "defaultId": "437186"
+            },
+            {
+              "default": "全部行业",
+              "key": "industryCode",
+              "type": "select",
+              "aggsKey": "industryCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101114
+              },
+              "defaultId": "294517"
+            }
+          ],
+          "countKey": "historyLegalPersonNum",
+          "id": 336562625333356,
+          "titleId": "437725"
+        },
+        "titleId": "437720"
+      },
+      {
+        "searchTitle": "历史对外投资",
+        "title": "对外投资",
+        "component": {
+          "name": "历史对外投资",
+          "title": "历史对外投资",
+          "api": "detail/person/getHisInvestmentByPerson",
+          "type": 2,
+          "showIndex": true,
+          "columns": [
+            {
+              "title": "企业名称",
+              "width": "24%",
+              "dataIndex": "companyName",
+              "links": {
+                "module": 1,
+                "id": "companyCode",
+                "bury": {
+                  "id": 922602101115
+                }
+              },
+              "titleId": "138677"
+            },
+            {
+              "title": "退出前持股比例",
+              "dataIndex": "shareholdRatio",
+              "type": 5,
+              "align": "right",
+              "titleId": "356653"
+            },
+            {
+              "title": "退出前认缴金额（万）",
+              "dataIndex": "subscriptionAmount",
+              "type": 6,
+              "width": "16%",
+              "align": "right",
+              "date": {
+                "separator": "-"
+              },
+              "currencyUnit": "subscriptionAmountUnit",
+              "titleId": "437693"
+            },
+            {
+              "title": "退出日期",
+              "dataIndex": "endDate",
+              "type": 7,
+              "width": "10%",
+              "titleId": "63486"
+            },
+            {
+              "title": "状态",
+              "width": "8%",
+              "dataIndex": "state",
+              "titleId": "32098"
+            },
+            {
+              "title": "国家/地区",
+              "dataIndex": "areaName",
+              "titleId": "6886"
+            }
+          ],
+          "searchOptions": [
+            {
+              "default": "全部状态",
+              "key": "state",
+              "type": "select",
+              "aggsKey": "state",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count",
+                "bury": {
+                  "id": 922602101116
+                }
+              },
+              "defaultId": "113998"
+            },
+            {
+              "default": "全部国家/地区",
+              "key": "areaCode",
+              "type": "select",
+              "aggsKey": "areaCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101117
+              },
+              "defaultId": "437186"
+            },
+            {
+              "default": "全部行业",
+              "key": "industryCode",
+              "type": "select",
+              "aggsKey": "industryCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101118
+              },
+              "defaultId": "294517"
+            }
+          ],
+          "countKey": "historyInvestmentNum",
+          "id": 336562625333347,
+          "titleId": "142472"
+        },
+        "titleId": "138724"
+      },
+      {
+        "searchTitle": "历史在外任职",
+        "title": "在外任职",
+        "component": {
+          "name": "人物-历史在外任职",
+          "title": "历史在外任职",
+          "api": "detail/person/getHisWorkingOutside",
+          "type": 2,
+          "showIndex": true,
+          "columns": [
+            {
+              "title": "企业名称",
+              "width": "24%",
+              "dataIndex": "companyName",
+              "links": {
+                "module": 1,
+                "id": "companyCode",
+                "bury": {
+                  "id": 922602101119
+                }
+              },
+              "titleId": "138677"
+            },
+            {
+              "title": "职位",
+              "dataIndex": "position",
+              "titleId": "35650"
+            },
+            {
+              "title": "状态",
+              "width": "8%",
+              "dataIndex": "state",
+              "titleId": "32098"
+            },
+            {
+              "title": "上任日期",
+              "dataIndex": "startDate",
+              "type": 7,
+              "width": "10%",
+              "titleId": "261229"
+            },
+            {
+              "title": "离任日期",
+              "dataIndex": "endDate",
+              "type": 7,
+              "width": "10%",
+              "titleId": "259985"
+            },
+            {
+              "title": "国家/地区",
+              "dataIndex": "areaName",
+              "titleId": "6886"
+            }
+          ],
+          "searchOptions": [
+            {
+              "default": "全部状态",
+              "key": "state",
+              "type": "select",
+              "aggsKey": "state",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101120
+              },
+              "defaultId": "113998"
+            },
+            {
+              "default": "全部国家/地区",
+              "key": "areaCode",
+              "type": "select",
+              "aggsKey": "areaCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101121
+              },
+              "defaultId": "437186"
+            },
+            {
+              "default": "全部行业",
+              "key": "industryCode",
+              "type": "select",
+              "aggsKey": "industryCode",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "bury": {
+                "id": 922602101122
+              },
+              "defaultId": "294517"
+            }
+          ],
+          "countKey": "historyEmployeedNum",
+          "id": 336562625333348,
+          "titleId": "437726"
+        },
+        "titleId": "437721"
+      },
+      {
+        "searchTitle": "历史最终受益",
+        "title": "最终受益",
+        "component": {
+          "name": "人物-历史最终受益",
+          "title": "历史最终受益",
+          "api": "detail/person/getHisAsBeneficiary",
+          "type": 2,
+          "showIndex": true,
+          "columns": [
+            {
+              "title": "企业名称",
+              "dataIndex": "companyName",
+              "links": {
+                "module": 1,
+                "id": "companyCode"
+              },
+              "titleId": "138677"
+            },
+            {
+              "title": "最终受益股份",
+              "dataIndex": "shareRoute",
+              "width": "20%",
+              "align": "right",
+              "type": 13,
+              "bury": {
+                "id": 922602101130
+              },
+              "titleId": "261486"
+            },
+            {
+              "title": "变更日期",
+              "type": 7,
+              "dataIndex": "changeDate",
+              "width": "10%",
+              "titleId": "451201"
+            }
+          ],
+          "searchOptions": [
+            {
+              "default": "全部状态",
+              "key": "state",
+              "type": "select",
+              "aggsKey": "state",
+              "aggsParams": {
+                "label": "name",
+                "value": "key",
+                "count": "doc_count"
+              },
+              "defaultId": "113998"
+            }
+          ],
+          "countKey": "historyBeneficiaryNum",
+          "id": 336562625333357,
+          "titleId": "437734"
+        },
+        "titleId": "437194"
+      },
+      {
+        "searchTitle": "历史疑似实控",
+        "title": "疑似实控",
+        "component": {
+          "name": "人物-历史疑似实控",
+          "title": "历史疑似实控",
+          "api": "detail/person/getHisAsActControlller",
+          "type": 2,
+          "showIndex": true,
+          "columns": [
+            {
+              "title": "企业名称",
+              "dataIndex": "companyName",
+              "links": {
+                "module": 1,
+                "id": "companyCode",
+                "bury": {
+                  "id": 922602101123
+                }
+              },
+              "titleId": "138677"
+            },
+            {
+              "title": "实际持股比例",
+              "width": "20%",
+              "dataIndex": "shareRoute",
+              "align": "right",
+              "type": 13,
+              "titleId": "138412"
+            },
+            {
+              "title": "变更日期",
+              "type": 7,
+              "dataIndex": "changeDate",
+              "width": "10%",
+              "titleId": "451201"
+            }
+          ],
+          "countKey": "historySAControllerNum",
+          "id": 336562625333358,
+          "titleId": "437196"
+        },
+        "titleId": "437195"
+      }
+    ],
+    "titleId": "33638"
+  }
+]

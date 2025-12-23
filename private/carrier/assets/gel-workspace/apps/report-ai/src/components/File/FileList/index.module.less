@@ -1,0 +1,204 @@
+// ============================================================================
+// 文件列表组件样式
+// ============================================================================
+
+// 导入设计变量
+@import 'gel-ui/variables.less';
+
+.file-list {
+  // 定位
+  display: flex;
+  flex-direction: column;
+
+  // 盒模型
+  width: 100%;
+
+  // 子元素
+  &__table {
+    // 继承父容器样式
+    flex: 1;
+
+    // 覆盖wind-ui-table默认样式
+    :global(.ant-table) {
+      .ant-table-thead > tr > th {
+        background-color: @color-bg-2;
+        font-weight: 600;
+        color: @font-color-1;
+        border-bottom: 1px solid @border-color-split;
+      }
+
+      .ant-table-tbody > tr {
+        &:hover {
+          background-color: @color-bg-2;
+        }
+
+        > td {
+          border-bottom: 1px solid @border-color-split;
+          color: @font-color-1;
+        }
+      }
+    }
+
+    // 空状态样式
+    :global(.ant-empty) {
+      margin: @component-space-lg 0;
+      color: @font-color-3;
+    }
+  }
+
+  // 标签容器样式
+  &__tag-container {
+    // 定位
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    // 盒模型
+    margin: -2px; // 负边距抵消标签间距
+  }
+
+  // 标签项样式
+  &__tag-item {
+    // 盒模型
+    margin: 2px; // 使用正边距实现间距
+  }
+
+  // 操作按钮容器样式
+  &__action-container {
+    // 定位
+    display: flex;
+    align-items: center;
+
+    // 盒模型
+    margin: -2px; // 负边距抵消按钮间距
+  }
+
+  // 操作按钮样式
+  &__action-button {
+    // 盒模型
+    margin: 2px; // 使用正边距实现间距
+
+    // 视觉
+    color: @font-color-2;
+    border-color: transparent;
+
+    // 交互
+    transition: all 0.2s;
+
+    &:hover {
+      color: @primary-color;
+      background-color: @color-bg-2;
+    }
+
+    &:disabled {
+      color: @font-color-4;
+      cursor: not-allowed;
+    }
+  }
+
+  // 状态徽章样式
+  &__status-badge {
+    // 定位
+    display: inline-flex;
+    align-items: center;
+
+    // 盒模型
+    padding: 2px 8px;
+
+    // 视觉
+    font-size: @font-size-sm;
+    border-radius: @border-radius-base;
+    line-height: 1;
+
+    // 修饰符
+    &--success {
+      background-color: @alert-success-bg;
+      color: @success;
+      border: 1px solid @alert-success-border;
+    }
+
+    &--processing {
+      background-color: @alert-warning-bg;
+      color: @warning;
+      border: 1px solid @alert-warning-border;
+    }
+
+    &--error {
+      background-color: @alert-error-bg;
+      color: @danger;
+      border: 1px solid @alert-error-border;
+    }
+
+    &--default {
+      background-color: @color-bg-3;
+      color: @font-color-3;
+      border: 1px solid @border-color-split;
+    }
+  }
+
+  // 状态徽章中的加载图标
+  &__status-badge__spinner {
+    // 定位
+    display: inline-block;
+
+    // 盒模型
+    width: 10px;
+    height: 10px;
+    margin-left: 4px;
+
+    // 视觉
+    border: 1px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+
+    // 动画
+    animation: spin 1s linear infinite;
+  }
+
+  // 状态徽章中的图标
+  &__status-badge__icon {
+    // 视觉
+    font-size: 12px;
+  }
+
+  // 修饰符
+  &--loading {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &--error {
+    :global(.ant-table) {
+      border: 1px solid @danger;
+    }
+  }
+}
+
+// 动画定义
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 响应式设计
+@media (max-width: @screen-md) {
+  .file-list {
+    :global(.ant-table) {
+      font-size: @font-size-sm;
+    }
+
+    &__tag-item {
+      font-size: @font-size-xs;
+      padding: 1px 4px;
+    }
+
+    &__status-badge {
+      font-size: @font-size-xs;
+      padding: 1px 6px;
+    }
+  }
+}

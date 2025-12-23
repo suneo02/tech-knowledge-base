@@ -1,0 +1,74 @@
+.aiAssistant {
+  // background: #1a1c1f;
+  color: white;
+  width: 100%;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  // box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.1);
+
+  border-radius: 12px;
+  .content {
+    padding: 16px 24px 0px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(49deg, #274cda 0%, #00aec7 68%, #0596b3 97%);
+      z-index: -1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 32px);
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #f6f6f6 100%);
+      z-index: -1;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+
+  .robotIcon {
+    font-size: 24px;
+    margin-right: 12px;
+    color: white;
+  }
+
+  .title {
+    margin: 0;
+    color: white;
+  }
+}
+
+.chatInput {
+  width: 100%;
+  margin-top: 16px;
+
+  .sendIcon {
+    color: #1890ff;
+    cursor: pointer;
+    font-size: 18px;
+
+    &:hover {
+      color: #40a9ff;
+    }
+  }
+}

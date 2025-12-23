@@ -1,0 +1,72 @@
+@prefix: side-menu-layout;
+
+.@{prefix} {
+  height: 100%;
+  width: 100%;
+
+  &-container {
+    height: 100%;
+    width: 100%;
+  }
+
+  &-content {
+    .ant-tabs-nav {
+      // 不要tabs头
+      display: none;
+    }
+    // padding: 16px;
+    overflow: auto;
+
+    &-no-scroll {
+      overflow: hidden;
+    }
+  }
+
+  &-content-iframe {
+    width: 100%;
+    border: none;
+  }
+
+  &-tabs {
+    height: 100%;
+
+    :global {
+      .ant-tabs-content {
+        height: 100%;
+      }
+
+      .ant-tabs-tabpane {
+        height: 100%;
+      }
+    }
+  }
+
+  &-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 24px;
+    border-radius: 4px;
+  }
+
+  &-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 24px;
+    border-radius: 4px;
+  }
+}
+
+.modal-hide-footer {
+  .w-confirm-btns {
+    display: none !important;
+  }
+}

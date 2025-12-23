@@ -1,0 +1,83 @@
+@import 'gel-ui/variables.less'; // Assuming this path is correct for your project structure
+
+@prefix: scrollable-nav-view;
+
+.@{prefix} {
+  &-body {
+    display: flex;
+    height: 100%; // Fill parent
+  }
+
+  &-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-right: 1px solid @border-color-split;
+    height: 100%;
+
+    &-item {
+      padding: @component-space-sm @component-space; // Using component spaces
+      // margin-bottom: @component-space-sm;
+      cursor: pointer;
+      // color: @text-color;
+      word-break: break-word; // In case nav titles are long
+
+      &:hover {
+        background-color: @menu-item-hover; // Ant Design variable
+      }
+
+      // Active state for nav item, combined with base -item class
+      // The className in JSX should be: `${styles[`scrollable-nav-view-nav-item`]} ${activeItemId === item.id ? styles[`scrollable-nav-view-nav-item-active`] : ''}`
+      // Or handle conditional class string directly in Less if preferred for cleaner JSX
+      &.@{prefix}-nav-item-active {
+        // More specific selector for active state if applied alongside base class
+        background: @menu-item-active; // Using @menu-item-active from gel-ui
+      }
+    }
+  }
+}
+
+.@{prefix}-content-col-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 @page-space-sm @page-space-lg;
+  box-sizing: border-box;
+}
+
+.@{prefix}-content-scroll-area {
+  flex: auto;
+  overflow-y: auto;
+  padding-left: @page-space-sm; // Using @page-space-sm
+  padding-right: @component-space-sm; // Adjusted for scrollbar visibility
+  .scrollbar-style(); // Applying generic scrollbar style
+}
+
+.@{prefix}-content-section {
+  margin-bottom: @page-space; // Using @page-space
+  &:last-child {
+    margin-bottom: 0;
+  }
+  // No default card styling here, item.content will provide it
+}
+
+/* Example of how a card within item.content could be styled if needed by consumer */
+/*
+.some-consumer-card-class {
+  border: 1px solid @border-color-base;
+  box-shadow: @box-shadow-base;
+}
+
+.some-consumer-prompt-preview-class {
+  background-color: @input-bg;
+  padding: 12px;
+  border-radius: 2px;
+  white-space: pre-wrap; 
+  word-break: break-all;
+  font-family: monospace;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid @border-color-split;
+}
+*/

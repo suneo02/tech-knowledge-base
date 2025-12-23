@@ -1,0 +1,55 @@
+{
+  "api": "detail/company/get_executed_person",
+  "countKey": "cur_debetor_num",
+  "downDocType": "download/createtempfile/get_executed_person",
+  "downDocTypeName": "新的导出",
+  "isRiskModule": true,
+  "key": "Enforcement",
+  "title": "被执行人",
+  "titleIntl": "138592",
+  "tooltips": "<i ><div><span>被执行人是指在法定的上诉期满后，或终审判决作出后，未履行法院判决或仲裁裁决，并进入执行程序的当事人。</span></div></i>",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "caseNo",
+      "title": "案号",
+      "titleIntl": "138190",
+      "width": "27%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "time",
+      "renderType": "date",
+      "title": "立案日期",
+      "titleIntl": "205387",
+      "width": "10%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "amount",
+      "renderType": "number",
+      "title": "执行标的(元)",
+      "titleIntl": "216397",
+      "width": "20%",
+      "renderConfig": {
+        "decimalPlaces": 2,
+        "useThousandSeparator": true
+      }
+    },
+    {
+      "align": "left",
+      "dataIndex": "court",
+      "title": "审理法院",
+      "titleIntl": "143393",
+      "width": "29%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "statusType",
+      "title": "执行状态",
+      "titleIntl": "205382",
+      "width": "10%"
+    }
+  ]
+}

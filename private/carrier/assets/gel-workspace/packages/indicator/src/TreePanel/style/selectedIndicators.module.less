@@ -1,0 +1,92 @@
+@import 'gel-ui/variables.less';
+@import './styles.less';
+.selectedIndicators {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px;
+  // margin-block-end: 8px;
+
+  :global(.w-radio-group) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    > * {
+      flex: 1;
+    }
+  }
+
+  &-title {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 40px;
+    height: 40px;
+    width: 100%;
+    margin-block-end: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    .scrollbar-style();
+    & > *:not(:last-child) {
+      margin-block-end: 8px;
+    }
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: @tag-bg-color;
+    border-radius: 2px;
+    padding: 0px 8px;
+    color: @tag-text-color;
+    box-sizing: border-box;
+    font-size: 14px;
+    border: 1px solid #ededed;
+
+    // 已选标签（历史标签）：置灰、无删除按钮（按钮不渲染在 TSX）
+    &-initial {
+      background-color: #f5f5f5;
+      color: #8c8c8c;
+    }
+
+    &-text {
+      flex: 1;
+      margin-right: 8px;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.5;
+      padding: 4px 0;
+      min-width: 0;
+    }
+
+    &-action {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+
+      :global {
+        // 确保按钮不被压缩
+        .ant-btn {
+          min-width: 28px;
+          padding: 0;
+          margin: 0;
+
+          &-text {
+            &:hover {
+              background-color: transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4983 @@
+[
+  {
+    "createdAt": "2024-07-18 10:59:28",
+    "id": 1721271225164,
+    "name": "集团企业菜单",
+    "title": "集团企业",
+    "titleId": "228328",
+    "updateTime": "2024-07-18 10:59:28",
+    "children": [
+      {
+        "isVip": true,
+        "title": "集团企业概况",
+        "titleId": "392543",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "集团企业概况",
+          "titleId": "392543",
+          "children": [
+            {
+              "api": "detail/group/groupCompanyAgg",
+              "display": true,
+              "title": "地区分布",
+              "titleId": "216301",
+              "type": "map",
+              "bury": {
+                "id": 922602100959
+              },
+              "apiExtra": [
+                {
+                  "apiKey": "aggregationAgg",
+                  "type": "static",
+                  "value": "agg_area"
+                }
+              ]
+            },
+            {
+              "display": true,
+              "title": "行业分布",
+              "titleId": "104116",
+              "type": "chart",
+              "bury": {
+                "id": 922602100974
+              },
+              "chartOptions": {
+                "api": "detail/group/groupCompanyAgg",
+                "height": 400,
+                "position": "bottom",
+                "type": "pie",
+                "apiExtra": [
+                  {
+                    "apiKey": "aggregationAgg",
+                    "type": "static",
+                    "value": "agg_industry_gb_code_1"
+                  }
+                ]
+              }
+            },
+            {
+              "api": "detail/group/groupCompanyAgg",
+              "display": true,
+              "layout": "horizontal",
+              "title": "上市状态",
+              "titleId": "66287",
+              "bury": {
+                "id": 922602100975
+              },
+              "apiExtra": [
+                {
+                  "apiKey": "aggregationAgg",
+                  "type": "static",
+                  "value": "agg_listStatus"
+                }
+              ],
+              "children": [
+                {
+                  "type": "chart",
+                  "width": "50%",
+                  "chartOptions": {
+                    "hideLegend": true,
+                    "shape": "ring",
+                    "type": "pie"
+                  }
+                },
+                {
+                  "hideTableHeader": true,
+                  "pagination": false,
+                  "type": 2,
+                  "width": "50%",
+                  "columns": [
+                    {
+                      "dataIndex": "key",
+                      "title": "上市状态",
+                      "titleId": "66287"
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "doc_count",
+                      "title": "企业数量",
+                      "titleId": "208504",
+                      "type": 4,
+                      "width": 100
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "percent",
+                      "title": "占比",
+                      "titleId": "105862",
+                      "width": 100
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupCompanyAgg",
+              "display": true,
+              "layout": "horizontal",
+              "title": "注册资本",
+              "titleId": "35779",
+              "bury": {
+                "id": 922602100976
+              },
+              "apiExtra": [
+                {
+                  "apiKey": "aggregationAgg",
+                  "type": "static",
+                  "value": "agg_contributed_capital"
+                }
+              ],
+              "children": [
+                {
+                  "type": "chart",
+                  "chartOptions": {
+                    "type": "bar",
+                    "meta": {
+                      "name": "",
+                      "unit": "家"
+                    }
+                  }
+                },
+                {
+                  "hideTableHeader": true,
+                  "pagination": false,
+                  "type": 2,
+                  "width": "34%",
+                  "columns": [
+                    {
+                      "dataIndex": "key",
+                      "title": "注册资本",
+                      "titleId": "35779"
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "doc_count",
+                      "title": "企业数量",
+                      "titleId": "208504",
+                      "type": 4,
+                      "width": 100
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "percent",
+                      "title": "占比",
+                      "titleId": "105862",
+                      "width": 100
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupCompanyAgg",
+              "display": true,
+              "layout": "horizontal",
+              "title": "企业规模",
+              "titleId": "219343",
+              "bury": {
+                "id": 922602100977
+              },
+              "apiExtra": [
+                {
+                  "apiKey": "aggregationAgg",
+                  "type": "static",
+                  "value": "agg_endowment_num"
+                }
+              ],
+              "children": [
+                {
+                  "type": "chart",
+                  "chartOptions": {
+                    "type": "bar",
+                    "meta": {
+                      "name": "企业数量",
+                      "unit": "家"
+                    }
+                  }
+                },
+                {
+                  "hideTableHeader": true,
+                  "pagination": false,
+                  "type": 2,
+                  "width": "34%",
+                  "columns": [
+                    {
+                      "dataIndex": "key",
+                      "title": "参保人数",
+                      "titleId": "145878"
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "doc_count",
+                      "title": "企业数量",
+                      "titleId": "208504",
+                      "type": 4,
+                      "width": 100
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "percent",
+                      "title": "占比",
+                      "titleId": "105862",
+                      "width": 100
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupCompanyAgg",
+              "display": true,
+              "layout": "horizontal",
+              "title": "科创企业",
+              "titleId": "392564",
+              "bury": {
+                "id": 922602100978
+              },
+              "apiExtra": [
+                {
+                  "apiKey": "aggregationAgg",
+                  "type": "static",
+                  "value": "agg_listing_tags_id"
+                }
+              ],
+              "children": [
+                {
+                  "type": "chart",
+                  "chartOptions": {
+                    "height": 400,
+                    "shape": "ring",
+                    "type": "pie"
+                  }
+                },
+                {
+                  "hideTableHeader": true,
+                  "pagination": false,
+                  "type": 2,
+                  "width": "34%",
+                  "columns": [
+                    {
+                      "dataIndex": "key",
+                      "title": "企业类型",
+                      "titleId": "60452"
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "doc_count",
+                      "title": "企业数量",
+                      "titleId": "208504",
+                      "type": 4,
+                      "width": 100
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "percent",
+                      "title": "占比",
+                      "titleId": "105862",
+                      "width": 100
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupCompanyAgg",
+              "display": true,
+              "layout": "horizontal",
+              "title": "企业类型",
+              "titleId": "60452",
+              "bury": {
+                "id": 922602100979
+              },
+              "apiExtra": [
+                {
+                  "apiKey": "aggregationAgg",
+                  "type": "static",
+                  "value": "agg_corp_type"
+                }
+              ],
+              "children": [
+                {
+                  "type": "chart",
+                  "chartOptions": {
+                    "height": 400,
+                    "shape": "ring",
+                    "type": "pie"
+                  }
+                },
+                {
+                  "hideTableHeader": true,
+                  "pagination": false,
+                  "type": 2,
+                  "width": "34%",
+                  "columns": [
+                    {
+                      "dataIndex": "key",
+                      "title": "企业类型",
+                      "titleId": "60452"
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "doc_count",
+                      "title": "企业数量",
+                      "titleId": "208504",
+                      "type": 4,
+                      "width": 100
+                    },
+                    {
+                      "align": "right",
+                      "dataIndex": "percent",
+                      "title": "占比",
+                      "titleId": "105862",
+                      "width": 100
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "title": "主体公司",
+        "titleId": "216413",
+        "component": {
+          "api": "detail/group/groupMainCompany",
+          "countKey": "subject_company_num",
+          "done": true,
+          "downDocTypeApi": "/groupMainCompany",
+          "hiddenTitle": true,
+          "showIndex": true,
+          "title": "主体公司",
+          "titleId": "216413",
+          "type": "table",
+          "columns": [
+            {
+              "align": "left",
+              "dataIndex": "mainCompanyName",
+              "title": "主体公司名称",
+              "titleId": "216414",
+              "links": {
+                "id": "mainCompanyCode",
+                "module": 1
+              },
+              "tagInfo": {
+                "color": "color-2",
+                "dataIndex": "listStatusLabel"
+              }
+            },
+            {
+              "dataIndex": "mainCompanyLevel",
+              "title": "主体公司级别",
+              "titleId": "216386"
+            },
+            {
+              "dataIndex": "legalRepresentative",
+              "title": "法定代表人",
+              "titleId": "451206",
+              "width": "140px"
+            },
+            {
+              "dataIndex": "registrationState",
+              "title": "登记状态",
+              "titleId": "138772",
+              "width": "100px"
+            },
+            {
+              "dataIndex": "establishDate|formatTime",
+              "title": "成立日期",
+              "titleId": "2823",
+              "width": "100px"
+            },
+            {
+              "align": "right",
+              "dataIndex": "registeredCapital|formatMoneyComma+registeredCapitalUnit",
+              "title": "注册资本(万)",
+              "width": "140px"
+            }
+          ],
+          "searchOptions": [
+            {
+              "aggsKey": "agg_listStatus",
+              "default": "上市状态不限",
+              "defaultId": "214883",
+              "key": "listStatus",
+              "type": "select",
+              "aggsParams": {
+                "count": "doc_count",
+                "label": "key",
+                "value": "value"
+              },
+              "bury": {
+                "id": 922602100980,
+                "moduleName": "主体公司"
+              }
+            },
+            {
+              "key": "companyname",
+              "placeholder": "搜索主体公司",
+              "placeholderId": "393214",
+              "type": "search"
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "title": "成员公司",
+        "titleId": "216415",
+        "component": {
+          "api": "detail/group/groupMemberCompany",
+          "countKey": "member_company_num",
+          "done": true,
+          "downDocTypeApi": "/groupMemberCompany",
+          "hiddenTitle": true,
+          "search": true,
+          "showIndex": true,
+          "title": "成员公司",
+          "titleId": "216415",
+          "type": "table",
+          "columns": [
+            {
+              "align": "left",
+              "dataIndex": "memberCompanyName",
+              "title": "成员公司名称",
+              "titleId": "216416",
+              "links": {
+                "id": "memberCompanyWindCode",
+                "module": 1
+              },
+              "tagInfo": [
+                {
+                  "color": "color-2",
+                  "dataIndex": "listStatusLabel"
+                },
+                {
+                  "color": "color-2",
+                  "dataIndex": "structuralEntityLabel"
+                }
+              ]
+            },
+            {
+              "dataIndex": "memberCompanyLevelName",
+              "title": "成员公司级别",
+              "titleId": "216388",
+              "width": "120px"
+            },
+            {
+              "align": "left",
+              "dataIndex": "mainCompanyName",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "links": {
+                "id": "mainCompanyWindCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "status",
+              "title": "登记状态",
+              "titleId": "138772",
+              "width": "100px"
+            },
+            {
+              "dataIndex": "subsidiaryLevel",
+              "title": "公司层级",
+              "titleId": "397333",
+              "width": "100px"
+            },
+            {
+              "dataIndex": "controlTypeName",
+              "title": "持股类型",
+              "titleId": "2949",
+              "width": "100px"
+            },
+            {
+              "align": "right",
+              "dataIndex": "shareholdingRatio|formatPercent",
+              "title": "主体公司持股比例",
+              "width": "140px"
+            }
+          ],
+          "searchOptions": [
+            {
+              "default": "地区",
+              "defaultId": "32674",
+              "key": "areaCodes",
+              "mode": "multiple",
+              "optionsKey": "area",
+              "placeholder": "省份地区",
+              "placeholderId": "451213",
+              "type": "cascader",
+              "width": 120,
+              "bury": {
+                "id": 922602100982
+              }
+            },
+            {
+              "default": "国标行业",
+              "defaultId": "246676",
+              "key": "industryCodes",
+              "mode": "multiple",
+              "optionsKey": "industryOld",
+              "placeholder": "国标行业",
+              "placeholderId": "246676",
+              "type": "cascader",
+              "width": 120,
+              "bury": {
+                "id": 922602100981
+              }
+            },
+            {
+              "aggsKey": "agg_listStatus",
+              "default": "上市状态不限",
+              "defaultId": "214883",
+              "key": "listStatus",
+              "type": "select",
+              "width": 140,
+              "aggsParams": {
+                "count": "doc_count",
+                "label": "key",
+                "value": "value"
+              },
+              "bury": {
+                "id": 922602100980,
+                "moduleName": "成员公司"
+              }
+            },
+            {
+              "aggsKey": "agg_subsidiaryLevel",
+              "default": "不限",
+              "defaultId": "138649",
+              "key": "subsidiaryLevelCode",
+              "type": "select",
+              "width": 140,
+              "aggsParams": {
+                "count": "doc_count",
+                "label": "key",
+                "value": "value"
+              }
+            },
+            {
+              "key": "queryText",
+              "placeholder": "搜索成员公司",
+              "placeholderId": "393234",
+              "type": "search"
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "title": "成员关系图谱",
+        "titleId": "228329",
+        "component": {
+          "title": "成员关系图谱",
+          "titleId": "228329",
+          "children": [
+            {
+              "api": "getgrouptracingstockex",
+              "nodeKey": "corpId",
+              "parentKey": "groupId",
+              "title": "",
+              "type": "relationship",
+              "apiParams": {
+                "title": "groupSystemName"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 1721270158437,
+    "name": "集团业务菜单",
+    "title": "集团业务",
+    "titleId": "258303",
+    "children": [
+      {
+        "isVip": true,
+        "title": "招投标",
+        "titleId": "271633",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "招投标",
+          "titleId": "271633",
+          "children": [
+            {
+              "api": "detail/group/groupBiddingList",
+              "display": true,
+              "ifRecentThreeYears": true,
+              "showIndex": true,
+              "title": "招投标列表",
+              "titleId": "307793",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "announcementTime",
+                  "key": "announcementTime",
+                  "title": "公告日期",
+                  "titleId": "32903",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "title",
+                  "key": "title",
+                  "title": "标题",
+                  "titleId": "19535",
+                  "width": "40%",
+                  "links": {
+                    "id": "detailId",
+                    "module": 11,
+                    "subModule": "biddingDetail"
+                  }
+                },
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "关联企业",
+                  "titleId": "138661",
+                  "width": "40%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "role",
+                  "key": "role",
+                  "title": "参与角色",
+                  "titleId": "142474",
+                  "width": "20%"
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupBidAreaAgg",
+              "display": true,
+              "layout": "horizontal",
+              "title": "统计分析（按地区）",
+              "titleId": "392565",
+              "bury": {
+                "id": 922602100985,
+                "moduleName": "招投标"
+              },
+              "params": {
+                "dateRangeType": "2"
+              },
+              "children": [
+                {
+                  "listKey": "submission",
+                  "title": "招标地区",
+                  "titleId": "257786",
+                  "type": "chart",
+                  "chartOptions": {
+                    "hideLegend": true,
+                    "shape": "ring",
+                    "type": "pie"
+                  }
+                },
+                {
+                  "listKey": "invite",
+                  "title": "投标地区",
+                  "titleId": "392544",
+                  "type": "chart",
+                  "chartOptions": {
+                    "hideLegend": true,
+                    "shape": "ring",
+                    "type": "pie"
+                  }
+                }
+              ],
+              "searchOptions": [
+                {
+                  "key": "dateRangeType",
+                  "type": "select",
+                  "options": [
+                    {
+                      "key": "",
+                      "label": "不限",
+                      "labelId": "138649",
+                      "value": ""
+                    },
+                    {
+                      "key": "1",
+                      "label": "近半年",
+                      "labelId": "437715",
+                      "value": "1"
+                    },
+                    {
+                      "default": true,
+                      "key": "2",
+                      "label": "近一年",
+                      "labelId": "437684",
+                      "value": "2"
+                    },
+                    {
+                      "key": "3",
+                      "label": "近三年",
+                      "labelId": "437685",
+                      "value": "3"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupBidding",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "bury": {
+                "id": 922602100986,
+                "moduleName": "招投标"
+              },
+              "params": {
+                "sortFieldType": "inviteNum_desc"
+              },
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "28%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "28%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "inviteNum",
+                  "key": "inviteNum",
+                  "title": "招标数量",
+                  "titleId": "392546",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "submissionNum",
+                  "key": "submissionNum",
+                  "title": "投标数量",
+                  "titleId": "392566",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "inviteNum",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "biddingInfo"
+                  }
+                }
+              ],
+              "searchOptions": [
+                {
+                  "key": "sortFieldType",
+                  "mode": "new",
+                  "type": "select",
+                  "options": [
+                    {
+                      "default": true,
+                      "key": "inviteNum_desc",
+                      "label": "招标数量降序",
+                      "labelId": "393235",
+                      "value": "inviteNum_desc"
+                    },
+                    {
+                      "key": "inviteNum_asc",
+                      "label": "招标数量升序",
+                      "labelId": "393215",
+                      "value": "inviteNum_asc"
+                    },
+                    {
+                      "key": "submissionNum_desc",
+                      "label": "投标数量降序",
+                      "labelId": "393236",
+                      "value": "submissionNum_desc"
+                    },
+                    {
+                      "key": "submissionNum_asc",
+                      "label": "投标数量升序",
+                      "labelId": "393216",
+                      "value": "submissionNum_asc"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "title": "招聘",
+        "titleId": "138356",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "招聘",
+          "titleId": "138356",
+          "children": [
+            {
+              "api": "detail/group/groupRecruitList",
+              "display": true,
+              "showIndex": true,
+              "title": "招聘列表",
+              "titleId": "396093",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "releaseTime",
+                  "key": "releaseTime",
+                  "title": "发布日期",
+                  "titleId": "138908",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "job",
+                  "key": "job",
+                  "title": "职位",
+                  "titleId": "35650",
+                  "width": "24%",
+                  "links": {
+                    "id": "referenceId",
+                    "module": 18,
+                    "subModule": "jobDetail"
+                  }
+                },
+                {
+                  "dataIndex": "pay",
+                  "key": "pay",
+                  "title": "薪资",
+                  "titleId": "138498",
+                  "width": "16%"
+                },
+                {
+                  "dataIndex": "education",
+                  "key": "education",
+                  "title": "学历",
+                  "titleId": "15972",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "experience",
+                  "key": "experience",
+                  "title": "经验",
+                  "titleId": "138289",
+                  "width": "12%"
+                },
+                {
+                  "dataIndex": "city",
+                  "key": "city",
+                  "title": "城市",
+                  "titleId": "2901",
+                  "width": 120
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupRecruitAreaAgg",
+              "display": true,
+              "title": "统计分析（按地区）",
+              "titleId": "392565",
+              "bury": {
+                "id": 922602100985,
+                "moduleName": "招聘"
+              },
+              "children": [
+                {
+                  "title": "招聘地区",
+                  "titleId": "349197",
+                  "type": "chart",
+                  "chartOptions": {
+                    "hideLegend": true,
+                    "shape": "ring",
+                    "type": "pie",
+                    "format": {
+                      "doc_count": "num",
+                      "key": "area"
+                    },
+                    "params": {
+                      "dateRangeType": "2"
+                    }
+                  }
+                }
+              ],
+              "searchOptions": [
+                {
+                  "key": "dateRangeType",
+                  "type": "select",
+                  "options": [
+                    {
+                      "key": "",
+                      "label": "不限",
+                      "labelId": "138649",
+                      "value": ""
+                    },
+                    {
+                      "key": "1",
+                      "label": "近半年",
+                      "labelId": "437715",
+                      "value": "1"
+                    },
+                    {
+                      "default": true,
+                      "key": "2",
+                      "label": "近一年",
+                      "labelId": "437684",
+                      "value": "2"
+                    },
+                    {
+                      "key": "3",
+                      "label": "近三年",
+                      "labelId": "437685",
+                      "value": "3"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupRecruit",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "bury": {
+                "id": 922602100986,
+                "moduleName": "招聘"
+              },
+              "params": {
+                "sortFieldType": "businessNumber_desc"
+              },
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "title": "招聘数量",
+                  "titleId": "392547",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "jobs"
+                  }
+                }
+              ],
+              "searchOptions": [
+                {
+                  "key": "sortFieldType",
+                  "mode": "new",
+                  "type": "select",
+                  "options": [
+                    {
+                      "default": true,
+                      "key": "businessNumber_desc",
+                      "label": "招聘数量降序",
+                      "labelId": "393217",
+                      "value": "businessNumber_desc"
+                    },
+                    {
+                      "key": "businessNumber_asc",
+                      "label": "招聘数量升序",
+                      "labelId": "396094",
+                      "value": "businessNumber_asc"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "title": "项目信息",
+        "titleId": "205502",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "项目信息",
+          "titleId": "205502",
+          "children": [
+            {
+              "api": "detail/group/groupProjectInfoList",
+              "display": true,
+              "showIndex": true,
+              "title": "项目信息列表",
+              "titleId": "396095",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "projName",
+                  "key": "projName",
+                  "title": "项目名称",
+                  "titleId": "34886",
+                  "width": "36%"
+                },
+                {
+                  "dataIndex": "projBrief",
+                  "key": "projBrief",
+                  "title": "简介",
+                  "titleId": "451241",
+                  "width": "36%"
+                },
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "关联企业",
+                  "titleId": "138661",
+                  "width": "36%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                }
+              ]
+            },
+            {
+              "api": "/detail/group/groupProjectInfo",
+              "display": true,
+              "name": "统计分析（按企业）",
+              "showIndex": true,
+              "title": "项目信息",
+              "titleId": "205502",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "title": "项目数量",
+                  "titleId": "392548",
+                  "toFixed": 0,
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "showComBuInfo"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "集团业务-品牌信息",
+        "title": "品牌信息",
+        "titleId": "205501",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "品牌信息",
+          "titleId": "205501",
+          "children": [
+            {
+              "api": "detail/group/groupBrandInfoList",
+              "display": true,
+              "showIndex": true,
+              "title": "品牌信息列表",
+              "titleId": "396096",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "brandName",
+                  "key": "brandName",
+                  "title": "品牌名称",
+                  "titleId": "138665",
+                  "width": "12%"
+                },
+                {
+                  "dataIndex": "cradle",
+                  "key": "cradle",
+                  "title": "发源地",
+                  "titleId": "437717",
+                  "width": "12%"
+                },
+                {
+                  "dataIndex": "foundingTime",
+                  "key": "foundingTime",
+                  "title": "创立时间",
+                  "titleId": "312977",
+                  "type": 7,
+                  "width": 100
+                },
+                {
+                  "dataIndex": "introduction",
+                  "key": "introduction",
+                  "title": "简介",
+                  "titleId": "451241",
+                  "width": "60%"
+                },
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "关联企业",
+                  "titleId": "138661",
+                  "width": 160,
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupBrandInfo",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "title": "品牌数量",
+                  "titleId": "392568",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "key": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "showComBuInfo"
+                  }
+                }
+              ],
+              "sample": []
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "资质荣誉菜单",
+    "title": "资质荣誉",
+    "titleId": "284064",
+    "children": [
+      {
+        "isVip": true,
+        "name": "资质荣誉-行政许可",
+        "title": "行政许可",
+        "titleId": "138133",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "行政许可",
+          "titleId": "138133",
+          "children": [
+            {
+              "api": "detail/group/getGroupAdminLicenseList",
+              "display": true,
+              "ifRecentThreeYears": true,
+              "showIndex": true,
+              "title": "行政许可列表",
+              "titleId": "393219",
+              "type": 2,
+              "expandable": {
+                "api": "detail/group/getGroupAdminLicenseDetail",
+                "apiParams": {
+                  "groupId": "id"
+                },
+                "paramKeys": {
+                  "detailId": "detailId"
+                },
+                "columns": [
+                  [
+                    {
+                      "contentWidth": 200,
+                      "dataIndex": "docId",
+                      "key": "docId",
+                      "title": "行政许可决定文书号",
+                      "titleId": "222773",
+                      "titleWidth": 100
+                    },
+                    {
+                      "contentWidth": 200,
+                      "dataIndex": "docName",
+                      "key": "docName",
+                      "title": "行政许可决定文书名称",
+                      "titleId": "222813",
+                      "titleWidth": 100
+                    }
+                  ],
+                  [
+                    {
+                      "contentWidth": 200,
+                      "dataIndex": "licenceId",
+                      "key": "licenceId",
+                      "title": "许可编号",
+                      "titleId": "437686",
+                      "titleWidth": 100
+                    },
+                    {
+                      "contentWidth": 200,
+                      "dataIndex": "licenceName",
+                      "key": "licenceName",
+                      "title": "许可证名称",
+                      "titleId": "222783",
+                      "titleTooltip": "如无许可证名称，则展示行政许可决定文书名称。",
+                      "titleTooltipId": 353936,
+                      "titleWidth": 100
+                    }
+                  ],
+                  [
+                    {
+                      "dataIndex": "licenceDate",
+                      "key": "licenceDate",
+                      "title": "许可决定日期",
+                      "titleId": "222771",
+                      "type": 7
+                    },
+                    {
+                      "dataIndex": "startDate",
+                      "key": "startDate",
+                      "title": "有效期",
+                      "titleId": "21235",
+                      "type": 7,
+                      "date": {
+                        "dateRangeKey": "endDate",
+                        "type": 1
+                      }
+                    }
+                  ],
+                  [
+                    {
+                      "align": "left",
+                      "contentWidth": 200,
+                      "dataIndex": "orgName",
+                      "key": "orgName",
+                      "title": "许可机关",
+                      "titleId": "437420",
+                      "titleWidth": 100,
+                      "links": {
+                        "id": "orgId",
+                        "module": 1
+                      }
+                    },
+                    {
+                      "dataIndex": "type",
+                      "key": "type",
+                      "title": "审核类型",
+                      "titleId": "13126"
+                    }
+                  ],
+                  [
+                    {
+                      "colSpan": 3,
+                      "dataIndex": "content",
+                      "key": "content",
+                      "title": "许可内容",
+                      "titleId": "138378"
+                    }
+                  ]
+                ]
+              },
+              "columns": [
+                {
+                  "dataIndex": "licenceName",
+                  "key": "licenceName",
+                  "title": "许可证名称",
+                  "titleId": "222783",
+                  "titleTooltip": "如无许可证名称，则展示行政许可决定文书名称。",
+                  "titleTooltipId": 353936,
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "licenceDate",
+                  "key": "licenceDate",
+                  "title": "许可决定日期",
+                  "titleId": "222771",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "startDate",
+                  "key": "startDate",
+                  "title": "有效期",
+                  "titleId": "21235",
+                  "type": 7,
+                  "width": 140,
+                  "date": {
+                    "dateRangeKey": "endDate",
+                    "type": 1
+                  }
+                },
+                {
+                  "align": "left",
+                  "dataIndex": "orgName",
+                  "key": "orgName",
+                  "title": "许可机关",
+                  "titleId": "437420",
+                  "width": "32%",
+                  "links": {
+                    "id": "orgCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "关联企业",
+                  "titleId": "138661",
+                  "width": "18%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupAdministrativeLicense",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "key": "num",
+                  "title": "行政许可数量",
+                  "titleId": "392549",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "key": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "qualifications"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "资质荣誉-商业特许经营",
+        "title": "商业特许经营",
+        "titleId": "216405",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "商业特许经营",
+          "titleId": "216405",
+          "children": [
+            {
+              "api": "detail/group/getGroupComFranchiseList",
+              "display": true,
+              "name": "商业特许经营",
+              "showIndex": true,
+              "title": "商业特许经营",
+              "titleId": "216405",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "recordNumber",
+                  "key": "recordNumber",
+                  "title": "备案号",
+                  "titleId": "216408",
+                  "width": "40%"
+                },
+                {
+                  "dataIndex": "franchisorName",
+                  "key": "franchisorName",
+                  "title": "特许人名称",
+                  "titleId": "216406",
+                  "width": "40%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "filingAnnouncementDate",
+                  "key": "filingAnnouncementDate",
+                  "title": "备案公告日期",
+                  "titleId": "216407",
+                  "type": 7,
+                  "width": "24%"
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupCommercialFranchising",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "title": "商业特许经营数量",
+                  "titleId": "392550",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "showfranchise"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "资质荣誉-认证认可",
+        "title": "认证认可",
+        "titleId": "332373",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "认证认可",
+          "titleId": "332373",
+          "children": [
+            {
+              "api": "detail/group/getGroupCerRecognitionList",
+              "display": true,
+              "showIndex": true,
+              "title": "认证认可信息列表",
+              "titleId": "393220",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "certifType",
+                  "key": "certifType",
+                  "title": "证书类型",
+                  "titleId": "138670",
+                  "type": 8,
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "certifNo",
+                  "key": "certifNo",
+                  "title": "证书编号",
+                  "titleId": "138197",
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "certifDate",
+                  "key": "certifDate",
+                  "title": "发证日期",
+                  "titleId": "138245",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "expireDate",
+                  "key": "expireDate",
+                  "title": "到期日期",
+                  "titleId": "138895",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "certificateStatus",
+                  "key": "certificateStatus",
+                  "title": "证书状态",
+                  "titleId": "138199",
+                  "width": "12%"
+                },
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "关联企业",
+                  "titleId": "138661",
+                  "width": "24%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupCertificationAndAccreditation",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "title": "认证认可数量",
+                  "titleId": "392569",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "getauthentication"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "资质荣誉-A级纳税人",
+        "title": "A级纳税人",
+        "titleId": "332374",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "A级纳税人",
+          "titleId": "332374",
+          "children": [
+            {
+              "api": "detail/group/getGroupALevelTaxpayerList",
+              "display": true,
+              "showIndex": true,
+              "title": "A级纳税人信息列表",
+              "titleId": "393221",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "taxName",
+                  "key": "taxName",
+                  "title": "纳税人名称",
+                  "titleId": "138538",
+                  "type": 8,
+                  "width": "40%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "assessTime",
+                  "key": "assessTime",
+                  "title": "评级年度",
+                  "titleId": "138469",
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "taxLevel",
+                  "key": "taxLevel",
+                  "title": "纳税信用级别",
+                  "titleId": "138534",
+                  "width": "40%"
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupClassATaxpayer",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "key": "num",
+                  "title": "A级纳税人数量",
+                  "titleId": "392551",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "gettaxcredit1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "知识产权菜单",
+    "title": "知识产权",
+    "titleId": "120665",
+    "children": [
+      {
+        "isVip": true,
+        "name": "知识产权-商标",
+        "title": "商标",
+        "titleId": "138799",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "商标",
+          "titleId": "138799",
+          "children": [
+            {
+              "api": "detail/group/groupTrademarkList",
+              "display": true,
+              "ifRecentThreeYears": true,
+              "showIndex": true,
+              "title": "商标列表",
+              "titleId": "393222",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "trademarkName",
+                  "key": "trademarkName",
+                  "title": "商标名称",
+                  "titleId": "138798",
+                  "width": "20%",
+                  "links": {
+                    "id": "detailId",
+                    "module": 11,
+                    "subModule": "brand"
+                  }
+                },
+                {
+                  "dataIndex": "registrationNo",
+                  "key": "registrationNo",
+                  "title": "注册号",
+                  "titleId": "138476",
+                  "width": "16%"
+                },
+                {
+                  "dataIndex": "internationalClassification",
+                  "key": "internationalClassification",
+                  "title": "国际分类",
+                  "titleId": "138348",
+                  "width": 100
+                },
+                {
+                  "dataIndex": "status",
+                  "key": "status",
+                  "title": "状态",
+                  "titleId": "32098",
+                  "width": 120
+                },
+                {
+                  "dataIndex": "applicationTime",
+                  "key": "applicationTime",
+                  "title": "申请时间",
+                  "titleId": "138156",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "attributionEntity",
+                  "key": "attributionEntity",
+                  "title": "申请人",
+                  "titleId": "58656",
+                  "width": "24%",
+                  "companyLinkArr": {
+                    "corpIdKey": "entityId",
+                    "corpNameKey": "entityName"
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupTrademark",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "key": "num",
+                  "title": "商标数量",
+                  "titleId": "261937",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "getbrand"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "知识产权-专利",
+        "title": "专利",
+        "titleId": "124585",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "专利",
+          "titleId": "124585",
+          "children": [
+            {
+              "api": "detail/group/groupPatentList",
+              "display": true,
+              "ifRecentThreeYears": true,
+              "showIndex": true,
+              "title": "专利列表",
+              "titleId": "393237",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "patentName",
+                  "key": "patentName",
+                  "title": "专利名称",
+                  "titleId": "138748",
+                  "width": "32%",
+                  "links": {
+                    "id": "dataId",
+                    "module": 11,
+                    "subModule": "patent"
+                  }
+                },
+                {
+                  "dataIndex": "patentType",
+                  "key": "patentType",
+                  "title": "专利类型",
+                  "titleId": "138430",
+                  "width": 100
+                },
+                {
+                  "dataIndex": "publicAnnouncementNumber",
+                  "key": "publicAnnouncementNumber",
+                  "title": "公开公告号",
+                  "titleId": "149731",
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "lawStatus",
+                  "key": "lawStatus",
+                  "title": "法律状态",
+                  "titleId": "138372",
+                  "width": "10%"
+                },
+                {
+                  "dataIndex": "publicAnnouncementDate",
+                  "key": "publicAnnouncementDate",
+                  "title": "公开公告日期",
+                  "titleId": "393223",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "mainBodyInfoList",
+                  "key": "mainBodyInfoList",
+                  "title": "归属公司",
+                  "titleId": "393238",
+                  "width": "24%",
+                  "companyLinkArr": {
+                    "corpIdKey": "patentMainBodyId",
+                    "corpNameKey": "patentMainBody"
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupPatent",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "key": "num",
+                  "title": "专利数量",
+                  "titleId": "261938",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "getpatent"
+                  }
+                }
+              ],
+              "sample": []
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "知识产权-作品著作权",
+        "title": "作品著作权",
+        "titleId": "138756",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "作品著作权",
+          "titleId": "138756",
+          "children": [
+            {
+              "api": "detail/group/groupWorkCopyrightList",
+              "display": true,
+              "ifRecentThreeYears": true,
+              "showIndex": true,
+              "title": "作品著作权列表",
+              "titleId": "393239",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "workName",
+                  "key": "workName",
+                  "title": "作品名称",
+                  "titleId": "138553",
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "workCategory",
+                  "key": "workCategory",
+                  "title": "作品类别",
+                  "titleId": "138195",
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "registrationNo",
+                  "key": "registrationNo",
+                  "title": "登记号",
+                  "titleId": "138482",
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "registrationDate",
+                  "key": "registrationDate",
+                  "title": "登记日期",
+                  "titleId": "87749",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "attributionEntityList",
+                  "key": "attributionEntityList",
+                  "title": "归属公司",
+                  "titleId": "393238",
+                  "width": "30%",
+                  "companyLinkArr": {
+                    "corpIdKey": "entityId",
+                    "corpNameKey": "entityName"
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupWorkCopyright",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "key": "num",
+                  "title": "作品著作权数量",
+                  "titleId": "261939",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "getproductioncopyright"
+                  }
+                }
+              ],
+              "sample": []
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "知识产权-软件著作权",
+        "title": "软件著作权",
+        "titleId": "138788",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "软件著作权",
+          "titleId": "138788",
+          "children": [
+            {
+              "api": "detail/group/groupSoftwareCopyrightList",
+              "display": true,
+              "ifRecentThreeYears": true,
+              "showIndex": true,
+              "title": "软件著作权列表",
+              "titleId": "393240",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "name",
+                  "key": "name",
+                  "title": "名称",
+                  "titleId": "29979",
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "abbreviation",
+                  "key": "abbreviation",
+                  "title": "简称",
+                  "titleId": "138936",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "version",
+                  "key": "version",
+                  "title": "版本号",
+                  "titleId": "138573",
+                  "width": 80
+                },
+                {
+                  "dataIndex": "registrationNo",
+                  "key": "registrationNo",
+                  "title": "登记号",
+                  "titleId": "138482",
+                  "width": 140
+                },
+                {
+                  "dataIndex": "classificationNo",
+                  "key": "classificationNo",
+                  "title": "分类号",
+                  "titleId": "138209",
+                  "width": "12%"
+                },
+                {
+                  "dataIndex": "firstPublicationDate",
+                  "key": "firstPublicationDate",
+                  "title": "首次发表日期",
+                  "titleId": "138243",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "registrationApprovalDate",
+                  "key": "registrationApprovalDate",
+                  "title": "登记批准日期",
+                  "titleId": "138158",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "attributionEntityList",
+                  "key": "attributionEntityList",
+                  "title": "归属公司",
+                  "titleId": "393238",
+                  "width": "18%",
+                  "companyLinkArr": {
+                    "corpIdKey": "entityId",
+                    "corpNameKey": "entityName"
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupSoftwareCopyright",
+              "display": true,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "key": "num",
+                  "title": "软件著作权数量",
+                  "titleId": "437687",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "getsoftwarecopyright"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "知识产权-APP产品",
+        "title": "APP产品",
+        "titleId": "451258",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "APP产品",
+          "titleId": "451258",
+          "children": [
+            {
+              "api": "detail/group/groupAppProductList",
+              "display": true,
+              "ifRecentThreeYears": true,
+              "showIndex": true,
+              "title": "APP产品列表",
+              "titleId": "396097",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "appAbbr",
+                  "key": "appAbbr",
+                  "title": "产品简称",
+                  "titleId": "451259",
+                  "width": "36%"
+                },
+                {
+                  "dataIndex": "appCat",
+                  "key": "appCat",
+                  "title": "产品类别",
+                  "titleId": "451260",
+                  "width": "36%"
+                },
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "关联企业",
+                  "titleId": "138661",
+                  "width": "40%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupAppProduct",
+              "display": true,
+              "id": 1720678347705,
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "key": "num",
+                  "title": "APP数量",
+                  "titleId": "392552",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "showApp"
+                  }
+                }
+              ],
+              "sample": []
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "知识产权-标准信息",
+        "title": "标准信息",
+        "titleId": "326113",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "标准信息",
+          "titleId": "326113",
+          "children": [
+            {
+              "api": "detail/group/groupStandardInfoList",
+              "display": true,
+              "ifRecentThreeYears": true,
+              "showIndex": true,
+              "title": "标准信息列表",
+              "titleId": "396113",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "standardName",
+                  "key": "standardName",
+                  "title": "标准名称",
+                  "titleId": "326133",
+                  "width": "28%",
+                  "links": {
+                    "id": "entityNumber",
+                    "module": 20,
+                    "standardLevelCodeKey": "standardLevelCode",
+                    "standardTypeKey": "standardLevel"
+                  }
+                },
+                {
+                  "dataIndex": "standardNo",
+                  "key": "standardNo",
+                  "title": "标准号",
+                  "titleId": "326134",
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "standardLevel",
+                  "key": "standardLevel",
+                  "title": "标准级别",
+                  "titleId": "326135",
+                  "width": "20%"
+                },
+                {
+                  "dataIndex": "standardStatus",
+                  "key": "standardStatus",
+                  "title": "标准状态",
+                  "titleId": "326114",
+                  "width": "16%"
+                },
+                {
+                  "dataIndex": "standardNature",
+                  "key": "standardNature",
+                  "title": "标准性质",
+                  "titleId": "326115",
+                  "width": "16%"
+                },
+                {
+                  "dataIndex": "releaseDate",
+                  "key": "releaseDate",
+                  "title": "发布日期",
+                  "titleId": "138908",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "归属公司",
+                  "titleId": "393238",
+                  "width": "24%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupStandardInfo",
+              "display": true,
+              "id": 1720678347710,
+              "name": "标准信息",
+              "showIndex": true,
+              "title": "统计分析（按企业）",
+              "titleId": "392567",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "key": "num",
+                  "title": "标准信息数量",
+                  "titleId": "392573",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "getStandardPlan"
+                  }
+                }
+              ],
+              "sample": []
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "知识产权-网站备案",
+        "title": "网站备案",
+        "titleId": "138804",
+        "component": {
+          "hot": true,
+          "layout": "tabs",
+          "title": "网站备案",
+          "titleId": "138804",
+          "children": [
+            {
+              "api": "detail/group/groupWebsiteRegistrationList",
+              "display": true,
+              "ifRecentThreeYears": true,
+              "showIndex": true,
+              "title": "网站备案列表",
+              "titleId": "396114",
+              "type": 2,
+              "columns": [
+                {
+                  "dataIndex": "iCPRecordName",
+                  "key": "iCPRecordName",
+                  "title": "ICP备案名称",
+                  "titleId": "303753",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "website",
+                  "key": "website",
+                  "title": "网址",
+                  "titleId": "138805",
+                  "width": "24%"
+                },
+                {
+                  "dataIndex": "domain",
+                  "key": "domain",
+                  "title": "域名",
+                  "titleId": "138266",
+                  "width": "20%"
+                },
+                {
+                  "dataIndex": "licenseNumber",
+                  "key": "licenseNumber",
+                  "title": "网站备案/许可证号",
+                  "titleId": "138328",
+                  "width": "28%"
+                },
+                {
+                  "dataIndex": "approvedDate",
+                  "key": "approvedDate",
+                  "title": "审核通过日期",
+                  "titleId": "348177",
+                  "type": 7,
+                  "width": 120
+                },
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "归属公司",
+                  "titleId": "393238",
+                  "width": "24%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                }
+              ]
+            },
+            {
+              "api": "detail/group/groupWebsiteRegistration",
+              "display": true,
+              "id": 1720678347711,
+              "name": "网站备案",
+              "showIndex": true,
+              "title": "网站备案",
+              "titleId": "138804",
+              "type": 2,
+              "vip": "vip",
+              "columns": [
+                {
+                  "dataIndex": "companyName",
+                  "key": "companyName",
+                  "title": "公司名称",
+                  "titleId": "32914",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "dataIndex": "companyLevel",
+                  "key": "companyLevel",
+                  "title": "公司级别",
+                  "titleId": "437716",
+                  "width": "14%"
+                },
+                {
+                  "dataIndex": "attributableEntityCompany",
+                  "key": "attributableEntityCompany",
+                  "title": "归属主体公司",
+                  "titleId": "216390",
+                  "type": 8,
+                  "width": "32%",
+                  "links": {
+                    "id": "attributableEntityCompanyCode",
+                    "module": 1
+                  }
+                },
+                {
+                  "align": "right",
+                  "dataIndex": "businessNumber",
+                  "key": "num",
+                  "title": "网站备案数量",
+                  "titleId": "437718",
+                  "type": 4,
+                  "width": "14%"
+                },
+                {
+                  "align": "center",
+                  "dataIndex": "actions",
+                  "title": "操作",
+                  "titleId": "36348",
+                  "width": 82,
+                  "info": {
+                    "id": "businessNumber",
+                    "title": "详情",
+                    "titleId": "40513",
+                    "type": 3
+                  },
+                  "links": {
+                    "id": "companyCode",
+                    "module": 1,
+                    "target": "getdomainname"
+                  }
+                }
+              ],
+              "sample": []
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 1721271225151,
+    "name": "司法风险菜单",
+    "title": "司法风险",
+    "titleId": "228331",
+    "children": [
+      {
+        "isVip": true,
+        "name": "司法风险-裁判文书",
+        "title": "裁判文书",
+        "titleId": "138731",
+        "component": {
+          "api": "detail/group/groupJudicialDocument",
+          "id": 1720678347712,
+          "name": "裁判文书",
+          "showIndex": true,
+          "title": "裁判文书",
+          "titleId": "138731",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "裁判文书数量",
+              "titleId": "392570",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getcourtdecision"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-立案信息",
+        "title": "立案信息",
+        "titleId": "205388",
+        "component": {
+          "api": "detail/group/groupFilingInformation",
+          "id": 1720678347713,
+          "name": "立案信息",
+          "showIndex": true,
+          "title": "立案信息",
+          "titleId": "205388",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "立案信息数量",
+              "titleId": "392574",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getfilinginfo"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-开庭公告",
+        "title": "开庭公告",
+        "titleId": "138657",
+        "component": {
+          "api": "detail/group/groupHearingNotice",
+          "id": 1720678347714,
+          "name": "开庭公告",
+          "showIndex": true,
+          "title": "开庭公告",
+          "titleId": "138657",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "开庭公告数量",
+              "titleId": "392571",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getcourtopenannouncement"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-送达公告",
+        "title": "送达公告",
+        "titleId": "204947",
+        "component": {
+          "api": "detail/group/groupDeliveryNotice",
+          "id": 1720678347715,
+          "name": "送达公告",
+          "showIndex": true,
+          "title": "送达公告",
+          "titleId": "204947",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "送达公告数量",
+              "titleId": "392575",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "showDeliveryAnnouncement"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-法院公告",
+        "title": "法院公告",
+        "titleId": "138226",
+        "component": {
+          "api": "detail/group/groupCourtNotice",
+          "id": 1720678347716,
+          "name": "法院公告",
+          "showIndex": true,
+          "title": "法院公告",
+          "titleId": "138226",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "法院公告数量",
+              "titleId": "392572",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getcourtannouncement"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-被执行人",
+        "title": "被执行人",
+        "titleId": "138592",
+        "component": {
+          "api": "detail/group/groupExecutedPerson",
+          "id": 1720678347717,
+          "name": "被执行人",
+          "showIndex": true,
+          "title": "被执行人",
+          "titleId": "138592",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "被执行人数量",
+              "titleId": "392593",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getpersonenforced"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-失信被执行人",
+        "title": "失信被执行人",
+        "titleId": "153534",
+        "component": {
+          "api": "detail/group/groupDishonestJudgmentDebtor",
+          "id": 1720678347718,
+          "name": "失信被执行人",
+          "showIndex": true,
+          "title": "失信被执行人",
+          "titleId": "153534",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "失信被执行人数量",
+              "titleId": "392594",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getdishonesty"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-终本案件",
+        "title": "终本案件",
+        "titleId": "216398",
+        "component": {
+          "api": "detail/group/groupFinalJudgmentCase",
+          "id": 1720678347719,
+          "name": "终本案件",
+          "showIndex": true,
+          "title": "终本案件",
+          "titleId": "216398",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "终本案件数量",
+              "titleId": "392576",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getendcase"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-限制高消费",
+        "title": "限制高消费",
+        "titleId": "209064",
+        "component": {
+          "api": "detail/group/groupRestrictedHighConsumption",
+          "id": 1720678347720,
+          "name": "限制高消费",
+          "showIndex": true,
+          "title": "限制高消费",
+          "titleId": "209064",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "限制高消费数量",
+              "titleId": "392595",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getcorpconsumption"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-司法拍卖",
+        "title": "司法拍卖",
+        "titleId": "138359",
+        "component": {
+          "api": "detail/group/groupJudicialAuction",
+          "id": 1720678347721,
+          "name": "司法拍卖",
+          "showIndex": true,
+          "title": "司法拍卖",
+          "titleId": "138359",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "司法拍卖数量",
+              "titleId": "315144",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getjudicialsale"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-破产重整",
+        "title": "破产重整",
+        "titleId": "216410",
+        "component": {
+          "api": "detail/group/groupBankruptcyReorganization",
+          "id": 1720678347722,
+          "name": "破产重整",
+          "showIndex": true,
+          "title": "破产重整",
+          "titleId": "216410",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "key": "num",
+              "title": "破产重整数量",
+              "titleId": "392596",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "showBankruptcy"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "司法风险-询价评估",
+        "title": "询价评估",
+        "titleId": "216400",
+        "component": {
+          "api": "detail/group/groupInquiryEvaluation",
+          "id": 1720678347723,
+          "name": "询价评估",
+          "showIndex": true,
+          "title": "询价评估",
+          "titleId": "216400",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "询价评估数量",
+              "titleId": "392577",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getevaluation"
+              }
+            }
+          ],
+          "sample": []
+        }
+      }
+    ]
+  },
+  {
+    "name": "经营风险菜单",
+    "title": "经营风险",
+    "titleId": "138415",
+    "children": [
+      {
+        "isVip": true,
+        "name": "经营风险-诚信信息",
+        "title": "诚信信息",
+        "titleId": "118780",
+        "component": {
+          "api": "detail/group/groupIntegrityInformation",
+          "id": 1720678347724,
+          "name": "诚信信息",
+          "showIndex": true,
+          "title": "诚信信息",
+          "titleId": "118780",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "诚信信息数量",
+              "titleId": "392578",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "showViolationsPenalties"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-经营异常",
+        "title": "经营异常",
+        "titleId": "138568",
+        "component": {
+          "api": "detail/group/groupBusinessException",
+          "id": 1720678347725,
+          "name": "经营异常",
+          "showIndex": true,
+          "title": "经营异常",
+          "titleId": "138568",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "经营异常数量",
+              "titleId": "392597",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getoperationexception"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-注销备案",
+        "title": "注销备案",
+        "titleId": "229150",
+        "component": {
+          "api": "detail/group/groupCancelledRegistration",
+          "id": 1720678347726,
+          "name": "注销备案",
+          "showIndex": true,
+          "title": "注销备案",
+          "titleId": "229150",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "注销备案数量",
+              "titleId": "392598",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getclearinfo"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-清算信息",
+        "title": "清算信息",
+        "titleId": "145873",
+        "component": {
+          "api": "detail/group/groupLiquidationInformation",
+          "id": 1720678347727,
+          "name": "清算信息",
+          "showIndex": true,
+          "title": "清算信息",
+          "titleId": "145873",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "清算信息数量",
+              "titleId": "392579",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getclearinfo"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-欠税信息",
+        "title": "欠税信息",
+        "titleId": "138424",
+        "component": {
+          "api": "detail/group/groupTaxDebtInformation",
+          "id": 1720678347728,
+          "name": "欠税信息",
+          "showIndex": true,
+          "title": "欠税信息",
+          "titleId": "138424",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "欠税信息数量",
+              "titleId": "315145",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getowingtax"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-税收违法",
+        "title": "税收违法",
+        "titleId": "138533",
+        "component": {
+          "api": "detail/group/groupTaxViolation",
+          "id": 1720678347729,
+          "name": "税收违法",
+          "showIndex": true,
+          "title": "税收违法",
+          "titleId": "138533",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "税收违法数量",
+              "titleId": "315146",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "gettaxillegal"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-严重违法",
+        "title": "严重违法",
+        "titleId": "138335",
+        "component": {
+          "api": "detail/group/groupSeriousViolation",
+          "id": 1720678347730,
+          "name": "严重违法",
+          "showIndex": true,
+          "title": "严重违法",
+          "titleId": "138335",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "严重违法数量",
+              "titleId": "392580",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getillegal"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-抽查检查",
+        "title": "抽查检查",
+        "titleId": "138467",
+        "component": {
+          "api": "detail/group/groupSpotCheck",
+          "id": 1720678347731,
+          "name": "抽查检查",
+          "showIndex": true,
+          "title": "抽查检查",
+          "titleId": "138467",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "抽查检查数量",
+              "titleId": "392599",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getinspection"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-双随机抽查",
+        "title": "双随机抽查",
+        "titleId": "145855",
+        "component": {
+          "api": "detail/group/groupDoubleRandomSpotCheck",
+          "id": 1720678347732,
+          "name": "双随机抽查",
+          "showIndex": true,
+          "title": "双随机抽查",
+          "titleId": "145855",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "双随机抽查数量",
+              "titleId": "392600",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getdoublerandom"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-产品召回",
+        "title": "产品召回",
+        "titleId": "120790",
+        "component": {
+          "api": "detail/group/groupProductRecall",
+          "id": 1720678347733,
+          "name": "产品召回",
+          "showIndex": true,
+          "title": "产品召回",
+          "titleId": "120790",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "产品召回数量",
+              "titleId": "392581",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "getprodrecall"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-担保信息",
+        "title": "担保信息",
+        "titleId": "138320",
+        "component": {
+          "api": "detail/group/groupGuaranteeInformation",
+          "id": 1720678347734,
+          "name": "担保信息",
+          "showIndex": true,
+          "title": "担保信息",
+          "titleId": "138320",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "担保信息数量",
+              "titleId": "392582",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "showguarantee"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-股票质押",
+        "title": "股票质押",
+        "titleId": "132933",
+        "component": {
+          "api": "detail/group/groupGuaranteeInformationStockPledge",
+          "id": 1720678347735,
+          "name": "股票质押",
+          "showIndex": true,
+          "title": "股票质押",
+          "titleId": "132933",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "股票质押数量",
+              "titleId": "392583",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "showStockMortgage"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-股权出质",
+        "title": "股权出质",
+        "titleId": "138281",
+        "component": {
+          "api": "detail/group/groupEquityPledge",
+          "id": 1720678347736,
+          "name": "股权出质",
+          "showIndex": true,
+          "title": "股权出质",
+          "titleId": "138281",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "股权出质数量",
+              "titleId": "392601",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "showPledgedstock"
+              }
+            }
+          ],
+          "sample": []
+        }
+      },
+      {
+        "isVip": true,
+        "name": "经营风险-知识产权出质",
+        "title": "知识产权出质",
+        "titleId": "204944",
+        "component": {
+          "api": "detail/group/groupIntangibleAssetsPledge",
+          "name": "知识产权出质",
+          "showIndex": true,
+          "title": "知识产权出质",
+          "titleId": "204944",
+          "type": 2,
+          "vip": "vip",
+          "columns": [
+            {
+              "dataIndex": "companyName",
+              "key": "companyName",
+              "title": "公司名称",
+              "titleId": "32914",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "companyCode",
+                "module": 1
+              }
+            },
+            {
+              "dataIndex": "companyLevel",
+              "key": "companyLevel",
+              "title": "公司级别",
+              "titleId": "437716",
+              "width": "14%"
+            },
+            {
+              "dataIndex": "attributableEntityCompany",
+              "key": "attributableEntityCompany",
+              "title": "归属主体公司",
+              "titleId": "216390",
+              "type": 8,
+              "width": "32%",
+              "links": {
+                "id": "attributableEntityCompanyCode",
+                "module": 1
+              }
+            },
+            {
+              "align": "right",
+              "dataIndex": "businessNumber",
+              "title": "知识产权出质数量",
+              "titleId": "392584",
+              "type": 4,
+              "width": "14%"
+            },
+            {
+              "align": "center",
+              "dataIndex": "actions",
+              "title": "操作",
+              "titleId": "36348",
+              "width": 82,
+              "info": {
+                "id": "businessNumber",
+                "title": "详情",
+                "titleId": "40513",
+                "type": 3
+              },
+              "links": {
+                "id": "companyCode",
+                "module": 1,
+                "target": "showIntellectualPropertyRights"
+              }
+            }
+          ],
+          "sample": []
+        }
+      }
+    ]
+  }
+]

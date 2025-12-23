@@ -1,0 +1,182 @@
+{
+  "key": "HKCorpInfo",
+  "title": "公司资料",
+  "titleIntl": "448316",
+  "type": "nodeWithChildren",
+  "children": [
+    {
+      "api": "operation/get/moduleDataForUser",
+      "apiType": "operation",
+      "key": "HKCorpInfoEquityStructure",
+      "title": "股权结构",
+      "titleIntl": "415041",
+      "type": "verticalTable",
+      "apiOptions": {
+        "method": "GET"
+      },
+      "extraParams": {
+        "childDataModule": "equityStructure",
+        "companyCode": "companyCode",
+        "dataModule": "companyInfo"
+      },
+      "columns": [
+        {
+          "dataIndex": "totalIssuedAmount",
+          "title": "已发行总款额",
+          "titleIntl": "415042",
+          "width": "50%"
+        },
+        {
+          "dataIndex": "paidAmount",
+          "title": "已缴款额",
+          "titleIntl": "415018",
+          "width": "50%"
+        }
+      ]
+    },
+    {
+      "api": "operation/get/moduleDataForUser",
+      "apiType": "operation",
+      "key": "HKCorpInfoShareholder",
+      "title": "股东信息",
+      "titleIntl": "138506",
+      "type": "verticalTable",
+      "apiOptions": {
+        "method": "GET"
+      },
+      "extraParams": {
+        "childDataModule": "shareholderInfo",
+        "companyCode": "companyCode",
+        "dataModule": "companyInfo"
+      },
+      "columns": [
+        {
+          "dataIndex": "shareholderName",
+          "title": "股东名称",
+          "titleIntl": "138783",
+          "width": "18%"
+        },
+        {
+          "dataIndex": "holdingCategory",
+          "title": "持股类别",
+          "titleIntl": "415040",
+          "width": "18%"
+        },
+        {
+          "dataIndex": "holdingQuantity",
+          "title": "持股数（股）",
+          "titleIntl": "415016",
+          "width": "18%"
+        },
+        {
+          "dataIndex": "holdingRatio",
+          "title": "占同类股比例",
+          "titleIntl": "415017",
+          "width": "18%"
+        },
+        {
+          "dataIndex": "address",
+          "title": "地址",
+          "titleIntl": "19414",
+          "width": "24%"
+        }
+      ]
+    },
+    {
+      "api": "operation/get/moduleDataForUser",
+      "apiType": "operation",
+      "key": "HKCorpInfoDirector",
+      "title": "董事信息",
+      "titleIntl": "415034",
+      "type": "verticalTable",
+      "apiOptions": {
+        "method": "GET"
+      },
+      "extraParams": {
+        "childDataModule": "directorInfo",
+        "companyCode": "companyCode",
+        "dataModule": "companyInfo"
+      },
+      "columns": [
+        {
+          "dataIndex": "name",
+          "title": "姓名/名称",
+          "titleIntl": "415014",
+          "width": "25%"
+        },
+        {
+          "dataIndex": "directorCategory",
+          "title": "董事类别",
+          "titleIntl": "415035",
+          "width": "25%"
+        },
+        {
+          "dataIndex": "identificationNumber",
+          "title": "证件号码/唯一业务识别码",
+          "titleIntl": "415036",
+          "width": "25%"
+        },
+        {
+          "dataIndex": "numberType",
+          "title": "号码类型",
+          "titleIntl": "415037",
+          "width": "25%"
+        }
+      ]
+    },
+    {
+      "api": "operation/get/moduleDataForUser",
+      "apiType": "operation",
+      "key": "HKCorpInfoSecretary",
+      "title": "秘书信息",
+      "titleIntl": "415038",
+      "type": "verticalTable",
+      "apiOptions": {
+        "method": "GET"
+      },
+      "extraParams": {
+        "childDataModule": "secretaryInfo",
+        "companyCode": "companyCode",
+        "dataModule": "companyInfo"
+      },
+      "columns": [
+        {
+          "dataIndex": "name",
+          "title": "姓名/名称",
+          "titleIntl": "415014",
+          "width": "14%"
+        },
+        {
+          "dataIndex": "secretaryCategory",
+          "title": "秘书类别",
+          "titleIntl": "415015",
+          "width": "18%"
+        },
+        {
+          "dataIndex": "identificationNumber",
+          "title": "证件号码/唯一业务识别码",
+          "titleIntl": "415036",
+          "width": "24%"
+        },
+        {
+          "dataIndex": "numberType",
+          "title": "号码类型",
+          "titleIntl": "415037",
+          "width": "18%"
+        },
+        {
+          "dataIndex": "address",
+          "title": "地址",
+          "titleIntl": "19414",
+          "width": "24%"
+        },
+        {
+          "dataIndex": "appointmentDate",
+          "title": "委任日期",
+          "titleIntl": "415039",
+          "width": "18%"
+        }
+      ]
+    }
+  ]
+}

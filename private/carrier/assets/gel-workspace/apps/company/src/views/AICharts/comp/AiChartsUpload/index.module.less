@@ -1,0 +1,106 @@
+@import '@/styles/variables.less';
+
+.aiChartsUpload {
+  // width: 973px;
+  min-width: 520px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.aiChartsUploadTitle {
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.aiChartsUploadContent {
+  width: 100%;
+}
+
+.aiChartsUploadContentBody {
+  width: 100%;
+  height: 402px;
+  margin-top: 20px;
+}
+
+.aiChartsUploadContentButtonUploadText {
+  color: #999;
+  font-size: 12px;
+  margin-bottom: 16px;
+  margin-top: 32px;
+}
+
+.aiChartsUploadContentButtonUpload {
+  color: #fff !important;
+  width: 220px !important;
+  height: 36px !important;
+  border-radius: 6px !important;
+  border: none !important;
+  background-color: transparent !important;
+  background-clip: padding-box, border-box !important;
+  background-origin: padding-box, border-box !important;
+  background-image: linear-gradient(45deg, #3862ed 0%, #274cda 29%, #00aec7 62%, #12cbbe 76%, #9d9ae3 100%) !important;
+  span {
+    color: #fff !important;
+  }
+}
+
+.aiChartsUploadContentButtonCancel {
+  min-width: 100px;
+  height: 36px;
+  border-radius: 6px;
+  border: none;
+}
+
+.aiChartsUploadContentButtonOK {
+  min-width: 100px;
+  height: 36px;
+  border-radius: 6px;
+  border: none;
+}
+
+.aiChartsUploadContentButton {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+  font-weight: 400;
+  .aiChartsUploadContentButtonCancel {
+    border-radius: 2px;
+    border: 1px solid #c5c5c5;
+    min-width: 80px;
+    margin-right: 20px;
+    height: 28px;
+    line-height: 28px;
+  }
+  .aiChartsUploadContentButtonOK {
+    border-radius: 2px;
+    border: 1px solid #c5c5c5;
+    min-width: 100px;
+    height: 28px;
+    line-height: 28px;
+  }
+}
+
+.aiChartsUploadContentFile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 16px;
+  color: #333;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  .aiChartsUploadContentFileIcon {
+    font-size: 48px;
+    color: var(--icon-color);
+    margin-bottom: 8px;
+  }
+}

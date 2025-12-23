@@ -1,0 +1,80 @@
+:root {
+  // 解决莫名其妙的滚动问题
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+} */
+
+body {
+  margin: 0;
+  font-family:
+    /* 数字及英文字母优先使用Arial */
+    Arial,
+    /* Mac系统优先使用苹方字体 */ 'PingFang SC',
+    /* Windows系统中文优先使用微软雅黑 */ 'Microsoft YaHei',
+    /* 其他系统字体 */ -apple-system,
+    sans-serif; /* 兜底字体 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* 重置列表样式 */
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 重置其他常用元素样式 */
+* {
+  box-sizing: border-box;
+  /* 全局禁止文本选择和复制 */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* 尝试多种可能的选择器，确保能够匹配到 ai 和 user 角色 */
+.bubble-list-container {
+  /* 使用通用选择器，匹配所有可能的 ai 和 user 角色元素 */
+  [class*='bubble'][class*='ai'] *,
+  [class*='bubble'][class*='user'] *,
+  [data-role='ai'] *,
+  [data-role='user'] *,
+  [role='ai'] *,
+  [role='user'] * {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+  }
+}

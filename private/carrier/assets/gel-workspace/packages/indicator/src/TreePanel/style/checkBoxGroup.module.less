@@ -1,0 +1,99 @@
+@import 'gel-ui/variables.less';
+.indicator-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  --margin: 8px;
+  --border-color: @primary-hover;
+  > div {
+    margin: var(--margin);
+    min-width: calc(100% / 3 - var(--margin) * 2);
+    border: 1px solid #ededed;
+    padding: 4px 8px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    // 添加悬停效果
+    &:hover {
+      border-color: var(--border-color);
+    }
+
+    // 选中状态样式
+    &.checked {
+      border-color: var(--border-color);
+      border-width: 1px;
+    }
+
+    // 禁用状态样式
+    &.disabled {
+      background-color: #f5f5f5;
+      border-color: #e5e5e5;
+      cursor: not-allowed;
+      &:hover {
+        border-color: #e5e5e5;
+      }
+      .coins {
+        opacity: 0.5;
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      cursor: pointer;
+    }
+  }
+  :global {
+    .w-checkbox-disabled + span {
+      color: #8c8c8c;
+    }
+    // 适配不同的宽度，保证每个元素宽度在 240px 左右，并且能占满父元素
+    // 25% 或者 33.33% 或者 50% 或者 100%
+    .w-checkbox-group-item {
+      width: calc(25% - 8px);
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    @media screen and (max-width: 1200px) {
+      .w-checkbox-group-item {
+        width: calc(33.33% - 8px);
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      .w-checkbox-group-item {
+        width: calc(50% - 8px);
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .w-checkbox-group-item {
+        width: calc(100% - 8px);
+      }
+    }
+  }
+}
+.coins {
+  margin-inline-start: 4px;
+  display: flex;
+  align-items: center;
+  color: @orange-6;
+  min-width: 30px; /* 确保固定宽度，避免隐藏时布局变化 */
+  transition: visibility 0.2s ease-in-out;
+  visibility: hidden;
+  opacity: 0.2;
+  &.visible {
+    visibility: visible;
+  }
+  &.hasCoins {
+    opacity: 1;
+  }
+  .coins-label {
+    margin-inline-end: 4px;
+  }
+}

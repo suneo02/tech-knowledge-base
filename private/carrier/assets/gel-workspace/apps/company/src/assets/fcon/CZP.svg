@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/查招聘</title>
+    <g id="Icon/查招聘" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <path d="M26.5,1 L22,11 L14,11 L9.5,1 L26.5,1 Z M21.8567913,4 L14.1449235,4 L15.95,8 L20.054825,8 L21.8567913,4 Z" id="形状结合" fill="#666666"></path>
+        <path d="M11.6216975,28.4548236 L18,31.6553569 L24.38132,28.4548236 L18.85,11 L22,11 L28,30 L18,35 L8,30 L14,11 L17.1466128,11 L11.6216975,28.4548236 Z" id="形状结合" fill="#0596B3"></path>
+        <path d="M22,11 L32.5997992,21.4721067 L26.595907,25.6540315 L22,11 Z M23.982534,17.2903242 L25.7068547,22.7425651 L28.1504389,21.3011761 L23.982534,17.2903242 Z" id="形状结合" fill="#666666"></path>
+    </g>
+</svg>

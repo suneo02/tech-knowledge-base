@@ -1,0 +1,61 @@
+{
+  "key": "ActualController",
+  "title": "实际控制人",
+  "titleIntl": "13270",
+  "tooltips": "<i><div><span>实际控制人指通过投资关系、协议或者其他安排，能够实际支配公司行为的自然人、法人或者其他组织。</span></div></i>",
+  "type": "nodeWithChildren",
+  "children": [
+    {
+      "api": "/detail/company/getcorpactcontrol_publish",
+      "countKey": "actualcontrollerPublishCount",
+      "downDocTypeName": "不存在导出",
+      "key": "ActualControllerReport",
+      "title": "公告披露",
+      "titleIntl": "312174",
+      "tooltips": "<i><div><span>企业年报、公告披露的实际控制人。</span></div></i>",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "left",
+          "dataIndex": "ActControName",
+          "title": "实际控制人名称",
+          "titleIntl": "37962",
+          "width": "76%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "ActInvestRate",
+          "title": "持股比例",
+          "titleIntl": "138871",
+          "width": "20%"
+        }
+      ]
+    },
+    {
+      "api": "/detail/company/getcorpactcontrol_calc",
+      "countKey": "actualcontrollerCalcCount",
+      "downDocTypeName": "不存在导出",
+      "key": "ActualControllerSuspect",
+      "title": "疑似实控人",
+      "titleIntl": "261456",
+      "tooltips": "<i><div><span>全球企业库依据股权穿透计算后得出疑似实际控制人，企业在公司章程或股东协议中或许有其他安排，在使用该数据前建议跟企业做进一步核实。数据仅供用户参考，不代表全球企业库的任何明示、暗示之观点或保证。</span></div></i>",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "left",
+          "dataIndex": "ActControName",
+          "title": "疑似实控人名称",
+          "titleIntl": "298298",
+          "width": "76"
+        },
+        {
+          "align": "right",
+          "dataIndex": "ActInvestRate",
+          "title": "持股比例",
+          "titleIntl": "138871",
+          "width": "20%"
+        }
+      ]
+    }
+  ]
+}

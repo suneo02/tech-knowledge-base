@@ -1,0 +1,32 @@
+.w-72 {
+  width: 72px !important;
+}
+
+.w-100 {
+  width: 100px !important;
+}
+
+.w-200 {
+  width: 200px !important;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.mr-40 {
+  margin-right: 40px;
+}
+
+.mr-8 {
+  margin-right: 8px !important;
+}
+
+/* width 100% */
+.w-full {
+  width: 100% !important;
+}

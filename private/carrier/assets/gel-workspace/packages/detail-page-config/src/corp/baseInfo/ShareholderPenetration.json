@@ -1,0 +1,38 @@
+{
+  "api": "/detail/company/getshareholdertrace",
+  "downDocTypeName": "不存在导出",
+  "key": "ShareholderPenetration",
+  "title": "股东穿透",
+  "titleIntl": "228894",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "shareholderName",
+      "title": "股东名称",
+      "titleIntl": "138783",
+      "width": "24%"
+    },
+    {
+      "align": "center",
+      "dataIndex": "level",
+      "title": "层级",
+      "titleIntl": "73853",
+      "width": "11%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "breakThroughPercent",
+      "title": "持股比例",
+      "titleIntl": "138871",
+      "width": "11%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "path-x",
+      "title": "持股路径",
+      "titleIntl": "231780",
+      "width": "50%"
+    }
+  ]
+}

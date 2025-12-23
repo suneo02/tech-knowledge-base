@@ -1,0 +1,41 @@
+{
+  "api": "/detail/company/getadminilicence",
+  "countKey": "admin_licence_num",
+  "downDocTypeName": "不存在导出",
+  "key": "AdministrativeLicenseCreditChina",
+  "title": "行政许可[信用中国]",
+  "titleIntl": "222481",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "docName",
+      "title": "许可证名称",
+      "titleIntl": "222783",
+      "width": "40%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "licenceDate",
+      "renderType": "date",
+      "title": "许可决定日期",
+      "titleIntl": "222771",
+      "width": 104
+    },
+    {
+      "align": "left",
+      "dataIndex": "startDate",
+      "renderType": "date",
+      "title": "有效期",
+      "titleIntl": "21235",
+      "width": 104
+    },
+    {
+      "align": "left",
+      "dataIndex": "orgName",
+      "title": "发证机关",
+      "titleIntl": "216395",
+      "width": "40%"
+    }
+  ]
+}

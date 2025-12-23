@@ -1,0 +1,28 @@
+@import '@/styles/colorVariables.less';
+.root {
+  width: 100%;
+  height: calc(100% - 80px);
+  position: relative;
+  :global(> .charts-operator-right .operator-item-number-input .operator-item-percent) {
+    top: 3px;
+  }
+}
+
+.summaryIcon {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  display: flex;
+  cursor: pointer;
+  :global(.bitmap-animation-container) {
+    width: 187px;
+    height: 36px;
+  }
+}
+.summaryText {
+  position: absolute;
+  font-size: 14px;
+  color: #333;
+  left: 102px;
+  top: 8px;
+}

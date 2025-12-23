@@ -1,0 +1,56 @@
+@import '../../../styles/shared/variables.less';
+
+.esg-brand {
+  display: flex;
+  flex-direction: column;
+
+  :global {
+    .w-card-head {
+      flex: 0 0 auto;
+    }
+    .w-card-divider {
+      flex: 0 0 auto;
+    }
+    .w-card-body {
+      padding-top: 0;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .esg-brand-link {
+    color: @primary;
+    &:hover {
+      border-bottom: none;
+    }
+  }
+
+  .esg-brand-img-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .esg-brand-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .esg-brand-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 16px;
+    color: #00abbf;
+    margin-top: 2px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "api": "detail/company/getdefaultbond/",
+  "countKey": "default_num",
+  "downDocTypeName": "不存在导出",
+  "key": "BondDefault",
+  "title": "债券违约",
+  "titleIntl": "440355",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "secCode",
+      "title": "证券代码",
+      "titleIntl": "196623",
+      "width": "12%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "secName",
+      "title": "证券简称",
+      "titleIntl": "203857",
+      "width": "12%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "currentState",
+      "title": "当前状态",
+      "titleIntl": "448317",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "firstDefaultDate|formatTime",
+      "title": "首次违约日",
+      "titleIntl": "448318",
+      "width": "10%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "currentBondBalance",
+      "title": "当前债券余额（亿元）",
+      "titleIntl": "448319",
+      "width": "9%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "currentOverduePrincipal",
+      "title": "当前逾期本金（亿元）",
+      "titleIntl": "448301",
+      "width": "9%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "currentOverdueInterest",
+      "title": "当前逾期利息（万元）",
+      "titleIntl": "448320",
+      "width": "9%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "dueDate|formatTime",
+      "title": "到期日",
+      "titleIntl": "138934",
+      "width": "10%"
+    }
+  ]
+}

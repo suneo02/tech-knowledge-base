@@ -1,0 +1,27 @@
+{
+  "api": "detail/company/getcancelrecord",
+  "countKey": "cancelrecord_num",
+  "downDocTypeName": "不存在导出",
+  "key": "CancellationRecord",
+  "title": "注销备案",
+  "titleIntl": "229150",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "recordDate",
+      "renderType": "date",
+      "title": "清算组备案日期",
+      "titleIntl": "232844",
+      "width": "50%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "startDate",
+      "renderType": "date",
+      "title": "债权人公告日期",
+      "titleIntl": "232845",
+      "width": "50%"
+    }
+  ]
+}

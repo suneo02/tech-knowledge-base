@@ -1,0 +1,83 @@
+// ============================================================================
+// 搜索卡片组件样式
+// ============================================================================
+
+// 导入设计变量
+@import 'gel-ui/variables.less';
+
+.searchCard {
+  .searchControls {
+    display: flex;
+    flex-direction: column;
+    /* 替代 gap: 16px */
+  }
+
+  .searchControls > * + * {
+    margin-top: 16px;
+  }
+
+  .searchRow {
+    display: flex;
+    /* 替代 gap: 16px */
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+
+      > * + * {
+        margin-left: 0;
+        margin-top: 16px;
+      }
+    }
+  }
+
+  .searchRow > * + * {
+    margin-left: 16px;
+  }
+
+  .searchItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* 替代 gap: 8px */
+  }
+
+  .searchItem > * + * {
+    margin-top: 8px;
+  }
+
+  .searchItem label {
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  // 标签项特殊样式
+  .tagItem {
+    flex: 2; // 让标签区域更宽一些
+  }
+
+  // Checkbox 组样式
+  .checkboxGroup {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .searchActions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 8px;
+
+    @media (max-width: 768px) {
+      margin-top: 16px;
+    }
+  }
+
+  .pollingStatus {
+    margin-top: 16px;
+    padding: 8px 12px;
+    background-color: rgba(24, 144, 255, 0.1);
+    border-radius: @border-radius-base;
+    font-size: @font-size-sm;
+    color: @primary-color;
+  }
+}

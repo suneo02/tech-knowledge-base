@@ -1,0 +1,159 @@
+@prefix: my-file-table;
+
+.@{prefix} {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  &-content {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+
+    // 适配Wind UI Table组件
+    .wind-table {
+      width: 100%;
+
+      &-thead {
+        background-color: #fafafa;
+
+        th {
+          padding: 12px 16px;
+          text-align: left;
+          font-size: 12px;
+          font-weight: 500;
+          color: #8c8c8c;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+
+      &-tbody {
+        tr {
+          border-bottom: 1px solid #f0f0f0;
+
+          &:hover {
+            background-color: #fafafa;
+          }
+
+          td {
+            padding: 16px;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      &-empty {
+        padding: 24px;
+        text-align: center;
+        color: #8c8c8c;
+      }
+    }
+  }
+
+  &-file {
+    display: flex;
+    align-items: center;
+
+    &-icon {
+      flex-shrink: 0;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8c8c8c;
+    }
+
+    &-svg {
+      height: 24px;
+      width: 24px;
+    }
+
+    &-name {
+      margin-left: 16px;
+    }
+
+    &-text {
+      font-size: 14px;
+      // font-weight: 500;
+      color: #262626;
+    }
+  }
+
+  &-time {
+    font-size: 14px;
+    color: #8c8c8c;
+  }
+
+  &-status {
+    font-size: 14px;
+
+    &-success {
+      color: var(--green-6);
+    }
+
+    &-failed {
+      color: var(--red-6);
+    }
+  }
+
+  &-button {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+
+    &-primary {
+      background-color: #1890ff;
+      color: #fff;
+
+      &:hover {
+        background-color: #096dd9;
+      }
+    }
+
+    &-disabled {
+      background-color: #f5f5f5;
+      color: #bfbfbf;
+      cursor: not-allowed;
+    }
+  }
+
+  &-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 256px;
+
+    &-spinner {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      border: 2px solid #f0f0f0;
+      border-top-color: #1890ff;
+      animation: spinner-rotation 1s infinite linear;
+    }
+  }
+
+  &-container {
+    position: relative;
+
+    .@{prefix}-total {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
+
+@keyframes spinner-rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

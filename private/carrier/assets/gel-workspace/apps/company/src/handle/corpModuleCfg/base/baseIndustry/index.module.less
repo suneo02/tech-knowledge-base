@@ -1,0 +1,90 @@
+.industry {
+  &-container {
+    &-item {
+      width: fit-content;
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
+      position: relative; // Ensure the parent is a positioning context for the absolute button
+      // Add any existing styles for industry-container-item here
+      // e.g., padding-right to make space for the button if it's positioned inside
+      padding-right: 50px; // Adjust as needed based on button width
+
+      .industry-copy-button {
+        position: absolute;
+        right: 0; // Position from the right edge of the parent
+        top: 50%;
+        transform: translateY(-50%); // Vertically center
+        cursor: pointer;
+        font-size: 14px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.3s ease-in-out,
+          visibility 0.3s ease-in-out,
+          transform 0.3s ease-in-out; // Smooth transition for appearance and disappearance
+        white-space: nowrap; // Prevent text wrapping
+
+        // Animation for appearing from the right
+        // Initial state (before hover makes it visible)
+        transform: translateY(-50%) translateX(0px); // MODIFIED: Start at its base horizontal position (left edge of its animation path)
+
+        // When the parent is hovered, the button becomes visible
+        // This requires the isHovered logic in the React component to add a class or style
+        // However, with direct conditional rendering in React ( {isHovered && ...} ),
+        // we can rely on the opacity and visibility transition.
+        // The actual appearance animation can be triggered by changing transform on hover if needed.
+
+        // For a "slide in from right" effect when it appears
+        // We'll control opacity and visibility directly via React state for appearance/disappearance.
+        // If you want a slide-in animation when it *becomes* visible:
+        // You might need to add a class when isHovered becomes true, and style based on that class.
+        // For simplicity, the current transition on opacity and visibility will provide a fade-in/out.
+      }
+
+      // Override for when the button should be visible (handled by React's conditional rendering)
+      // This style will apply when the button is in the DOM due to `isHovered`
+      // The animation comes from the transition property.
+      // To make it "appear from the text", it's mostly about positioning.
+      // If you want it to "grow" or "slide", more complex CSS or a library might be needed.
+      // Given the request "从末尾的文字后面出现", this means it should appear to the right.
+
+      // If you want a more explicit slide-in animation on hover:
+      &:hover .industry-copy-button {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(-50%) translateX(15px); // MODIFIED: Moves 15px to the right to show
+      }
+    }
+    &-item-separator {
+      color: var(--basic-8);
+    }
+    &-container-loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+  }
+  &-sup {
+    cursor: pointer;
+    margin-inline-start: 2px;
+    color: var(--basic-8);
+  }
+}
+
+// 弹框
+.modal-industry {
+  &-container {
+    :global {
+      .wind-ui-table-without-column-header:not(.wind-ui-table-horizontal) table {
+        border-top: 0px;
+      }
+    }
+  }
+  &-container-hint {
+    font-size: 12px;
+    color: var(--basic-8);
+    margin-block-start: 8px;
+  }
+}

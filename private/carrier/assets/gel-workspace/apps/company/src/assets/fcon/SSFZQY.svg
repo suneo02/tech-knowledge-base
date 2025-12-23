@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/上市发债企业</title>
+    <g id="Icon/上市发债企业" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <rect id="矩形" fill="#0596B3" x="8" y="25" width="20" height="3"></rect>
+        <path d="M5,5 L31,5 C31.5522847,5 32,5.44771525 32,6 L32,7 L32,7 L4,7 L4,6 C4,5.44771525 4.44771525,5 5,5 Z" id="矩形" fill="#666666"></path>
+        <path d="M8,2 L28,2 C28.5522847,2 29,2.44771525 29,3 L29,4 L29,4 L7,4 L7,3 C7,2.44771525 7.44771525,2 8,2 Z" id="矩形" fill="#666666"></path>
+        <rect id="矩形" fill="#0596B3" transform="translate(16.4826, 19.8526) rotate(45) translate(-16.4826, -19.8526)" x="11.9826407" y="18.3526407" width="9" height="3"></rect>
+        <rect id="矩形" fill="#0596B3" transform="translate(11.5355, 20.557) rotate(-45) translate(-11.5355, -20.557)" x="8.03553391" y="19.0570058" width="7" height="3"></rect>
+        <rect id="矩形" fill="#0596B3" transform="translate(22.4433, 18.1296) rotate(-45) translate(-22.4433, -18.1296)" x="16.4433009" y="16.6296434" width="12" height="3"></rect>
+        <path d="M4,26 L4,31 L32,31 L32,26 L35,26 L35,32 C35,33.1045695 34.1045695,34 33,34 L3,34 C1.8954305,34 1,33.1045695 1,32 L1,26 L4,26 Z M1,10 C1,8.8954305 1.8954305,8 3,8 L33,8 C34.1045695,8 35,8.8954305 35,10 L35,16 L32,16 L32,11 L4,11 L4,16 L1,16 L1,10 Z" id="形状结合" fill="#666666"></path>
+        <path d="M29,21 C29,17.6862916 31.6862916,15 35,15 L35,18 C33.3431458,18 32,19.3431458 32,21 C32,22.6568542 33.3431458,24 35,24 L35,27 C31.6862916,27 29,24.3137084 29,21 Z" id="形状结合" fill="#666666" fill-rule="nonzero"></path>
+        <path d="M1,15 C4.3137084,15 7,17.6862916 7,21 C7,24.3137084 4.3137084,27 1,27 L1,24 C2.6568542,24 4,22.6568542 4,21 C4,19.3431458 2.6568542,18 1,18 L1,15 Z" id="形状结合" fill="#666666" fill-rule="nonzero"></path>
+    </g>
+</svg>

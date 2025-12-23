@@ -1,0 +1,40 @@
+@import 'gel-ui/variables.less';
+
+@prefix: super-chat-cde-left;
+
+.@{prefix} {
+  &-container {
+    width: 100%;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    &-home {
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      padding: 8px;
+    }
+    &-header {
+      padding: 0px 12px 6px;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      cursor: pointer;
+      // border-bottom: 1px solid var(--basic-14);
+      &-button {
+        min-width: 100%;
+      }
+    }
+    &-content {
+      width: 100%;
+      overflow: hidden;
+      overflow-y: auto;
+      cursor: pointer;
+      .scrollbar-style();
+    }
+  }
+}

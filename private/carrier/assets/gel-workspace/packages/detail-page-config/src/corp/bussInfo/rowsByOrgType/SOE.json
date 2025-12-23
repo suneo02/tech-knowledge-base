@@ -1,0 +1,107 @@
+{
+  "api": "detail/company/getcorpbasicinfo_basic",
+  "key": "BussInfo",
+  "title": "基本信息",
+  "titleIntl": "205468",
+  "tooltipTitle": "数据来源：国家企业信用信息公示系统，部分信息根据大数据衍生计算生成",
+  "tooltipTitleIntl": "411313",
+  "type": "horizontalTable",
+  "columns": [
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "corp_name",
+        "title": "单位名称",
+        "titleIntl": "215800"
+      },
+      {
+        "dataIndex": "credit_code",
+        "title": "统一社会信用代码",
+        "titleIntl": "138808"
+      }
+    ],
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "eng_name",
+        "title": "英文名称",
+        "titleIntl": "35079"
+      },
+      {
+        "dataIndex": "reg_authority",
+        "title": "举办单位",
+        "titleIntl": "410938"
+      }
+    ],
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "usednames",
+        "renderType": "custom",
+        "title": "曾用名",
+        "titleIntl": "66281",
+        "renderConfig": {
+          "customRenderName": "usedNames"
+        }
+      },
+      {
+        "dataIndex": "state",
+        "renderType": "custom",
+        "title": "单位状态",
+        "titleIntl": "448354",
+        "renderConfig": {
+          "customRenderName": "bussStatus"
+        }
+      }
+    ],
+    [
+      {
+        "colSpan": 3,
+        "dataIndex": "legal_person_name",
+        "title": "法定代表人",
+        "titleIntl": "5529"
+      },
+      {
+        "dataIndex": "reg_capital",
+        "renderType": "currency",
+        "title": "开办资金",
+        "titleIntl": "448355",
+        "renderConfig": {
+          "unitField": "reg_unit",
+          "unitPrefix": "万",
+          "unitPrefixIntl": "20116"
+        }
+      }
+    ],
+    [
+      {
+        "dataIndex": "industryGbFold",
+        "renderType": "custom",
+        "title": "国民经济行业分类",
+        "titleIntl": "138722",
+        "renderConfig": {
+          "customRenderName": "industryGbFold"
+        }
+      },
+      {
+        "dataIndex": "reg_authority",
+        "title": "登记管理机关",
+        "titleIntl": "448324"
+      }
+    ],
+    [
+      {
+        "dataIndex": "reg_address",
+        "title": "住所",
+        "titleIntl": "448326"
+      }
+    ],
+    [
+      {
+        "dataIndex": "business_scope",
+        "title": "业务范围",
+        "titleIntl": "448307"
+      }
+    ]
+  ]
+}

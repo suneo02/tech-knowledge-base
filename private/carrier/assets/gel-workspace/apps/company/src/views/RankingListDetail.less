@@ -1,0 +1,179 @@
+.rankingListDetail {
+  height: 100%;
+  overflow: auto;
+
+  a {
+    color: #35f;
+
+    &:hover {
+      color: #35f;
+    }
+  }
+
+  .pageTitle {
+    position: relative;
+
+    .ant-breadcrumb {
+      padding: 9px 14px;
+      background: #fff;
+      font-size: 14px;
+      color: #999;
+
+      .ant-breadcrumb-link {
+        cursor: pointer;
+      }
+
+      > span:last-child {
+        color: #333;
+
+        .ant-breadcrumb-link {
+          cursor: default;
+        }
+      }
+    }
+
+    .toRankingListTree {
+      position: absolute;
+      top: 9px;
+      right: 14px;
+    }
+  }
+
+  .left_menu {
+    width: 200px;
+  }
+
+  .main_content {
+    margin: 12px;
+
+    .ant-pagination {
+      a {
+        color: #333;
+
+        &:hover {
+          color: #35f;
+        }
+      }
+
+      .ant-pagination-item-active {
+        a {
+          color: #35f;
+        }
+      }
+    }
+
+    .rankingListInfo {
+      color: #333;
+
+      .ant-card-body {
+        display: flex;
+        padding: 16px;
+      }
+
+      .left {
+        flex: 1;
+        padding-right: 68px;
+
+        .title {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 12px;
+        }
+
+        .content {
+        }
+      }
+
+      .right {
+        width: 280px;
+        padding: 0 120px 0 40px;
+        border-left: 1px solid #ccc;
+        margin: 10px 0;
+        text-align: center;
+        position: relative;
+        min-height: 60px;
+
+        .title {
+          font-size: 13px;
+          color: #666;
+        }
+
+        .num {
+          color: #000;
+          font-size: 20px;
+          position: absolute;
+          bottom: 0;
+          left: 100px;
+          transform: translateX(-50%);
+        }
+      }
+    }
+
+    .analysisTabsBox {
+      margin-top: 15px;
+      position: relative;
+
+      .ant-tabs-tab {
+        padding: 6px 0;
+        font-size: 16px;
+        color: #333;
+
+        .vip_filter {
+          transform: translateX(4px);
+          position: absolute;
+        }
+
+        &:hover {
+          color: #3355ff;
+        }
+      }
+
+      .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+        color: #3355ff;
+      }
+
+      .ant-tabs-ink-bar {
+        background: #3355ff;
+      }
+
+      .condition {
+        position: absolute;
+        width: auto;
+        top: 7px;
+        right: 13px;
+        z-index: 9;
+
+        .ant-input-affix-wrapper {
+          margin-left: 12px;
+        }
+      }
+
+      .ant-card-body {
+        padding: 0 12px;
+
+        .WCB {
+          flex: 1;
+          min-width: 400px;
+        }
+
+        .ant-table-wrapper {
+          margin-left: 20px;
+          width: 500px;
+
+          &.whole_width {
+            width: 100%;
+            margin-left: 0;
+          }
+        }
+
+        .ipoAnalysis {
+          .ant-table-wrapper {
+            .ant-table-row-expand-icon {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

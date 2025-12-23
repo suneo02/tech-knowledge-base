@@ -1,0 +1,70 @@
+{
+  "api": "/detail/company/getcashflowsheet",
+  "key": "CashFlowStatement",
+  "title": "现金流量表",
+  "titleIntl": "27168",
+  "type": "crossTable",
+  "cellConfig": {
+    "renderType": "number",
+    "renderConfig": {
+      "useThousandSeparator": true
+    }
+  },
+  "columnHeader": {
+    "align": "right",
+    "dataIndex": "_reportDate",
+    "width": 120
+  },
+  "firstRowFirstColumnConfig": {
+    "title": "报告期",
+    "titleIntl": "1794",
+    "width": "20%"
+  },
+  "rowHeaders": [
+    {
+      "dataIndex": "_sumOfBusinessCash",
+      "title": "经营性现金流",
+      "titleIntl": "133810"
+    },
+    {
+      "dataIndex": "_sumOfBusinessCashPayout",
+      "title": "经营活动现金流出小计",
+      "titleIntl": "437699"
+    },
+    {
+      "dataIndex": "_netNumberOfBusinessCashPayout2",
+      "title": "经营活动产生的现金流量净额",
+      "titleIntl": "298324"
+    },
+    {
+      "dataIndex": "_sumOfOtherBusinessCashIn",
+      "title": "投资活动现金流入小计",
+      "titleIntl": "437700"
+    },
+    {
+      "dataIndex": "_sumOfInvestmentCashOut",
+      "title": "投资活动现金流出小计",
+      "titleIntl": "437701"
+    },
+    {
+      "dataIndex": "_netCashOfInvestment",
+      "title": "投资活动产生的现金流量净额",
+      "titleIntl": "437702"
+    },
+    {
+      "dataIndex": "_sumOfChipingCapital",
+      "title": "筹资性现金流",
+      "titleIntl": "437703"
+    },
+    {
+      "dataIndex": "_sumForChippingCapital",
+      "title": "筹资活动现金流出小计",
+      "titleIntl": "437704"
+    },
+    {
+      "dataIndex": "_netNumberForChippingCapital",
+      "title": "筹资活动产生的现金流量净额",
+      "titleIntl": "437705"
+    }
+  ]
+}

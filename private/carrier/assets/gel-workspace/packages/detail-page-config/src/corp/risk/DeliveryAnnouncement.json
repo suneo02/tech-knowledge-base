@@ -1,0 +1,52 @@
+{
+  "api": "detail/company/get_ReachingAnnouncement",
+  "countKey": "delivery_anns_num",
+  "downDocType": "download/createtempfile/get_ReachingAnnouncement",
+  "downDocTypeName": "新的导出",
+  "isBigData": true,
+  "isRiskModule": true,
+  "key": "DeliveryAnnouncement",
+  "title": "送达公告",
+  "titleIntl": "204947",
+  "tooltips": "<i ><div><span>送达公告是在受送达人下落不明或者用其他方式无法送达的情况下,人民法院通抄过公告将诉讼文书有关内容告知受送达人的一种特殊的送达方式。</span></div></i>",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "caseId",
+      "title": "案号",
+      "titleIntl": "138190",
+      "width": "24%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "publishDate",
+      "renderType": "date",
+      "title": "公告日期",
+      "titleIntl": "32903",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "caseReason",
+      "title": "案由",
+      "titleIntl": "138196",
+      "width": "14%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "roles",
+      "renderType": "caseParty",
+      "title": "当事人",
+      "titleIntl": "138427",
+      "width": "29%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "courtName",
+      "title": "法院",
+      "titleIntl": "216403",
+      "width": "19%"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "api": "detail/company/getgovernmentinfo",
+  "countKey": "governmentgrants_num",
+  "downDocTypeName": "不存在导出",
+  "id": "6-16",
+  "key": "6-16",
+  "level": 2,
+  "title": "政府补贴",
+  "titleIntl": "138315",
+  "type": "表格",
+  "columns": [
+    {
+      "align": "center",
+      "dataIndex": "NO.",
+      "title": "",
+      "width": "5.2%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "item",
+      "title": "政府补贴项目名称",
+      "titleIntl": "138613",
+      "width": "35%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "amountOfCurrentPeriod",
+      "title": "本期发生额(元)",
+      "titleIntl": "138614",
+      "width": "25%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "amountOfLastPeriod",
+      "title": "上期发生额(元)",
+      "titleIntl": "138615",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "date|formatTime",
+      "title": "报告期",
+      "titleIntl": "1794",
+      "width": "16%"
+    }
+  ]
+}

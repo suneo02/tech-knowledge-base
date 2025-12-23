@@ -1,0 +1,19 @@
+@import 'src/styles/variables.less';
+@prefix: vis-table;
+
+.@{prefix}-container {
+  .@{prefix}-content {
+    height: calc(100vh);
+    padding-inline-start: @spacing-xs;
+    padding-inline-end: @spacing-xs;
+    overflow: hidden;
+    > div {
+      background-color: #fff;
+      padding: @spacing-xs;
+    }
+  }
+  .@{prefix}-tabs {
+    height: calc(100vh - @spacing-xs * 2);
+    background-color: #fff;
+  }
+}

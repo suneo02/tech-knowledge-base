@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/批量查询导出</title>
+    <g id="Icon/批量查询导出" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
+        <rect id="矩形" fill="#0596B3" fill-rule="nonzero" x="13" y="19.5" width="14" height="3"></rect>
+        <rect id="矩形" fill="#0596B3" fill-rule="nonzero" transform="translate(25.4577, 19.3577) rotate(45) translate(-25.4577, -19.3577)" x="21.6576659" y="17.8576659" width="7.6" height="3"></rect>
+        <rect id="矩形" fill="#0596B3" fill-rule="nonzero" transform="translate(25.4577, 22.6177) rotate(-45) translate(-25.4577, -22.6177)" x="21.6576659" y="21.1176659" width="7.6" height="3"></rect>
+        <path d="M34,7 C34.5522847,7 35,7.44771525 35,8 L35,34 C35,34.5522847 34.5522847,35 34,35 L8,35 C7.44771525,35 7,34.5522847 7,34 L7,8 C7,7.44771525 7.44771525,7 8,7 L34,7 Z M32,10 L10,10 L10,32 L32,32 L32,10 Z" id="形状结合" fill="#666666"></path>
+        <path d="M2,1 L28,1 C28.5522847,1 29,1.44771525 29,2 L29,4 L29,4 L1,4 L1,2 C1,1.44771525 1.44771525,1 2,1 Z" id="矩形" fill="#666666"></path>
+        <path d="M2,1 L4,1 L4,1 L4,29 L2,29 C1.44771525,29 1,28.5522847 1,28 L1,2 C1,1.44771525 1.44771525,1 2,1 Z" id="矩形" fill="#666666"></path>
+    </g>
+</svg>

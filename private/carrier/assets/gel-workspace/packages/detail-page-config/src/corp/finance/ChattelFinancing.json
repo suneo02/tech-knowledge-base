@@ -1,0 +1,59 @@
+{
+  "api": "/detail/company/getchattlefinancinglist_chattlefinancing",
+  "countKey": "chattle_financing_num",
+  "downDocType": "download/createtempfile/getchattlefinancinglist_chattlefinancing",
+  "downDocTypeName": "新的导出",
+  "key": "ChattelFinancing",
+  "title": "动产融资",
+  "titleIntl": "243422",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "regDate",
+      "renderType": "date",
+      "title": "登记日期",
+      "titleIntl": "87749",
+      "width": "16%"
+    },
+    {
+      "align": "right",
+      "dataIndex": "financeAmount",
+      "renderType": "number",
+      "title": "融资金额（万）",
+      "titleIntl": "243424",
+      "width": "16%",
+      "renderConfig": {
+        "useThousandSeparator": true
+      }
+    },
+    {
+      "align": "left",
+      "dataIndex": "bizType",
+      "title": "业务类型",
+      "titleIntl": "198469",
+      "width": "16%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "subjectName",
+      "title": "交易方主体",
+      "titleIntl": "243426",
+      "width": "24%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "role",
+      "title": "交易方角色",
+      "titleIntl": "243427",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "regType",
+      "title": "登记类型",
+      "titleIntl": "243423",
+      "width": "10%"
+    }
+  ]
+}

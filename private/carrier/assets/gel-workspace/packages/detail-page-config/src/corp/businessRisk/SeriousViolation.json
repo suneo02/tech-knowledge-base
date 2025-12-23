@@ -1,0 +1,57 @@
+{
+  "api": "/detail/company/get_IllegalAct",
+  "countKey": "illegal_num",
+  "downDocType": "illegalact",
+  "downDocTypeName": "老的导出",
+  "isRiskModule": true,
+  "key": "SeriousViolation",
+  "title": "严重违法",
+  "titleIntl": "138335",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "time",
+      "renderType": "date",
+      "title": "列入日期",
+      "titleIntl": "138241",
+      "width": "16%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "inDterOrgan",
+      "title": "作出决定机关",
+      "titleIntl": "348188",
+      "width": "16%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "inReason",
+      "title": "列入严重违法失信企业名单原因",
+      "titleIntl": "348193",
+      "width": "25%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "outDate",
+      "renderType": "date",
+      "title": "移出日期",
+      "titleIntl": "138246",
+      "width": "16%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "outDterOrgan",
+      "title": "移出决定机关",
+      "titleIntl": "138420",
+      "width": "16%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "outReason",
+      "title": "移出严重违法失信企业名单原因",
+      "titleIntl": "348189",
+      "width": "24%"
+    }
+  ]
+}

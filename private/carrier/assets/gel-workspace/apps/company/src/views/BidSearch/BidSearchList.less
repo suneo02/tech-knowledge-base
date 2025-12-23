@@ -1,0 +1,51 @@
+.bid-search-list--container {
+  .bid-search-list {
+    .job-ul {
+      .w-radio-group {
+        width: auto;
+      }
+    }
+
+    &--card-tag {
+      position: absolute;
+      right: 15px;
+      top: 27%;
+    }
+    &--filter {
+      &--li {
+        &--first {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: nowrap;
+
+          &--left {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+          }
+        }
+      }
+
+      &--bid-more {
+        color: #0596b3;
+        margin: 0 !important;
+        &:hover {
+          color: #00aec7;
+        }
+        &:active {
+          color: #05809e;
+        }
+      }
+    }
+  }
+  .industry-choose {
+    display: flex;
+    align-items: center;
+
+    .casader-choose-region,
+    .casader-choose-industry {
+      flex-grow: 1;
+    }
+  }
+}

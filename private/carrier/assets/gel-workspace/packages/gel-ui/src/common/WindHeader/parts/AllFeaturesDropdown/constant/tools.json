@@ -1,0 +1,111 @@
+[
+  {
+    "id": "422040",
+    "title": "批量查询导出",
+    "titleIntl": "422040",
+    "moduleId": "features-title-6",
+    "url": {
+      "target": "module",
+      "module": "RELATED_LINK",
+      "params": {
+        "target": "batchoutput"
+      }
+    },
+    "hot": true,
+    "iconKey": "BatchC"
+  },
+  {
+    "id": "417591",
+    "title": "报告平台",
+    "titleIntl": "417591",
+    "moduleId": "features-title-6",
+    "url": {
+      "target": "module",
+      "module": "REPORT_PLATFORM"
+    },
+    "iconKey": "DdC"
+  },
+  {
+    "id": "259750",
+    "title": "企业数据浏览器",
+    "titleIntl": "259750",
+    "moduleId": "features-title-6",
+    "url": {
+      "target": "module",
+      "module": "CDE_SEARCH"
+    },
+    "hot": true,
+    "iconKey": "DbC"
+  },
+  {
+    "id": "-ddgAEp",
+    "title": "一句话找企业",
+    "titleIntl": "464234",
+    "moduleId": "features-title-6",
+    "url": {
+      "target": "module",
+      "module": "SUPER"
+    },
+    "new": true,
+    "iconKey": "GenerationC",
+    "disabled": false,
+    "visibility": {
+      "overseas": true
+    }
+  },
+  {
+    "id": "396015",
+    "moduleId": "features-title-6",
+    "title": "企业数据API",
+    "titleIntl": "396015",
+    "url": {
+      "target": "module",
+      "module": "EAPI"
+    },
+    "hideInWeb": true,
+    "hideInTerminal": false,
+    "hideInOverseas": true,
+    "createdAt": "2025-09-17T06:05:46.273Z",
+    "updatedAt": "2025-09-17T07:48:19.114Z",
+    "iconKey": "EapiC",
+    "order": 33
+  },
+  {
+    "id": "248131",
+    "title": "企业动态",
+    "titleIntl": "248131",
+    "moduleId": "features-title-6",
+    "url": {
+      "target": "module",
+      "module": "COMPANY_DYNAMIC",
+      "params": {
+        "keyMenu": "2"
+      },
+      "config": {
+        "appendParamsToHash": true
+      }
+    },
+    "hot": true,
+    "iconKey": "DynamicC",
+    "hideInOverseas": true,
+    "disabled": false
+  },
+  {
+    "id": "3960151111",
+    "moduleId": "features-title-6",
+    "title": "智能财报诊断",
+    "url": {
+      "target": "baifen",
+      "route": "report"
+    },
+    "titleIntl": "456274",
+    "hideInWeb": true,
+    "hideInTerminal": false,
+    "hideInOverseas": true,
+    "createdAt": "2025-09-17T06:05:46.273Z",
+    "updatedAt": "2025-09-17T07:48:19.116Z",
+    "iconKey": "GreennoteC",
+    "isHot": true,
+    "order": 39
+  }
+]

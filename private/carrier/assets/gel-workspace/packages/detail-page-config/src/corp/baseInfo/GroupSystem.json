@@ -1,0 +1,93 @@
+{
+  "key": "GroupSystem",
+  "title": "集团系",
+  "titleIntl": "148622",
+  "type": "nodeWithChildren",
+  "children": [
+    {
+      "api": "detail/company/getmaincorp",
+      "downDocTypeName": "不存在导出",
+      "key": "GroupMainMember",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "groupSystemName",
+          "title": "集团系名称",
+          "titleIntl": "149312",
+          "width": "56%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "mainCompanyLevel",
+          "title": "主体公司级别",
+          "titleIntl": "216386",
+          "width": "40%"
+        }
+      ]
+    },
+    {
+      "api": "detail/company/getmembercorp",
+      "countKey": "group_membercorp_num",
+      "downDocTypeName": "不存在导出",
+      "key": "GroupMember",
+      "type": "verticalTable",
+      "columns": [
+        {
+          "align": "center",
+          "dataIndex": "NO.",
+          "title": "",
+          "width": "5.2%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "groupSystemName",
+          "title": "归属集团系",
+          "titleIntl": "216389",
+          "width": "24%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "memberCompanyLevelName",
+          "title": "成员公司级别",
+          "titleIntl": "216388",
+          "width": "16%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "mainCompanyName",
+          "title": "归属主体公司",
+          "titleIntl": "216390",
+          "width": "20%"
+        },
+        {
+          "align": "right",
+          "dataIndex": "shareholdingRatio|formatPercent",
+          "title": "实际持股比例",
+          "titleIntl": "138412",
+          "width": "17%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "controlTypeName",
+          "title": "控制类型",
+          "titleIntl": "216391",
+          "width": "10%"
+        },
+        {
+          "align": "left",
+          "dataIndex": "shareholdingTypeName",
+          "title": "持股类型",
+          "titleIntl": "2949",
+          "width": "9%"
+        }
+      ]
+    }
+  ]
+}

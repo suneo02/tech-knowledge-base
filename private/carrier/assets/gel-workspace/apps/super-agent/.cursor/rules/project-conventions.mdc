@@ -1,0 +1,75 @@
+---
+alwaysApply: true
+---
+
+# 项目基础约定（React 18 / Vite / pnpm）
+
+- **React 版本**: React 18 全面启用。
+- **组件库**: 仅使用 Wind UI 组件（统一风格）。
+- **状态管理**: 使用 Redux Toolkit（RTK）。
+- **样式方案**: 统一使用 CSS Modules 的 `.module.less`。
+- **包管理与构建**: 仅使用 `pnpm` 进行安装、开发、打包与发布。
+- **复杂 Hooks**: 优先用 `ahooks` 处理复杂副作用与异步请求。
+
+参考文件：
+
+- [package.json](mdc:package.json)
+- [vite.config.ts](mdc:vite.config.ts)
+
+## 依赖与脚本
+
+- 安装依赖：
+
+```bash
+pnpm i
+```
+
+- 本地开发：
+
+```bash
+pnpm dev
+```
+
+- 生产构建：
+
+```bash
+pnpm build
+```
+
+## UI 与组件使用
+
+- 仅从 Wind UI 引入组件：
+
+```ts
+import { Button } from 'wind-ui'
+```
+
+- 页面与可复用组件文件名使用 `PascalCase`，并使用箭头函数组件（见 React 规则）。
+
+## 状态管理（RTK）
+
+- 全局 store 使用 Redux Toolkit 配置，特性模块使用 slice。
+- 组件层通过 `useSelector`/`useDispatch` 或绑定过的 hooks 获取与分发状态。
+
+## Hooks 策略
+
+- 从 `react` 顶部命名导入 Hooks（例如 `useEffect`、`useMemo` 等）。
+- 遇到复杂副作用、请求态与轮询、节流/防抖等优先使用 `ahooks`：
+
+```ts
+import { useRequest } from 'ahooks'
+```
+
+## 样式
+
+- 所有样式文件使用 `.module.less`，以 CSS Modules 方式使用：
+
+```ts
+import styles from './index.module.less';
+<div className={styles.container} />
+```
+
+## 其他
+
+- 严禁混用 `npm`/`yarn` 与 `pnpm`。
+- 新页面/组件优先复用已有组件与工具方法，保持风格与交互一致。

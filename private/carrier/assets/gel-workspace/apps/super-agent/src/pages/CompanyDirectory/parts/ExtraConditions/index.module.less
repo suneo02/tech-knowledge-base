@@ -1,0 +1,289 @@
+.container {
+  padding: 12px;
+  //   background: var(--basic-15);
+  border: 1px dashed var(--basic-14);
+  border-radius: 4px;
+  margin: 12px 0;
+  position: relative;
+  height: 108px; /* 固定高度，避免顶下表格 */
+  background: #fff;
+  transition:
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.container[data-open='true'] {
+  border-color: var(--basic-14);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  //   // gap: 12px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  // gap: 8px;
+  flex-wrap: wrap;
+  width: 180px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  // gap: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+  color: var(--gray-2);
+  background: var(--basic-12);
+  border: 1px solid var(--basic-14);
+  border-radius: 999px;
+}
+
+.toggleBtn {
+  color: var(--click-6);
+  cursor: pointer;
+}
+
+.body {
+  margin-top: 12px;
+}
+
+.aiInputRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.aiInput {
+  flex: 1;
+  margin-right: 8px;
+  width: 100%;
+}
+
+.inlineLoading {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--click-4);
+  border-top-color: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  // gap: 12px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  // gap: 6px;
+}
+
+.label {
+  color: var(--text-2, #666);
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  // gap: 8px;
+}
+
+.input {
+  flex: 1;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--basic-14, #eee);
+  border-radius: 8px;
+  outline: none;
+}
+
+.tags {
+  display: flex;
+  // gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 4px 8px;
+  border: 1px solid var(--basic-14, #eee);
+  border-radius: 12px;
+  background: var(--basic-12, #f7f8fa);
+  font-size: 12px;
+}
+
+.tagRemove {
+  margin-left: 4px;
+  cursor: pointer;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  // gap: 8px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--basic-14, #eee);
+  margin: 12px 0;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quickPrompts {
+  margin-top: 8px;
+}
+
+.quickChip {
+  // display: inline-flex;
+  // align-items: center;
+  // padding: 2px 8px;
+  // margin-right: 8px;
+  // margin-top: 8px;
+  // font-size: 12px;
+  // border: 1px solid var(--basic-14);
+  // border-radius: 12px;
+  // background: #fff;
+  cursor: pointer;
+  &:hover {
+    color: var(--click-5);
+    background: var(--click-1);
+    border-color: var(--click-5);
+  }
+}
+
+.overlay {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  z-index: 5;
+  pointer-events: none; /* 让容器不截获，卡片内部恢复 */
+  transform: translateY(8px);
+  opacity: 0;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+
+.overlay[data-open='true'] {
+  transform: translateY(12px);
+  opacity: 1;
+}
+
+.overlayCard {
+  background: #fff;
+  border: 1px solid var(--basic-14);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+  transform-origin: top left;
+  pointer-events: auto; /* 内部可互动 */
+  overflow: hidden;
+}
+
+.overlayHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--basic-14);
+}
+
+.overlayBody {
+  // max-height: 240px;
+  overflow: auto;
+  padding: 12px;
+}
+
+.overlayText {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.overlaySection {
+  margin-top: 8px;
+}
+
+.overlayList {
+  display: flex;
+  flex-wrap: wrap;
+  // gap: 6px;
+}
+
+.selectableChip {
+  cursor: pointer;
+  margin-right: 8px;
+  margin-top: 8px;
+  border-color: var(--basic-14);
+}
+
+.selectableChip[data-active='true'] {
+  color: var(--click-6);
+  background: var(--click-1);
+  border-color: var(--click-6);
+}
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  // gap: 8px;
+  margin-top: 12px;
+}
+
+.attachShadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+}
+
+.loadingDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: var(--click-6);
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

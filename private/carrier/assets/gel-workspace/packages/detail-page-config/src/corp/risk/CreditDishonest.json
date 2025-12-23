@@ -1,0 +1,58 @@
+{
+  "api": "detail/company/get_discredit",
+  "countKey": "breakpromise_num",
+  "downDocType": "download/createtempfile/get_discredit",
+  "downDocTypeName": "新的导出",
+  "isRiskModule": true,
+  "key": "CreditDishonest",
+  "title": "失信被执行人",
+  "titleIntl": "153534",
+  "tooltips": "<i><div><span>失信被执行人是指未履行生效法律文书确定的义务并具有“有履行能力而不履行”、“抗拒执行”等法定情形，从而被人民法院依法纳入失信被执行人名单的人。</span></div></i>",
+  "type": "verticalTable",
+  "columns": [
+    {
+      "align": "left",
+      "dataIndex": "referenceNumber",
+      "title": "案号",
+      "titleIntl": "138190",
+      "width": "21%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "publishDate",
+      "renderType": "date",
+      "title": "发布日期",
+      "titleIntl": "138908",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "time",
+      "renderType": "date",
+      "title": "立案日期",
+      "titleIntl": "205387",
+      "width": "10%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "specificCircumstances",
+      "title": "失信行为",
+      "titleIntl": "273812",
+      "width": "22%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "courtOfExecution",
+      "title": "执行法院",
+      "titleIntl": "138228",
+      "width": "20%"
+    },
+    {
+      "align": "left",
+      "dataIndex": "executionStatus",
+      "title": "被执行人的履行情况",
+      "titleIntl": "138435",
+      "width": "13%"
+    }
+  ]
+}

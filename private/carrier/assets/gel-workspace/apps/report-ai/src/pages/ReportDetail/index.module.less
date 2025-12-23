@@ -1,0 +1,67 @@
+.report-detail {
+  height: 100%;
+  overflow-x: auto;
+}
+
+.report-detail-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  min-width: 1680px;
+
+  .report-detail-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+
+    .report-detail-left {
+      width: 420px;
+      flex-shrink: 0;
+      border-right: 1px solid #f0f0f0;
+      box-sizing: border-box;
+      transition: width 0.3s ease-in-out;
+      position: relative;
+
+      &.collapsed {
+        width: 32px;
+        overflow: visible;
+        border-right: none;
+        position: relative;
+
+        // 隐藏内部面板内容（除了 LeftPanelToggle 组件）
+        > :not([data-component='left-panel-toggle']) {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .report-detail-right {
+      width: 420px;
+      flex-shrink: 0;
+      border-left: 1px solid #f0f0f0;
+      box-sizing: border-box;
+      transition: width 0.3s ease-in-out;
+
+      &.expanded {
+        width: 600px;
+      }
+    }
+
+    & > :nth-child(2) {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+}
+
+.report-detail-left {
+  height: 100%;
+  overflow: hidden;
+}
+
+.report-detail-right {
+  height: 100%;
+  overflow: hidden;
+}

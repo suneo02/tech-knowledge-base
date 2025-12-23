@@ -1,0 +1,195 @@
+@import '@/styles/colorVariables.less';
+
+.shareholdergraph-chart-container {
+  background: #fff;
+  height: 100%;
+  .shareholderchart-box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .relation-chart-main {
+    margin-top: 45px;
+    // height: 1000px;
+    height: calc(100% - 100px);
+    position: relative;
+    padding-right: 5px;
+  }
+  // .shareholderchart-nav {
+  //   // display: none;
+  //   position: absolute;
+  //   width: 280px;
+  //   left: 10px;
+  //   top: 0;
+  //   background: #fff;
+  //   height: 100%;
+  //   box-sizing: border-box;
+  //   padding-left: 12px;
+  //   padding-top: 12px;
+  //   border: 1px solid #ddd;
+  // }
+
+  .shareholderchart-icons {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    background: #fff;
+    padding: 5px 0 0 0;
+    width: 100%;
+    text-align: right;
+    color: @basic-7;
+    > span {
+      font-size: 18px;
+      margin-right: 12px;
+    }
+    .wicon-svg {
+      &:hover {
+        color: @primary-hover !important;
+      }
+      &:active {
+        color: @primary-active !important;
+      }
+    }
+  }
+  .chart-nav-infotips {
+    position: absolute;
+    bottom: 5%;
+    font-size: 12px !important;
+    padding-right: 10px;
+  }
+  .relation-chart-ok {
+    text-align: center;
+    height: 30px;
+    background: #3dc1d4;
+    border: 1px solid #3dc1d4;
+    width: 150px;
+    line-height: 30px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 53px !important;
+    margin-top: 74px !important;
+    box-shadow: 0 0 6px #00aec7;
+    font-weight: bold;
+  }
+  .relation-chart-nav-type {
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 12px;
+  }
+  .chart-nav-slide {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 110px;
+    // background: url(../assets/imgs/chart/wind-line1.png) no-repeat center center;
+    position: absolute;
+    top: calc(50% - 75px);
+    right: 0;
+    cursor: pointer;
+  }
+
+  .shareholderchart-icons {
+    font-size: 18px;
+    color: #666;
+    text-align: right;
+    span {
+      margin-right: 10px;
+      &:first-of-type {
+        margin-right: 12px;
+      }
+    }
+  }
+
+  .shareholderchart-empty {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 20%;
+    text-align: center;
+  }
+  .shareholderchart-loading {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20%;
+    text-align: center;
+  }
+  .shareholderchart-bottom {
+    text-align: center;
+    margin-top: -22px;
+    height: 26px;
+    line-height: 26px;
+    position: relative;
+    width: 100%;
+    background: #fff;
+    color: #aaaa;
+  }
+
+  .icon-search-relation {
+    // background: url(../../assets/imgs/web_sprite.png) no-repeat;
+    background: url(../../assets/imgs/chart/icon_chartplatform_bow.png) no-repeat;
+    width: 27px;
+    height: 30px;
+    background-position: -100px -80px;
+    float: left;
+    margin: 4px 12px 0 12px;
+  }
+  .search-relation-input {
+    width: 960px;
+    margin: 0 auto;
+    padding-top: 15px;
+    button {
+      margin-left: 12px;
+      height: 32px;
+    }
+  }
+  .search-relation-label {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 80px;
+    margin-bottom: 60px;
+    color: #00aec7;
+    line-height: 27px;
+  }
+
+  .search-relation-sample {
+    width: 1000px;
+    margin: 0 auto;
+    .demo-jump-cont {
+      display: block;
+      height: 80px;
+      line-height: 80px;
+      font-weight: bold;
+      font-size: 22px;
+      border-radius: 0 0 8px 8px;
+      margin-top: -4px;
+      box-shadow: 0 0 5px rgba(51, 51, 51, 0.2);
+      text-align: center;
+      div {
+        line-height: 80px;
+        &:last-of-type {
+          display: none;
+        }
+      }
+    }
+
+    > div {
+      cursor: pointer;
+      &:hover {
+        .demo-jump-cont {
+          div {
+            line-height: 56px;
+            color: #00aec7;
+            &:last-of-type {
+              color: #666;
+              display: block;
+              line-height: 14px !important;
+              font-size: 14px;
+              font-weight: 100;
+            }
+          }
+        }
+      }
+    }
+  }
+}

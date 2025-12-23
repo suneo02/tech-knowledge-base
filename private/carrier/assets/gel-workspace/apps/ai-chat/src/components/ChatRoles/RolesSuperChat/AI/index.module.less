@@ -1,0 +1,27 @@
+@import 'gel-ui/variables.less';
+@prefix: super-chat-ai-table;
+
+.@{prefix} {
+  &-card {
+    margin-bottom: 16px;
+  }
+  &-table {
+    :global(.wind-ui-table-body) {
+      scrollbar-width: thin; /* For Firefox */
+      scrollbar-color: #ededed transparent; /* For Firefox */
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 2px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #aaa;
+      }
+    }
+  }
+}

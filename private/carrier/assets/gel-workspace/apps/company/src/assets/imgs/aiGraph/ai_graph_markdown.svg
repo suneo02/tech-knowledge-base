@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Markdown文件生成图谱</title>
+    <defs>
+        <linearGradient x1="62.6909557%" y1="68.7836029%" x2="17.1323161%" y2="5.84723481%" id="linearGradient-1">
+            <stop stop-color="#0078DD" offset="0%"></stop>
+            <stop stop-color="#55DFE1" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="68.9299826%" y1="25.0601184%" x2="35.9861455%" y2="72.6377659%" id="linearGradient-2">
+            <stop stop-color="#0D88DE" offset="2.52412383%"></stop>
+            <stop stop-color="#55DFE1" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-3" cx="10.5" cy="10.5" r="10.5"></circle>
+        <filter x="-42.9%" y="-42.9%" width="185.7%" height="185.7%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="8" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.6   0 0 0 0 0.88627451   0 0 0 0 1  0 0 0 0.240220717 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="29.2730126%" y1="28.715313%" x2="85.5860641%" y2="98.9932752%" id="linearGradient-5">
+            <stop stop-color="#00BBFF" stop-opacity="0.105277535" offset="0%"></stop>
+            <stop stop-color="#00BBFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-6" cx="10.5" cy="10.5" r="10.5"></circle>
+        <filter x="-42.9%" y="-42.9%" width="185.7%" height="185.7%" filterUnits="objectBoundingBox" id="filter-7">
+            <feGaussianBlur stdDeviation="5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="8" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.333333333   0 0 0 0 0.874509804   0 0 0 0 0.882352941  0 0 0 0.240220717 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="17.0045684%" y1="27.7828553%" x2="71.9947244%" y2="80.123521%" id="linearGradient-8">
+            <stop stop-color="#E1F7FF" offset="0%"></stop>
+            <stop stop-color="#E9FAFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-9" cx="10.5" cy="10.5" r="10.5"></circle>
+        <filter x="-42.9%" y="-42.9%" width="185.7%" height="185.7%" filterUnits="objectBoundingBox" id="filter-10">
+            <feGaussianBlur stdDeviation="5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="8" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.544389205 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <polygon id="path-11" points="25.6125 27.6358647 25.6125 30.2667802 28.6263401 30.2667802 28.6263401 38.3458647 31.7615633 38.3458647 31.7615633 30.2667802 34.3875 30.2667802 34.3875 27.6358647"></polygon>
+        <filter x="-68.4%" y="-28.0%" width="236.8%" height="212.0%" filterUnits="objectBoundingBox" id="filter-12">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.101960784   0 0 0 0 0.749019608   0 0 0 0 0.878431373  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="ai生成图谱" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="金刚区-授信商机">
+            <rect id="矩形" opacity="0.489214943" x="0" y="0" width="60" height="60"></rect>
+            <g id="编组-8" transform="translate(11.052632, 7.894737)">
+                <g id="编组-42">
+                    <polygon id="矩形" fill="url(#linearGradient-1)" points="0 0 22.7714548 0 31.5789474 8.90274509 31.5789474 38.3458647 0 38.3458647"></polygon>
+                    <g id="a-letter-2" transform="translate(6.447368, 9.605263)" fill="#FFFFFF" fill-rule="nonzero">
+                        <polygon id="路径" points="9.58897079e-16 0 5.32598396 0 9.94601889 14.8770214 10 14.8770214 14.9679329 0 20 0 20 20 16.7881242 20 16.7881242 4.56582633 16.734143 4.56582633 11.3900135 20 8.6099865 20 3.26585695 4.56582633 3.21187584 4.56582633 3.21187584 20 0 20"></polygon>
+                    </g>
+                    <polygon id="路径-7" fill="url(#linearGradient-2)" points="22.7593985 0 22.7593985 8.88345865 31.5789474 8.88345865"></polygon>
+                </g>
+                <g id="编组-22" transform="translate(18.947368, 22.105263)">
+                    <g id="椭圆形">
+                        <use fill="#02B6CF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    </g>
+                    <g id="椭圆形">
+                        <use fill="url(#linearGradient-5)" fill-rule="evenodd" xlink:href="#path-6"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-7)" xlink:href="#path-6"></use>
+                    </g>
+                    <g id="椭圆形">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
+                        <circle stroke="url(#linearGradient-8)" stroke-width="1.5" stroke-linejoin="square" cx="10.5" cy="10.5" r="9.75"></circle>
+                    </g>
+                </g>
+                <g id="路径" fill-rule="nonzero">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-12)" xlink:href="#path-11"></use>
+                    <use fill="#FFFFFF" xlink:href="#path-11"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

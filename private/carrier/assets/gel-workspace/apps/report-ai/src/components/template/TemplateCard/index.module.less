@@ -1,0 +1,71 @@
+@import 'gel-ui/variables.less';
+
+.card {
+  // 定位
+  flex: 0 0 auto;
+
+  // 盒模型
+  width: 360px;
+  padding: @spacing-sm;
+  border: 1px solid @border-color-split;
+  border-radius: @border-radius-lg;
+
+  // 视觉
+  background: @color-bg-2;
+
+  &__titleRow {
+    // 盒模型
+    margin-bottom: @component-space;
+
+    // 视觉
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: @font-size-xxl;
+    font-weight: 600;
+    color: @font-color-1;
+  }
+
+  &__title {
+    // 定位
+    flex: 1;
+
+    // 盒模型
+    overflow: hidden;
+    min-height: calc(@line-height-tight * 2em);
+
+    // 视觉
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    line-height: @line-height-tight;
+  }
+
+  &__tag {
+    // 定位
+    flex-shrink: 0;
+
+    // 盒模型
+    margin-top: 0.2em;
+  }
+
+  &__metaRow {
+    // 盒模型
+    margin-bottom: @spacing-sm;
+
+    // 视觉
+    font-size: @font-size-sm;
+    color: @font-color-4;
+  }
+
+  &__actions {
+    // 视觉
+    display: flex;
+
+    > * + * {
+      margin-left: @spacing-sm;
+    }
+  }
+}

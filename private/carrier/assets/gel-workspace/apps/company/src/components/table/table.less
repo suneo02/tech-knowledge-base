@@ -1,0 +1,248 @@
+/** @format */
+
+// 股权链
+.stock-chain {
+  line-height: 30px;
+  position: relative;
+  word-break: keep-all;
+
+  b {
+    color: #333;
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-bottom;
+    min-width: 50px;
+    text-align: center;
+
+    &:after {
+      content: '';
+      background: url(../../assets/imgs/arrow.png) no-repeat;
+      width: 70px;
+      height: 10px;
+      display: inline-block;
+      position: absolute;
+      bottom: 0;
+      transform: scale(0.7);
+      left: 1px;
+    }
+  }
+}
+
+.table-title {
+  // margin-bottom: 6px;
+}
+
+.table-container {
+  position: relative;
+}
+
+.text-insert {
+  color: #f68717;
+}
+
+.text-delete {
+  color: red;
+  text-decoration: line-through;
+}
+
+.table-tree {
+  .w-tree-node-content-wrapper {
+    height: 100% !important;
+  }
+}
+
+.wind-ui-table-tbody > tr.w-table-row-expand {
+  background: #fff;
+
+  > td {
+    border: 1px dashed #ededed;
+
+    .w-table-expand-inner {
+      border: 1px solid #ededed;
+    }
+  }
+}
+
+.wind-ui-table-title {
+  .card-header-title {
+    font-size: 14px;
+    color: #999;
+  }
+}
+
+.wind-ui-table-body {
+  border: 1px solid #ededed;
+}
+
+// 以下代码是原来代码，未来有时间替换
+
+.w-tree-node-content-wrapper-open .w-tree-title {
+  // font-weight: bold;
+  // height: 20px;
+  // line-height: 23px;
+  white-space: pre-wrap;
+}
+
+.w-tree-node-content-wrapper-close .w-tree-title {
+  // font-weight: bold;
+  // height: 20px;
+  // line-height: 23px;
+  white-space: pre-wrap;
+}
+
+.w-tree-node-content-wrapper-normal .w-tree-title {
+  // padding-left: 4px;
+  white-space: pre-wrap;
+}
+
+.wind-ui-table-horizontal,
+.wind-ui-table-wrapper {
+  background: #fff;
+  // padding: 0 12px;
+  margin-bottom: 0 !important;
+
+  .wind-ui-table-container {
+    border-bottom: none !important;
+  }
+
+  .corp-industry-tree {
+    .w-tree-switcher-noop {
+      visibility: hidden;
+      width: 7px;
+      margin-right: 14px;
+    }
+
+    .w-tree-title {
+      white-space: normal;
+    }
+
+    .w-tree-node-content-wrapper {
+      height: 100% !important;
+    }
+  }
+
+  .wind-ui-table-item-title {
+    text-align: left !important;
+    font-weight: bold;
+    white-space: pre-wrap !important;
+  }
+
+  .itemTitle {
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+    float: right;
+
+    .wicon-svg {
+      vertical-align: middle;
+      margin-top: -2px;
+    }
+  }
+
+  tr {
+    &:last-child {
+      border-bottom: 1px solid #dfdfdf;
+    }
+  }
+
+  .company-base-actcontrol-div {
+    display: inline-block;
+  }
+}
+
+.table-container {
+  position: relative;
+}
+
+.share-route {
+  display: inline-block;
+  background: url('../../assets/imgs/newlian1.png') no-repeat;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin-left: 5px;
+  background-size: 18px;
+  margin-top: 2px;
+  padding-right: 8px;
+}
+
+.td-span-ctrl {
+  font-weight: bolder;
+  line-height: 30px;
+}
+
+.td-span-route-left {
+  line-height: 30px;
+}
+
+.td-span-route-right {
+  line-height: 30px;
+  position: relative;
+  word-break: keep-all;
+}
+
+.td-span-route-right i {
+  display: none;
+}
+
+.td-span-route-right b {
+  color: #333;
+  font-size: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: text-bottom;
+  min-width: 50px;
+}
+
+.td-span-route-right b:after {
+  content: '';
+  background: url(../../assets/imgs/arrow.png) no-repeat right center;
+  width: 70px;
+  height: 10px;
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  transform: scale(0.7);
+  left: 1px;
+}
+
+.underline {
+  color: #333333;
+  border-bottom: 1px solid #c5c5c5;
+  cursor: pointer;
+}
+
+.company-table-logo {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+
+  border-radius: 2px;
+  margin: 5px 0;
+  overflow: hidden;
+}
+
+.number-strong {
+  // font-weight: 400;
+}
+
+.number-weak {
+  color: #ccc;
+}
+
+// 历史工商信息 合并表格加下划线
+.module-title-history
+  + div
+  .wind-ui-table-bordered-dotted
+  .wind-ui-table-tbody
+  > .wind-ui-table-row:not(:last-child)
+  > .wind-ui-table-first-column {
+  border-bottom: 1px solid #c3c5c9;
+}
+
+.wind-ui-table .wind-ui-table-row-cell:first-child .wind-ui-table-expand-icon {
+  padding: 0;
+}

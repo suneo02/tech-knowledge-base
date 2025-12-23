@@ -1,0 +1,107 @@
+@import 'gel-ui/variables.less';
+
+.file-preview-renderer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: @color-bg-1;
+  border-radius: @border-radius-base;
+  overflow: hidden;
+
+  &__loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: @color-bg-1;
+    z-index: 10;
+  }
+
+  &__loading-text {
+    margin-top: @spacing-sm;
+    color: @font-color-2;
+    font-size: @font-size-base;
+  }
+
+  &__error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: @spacing-base;
+  }
+
+  &__retry-button {
+    padding: 6px @component-space;
+    background: @primary;
+    color: @color-bg-1;
+    border: none;
+    border-radius: @border-radius-sm;
+    font-size: @font-size-sm;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: @primary-hover;
+    }
+
+    &:active {
+      background: @primary-active;
+    }
+  }
+
+  &__preview-content {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__coming-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: @spacing-lg;
+    text-align: center;
+  }
+
+  &__coming-soon-icon {
+    font-size: @font-size-xxxl;
+    margin-bottom: @spacing-sm;
+    opacity: 0.6;
+  }
+
+  &__coming-soon-title {
+    font-size: @font-size-lg;
+    font-weight: 500;
+    color: @font-color-1;
+    margin-bottom: @component-space-sm;
+  }
+
+  &__coming-soon-message {
+    font-size: @font-size-base;
+    color: @font-color-2;
+    line-height: @line-height-base;
+  }
+
+  // TODO: 全局覆盖 Wind UI Alert 组件样式以适配预览器
+  :global {
+    .wind-ui-alert {
+      max-width: 400px;
+
+      .wind-ui-alert-message {
+        font-weight: 500;
+      }
+
+      .wind-ui-alert-description {
+        margin-top: @component-space-xs;
+        line-height: @line-height-base;
+      }
+    }
+  }
+}

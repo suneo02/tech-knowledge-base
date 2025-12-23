@@ -1,0 +1,100 @@
+.hierarchical-display-container {
+  width: 100%;
+
+  // 父级选项容器 - 采用和 CheckboxRadioDisplay 相同的样式
+  .hierarchical-display-parent-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+
+    .hierarchical-display-parent-item {
+      margin-right: 8px;
+      margin-bottom: 8px;
+      padding: 2px 8px;
+      border-radius: 2px;
+      border: 1px solid var(--basic-14);
+      cursor: default;
+      transition: all 0.2s;
+
+      &.hierarchical-display-parent-item-active {
+        background-color: var(--click-1);
+        color: var(--click-5);
+        border: 1px solid var(--click-1);
+      }
+    }
+  }
+
+  // 选中组的大卡片
+  .hierarchical-display-selected-card {
+    // background: #fafafa;
+    border: 1px dashed var(--basic-13);
+    border-radius: 4px;
+    padding: 16px;
+
+    .hierarchical-display-divider {
+      height: 1px;
+      background: var(--basic-15);
+      margin: 16px 0;
+    }
+
+    .hierarchical-display-group {
+      .hierarchical-display-group-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 12px;
+        line-height: 20px;
+      }
+
+      .hierarchical-display-group-children {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+
+        .hierarchical-display-child-tag {
+          display: inline-block;
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 12px;
+          line-height: 16px;
+          background-color: var(--click-1);
+          color: var(--click-5);
+          border: 1px solid var(--click-1);
+          font-weight: 400;
+        }
+      }
+    }
+  }
+
+  // 未匹配选项的样式保持不变
+  .hierarchical-display-unmatched {
+    margin-top: 16px;
+    padding: 12px;
+    background: #fff7e6;
+    border: 1px solid #ffd591;
+    border-radius: 8px;
+
+    .hierarchical-display-unmatched-title {
+      font-size: 12px;
+      color: #d46b08;
+      margin-bottom: 8px;
+    }
+
+    .hierarchical-display-unmatched-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      .hierarchical-display-unmatched-tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        line-height: 18px;
+        background: #fff2e8;
+        border: 1px solid #ffbb96;
+        color: #d4380d;
+      }
+    }
+  }
+}

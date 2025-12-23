@@ -1,0 +1,40 @@
+@icon-size: 18px;
+
+.sider-icon {
+  width: @icon-size;
+  height: @icon-size;
+}
+
+.history-list-header {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+  color: #6b7280;
+
+  margin-bottom: 16px;
+}
+
+.history-list {
+  &-container {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 0 12px;
+
+    .history-list-conversation {
+      padding: 0;
+    }
+
+    :global {
+      .ant-conversations-group-title {
+        padding: 0;
+      }
+      .ant-conversations {
+        .ant-conversations-item {
+          padding-inline-start: 24px;
+        }
+      }
+    }
+  }
+}
