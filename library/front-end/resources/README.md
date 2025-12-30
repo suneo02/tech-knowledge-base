@@ -6,11 +6,7 @@
 
 # Comprehensive knowledge website
 
-[Vue3](https://vue3js.cn/)
-
 [web.dev](https://web.dev/)
-
-[W3Schools.com](https://www.w3schools.com/howto/default.asp)
 
 # Front End Team
 
@@ -22,11 +18,9 @@
 
 [如何在面试中介绍自己的项目经验 - hsm_computer - 博客园](https://www.cnblogs.com/JavaArchitect/p/7586949.html)
 
-[juejin.cn](https://juejin.cn/post/6844904151369908232)
-
 [juejin.cn](https://juejin.cn/post/6844904040342487048)
 
-[来吧！一文写清前端面试难点及考点_面试_前端依依_InfoQ写作社区](https://xie.infoq.cn/article/df98a0e2b9fd9493cc45b9277)
+[来吧！一文写清前端面试难点及考点*面试*前端依依\_InfoQ 写作社区](https://xie.infoq.cn/article/df98a0e2b9fd9493cc45b9277)
 
 [juejin.cn](https://juejin.cn/post/6844904094281236487)
 
@@ -52,13 +46,13 @@
 
 # Carrier develop
 
-[找到适合自己的前端发展方向 «  张鑫旭-鑫空间-鑫生活](https://www.zhangxinxu.com/wordpress/2016/08/find-own-frontend-direction/)
+[找到适合自己的前端发展方向 « 张鑫旭-鑫空间-鑫生活](https://www.zhangxinxu.com/wordpress/2016/08/find-own-frontend-direction/)
 
 [前端人职场发展的 6 个方向](https://www.bilibili.com/read/cv9268562/)
 
 [总结八年跨端开发经验，浅谈跨端的历史和未来方向 | BEEZEN](https://dongbizhen.com/posts/25665/#跨端技术的历史演进)
 
-[前端的 10 大顶级开源项目！1534K Star！最值得前端学习！-CSDN博客](https://blog.csdn.net/ch834301/article/details/115878230)
+[前端的 10 大顶级开源项目！1534K Star！最值得前端学习！-CSDN 博客](https://blog.csdn.net/ch834301/article/details/115878230)
 
 [可以学习源码的优质前端开源项目分享](https://i-fanr.com/2023/05/22/open-source/)
 
@@ -88,9 +82,9 @@
 
 # 函数式编程
 
-[不要再尝试函数式编程了_AI_Ilya Suzdalnitski_InfoQ精选文章](https://www.infoq.cn/article/b6gkx1crp2umu2*jipqb)
+[不要再尝试函数式编程了\_AI_Ilya Suzdalnitski_InfoQ 精选文章](https://www.infoq.cn/article/b6gkx1crp2umu2*jipqb)
 
-[函数式语言的缺陷是什么 • Worktile社区](https://worktile.com/kb/p/39231)
+[函数式语言的缺陷是什么 • Worktile 社区](https://worktile.com/kb/p/39231)
 
 [为什么这两年函数式编程又火起来了？ - 知乎](https://www.zhihu.com/question/30190384)
 
