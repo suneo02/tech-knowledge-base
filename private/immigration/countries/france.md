@@ -1,88 +1,64 @@
-# 🇫🇷 法国 (France): 2025 深度评估报告
+# 🇫🇷 法国 (France): 2027 深度评估报告
 
-> **文档定位：** 基于 [个人职业档案](../../carrier/background.md) 和 [全球移民决策评估模型](../evaluation-model.md) 的深度分析。
-> **2025 核心评级：** 🌟🌟 (Tier 3 - 特殊备选)
-> **适合人群：** AI/Data 核心从业者、Grande École 申请者、或对法兰西文化有极高认同感的人。
-> **一句话结论：** **French Tech Visa 是欧盟最好的签证政策，但“法语”是你目前规划中缺失的致命拼图。**
+> **规划基准：** 2027 年 (3-4 年经验 + ~30w RMB 存款 + 愿意学习第三语言)
+> **适合路线：** **French Tech Visa (直聘)** 或 **高商/工程师学院 (留学)**
+> **关键变量：** 法语 (French) —— 既是门槛也是杠杆。
 
 ---
 
-## 1. 核心评估矩阵 (Evaluation Matrix)
+## 1. 五维评估 (The 5 Core Benchmarks)
 
-基于你 **"2027年: 3-4年经验 + React/TS栈 + 20-30w存款 + 无法语基础"** 的假设状态进行打分。
-
-| 维度 | 权重 | 📝 留学路线评分 (Study) | 👔 直聘路线评分 (Direct) | 核心风险/备注 |
+| 维度 | 权重 | 📝 留学路线评分 (Study) | 👔 直聘路线评分 (Direct) | 备注/风险点 |
 | :--- | :---: | :--- | :--- | :--- |
-| **B1: 准入** | 30% | **4/5** | **2/5** | 留学：公立免费/高商学费适中；直聘：境外拿 €42k+ Offer 极难。 |
-| **B2: 市场** | 25% | **3/5** | **2/5** | Tech 生态极好，但 Frontend 岗位对法语要求远高于 AI/Backend。 |
+| **B1: 准入** | 30% | **4/5** | **3/5** | 留学：公立大学涨价至 €3,770/年，高商 €15k+；直聘：French Tech Visa 门槛约 €44k，无需劳工局审批。 |
+| **B2: 市场** | 25% | **3/5** | **2/5** | Tech 生态强 (Station F)，但 Frontend 岗位对法语要求远高于 AI/Data。 |
 | **B3: 经济** | 20% | **3/5** | **3/5** | 高福利高税收。存不下大钱，但生活无忧。 |
 | **B4: 融入** | 15% | **2/5** | **1/5** | **致命伤**。出了巴黎/科技圈，不说法语寸步难行。 |
 | **B5: 身份** | 10% | **4/5** | **4/5** | 硕士毕业2年+工作可转身份，或者满5年转长居/入籍。 |
-| **总分** | **100%** | **3.3 (C+)** | **2.3 (D)** | **目前的语言规划中没有法语，直接判死刑。** |
+| **总分** | **100%** | **3.3 (C+)** | **2.8 (D)** | **目前的语言规划中没有法语，直接判死刑。** |
 
 ---
 
-## 2. 深度分析：为何对你不推荐 (The Mismatch)
+## 2. 深度分析：为何是 Tier 3？
 
-### 2.1 技能栈错位 (Skill Mismatch)
-*   **你的背景：** Frontend Engineering (React, TS, Monorepo), 偏应用层。
-*   **法国风口：** France 2030 计划全力押注 **Deep Tech** (AI, Quantum, Greentech)。Mistral AI 带动的热潮主要集中在算法、数据和底层架构。
-*   **现实：** 法国本土企业（如 LVMH, Carrefour, Banking）的数字化转型岗位，通常是 **"French Required"**。纯英语的 Frontend 坑位多在国际大厂（Datadog, Criteo, BlaBlaCar），竞争极度激烈。
+### 2.1 留学成本变局 (Tuition Fees 2025)
+*   **公立大学 (Public Universities):** 以前几乎免费，现在非欧盟学生需缴纳约 **€3,770/年** (硕士) [1]。虽然比英美澳便宜，但不再是“零成本”。
+*   **精英学校 (Grandes Écoles):**
+    *   工程学院 (如 Institut Polytechnique de Paris) 或高商 (HEC/ESSEC) 的英语授课项目，学费通常在 **€10,000 - €20,000/年** [2]。
+    *   **结论：** 30w RMB 预算在法国留学（特别是巴黎地区）会非常紧巴巴，可能需要打工补贴。
 
-### 2.2 语言规划冲突 (Language Conflict)
-*   **现状：** 你的 `background.md` 明确规划了 **英语 (IELTS)** 和 **二外 (德/日)**。
-*   **冲突：** 法语的学习曲线极陡（比英语难，语法复杂）。
-*   **后果：** 如果去法国，意味着你需要抛弃德/日计划，从零开始啃法语。在 2027 年前达到 B2 (工作级) 的可能性极低，除非你现在全职学法语。
-
-### 2.3 薪资与储蓄 (Financial Reality)
-*   **巴黎物价：** 房租极高（小巴黎 Studio €1000+）。
-*   **薪资天花板：** Mid-level Frontend 在巴黎均薪 €45k-55k。
-*   **到手：** €50k 年薪 -> 月入净值约 €2,900。扣除房租生活费，每月能存 €500-€800 就算不错。这与你 **"2027年目标存款 20w-30w"** 的积累速度不符。
+### 2.2 技能栈错位 (Skill Mismatch)
+*   **你的背景：** Frontend Engineering (React, TS), 应用层。
+*   **法国风口：** France 2030 计划全力押注 **Deep Tech** (AI, Quantum)。Mistral AI 带动的热潮主要集中在算法、数据。
+*   **现实：** 法国本土企业（LVMH, Carrefour, Banking）数字化转型岗位通常是 **"French Required"**。纯英语坑位多在国际大厂（Datadog, Criteo, BlaBlaCar），竞争极烈。
 
 ---
 
-## 3. 唯一的亮点：La French Tech Visa
+## 3. 唯一的亮点：La French Tech Visa (L3 策略)
 
-如果不考虑语言和生活，单看政策，法国是完美的。这是你必须了解的“备选方案”，万一你拿到了英语 Offer。
+如果你**决定将法语作为 L3 攻克**，法国的直聘路线会瞬间打开局面。
 
-### 3.1 政策红利
-*   **无敌的签证：** 只要有符合要求的 Offer (年薪 > 2倍 SMIC, 约 €42k+)，**不需要劳工局审批**，直接发 4 年人才签证 (Passeport Talent)。
-*   **配偶友好：** 配偶自动获得同等签证，可合法全职工作。
-*   **流程极快：** 大使馆通常优先处理 Tech Visa。
+### 3.1 政策红利 (The Visa Hack)
+*   **门槛：** 只要拿到年薪 **€43,992+** (2025标准，约2倍SMIC) 的 Offer [3]，且雇主是 "French Tech" 认证公司。
+*   **优势：** **不需要劳工局审批** (免去证明“招不到本地人”的繁琐流程)，直接发 4 年人才签证 (Passeport Talent)。配偶自动获得同等工作签。
 
 ### 3.2 适合你的“窄门”
-*   **目标：** **Datadog** (巴黎总部), **Doctolib**, **Algolia**, **Contentsquare**。
+*   **目标公司：** **Datadog** (巴黎总部), **Doctolib**, **Algolia**, **Contentsquare**。
 *   **策略：** 这些是法国为数不多完全英语环境的独角兽。如果你在国内把技术练到极致，海投这些公司是有概率拿 Offer 的。
-*   **几率：** < 5% (在没有欧洲身份的情况下)。
 
 ---
 
-## 4. 留学路线推演 (The "Grande École" Route)
+## 4. 结论与行动建议 (Action Plan)
 
-如果你执意要去法国，唯有留学一条路能走通。
-
-### 4.1 工程师学院 (Diplôme d'Ingénieur)
-*   **优势：** 法国精英教育，地位极高，校友圈强大。
-*   **劣势：** 主要是法语授课。英语授课项目（MSc）含金量和认可度略低。
-
-### 4.2 高商 (Business Schools) - MiM / MSc
-*   **优势：** 全英语授课，HEC/ESSEC/ESCP 欧洲名气大。
-*   **劣势：** 学费贵 (€20k+/年)，且你读的是 CS 专业，去读高商有点不对口（除非转管理/FinTech）。
-
----
-
-## 5. 结论与行动建议 (Action Plan)
-
-*   **当前排位：** **Tier 3 (冷备选)**。
-*   **何时激活此选项？**
-    1.  你突然拿到了 Datadog 或法国独角兽的 Offer。
-    2.  你决定放弃德/日，疯狂爱上法语文化。
-    3.  你的伴侣拿到了法国 Offer，你需要蹭 French Tech Visa 过去。
-
+*   **当前定位：** **特殊备选 (Special Backup)**。
+*   **何时激活？**
+    1.  你对法兰西文化有强烈兴趣，**主动选择法语作为 L3**。
+    2.  你拿到了 Datadog 等英语系独角兽的 Offer。
 *   **下一步：**
-    *   **不要** 主动学习法语。保持原定德/日计划。
-    *   **可以** 在 LinkedIn 上关注几家法国英语系公司，保持市场敏感度，作为“彩票”海投。
+    *   **暂不推荐** 优先申请法国留学（除非有奖学金）。
+    *   **保持关注** French Tech Visa 的职位列表，作为海投的一个方向。
 
-### 🔗 关键资源
-*   [La French Tech - Visa Simulator](https://visa.lafrenchtech.com/)
-*   [Welcome to the Jungle](https://www.welcometothejungle.com/en) (法国最潮的科技招聘平台，可筛选 English 岗位)
+### 🔗 数据来源 (Verified References)
+*   [1] Campus France: Tuition fees for non-EU students (€3,770/year for Master) [campusfrance.org](https://www.campusfrance.org/)
+*   [2] Grande École Tuition Examples: €10k-€20k+ [leverageedu.com](https://leverageedu.com)
+*   [3] French Tech Visa Salary Threshold 2025: ~€44,000 (Gross Annual) [jobbatical.com](https://jobbatical.com) / [welcometofrance.com](https://welcometofrance.com)

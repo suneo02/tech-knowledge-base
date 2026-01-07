@@ -9,14 +9,15 @@ This directory is dedicated to the systematic learning of foreign languages, ali
 ## 📚 Active Learning Tracks
 
 ### 🇬🇧 English (Strategic Priority)
-*   **Goal:** Professional Fluency (IELTS 8777 target for Canada/Australia).
+*   **Goal:** Professional Fluency (IELTS 7.0+ for global mobility).
 *   **Status:** **Active** (Daily Focus)
 *   [👉 View Detailed Study Plan](./english/study-plan.md)
 
-### 🇫🇷 French (Hobby/Potential)
-*   **Goal:** Basic conversational skills (A2) for potential European mobility.
-*   **Status:** **Planning/Hobby**
-*   [👉 View Detailed Study Plan](./french/study-plan.md)
+### 🌍 Third Language (Target-Dependent)
+*   **Goal:** Conversational/Work Fluency (A2/B1 level) in the language of the chosen migration destination.
+*   **Status:** **Flexible** (Ready to initiate once target country is locked)
+*   **Examples:** French, German, Japanese, etc.
+*   [👉 View Example Study Plan (French)](./french/study-plan.md)
 
 ---
 
