@@ -4,3 +4,4 @@
 
 - 背景与个人基本情况（静态资料：基本情况/定位/评估）：参见 [background.md](./background.md)
 - 职业发展规划（动态规划：目标/能力建设/海外策略/行动）：参见 [plan.md](./plan.md)
+- 2026 Q1 跳槽行动计划（2026-01 ~ 2026-03）：参见 [job-switch-plan-2026-q1.md](./job-switch-plan-2026-q1.md)
