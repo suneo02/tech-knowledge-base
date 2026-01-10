@@ -3,7 +3,7 @@ import intlU from 'react-intl-universal'
 export * from './complexHtml'
 export * from './translateService'
 
-import { getLocale as getLocaleUtil, imlCn } from 'gel-util/intl'
+import { getLocale as getLocaleUtil, i18n } from 'gel-util/intl'
 
 // Update the options assignment
 const defaultOptions = {
@@ -28,7 +28,7 @@ function intl(id: string | number, params: string | undefined = ''): string {
   if (!id && params && isDev) {
     window.noIntls = window.noIntls || []
     if (!window?.noIntls?.includes(params)) {
-      console.log(`词条 intl('${id}', '${params}') 不存在,收集无词条id的词条 window.noIntls;`)
+      console.log(`词条 intl('478648', '${params}') 不存在,收集无词条id的词条 window.noIntls;`)
       window.noIntls.push(params)
     }
   }
@@ -42,7 +42,7 @@ function intl(id: string | number, params: string | undefined = ''): string {
     window.emptyIntls = window.emptyIntls || []
     window.emptyIntlsIds = window.emptyIntlsIds || [] // 只存放id
     if (!window?.emptyIntls?.find((i) => Object.keys(i)[0] === id)) {
-      console.log(`词条 intl('${id}','${params}') 不在文件中,空词条合集 window.emptyIntls +1; window.emptyIntlsIds +1`)
+      console.log(`词条 intl('478648','${params}') 不在文件中,空词条合集 window.emptyIntls +1; window.emptyIntlsIds +1`)
       window.emptyIntls.push({
         [id]: params,
       })
@@ -51,10 +51,11 @@ function intl(id: string | number, params: string | undefined = ''): string {
 
     window.emptyIntlsObj = window.emptyIntlsObj || {}
     window.emptyIntlsObj[id] = params
-    for (const [key, value] of Object.entries(imlCn)) {
+    const bundle = i18n.getResourceBundle(getLocaleUtil(), 'common') || {}
+    for (const [key, value] of Object.entries(bundle)) {
       if (value === params) {
         console.log(
-          `词条 intl('${id}', '${params}') 不在文件中,但词条中有改中文，实际词条为intl('${key}', '${params}')`
+          `词条 intl('478648', '${params}') 不在文件中,但词条中有改中文，实际词条为intl('478648', '${params}')`
         )
       }
     }

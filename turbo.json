@@ -6,6 +6,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "build/**"]
     },
+    "build:dev": {
+      "dependsOn": ["^build:dev"],
+      "outputs": ["dist/**"]
+    },
     "build:staging": {
       "dependsOn": ["^build:staging"],
       "outputs": ["dist/**", "build/**"],
@@ -21,6 +25,7 @@
       ]
     },
     "lint": {
+       "dependsOn": ["^build", "^lint"],
       "outputs": []
     },
     "test": {
@@ -29,6 +34,11 @@
     },
     "dev": {
       "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
+    "dev:debug": {
+      "dependsOn": ["^build:dev"],
       "cache": false,
       "persistent": true
     },

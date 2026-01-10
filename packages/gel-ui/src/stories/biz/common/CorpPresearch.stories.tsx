@@ -5,6 +5,7 @@ import { TRequestToWFC } from 'gel-api'
 import { useState } from 'react'
 
 type CorpPreSearch = TRequestToWFC<'search/company/getGlobalCompanyPreSearch'>
+
 // 模拟 API 请求
 const mockRequestAction = async ({ queryText }: { queryText: string }): ReturnType<CorpPreSearch> => {
   // 模拟网络延迟

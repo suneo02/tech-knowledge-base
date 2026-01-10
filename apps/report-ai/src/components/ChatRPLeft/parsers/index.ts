@@ -1,1 +1,0 @@
-export { createRPDetailMessageParser } from './detailMessageParser';

@@ -5,6 +5,7 @@ import {
   createAgentAIMsgStream,
   createAgentMsgAIDataRetrieval,
   createAgentMsgAIInitBySendInput,
+  createAgentMsgAIProgress,
   createAgentMsgAISubQuestion,
   createChatRunContext,
   CreateHandleError,
@@ -48,6 +49,14 @@ export const createRPOutlineXAgentReq = (
       context.eventBus.on('question:received', ({ questions, input }) => {
         onAgentUpdate({
           ...createAgentMsgAISubQuestion(input, questions),
+          status: 'pending',
+        });
+      });
+
+      // 内部处理 progress:received 事件
+      context.eventBus.on('progress:received', ({ progress, questions, input }) => {
+        onAgentUpdate({
+          ...createAgentMsgAIProgress(input, progress, questions),
           status: 'pending',
         });
       });

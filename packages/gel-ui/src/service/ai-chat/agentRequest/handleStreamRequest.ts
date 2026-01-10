@@ -1,7 +1,7 @@
 import { isAbortError } from '@/constants/error'
 import { createAIResponseStream, XRequestClass } from '@/service'
 import { createHandleError, parseStreamThunk } from '@/service/agentRequest/helper'
-import { AgentMsgDepre, AgentMsgUserShare } from '@/types'
+import { AgentMsgOverall, AgentMsgUserOverall } from '@/types'
 import { AxiosInstance } from 'axios'
 import {
   BuryAction,
@@ -21,14 +21,14 @@ const STREAM_TIMEOUT = 10000
 
 export type HandleStreamRequestOptions = {
   create: XRequestClass['create']
-  message: AgentMsgUserShare
+  message: AgentMsgUserOverall
   result: ChatSenderRes | undefined
   lines: { content: string; reason: string }
   entities: ChatEntityRecognize[] | undefined
   abortStreamControllerRef: React.MutableRefObject<AbortController | null>
-  onUpdate: (response: AgentMsgDepre) => void
+  onUpdate: (response: AgentMsgOverall) => void
   // 流式输出成功回调，即 DONE
-  onSuccess: (response: AgentMsgDepre, entities: ChatEntityRecognize[] | undefined) => void
+  onSuccess: (response: AgentMsgOverall, entities: ChatEntityRecognize[] | undefined) => void
   // 流式输出 agent 成功回调
   onComplete: () => void
   isFirstQuestionRef: React.MutableRefObject<boolean>

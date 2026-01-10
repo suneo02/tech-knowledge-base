@@ -5,7 +5,7 @@
  * 重构后使用简化的架构：RunContext + StreamDependencies
  */
 
-import { AgentMsgAIDepre } from '@/types'
+import { AgentMsgAIOverall } from '@/types'
 import { message as messageApi } from '@wind/wind-ui'
 import { ChatRunContext } from '../runContext'
 import { StreamDependencies } from './types'
@@ -14,7 +14,7 @@ import { StreamDependencies } from './types'
  * 流程1: 预处理阶段
  * 包含输入验证、状态初始化、加载状态设置
  */
-export async function processPreprocessing<AgentMsg extends AgentMsgAIDepre = AgentMsgAIDepre>(
+export async function processPreprocessing<AgentMsg extends AgentMsgAIOverall = AgentMsgAIOverall>(
   context: ChatRunContext,
   dependencies: StreamDependencies<AgentMsg>
 ): Promise<void> {

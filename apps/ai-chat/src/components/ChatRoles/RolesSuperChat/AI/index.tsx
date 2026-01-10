@@ -5,7 +5,6 @@ import { postPointBuried } from '@/utils/common/bury'
 import { AgentIdentifiers, ChatQuestionStatus, ChatThinkSignal } from 'gel-api'
 import { AICopyButton, AIDislikeButton, AILikeButton, AIRetryButton, SPAgentMsgAI } from 'gel-ui'
 import { FC } from 'react'
-import { SplTableCard } from '../SplTable'
 /**
  * AI消息底部组件
  */
@@ -25,7 +24,6 @@ export const AIFooterSuper: FC<{
   if (agentMessage.questionStatus && agentMessage.questionStatus !== ChatQuestionStatus.SUCCESS) {
     return (
       <>
-        <SplTableCard agentMessage={agentMessage} />
         <div style={{ display: 'flex', gap: '0' }}>
           <AIRetryButton
             content={content}
@@ -49,7 +47,6 @@ export const AIFooterSuper: FC<{
 
   return (
     <div style={{ width: '100%' }}>
-      <SplTableCard agentMessage={agentMessage} />
       <div style={{ display: 'flex' }}>
         <AICopyButton axiosEntWeb={entWebAxiosInstance} content={content} isBury />
         <AILikeButton axiosEntWeb={entWebAxiosInstance} content={content} question={agentMessage.rawSentence} isBury />

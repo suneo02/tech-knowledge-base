@@ -1,5 +1,6 @@
 import { BaiFenSites } from '@/handle/link'
-import { Breadcrumb, message, Modal, Popconfirm, Spin } from '@wind/wind-ui'
+import { hashParams } from '@/utils/links'
+import { Breadcrumb, Button, message, Modal, Popconfirm, Spin } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
 import { convertCdeFilter2Query } from 'cde'
 import React from 'react'
@@ -857,7 +858,7 @@ class FilterRes extends React.Component {
     const { filters, geoFilter } = this.props
     console.log(filters, geoFilter)
     if (!title) {
-      message.error(intl(237985, '订阅名称不能为空'))
+      message.error(intl(478575, '订阅名称不能为空'))
       return false
     }
     if (filters.length === 0 && geoFilter.length === 0) {
@@ -1783,44 +1784,60 @@ class FilterRes extends React.Component {
       showQuickJumper: true,
     }
 
+    const { getParamValue } = hashParams()
+    const fromParam = getParamValue('from')
+    const isRime = fromParam && fromParam.toLowerCase() === 'rime'
+
     return (
       <React.Fragment>
         <div className="breadcrumb-box">
-          <Breadcrumb data-uc-id="yaS4xH-zvW" data-uc-ct="breadcrumb">
-            <Breadcrumb.Item
-              style={{ cursor: 'pointer' }}
+          {isRime ? (
+            <Button
+              type="text"
               onClick={() => {
-                wftCommon.jumpJqueryPage('SearchHome.html')
+                this.props.history.goBack()
               }}
-              data-uc-id="7lp5WKdZf"
-              data-uc-ct="breadcrumb"
+              style={{ paddingLeft: 24, margin: '8px 0' }}
             >
-              {' '}
-              {intl('19475', '首页')}{' '}
-            </Breadcrumb.Item>
+              {intl('464221', '返回')}
+            </Button>
+          ) : (
+            <Breadcrumb data-uc-id="yaS4xH-zvW" data-uc-ct="breadcrumb">
+              <Breadcrumb.Item
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  wftCommon.jumpJqueryPage('SearchHome.html')
+                }}
+                data-uc-id="7lp5WKdZf"
+                data-uc-ct="breadcrumb"
+              >
+                {' '}
+                {intl('19475', '首页')}{' '}
+              </Breadcrumb.Item>
 
-            {location.pathname == '/filterRes' ? (
-              <React.Fragment>
-                <Breadcrumb.Item
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    this.props.history.push('/findCustomer?')
-                  }}
-                  data-uc-id="KbQYlUyKRE"
-                  data-uc-ct="breadcrumb"
-                >
+              {location.pathname == '/filterRes' ? (
+                <React.Fragment>
+                  <Breadcrumb.Item
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      this.props.history.push('/findCustomer?')
+                    }}
+                    data-uc-id="KbQYlUyKRE"
+                    data-uc-ct="breadcrumb"
+                  >
+                    {intl('259750', '企业数据浏览器')}
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item data-uc-id="FIBMi7POwN" data-uc-ct="breadcrumb">
+                    {window.en_access_config ? 'Results' : '结果列表'}
+                  </Breadcrumb.Item>
+                </React.Fragment>
+              ) : (
+                <Breadcrumb.Item data-uc-id="wxqaa-PMvN" data-uc-ct="breadcrumb">
                   {intl('259750', '企业数据浏览器')}
                 </Breadcrumb.Item>
-                <Breadcrumb.Item data-uc-id="FIBMi7POwN" data-uc-ct="breadcrumb">
-                  {window.en_access_config ? 'Results' : '结果列表'}
-                </Breadcrumb.Item>
-              </React.Fragment>
-            ) : (
-              <Breadcrumb.Item data-uc-id="wxqaa-PMvN" data-uc-ct="breadcrumb">
-                {intl('259750', '企业数据浏览器')}
-              </Breadcrumb.Item>
-            )}
-          </Breadcrumb>
+              )}
+            </Breadcrumb>
+          )}
         </div>
         <div
           className={filterVisible ? 'home modal-show' : 'home-filter-res'}
@@ -1850,7 +1867,7 @@ class FilterRes extends React.Component {
                           ? titleText
                           : subInfo && subInfo.subName
                             ? subInfo.subName
-                            : intl('140237', '未命名')}
+                            : intl('464241', '未命名')}
                       </span>
                       {!hideEditTitle && (
                         <MyIcon

@@ -1,4 +1,4 @@
-# 类型定义模块
+﻿# 类型定义模块
 
 提供完整的 TypeScript 类型系统，支撑强类型开发，确保代码的类型安全和开发体验。
 
@@ -84,8 +84,8 @@ types/
 
 ## 相关文档
 
-- [TypeScript 规范](../../../docs/rule/typescript-rule.md) - TypeScript 开发规范
-- [设计文档](../../../docs/rule/design-doc.md) - 通用设计文档规范
+- [TypeScript 规范](../../../docs/rule/code-typescript-style-rule.md) - TypeScript 开发规范
+- [设计文档](../../../docs/rule/doc-design-rule.md) - 通用设计文档规范
 
 ## 使用示例
 

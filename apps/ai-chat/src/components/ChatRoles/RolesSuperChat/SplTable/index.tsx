@@ -1,19 +1,21 @@
 import { createWFCSuperlistRequestFcs } from '@/api/handleFcs'
 import { CoinsIcon } from '@/assets/icon'
 import { SplTableModal } from '@/components/SplTable/components/SplTableModal'
-import { useSuperChatRoomContext } from '@/contexts/SuperChat'
-import { fetchPoints, useAppDispatch } from '@/store'
+import { fetchPoints, selectVipStatus, useAppDispatch, useAppSelector, VipStatusEnum } from '@/store'
 import { postPointBuried } from '@/utils/common/bury'
 import { FullscreenO } from '@wind/icons'
 import { Button, Card, Divider, message } from '@wind/wind-ui'
-import Table from '@wind/wind-ui-table'
+import Table, { ColumnProps } from '@wind/wind-ui-table'
 import { useRequest } from 'ahooks'
 import { SplTable } from 'gel-api'
-import { SPAgentMsg } from 'gel-ui'
 import { t } from 'gel-util/intl'
-import { FC, useMemo, useState } from 'react'
+import { FC, memo, useEffect, useMemo, useRef, useState } from 'react'
 import { InsertTableButton } from '../../../SplTable/components/InsertTableButton'
 import styles from './index.module.less'
+import type { HeaderItem, RowItem } from './components'
+import { buildColumns, buildDataSource, DEFAULT_COLUMN_WIDTH } from './components'
+import type { ISheetInfo } from '@/contexts/SuperChat/TableContext'
+import { useSuperChatRoomContext } from '@/contexts/SuperChat'
 
 const PREFIX = 'super-chat-ai-table'
 const STRINGS = {
@@ -21,19 +23,38 @@ const STRINGS = {
   // INSERT_TABLE_ERROR: t('464144', '插入失败'),
   NO_TABLE_SELECTED: t('464151', '无法确定要插入的表格，请先选择一个表格标签页'),
   SHOW_ROWS: (total: number) => t('464111', '展示10条数据，查看全量数据（共{{total}}条）请插入到表格', { total }),
+  INSERT_BUSY: t('', '您已有一个表格正在插入中，请稍候'),
 }
 
 const addDataToSheetFunc = createWFCSuperlistRequestFcs('superlist/excel/addDataToSheet')
 
 const SuperListTableCard: FC<{
   tableIndex: number
-  agentMessage: SPAgentMsg
   tableInfo: SplTable
-}> = ({ tableIndex, agentMessage, tableInfo }) => {
+  answer?: string
+  rawSentence?: string
+  rawSentenceID?: string
+  getActiveSheetId: () => string
+  getTableId: () => string
+  getChatId: () => string
+  addDataToCurrentSheet: (placement: 'bottom' | 'right') => (newSheetInfos: ISheetInfo[]) => void
+}> = ({
+  tableIndex,
+  tableInfo,
+  answer,
+  rawSentence,
+  rawSentenceID,
+  getActiveSheetId,
+  getTableId,
+  getChatId,
+  addDataToCurrentSheet,
+}) => {
+  console.log('🚀 ~ SuperListTableCard ~ tableIndex:', tableIndex)
+
   const [isModalOpen, setIsModalOpen] = useState(false)
   const dispatch = useAppDispatch()
   const [enableInsert, setEnableInsert] = useState(true)
-  const { tableId, chatId, addDataToCurrentSheet, activeSheetId } = useSuperChatRoomContext()
+  const { isInsertTableInProgress, setInsertTableInProgress } = useSuperChatRoomContext()
 
   const { run: addDataToSheet, loading } = useRequest(addDataToSheetFunc, {
     onSuccess: (data) => {
@@ -46,80 +67,62 @@ const SuperListTableCard: FC<{
     },
     onBefore: () => {
       setEnableInsert(false)
+      setInsertTableInProgress(true)
     },
     onFinally: () => {
       setEnableInsert(true)
+      setInsertTableInProgress(false)
     },
-    // onError: (e) => {
-    //   console.error(e)
-    //   message.error(STRINGS.INSERT_TABLE_ERROR)
-    // },
     manual: true,
   })
 
-  const columns = useMemo(() => {
-    if (!tableInfo.headers) return []
-    return tableInfo.headers
-      .filter((res) => res.isShow !== false)
-      .map((res) => ({
-        title: res.title,
-        dataIndex: res.columnId.toString(),
-        width: 150,
-        ellipsis: true,
-      }))
-  }, [tableInfo.headers])
+  const columns: ColumnProps<Record<string, unknown>>[] = useMemo(() => {
+    const headers = (tableInfo.headers || []) as HeaderItem[]
+    const rows = (tableInfo.rows || []) as RowItem[]
+    return buildColumns(headers, rows, { enableLinking: true, defaultWidth: DEFAULT_COLUMN_WIDTH })
+  }, [tableInfo.headers, tableInfo.rows])
 
   const dataSource = useMemo(() => {
-    if (!tableInfo?.rows) return []
-    return tableInfo.rows.map((row) => {
-      const item: Record<string, unknown> = {}
-      tableInfo.headers.forEach((header, index) => {
-        if (header.isShow === false) {
-          return // Skip hidden columns to prevent data misalignment
-        }
-
-        const dataIndex = header.columnId.toString()
-        const val = row[index]
-
-        if (typeof val === 'string' && (val.includes('Label') || val.includes('answer'))) {
-          try {
-            item[dataIndex] = JSON.parse(val).Label || JSON.parse(val).answer || '--'
-          } catch {
-            item[dataIndex] = val || '--'
-          }
-        } else {
-          item[dataIndex] = val || '--'
-        }
-      })
-      return item
-    })
+    const headers = (tableInfo.headers || []) as HeaderItem[]
+    const rows = (tableInfo.rows || []) as RowItem[]
+    return buildDataSource(headers, rows)
   }, [tableInfo.rows, tableInfo.headers])
 
   if (!tableInfo || !tableInfo.rows) return null
 
+  const vipStatus = useAppSelector(selectVipStatus)
+  const grade = useMemo(
+    () => (vipStatus === VipStatusEnum.SVIP ? 'svip' : vipStatus === VipStatusEnum.VIP ? 'vip' : 'free'),
+    [vipStatus]
+  )
   const onInsertTable = () => {
-    const rawSentence = agentMessage.rawSentence || ''
-    const rawSentenceID = agentMessage.rawSentenceID || ''
-
-    // @ts-expect-error
-    if (!agentMessage.splTable || !tableInfo) return
-    if (!activeSheetId) {
+    if (isInsertTableInProgress) {
+      message.warning(STRINGS.INSERT_BUSY)
+      return
+    }
+    if (!tableInfo) return
+    const currentActiveSheetId = getActiveSheetId()
+    if (!currentActiveSheetId) {
       message.error(STRINGS.NO_TABLE_SELECTED)
       return
     }
+    const headers = (tableInfo.headers || []) as HeaderItem[]
+    const names = headers.map((h) => h.title).join(',')
     postPointBuried('922604570288', {
       title: tableInfo.title,
+      name: names,
       credit: tableInfo.rows.length,
+      grade,
     })
     addDataToSheet({
-      tableId,
+      tableId: getTableId(),
       dataType: 'AI_CHAT_SPL_TABLE',
-      rawSentenceID,
-      rawSentence,
-      answers: agentMessage.content,
-      sheetId: Number(activeSheetId),
+      rawSentenceID: rawSentenceID || '',
+      rawSentence: rawSentence || '',
+      answers: answer || '',
+      sheetId: Number(currentActiveSheetId),
       sheetName: tableInfo.title,
-      chatId,
+      chatId: getChatId(),
       splHeaders: tableInfo.headers,
       splContent: tableInfo.rows.map((row) =>
         row.map((item) => {
@@ -202,39 +205,89 @@ const SuperListTableCard: FC<{
   )
 }
 
+const MemoSuperListTableCard = memo(SuperListTableCard)
+
 export const SplTableCard: FC<{
-  agentMessage: SPAgentMsg
-}> = ({ agentMessage }) => {
-  const getSplTableData = () => {
-    // @ts-expect-error
-    if (agentMessage?.splTable?.length) {
-      // @ts-expect-error
-      return agentMessage.splTable
-    }
-    const messageWithData = agentMessage as SPAgentMsg & {
-      data?: { result?: { splTable?: SplTable[] } }
-    }
-    if (messageWithData?.data?.result?.splTable?.length) {
-      return messageWithData.data.result.splTable
-    }
-    return null
-  }
-
-  const splTableData = getSplTableData()
-  const hasSplTables = splTableData && splTableData.length > 0
-
+  splTables: SplTable[]
+  answer?: string
+  rawSentence?: string
+  rawSentenceID?: string
+  getActiveSheetId: () => string
+  getTableId: () => string
+  getChatId: () => string
+  addDataToCurrentSheet: (placement: 'bottom' | 'right') => (newSheetInfos: ISheetInfo[]) => void
+}> = ({
+  splTables,
+  answer,
+  rawSentence,
+  rawSentenceID,
+  getActiveSheetId,
+  getTableId,
+  getChatId,
+  addDataToCurrentSheet,
+}) => {
+  const hasSplTables = splTables && splTables.length > 0
   if (!hasSplTables) return null
-
   return (
     <div style={{ width: '100%' }}>
-      {splTableData?.map((tableInfo, index) => (
-        <SuperListTableCard
+      {splTables.map((tableInfo, index) => (
+        <MemoSuperListTableCard
           key={`spl-table-${tableInfo.tableIndex || index}`}
           tableIndex={tableInfo.tableIndex || index}
-          agentMessage={agentMessage}
           tableInfo={tableInfo}
+          answer={answer}
+          rawSentence={rawSentence}
+          rawSentenceID={rawSentenceID}
+          getActiveSheetId={getActiveSheetId}
+          getTableId={getTableId}
+          getChatId={getChatId}
+          addDataToCurrentSheet={addDataToCurrentSheet}
         />
       ))}
     </div>
+  )
+}
+
+SuperListTableCard.displayName = 'SuperListTableCard'
+MemoSuperListTableCard.displayName = 'SuperListTableCard'
+SplTableCard.displayName = 'SplTableCard'
+
+export const SplTableRoleComp: FC<{ content: SplTable[] }> = ({ content }) => {
+  const { chatId, tableId, addDataToCurrentSheet, activeSheetId } = useSuperChatRoomContext()
+
+  const chatIdRef = useRef(chatId)
+  const tableIdRef = useRef(tableId)
+  const activeSheetIdRef = useRef(activeSheetId)
+  const addDataToCurrentSheetRef = useRef(addDataToCurrentSheet)
+
+  useEffect(() => {
+    chatIdRef.current = chatId
+  }, [chatId])
+
+  useEffect(() => {
+    tableIdRef.current = tableId
+  }, [tableId])
+
+  useEffect(() => {
+    activeSheetIdRef.current = activeSheetId
+  }, [activeSheetId])
+
+  useEffect(() => {
+    addDataToCurrentSheetRef.current = addDataToCurrentSheet
+  }, [addDataToCurrentSheet])
+
+  const getChatId = () => chatIdRef.current
+  const getTableId = () => tableIdRef.current
+  const getActiveSheetId = () => activeSheetIdRef.current
+  const addDataToCurrentSheetStable = (placement: 'bottom' | 'right') => addDataToCurrentSheetRef.current(placement)
+
+  return (
+    <SplTableCard
+      splTables={content}
+      getActiveSheetId={getActiveSheetId}
+      getTableId={getTableId}
+      getChatId={getChatId}
+      addDataToCurrentSheet={addDataToCurrentSheetStable}
+    />
   )
 }

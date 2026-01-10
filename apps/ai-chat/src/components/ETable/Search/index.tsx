@@ -34,6 +34,17 @@ const ETableSearch: React.FC<ETableSearchProps> = ({ tabKey, searchInstance }) =
   }, [tabVersions])
 
   useEffect(() => {
+    setSearchTerm('')
+    setSearchResult(DEFAULT_SEARCH_RESULT)
+    try {
+      searchInstance?.search('')
+      searchInstance?.clear?.()
+    } catch (error) {
+      console.error('ETableSearch clear searchInstance error:', error)
+    }
+  }, [tabKey, searchInstance])
+
+  useEffect(() => {
     handleSearch()
   }, [searchTerm])
 

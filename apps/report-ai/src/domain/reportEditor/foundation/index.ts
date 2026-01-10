@@ -5,7 +5,7 @@
  */
 
 // HTML 常量 & 选择器
-export { createSelector, RP_CSS_CLASSES, RP_DATA_ATTRIBUTES, RP_DATA_VALUES, RP_SELECTORS } from './constants';
+export { RP_CSS_CLASSES, RP_DATA_ATTRIBUTES, RP_DATA_VALUES, RP_SELECTORS } from './constants';
 
 // DOM 属性工具
 export { querySelector } from './domAttributes';

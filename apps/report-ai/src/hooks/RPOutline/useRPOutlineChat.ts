@@ -1,10 +1,9 @@
-import { createRPOutlineMessageParser } from '@/components/ChatRPOutline/parsers';
-import { isLastAgentMsgAI } from '@/domain/chat';
+import { parseRPOutlineMessage } from '@/components/ChatRPOutline/parsers';
 import { addConversationItem, useAppDispatch } from '@/store';
-import { RPOutlineAgentMsg, RPOutlineAgentMsgAI } from '@/types';
+import { RPOutlineAgentMsg } from '@/types';
 import { RPOutlineMsgParsed, RPOutlineSendInput } from '@/types/chat/RPOutline';
 import { useXChat } from '@ant-design/x';
-import { DefaultMessageInfo, XChatConfig } from '@ant-design/x/es/use-x-chat';
+import { DefaultMessageInfo } from '@ant-design/x/es/use-x-chat';
 import { useChatRoomContext } from 'ai-ui';
 import { createConfiguredXRequest } from 'gel-ui';
 import { useCallback, useMemo, useRef } from 'react';
@@ -81,53 +80,38 @@ export const useRPOutlineChat = (defaultMessages?: DefaultMessageInfo<RPOutlineA
    * 使用智能体初始化聊天功能
    * 简化了配置，基于统一处理器的优化架构
    */
-  const parserRef = useRef<NonNullable<XChatConfig<RPOutlineAgentMsg, RPOutlineMsgParsed>['parser']>>();
-
   const {
     onRequest,
     parsedMessages,
     setMessages,
-    messages: rawMessages,
+    messages: agentMessages,
   } = useXChat<RPOutlineAgentMsg, RPOutlineMsgParsed, { message: RPOutlineSendInput }, RPOutlineAgentMsg>({
     agent,
-    parser: (message) => {
-      if (!parserRef.current) return [];
-      return parserRef.current(message);
-    },
+    parser: parseRPOutlineMessage,
     defaultMessages,
   });
 
   const sendMessage = useCallback(
     (messageInput: RPOutlineSendInput) => {
       // 创建用户消息对象，添加到消息列表中
+      // 自动添加 clientType 和默认值
       onRequest({
         role: 'user',
         think: 0,
         status: 'finish',
         chatId,
+        clientType: 'aireport',
         ...messageInput,
       });
     },
     [onRequest, chatId]
   );
 
-  // 使用工厂创建消息解析器，并传入 sendMessage 和 isLastMessage 判断函数
-  const outlineParser = useMemo(() => {
-    const getIsLastMessage = (agentMessage: RPOutlineAgentMsgAI): boolean => {
-      const allMessages = rawMessages.map((msg) => msg.message);
-      return isLastAgentMsgAI(agentMessage, allMessages);
-    };
-
-    return createRPOutlineMessageParser(sendMessage, getIsLastMessage);
-  }, [sendMessage, rawMessages]);
-
-  parserRef.current = outlineParser;
-
   // 返回聊天状态和交互功能
   return {
     content, // 当前输入内容
     loadingText, // 当前加载状态文本
-    rawMessages, // 原始消息列表
+    agentMessages, // 原始消息列表
     parsedMessages, // 准备显示的已处理消息
     handleContentChange: setContent, // 更新输入内容
     sendMessage, // 发送新消息功能

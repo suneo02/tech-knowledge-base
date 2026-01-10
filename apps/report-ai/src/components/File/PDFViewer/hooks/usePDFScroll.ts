@@ -47,15 +47,22 @@ export function usePDFScroll({ onPageChange }: UsePDFScrollOptions) {
     const container = scrollRef.current;
     if (!container) return;
 
-    const pageDom = container.querySelector(`[data-page="${page}"]`) as HTMLElement;
+    const performScroll = () => {
+      const pageDom = container.querySelector(`[data-page="${page}"]`) as HTMLElement;
 
-    if (pageDom) {
-      const scrollTop = pageDom.offsetTop - 12;
-      container.scrollTo({
-        top: scrollTop,
-        behavior: 'smooth',
-      });
-    }
+      if (pageDom) {
+        const scrollTop = pageDom.offsetTop - 12;
+        container.scrollTo({
+          top: scrollTop,
+          behavior: 'smooth',
+        });
+      }
+    };
+
+    // 使用 requestAnimationFrame 确保 DOM 已渲染
+    requestAnimationFrame(() => {
+      requestAnimationFrame(performScroll);
+    });
   }, []);
 
   /**

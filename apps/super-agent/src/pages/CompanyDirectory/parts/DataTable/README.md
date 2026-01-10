@@ -11,8 +11,8 @@ CompanyDirectory 的 DataTable 子模块提供一个可配置、可扩展的表�
 
 ### 目录与职责（重构后）
 
-- `index.tsx`：表格容器组件 DataTable。负责主题适配、纵向滚动与分页管理、列加工注入、`TableContext` 提供。
-- `buildColumns.tsx`：列加工器。将原始列描述转化为可展示列，统一处理展开/收起、Markdown/数字/公司类型渲染、索引列注入、单元格抽屉等。
+- `index.tsx`：表格容器组件 DataTable。负责主题适配、纵向滚动与分页管理、列加工注入、`TableContext` 提供，并用 `CellRegistryProvider` 注册统一渲染器与增强。
+- `buildColumns.tsx`：列加工器。将原始列描述转化为可展示列，统一处理展开/收起、Markdown/数字/公司类型渲染、索引列注入，并以 `CellView + addons` 作为默认渲染管线。
 - `handleCell/`：单元格实现分层目录（每个组件独立文件夹，含 `index.tsx` 与 `index.module.less`）。
   - `DrawerCell/`：通用“抽屉型”单元格，支持生成态/全文/抽屉聚合/行间导航。
   - `MarkdownCell/`：Markdown 专用单元格，可独立使用。
@@ -26,11 +26,24 @@ CompanyDirectory 的 DataTable 子模块提供一个可配置、可扩展的表�
 1. 页面传入 `columns` 与 `dataSource` 给 `DataTable`。
 2. `DataTable` 调用 `buildColumns` 统一加工列；并通过 `TableContext` 向单元格提供原始 `columns` 和 `dataSource`。
 3. 经加工后的列根据 `type` 或数据类型选择具体渲染：
-   - `type: 'company'` → 使用 `CompanyCell`
-   - `type: 'md'` 或 `type: 'drawer'` → 使用 `DrawerCell`
-   - 数字类（`ColumnDataTypeEnum.FLOAT/INTEGER/PERCENT`）→ 右对齐 + 统一格式化
-   - 其他类型 → 依据 `expandAll` 与 `shouldExpandCell` 应用省略或全文展示
-4. `DrawerCell` 通过 `TableContext` 获取全量列与数据源，在抽屉中聚合展示当前行所有列，并支持上一条/下一条跳转。
+   - `type: 'company'` → 走统一渲染管线：`CellView`（公司渲染器）+ `drawerAddon`
+   - `type: 'md'` → `CellView`（Markdown 渲染器），在正常态时附加 `drawerAddon`
+   - `type: 'drawer'` → 正常态走 `CellView + drawerAddon`；生成态回退 `DrawerCell`
+   - 数字类（`ColumnDataTypeEnum.FLOAT/INTEGER/PERCENT`）→ `CellView` 数字渲染器（右对齐 + 统一格式化）
+   - 其他类型 → 依据 `expandAll` 与 `shouldExpandCell` 应用省略或全文展示（均通过 `CellView`）
+4. 抽屉交互在正常态由 `drawerAddon` 承担；生成态或禁用展开时回退到 `DrawerCell` 保留原按钮/文案逻辑。抽屉体内通过 `TableContext` 聚合当前行所有列，并支持上一条/下一条跳转。
+
+### 统一渲染管线（CellRegistry）
+
+- Provider：`CellRegistryProvider` 在 `DataTable/index.tsx` 内部包裹，统一注入默认渲染器与增强（addons）。
+- 渲染器（renderers）：
+  - Markdown：将字符串渲染为 HTML（基于 `@/utils/md`）。
+  - 数字：按 `ColumnDataTypeEnum` 渲染（千分位/小数位/百分号）。
+  - 默认：直接输出 ReactNode。
+  - 公司（注册于 `DataTable/index.tsx`）：使用 `CompanyCell` 渲染名称与跳转。
+- 增强器（addons）：
+  - `drawerAddon`：为正常态的单元格提供抽屉入口、上一条/下一条导航、抽屉内跨列聚合展示。
+  - 可扩展更多增强器（如生成态、标签、操作按钮等），通过 `initialAddons` 注册。
 
 ### 关键类型（简要）
 
@@ -72,26 +85,19 @@ export interface BasicColumn {
 #### 列加工器（`buildColumns.tsx`）
 
 - 能力：
-  - 统一本地化文案管理（`STRINGS` + `t`）
-  - 类型识别：
-    - `type: 'company'` → `CompanyCell`
-    - `type: 'md'` → `DrawerCell`（MD 预览 + 抽屉）
-    - `type: 'drawer'` → `DrawerCell`
-    - 数字类（`FLOAT/INTEGER/PERCENT`）→ 右对齐 + 统一格式化
-  - 展开/收起策略：
-    - 收起：`ellipsis: true` + 统一列宽兜底 `DEFAULT_ELLIPSIS_WIDTH`
-    - 展开：多行展示；Markdown/抽屉列展示全文+抽屉按钮
-    - 支持 `denyExpandColumns` 与 `shouldExpandCell` 细粒度控制
-  - 索引列自动注入（可关闭或自定义 `getRowNumber`）
+  - 统一本地化文案管理（`STRINGS` + `t`）。
+  - 默认渲染走 `CellView`，在正常态为 `company/md/drawer` 类型附加 `drawerAddon`。
+  - 生成态或禁用展开时，回退到 `DrawerCell`，保留按钮与文案（待生成/生成中）。
+  - 数字类统一通过 `CellView` 的数字渲染器格式化，并保持右对齐。
+  - 收起：`ellipsis: true` + `DEFAULT_ELLIPSIS_WIDTH`；展开：多行展示（经 `CellView` 与模式控制）。
+  - 支持 `denyExpandColumns` 与 `shouldExpandCell` 细粒度控制。
+  - 索引列自动注入（可关闭或自定义 `getRowNumber`）。
 
 #### 抽屉单元格（`handleCell/DrawerCell`）
 
-- 行为：
-  - `columnType === 'md'` → Markdown 渲染为 HTML（依赖 `@/utils/md` 渲染器）
-  - 数字类 → `formatNumberByType`（千分位/小数位/百分号）
-  - 展开态：正文 + 右上角抽屉按钮；收起态：单行省略 + 右侧按钮，MD 列支持气泡预览
-  - 生成状态机：0=待生成，1=生成中，2=正常展示；优先读取 `record[{dataIndex}Status]`
-  - 抽屉内聚合展示“当前行的所有列”，并提供上一条/下一条导航
+- 角色：在生成态（0/1）或禁用展开时作为回退实现，保留“生成/生成中”按钮与文案逻辑。
+- 正常态的抽屉交互迁移到 `drawerAddon`（经 `CellView` 附加），统一抽屉入口与导航行为。
+- 抽屉内聚合展示“当前行的所有列”，并提供上一条/下一条导航（通过 `TableContext`）。
 
 #### Markdown 单元格（`handleCell/MarkdownCell`）
 
@@ -128,11 +134,12 @@ export interface BasicColumn {
   - 展开：多行全文
 - `type: 'md'`
   - 收起：单行省略 + 气泡预览
-  - 展开：全文 + 右上角抽屉按钮
+  - 展开：全文；正常态附加 `drawerAddon` 提供抽屉入口
 - `type: 'drawer'`
-  - 使用 `DrawerCell` 的抽屉行为
+  - 正常态：`CellView + drawerAddon`
+  - 生成/禁用：回退 `DrawerCell`
 - `type: 'company'`
-  - 使用 `CompanyCell`
+  - 正常态：公司渲染器 + `drawerAddon`
 - 数字类（`INTEGER/FLOAT/PERCENT`）
   - 右对齐 + 统一格式化
 
@@ -202,5 +209,6 @@ export const Example: React.FC = () => {
 ### 注意事项
 
 - 纵向滚动开关有 500ms 防抖，尺寸临界时滚动条出现/消失可能略有延迟。
-- 若列提供了自定义 `render`，在多数场景下仍会被 `buildColumns` 包裹，注意输出是否符合展开/省略预期。
+- 若列提供了自定义 `render`，在多数场景下会被 `CellView` 包装后参与统一管线，请确保输出的 ReactNode 能在 `inline/expanded` 两种模式下正确展示。
 - 抽屉中的跨列聚合展示基于 `TableContext` 的原始 `columns` 与 `dataSource`，若页面做了二次裁剪，请保证传入一致。
+- 若需要扩展更多交互（如标签、操作按钮），建议以 addon 的形式注册并在 `buildColumns` 中附加，以保持一致性。

@@ -7,13 +7,14 @@
  * - 提供生成状态相关的纯函数工具
  */
 
-import { MessageParsedReportContent } from '@/types';
+import { RPContentAgentMsg } from '@/types';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
+import { getLatestAgentMessageByChapterId } from './messageFilter';
 
 /**
  * 检查指定报告章节是否生成完成
  *
- * @param messages 消息列表
+ * @param messages Agent 消息列表
  * @param chapterId 章节ID
  * @returns 是否生成完成
  *
@@ -23,13 +24,12 @@ import { MessageInfo } from '@ant-design/x/es/use-x-chat';
  * ```
  */
 export const isReportChapterGenerationFinished = (
-  messages: MessageInfo<MessageParsedReportContent>[],
+  messages: MessageInfo<RPContentAgentMsg>[],
   chapterId: string
 ): boolean => {
-  return messages.some(
-    (msg) =>
-      msg.message.role === 'aiReportContent' && msg.message.chapterId === chapterId && msg.message.status === 'finish'
-  );
+  // 使用 domain 层的工具函数获取最新消息
+  const latestMessage = getLatestAgentMessageByChapterId(messages, chapterId);
+  return latestMessage?.message.status === 'finish';
 };
 
 /**
@@ -49,17 +49,16 @@ export const isReportChapterGenerationFinished = (
  * @see apps/report-ai/docs/specs/text-ai-rewrite-implementation/spec-design-v1.md
  */
 export const isTextRewriteCompleted = (
-  messages: MessageInfo<MessageParsedReportContent>[],
+  messages: MessageInfo<RPContentAgentMsg>[],
   correlationId?: string | null
 ): boolean => {
   if (!correlationId) {
     return false;
   }
-
   // 查找完成状态的 aiReportContent 消息
   // TODO: 需要在消息中添加 correlationId 字段来精确匹配
   // 目前简化实现：假设最近的 aiReportContent 完成消息就是当前操作的完成
-  return messages.some((msg) => msg.message.role === 'aiReportContent' && msg.message.status === 'finish');
+  return messages.some((msg) => msg.message.role === 'ai' && msg.message.status === 'finish');
 };
 
 /**
@@ -80,7 +79,7 @@ export const isTextRewriteCompleted = (
  * @see apps/report-ai/docs/specs/text-ai-rewrite-implementation/spec-design-v1.md
  */
 export const getTextRewritePreviewContent = (
-  messages: MessageInfo<MessageParsedReportContent>[],
+  messages: MessageInfo<RPContentAgentMsg>[],
   correlationId?: string | null
 ): string => {
   if (!correlationId) {
@@ -90,10 +89,10 @@ export const getTextRewritePreviewContent = (
   // 从后往前查找最新的 AI 响应消息
   // TODO: 需要在消息中添加 correlationId 字段来精确匹配
   // 目前简化实现：假设最近的 aiReportContent 消息就是当前操作的内容
+
   for (let i = messages.length - 1; i >= 0; i--) {
     const msg = messages[i];
-    if (msg.message.role === 'aiReportContent') {
-      // 返回最新消息的内容（包括完成状态的消息）
+    if (msg.message.role === 'ai') {
       return msg.message.content || '';
     }
   }

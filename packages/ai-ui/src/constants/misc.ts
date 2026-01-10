@@ -1,3 +1,5 @@
+import { WX_WIND_HOST } from 'gel-util/link'
+
 export const AES_KEY = 'alice+#!6z]J3@6+'
 
 export const ASSETS_HOST = 'https://wx.wind.com.cn/unitedweb/JWindSearch/static/alice/'
@@ -36,11 +38,11 @@ const isTest = false //  切换测试环境
 
 export const demoChatId = '99d3dc4b-05f2-463f-89a2-1f1e64b79583'
 export const windSessionId = '81b632f9656b4fb09632fc9d0f1ef467'
-export const IP = 'https://wx.wind.com.cn'
+export const IP = `https://${WX_WIND_HOST}`
 
 export const testIp = 'https://test.wind.com.cn'
 
-export const chartIp = 'https://wx.wind.com.cn'
+export const chartIp = `https://${WX_WIND_HOST}`
 
 export const GelIp = isTest ? testIp : 'https://gel.wind.com.cn'
 

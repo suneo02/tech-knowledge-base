@@ -4,7 +4,7 @@ import { wftCommon } from '../../../../utils/utils'
 import React from 'react'
 
 export const DraftUnit = {
-  title: intl('328188', '起草单位'),
+  title: intl('478702', '起草单位'),
   dataIndex: 'draftingUnit',
   width: '40%',
   render: (text, row) => {
@@ -13,7 +13,7 @@ export const DraftUnit = {
 }
 
 export const DraftNum = {
-  title: intl('328189', '参与起草标准数量'),
+  title: intl('478721', '参与起草标准数量'),
   dataIndex: 'standardNum',
   render: (text) => {
     return text

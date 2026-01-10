@@ -1,0 +1,86 @@
+[
+  {
+    "id": "391093",
+    "title": "授信商机",
+    "titleIntl": "391093",
+    "moduleId": "marketingAcquisition",
+    "url": {
+      "target": "baifen",
+      "route": "creditOpportunities"
+    },
+    "iconKey": "CreditC"
+  },
+  {
+    "id": "294403",
+    "title": "重点园区",
+    "titleIntl": "294403",
+    "moduleId": "marketingAcquisition",
+    "url": {
+      "target": "module",
+      "module": "RELATED_LINK",
+      "params": {
+        "subModule": "park"
+      }
+    },
+    "iconKey": "GardenC"
+  },
+  {
+    "id": "235783",
+    "title": "新企发现",
+    "titleIntl": "235783",
+    "moduleId": "marketingAcquisition",
+    "url": {
+      "target": "module",
+      "module": "RELATED_LINK",
+      "params": {
+        "subModule": "new_corp"
+      }
+    },
+    "iconKey": "NeC"
+  },
+  {
+    "id": "391133",
+    "title": "授信挖掘",
+    "titleIntl": "391133",
+    "moduleId": "marketingAcquisition",
+    "url": {
+      "target": "baifen",
+      "route": "creditMining"
+    },
+    "iconKey": "CleC"
+  },
+  {
+    "id": "422022",
+    "title": "万寻地图",
+    "titleIntl": "422022",
+    "moduleId": "marketingAcquisition",
+    "url": {
+      "target": "baifen",
+      "route": "map",
+      "mapParams": {}
+    },
+    "iconKey": "BsC"
+  },
+  {
+    "id": "361813",
+    "title": "战略性新兴产业",
+    "titleIntl": "361813",
+    "moduleId": "marketingAcquisition",
+    "url": {
+      "target": "baifen",
+      "route": "strategicIndustries"
+    },
+    "iconKey": "BulbC"
+  },
+  {
+    "id": "397233",
+    "title": "对公营销工作台",
+    "titleIntl": "397233",
+    "moduleId": "marketingAcquisition",
+    "url": {
+      "target": "baifen",
+      "route": "home"
+    },
+    "iconKey": "IcC"
+  }
+]

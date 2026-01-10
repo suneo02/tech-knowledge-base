@@ -186,7 +186,7 @@ export const MyAccount = ({ userPhone }) => {
                       </div>
                     )}
                     <div className="account-label-item">
-                      <span>{intl('', '账号权益')}：</span>
+                      <span>{intl('417177', '账号权益')}：</span>
                       <span>{AccountPkgToName[t.packageName] || '--'}</span>
                     </div>
 
@@ -234,7 +234,7 @@ export const MyAccount = ({ userPhone }) => {
               <Input
                 className={`account-captcha-input`}
                 value={code}
-                placeholder={intl('', '请输入验证码')}
+                placeholder={intl('321501', '请输入验证码')}
                 onChange={onChangeEvent}
                 data-uc-id="RD8oPizvrZ"
                 data-uc-ct="input"

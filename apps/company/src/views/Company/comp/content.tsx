@@ -5,17 +5,17 @@
  * @format
  */
 
-import VipComponent from '@/components/common/Vip'
 import CardHeader from '@/components/common/card/header/Header'
-import { Card, Skeleton } from '@wind/wind-ui'
-import React, { forwardRef } from 'react'
-import VipAccess from '../../../components/developer/VipAccess'
 import { Menu } from '@/components/layout/container/Integration'
-import { isArray, isNil } from 'lodash'
+import { ConfigDetailContext } from '@/components/layout/ctx.tsx'
+import { VipPurchase } from '@/components/user'
 import { useUserVipState } from '@/handle/user.ts'
 import { useCorpStore } from '@/store/company.ts'
-import { ConfigDetailContext } from '@/components/layout/ctx.tsx'
 import { ICfgDetailSubMenu } from '@/types/configDetail/module.ts'
+import { Card, Skeleton } from '@wind/wind-ui'
+import { isArray, isNil } from 'lodash'
+import { forwardRef } from 'react'
+import VipAccess from '../../../components/developer/VipAccess'
 
 export const CorpContent = forwardRef<HTMLDivElement, any>((_, contentRef) => {
   const treeData = useCorpStore((store) => store.treeData)
@@ -38,7 +38,7 @@ export const CorpContent = forwardRef<HTMLDivElement, any>((_, contentRef) => {
       <div id={module.key} key={module.key} className="node-item-children">
         {checkVip ? (
           <Card title={<CardHeader {...module} />} styleType="block">
-            <VipComponent
+            <VipPurchase
               title={module.title}
               vipPopupSel={module.isSvip ? 'svip' : 'vip'}
               onlySvip={module.isSvip}

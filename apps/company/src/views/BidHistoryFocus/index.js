@@ -71,7 +71,7 @@ const BidHistoryFocus = React.forwardRef(({ onApplySub }, ref) => {
       if (res.ErrorCode === '0') {
         setSubscribeList([])
         setVisible(false)
-        message.success(intl('176605', '清除成功'))
+        message.success(intl('478664', '清除成功'))
       } else {
         message.warning(intl('349079', '清除失败!'))
       }

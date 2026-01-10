@@ -9,8 +9,8 @@ export const rpFileMock2: RPFileTraced[] = [
   // 已完成的文件
   {
     fileId: 'mock2-finished-1',
-    fileName: '项目方案.docx',
-    fileType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    fileName: '项目方案.pdf',
+    fileType: 'application/pdf',
     uploadTime: '2024-01-04T10:00:00Z',
     status: RPFileStatus.FINISHED,
   },

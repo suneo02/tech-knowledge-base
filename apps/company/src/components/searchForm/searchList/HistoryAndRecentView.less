@@ -24,6 +24,9 @@
     .recent-column {
       flex: 1;
       position: relative;
+      width: 50%; // 强制宽度各占 50%
+      overflow: hidden; // 防止内容撑开
+      min-width: 0; // 修复 flex 子项不收缩的问题
     }
 
     .history-column {
@@ -46,6 +49,8 @@
   &.history-only {
     .history-column {
       flex: 1;
+      overflow: hidden;
+      min-width: 0;
     }
 
     .input-toolbar-search-list {
@@ -63,6 +68,8 @@
   &.recent-only {
     .recent-column {
       flex: 1;
+      overflow: hidden;
+      min-width: 0;
     }
 
     .input-toolbar-search-list {

@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Links from '@/components/common/links/Links.tsx'
 import { RightGotoLink } from '@/components/common/RightGotoLink/index.tsx'
 import CompanyLink from '@/components/company/CompanyLink.tsx'
 import { DetailLink, RimeDataLink } from '@/components/company/corpCompMisc.tsx'
 import { LinkByRowCompatibleCorpPerson } from '@/components/company/link/CorpOrPersonLink.tsx'
-import { ICorpPrimaryModuleCfg } from '@/components/company/type/index.ts'
 import { InfoCircleButton } from '@/components/icons/InfoCircle/index.tsx'
 import { vipDescDefault } from '@/handle/corpModuleCfg/common/vipDesc.ts'
 import { BaiFenSites, LinksModule } from '@/handle/link'
+import { CorpPrimaryModuleCfg } from '@/types/corpDetail/module.ts'
 import { formatCurrency } from '@/utils/common.ts'
 import { getLocale, intlNoNO as intl } from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
@@ -19,7 +18,7 @@ import { corpDetailChattelMortgage } from './chattelMortgage.ts'
 /**
  * 金融行为 需要 vip
  */
-export const finance: ICorpPrimaryModuleCfg = {
+export const finance: CorpPrimaryModuleCfg = {
   moduleTitle: {
     title: intl('261899', '金融行为'),
     moduleKey: 'financing', // 与左侧大菜单齐名
@@ -93,7 +92,7 @@ export const finance: ICorpPrimaryModuleCfg = {
                           )}
                         <br />
                         {(window.en_access_config ? '2. ' : '2、') +
-                          intl('88048', '当前流通市值 = 当前发行数量 × 最新收盘价')}
+                          intl('437672', '当前流通市值 = 当前发行数量 × 最新收盘价')}
                       </div>
                     }
                   >
@@ -504,7 +503,7 @@ export const finance: ICorpPrimaryModuleCfg = {
       if (!usedInClient) return ''
       return (
         <RightGotoLink
-          txt={intl('15560', '新股中心')}
+          txt={intl('478629', '新股中心')}
           func={() => {
             window.location.href = '!CommandParam(21369,disableuppercase=1)'
           }}
@@ -641,6 +640,7 @@ export const finance: ICorpPrimaryModuleCfg = {
     thName: [intl('28846', '序号'), intl('451231', '投资机构'), intl('451213', '省份地区'), intl('451241', '简介')],
     align: [1, 0, 0, 0],
     fields: ['NO.', 'investmentName', 'headArea', 'introduce'],
+    skipTransFieldsInKeyMode: ['investmentName'],
     notVipTitle: intl('451212', '投资机构'),
     notVipTips: '购买企业套餐，即可查看该企业投资机构信息',
     columns: [
@@ -688,6 +688,7 @@ export const finance: ICorpPrimaryModuleCfg = {
     ],
     align: [1, 0, 0, 0, 2, 0, 0],
     fields: ['NO.', 'objectName', 'date|formatTime', 'type', 'amount|formatMoney', 'investorList'],
+    skipTransFieldsInKeyMode: ['objectName', 'investorList'],
     notVipTitle: intl('40559', '投资事件'),
     notVipTips: '购买企业套餐，即可查看该企业投资事件信息',
     columns: [
@@ -736,7 +737,6 @@ export const finance: ICorpPrimaryModuleCfg = {
     ],
     align: [1, 0, 0, 0, 2],
     fields: ['NO.', 'financeRound', 'openTime|formatTime', 'investmentCompany', 'financeAmount'],
-    transFields: ['financeCurrency', 'financeRound', 'investmentCompany', 'Investor'],
     notVipTitle: intl('451237', '融资信息'),
     notVipTips: '购买企业套餐，即可查看该企业PEVC融资信息',
     extraParams: (param) => {
@@ -961,7 +961,7 @@ export const finance: ICorpPrimaryModuleCfg = {
       return !window.en_access_config ? (
         <RightGotoLink
           style={{ marginLeft: 10, alignSelf: 'center' }}
-          txt={intl('370031', '查看授信详情')}
+          txt={intl('478642', '查看授信详情')}
           func={() => {
             wftCommon.jumpBaifen(`/govbusiness/?m=2#/corpInfo`, '__blank', {
               companyId: companyId,
@@ -999,7 +999,7 @@ export const finance: ICorpPrimaryModuleCfg = {
       if (!usedInClient) return ''
       return (
         <RightGotoLink
-          txt={intl('208047', 'ABS项目大全')}
+          txt={intl('478630', 'ABS项目大全')}
           func={() => {
             const url = `//fixedincomeserver/Wind.FixedIncome.Data.Web/static/ABSProjects/index.html`
             window.open(url)
@@ -1083,7 +1083,7 @@ export const finance: ICorpPrimaryModuleCfg = {
       return getLocale() === 'zh-CN' ? (
         <RightGotoLink
           style={{ marginLeft: 10, alignSelf: 'center' }}
-          txt={intl('370032', '查看融资详情')}
+          txt={intl('478643', '查看融资详情')}
           func={() => {
             window.open(
               BaiFenSites().getFinancingDetails({
@@ -1121,7 +1121,7 @@ export const finance: ICorpPrimaryModuleCfg = {
           intl('138392', '抵押人'),
           intl('138391', '抵押权人'),
           intl('138618', '被担保债权种类'),
-          intl('138830', '抵押债权数额（万元）'),
+          intl('448357', '抵押债权数额（万元）'),
           intl('138416', '经营状态'),
           intl('87749', '登记日期'),
           intl('36348', '操作'),
@@ -1174,7 +1174,7 @@ export const finance: ICorpPrimaryModuleCfg = {
           intl('138392', '抵押人'),
           intl('138391', '抵押权人'),
           intl('138618', '被担保债权种类'),
-          intl('138830', '抵押债权数额（万元）'),
+          intl('448357', '抵押债权数额（万元）'),
           intl('138416', '经营状态'),
           intl('87749', '登记日期'),
           intl('36348', '操作'),
@@ -1215,9 +1215,9 @@ export const finance: ICorpPrimaryModuleCfg = {
     ],
   },
   showInsurance: {
-    title: intl('370002', '保险产品'),
+    title: intl('448337', '保险产品'),
     cmd: 'detail/company/getInsurance',
-    notVipTitle: intl('370002', '保险产品'),
+    notVipTitle: intl('448337', '保险产品'),
     notVipTips: vipDescDefault,
     extraParams: (param) => {
       param.__primaryKey = param.companycode
@@ -1231,9 +1231,9 @@ export const finance: ICorpPrimaryModuleCfg = {
     thName: [
       intl('28846', '序号'),
       intl('2485', '产品名称'),
-      intl('370001', '销售状态'),
+      intl('417655', '销售状态'),
       intl('2483', '产品类型'),
-      intl('370000', '承保方式'),
+      intl('417656', '承保方式'),
     ],
     fields: [
       'NO.',
@@ -1248,7 +1248,7 @@ export const finance: ICorpPrimaryModuleCfg = {
       {
         key4sel: 'aggs_sale',
         key4ajax: 'isOnSale',
-        name: intl('370001', '全部销售状态'),
+        name: intl('448338', '全部销售状态'),
         key: '',
         typeOf: 'string',
         width: 130,
@@ -1256,7 +1256,7 @@ export const finance: ICorpPrimaryModuleCfg = {
       {
         key4sel: 'aggs_insurance_method',
         key4ajax: 'productInsuranceMethod',
-        name: intl('370000', '全部承保方式'),
+        name: intl('448358', '全部承保方式'),
         key: '',
         typeOf: 'string',
       },
@@ -1266,7 +1266,7 @@ export const finance: ICorpPrimaryModuleCfg = {
       return usedInClient ? (
         <RightGotoLink
           style={{ marginLeft: 10, alignSelf: 'center' }}
-          txt={intl('370030', '保险索引')}
+          txt={intl('478644', '保险索引')}
           func={() => {
             window.location.href = '!COMMANDPARAM[2932]'
           }}

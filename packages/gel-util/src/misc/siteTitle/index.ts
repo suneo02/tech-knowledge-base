@@ -1,5 +1,6 @@
 import { TIntl } from '@/types/intl'
 import { PageLocation, getPageTitleMap, getSiteDefaultTitle } from './config'
+export { DEFAULT_SITE_TITLE_WEB_CN } from './config'
 
 // 函数生成标题：替换模板中的占位符
 export function generatePageTitle(t: TIntl, location: PageLocation, params?: string[] | string): string {

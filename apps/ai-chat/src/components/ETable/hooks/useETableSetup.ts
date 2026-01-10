@@ -80,21 +80,37 @@ export const useETableSetup = (tabKey: string, props: ETableSetupProps) => {
         highlightMode: 'row',
       },
     }
-    const tableInstance = new VTable.ListTable(containerRef.current, option)
-    tableInstanceRef.current = tableInstance
+    const runCreate = () => {
+      const tableInstance = new VTable.ListTable(containerRef.current!, option)
+      tableInstanceRef.current = tableInstance
 
-    setEventListener(tableInstance, activeSheetId, {
-      onCellClick,
-      updateTask,
-      dispatch,
-      openSmartFillModal,
-      addTasksOnly,
-    })
+      setEventListener(tableInstance, activeSheetId, {
+        onCellClick,
+        updateTask,
+        dispatch,
+        openSmartFillModal,
+        addTasksOnly,
+      })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const search = new SearchComponent({ table: tableInstance as any, autoJump: true })
+      registerSearchInstance(tabKey, search)
+
+      registerTabRef(tabKey, tableInstance)
+      setTimeout(() => {
+        tableInstance.setFrozenColCount(2)
+        const options = tableInstance.options
+        tableInstance.updateOption({ ...options })
+      }, 300)
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const search = new SearchComponent({ table: tableInstance as any, autoJump: true })
-    registerSearchInstance(tabKey, search)
-
-    registerTabRef(tabKey, tableInstance)
+    const fontsReady = (document as any)?.fonts?.ready
+    if (fontsReady && typeof fontsReady.then === 'function') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ;(document as any).fonts.ready.then(() => requestAnimationFrame(runCreate))
+    } else {
+      requestAnimationFrame(runCreate)
+    }
   }, [dataSource, columns, registerTabRef, tabKey, registerSearchInstance])
 
   // 初始创建表格实例

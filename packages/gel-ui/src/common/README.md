@@ -1,4 +1,4 @@
-# 通用基础组件库
+﻿# 通用基础组件库
 
 提供可复用的基础 UI 组件，支撑各种业务场景的界面构建，遵循企业级设计规范。
 
@@ -108,9 +108,9 @@ common/
 
 ## 相关文档
 
-- [React 组件开发规范](../../../docs/rule/react-rule.md) - 组件开发指南
-- [样式规范](../../../docs/rule/style-rule.md) - Less Module 样式指南
-- [TypeScript 规范](../../../docs/rule/typescript-rule.md) - 类型定义规范
+- [React 组件开发规范](../../../docs/rule/code-react-component-rule.md) - 组件开发指南
+- [样式规范](../../../docs/rule/code-style-less-bem-rule.md) - Less Module 样式指南
+- [TypeScript 规范](../../../docs/rule/code-typescript-style-rule.md) - 类型定义规范
 
 ## 使用示例
 

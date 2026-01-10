@@ -48,3 +48,8 @@ export const selectLatestRequestedOperations = createSelector(
 
 /** 报告级文件列表（统一来源于 Redux） */
 export const selectReportFiles = createSelector(selectReportContent, (state) => state.reportFiles || []);
+
+/**
+ * 选择整个 GlobalOperation 状态
+ */
+export const selectGlobalOp = createSelector(selectReportContent, (state) => state.globalOp);

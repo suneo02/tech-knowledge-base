@@ -1,8 +1,8 @@
+import { financialCorpFilters } from '@/handle/SearchAppList/financialCorp'
 import React from 'react'
 import { formatTimeIntl } from '../utils/format/time'
 import intl from '../utils/intl'
 import { wftCommon } from '../utils/utils'
-import { financialCorpFilters } from '@/handle/SearchAppList/financialCorp'
 
 const is_terminal = wftCommon.usedInClient()
 
@@ -325,6 +325,7 @@ export const SpecialAppListConfig = {
     api: 'search/feature/SearchFeatureIpoList',
     noExtra: true, // url不需要拼接id
     showIndex: true,
+    skipTransFieldsInKeyMode: ['corpName', 'ipo'],
     columns: [
       {
         titleId: '32992',
@@ -430,6 +431,7 @@ export const SpecialAppListConfig = {
     key: 'debtNew',
     api: 'search/feature/SearchFeatureDebtList',
     showIndex: true,
+    skipTransFieldsInKeyMode: ['corpName'],
     columns: [
       {
         titleId: '32914',
@@ -479,6 +481,7 @@ export const SpecialAppListConfig = {
     key: 'cngroup',
     api: 'search/feature/SearchFeatureCNGroupList',
     showIndex: true,
+    skipTransFieldsInKeyMode: ['corpName'],
     columns: [
       { titleId: '32914', align: 'left', width: '35%', dataIndex: 'corpName', companyLinks: { id_key: 'corpId' } },
       { titleId: '32674', align: 'left', width: '28%', dataIndex: 'region' },
@@ -537,6 +540,7 @@ export const SpecialAppListConfig = {
     api: 'search/feature/SearchFeatureFinancialList',
     noExtra: true, // url不需要拼接id
     showIndex: true,
+    skipTransFieldsInKeyMode: ['corpName'],
     columns: [
       { titleId: '32914', align: 'left', width: '24%', dataIndex: 'corpName', companyLinks: { id_key: 'corpId' } },
       {
@@ -585,6 +589,7 @@ export const SpecialAppListConfig = {
     api: 'search/feature/SearchFeaturePEVCList',
     noExtra: true, // url不需要拼接id
     showIndex: true,
+    skipTransFieldsInKeyMode: ['corpName'],
     columns: [
       { titleId: '32914', align: 'left', width: '28%', dataIndex: 'corpName', companyLinks: { id_key: 'corpId' } },
       {

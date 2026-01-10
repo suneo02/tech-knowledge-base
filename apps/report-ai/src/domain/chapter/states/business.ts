@@ -9,7 +9,7 @@
  * @module chapter/states/business
  */
 
-import { MessageParsedReportContent, RPContentAgentMsgAI } from '@/types';
+import { RPContentAgentMsgAI } from '@/types';
 import { ChapterGenerationStatus } from '@/types/editor';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { RPDetailChapter } from 'gel-api';
@@ -19,7 +19,7 @@ import { RPDetailChapter } from 'gel-api';
  * 支持解析后的消息和原始 Agent 消息
  */
 export const determineChapterAIMessageStatus = (
-  message?: MessageInfo<MessageParsedReportContent | RPContentAgentMsgAI>,
+  message?: MessageInfo<RPContentAgentMsgAI>,
   chapter?: RPDetailChapter
 ): ChapterGenerationStatus => {
   if (!message) {
@@ -31,7 +31,7 @@ export const determineChapterAIMessageStatus = (
 
   if (message.message.status === 'pending') {
     return 'pending';
-  } else if (message.message.status === 'receiving') {
+  } else if (message.message.status === 'receiving' || message.message.status === 'stream_finish') {
     return 'receiving';
   } else {
     return 'finish';

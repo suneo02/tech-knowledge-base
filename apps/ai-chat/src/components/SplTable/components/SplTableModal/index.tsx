@@ -5,9 +5,12 @@ import { SplTable } from 'gel-api'
 import { FC, useMemo } from 'react'
 import { ModalHeader } from '../ModalHeader'
 import { TableOverlay } from '../TableOverlay'
-import styles from './index.module.less'
-
-const PREFIX = 'spl-table-modal'
+import type { HeaderItem, RowItem } from '@/components/ChatRoles/RolesSuperChat/SplTable/components'
+import {
+  buildColumns,
+  buildDataSource,
+  DEFAULT_COLUMN_WIDTH,
+} from '@/components/ChatRoles/RolesSuperChat/SplTable/components'
 
 const PaddedData = (data: Record<string, unknown>[], columns: ColumnProps<Record<string, unknown>>[]) => {
   if (data.length > 10 && data.length < 20) {
@@ -39,40 +42,24 @@ export const SplTableModal: FC<{
 }> = ({ visible, onClose, tableInfo, tableIndex, onInsert, loading, enableInsert }) => {
   const columns: ColumnProps<Record<string, unknown>>[] = useMemo(() => {
     if (!tableInfo.headers) return []
-    return tableInfo.headers
-      .filter((res) => res.isShow !== false)
-      .map((res) => ({
-        title: res.title,
-        dataIndex: res.columnId.toString(),
-        width: 150,
-        ellipsis: true,
-      }))
-  }, [tableInfo.headers])
+    const headers = (tableInfo.headers || []) as HeaderItem[]
+    const rows = (tableInfo.rows || []) as RowItem[]
+    const baseColumns = buildColumns(headers, rows, { enableLinking: true, defaultWidth: DEFAULT_COLUMN_WIDTH })
+    // Desensitization for rows beyond index > 9, while keeping link rendering
+    return baseColumns.map((col) => ({
+      ...col,
+      render: (text: string, record: Record<string, unknown>, index?: number) => {
+        const display = index !== undefined && index > 9 ? maskName(text) : text
+        return col.render ? col.render(display, record, index) : display
+      },
+    }))
+  }, [tableInfo.headers, tableInfo.rows])
 
   const dataSource = useMemo(() => {
-    if (!tableInfo?.rows) return []
-    return tableInfo.rows.map((row) => {
-      const item: Record<string, unknown> = {}
-      tableInfo.headers.forEach((header, index) => {
-        if (header.isShow === false) {
-          return // Skip hidden columns to prevent data misalignment
-        }
-
-        const dataIndex = header.columnId.toString()
-        const val = row[index]
-
-        if (typeof val === 'string' && (val.includes('Label') || val.includes('answer'))) {
-          try {
-            item[dataIndex] = JSON.parse(val).Label || JSON.parse(val).answer || '--'
-          } catch {
-            item[dataIndex] = val || '--'
-          }
-        } else {
-          item[dataIndex] = val || '--'
-        }
-      })
-      return item
-    })
+    if (!tableInfo?.rows || !tableInfo.headers) return []
+    const headers = (tableInfo.headers || []) as HeaderItem[]
+    const rows = (tableInfo.rows || []) as RowItem[]
+    return buildDataSource(headers, rows)
   }, [tableInfo.rows, tableInfo.headers])
 
   const paddedDataSource = useMemo(() => PaddedData(dataSource, columns), [dataSource, columns])
@@ -100,16 +87,7 @@ export const SplTableModal: FC<{
             enableInsert={enableInsert}
           />
         )}
-        <Table
-          columns={columns.map((col) => ({
-            ...col,
-            render: (text: string, record: Record<string, unknown>, index?: number) =>
-              index !== undefined && index > 9 ? maskName(text) : text,
-          }))}
-          scroll={{ x: '100%' }}
-          dataSource={finalDataSource}
-          pagination={false}
-        />
+        <Table columns={columns} scroll={{ x: '100%' }} dataSource={finalDataSource} pagination={false} />
       </div>
     </Modal>
   )

@@ -1,7 +1,6 @@
 import { addConversationItem, setConversationsItems, useAppDispatch } from '@/store';
 import { useRequest } from 'ahooks';
 import { createChatRequestWithAxios } from 'gel-api';
-import { useRef } from 'react';
 import { axiosInstance } from '../api/axios';
 
 const selectChatAIConversationFunc = createChatRequestWithAxios(axiosInstance, 'selectChatAIConversation');

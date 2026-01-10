@@ -2,13 +2,14 @@ export { AliceLinkConfigMap, AliceLinkModule, getAlickLink } from './alice'
 export {
   BaiFenPathConstants,
   BaiFenSites,
-  FinancingDetailsParams,
+  buildBaiFenMapUrl,
   getBaiFenHost,
   getBaiFenHostMap,
-  getGovMapUrl,
-  type MapUrlParams,
+  type BaiFenSitesConfig,
+  type BuildMapUrlOptions,
+  type FinancingDetailsParams,
 } from './baiFen'
 export { getPayWebLink, PayWebModule } from './payweb'
-export { getRimeOrganizationUrl, isFromRime, RimeHost, RimeHostMap, RimeTargetType } from './rime'
+export { getRimeOrganizationUrl, getRimeLink, isFromRime, isFromRimePEVC, RimeLinkModule, RimeTargetType } from './rime'
 export { getRiskOutUrl, RiskOutModule } from './risk'
 export { getWKGUrl, WKGModule } from './WKG'

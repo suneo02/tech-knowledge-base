@@ -1,4 +1,4 @@
-# CorpPresearch 企业预搜索组件
+﻿# CorpPresearch 企业预搜索组件
 
 企业名称预搜索与选择组件，支持单选输入和多选模式，集成历史搜索记录功能。
 
@@ -43,6 +43,6 @@ CorpPresearch/
 
 ## 相关文档
 
-- [React 组件规范](../../../../../docs/rule/react-rule.md)
-- [TypeScript 规范](../../../../../docs/rule/typescript-rule.md)
-- [样式规范](../../../../../docs/rule/style-rule.md)
+- [React 组件规范](../../../../../docs/rule/code-react-component-rule.md)
+- [TypeScript 规范](../../../../../docs/rule/code-typescript-style-rule.md)
+- [样式规范](../../../../../docs/rule/code-style-less-bem-rule.md)

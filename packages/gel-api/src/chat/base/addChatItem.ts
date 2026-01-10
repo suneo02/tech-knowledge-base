@@ -4,7 +4,6 @@ import { AgentId, ChatChatIdIdentifier, ChatRawSentenceIdentifier, ChatRawSenten
 export type AddChatItemRequest = ChatRawSentenceIdentifier &
   ChatRawSentenceIdIdentifier &
   ChatChatIdIdentifier & {
-    questionGuide?: string
     questionStatus?: string
     renameFlag?: boolean // 是否是第一次问句重命名标识
     agentId?: AgentId

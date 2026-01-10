@@ -1,5 +1,6 @@
 export { RPOutlineAIFooter } from './AIFooter';
+export { RPOutlineProvider, useRPOutlineContext } from './context';
+export { useRPOutlineChat } from './hooks';
 export { ChatRPOutlineMessages } from './messages';
 export { OperationArea } from './OperationArea';
-export { createOutlineEditorMessage, createOutlinePreviewMessage, createRPOutlineMessageParser } from './parsers';
 export { rolesReportOutline } from './roles';

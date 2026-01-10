@@ -9,10 +9,10 @@ import { corpInfoPERows } from '@/components/company/info/rowsByOrgType/PE.tsx'
 import { corpInfoSOERows } from '@/components/company/info/rowsByOrgType/SOE.tsx'
 import { corpInfoSPERows } from '@/components/company/info/rowsByOrgType/SPE.tsx'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfo } from 'gel-types'
 
 export const getCorpInfoRowsByOrg = (
-  baseInfo: ICorpBasicInfoFront,
+  baseInfo: Partial<CorpBasicInfo>,
   onClickFeedback: () => void
 ): HorizontalTableColumns => {
   try {

@@ -11,8 +11,10 @@ import ToolsBar from '@/components/toolsBar'
 import intl from '@/utils/intl'
 import { Layout } from '@wind/wind-ui'
 import React, { memo } from 'react'
+import { isEmpty } from 'gel-util/common'
 
 import styles from './index.module.less'
+import { isFromRimePEVC } from 'gel-util/link'
 const { Operator } = Layout
 
 interface OperatorHeaderProps {
@@ -25,6 +27,7 @@ interface OperatorHeaderProps {
   onAliceClick?: (show?: boolean) => void // 点击AI商业查询助手
   showRight: boolean
   corpNameIntl: string
+  corpHeaderInfo?: Record<string, unknown> // 企业卡片数据未获取到时，不展示收藏、导出报告toolbar工具栏
 }
 
 const prefix = 'company-detail-ai__operation'
@@ -40,6 +43,7 @@ export const OperatorHeader: React.FC<OperatorHeaderProps> = memo(
     onAliceClick,
     showRight,
     corpNameIntl,
+    corpHeaderInfo,
   }: OperatorHeaderProps) => {
     return (
       // @ts-expect-error
@@ -50,28 +54,30 @@ export const OperatorHeader: React.FC<OperatorHeaderProps> = memo(
           </span>
           <span className={styles[`${prefix}-left-desc`]}>&nbsp;&nbsp;{intl('451245', '企业详情')}</span>
         </div>
-        <div className={styles[`${prefix}-right`]}>
-          <div className={styles[`${prefix}-tool`]}>
-            <ToolsBar
-              isHorizon={true}
-              isShowAlice={true}
-              isShowReport={true}
-              isShowCollect={true}
-              isShowFeedback={true}
-              isShowBackTop={false}
-              backTopWrapClass={backTopWrapClass}
-              collectState={collectState}
-              setCollectState={setCollectState}
-              companyCode={companyCode}
-              onClickReport={onClickReport}
-              onAliceClick={onAliceClick}
-              showRight={showRight}
-              companyName={corpNameIntl}
-              data-uc-id="xYLWBLj2o4"
-              data-uc-ct="toolsbar"
-            />
+        {isEmpty(corpHeaderInfo) ? null : (
+          <div className={styles[`${prefix}-right`]}>
+            <div className={styles[`${prefix}-tool`]}>
+              <ToolsBar
+                isHorizon={true}
+                isShowAlice={true}
+                isShowReport={!isFromRimePEVC()}
+                isShowCollect={!isFromRimePEVC()}
+                isShowFeedback={true}
+                isShowBackTop={false}
+                backTopWrapClass={backTopWrapClass}
+                collectState={collectState}
+                setCollectState={setCollectState}
+                companyCode={companyCode}
+                onClickReport={onClickReport}
+                onAliceClick={onAliceClick}
+                showRight={showRight}
+                companyName={corpNameIntl}
+                data-uc-id="xYLWBLj2o4"
+                data-uc-ct="toolsbar"
+              />
+            </div>
           </div>
-        </div>
+        )}
       </Operator>
     )
   }

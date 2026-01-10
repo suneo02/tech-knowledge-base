@@ -1,4 +1,12 @@
-import { HTMLPath } from '../constant'
+/**
+ * 链接配置映射
+ *
+ * 定义所有业务模块的 URL 配置，包括 hash、路径前缀、环境配置等
+ *
+ * @see ../../docs/link-config-design.md 设计文档
+ */
+
+import { GELSearchParam, HTMLPath, WX_WIND_HOST } from '../constant'
 import { GELService, generatePrefixUrl } from '../prefixUrl'
 import { LinkModule } from './linkModule'
 import { BaseModuleConfig } from './type'
@@ -47,7 +55,7 @@ export const getLinkConfigMap = (isDev: boolean): Record<LinkModule, BaseModuleC
       hash: 'gqctChart',
       envConfig: {
         local: {
-          origin: 'https://wx.wind.com.cn',
+          origin: `https://${WX_WIND_HOST}`,
           prefixPath: generatePrefixUrl({
             envParam: 'terminal',
             isDev,
@@ -59,7 +67,7 @@ export const getLinkConfigMap = (isDev: boolean): Record<LinkModule, BaseModuleC
       hash: 'beneficialChart',
       envConfig: {
         local: {
-          origin: 'https://wx.wind.com.cn',
+          origin: `https://${WX_WIND_HOST}`,
           prefixPath: generatePrefixUrl({
             envParam: 'terminal',
             isDev,
@@ -71,7 +79,7 @@ export const getLinkConfigMap = (isDev: boolean): Record<LinkModule, BaseModuleC
       hash: 'glgxChart',
       envConfig: {
         local: {
-          origin: 'https://wx.wind.com.cn',
+          origin: `https://${WX_WIND_HOST}`,
           prefixPath: generatePrefixUrl({
             envParam: 'terminal',
             isDev,
@@ -83,7 +91,7 @@ export const getLinkConfigMap = (isDev: boolean): Record<LinkModule, BaseModuleC
       hash: 'actCtrlChart',
       envConfig: {
         local: {
-          origin: 'https://wx.wind.com.cn',
+          origin: `https://${WX_WIND_HOST}`,
           prefixPath: generatePrefixUrl({
             envParam: 'terminal',
             isDev,
@@ -140,14 +148,8 @@ export const getLinkConfigMap = (isDev: boolean): Record<LinkModule, BaseModuleC
     },
     [LinkModule.VIP_CENTER]: {
       hash: 'versionPrice',
-      envConfig: {
-        local: {
-          origin: 'https://gel.wind.com.cn',
-          prefixPath: generatePrefixUrl({
-            envParam: 'web',
-            isDev,
-          }),
-        },
+      defaultParams: {
+        [GELSearchParam.NoSearch]: '1',
       },
     },
     [LinkModule.AI_CHAT]: {
@@ -349,7 +351,7 @@ export const getLinkConfigMap = (isDev: boolean): Record<LinkModule, BaseModuleC
       prefixPath: GELService.GovMap,
       envConfig: {
         local: {
-          origin: 'https://wx.wind.com.cn',
+          origin: `https://${WX_WIND_HOST}`,
           // 本地环境同样保持不带 WFC/PC.Front 前缀
           prefixPath: GELService.GovMap,
         },
@@ -363,6 +365,23 @@ export const getLinkConfigMap = (isDev: boolean): Record<LinkModule, BaseModuleC
           origin: 'https://gel.wind.com.cn',
           prefixPath: generatePrefixUrl({
             service: GELService.EAPI,
+            envParam: 'web',
+            isDev,
+          }),
+        },
+      },
+    },
+    [LinkModule.SUPER_AGENT]: {
+      hash: '',
+      prefixPath: generatePrefixUrl({
+        service: GELService.Agent,
+        isDev,
+      }),
+      envConfig: {
+        local: {
+          origin: 'http://10.100.244.96:3088/',
+          prefixPath: generatePrefixUrl({
+            service: GELService.Agent,
             envParam: 'web',
             isDev,
           }),

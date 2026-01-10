@@ -1,27 +1,26 @@
+import { hashParams } from '@/utils/links'
+import { CloseO } from '@wind/icons'
 import { Breadcrumb, Button, Card, Col, List, message, Modal, Row } from '@wind/wind-ui'
+import { checkIfCDESearchFilter } from 'gel-ui'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as FindCustomerActions from '../../actions/findCustomer'
-import { pointBuried, pointBuriedGel } from '../../api/configApi'
-import { getCustomerSubList } from '../../api/findCustomer.ts'
-import global from '../../lib/global'
-import { getVipInfo } from '../../lib/utils'
-
-import { CloseO } from '@wind/icons'
 import * as globalActions from '../../actions/global'
+import { namelistAdd, namelistDelete, namelistEdit } from '../../api/collect&namelist'
+import { pointBuried, pointBuriedGel } from '../../api/configApi'
+import { getCustomerSubList } from '../../api/findCustomer'
 import Subscribe from '../../components/Subscribe'
 import RestructFilter from '../../components/restructFilter/RestructFilter'
+import { setPageTitle } from '../../handle/siteTitle'
+import global from '../../lib/global'
+import { getVipInfo } from '../../lib/utils'
 import { connectZustand } from '../../store'
 import { useConditionFilterStore } from '../../store/cde/useConditionFilterStore'
 import store from '../../store/store'
 import intl from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
-import './index.less'
-
-import { checkIfCDESearchFilter } from 'gel-ui'
-import { namelistAdd, namelistDelete, namelistEdit } from '../../api/collect&namelist'
-import { setPageTitle } from '../../handle/siteTitle'
 import { getMenuKeyFromUrl } from './handle'
+import './index.less'
 
 export const ShowAllSubModelDiv = (props) => {
   const subEmail = props.subEmail
@@ -599,7 +598,7 @@ class FindCustomer extends React.Component<any, any> {
     const { measures, title } = this.state
     const { filters, geoFilter } = this.props
     if (!title) {
-      message.error(intl(237985, '订阅名称不能为空'))
+      message.error(intl(478575, '订阅名称不能为空'))
       return false
     }
     if (!data && filters.length === 0 && geoFilter.length === 0) {
@@ -800,6 +799,9 @@ class FindCustomer extends React.Component<any, any> {
     const { isShowSavePromptModal, rightChangeWidth, subscribeVisible, title } = this.state
     const { mySusList } = this.props.findCustomer
     const { location } = this.props
+    const { getParamValue } = hashParams()
+    const fromParam = getParamValue('from')
+    const isRime = fromParam && fromParam.toLowerCase() === 'rime'
 
     const rightSusList = mySusList && mySusList.length && mySusList.length > 10 ? mySusList.slice(0, 10) : mySusList
 
@@ -807,43 +809,45 @@ class FindCustomer extends React.Component<any, any> {
 
     return (
       <React.Fragment>
-        <div className="breadcrumb-box">
-          <Breadcrumb data-uc-id="uyBn5e1gFm" data-uc-ct="breadcrumb">
-            <Breadcrumb.Item
-              style={{ cursor: 'pointer' }}
-              onClick={() => {
-                wftCommon.jumpJqueryPage('SearchHome.html')
-              }}
-              data-uc-id="De92KQM9bP"
-              data-uc-ct="breadcrumb"
-            >
-              {' '}
-              {intl('19475', '首页')}{' '}
-            </Breadcrumb.Item>
+        {!isRime && (
+          <div className="breadcrumb-box">
+            <Breadcrumb data-uc-id="uyBn5e1gFm" data-uc-ct="breadcrumb">
+              <Breadcrumb.Item
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  wftCommon.jumpJqueryPage('SearchHome.html')
+                }}
+                data-uc-id="De92KQM9bP"
+                data-uc-ct="breadcrumb"
+              >
+                {' '}
+                {intl('19475', '首页')}{' '}
+              </Breadcrumb.Item>
 
-            {location.pathname == '/filterRes' ? (
-              <React.Fragment>
-                <Breadcrumb.Item
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    this.props.history.push('/findCustomer?')
-                  }}
-                  data-uc-id="peI11ZLM7u"
-                  data-uc-ct="breadcrumb"
-                >
+              {location.pathname == '/filterRes' ? (
+                <React.Fragment>
+                  <Breadcrumb.Item
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      this.props.history.push('/findCustomer?')
+                    }}
+                    data-uc-id="peI11ZLM7u"
+                    data-uc-ct="breadcrumb"
+                  >
+                    {intl('259750', '企业数据浏览器')}
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item data-uc-id="WLduuhtaei" data-uc-ct="breadcrumb">
+                    结果列表
+                  </Breadcrumb.Item>
+                </React.Fragment>
+              ) : (
+                <Breadcrumb.Item data-uc-id="fDLVrPvW2r" data-uc-ct="breadcrumb">
                   {intl('259750', '企业数据浏览器')}
                 </Breadcrumb.Item>
-                <Breadcrumb.Item data-uc-id="WLduuhtaei" data-uc-ct="breadcrumb">
-                  结果列表
-                </Breadcrumb.Item>
-              </React.Fragment>
-            ) : (
-              <Breadcrumb.Item data-uc-id="fDLVrPvW2r" data-uc-ct="breadcrumb">
-                {intl('259750', '企业数据浏览器')}
-              </Breadcrumb.Item>
-            )}
-          </Breadcrumb>
-        </div>
+              )}
+            </Breadcrumb>
+          </div>
+        )}
         <div className="findCustomer">
           {/* 页面的任何地方加上Prompt组件都生效 */}
 
@@ -876,6 +880,7 @@ class FindCustomer extends React.Component<any, any> {
             <Col className="main_content">
               <RestructFilter
                 isShow={true}
+                hideHead={isRime}
                 currentDefault={this.state.selectedMenuKeyFromUrl}
                 changeSubscribeVisible={() => {
                   this.setState({ subInfo: { fromAdd: true } }, () => {

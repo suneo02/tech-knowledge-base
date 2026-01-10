@@ -1,21 +1,21 @@
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
 
-export const corpDetailCommonCorpBus: ICorpSubModuleCfg = {
+export const corpDetailCommonCorpBus: CorpSubModuleCfg = {
   modelNum: ['project_info_num', 'tradelbl_num', 'brand_combining_num', 'ecommerce_store_num'],
 }
 
-export const corpDetailCorpBusProject: ICorpSubModuleCfg = {
+export const corpDetailCorpBusProject: CorpSubModuleCfg = {
   modelNum: 'project_info_num',
 }
 
-export const corpDetailCorpBusBrand: ICorpSubModuleCfg = {
+export const corpDetailCorpBusBrand: CorpSubModuleCfg = {
   modelNum: 'tradelbl_num',
 }
 
-export const corpDetailCorpBusBrandJoin: ICorpSubModuleCfg = {
+export const corpDetailCorpBusBrandJoin: CorpSubModuleCfg = {
   modelNum: 'brand_combining_num',
 }
 
-export const corpDetailCorpBusECommerce: ICorpSubModuleCfg = {
+export const corpDetailCorpBusECommerce: CorpSubModuleCfg = {
   modelNum: 'ecommerce_store_num',
 }

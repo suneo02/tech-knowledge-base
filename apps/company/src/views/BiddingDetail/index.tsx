@@ -1,3 +1,4 @@
+import { SingleTable } from '@/components/detail/singleTable'
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 import { LoadingO } from '@wind/icons'
 import { Spin, Tag } from '@wind/wind-ui'
@@ -5,7 +6,6 @@ import { BidTypeTag } from 'gel-ui'
 import { t } from 'gel-util/intl'
 import React, { useEffect, useState } from 'react'
 import { Links } from '../../components/common/links'
-import Tables from '../../components/detail/singleTable'
 import { usePageTitle } from '../../handle/siteTitle'
 import intl from '../../utils/intl'
 import { useScrollUtils } from '../../utils/scroll'
@@ -91,7 +91,7 @@ const BiddingDetail = () => {
               </span>
             </div>
             <div className="each-div" style={{ marginTop: 16 }}>
-              <Tables
+              <SingleTable
                 key={DETAILS}
                 // @ts-expect-error ttt
                 title={biddingColumns[DETAILS].name}
@@ -109,7 +109,7 @@ const BiddingDetail = () => {
               />
             </div>
             <div className="each-div">
-              <Tables
+              <SingleTable
                 key={PARTICIPATINGANDCONTACT}
                 title={biddingColumns[PARTICIPATINGANDCONTACT].name}
                 horizontal={biddingColumns[PARTICIPATINGANDCONTACT].horizontal}
@@ -123,7 +123,7 @@ const BiddingDetail = () => {
             {data1.data.bidCorpInfos &&
               (show ? (
                 <div className="each-div">
-                  <Tables
+                  <SingleTable
                     key={BIDDERSANDDYNAMICS}
                     title={
                       <p>

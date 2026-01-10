@@ -59,7 +59,7 @@ export const CardList = ({
       )
       break
     case '-9':
-      showResult = <div className="no-data">{intl('247063', '系统繁忙，请稍后再试')}</div>
+      showResult = <div className="no-data">{intl('478574', '系统繁忙，请稍后再试')}</div>
       break
     case '-13':
       showResult = (

@@ -17,8 +17,9 @@
  * @module chapter/transforms/idMapping
  */
 
-import { RPChapterSavePayload } from 'gel-api';
+import type { RPChapterSavePayload } from 'gel-api';
 import { getTreeNodeByPath, mapTree, TreeNode, TreePath } from 'gel-util/common';
+import { isTempChapter } from '../guards';
 import type { ChapterLike } from '../types';
 
 type ChapterIdValue<T extends { chapterId?: unknown }> = T extends { chapterId?: infer Id }
@@ -100,30 +101,42 @@ export interface ApplyIdMapOptions<TChapterId = string | number> {
 export const applyIdMapToChapters = <T extends RPChapterSavePayload & TreeNode<T>>(
   chapters: T[],
   idMap: Record<string, string>,
-  options: ApplyIdMapOptions<ChapterIdValue<T>> = {}
+  options: ApplyIdMapOptions<number> = {}
 ): T[] => {
   const childrenKey = (options.childrenKey ?? 'children') as keyof T;
-  const transformId =
-    options.idTransformer ?? (((id: string | number) => Number(id)) as (id: string | number) => ChapterIdValue<T>);
+  const transformId = options.idTransformer ?? ((id: string | number) => Number(id));
 
   return mapTree(
     chapters,
-    (chapter) => {
+    (chapter): T => {
+      // 使用类型守卫检查是否为临时章节
+      if (!isTempChapter(chapter)) {
+        return chapter;
+      }
+
+      // 检查是否有 ID 映射
       const tempId = chapter.tempId;
       if (!tempId || !idMap[String(tempId)]) {
         return chapter;
       }
 
+      // 应用 ID 映射，转换为持久章节
       const mappedId = idMap[String(tempId)];
       const normalizedId = transformId(mappedId);
-      const finalId = typeof normalizedId === 'number' && Number.isNaN(normalizedId) ? chapter.chapterId : normalizedId;
+      const finalId = typeof normalizedId === 'number' && !Number.isNaN(normalizedId) ? normalizedId : undefined;
 
+      if (!finalId) {
+        // 静默处理：开发环境记录详细信息，生产环境只记录警告
+        console.error(`[applyIdMapToChapters] Invalid mapped ID for tempId ${tempId}:`, { mappedId, normalizedId });
+        return chapter;
+      }
+
+      // 移除临时章节字段，添加持久 ID
+      const { tempId: _, isTemporary: __, ...rest } = chapter;
       return {
-        ...chapter,
+        ...rest,
         chapterId: finalId,
-        isTemporary: undefined,
-        tempId: undefined,
-      };
+      } as T;
     },
     childrenKey
   );

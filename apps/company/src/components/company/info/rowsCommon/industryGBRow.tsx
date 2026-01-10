@@ -1,10 +1,9 @@
+import { IndustryRowDisplay } from '@/handle/corpModuleCfg/base/baseIndustry/components/IndustryRowDisplay'
 import { HorizontalTableCol } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
-import React from 'react'
-import { ICorpBasicInfoFront } from '../handle'
-import { IndustryRowDisplay } from '@/handle/corpModuleCfg/base/baseIndustry/components/IndustryRowDisplay'
+import { CorpBasicInfoFront } from '../handle'
 
-export const corpInfoIndustryRow = (): HorizontalTableCol<ICorpBasicInfoFront> => ({
+export const corpInfoIndustryRow = (): HorizontalTableCol<CorpBasicInfoFront> => ({
   title: intl(138722, '国民经济行业分类'),
   dataIndex: 'industryGbFold',
   colSpan: 5,

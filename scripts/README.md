@@ -10,6 +10,7 @@ scripts/
 ├── deploy.js                   # 统一部署脚本主入口
 ├── build-and-deploy.js         # 构建部署一体化脚本
 ├── local-ci.js                 # 本地CI模拟脚本
+├── find-directories.js         # 查找需要创建README的目录
 ├── process-area-json.js        # 地区JSON数据处理脚本
 ├── jsonSort.cjs                # JSON文件排序工具
 ├── jsonLikeFileIntl.cjs        # 类JSON国际化文件处理
@@ -51,5 +52,5 @@ scripts/
 - [预发布部署说明](./staging/README.md) - 预发布环境专用文档
 - [通用工具说明](./utils/README.md) - 工具模块详细说明
 - [前端开发规范](../docs/rule/) - TypeScript、React、样式等规范
-- [文档编写规范](../docs/rule/readme-rule.md) - README文档标准
+- [文档编写规范](../docs/rule/doc-readme-structure-rule.md) - README文档标准
 - [项目根目录](../README.md) - 项目整体介绍

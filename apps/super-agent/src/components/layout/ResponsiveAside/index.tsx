@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import styles from './index.module.less'
 import { Button, Tooltip } from '@wind/wind-ui'
-import { t } from 'gel-util/locales'
+import { t } from 'gel-util/intl'
 import { InsertO, RatioonethirdO } from '@wind/icons'
 import { OverlayAside } from './overlay-aside.tsx'
 import type { CSSProperties } from 'react'
@@ -57,11 +57,11 @@ export const ResponsiveAside: React.FC<ResponsiveAsideProps> = (props) => {
 
   // 用户可见文案统一管理
   const STRINGS = {
-    TITLE: t('layout.title', '超级名单'),
-    COLLAPSE: t('layout.collapse', '收起'),
-    EXPAND: t('layout.expand', '展开'),
-    MENU: t('layout.menu', '菜单'),
-    CLOSE: t('common.close', '关闭'),
+    TITLE: t('222402', '超级名单'),
+    COLLAPSE: t('119102', '收起'),
+    EXPAND: t('28912', '展开'),
+    MENU: t('417395', '菜单'),
+    CLOSE: t('6653', '关闭'),
   } as const
 
   if (!enable) return <>{mainContent}</>

@@ -2,9 +2,10 @@ import { SettingO } from '@wind/icons'
 import { Button, Divider } from '@wind/wind-ui'
 import React, { useState } from 'react'
 import { DevModeConfigPanel } from './components/DevModeConfigPanel'
+import { PermissionSwitchPanel } from './components/PermissionSwitchPanel'
 import { useEnvConfig } from './hooks/useEnvConfig'
-export { loaclDevManager } from './utils/storage'
 import './index.less'
+export { loaclDevManager } from './utils/storage'
 
 export const DebugPanel: React.FC<{
   style?: React.CSSProperties
@@ -55,6 +56,8 @@ export const DebugPanel: React.FC<{
                 onSessionIdChange={setSessionIdDev}
                 onSave={handleSaveDevConfig}
               />
+
+              <PermissionSwitchPanel />
 
               <Divider style={{ margin: '12px 0' }} />
             </div>

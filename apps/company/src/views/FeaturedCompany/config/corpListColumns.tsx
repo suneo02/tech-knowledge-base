@@ -1,9 +1,7 @@
 import { Links } from '@/components/common/links'
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
-import { isTestSite } from '@/utils/env'
 import { intl } from 'gel-util/intl'
 import { getRimeOrganizationUrl, isFromRime } from 'gel-util/link'
-import React from 'react'
 
 export const getCorpListColumnsBase = (showOriginalName: boolean) => {
   return [
@@ -30,7 +28,7 @@ export const getCorpListColumnsBase = (showOriginalName: boolean) => {
         const id = String(row['corpId'])
         let link = ''
         if (isFromRime()) {
-          link = getRimeOrganizationUrl({ id, isTestSite: isTestSite() })
+          link = getRimeOrganizationUrl({ id })
         } else {
           link = getUrlByLinkModule(LinksModule.COMPANY, { id })
         }
@@ -102,7 +100,7 @@ export const getCorpListColumnsBaseForOversea = (showOriginalName: boolean) => {
         const id = String(row['corpId'])
         let link = ''
         if (isFromRime()) {
-          link = getRimeOrganizationUrl({ id, isTestSite: isTestSite() })
+          link = getRimeOrganizationUrl({ id })
         } else {
           link = getUrlByLinkModule(LinksModule.COMPANY, { id })
         }

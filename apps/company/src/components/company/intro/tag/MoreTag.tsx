@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import './styles/moreTag.less'
 
 import { ModalSafeType } from '@/components/modal/ModalSafeType.tsx'
-import { CorpTag } from 'gel-api/*'
+import { CorpTag } from 'gel-api'
 import { CorpTagInDetail } from 'gel-ui'
 import { splitTags2MapByModule } from 'gel-util/biz'
 import { CorpTagTrans } from './type'
@@ -24,12 +24,7 @@ const TagGroup: React.FC<{
       </div>
       <div className={`${StylePrefix}--tags`}>
         {tagList.map((tag) => (
-          <CorpTagInDetail
-            key={tag.id}
-            corpTag={tag}
-            tagNameOriginal={tag.nameOriginal}
-            onClick={onTagClick}
-          />
+          <CorpTagInDetail key={tag.id} corpTag={tag} tagNameOriginal={tag.nameOriginal} onClick={onTagClick} />
         ))}
       </div>
     </div>
@@ -60,7 +55,7 @@ export const CompanyMoreTagsModal: FC<{
       tagList: corpTagMap.INDUSTRY,
     },
     {
-      title: intl('', '企业入选名录'),
+      title: intl('329253', '企业入选名录'),
       tagList: corpTagMap.LIST,
     },
     {

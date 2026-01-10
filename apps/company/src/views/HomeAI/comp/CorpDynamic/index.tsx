@@ -7,9 +7,10 @@ import React, { FC, useEffect, useRef, useState } from 'react'
 
 import { pointBuriedByModule } from '@/api/pointBuried/bury.ts'
 import { LinkSafe, MenuSafe, SubMenuSafe } from '@/components/windUISafe/index.tsx'
+import { translateToEnglish } from '@/utils/intl/complexHtml.ts'
 import { DownO } from '@wind/icons'
 import Table, { ColumnProps } from '@wind/wind-ui-table'
-import { t } from 'gel-util/intl'
+import { isEn, t } from 'gel-util/intl'
 import { MyIcon } from '../../../../components/Icon'
 import { homeSelectDate, homeSelectType } from './config.ts'
 import { mapDynamicDetail } from './dynamicDetailMapper.ts'
@@ -27,14 +28,14 @@ const intlMsg = {
   allType: t('12074', '全部类型'),
   myCorpDynamic: t('455514', '我的企业动态'),
   loadFailed: t('313373', '加载失败，请重试}'),
-  retry: t('333836', '重 试'),
+  retry: t('313393', '重 试'),
   noData: t('132725', '暂无数据'),
   viewMore: t('375453', '首页最多查看50条动态，点此查看更多'),
   dynamicTime: t('437308', '动态时间'),
   dynamicSummary: t('437327', '动态摘要'),
   dynamicType: t('437226', '动态类别'),
   tip: t('31041', '提示'),
-  buyVip: t('333838', '购买VIP/SVIP套餐，获取更多数据查看条数'),
+  buyVip: t('478628', '购买VIP/SVIP套餐，获取更多数据查看条数'),
 }
 
 enum SelectType {
@@ -233,20 +234,16 @@ export const HomeCorpDynamic: FC<{
           setDynamicEventLoaded(false)
         }
 
-        if (window.en_access_config && allArr?.length) {
+        if (isEn() && allArr?.length) {
           if (!sortAfter) {
             // 仅第一页，采用先展示中文，后展示英文方式，后续还是沿用 中文+英文，方式，避免填充数据紊乱
             setLastDatas(allArr)
           }
-          wftCommon.zh2en(
-            wftCommon.deepClone(allArr),
-            (newData) => {
-              setLastDatas(() => newData || [])
-            },
-            null,
-            null,
-            ['event_type', 'corp_name', 'text']
-          )
+          translateToEnglish(wftCommon.deepClone(allArr), {
+            allowFields: ['event_type', 'text'],
+          }).then((newDataRes) => {
+            setLastDatas(() => newDataRes.data || [])
+          })
         } else {
           setLastDatas(allArr || [])
         }

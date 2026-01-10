@@ -21,7 +21,7 @@ export const TableFooterLeft: FC<{
   } else {
     // 此处为之前逻辑
     content =
-      total > 5000 ? intl('265692', '注：最多展示5000条数据，如需获取更多数据内容，请联系客户经理，购买定制服务') : null
+      total > 5000 ? intl('236756', '注：最多展示5000条数据，如需获取更多数据内容，请联系客户经理，购买定制服务') : null
   }
   return content && <div className={styles.tips}>{content}</div>
 }

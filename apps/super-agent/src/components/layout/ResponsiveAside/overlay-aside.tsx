@@ -1,8 +1,8 @@
-import { PropsWithChildren } from 'react'
+import { InsertO } from '@wind/icons'
+import { Button } from '@wind/wind-ui'
 import classNames from 'classnames'
 import styles from './index.module.less'
-import { Button } from '@wind/wind-ui'
-import { InsertO } from '@wind/icons'
+import type { PropsWithChildren } from 'react'
 
 type OverlayAsideProps = {
   open: boolean

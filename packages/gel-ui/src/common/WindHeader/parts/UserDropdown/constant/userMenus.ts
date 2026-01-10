@@ -1,4 +1,3 @@
-import { isEn } from 'gel-util/intl'
 import { LinkModule, UserLinkParamEnum } from 'gel-util/link'
 
 export interface UserMenuItem {
@@ -90,8 +89,8 @@ export const UserMenusRaw: UserMenuItem[] = [
   //   },
   // },
   {
-    id: '',
-    zh: isEn() ? 'Help Center' : '帮助中心',
+    id: 26373,
+    zh: '帮助中心',
     url: '//UnitedWebServer/helpcenter/helpCenter/redirect/document?id=30',
     hideInWeb: true,
   },

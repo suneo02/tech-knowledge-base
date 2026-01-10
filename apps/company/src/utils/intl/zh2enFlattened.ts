@@ -183,73 +183,109 @@ export function convertArrayObjectKeys(dataArray) {
     return result
   })
 }
-export function zh2en(zhWords, successCallback, extraFun?, errorCallback?, unfoldField?) {
-  if (!zhWords || !Array.isArray(zhWords) || !zhWords.length) {
-    if (errorCallback) errorCallback('🚀 ~ zh2en zh words is null or not an array')
-    return []
-  }
-  let vrData = []
-  const vrParam = {}
-  if (extraFun) {
-    vrData = extraFun(zhWords)
-  } else {
-    vrData = zhWords
-  }
-  if (unfoldField) {
-    vrData.forEach(function (t, idx) {
-      unfoldField.forEach(function (k) {
-        vrParam[idx + '$$' + k] = t[k]
-        if (t[k] === 0) {
-          vrParam[idx + '$$' + k] = 0
-        } else if (t[k] === '0') {
-          vrParam[idx + '$$' + k] = '0'
-        } else if (!t[k]) {
-          vrParam[idx + '$$' + k] = ''
-        } else if (t[k] === true) {
-          vrParam[idx + '$$' + k] = 1
+
+/**
+ * zh2en 的 Promise 版本 - 基础实现
+ * @param zhWords - 需要翻译的中文数据数组
+ * @param extraFun - 可选的数据预处理函数
+ * @param unfoldField - 可选的需要展开的字段数组
+ * @returns Promise<any[]> - 返回翻译后的数据数组
+ */
+export function zh2enPromise(zhWords, extraFun?, unfoldField?): Promise<any[]> {
+  return new Promise((resolve, reject) => {
+    if (!zhWords || !Array.isArray(zhWords) || !zhWords.length) {
+      reject(new Error('🚀 ~ zh2en zh words is null or not an array'))
+      return
+    }
+
+    let vrData = []
+    const vrParam = {}
+    if (extraFun) {
+      vrData = extraFun(zhWords)
+    } else {
+      vrData = zhWords
+    }
+
+    if (unfoldField) {
+      vrData.forEach(function (t, idx) {
+        unfoldField.forEach(function (k) {
+          vrParam[idx + '$$' + k] = t[k]
+          if (t[k] === 0) {
+            vrParam[idx + '$$' + k] = 0
+          } else if (t[k] === '0') {
+            vrParam[idx + '$$' + k] = '0'
+          } else if (!t[k]) {
+            vrParam[idx + '$$' + k] = ''
+          } else if (t[k] === true) {
+            vrParam[idx + '$$' + k] = 1
+          }
+        })
+      })
+    } else {
+      vrData.forEach(function (t, idx) {
+        for (const k in t) {
+          vrParam[idx + '$$' + k] = t[k]
+          if (t[k] === 0) {
+            vrParam[idx + '$$' + k] = 0
+          } else if (t[k] === '0') {
+            vrParam[idx + '$$' + k] = '0'
+          } else if (!t[k]) {
+            vrParam[idx + '$$' + k] = ''
+          } else if (t[k] === true) {
+            vrParam[idx + '$$' + k] = 1
+          }
         }
       })
-    })
-  } else {
-    vrData.forEach(function (t, idx) {
-      for (const k in t) {
-        vrParam[idx + '$$' + k] = t[k]
-        if (t[k] === 0) {
-          vrParam[idx + '$$' + k] = 0
-        } else if (t[k] === '0') {
-          vrParam[idx + '$$' + k] = '0'
-        } else if (!t[k]) {
-          vrParam[idx + '$$' + k] = ''
-        } else if (t[k] === true) {
-          vrParam[idx + '$$' + k] = 1
-        }
-      }
-    })
-  }
-  translateService(vrParam, function (newData) {
-    let newRes = []
-    const resObj = {}
-    if (unfoldField) {
-      newRes = zhWords
-      for (var k in newData) {
-        var t = k.split('$$')[0]
-        resObj[t] = resObj[t] || {}
-        var key = k.split('$$')[1]
-        newRes[t][key] = newData[k]
-      }
-    } else {
-      for (var k in newData) {
-        var t = k.split('$$')[0]
-        resObj[t] = resObj[t] || {}
-        var key = k.split('$$')[1]
-        resObj[t][key] = newData[k]
-      }
-      for (var k in resObj) {
-        newRes.push(resObj[k])
-      }
     }
-    // 这里添加针对数组的优化
-    const result = convertArrayObjectKeys(newRes)
-    successCallback(result)
+
+    translateService(vrParam, function (newData) {
+      try {
+        let newRes = []
+        const resObj = {}
+        if (unfoldField) {
+          newRes = zhWords
+          for (var k in newData) {
+            var t = k.split('$$')[0]
+            resObj[t] = resObj[t] || {}
+            var key = k.split('$$')[1]
+            newRes[t][key] = newData[k]
+          }
+        } else {
+          for (var k in newData) {
+            var t = k.split('$$')[0]
+            resObj[t] = resObj[t] || {}
+            var key = k.split('$$')[1]
+            resObj[t][key] = newData[k]
+          }
+          for (var k in resObj) {
+            newRes.push(resObj[k])
+          }
+        }
+        // 这里添加针对数组的优化
+        const result = convertArrayObjectKeys(newRes)
+        resolve(result)
+      } catch (error) {
+        reject(error)
+      }
+    })
   })
+}
+
+/**
+ * zh2en 回调版本 - 已废弃，请使用 zh2enPromise
+ * @deprecated 请使用 zh2enPromise 代替
+ * @param zhWords - 需要翻译的中文数据数组
+ * @param successCallback - 成功回调函数
+ * @param extraFun - 可选的数据预处理函数
+ * @param errorCallback - 错误回调函数
+ * @param unfoldField - 可选的需要展开的字段数组
+ */
+export function zh2en(zhWords, successCallback, extraFun?, errorCallback?, unfoldField?) {
+  zh2enPromise(zhWords, extraFun, unfoldField)
+    .then((result) => {
+      if (successCallback) successCallback(result)
+    })
+    .catch((error) => {
+      if (errorCallback) errorCallback(error.message)
+    })
 }

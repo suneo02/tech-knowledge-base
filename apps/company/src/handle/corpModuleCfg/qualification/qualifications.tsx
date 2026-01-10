@@ -1,6 +1,5 @@
 import { hzpscxk } from '@/components/company/data/qualificationsHonors/hzpscxk.tsx'
 import { LinkByRowCompatibleCorpPerson } from '@/components/company/link/CorpOrPersonLink.tsx'
-import { ICorpPrimaryModuleVipCfg } from '@/components/company/type'
 import {
   corpDetailFinancialInfo,
   corpDetailInvestigationFiling,
@@ -9,14 +8,17 @@ import {
   CorpDetailQualificationGetGameApprovalCfg,
 } from '@/handle/corpModuleCfg'
 import { vipDescDefault } from '@/handle/corpModuleCfg/common/vipDesc.ts'
+import { CorpPrimaryModuleVipCfg } from '@/types/corpDetail'
 import { intlNoNO as intl } from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
 import React from 'react'
 import { DetailLink } from '../components'
 import { corpAdminLicenseBureau } from './adminLicenseBureau'
 import { corpAdminLicenseChina } from './adminLicenseChina'
+import { corpListInformation } from './listInformation'
+import { corpSelectList } from './selectList'
 
-export const qualifications: ICorpPrimaryModuleVipCfg = {
+export const qualifications: CorpPrimaryModuleVipCfg = {
   moduleTitle: {
     title: intl('284064', '资质荣誉'),
     moduleKey: 'qualifications', //  与左侧大菜单齐名
@@ -25,9 +27,9 @@ export const qualifications: ICorpPrimaryModuleVipCfg = {
   getpermission02: corpAdminLicenseChina,
   getpermission: corpAdminLicenseBureau,
   credit: {
-    title: intl('99999693', '征信备案'),
+    title: intl('448360', '征信备案'),
     modelNum: corpDetailInvestigationFiling.modelNum,
-    notVipTitle: intl('99999693', '征信备案'),
+    notVipTitle: intl('448360', '征信备案'),
     notVipTips: vipDescDefault,
     children: [
       {
@@ -35,19 +37,19 @@ export const qualifications: ICorpPrimaryModuleVipCfg = {
         moreLink: 'credit',
         modelNum: corpDetailInvestigationFilingPerson.modelNum,
 
-        notVipTitle: intl('99999692', '个人征信'),
+        notVipTitle: intl('448361', '个人征信'),
         notVipTips: vipDescDefault,
         extraParams: (param) => {
           param.__primaryKey = param.companycode
           return param
         },
-        title: intl('99999692', '个人征信'),
+        title: intl('448361', '个人征信'),
         thWidthRadio: ['4%'],
         thName: [
           intl('28846', '序号'),
-          intl('', '许可证名称'),
-          intl('', '发证机关'),
-          intl('', '公示日期'),
+          intl('222783', '许可证名称'),
+          intl('216395', '发证机关'),
+          intl('138143', '公示日期'),
           intl('36348', '操作'),
         ],
         align: [1, 0, 0, 0],
@@ -63,20 +65,20 @@ export const qualifications: ICorpPrimaryModuleVipCfg = {
         cmd: 'detail/company/companyCreditList',
         modelNum: corpDetailInvestigationFilingCorp.modelNum,
 
-        notVipTitle: intl('99999691', '企业征信'),
+        notVipTitle: intl('448362', '企业征信'),
         notVipTips: vipDescDefault,
         extraParams: (param) => {
           param.__primaryKey = param.companycode
           return param
         },
-        title: intl('99999691', '企业征信'),
+        title: intl('448362', '企业征信'),
         thWidthRadio: ['4%'],
         thName: [
           intl('28846', '序号'),
-          intl('', '许可证名称'),
-          intl('', '发证机关'),
-          intl('', '公示日期'),
-          intl('', '有效期开始日期'),
+          intl('222783', '许可证名称'),
+          intl('216395', '发证机关'),
+          intl('138143', '公示日期'),
+          intl('364553', '有效期开始日期'),
         ],
         align: [1, 0, 0, 0],
         fields: ['NO.', 'adminLicenseName', 'apprAuthority', 'publishDate|formatTime', 'startDate|formatTime'],
@@ -84,11 +86,11 @@ export const qualifications: ICorpPrimaryModuleVipCfg = {
     ],
   },
   jrxx: {
-    title: intl('99999690', '金融信息服务备案'),
+    title: intl('448339', '金融信息服务备案'),
     modelNum: corpDetailFinancialInfo.modelNum,
     cmd: 'detail/company/financialRecordList',
 
-    notVipTitle: intl('99999690', '金融信息服务备案'),
+    notVipTitle: intl('448339', '金融信息服务备案'),
     notVipTips: vipDescDefault,
     extraParams: (param) => {
       param.__primaryKey = param.companycode
@@ -97,10 +99,10 @@ export const qualifications: ICorpPrimaryModuleVipCfg = {
     thWidthRadio: ['4%'],
     thName: [
       intl('28846', '序号'),
-      intl('', '行政备案号'),
-      intl('', '服务渠道'),
-      intl('', '备案日期'),
-      intl('', '服务内容'),
+      intl('417686', '行政备案号'),
+      intl('417687', '服务渠道'),
+      intl('328162', '备案日期'),
+      intl('316354', '服务内容'),
     ],
     align: [1, 0, 0, 0],
     fields: ['NO.', 'adminFilingNumber', 'serviceRange', 'filingDate|formatTime', 'serviceContent'],
@@ -561,6 +563,7 @@ export const qualifications: ICorpPrimaryModuleVipCfg = {
     ],
     align: [1, 0, 0, 0, 0, 0],
     fields: ['NO.', 'taxName', 'assessTime', 'creditLevel', ''],
+    skipTransFieldsInKeyMode: ['taxName'],
     dataCallback: (res, _num, pageno) => {
       res.map((t, idx) => {
         t.key = t.key ? t.key : idx + pageno * 10
@@ -579,97 +582,6 @@ export const qualifications: ICorpPrimaryModuleVipCfg = {
     ],
   },
   hzpscxk,
-  selectList: {
-    cmd: 'detail/company/getdirectorylist',
-    title: intl('286256', '入选名录'),
-    modelNum: 'listingTagsDataCount',
-
-    notVipTitle: intl('286256', '入选名录'),
-    notVipTips: vipDescDefault,
-    thWidthRadio: ['5.2%', '26%', '60%', '10%'],
-    thName: [intl('28846', '序号'), intl('344833', '名录信息'), intl('344834', '名录简介'), intl('36348', '操作')],
-    align: [1, 0, 0, 0],
-    fields: ['NO.', 'objectName', 'description', 'objectId1'],
-    columns: [
-      null,
-      {
-        render: (txt, row) => {
-          const url = row.objectId ? `index.html#feturedcompany?id=${row.objectId}` : ''
-          return <DetailLink url={url} txt={txt} />
-        },
-      },
-      null,
-    ],
-    extraParams: (param) => {
-      param.__primaryKey = param.companycode
-      return param
-    },
-    rowSet: (row, _idx) => {
-      if (!row.isShowDetail) {
-        return {
-          className: 'table-tr-detail-hide',
-        }
-      }
-    },
-    dataCallback: (res, _num, pageno) => {
-      res.map((t, idx) => {
-        t.key = t.key ? t.key : idx + pageno * 10
-      })
-      return res
-    },
-  },
-  listInformation: {
-    cmd: 'detail/company/getrankedcompanylistv2',
-    title: intl('138468', '上榜信息'),
-    moreLink: 'listInformation',
-    modelNum: 'ranked_num',
-    thWidthRadio: ['5.2%', '30%', '10%', '10%', '10%', '10%'],
-    thName: [
-      intl('28846', '序号'),
-      intl('140374', '榜单'),
-      intl('12634', '上榜日期'),
-      intl('326735', '最新上榜名次'),
-      intl('348169', '累计上榜次数'),
-      intl('348176', '历史上榜详情'),
-    ],
-    align: [1, 0, 2, 2, 2, 1],
-    fields: ['NO.', 'rankName|formatCont', 'rankTime', 'rankLevel', 'rankCount', 'rankCode1'],
-    notVipTitle: intl('138468', '上榜信息'),
-    notVipTips: intl('224205', '购买VIP/SVIP套餐，即可不限次查看企业上榜信息'),
-    dataCallback: (res, _num, pageno) => {
-      res.map((t, idx) => {
-        t.key = t.key ? t.key : idx + pageno * 10
-      })
-      return res
-    },
-    extraParams: (param) => {
-      param.__primaryKey = param.companycode
-      return {
-        ...param,
-      }
-    },
-    columns: [
-      null,
-      {
-        render: (_txt, row) => {
-          const name = row.rankName || '--'
-          const detailid = row.rankCode
-          const url = `index.html#feturedcompany?id=${detailid}`
-          return detailid ? <DetailLink url={url} txt={name} /> : name
-        },
-      },
-      {
-        render: (txt, _row) => {
-          return wftCommon.formatTime(txt) || '--'
-        },
-      },
-    ],
-    rowSet: (row, _idx) => {
-      if (!row.rankCount || row.rankCount < 2) {
-        return {
-          className: 'table-tr-detail-hide',
-        }
-      }
-    },
-  },
+  selectList: corpSelectList,
+  listInformation: corpListInformation,
 }

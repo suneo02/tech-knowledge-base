@@ -6,13 +6,10 @@
  * @author 开发团队
  */
 
-import { entWebAxiosInstance } from '@/api/entWeb';
 import { ArrowDown } from '@/assets/icon';
 import { generateChapterHierarchicalNumber, getChapterKey } from '@/domain/chapter';
 import { OutlineChapterViewModel } from '@/types/report';
-import { getWsid, isDev } from '@/utils';
 import classNames from 'classnames';
-import { ChatRefCollapse } from 'gel-ui';
 import { TreePath, isLeafNode } from 'gel-util/common';
 import { FC, ReactNode } from 'react';
 import styles from './ChapterNodeBase.module.less';
@@ -76,10 +73,6 @@ export const ChapterNodeBase: FC<ChapterNodeBaseProps> = ({
 }) => {
   const hasChildren = chapter.children && chapter.children.length > 0;
   const indentStyle = { paddingLeft: `${level * 16 + 8}px` };
-
-  // 直接从章节数据中获取引用资料
-  const suggestionData = chapter.ragList || [];
-  const tableData = chapter.dpuList || [];
 
   // 获取章节唯一键
   const chapterKey = getChapterKey(chapter);
@@ -153,16 +146,6 @@ export const ChapterNodeBase: FC<ChapterNodeBaseProps> = ({
               {chapter.title}
             </span>
           </div>
-
-          {/* 章节引用资料 */}
-          <ChatRefCollapse
-            className={styles['chapter-ref-list']}
-            ragList={suggestionData}
-            dpuList={tableData}
-            isDev={isDev}
-            wsid={getWsid()}
-            entWebAxiosInstance={entWebAxiosInstance}
-          />
 
           {/* 编写思路 - 只在叶子节点显示 */}
           {showWritingThought && isLeafNode(chapter) && chapter.writingThought && (

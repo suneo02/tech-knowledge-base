@@ -7,9 +7,8 @@ import { DownloadO } from '@wind/icons'
 import { Button, Divider, Empty, Select } from '@wind/wind-ui'
 import React, { useEffect, useState } from 'react'
 import SearchResultList from '../components/SearchResult'
-import useResultListData from '../useResultList'
+import useResultListData, { CompanyInfoInSearchWithCollect } from '../useResultList'
 import './index.less'
-import { SearchResultItem } from '../components/SearchResult/type'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MultiResultList: React.FC<{ filterParams: any; data?: any; api?: [string, string]; type: GSTabsEnum }> = ({
   filterParams,
@@ -27,7 +26,7 @@ const MultiResultList: React.FC<{ filterParams: any; data?: any; api?: [string, 
     refresh: fullRefresh,
     done: fullDone,
     setData: setFullData,
-  } = useResultListData<SearchResultItem>(api[0], { ...filterParams, sort }, data, true)
+  } = useResultListData<CompanyInfoInSearchWithCollect>(api[0], { ...filterParams, sort }, data, true)
   const {
     data: partData,
     total: partTotal,
@@ -37,7 +36,7 @@ const MultiResultList: React.FC<{ filterParams: any; data?: any; api?: [string, 
     reset: partReset,
     done: partDone,
     setData: setPartData,
-  } = useResultListData<SearchResultItem>(api[1], filterParams, undefined, true)
+  } = useResultListData<CompanyInfoInSearchWithCollect>(api[1], filterParams, undefined, true)
 
   const refresh = () => {
     fullRefresh()

@@ -40,10 +40,6 @@ export default [
           message: 'Array.filter方法会在部分浏览器中不兼容，请使用for循环代替',
         },
         {
-          selector: "CallExpression[callee.property.name='map']",
-          message: 'Array.map方法会在部分浏览器中不兼容，请使用for循环代替',
-        },
-        {
           selector: "CallExpression[callee.property.name='reduce']",
           message: 'Array.reduce方法会在部分浏览器中不兼容，请使用for循环代替',
         },
@@ -93,10 +89,6 @@ export default [
         {
           selector: "CallExpression[callee.property.name='filter']",
           message: 'Array.filter方法会在部分浏览器中不兼容，请使用for循环代替',
-        },
-        {
-          selector: "CallExpression[callee.property.name='map']",
-          message: 'Array.map方法会在部分浏览器中不兼容，请使用for循环代替',
         },
         {
           selector: "CallExpression[callee.property.name='reduce']",

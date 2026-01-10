@@ -20,3 +20,5 @@ apps/ai-chat/doc/hooks/use-lang-source/设计文档.md
 apps/ai-chat/scripts/strings-fix.cjs
 apps/ai-chat/scripts/strings-stats.cjs
 apps/test
+apps/company/.trae/rules/project_rules.md
+**.html

@@ -1,10 +1,10 @@
 import { downloadTechRankWord } from '@/api/companyApi.ts'
 import { pointBuriedByModule } from '@/api/pointBuried/bury.ts'
 import { TechScoreHint } from '@/components/company/techScore/comp.tsx'
-import { ICorpTableCfg } from '@/components/company/type'
 import { InfoCircleButton } from '@/components/icons/InfoCircle/index.tsx'
 import { VipPopup } from '@/lib/globalModal'
 import { getVipInfo } from '@/lib/utils'
+import { CorpTableCfg } from '@/types/corpDetail'
 import intl from '@/utils/intl/index.ts'
 import { wftCommon } from '@/utils/utils.tsx'
 import { DownloadO } from '@wind/icons'
@@ -15,6 +15,7 @@ import { useTechScoreChart } from './chartHandle.tsx'
 import './style/index.less'
 import styles from './style/title.module.less'
 import { getCorpTechScoreRows, useTechRank } from './tableHandle.tsx'
+import { isFromRimePEVC } from 'gel-util/link'
 
 // 懒加载 RadarChart 组件，避免首屏加载 ECharts 资源
 const RadarChartComponent = () =>
@@ -64,20 +65,22 @@ export const CorpTechTitleComponent: React.FC<{
           </span>
         ) : null}
       </div>
-      <Button
-        style={{ marginTop: 4 }}
-        onClick={handleClick}
-        icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
-      >
-        {intl('4698', '导出数据')}
-      </Button>
+      {isFromRimePEVC() ? null : (
+        <Button
+          style={{ marginTop: 4 }}
+          onClick={handleClick}
+          icon={<DownloadO onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
+        >
+          {intl('4698', '导出数据')}
+        </Button>
+      )}
     </div>
   )
 }
 
 export const CompanyTechScore: FC<{
   corpCode: string
-  eachTable: Partial<Pick<ICorpTableCfg, 'title'>>
+  eachTable: Partial<Pick<CorpTableCfg, 'title'>>
   eachTableKey: string
 }> = ({ corpCode, eachTable, eachTableKey }) => {
   const { radarChartOpts, score, date } = useTechScoreChart(corpCode)

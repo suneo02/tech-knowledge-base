@@ -15,7 +15,6 @@ import { TableAITaskProvider } from '@/components/ETable/context/TableAITaskCont
 import { t } from 'gel-util/intl'
 import { postPointBuried } from '@/utils/common/bury'
 import { useSize } from 'ahooks'
-import { fetchUserInfo, selectUserInfo, useAppSelector } from '@/store'
 
 const PREFIX = 'progress-guard-demo'
 

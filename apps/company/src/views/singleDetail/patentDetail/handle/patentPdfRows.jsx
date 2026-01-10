@@ -24,7 +24,7 @@ export const patentPdfRows = [
     },
   },
   {
-    title: intl('265656', '文件状态'),
+    title: intl('470289', '文件状态'),
     dataIndex: 'status',
   },
 ]

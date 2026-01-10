@@ -1,0 +1,86 @@
+@import '@/styles/colorVariables.less';
+@prefix: company-info-display;
+
+.@{prefix} {
+  &-container {
+    background: #fff;
+  }
+  &-wrapper {
+    margin-bottom: 32px;
+  }
+
+  &-show {
+    background: #fff;
+    padding: 0 12px;
+    padding-bottom: 20px !important;
+    margin-bottom: 0 !important;
+
+    :global {
+      .corp-industry-tree {
+        .w-tree-switcher-noop {
+          visibility: hidden;
+          width: 7px;
+          margin-right: 14px;
+        }
+
+        .w-tree-title {
+          white-space: normal;
+        }
+
+        .w-tree-node-content-wrapper {
+          height: 100% !important;
+        }
+      }
+
+      .wind-ui-table-item-title {
+        text-align: left !important;
+        font-weight: bold;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        height: auto !important;
+      }
+
+      tr {
+        &:last-child {
+          border-bottom: 1px solid #dfdfdf;
+        }
+      }
+
+      .company-base-actcontrol-div {
+        display: inline-block;
+      }
+    }
+  }
+
+  &-title-overview {
+    border-radius: 4px 4px 0 0;
+    background: #fff;
+    padding-top: 12px;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 42px !important;
+    padding-left: 12px !important;
+    margin-left: 0 !important;
+  }
+
+  &-tabs {
+    padding: 4px 12px;
+    :global {
+      .w-tabs-tabpane {
+        padding: 0;
+      }
+      .wind-ui-table {
+        padding: 0;
+      }
+    }
+  }
+}
+
+:global {
+  .stock-path-box:not(:last-child) {
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #999;
+  }
+}

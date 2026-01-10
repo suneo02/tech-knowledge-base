@@ -1,30 +1,25 @@
-import {
-  isBalanceSheetResponse,
-  isCashFlowResponse,
-  isFinancialIndicatorResponse,
-  isProfitResponse,
-} from '@/api/corp/buss/financial'
 import { createRequest } from '@/api/request.ts'
 import { listDetailConfig } from '@/components/company/listDetailConfig.tsx'
 import { CorpTableModelNum } from '@/components/company/table/ModelNumComp.tsx'
-import { ICorpTableCfg } from '@/components/company/type'
 import { getCorpModuleNum } from '@/handle/corp/basicNum/handle.tsx'
-import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type.ts'
 import { downLoadCorpExcel } from '@/handle/corp/download.ts'
 import { handleAnnouncementCommentAndCountNum } from '@/handle/corpModuleCfg'
-import { corpDetailFinancial } from '@/handle/corpModuleCfg/buss/finnancial.tsx'
-import { corpDetailFinancialAnalysis } from '@/handle/corpModuleCfg/buss/finnancialAnalysis.tsx'
+
 import { LinksModule } from '@/handle/link'
-import { getIfBondCorpByBasicNum, getIfIPOCorpByBasicNum } from '@/views/Company/handle/corpBasicNum.ts'
+import { CorpBasicNumFront } from '@/types/corpDetail/basicNum.ts'
+import { CompanyTableSelectOptions, CorpTableCfg } from '@/types/corpDetail/index.ts'
+import { zh2en } from '@/utils/intl/zh2enFlattened.ts'
 import { DownloadO, InfoCircleO } from '@wind/icons'
 import { Button, Card, Checkbox, Input, Select, Tooltip } from '@wind/wind-ui'
-import Table, { TableProps } from '@wind/wind-ui-table'
+import Table from '@wind/wind-ui-table'
 import { Cascader, ConfigProvider } from 'antd'
 import enUS from 'antd/locale/en_US'
 import zhCN from 'antd/locale/zh_CN'
 import { multiTabIds } from 'gel-util/corpConfig'
+import { isLinkSourceF9 } from 'gel-util/env'
+import { isEn } from 'gel-util/intl'
 import { isEqual, isString } from 'lodash'
-import React, { FC, useEffect, useMemo, useState } from 'react'
+import React, { ComponentProps, FC, ReactNode, useEffect, useMemo, useState } from 'react'
 import { getCorpModuleInfo, getCorpModuleInfoFromRisk } from '../../api/companyApi'
 import { pointBuriedByModule } from '../../api/pointBuried/bury'
 import LongTxtLabel from '../../components/LongTxtLabel'
@@ -34,31 +29,34 @@ import { useTranslateService } from '../../hook'
 import global from '../../lib/global'
 import { VipPopup } from '../../lib/globalModal'
 import { getVipInfo } from '../../lib/utils'
-import intl, { translateComplexHtmlData, translateToEnglish } from '../../utils/intl'
+import intl, { translateService, translateToEnglish } from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import Links from '../common/links/Links.tsx'
 import { InfoCircleButton } from '../icons/InfoCircle/index.tsx'
 import Products from '../selectbleTag'
 import SmartHorizontalTable from '../table/SmartHorizontalTable'
-import renderFinanceSheet from './buss/financial/BalanceSheet.tsx'
-import renderCashFlowSheet from './buss/financial/CashFlowSheet.tsx'
-import FinancialTable from './buss/financial/comp'
-import renderFinanceProfit from './buss/financial/FinanceProfit.tsx'
-import renderFinanceanalysis from './buss/financial/FinancialAnalysis.tsx'
-import { getEmptyFinanceTableColumns } from './buss/financial/handleFinanceTableEmpty.tsx'
-import { isShowCompanyTableRightFilterByMultiTableData } from './handle/rightFilter.ts'
+
+//  这个样式比较重要 ... 不能删除，后续清洗优化吧
+import { getIfBondCorpByBasicNum, getIfIPOCorpByBasicNum } from '@/domain/corpDetail/index.ts'
+import { ApiCodeForWfc } from 'gel-api'
+import { TCorpDetailSubModule } from 'gel-types'
+import { ErrorBoundary } from 'gel-ui'
+import '../table/table.less'
+import { CompanyVipCard } from './auth/CompanyVipCard.tsx'
 import './style/CompanyTable.less'
 import { CorpTableAggregation, useCorpTableAggApiCmd } from './table/aggregation'
+import { CompanyTableRightSelect } from './table/aggregation/select.tsx'
+import { handleCompanyTableRightSelect } from './table/aggregation/util.ts'
 import { getTableLocale } from './table/handle.ts'
 import { CompanyTechScore } from './techScore/CompanyTechScore'
-import VipModule from './VipModule'
-import { isLinkSourceF9 } from 'gel-util/env'
+import VipModule from './VipModule.tsx'
 
 const { Search } = Input
 const { HorizontalTable } = Table
 const Option = Select.Option
 
 const GqctChartComp = () => React.lazy(() => import('./ShareAndInvest'))
+
 const WCBChartComp = () => React.lazy(() => import('./WcbChartDiv'))
 
 /**
@@ -88,21 +86,16 @@ const useCompanyTableIntl = (data, eachTableKey) => {
   }
 }
 
-interface ProfitBasicInfoProps {
-  _businessProfit: number
-  _netProfit2: number
-  _sumBusinessIncome: number
-  _sumProfit: number
+type Props = {
+  title: ReactNode
+  eachTableKey: string
+  eachTable: CorpTableCfg
+  singleModuleId: string
+  ready: boolean
+  basicNum: CorpBasicNumFront
+  corpNameIntl?: string
 }
-
-const CompanyTable: FC<{
-  title: any
-  eachTableKey: any
-  eachTable: ICorpTableCfg
-  singleModuleId: any
-  ready: any
-  basicNum: ICorpBasicNumFront
-}> = ({ title, eachTableKey, eachTable, singleModuleId, ready, basicNum }) => {
+const CompanyTable: FC<Props> = ({ title, eachTableKey, eachTable, singleModuleId, ready, basicNum, corpNameIntl }) => {
   const [result, setResult] = useState([])
   const [chartData, setChartData] = useState({})
   const [pageNo, setPageNo] = useState(1)
@@ -114,11 +107,11 @@ const CompanyTable: FC<{
     eachTable.ajaxExtras.companycode?.length > 10
       ? eachTable.ajaxExtras.companycode?.slice(2, 12)
       : eachTable.ajaxExtras?.companycode
-  const [selOption, setSelOption] = useState(null)
+  const [selOption, setSelOption] = useState<CompanyTableSelectOptions | null>(null)
   const [cascaderOption, setCascaderOption] = useState([])
   const [dataLoaded, setDataLoaded] = useState(false)
   // 初始化筛选项值
-  const initselOptionValue = []
+  const initselOptionValue: string[] = []
   if (eachTable && eachTable.rightFilters && eachTable.rightFilters.length) {
     for (let i = 0; i < eachTable.rightFilters.length; i++) {
       const val = eachTable.rightFilters && eachTable.rightFilters[i]?.name
@@ -126,33 +119,13 @@ const CompanyTable: FC<{
     }
   }
 
-  const [allSelOption, setAllSelOption] = useState(null) // 记录初始所有筛选项列表
-  const [selOptionValue, setSelOptionValue] = useState(initselOptionValue)
+  const [allSelOption, setAllSelOption] = useState<CompanyTableSelectOptions | null>(null) // 记录初始所有筛选项列表
+  const [selOptionValue, setSelOptionValue] = useState<string[]>(initselOptionValue)
 
   const [hisBasicInfoList, setHisBasicInfoList] = useState([]) // 历史工商信息模块
   const [hisBasicInfoListIntl] = useTranslateService(hisBasicInfoList) // 历史工商信息模块
   const [hisBasicInfoColumn, setHisBasicInfoColumn] = useState([])
 
-  const [profitBasicInfo, setProfitBasicInfo] = useState<{
-    defaultList: ProfitBasicInfoProps[]
-    list: ProfitBasicInfoProps[]
-    columns?: TableProps['columns']
-  }>({ defaultList: [], list: [], columns: getEmptyFinanceTableColumns() }) // 利润表模块
-
-  const [balanceInfo, setBalanceInfo] = useState<{
-    defaultList: any[]
-    list: any[]
-    columns?: TableProps['columns']
-  }>({ defaultList: [], list: [], columns: getEmptyFinanceTableColumns() }) // 利润表模块
-
-  const [cashflowInfo, setCashflowInfo] = useState<{
-    defaultList: any[]
-    list: any[]
-    columns?: TableProps['columns']
-  }>({ defaultList: [], list: [], columns: getEmptyFinanceTableColumns() }) // 利润表模块
-
-  const [finacialindicatorList, setFinacialindicatorList] = useState([]) // 财务指标模块
-  const [finacialindicatorColumn, setFinacialindicatorColumn] = useState([])
   const [businessScope, setBusinessScope] = useState('')
 
   const [expandDetailData, setExpandDetailData] = useState({})
@@ -274,6 +247,58 @@ const CompanyTable: FC<{
     })
   }
 
+  const drawBarChart = (extra) => {
+    let params = { companycode, ...ajaxExtras }
+    delete params.windcode
+    delete params.windCode
+    delete params.companyid
+    params = eachTable.chartParams ? eachTable.chartParams(params) : params
+    if (extra) {
+      params = { ...params, ...extra }
+    }
+    const businessIndexEn = params.businessIndex_en
+    delete params.businessIndex_en
+    getCorpModuleInfo(eachTable.chartCmd, { ...params })
+      .then((res) => {
+        if (res && res.code === global.SUCCESS) {
+          const barData = []
+          res.Data.map((t) => {
+            const obj = {}
+            Object.defineProperty(obj, t.time, {
+              value: t.value,
+              enumerable: true,
+            })
+            barData.push(obj)
+          })
+
+          const data = {
+            config: {
+              title: {
+                show: true,
+                fontSize: '12px',
+              },
+              yAxis: {
+                '0:0-yAxis-0': {
+                  isCopied: false, // 只展示一侧坐标轴
+                },
+              },
+            },
+            indicators: [
+              {
+                meta: {
+                  name: window.en_access_config ? businessIndexEn : params.businessIndex,
+                  type: 'bar',
+                },
+                data: barData,
+              },
+            ],
+          }
+          setChartData(data)
+        }
+      })
+      .catch(() => {})
+  }
+
   eachTable.chartCallback = (row) => {
     if (window.en_access_config) {
       drawBarChart({
@@ -286,67 +311,6 @@ const CompanyTable: FC<{
         businessIndex: row.businessIndex,
         frequency: row.frequency,
       })
-    }
-  }
-
-  eachTable.financialDataFilterFunc = (x: number | string) => {
-    let num = 1
-    try {
-      num = Number(x)
-      if (isNaN(num)) {
-        num = 1
-      }
-    } catch (e) {
-      num = 1
-    }
-    const data = []
-    eachTable.financialDataUnitFilter = x
-    if (balanceInfo?.defaultList?.length) {
-      eachTable.balanceSheetListData = balanceInfo.defaultList
-      eachTable.balanceSheetListData.map((t) => {
-        const item = {}
-        for (const k in t) {
-          let d = t[k]
-          if (k !== 'reportDate') {
-            d = t[k] / num
-          }
-          item[k] = d
-        }
-        data.push(item)
-      })
-      setBalanceInfo((pre) => ({ ...pre, list: data }))
-    }
-
-    if (profitBasicInfo?.defaultList?.length) {
-      eachTable.profitBasicInfoListData = profitBasicInfo.defaultList
-      eachTable.profitBasicInfoListData.map((t) => {
-        const item = {}
-        for (const k in t) {
-          let d = t[k]
-          if (k !== 'reportDate') {
-            d = t[k] / num
-          }
-          item[k] = d
-        }
-        data.push(item)
-      })
-      setProfitBasicInfo((pre) => ({ ...pre, list: data }))
-    }
-
-    if (cashflowInfo?.defaultList?.length) {
-      eachTable.cashflowData = cashflowInfo.defaultList
-      eachTable.cashflowData.map((t) => {
-        const item = {}
-        for (const k in t) {
-          let d = t[k]
-          if (k !== 'reportDate') {
-            d = t[k] / num
-          }
-          item[k] = d
-        }
-        data.push(item)
-      })
-      setCashflowInfo((pre) => ({ ...pre, list: data }))
     }
   }
 
@@ -403,12 +367,12 @@ const CompanyTable: FC<{
           if (!res.data.length) {
             setResult([])
             setTotal(total)
-            if (window.en_access_config) {
+            if (isEn()) {
               setDataLoaded(true)
             }
           } else {
-            if (window.en_access_config) {
-              wftCommon.zh2en(
+            if (isEn()) {
+              zh2en(
                 res.data,
                 (endata) => {
                   setDataLoaded(true)
@@ -449,7 +413,7 @@ const CompanyTable: FC<{
     if (hisregistercaptical && hisregistercaptical.length) {
       hisregistercaptical.map((t) => {
         data.push({
-          type: intl('138325', '历史注册资本'),
+          type: intl('469522', '历史注册资本'),
           date: wftCommon.formatTime(t.deadline),
           info: wftCommon.formatMoney(t.content, [4, '万元']),
         })
@@ -460,7 +424,7 @@ const CompanyTable: FC<{
     if (hisbusinessscope && hisbusinessscope.length) {
       hisbusinessscope.map((t) => {
         data.push({
-          type: intl('138321', '历史经营范围'),
+          type: intl('469501', '历史经营范围'),
           date: wftCommon.formatTime(t.deadline),
           info: t.content,
         })
@@ -482,7 +446,7 @@ const CompanyTable: FC<{
     if (hisaddress && hisaddress.length) {
       hisaddress.map((t) => {
         data.push({
-          type: intl('138324', '历史联系地址'),
+          type: intl('469523', '历史联系地址'),
           date: wftCommon.formatTime(t.deadline),
           info: t.content,
         })
@@ -566,43 +530,6 @@ const CompanyTable: FC<{
     setDataLoaded(true)
   }
 
-  const handleFinanceProfit = (res) => {
-    return renderFinanceProfit({
-      data: res,
-      setProfitBasicInfo,
-      setDataLoaded,
-      eachTable,
-    })
-  }
-
-  const handleFinanceSheet = (res) => {
-    return renderFinanceSheet({
-      data: res,
-      setBalanceInfo,
-      setDataLoaded,
-      eachTable,
-    })
-  }
-
-  const handleFinanceanalysis = (res) => {
-    return renderFinanceanalysis({
-      data: res,
-      setFinacialindicatorList,
-      setFinacialindicatorColumn,
-      setDataLoaded,
-      eachTable,
-    })
-  }
-
-  const handleCashFlowSheet = (res) => {
-    return renderCashFlowSheet({
-      data: res,
-      setCashflowInfo,
-      setDataLoaded,
-      eachTable,
-    })
-  }
-
   const expandedRowRender = (record, index) => {
     const itemKey = expandDetail.itemKey
     const rowKey = expandDetail.rowKey
@@ -627,7 +554,7 @@ const CompanyTable: FC<{
           const data = res.data ? res.data.list : []
           if (data && data.length) {
             if (window.en_access_config) {
-              wftCommon.zh2en(data, (endata) => {
+              zh2en(data, (endata) => {
                 detailDataCallSet(endata)
               })
               return
@@ -643,7 +570,7 @@ const CompanyTable: FC<{
         case '2010202098': // 高新技术企业
           itemKey2 = [
             {
-              title: intl('334093', '有效期起始日'),
+              title: intl('478578', '有效期起始日'),
               dataIndex: 'originDate',
               render: (txt) => {
                 return wftCommon.formatTime(txt)
@@ -672,7 +599,7 @@ const CompanyTable: FC<{
               dataIndex: 'recognitionLevel',
             },
             {
-              title: intl('334077', '认证年度'),
+              title: intl('478597', '认证年度'),
               dataIndex: 'certificationYear',
             },
           ]
@@ -680,11 +607,11 @@ const CompanyTable: FC<{
         case '2010202470': // 科技型中小企业
           itemKey2 = [
             {
-              title: intl('334077', '认证年度'),
+              title: intl('478597', '认证年度'),
               dataIndex: 'certificationYear',
             },
             {
-              title: intl('334093', '有效期起始日'),
+              title: intl('478578', '有效期起始日'),
               dataIndex: 'originDate',
               render: (txt) => {
                 return wftCommon.formatTime(txt)
@@ -707,11 +634,11 @@ const CompanyTable: FC<{
               dataIndex: 'recognitionLevel',
             },
             {
-              title: intl('334077', '认证年度'),
+              title: intl('478597', '认证年度'),
               dataIndex: 'certificationYear',
             },
             {
-              title: intl('334093', '有效期起始日'),
+              title: intl('478578', '有效期起始日'),
               dataIndex: 'originDate',
               render: (txt) => {
                 return wftCommon.formatTime(txt)
@@ -763,7 +690,7 @@ const CompanyTable: FC<{
         case '2010202477': // 隐形冠军企业
           itemKey2 = [
             {
-              title: intl('334077', '认证年度'),
+              title: intl('478597', '认证年度'),
               dataIndex: 'certificationYear',
             },
           ]
@@ -772,13 +699,13 @@ const CompanyTable: FC<{
           itemKey2 = [
             { title: intl('15433', '项目类型'), dataIndex: 'itemType' },
             {
-              title: intl('334077', '认证年度'),
+              title: intl('478597', '认证年度'),
               dataIndex: 'certificationYear',
             },
           ]
           break
         case '2010202497': // 全国碳排放权交易配额管理企业
-          itemKey2 = [{ title: intl('334078', '名录公示行业'), dataIndex: 'remarks' }]
+          itemKey2 = [{ title: intl('478579', '名录公示行业'), dataIndex: 'remarks' }]
           break
         case '2010202507': // 联合国责任投资原则组织国内企业
         case '2010202506': // 联合国责任投资原则组织全球
@@ -872,11 +799,11 @@ const CompanyTable: FC<{
           if (data) {
             if (window.en_access_config) {
               if (data instanceof Array) {
-                wftCommon.zh2en(data, (endata) => {
+                zh2en(data, (endata) => {
                   detailDataCallSet(endata)
                 })
               } else {
-                wftCommon.translateService(data, (endata) => {
+                translateService(data, (endata) => {
                   detailDataCallSet(endata)
                 })
               }
@@ -1203,7 +1130,7 @@ const CompanyTable: FC<{
               data-uc-id="NyZB5PcsZv"
               data-uc-ct="horizontaltable"
             ></HorizontalTable>
-            <div style={{ padding: '5px 0 5px 0' }}>{intl('138188', '案件信息')}</div>
+            <div style={{ padding: '5px 0 5px 0' }}>{intl('478598', '案件信息')}</div>
             <HorizontalTable
               bordered={'default'}
               className=""
@@ -1213,7 +1140,7 @@ const CompanyTable: FC<{
               data-uc-id="qDiSv6P7oT"
               data-uc-ct="horizontaltable"
             ></HorizontalTable>
-            <div style={{ padding: '5px 0 5px 0' }}>{intl('138487', '相关人员及公司')}</div>
+            <div style={{ padding: '5px 0 5px 0' }}>{intl('478599', '相关人员及公司')}</div>
             <HorizontalTable
               bordered={'default'}
               className=""
@@ -1300,470 +1227,306 @@ const CompanyTable: FC<{
       setResult([])
       return
     }
-    getCorpModuleInfo(eachTable.cmd, params)
-      .then((backRes) => {
-        if (!window.en_access_config) {
+
+    const handleFetchWithData = (backRes) => {
+      const dataCall = (res, loaded?) => {
+        if (!dataLoaded && !loaded) {
           setDataLoaded(true)
         }
-        if (backRes && backRes.code === global.SUCCESS) {
-          setDataLoaded(true)
-
-          if (backRes.data) {
-            const dataCall = (res, loaded?) => {
-              if (!dataLoaded && !loaded) {
-                setDataLoaded(true)
-              }
-              // 招标标的物
-              if (eachTableKey.indexOf('biddingInfo') > -1) {
-                if (backRes.Data?.aggregations?.highlight?.length) {
-                  const bidhigh = []
-                  backRes.Data.aggregations.highlight.map((t) => {
-                    t.split('|').map((tt) => {
-                      if (bidhigh.indexOf(tt) == -1) bidhigh.push(tt)
-                    })
-                  })
-                  if (bidhigh.length > 10) {
-                    bidhigh.length = 10
-                  }
-                  setBidInfo(bidhigh)
-                } else if (bidInfo) {
-                  setBidInfo([])
-                }
-              }
-              // 投标标的物
-              if (eachTableKey.indexOf('tiddingInfo') > -1) {
-                if (backRes.Data?.aggregations?.highlight?.length) {
-                  const bidhigh = []
-                  backRes.Data.aggregations.highlight.map((t) => {
-                    t.split('|').map((tt) => {
-                      if (bidhigh.indexOf(tt) == -1) bidhigh.push(tt)
-                    })
-                  })
-                  if (bidhigh.length > 10) {
-                    bidhigh.length = 10
-                  }
-                  setTidInfo(bidhigh)
-                } else if (tidInfo) {
-                  setTidInfo([])
-                }
-              }
-
-              // 产品词
-              if (eachTableKey.indexOf('tiddingInfo') > -1 || eachTableKey.indexOf('biddingInfo') > -1) {
-                if (backRes.Data?.aggregations?.aggs_product_name?.length) {
-                  const bidhigh = backRes.Data.aggregations.aggs_product_name || []
-                  if (bidhigh.length > 10) {
-                    bidhigh.length = 10
-                  }
-                  setProducts(bidhigh)
-                } else if (products) {
-                  setProducts([])
-                }
-              }
-              if (eachTableKey == 'historycompany') {
-                return renderHistory(res)
-              }
-
-              if (eachTable.cmd == 'getmainbusinessstruct') {
-                setBusinessScope(res[0].reportDate)
-              }
-              if (eachTableKey == 'showShareSearch') {
-                // 股东穿透 层级过滤
-                const selObj = [
-                  { key: 1, value: 1 },
-                  { key: 2, value: 2 },
-                  { key: 3, value: 3 },
-                  {
-                    key: 4,
-                    value: 4,
-                  },
-                  { key: 5, value: 5 },
-                  { key: 6, value: 6 },
-                ]
-                setSelOption(selObj)
-              }
-              if (eachTable.rightFilters && eachTable.rightFilters.length) {
-                const selObj = []
-                let selObjCount = 0
-                eachTable.rightFilters.map((item, idx) => {
-                  const key = item.key4sel
-                  let selList = (backRes.Data.aggregations && backRes.Data.aggregations[key]) || []
-                  let selList_En = Object.assign([], selList)
-
-                  const selListCallback = (data) => {
-                    selObjCount++
-                    selList_En = data
-
-                    // selObj = selOption ? Object.assign([], selOption) : selObj;
-                    if (item.keyRender) {
-                      selList = selList.map((ele, index) => ({
-                        value: ele.value ? ele.value : ele.key,
-                        key: window.en_access_config ? selList_En[index].key : item.keyRender(ele.key),
-                        doc_count: ele.doc_count || '',
-                      }))
-                    } else {
-                      if (window.en_access_config) {
-                        selList = selList.map((ele, index) => ({
-                          value: ele.value ? ele.value : ele.key,
-                          key: selList_En[index].key,
-                          doc_count: ele.doc_count || '',
-                        }))
-                      }
-                    }
-                    const sel_list = selList
-                    const obj = {}
-                    // 静态固定筛选项、和noNeedAll为true的不加全部
-                    if (!item?.isStatic && !item?.noNeedAll) {
-                      sel_list.splice(0, 0, {
-                        key: item.name,
-                        value: item.key,
-                      })
-                    }
-                    Object.defineProperty(obj, idx, {
-                      value: sel_list,
-                      enumerable: true,
-                    })
-                    // selObj.push(obj) // 此处不能用push，由于排序会单独先返回 用push结果顺序会乱
-                    selObj[idx] = obj
-                    if (!((backRes.Data.list && backRes.Data.list.length) || (backRes.Data && backRes.Data.length))) {
-                      //如果没有数据
-                    }
-                  }
-
-                  // 静态固定筛选项取listSort
-                  if (item.isStatic) {
-                    if (item.needStaticCount) {
-                      item.listSort = item.listSort.map((i) => {
-                        const doc_count =
-                          selList.find((j) => {
-                            return j.key === i.doc_count_key
-                          })?.doc_count || 1
-                        return {
-                          ...i,
-                          doc_count: doc_count,
-                        }
-                      })
-                    }
-                    selList = item.listSort
-                    selListCallback(selList)
-                  } else if (key == 'agg_year') {
-                    selList = selList.map((i) => ({
-                      ...i,
-                      value: i.key,
-                    }))
-                    selListCallback(selList)
-                  } else if (window.en_access_config) {
-                    translateComplexHtmlData(selList_En)
-                      .then((endata) => {
-                        selListCallback(endata)
-                      })
-                      .catch((e) => {
-                        console.error(e)
-                      })
-                  } else {
-                    selListCallback(selList)
-                  }
-                })
-                if (params.pageNo == 0) {
-                  if (selOption && selOptionValue?.length && selOption?.length) {
-                    // 1. 先拿到初始的全部筛选集合 allSelOption
-                    const oldSelOption: any[] = wftCommon.deepClone(selOption)
-                    oldSelOption.map((t, idx) => {
-                      // 2. 如果遍历的对象是当前选中的下拉 && 当前下拉选择器中选中结果是非第0个选项（也即是其他某项是有选中的），则当前下拉，直接pass不处理（因为不用对其进行赋值等操作）
-                      let pass = 0
-
-                      if (idx === selOptionIndex) {
-                        const item = selOption[idx]
-                        // 有值（全部为空）或 选中不为第一项 则pass不处理（本企业投标除外）
-                        if (selOptionValue[idx] || (selOptionValue[idx] && selOptionValue[idx] !== item[idx][0].key)) {
-                          pass++
-                        }
-                        if (selOptionValue[idx] === '本企业投标') {
-                          pass = 0
-                        }
-                      }
-                      if (pass || selOption.length === 1 || eachTableKey === 'showControllerCompany') return // 只有一个筛选或者控股企业（控股企业也是一个筛选 + 一个假的排序操作  ），单独处理
-                      const oldSelItem = t[idx]
-                      const newSelItem = selObj[idx][idx]
-                      oldSelItem.map((item) => {
-                        if (item.hasOwnProperty('doc_count')) {
-                          const targetSel = newSelItem.find((x) => x.key == item.key)
-                          if (targetSel) {
-                            item.doc_count = targetSel.doc_count
-                          } else {
-                            item.doc_count = 0
-                          }
-                        }
-                      })
-                    })
-
-                    setSelOption(oldSelOption)
-                  } else {
-                    setSelOption(selObj)
-                    !allSelOption && setAllSelOption(selObj)
-                  }
-                }
-              }
-
-              const financialNumParsed = getCorpModuleNum(corpDetailFinancial.modelNum, basicNum)
-              if (financialNumParsed === true || financialNumParsed > 0) {
-                // 财务统计数字有值才调用
-                if (eachTable.cmd === 'detail/company/getprofit') {
-                  if (!res?.length && !params.dataType) return
-                  if (isProfitResponse(res)) {
-                    return handleFinanceProfit(res)
-                  } else {
-                    console.error('财务报表\t利润表\t数据格式错误', res)
-                  }
-                  return null
-                }
-                //资产负债表特殊处理
-                if (eachTable.cmd === 'detail/company/getbalancesheet') {
-                  if (!res?.length && !params.dataType) return
-                  if (isBalanceSheetResponse(res)) {
-                    return handleFinanceSheet(res)
-                  } else {
-                    console.error('财务报表\t资产负债表\t数据格式错误', res)
-                  }
-                  return null
-                }
-                //现金流表特殊处理
-                if (eachTable.cmd === 'detail/company/getcashflowsheet') {
-                  if (!res?.length && !params.dataType) return
-                  if (isCashFlowResponse(res)) {
-                    return handleCashFlowSheet(res)
-                  } else {
-                    console.error('财务报表\t现金流表\t数据格式错误', res)
-                  }
-                  return null
-                }
-              }
-              const financialAnalysisNumParsed = getCorpModuleNum(corpDetailFinancialAnalysis.modelNum, basicNum)
-              if (financialAnalysisNumParsed === true || financialAnalysisNumParsed > 0) {
-                if (eachTable.cmd === '/detail/company/financialIndicator') {
-                  if (isFinancialIndicatorResponse(res)) {
-                    handleFinanceanalysis(res)
-                  } else {
-                    console.error('财务报表\t财务指标\t数据格式错误', res)
-                  }
-                  return
-                }
-              }
-              if (eachTable.rightCascader && eachTable.rightCascader.length && backRes.Data.aggregations) {
-                const createList = (arr) => {
-                  const res = []
-                  for (let i = 0; i < arr.length; i++) {
-                    const obj = {}
-                    obj['label'] = arr[i].classifyName
-                    obj['value'] = arr[i].classifyNo
-                    if (arr[i].children && arr[i].children.length) {
-                      obj['children'] = createList(arr[i].children)
-                    }
-                    res.push(obj)
-                  }
-                  return res
-                }
-                let cascaderList
-                if (window.en_access_config) {
-                  promiseArrzh2en(backRes.Data.aggregations, 'children', 'classifyNo', 'classifyName', 'count')
-                    .then((res) => {
-                      cascaderList = createList(res)
-                      setCascaderOption(cascaderList)
-                    })
-                    .catch(() => {})
-                } else {
-                  cascaderList = createList(backRes.Data.aggregations)
-                  setCascaderOption(cascaderList)
-                }
-              }
-              if (!res.length) {
-                setResult([])
-                return
-              } else {
-                res.forEach((t, index) => {
-                  const pagenum = params.pageNo || 0
-                  const pagesize = params.pageSize || 10
-                  if (!t.hasOwnProperty('NO.')) {
-                    t['NO.'] = index + pagenum * pagesize + 1
-                  }
-                })
-              }
-              setResult(res || [])
-              setTotal(backRes.Page.Records)
+        // 招标标的物
+        if (eachTableKey.indexOf('biddingInfo') > -1) {
+          if (backRes.Data?.aggregations?.highlight?.length) {
+            const bidhigh = []
+            backRes.Data.aggregations.highlight.map((t) => {
+              t.split('|').map((tt) => {
+                if (bidhigh.indexOf(tt) == -1) bidhigh.push(tt)
+              })
+            })
+            if (bidhigh.length > 10) {
+              bidhigh.length = 10
             }
-
-            // 风控类数据接口 处理当事人逻辑 (将object提出成string)
-            const riskParty = (backRes, roleKey, roleType?, entityName?, entityCode?) => {
-              roleType = roleType || 'roleType'
-              entityName = entityName || 'name'
-              entityCode = entityCode || 'id'
-              backRes.data &&
-                backRes.data.length &&
-                backRes.data.map((t) => {
-                  t[roleKey] &&
-                    t[roleKey].length &&
-                    t[roleKey].map((tt, idx) => {
-                      t[roleType + idx] = tt[roleType]
-                      t[entityName + idx] = tt[entityName]
-                      t[entityCode + idx] = tt[entityCode]
-                    })
-                  t['_roleLength'] = t[roleKey] ? t[roleKey].length : 0
-                  delete t.judgeResult
-                  delete t.companyCode
-                  delete t.companyName
-                  delete t.courtStaffs
-                  delete t[roleKey]
-                  delete t.party
-                })
-              wftCommon.zh2en(
-                backRes.data,
-                (res) => {
-                  setDataLoaded(true)
-                  res.map((t) => {
-                    t[roleKey] = []
-                    if (t['_roleLength'] > 0) {
-                      for (let i = 0; i < t['_roleLength']; i++) {
-                        const tt = {}
-                        tt[roleType] = t[roleType + i]
-                        tt[entityName] = t[entityName + i]
-                        tt[entityCode] = t[entityCode + i]
-                        t[roleKey].push(tt)
-                      }
-                    }
-                  })
-                  dataCall(res)
-                },
-                null,
-                () => {
-                  setDataLoaded(true)
-                }
-              )
-            }
-            if (eachTable.dataCallback) {
-              backRes.data = eachTable.dataCallback(backRes.data, basicNum, params.pageNo)
-              if (!backRes.data || !backRes.data.length) {
-                dataCall([])
-                return
-              }
-            }
-
-            if (window.en_access_config) {
-              dataCall(backRes.data, true)
-
-              if (eachTableKey == 'showCompanyChange') {
-                backRes.data.map((t) => {
-                  if (t.after_change) {
-                    t.after_change = t.after_change.replaceAll("<span class='text-insert'>", '')
-                    t.after_change = t.after_change.replaceAll("<span class='text-delete'>", '')
-                    t.after_change = t.after_change.replaceAll("<span class='text-red'>", '')
-                    t.after_change = t.after_change.replaceAll("<span class='text-yellow'>", '')
-                    t.after_change = t.after_change.replaceAll('</span>', '')
-                    t.after_change = t.after_change.replaceAll('<br />', '')
-                  }
-                  if (t.before_change) {
-                    t.before_change = t.before_change.replaceAll("<span class='text-insert'>", '')
-                    t.before_change = t.before_change.replaceAll("<span class='text-delete'>", '')
-                    t.before_change = t.before_change.replaceAll("<span class='text-red'>", '')
-                    t.before_change = t.before_change.replaceAll("<span class='text-yellow'>", '')
-                    t.before_change = t.before_change.replaceAll('</span>', '')
-                    t.before_change = t.before_change.replaceAll('<br />', '')
-                  }
-                  return t
-                })
-              }
-              if (eachTableKey == 'getcourtdecision') {
-                riskParty(backRes, 'judgeRoles', 'roleType', 'entityName', 'entityCode')
-                return
-              }
-              if (eachTableKey == 'showDeliveryAnnouncement') {
-                riskParty(backRes, 'roles')
-                return
-              }
-              if (['getcourtannouncement', 'getfilinginfo', 'getcourtopenannouncement'].indexOf(eachTableKey) > -1) {
-                riskParty(backRes, 'judgeRoles')
-                return
-              }
-              // if (eachTableKey == 'showInvestmentEvent') {
-              //     promiseArrzh2en(backRes.data,'investorList','investorId','investorName').then(res=>{
-              //         setDataLoaded(true)
-              //         dataCall(res);
-              //     })
-              //     return;
-              // }
-              // if (eachTableKey.indexOf('getpatent') > -1) {
-              //     promiseArrzh2en(backRes.data,'mainBodyInfoList', 'patentMainBody', 'patentMainBodyId').then(res=>{
-              //         setDataLoaded(true)
-              //         dataCall(res);
-              //     })
-              //     return;
-              // }
-              if (eachTableKey == 'showBuildOrder') {
-                backRes.data = backRes.data.map((i) => {
-                  return {
-                    ...i,
-                    qualificationClassify: i.qualificationClassify.replace(/<em>/g, '').replace(/<\/em>/, ''),
-                    qualificationNameList: i.qualificationNameList.map((j) =>
-                      j.replace(/<em>/g, '').replace(/<\/em>/, '')
-                    ),
-                  }
-                })
-              }
-              if (eachTableKey == 'showControllerCompany') {
-                backRes.data &&
-                  backRes.data.map((t) => {
-                    delete t.short_name
-                  })
-              }
-              if (eachTableKey == 'showShareSearch') {
-                wftCommon.zh2enNestedPart(
-                  backRes.data,
-                  (res) => {
-                    setDataLoaded(true)
-                    dataCall(res)
-                  },
-                  null
-                )
-              } else {
-                let children
-                if (eachTableKey == 'showBuildOrder') {
-                  children = 'qualificationNameList'
-                }
-                promiseArrzh2en(backRes.data, children).then((res: any) => {
-                  setDataLoaded(true)
-                  if (res && res.length) {
-                    if (eachTable.cmd == 'getcompbussinessdata') {
-                      res.map((t, idx) => {
-                        t._businessIndex = backRes.data[idx].businessIndex
-                        t._frequency = backRes.data[idx].frequency
-                      })
-                    }
-                    if (eachTableKey == 'showBuildOrder') {
-                      CascaderLabels &&
-                        CascaderLabels.length &&
-                        res.map((i) => {
-                          i.qualificationClassify = CascaderLabels.includes(i.qualificationClassify)
-                            ? `<em>${i.qualificationClassify}</em>`
-                            : i.qualificationClassify
-                          i.qualificationNameList = i.qualificationNameList.map((j) =>
-                            CascaderLabels.includes(j) ? `<em>${j}</em>` : j
-                          )
-                        })
-                    }
-                  }
-                  dataCall(res)
-                })
-              }
-            } else {
-              dataCall(backRes.data)
-            }
-          } else {
-            if (window.en_access_config) {
-              setDataLoaded(true)
-            }
-            setResult([])
+            setBidInfo(bidhigh)
+          } else if (bidInfo) {
+            setBidInfo([])
           }
+        }
+        // 投标标的物
+        if (eachTableKey.indexOf('tiddingInfo') > -1) {
+          if (backRes.Data?.aggregations?.highlight?.length) {
+            const bidhigh = []
+            backRes.Data.aggregations.highlight.map((t) => {
+              t.split('|').map((tt) => {
+                if (bidhigh.indexOf(tt) == -1) bidhigh.push(tt)
+              })
+            })
+            if (bidhigh.length > 10) {
+              bidhigh.length = 10
+            }
+            setTidInfo(bidhigh)
+          } else if (tidInfo) {
+            setTidInfo([])
+          }
+        }
+
+        // 产品词
+        if (eachTableKey.indexOf('tiddingInfo') > -1 || eachTableKey.indexOf('biddingInfo') > -1) {
+          if (backRes.Data?.aggregations?.aggs_product_name?.length) {
+            const bidhigh = backRes.Data.aggregations.aggs_product_name || []
+            if (bidhigh.length > 10) {
+              bidhigh.length = 10
+            }
+            setProducts(bidhigh)
+          } else if (products) {
+            setProducts([])
+          }
+        }
+        if (eachTableKey == 'historycompany') {
+          return renderHistory(res)
+        }
+
+        if (eachTable.cmd == 'getmainbusinessstruct') {
+          setBusinessScope(res[0].reportDate)
+        }
+        if (eachTableKey == 'showShareSearch') {
+          // 股东穿透 层级过滤
+          const selObj = [
+            { key: 1, value: 1 },
+            { key: 2, value: 2 },
+            { key: 3, value: 3 },
+            {
+              key: 4,
+              value: 4,
+            },
+            { key: 5, value: 5 },
+            { key: 6, value: 6 },
+          ]
+          setSelOption(selObj as unknown as CompanyTableSelectOptions)
+        }
+        handleCompanyTableRightSelect({
+          eachTable,
+          backRes,
+          params,
+          selOption,
+          selOptionValue,
+          selOptionIndex,
+          eachTableKey,
+          setSelOption,
+          allSelOption,
+          setAllSelOption,
+        })
+
+        if (eachTable.rightCascader && eachTable.rightCascader.length && backRes.Data.aggregations) {
+          const createList = (arr) => {
+            const res = []
+            for (let i = 0; i < arr.length; i++) {
+              const obj = {}
+              obj['label'] = arr[i].classifyName
+              obj['value'] = arr[i].classifyNo
+              if (arr[i].children && arr[i].children.length) {
+                obj['children'] = createList(arr[i].children)
+              }
+              res.push(obj)
+            }
+            return res
+          }
+          let cascaderList
+          if (isEn()) {
+            promiseArrzh2en(backRes.Data.aggregations, 'children', 'classifyNo', 'classifyName', 'count')
+              .then((res) => {
+                cascaderList = createList(res)
+                setCascaderOption(cascaderList)
+              })
+              .catch(() => {})
+          } else {
+            cascaderList = createList(backRes.Data.aggregations)
+            setCascaderOption(cascaderList)
+          }
+        }
+        if (!res.length) {
+          setResult([])
+          return
         } else {
-          if (window.en_access_config) {
+          res.forEach((t, index) => {
+            const pagenum = params.pageNo || 0
+            const pagesize = params.pageSize || 10
+            if (!t.hasOwnProperty('NO.')) {
+              t['NO.'] = index + pagenum * pagesize + 1
+            }
+          })
+        }
+        setResult(res || [])
+        setTotal(backRes.Page.Records)
+      }
+
+      // 风控类数据接口 处理当事人逻辑 (将object提出成string)
+      const riskParty = (backRes, roleKey, roleType?, entityName?, entityCode?) => {
+        roleType = roleType || 'roleType'
+        entityName = entityName || 'name'
+        entityCode = entityCode || 'id'
+        backRes.data &&
+          backRes.data.length &&
+          backRes.data.map((t) => {
+            t[roleKey] &&
+              t[roleKey].length &&
+              t[roleKey].map((tt, idx) => {
+                t[roleType + idx] = tt[roleType]
+                t[entityName + idx] = tt[entityName]
+                t[entityCode + idx] = tt[entityCode]
+              })
+            t['_roleLength'] = t[roleKey] ? t[roleKey].length : 0
+            delete t.judgeResult
+            delete t.companyCode
+            delete t.companyName
+            delete t.courtStaffs
+            delete t[roleKey]
+            delete t.party
+          })
+        zh2en(
+          backRes.data,
+          (res) => {
+            setDataLoaded(true)
+            res.map((t) => {
+              t[roleKey] = []
+              if (t['_roleLength'] > 0) {
+                for (let i = 0; i < t['_roleLength']; i++) {
+                  const tt = {}
+                  tt[roleType] = t[roleType + i]
+                  tt[entityName] = t[entityName + i]
+                  tt[entityCode] = t[entityCode + i]
+                  t[roleKey].push(tt)
+                }
+              }
+            })
+            dataCall(res)
+          },
+          null,
+          () => {
+            setDataLoaded(true)
+          }
+        )
+      }
+      if (eachTable.dataCallback) {
+        backRes.data = eachTable.dataCallback(backRes.data, basicNum, params.pageNo)
+        if (!backRes.data || !backRes.data.length) {
+          dataCall([])
+          return
+        }
+      }
+
+      if (isEn()) {
+        dataCall(backRes.data, true)
+
+        if (eachTableKey == 'showCompanyChange') {
+          backRes.data.map((t) => {
+            if (t.after_change) {
+              t.after_change = t.after_change.replaceAll("<span class='text-insert'>", '')
+              t.after_change = t.after_change.replaceAll("<span class='text-delete'>", '')
+              t.after_change = t.after_change.replaceAll("<span class='text-red'>", '')
+              t.after_change = t.after_change.replaceAll("<span class='text-yellow'>", '')
+              t.after_change = t.after_change.replaceAll('</span>', '')
+              t.after_change = t.after_change.replaceAll('<br />', '')
+            }
+            if (t.before_change) {
+              t.before_change = t.before_change.replaceAll("<span class='text-insert'>", '')
+              t.before_change = t.before_change.replaceAll("<span class='text-delete'>", '')
+              t.before_change = t.before_change.replaceAll("<span class='text-red'>", '')
+              t.before_change = t.before_change.replaceAll("<span class='text-yellow'>", '')
+              t.before_change = t.before_change.replaceAll('</span>', '')
+              t.before_change = t.before_change.replaceAll('<br />', '')
+            }
+            return t
+          })
+        }
+        if (eachTableKey == 'getcourtdecision') {
+          riskParty(backRes, 'judgeRoles', 'roleType', 'entityName', 'entityCode')
+          return
+        }
+        if (eachTableKey == 'showDeliveryAnnouncement') {
+          riskParty(backRes, 'roles')
+          return
+        }
+        if (['getcourtannouncement', 'getfilinginfo', 'getcourtopenannouncement'].indexOf(eachTableKey) > -1) {
+          riskParty(backRes, 'judgeRoles')
+          return
+        }
+        if (eachTableKey == 'showBuildOrder') {
+          backRes.data = backRes.data.map((i) => {
+            return {
+              ...i,
+              qualificationClassify: i.qualificationClassify.replace(/<em>/g, '').replace(/<\/em>/, ''),
+              qualificationNameList: i.qualificationNameList.map((j) => j.replace(/<em>/g, '').replace(/<\/em>/, '')),
+            }
+          })
+        }
+        if (eachTableKey == 'showControllerCompany') {
+          backRes.data &&
+            backRes.data.map((t) => {
+              delete t.short_name
+            })
+        }
+        // 如果配置了跳过翻译的字段，则使用 新的翻译服务
+        if (eachTable.skipTransFieldsInKeyMode && eachTable.skipTransFieldsInKeyMode.length) {
+          translateToEnglish(backRes.data, {
+            skipFields: eachTable.skipTransFieldsInKeyMode,
+          })
+            .then((res) => {
+              dataCall(res.data)
+            })
+            .catch((e) => {
+              console.error(e)
+            })
+            .finally(() => {
+              setDataLoaded(true)
+            })
+        } else {
+          let children
+          if (eachTableKey == 'showBuildOrder') {
+            children = 'qualificationNameList'
+          }
+          promiseArrzh2en(backRes.data, children).then((res: any) => {
+            setDataLoaded(true)
+            if (res && res.length) {
+              if (eachTableKey == 'showBuildOrder') {
+                CascaderLabels &&
+                  CascaderLabels.length &&
+                  res.map((i) => {
+                    i.qualificationClassify = CascaderLabels.includes(i.qualificationClassify)
+                      ? `<em>${i.qualificationClassify}</em>`
+                      : i.qualificationClassify
+                    i.qualificationNameList = i.qualificationNameList.map((j) =>
+                      CascaderLabels.includes(j) ? `<em>${j}</em>` : j
+                    )
+                  })
+              }
+            }
+            dataCall(res)
+          })
+        }
+      } else {
+        dataCall(backRes.data)
+      }
+    }
+    const handleFetchSuccess = (backRes) => {
+      setDataLoaded(true)
+
+      if (backRes.data) {
+        handleFetchWithData(backRes)
+      } else {
+        if (isEn()) {
+          setDataLoaded(true)
+        }
+        setResult([])
+      }
+    }
+    getCorpModuleInfo(eachTable.cmd, params)
+      .then((backRes) => {
+        if (!isEn()) {
+          setDataLoaded(true)
+        }
+        if (backRes && backRes.code === ApiCodeForWfc.SUCCESS) {
+          handleFetchSuccess(backRes)
+        } else {
+          if (isEn()) {
             setDataLoaded(true)
           }
         }
@@ -1815,7 +1578,7 @@ const CompanyTable: FC<{
     if (!result || !result.length) return
     // 柱状图
     if (eachTable.chartCmd) {
-      if (window.en_access_config) {
+      if (isEn()) {
         drawBarChart({
           businessIndex: result[0]._businessIndex,
           frequency: result[0]._frequency,
@@ -1880,58 +1643,6 @@ const CompanyTable: FC<{
       getShowShareRemark()
     }
   }, [resultIntl, eachTableKey, eachTable?.remark])
-
-  const drawBarChart = (extra) => {
-    let params = { companycode, ...ajaxExtras }
-    delete params.windcode
-    delete params.windCode
-    delete params.companyid
-    params = eachTable.chartParams ? eachTable.chartParams(params) : params
-    if (extra) {
-      params = { ...params, ...extra }
-    }
-    const businessIndexEn = params.businessIndex_en
-    delete params.businessIndex_en
-    getCorpModuleInfo(eachTable.chartCmd, { ...params })
-      .then((res) => {
-        if (res && res.code === global.SUCCESS) {
-          const barData = []
-          res.Data.map((t) => {
-            const obj = {}
-            Object.defineProperty(obj, t.time, {
-              value: t.value,
-              enumerable: true,
-            })
-            barData.push(obj)
-          })
-
-          const data = {
-            config: {
-              title: {
-                show: true,
-                fontSize: '12px',
-              },
-              yAxis: {
-                '0:0-yAxis-0': {
-                  isCopied: false, // 只展示一侧坐标轴
-                },
-              },
-            },
-            indicators: [
-              {
-                meta: {
-                  name: window.en_access_config ? businessIndexEn : params.businessIndex,
-                  type: 'bar',
-                },
-                data: barData,
-              },
-            ],
-          }
-          setChartData(data)
-        }
-      })
-      .catch(() => {})
-  }
 
   const handleSelectChangeShareTrace = (val, key) => {
     ajaxExtras[key] = val ? val : ''
@@ -2131,7 +1842,7 @@ const CompanyTable: FC<{
       {isBid ? null : (
         <CorpTableModelNum
           total={total}
-          eachTableKey={eachTableKey}
+          eachTableKey={eachTableKey as TCorpDetailSubModule}
           modelNum={eachTable.modelNum}
           modelNumUseTotal={eachTable.modelNumUseTotal}
           compDefault={eachTable.modelNumStr}
@@ -2193,6 +1904,7 @@ const CompanyTable: FC<{
         ) : null}
 
         {renderAgg()}
+
         {/* 招标公告复选框 */}
         {eachTable?.rightFilters?.map((t, index) => {
           if (t?.isCheckBox) {
@@ -2201,7 +1913,7 @@ const CompanyTable: FC<{
             )?.doc_count //
 
             const content =
-              (window.en_access_config ? 'Bids current company won' : intl('', '本企业中标')) +
+              (window.en_access_config ? 'Bids current company won' : intl('417659', '本企业中标')) +
               (count !== undefined ? ` (${count || 0})` : '')
             return (
               <Checkbox
@@ -2259,11 +1971,7 @@ const CompanyTable: FC<{
         ) : null}
 
         {/* 右侧筛选等操作 */}
-        {isShowCompanyTableRightFilterByMultiTableData(eachTable, {
-          balanceInfo,
-          profitBasicInfo,
-          cashflowInfo,
-        })
+        {eachTable.rightFilters && eachTable.rightFilters.length
           ? eachTable.rightFilters.map((t, index) => {
               // 投标公告-本企业投标 单独处理
               if (t?.isCheckBox || t.type === 'tag') {
@@ -2271,50 +1979,14 @@ const CompanyTable: FC<{
               }
 
               return (
-                <Select
-                  key={index}
-                  defaultValue={t.name}
-                  value={selOptionValue[index]}
-                  style={{
-                    width: t.width || 120,
-                    marginRight: index == eachTable.rightFilters.length - 1 && !eachTable.downDocType ? 0 : 10,
-                  }}
-                  onChange={(val) => {
-                    handleSelectChange(val, t, index)
-                  }}
-                  data-uc-id="FXCNakypfL"
-                  data-uc-ct="select"
-                  data-uc-x={index}
-                >
-                  {selOption && selOption.length
-                    ? selOption.map((tt, idx) => {
-                        if (idx !== index) return null
-                        for (const k in tt) {
-                          const items = tt[k]
-                          if (items && items.length) {
-                            return items.map((item) => {
-                              // 本企业投标单独处理 相当于 全部筛选项，但有计数
-                              const disabled = item.doc_count === 0 && item.key !== '本企业投标' ? true : false
-                              return (
-                                <Option
-                                  onChange
-                                  key={item.key}
-                                  value={item.value}
-                                  disabled={disabled}
-                                  data-uc-id={`X2YFHkWlsXf${item.key}`}
-                                  data-uc-ct="option"
-                                  data-uc-x={item.key}
-                                >
-                                  {item.key +
-                                    (item.doc_count ? `(${result && result.length ? item.doc_count : 0})` : '')}
-                                </Option>
-                              )
-                            })
-                          }
-                        }
-                      })
-                    : null}
-                </Select>
+                <CompanyTableRightSelect
+                  index={index}
+                  selOptionValue={selOptionValue}
+                  t={t}
+                  eachTable={eachTable}
+                  handleSelectChange={handleSelectChange}
+                  selOption={selOption}
+                />
               )
             })
           : null}
@@ -2574,7 +2246,7 @@ const CompanyTable: FC<{
               ) : null}
             </div>
           }
-          rows={eachTable.columns}
+          rows={eachTable.columns as ComponentProps<typeof SmartHorizontalTable>['rows']}
           dataSource={_resultIntl}
           hideRowIfEmpty={eachTable.hideRowIfEmpty}
           locale={locale}
@@ -2587,20 +2259,12 @@ const CompanyTable: FC<{
     if (!userVipInfo.isSvip && !userVipInfo.isVip) {
       if (eachTable.notVipTitle || eachTable.notVipTips) {
         return (
-          <Card
-            data-custom-id={eachTableKey}
+          <CompanyVipCard
+            dataCustomId={eachTableKey}
             key={eachTableKey}
-            className="table-custom-module-readyed vtable-container gqct-card"
-            divider={'none'}
             title={eachTable.titleStr}
-          >
-            <VipModule
-              modelInstanceNum={global.VIP_MODEL_COUNT++}
-              show={true}
-              title={eachTable.notVipTitle || ''}
-              tips={eachTable.notVipTips || ''}
-            />
-          </Card>
+            vipTitle={eachTable.notVipTitle || ''}
+          />
         )
       }
     }
@@ -2627,57 +2291,7 @@ const CompanyTable: FC<{
       </>
     )
   }
-  // 利润表
-  if (eachTable.cmd == 'detail/company/getprofit') {
-    return (
-      <FinancialTable
-        eachTableKey={eachTableKey}
-        eachTable={eachTable}
-        dataLoaded={dataLoaded}
-        tableData={profitBasicInfo}
-        className="module-profit"
-      />
-    )
-  }
-  //资产负债表
-  if (eachTable.cmd == 'detail/company/getbalancesheet') {
-    return (
-      <FinancialTable
-        eachTableKey={eachTableKey}
-        eachTable={eachTable}
-        dataLoaded={dataLoaded}
-        tableData={balanceInfo}
-        className="module-balancesheet"
-      />
-    )
-  }
-  //现金流表
-  if (eachTable.cmd == 'detail/company/getcashflowsheet') {
-    return (
-      <FinancialTable
-        eachTableKey={eachTableKey}
-        eachTable={eachTable}
-        dataLoaded={dataLoaded}
-        tableData={cashflowInfo}
-        className="module-balancesheet"
-      />
-    )
-  }
-  //财务指标
-  if (eachTable.cmd == '/detail/company/financialIndicator') {
-    return (
-      <FinancialTable
-        eachTableKey={eachTableKey}
-        eachTable={eachTable}
-        dataLoaded={dataLoaded}
-        tableData={{
-          list: finacialindicatorList,
-          columns: finacialindicatorColumn,
-        }}
-        className="module-finacialindicator"
-      />
-    )
-  }
+
   // 股权穿透图，vip才可用
   if ('getShareAndInvest' === eachTableKey) {
     const GqctChartCss = GqctChartComp()
@@ -2691,15 +2305,10 @@ const CompanyTable: FC<{
         title={intl('138279', '股权穿透图')}
       >
         {!userVipInfo.isVip && !linkSourceF9 ? (
-          <VipModule
-            modelInstanceNum={global.VIP_MODEL_COUNT++}
-            show={true}
-            title={eachTable.notVipTitle || ''}
-            tips={eachTable.notVipTips || ''}
-          />
+          <VipModule title={eachTable.notVipTitle || ''} />
         ) : (
           <React.Suspense fallback={<div></div>}>
-            {<GqctChartCss companyname={eachTable.companyname} companycode={companycode} />}
+            {<GqctChartCss companyname={corpNameIntl} companycode={companycode} />}
           </React.Suspense>
         )}
       </Card>
@@ -2715,36 +2324,13 @@ const CompanyTable: FC<{
 
   if (!userVipInfo.isSvip && !userVipInfo.isVip) {
     if (eachTable.notVipTitle || eachTable.notVipTips) {
-      if (eachTableKey == 'showShares-0' || eachTableKey == 'showSharesOther-0') {
-        // 发行股票
-        return (
-          <VipModule
-            modelInstanceNum={global.VIP_MODEL_COUNT++}
-            show={true}
-            title={eachTable.notVipTitle || ''}
-            tips={eachTable.notVipTips || ''}
-          />
-        )
-      }
-      if (eachTableKey == 'showShares-1' || eachTableKey == 'showSharesOther-1') {
-        // 发行股票
-        return ''
-      }
       return (
-        <Card
-          data-custom-id={eachTableKey}
+        <CompanyVipCard
+          dataCustomId={eachTableKey}
           key={eachTableKey}
-          className="table-custom-module-readyed vtable-container gqct-card"
-          divider={'none'}
           title={eachTable.titleStr}
-        >
-          <VipModule
-            modelInstanceNum={global.VIP_MODEL_COUNT++}
-            show={true}
-            title={eachTable.notVipTitle || ''}
-            tips={eachTable.notVipTips || ''}
-          />
-        </Card>
+          vipTitle={eachTable.notVipTitle || ''}
+        />
       )
     }
   }
@@ -2775,12 +2361,13 @@ const CompanyTable: FC<{
     NoneData = NoneDataDom
   } else if (
     eachTable.needNoneTable ||
-    (eachTableKey.indexOf('-') > -1 && multiTabIds.indexOf(eachTableKey.split('-')[0]) > -1)
+    (eachTableKey.indexOf('-') > -1 &&
+      multiTabIds.indexOf(eachTableKey.split('-')[0] as (typeof multiTabIds)[number]) > -1)
   ) {
     // 1如果是类似tab切换类的表格，也需要展示空table  [config中配置上 needNoneTable 属性 (eg. 招投标)]
     // NoneData = <Table data-custom-id={eachTableKey} dataSource={[]} title={eachTable.titleStr} columns={eachTable.columns} loading={false} locale={locale} />
     NoneData = NoneDataDom
-  } else if (getCorpModuleNum(eachTable.modelNum, basicNum) && eachTableKey.indexOf('-') == '-1') {
+  } else if (getCorpModuleNum(eachTable.modelNum, basicNum) && eachTableKey.indexOf('-') === -1) {
     // 2如果统计数字有值 模块没加载到数据 空table要展示出来  ( 只针对无子表的模块 )
     // 3其他情况 没数据则将当前模块 null 隐藏掉
     // NoneData = <Table data-custom-id={eachTableKey} dataSource={[]} title={eachTable.titleStr} columns={eachTable.columns} loading={false} locale={locale} />
@@ -2856,4 +2443,9 @@ const CompanyTable: FC<{
   )
 }
 
-export default CompanyTable
+const Wrapper: FC<Props> = (props) => (
+  <ErrorBoundary>
+    <CompanyTable {...props} />
+  </ErrorBoundary>
+)
+export default Wrapper

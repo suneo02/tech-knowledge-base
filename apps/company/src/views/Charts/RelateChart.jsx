@@ -19,7 +19,7 @@ import { linkToCompany, exportRelateChart } from './handle'
 // 上交所
 const RelateType_02 = {
   1: intl('358514', '母公司/控股股东'),
-  2: intl('261415', '控股股东'),
+  2: intl('478667', '控股股东'),
   3: intl('358515', '直接或间接持股5%及以上的自然人'),
   4: intl('358516', '直接或间接持股5%及以上的企业'),
   5: intl('286077', '董监高'),
@@ -40,7 +40,7 @@ const RelateType_02 = {
 // 2,3,5,8,14 - 人物  深交所
 const RelateType_03 = {
   1: intl('358514', '母公司/控股股东'),
-  2: intl('261415', '控股股东'),
+  2: intl('478667', '控股股东'),
   3: intl('358515', '直接或间接持股5%及以上的自然人'),
   4: intl('358516', '直接或间接持股5%及以上的企业'),
   5: intl('286077', '董监高'),
@@ -59,7 +59,7 @@ const RelateType_03 = {
 // 会计准则
 const RelateType_04 = {
   1: intl('358514', '母公司/控股股东'),
-  2: intl('261415', '控股股东'),
+  2: intl('478667', '控股股东'),
   3: intl('358501', '直接或间接持股20%及以上的自然人'),
   4: intl('358525', '直接或间接持股20%及以上的企业'),
   5: intl('286077', '董监高'),
@@ -75,7 +75,7 @@ const RelateType_04 = {
 // 银行
 const RelateType_05 = {
   1: intl('358514', '母公司/控股股东'),
-  2: intl('261415', '控股股东'),
+  2: intl('478667', '控股股东'),
   3: intl('358527', '实控人及持股5%及以上的自然人'),
   4: intl('358502', '实控人及持股5%以上法人股东'),
   5: intl('286077', '董监高'),
@@ -1241,7 +1241,7 @@ function RelateChart({ companycode, companyname, watermask = true, bottom = fals
           }
         }
 
-        // var marker = intl('232624', '基于公开信息和第三方数据利用大数据技术独家计算生成!')
+        // var marker = intl('478649', '基于公开信息和第三方数据利用大数据技术独家计算生成!')
         // context.font = '14px 微软雅黑'
         // context.fillStyle = '#aaaaaa'
         // context.fillText(marker, canvas.width / 2 - context.measureText(marker).width / 2, canvas.height - 20)

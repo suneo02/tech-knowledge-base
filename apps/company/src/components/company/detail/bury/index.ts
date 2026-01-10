@@ -1,9 +1,9 @@
-import { ICorpDetailModuleWithChildrenCfg } from '@/components/company/type'
 import { pointBuriedByModule } from '@/api/pointBuried/bury.ts'
+import { CorpDetailModuleWithChildrenCfg } from '@/types/corpDetail'
 import { isArray } from 'lodash'
 
 export const handleBuryInCorpDetailModuleTab = (
-  tableCfg: ICorpDetailModuleWithChildrenCfg,
+  tableCfg: CorpDetailModuleWithChildrenCfg,
   idx: number,
   corpId: string
 ) => {

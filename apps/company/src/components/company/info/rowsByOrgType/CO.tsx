@@ -1,5 +1,5 @@
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfo } from 'gel-types'
 import {
   corpInfoBizRegNoRow,
   corpInfoBusAddressRow,
@@ -29,7 +29,10 @@ import {
   getCorpInfoScaleRow,
 } from '../rowsCommon'
 
-export const corpInfoCORows = (baseInfo: ICorpBasicInfoFront, onClickFeedback: () => void): HorizontalTableColumns => [
+export const corpInfoCORows = (
+  baseInfo: Partial<CorpBasicInfo>,
+  onClickFeedback: () => void
+): HorizontalTableColumns => [
   [corpInfoNameRow, corpInfoCreditCodeRow],
   [corpInfoEngNameRow, corpInfoBizRegNoRow],
   [corpInfoUsedNamesRow(baseInfo), corpInfoOrgCodeRow],

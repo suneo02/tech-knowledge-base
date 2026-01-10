@@ -76,7 +76,7 @@ export const TechScoreHint = () => {
           onClick={() => {
             downloadFile(
               STATIC_FILE_PATH + 'Wind-GEL-Corporate-Technology-Innovation-Capability-Model-Description.pdf',
-              intl('', '万得企业库企业科创能力模型说明')
+              intl('419589', '万得企业库企业科创能力模型说明')
             )
           }}
           underline

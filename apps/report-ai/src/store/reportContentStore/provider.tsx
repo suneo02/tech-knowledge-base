@@ -13,7 +13,7 @@ import React, { PropsWithChildren, useRef } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { createReportContentStore, ReportContentStore } from './factory';
 
-export interface ReportContentRTKScopeProps extends PropsWithChildren {
+interface RPDetailRTKScopeProps extends PropsWithChildren {
   /**
    * 可选的 store 实例，如果不提供则自动创建
    * 主要用于测试或特殊场景
@@ -30,7 +30,7 @@ export interface ReportContentRTKScopeProps extends PropsWithChildren {
  * 同时挂载 GenerationControllers 组件，集中管理 AIGC 生成的副作用监听
  * 确保每个控制器只被挂载一次，避免重复请求
  */
-export const ReportContentRTKScope: React.FC<ReportContentRTKScopeProps> = ({ children, store }) => {
+export const RPDetailRTKScope: React.FC<RPDetailRTKScopeProps> = ({ children, store }) => {
   // 使用 useRef 确保 store 在组件生命周期内保持稳定
   // 每次挂载都会创建新的 store 实例
   const storeRef = useRef<ReportContentStore>(store || createReportContentStore());

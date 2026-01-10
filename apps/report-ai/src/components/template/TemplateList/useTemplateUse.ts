@@ -1,11 +1,12 @@
 import { createChatRequest } from '@/api';
-import { isDev } from '@/utils/env';
+import { buildReportDetailUrlFromTemplate } from '@/utils/reportNavigation';
 import { message } from '@wind/wind-ui';
 import type { ReportIdIdentifier, ReportTemplateItem } from 'gel-api';
-import { generateUrlByModule, LinkModule } from 'gel-util/link';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const useTemplateUse = () => {
+  const navigate = useNavigate();
   const [useModalVisible, setUseModalVisible] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<ReportTemplateItem | null>(null);
   const [selectedCorpId, setSelectedCorpId] = useState<string>('');
@@ -73,18 +74,8 @@ export const useTemplateUse = () => {
       closeUseModal();
 
       if (result?.reportId) {
-        // 跳转到报告详情页，使用API返回的reportId
-        const url = generateUrlByModule({
-          module: LinkModule.AI_REPORT_DETAIL,
-          isDev,
-          params: {
-            reportId: result.reportId,
-          },
-        });
-
-        if (url) {
-          window.open(url, '_blank');
-        }
+        // 跳转到报告详情页，使用API返回的reportId，并携带自动生成标识
+        navigate(buildReportDetailUrlFromTemplate(result.reportId));
       }
     } catch (error) {
       console.error('使用模板失败:', error);

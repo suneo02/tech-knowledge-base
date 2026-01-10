@@ -32,7 +32,7 @@ const IndustryFilterItem: React.FC<IndustryFilterItemProps> = ({ title, titleId,
       </span>
       <WindCascade
         fieldNames={{ label: 'name', value: 'code', children: 'node' }}
-        placeholder={intl('265435', '不限')}
+        placeholder={intl('138649', '不限')}
         options={options}
         className="casader-choose-industry"
         onChange={handleCascadeChange}

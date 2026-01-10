@@ -155,7 +155,7 @@ const AIChartsGraph: React.FC<AIChartsGraphProps> = (props) => {
             fromAi
             data-uc-id="0cIuTpyjpi"
             data-uc-ct="windbdgraph"
-            footerTips={t('', '内容由AI生成，请核查重要信息')}
+            footerTips={t('453642', '内容由AI生成，请核查重要信息')}
           />
           <div className={styles.summaryIcon} onClick={handleSummaryClick}>
             <AliceBitmapAnimation imageSrc={liuguang} frameWidth={94} frameHeight={36} fps={10} />

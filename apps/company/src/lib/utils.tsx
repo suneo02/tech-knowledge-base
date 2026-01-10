@@ -1,6 +1,8 @@
+import { isDev, isStaging } from '@/utils/env'
 import { localStorageManager } from '@/utils/storage'
 import { wftCommon } from '@/utils/utils'
 import { Empty } from 'antd'
+import { loaclDevManager } from 'gel-ui'
 import JSEncrypt from 'jsencrypt'
 import React from 'react'
 import nodataImg from '../assets/imgs/nodata.png'
@@ -455,6 +457,20 @@ export const getIndustryCodes = (code, labels4see?) => {
 }
 
 export const getVipInfo = () => {
+  try {
+    if (isDev || isStaging) {
+      const override = loaclDevManager.get('GEL_DEV_PERMISSION') || ''
+      if (override === 'svip') {
+        return { isSvip: true, isVip: true, level: 2 }
+      }
+      if (override === 'vip') {
+        return { isSvip: false, isVip: true, level: 0 }
+      }
+      if (override === 'none') {
+        return { isSvip: false, isVip: false, level: 0 }
+      }
+    }
+  } catch (e) {}
   return {
     isSvip: wftCommon.is_svip_config ? true : false,
     isVip: wftCommon.is_vip_config ? true : false,

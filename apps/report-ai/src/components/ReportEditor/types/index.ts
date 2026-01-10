@@ -2,8 +2,8 @@
 
 import { RPReferenceType } from '@/domain/chat/ref';
 import type { AIInvokeFunction, SelectionSnapshot } from '@/types/editor';
-import type { ChapterLoadingOverlayState } from '../hooks/useChapterLoadingOverlay';
 import { SelectionUserDecision } from '@/types/editor/selection-types';
+import type { ChapterLoadingOverlayState } from '../hooks/useChapterLoadingOverlay';
 
 /**
  * 文本改写状态
@@ -42,8 +42,10 @@ export interface ReportEditorProps {
   onAIInvoke?: AIInvokeFunction;
   /** 停止生成内容的回调 */
   onStopGenerating?: (sectionId: string) => void;
-  /** 引用标记点击回调，用于打开对应的引用资料预览 */
-  onReferenceClick?: (referenceInfo: { refId: string; refType: RPReferenceType }) => void;
+  /** 引用标记点击回调，用于打开对应的引用资料预览
+   * @param referenceInfo.pageNumber - PDF 页码（仅 file 类型，同一文件不同引用位置可能有不同页码）
+   */
+  onReferenceClick?: (referenceInfo: { refId: string; refType: RPReferenceType; pageNumber?: number }) => void;
   /** AIGC 按钮点击回调，用于处理章节的 AI 生成相关操作 */
   onAIGCButtonClick?: (chapterId: string) => void;
   /** AIGC 按钮是否禁用 */
@@ -61,5 +63,5 @@ export interface ReportEditorProps {
   /** 自定义内联样式 */
   style?: React.CSSProperties;
   /** 章节 Loading 外部状态（由业务层输入） */
-  loadingChapters?: ChapterLoadingOverlayState[];
+  aigcLoadingChapters?: ChapterLoadingOverlayState[];
 }

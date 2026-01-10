@@ -13,7 +13,7 @@
  * @module chapter/mutations/factory
  */
 
-import type { RPChapter, RPChapterSavePayload } from 'gel-api';
+import type { RPChapter, RPChapterSavePayloadTemp } from 'gel-api';
 
 /**
  * 生成章节唯一ID
@@ -36,7 +36,7 @@ export const createChapter = (
   writingThought: string = '',
   children: RPChapter[] = [],
   keywords: string[] = []
-): RPChapterSavePayload => {
+): RPChapterSavePayloadTemp => {
   return {
     tempId: generateChapterTempId(),
     isTemporary: true,

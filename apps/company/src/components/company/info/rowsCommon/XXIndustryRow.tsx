@@ -6,10 +6,10 @@ import { Link, Tooltip } from '@wind/wind-ui'
 import React from 'react'
 import { StrategicIndustryButtonModal } from '../comp/XXIndustryModal'
 import { XXIndustryTree } from '../comp/XXIndustryTree'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 import styles from './styles/XXIndustryRow.module.less'
 
-export const corpInfoXXIndustryRow = (fromShfic: boolean): HorizontalTableCol<ICorpBasicInfoFront> => {
+export const corpInfoXXIndustryRow = (fromShfic: boolean): HorizontalTableCol<CorpBasicInfoFront> => {
   const { strategicIndustries: strategicIndustriesUrl } = BaiFenSites()
   const strategicText = intl('361813', '战略性新兴产业')
   return {
@@ -47,7 +47,7 @@ export const corpInfoXXIndustryRow = (fromShfic: boolean): HorizontalTableCol<IC
   }
 }
 
-export const corpInfoXXIndustryRowComp = (backData: ICorpBasicInfoFront, fromShfic: boolean) => {
+export const corpInfoXXIndustryRowComp = (backData: CorpBasicInfoFront, fromShfic: boolean) => {
   if (window.en_access_config) {
     const dataList = backData.xxIndustryListEn
     if (!dataList) return '--'

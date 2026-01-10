@@ -1,24 +1,44 @@
-# types
+# types - 全局类型定义包
 
-类型定义包，为整个 monorepo 提供共享的类型定义。
+为整个 monorepo 提供共享的类型定义，确保类型一致性和开发体验。
 
-## 功能特点
+## 目录结构
 
-- 提供模块化的类型定义
-- 支持 TypeScript 类型声明
-- 包含各业务领域的类型定义
-- 支持 Tree-shaking 优化
+```
+packages/types/
+├── src/
+│   ├── api/              # API 相关类型
+│   ├── common/           # 通用基础类型
+│   ├── components/       # UI 组件相关类型
+│   ├── models/           # 数据模型类型
+│   ├── utils/            # 工具函数相关类型
+│   └── index.ts          # 主入口文件
+├── scripts/              # 类型生成脚本
+├── package.json          # 项目配置
+└── tsconfig.json         # TypeScript 配置
+```
 
-## 安装
+## 关键文件说明
 
-在 monorepo 中使用时，可以直接通过工作区引用：
+| 文件 | 作用 |
+|------|------|
+| `src/index.ts` | 类型定义统一导出入口 |
+| `src/api/index.ts` | API 请求/响应类型定义 |
+| `src/models/index.ts` | 业务数据模型类型定义 |
+| `src/common/index.ts` | 通用基础类型定义 |
 
-```json
-{
-  "dependencies": {
-    "types": "workspace:*"
-  }
-}
+## 依赖关系
+
+```mermaid
+graph LR
+    A[types] --> B[TypeScript]
+    
+    C[ai-chat] --> A
+    D[company] --> A
+    E[report-ai] --> A
+    F[super-agent] --> A
+    G[gel-ui] --> A
+    H[indicator] --> A
 ```
 
 ## 使用方法
@@ -36,29 +56,7 @@ import { TableColumn, Size } from 'types/components';
 import { Dictionary, Status } from 'types/common';
 ```
 
-## 目录结构
+## 相关文档
 
-```
-./
-├── api/              // API 相关类型
-├── common/           // 通用基础类型
-├── components/       // UI 组件相关类型
-├── models/           // 数据模型类型
-├── utils/            // 工具函数相关类型
-└── index.ts          // 主入口文件
-```
-
-## 类型概览
-
-- **API 类型**：与 API 交互相关的类型定义，如请求方法、头部配置等
-- **通用类型**：通用的基础类型定义，如键值对、可选类型等
-- **组件类型**：UI 组件相关的类型定义，如尺寸、颜色、表格配置等
-- **数据模型**：业务数据模型的类型定义，如用户、企业、部门等
-- **工具类型**：工具函数相关的类型定义，如防抖、节流、日志等
-
-## 最佳实践
-
-1. **按需导入**：只导入需要的类型，避免过度引入
-2. **遵循命名规范**：类型名称采用 PascalCase，枚举值采用 UPPER_CASE
-3. **添加注释**：为类型添加详细的 JSDoc 注释，方便开发者理解
-4. **保持同步**：当业务变更时，及时更新相应的类型定义 
+- [TypeScript 使用规范](../../docs/rule/typescript-rule.md)
+- [架构设计](./architecture.md)

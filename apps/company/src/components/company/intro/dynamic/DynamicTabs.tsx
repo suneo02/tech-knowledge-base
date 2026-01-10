@@ -1,10 +1,10 @@
 import { BusinessOpportunityResponse } from '@/api/corp/event'
 import { Tabs } from '@wind/wind-ui'
+import { useInViewport, useUnmount } from 'ahooks'
 import { CorpBasicInfo } from 'gel-types'
 import { usedInClient } from 'gel-util/env'
 import { getLocale, intl } from 'gel-util/intl'
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react'
-import { useInViewport, useUnmount } from 'ahooks'
 import { BusinessOpportunitiesTabPane } from './BusinessOpportunities'
 import { DynamicTabBar, DynamicTabPane } from './DynamicTab'
 import { PublicOpinionTabPane } from './PublicOpinion'
@@ -64,7 +64,7 @@ export const defaultCardTabKey = TAB_CONFIGS[0].key // 动态商机舆情 默认
  */
 export const DynamicTabs: FC<{
   companycode: string
-  baseInfo: CorpBasicInfo
+  baseInfo: Partial<CorpBasicInfo>
   ifIndividualBusiness: boolean
 }> = ({ companycode, baseInfo, ifIndividualBusiness }) => {
   // 使用自定义 hooks 管理各 tab 的数据

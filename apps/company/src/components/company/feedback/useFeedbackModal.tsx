@@ -114,7 +114,7 @@ export const useFeedbackModal = () => {
 
 // 供类组件或非 React 环境调用的便捷方法
 export const openFeedbackModal = (initialCompanyName?: string): void => {
-  const state = store.getState() as { company?: any }
+  const state = store.getState()
   const feedParam = state?.company?.feedBackPara
 
   const submitFeedback = createSubmitFeedback(feedParam)

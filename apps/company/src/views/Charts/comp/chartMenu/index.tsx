@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Layout, Divider, Tree } from '@wind/wind-ui'
-const { Header, Sider } = Layout
-import { ToggleCorpDetailMenu } from '@/views/Company/comp/menu/ExpandAll'
-import { getDefaultExpandedKeys } from './altasMenus'
-import intl from '@/utils/intl'
 import { pointBuriedByModule } from '@/api/pointBuried/bury'
-import './index.less'
+import { ToggleTreeExpandAll } from '@/components/tree/ToggleTreeExpandAll'
 import { getAIGraphLink } from '@/handle/link/module/KG'
+import intl from '@/utils/intl'
 import { localStorageManager } from '@/utils/storage'
+import { Divider, Layout, Tree } from '@wind/wind-ui'
+import React, { useEffect, useState } from 'react'
+import { getDefaultExpandedKeys } from './altasMenus'
+import './index.less'
+const { Header, Sider } = Layout
 
 const TreeNode = Tree.TreeNode
 
@@ -156,7 +156,7 @@ const ChartMenu: React.FC<ChartMenuProps> = ({
       {/* @ts-ignore */}
       <Header size="small" className="charts-menu-header">
         <div className="charts-menu-header-title">{intl('138167', '图谱平台')}</div>
-        <ToggleCorpDetailMenu expandedKeys={expandedKeys} setExpandedKeys={setExpandedKeys} treeData={treeData} />
+        <ToggleTreeExpandAll expandedKeys={expandedKeys} setExpandedKeys={setExpandedKeys} treeData={treeData} />
       </Header>
       <Divider className="f-m0" />
       <Tree

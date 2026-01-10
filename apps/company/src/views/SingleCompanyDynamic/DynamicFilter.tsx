@@ -74,7 +74,7 @@ const DynamicTimeLineItem: FC<{ data: any; largeBottom?: boolean }> = ({ data: i
       {i?.event_type_raw === '企业公告' ? (
         <>
           <DynamicLink
-            text={'>> ' + intl('260769', '点击查看年报详情')}
+            text={'>> ' + intl('478700', '点击查看年报详情')}
             icon={null}
             style={{
               margin: '-12px 12px 12px',

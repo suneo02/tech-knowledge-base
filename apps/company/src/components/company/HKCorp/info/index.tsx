@@ -22,7 +22,7 @@ export const HKCorpInfo: FC<{
   corpCode: string
   corpName: string
   bussStatusData: CorpPurchaseData
-  baseInfo: CorpBasicInfo
+  baseInfo: Partial<CorpBasicInfo>
   tableReady: boolean
   refreshHKCorpBussStatus: () => void
 }> = ({ corpCode, corpName, bussStatusData, baseInfo, refreshHKCorpBussStatus, tableReady }) => {

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { getTechRank } from '@/api/companyApi'
-import { corpTechScoreIndustryRender } from '@/components/company/techScore/comp.tsx'
-import { wftCommon } from '@/utils/utils'
-import { t } from 'gel-util/intl'
+import { translateData } from '@/utils/intl/complexHtml'
+import { isEn, t } from 'gel-util/intl'
+import { corpTechScoreIndustryRender } from './comp'
 
-export const processTechRankData = (resData: any, rankData: any, score: string | number, date: string) => {
+export const processTechRankData = async (resData: any, rankData: any, score: string | number, date: string) => {
   try {
     const data: any = {}
     data.score = rankData?.score ? rankData?.score : score
@@ -15,12 +15,16 @@ export const processTechRankData = (resData: any, rankData: any, score: string |
     if (resData[0].industry && resData[0].industry.length) {
       resData[0].industry.sort((x, y) => x.level - y.level)
     }
-    if (window.en_access_config) {
-      wftCommon.zh2en(resData[0].industry, (endata) => {
-        resData[0].industry = endata
-        data.industry = resData
-        return data
+    if (isEn()) {
+      const result = await translateData(resData[0].industry, {
+        sourceLocale: 'zh-CN',
+        targetLocale: 'en-US',
       })
+      if (result.success) {
+        resData[0].industry = result.data
+      }
+      data.industry = resData
+      return data
     } else {
       data.industry = resData
       return data
@@ -82,7 +86,7 @@ export const useTechRank = (companycode: string, score: any, date: any) => {
     try {
       const res = await getTechRank(companycode, { latest: 1 })
       if (res?.code === '0' && res.data?.length) {
-        const rankDataProcessed = processTechRankData(res.data, rankData, score, date)
+        const rankDataProcessed = await processTechRankData(res.data, rankData, score, date)
         setRankData(rankDataProcessed)
       }
     } catch (error) {

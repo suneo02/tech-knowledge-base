@@ -23,8 +23,7 @@
  */
 
 import type { DocumentChapterNode } from '@/domain/reportEditor';
-import type { OutlineChapterViewModel, RPDetailChapterDraft } from '@/types';
-import { RPDetailChapter } from 'gel-api';
+import type { OutlineChapterViewModel, RPChapterEnriched, RPDetailChapterDraft } from '@/types';
 
 /**
  * 安全地将 chapterId 转换为 number
@@ -108,8 +107,8 @@ export const convertDocumentChaptersToDraft = (chapters?: DocumentChapterNode[])
  */
 export const mergeDraftToOutlineView = (
   draftTree: RPDetailChapterDraft[],
-  canonicalMap: Map<string, RPDetailChapter>,
-  canonicalTree: RPDetailChapter[]
+  canonicalMap: Map<string, RPChapterEnriched>,
+  canonicalTree: RPChapterEnriched[]
 ): OutlineChapterViewModel[] => {
   // 如果没有 Draft Tree，直接转换 Canonical Tree
   if (!draftTree || draftTree.length === 0) {
@@ -126,7 +125,7 @@ export const mergeDraftToOutlineView = (
  * @param chapters - Canonical 章节列表
  * @returns 大纲视图模型列表
  */
-const convertCanonicalToOutline = (chapters: RPDetailChapter[]): OutlineChapterViewModel[] => {
+const convertCanonicalToOutline = (chapters: RPChapterEnriched[]): OutlineChapterViewModel[] => {
   return chapters.map((chapter) => ({
     chapterId: chapter.chapterId,
     title: chapter.title,
@@ -152,7 +151,7 @@ const convertCanonicalToOutline = (chapters: RPDetailChapter[]): OutlineChapterV
  */
 const convertDraftToOutline = (
   draftNodes: RPDetailChapterDraft[],
-  canonicalMap: Map<string, RPDetailChapter>
+  canonicalMap: Map<string, RPChapterEnriched>
 ): OutlineChapterViewModel[] => {
   return draftNodes.map((node) => {
     // 只有已保存章节（有 chapterId）才能从 Canonical 中查找

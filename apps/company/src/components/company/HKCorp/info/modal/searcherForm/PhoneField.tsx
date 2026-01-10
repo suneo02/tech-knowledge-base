@@ -8,7 +8,7 @@ export const PhoneField: React.FC<{ maskedFields: { [key: string]: boolean } }> 
   <Form.Item
     {...searchFormItemCommonProps}
     name="phone"
-    label={intl(51994, '手机')}
+    label={intl(452398, '手机')}
     rules={[
       {
         validator: (_, value) => {

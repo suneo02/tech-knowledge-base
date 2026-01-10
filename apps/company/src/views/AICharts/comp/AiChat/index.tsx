@@ -379,7 +379,7 @@ const AiChat: React.FC<AiChatProps> = (props) => {
               fileUpload={true}
             />
           )}
-          <div className={styles.AiTips}>{t('', '内容由AI生成，请核查重要信息')}</div>
+          <div className={styles.AiTips}>{t('453642', '内容由AI生成，请核查重要信息')}</div>
         </div>
       )}
 

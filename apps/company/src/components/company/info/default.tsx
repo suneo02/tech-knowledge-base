@@ -1,7 +1,7 @@
 import { getLegalPersonField } from '@/components/company/handle'
 import { corpInfoEngNameRow, corpInfoUsedNamesRow } from '@/components/company/info/rowsCommon/names.tsx'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
-import { ICorpBasicInfoFront } from './handle.tsx'
+import { CorpBasicInfoFront } from './handle.tsx'
 import {
   corpInfoBizRegNoRow,
   corpInfoCreditCodeRow,
@@ -29,12 +29,11 @@ import {
   corpInfoRegAddressRow,
   getCorpInfoScaleRow,
 } from './rowsCommon/corpScaleRow.tsx'
-import { corpInfoIndustryRow } from './rowsCommon/industryGBRow.tsx'
 
 export const getCorpInfoDefaultRows = (
-  baseInfo: ICorpBasicInfoFront,
+  baseInfo: Partial<CorpBasicInfoFront>,
   onFeedbackClick: () => void
-): HorizontalTableColumns<ICorpBasicInfoFront> => [
+): HorizontalTableColumns<CorpBasicInfoFront> => [
   [corpInfoNameRow, corpInfoCreditCodeRow],
   [corpInfoEngNameRow, corpInfoBizRegNoRow],
   [corpInfoUsedNamesRow(baseInfo), corpInfoOrgCodeRow],
@@ -51,7 +50,6 @@ export const getCorpInfoDefaultRows = (
   [corpInfoRegCapitalRow, corpInfoPaidInCapitalRow, corpInfoStartDateRow],
   [corpInfoOperPeriodBeginRow, corpInfoOperPeriodEndRow, corpInfoBussStateRow],
   [corpInfoProvinceRow, corpInfoRegAuthorityRow, corpInfoIssueDateRow],
-  [corpInfoIndustryRow()],
   [corpInfoRegAddressRow],
   [corpInfoBusAddressRow],
   [corpInfoBussScopeRow],

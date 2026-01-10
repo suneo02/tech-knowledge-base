@@ -33,7 +33,7 @@ const HistoryFocusList = () => {
       deleteBidSingleHis(param).then((res) => {
         if (res.Data === 'success') {
           setHistoryList((prev) => prev.filter((item) => item.detailId !== id))
-          message.success(intl('176605', '清除成功'))
+          message.success(intl('478664', '清除成功'))
         } else {
           message.error(intl('349079', '清除失败!'))
         }
@@ -50,7 +50,7 @@ const HistoryFocusList = () => {
       if (res.Data === 'success') {
         setHistoryList([])
         setVisible(false)
-        message.success(intl('176605', '清除成功'))
+        message.success(intl('478664', '清除成功'))
       } else {
         message.error(intl('349079', '清除失败!'))
       }

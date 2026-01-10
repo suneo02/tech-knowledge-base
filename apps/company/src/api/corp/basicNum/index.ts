@@ -20,6 +20,5 @@ export const getCorpBidPenetrationNum = (companyCode: string) => {
 
 export const getCompanyBasicNumT = async (id: string) => {
   const res = await myWfcAjax<CorpBasicNum>(`detail/company/getentbasicnum/${id}`)
-
   return res
 }

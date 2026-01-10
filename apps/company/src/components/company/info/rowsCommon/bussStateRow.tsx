@@ -4,9 +4,9 @@ import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils'
 import { Tooltip } from '@wind/wind-ui'
 import React, { FC } from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-const mapStateToTips = (val: ICorpBasicInfoFront['state_zh']) => {
+const mapStateToTips = (val: CorpBasicInfoFront['state_zh']) => {
   let res = ''
 
   switch (val) {
@@ -57,7 +57,7 @@ const mapStateToTips = (val: ICorpBasicInfoFront['state_zh']) => {
 
 const RenderComp: FC<{
   txt: string
-  backData: ICorpBasicInfoFront
+  backData: CorpBasicInfoFront
 }> = ({ txt, backData }) => {
   const title = mapStateToTips(window.en_access_config ? backData.state_zh : txt)
   return (
@@ -72,7 +72,7 @@ const RenderComp: FC<{
     </>
   )
 }
-export const corpInfoBussStateRow: HorizontalTableCol<ICorpBasicInfoFront> = {
+export const corpInfoBussStateRow: HorizontalTableCol<CorpBasicInfoFront> = {
   title: intl('138416', '经营状态'),
   dataIndex: 'state',
   render: (txt, backData) => {

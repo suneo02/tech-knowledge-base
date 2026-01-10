@@ -4,7 +4,7 @@
  * @description 定义 RPOutline 模块的 Redux 状态结构
  */
 
-import { RPFileUploaded, RPOutlineAgentMsg, RPOutlineProgressState } from '@/types';
+import { RPFileUploaded, RPOutlineAgentMsg } from '@/types';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 
 /**
@@ -15,12 +15,6 @@ import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 export interface RPOutlineState {
   /** 文件列表 - 整体会话所有文件列表 */
   files: RPFileUploaded[];
-
-  /** 进度状态 - 四个步骤的状态管理 */
-  progress: RPOutlineProgressState;
-
-  /** 原始聊天消息 - 未解析的后端消息 */
-  agentMessages: MessageInfo<RPOutlineAgentMsg>[];
 }
 
 /**

@@ -1,122 +1,133 @@
 # 企业详情页主容器布局设计
 
-## 概述
+## 概览
 
-主容器负责协调顶部操作栏、左侧内容区和右侧AI面板的布局与交互，实现响应式布局适配、状态协调和性能优化。
+主容器 (`CompanyDetailAIRight`) 是企业详情页的顶层组件，负责协调 **顶部操作栏**、**左侧内容区** 和 **右侧AI面板** 的布局与交互。它实现了响应式布局适配、状态提升与分发，以及 AI 面板的动态显示控制。
 
-**功能边界**：页面布局协调、响应式适配、区域间状态同步
-**目标人群**：前端开发人员、UI/UX设计师
-**关键场景**：页面初始化布局、AI面板显示/隐藏、响应式切换
+**功能边界**：
+- 布局管理（三栏/单栏切换、宽度调节）
+- 状态提升（AI面板可见性、企业信息共享）
+- 响应式适配（监听屏幕尺寸变化）
+
+**关键场景**：
+1. **布局初始化**：根据屏幕宽度自动决定是否显示 AI 面板。
+2. **AI 面板交互**：用户点击切换按钮，动态展开/收起右侧面板。
+3. **宽度调节**：用户调整 AI 面板宽度（25% / 50%），左侧内容区自适应。
 
 ## 信息架构
 
+采用 **Flex 布局** 实现左右分栏，通过状态控制各区域的渲染与尺寸。
+
 ```mermaid
 graph TD
-    A[CompanyDetailAIRight] --> B[LayoutHeader 顶部栏]
-    A --> C[Left 左侧内容]
-    A --> D[Right AI面板]
-
-    B --> E[企业信息 + 操作控制]
-    C --> F[企业详情展示]
-    D --> G[AI对话界面]
+    Root[CompanyDetailAIRight<br>主容器] --> Header[LayoutHeader<br>顶部操作栏]
+    Root --> Body[Flex Container<br>主体区域]
+    
+    Body --> LeftWrapper[Left<br>左侧内容区]
+    Body --> RightWrapper[Right<br>右侧AI面板]
+    
+    subgraph State [状态管理]
+        ShowRight[showRight<br>面板可见性]
+        RightWidth[rightWidth<br>面板宽度]
+        IsSmallScreen[isSmallScreen<br>屏幕尺寸]
+    end
+    
+    State -->|Props| Header
+    State -->|Props| LeftWrapper
+    State -->|Props| RightWrapper
 ```
 
 ## 页面蓝图
 
-| 区域 | 显示内容 | 可交互动作 | 可见条件 |
-|------|----------|------------|----------|
-| **LayoutHeader** | 企业名称、收藏状态、操作按钮 | 收藏/导出/AI切换 | 完整页面模式 |
-| **Left** | 企业详情内容 | 浏览/搜索/导航 | 始终显示 |
-| **Right** | AI对话界面 | 智能问答/调节宽度/关闭面板 | 可显示/隐藏 |
+| 区域 | 组件 | 职责 | 布局行为 | 可见条件 |
+| :--- | :--- | :--- | :--- | :--- |
+| **顶部** | `LayoutHeader` | 企业信息、操作按钮 | 固定高度，宽度自适应 | 始终可见 |
+| **左侧** | `Left` | 详情内容、菜单导航 | `flex: 1`，自适应宽度 | 始终可见 |
+| **右侧** | `Right` | AI 对话、面板控制 | 固定宽度 / 隐藏 | `showRight` 为 true |
 
 ### 响应式策略
 
-| 屏幕类型 | 布局模式 | AI面板状态 |
-|----------|----------|------------|
-| **大屏(>1200px)** | 标准三栏 | 默认显示 |
-| **中屏(768-1200px)** | 紧凑三栏 | 默认显示 |
-| **小屏F9模式(<768px)** | 单栏模式 | 默认隐藏 |
+| 屏幕宽度 | 模式 | AI 面板默认状态 | 布局行为 |
+| :--- | :--- | :--- | :--- |
+| **> 1200px** | 大屏 | 显示 | 左侧自适应，右侧 25% |
+| **768px - 1200px** | 中屏 | 显示 | 左侧自适应，右侧 30% |
+| **< 768px** | 小屏 (F9) | 隐藏 | 左侧 100%，右侧隐藏（覆盖式） |
 
 ## 任务流程
 
+### 布局初始化与响应
+
 ```mermaid
-flowchart TD
-    A[页面加载] --> B[检测屏幕尺寸]
-    B --> C{F9模式+小屏?}
+sequenceDiagram
+    participant User
+    participant Container as CompanyDetailAIRight
+    participant Window
 
-    C -->|是| D[隐藏AI面板]
-    C -->|否| E[显示AI面板]
-
-    D --> F[单栏布局]
-    E --> G[三栏布局]
-
-    F --> H[完成初始化]
-    G --> H
-
-    H --> I[监听用户操作]
-    I --> J{用户操作}
-
-    J -->|切换AI| K[显示/隐藏AI面板]
-    J -->|调节宽度| L[更新面板宽度]
-    J -->|屏幕变化| M[重新响应式适配]
-
-    K --> I
-    L --> I
-    M --> B
+    Container->>Window: 监听 resize 事件
+    Window-->>Container: 触发 resize
+    
+    alt 宽度 < 768px
+        Container->>Container: setIsSmallScreen(true)
+        Container->>Container: setShowRight(false)
+    else 宽度 >= 768px
+        Container->>Container: setIsSmallScreen(false)
+        Container->>Container: setShowRight(true)
+    end
+    
+    Container-->>User: 渲染对应布局
 ```
+
+### AI 面板切换
+
+1.  **用户点击**：顶部栏 AI 图标或右侧面板关闭按钮。
+2.  **状态更新**：`setShowRight(!showRight)`。
+3.  **布局重绘**：
+    *   `showRight = true`：右侧面板挂载，左侧宽度减小。
+    *   `showRight = false`：右侧面板卸载，左侧占满容器。
 
 ## 数据与状态
 
-### 核心状态字段
+### 核心状态 (State)
 
-| 字段 | 类型 | 用途 | 初始值 |
-|------|------|------|--------|
-| `showRight` | boolean | AI面板显示控制 | 根据屏幕尺寸 |
-| `rightWidth` | '25%'\|'50%' | AI面板宽度 | '25%' |
-| `corpNameIntl` | string | 国际化企业名称 | '' |
+| 状态名 | 类型 | 默认值 | 说明 |
+| :--- | :--- | :--- | :--- |
+| `showRight` | `boolean` | `true` (大屏) | 控制 AI 面板的显示/隐藏 |
+| `rightWidth` | `string` | `'25%'` | AI 面板的宽度百分比 |
+| `isSmallScreen` | `boolean` | `false` | 是否为移动端/小屏模式 |
 
-### 状态同步机制
+### 共享上下文 (Context/Props)
 
-- **布局状态**：主容器统一管理，向各区域传递状态
-- **企业信息**：页面级缓存，切换企业时更新
-- **AI面板状态**：独立管理，支持显示/隐藏切换
+主容器将状态通过 Props 传递给子组件：
 
-## 组件复用
+*   **LayoutHeader**: 接收 `showRight`, `setShowRight` 用于控制按钮状态。
+*   **Left**: 接收 `showRight` 用于调整内部布局（如菜单样式）。
+*   **Right**: 接收 `setShowRight` 用于关闭面板。
 
-### 核心组件结构
+## 组件复用与代码引用
 
-```
-CompanyDetailAIRight @see apps/company/src/views/CompanyDetailAIRight/index.tsx
-├── LayoutHeader @see apps/company/src/views/CompanyDetailAIRight/Left.tsx
-├── Left @see apps/company/src/views/CompanyDetailAIRight/Left.tsx
-└── Right @see apps/company/src/views/CompanyDetailAIRight/Right.tsx
-```
+### 核心组件
 
-### 组件边界
-
-- **CompanyDetailAIRight**：布局协调、状态管理、响应式适配
-- **LayoutHeader**：企业信息展示、操作控制
-- **Left**：企业详情内容展示、菜单导航
-- **Right**：AI对话界面、面板控制
+*   **主容器**：`CompanyDetailAIRight`
+    *   职责：布局协调、状态管理。
+    *   @see `apps/company/src/views/CompanyDetailAIRight/index.tsx`
+*   **顶部栏包装**：`LayoutHeader` (注意：这是容器内的布局组件，非全局 Header)
+    *   职责：包装 `OperatorHeader`，处理布局样式。
+    *   @see `apps/company/src/views/CompanyDetailAIRight/Left.tsx` (通常与 Left 同文件或独立)
+*   **左侧容器**：`Left`
+    *   职责：渲染 `CompanyDetail`。
+    *   @see `apps/company/src/views/CompanyDetailAIRight/Left.tsx`
+*   **右侧容器**：`Right`
+    *   职责：渲染 `ChatMessageCore`。
+    *   @see `apps/company/src/views/CompanyDetailAIRight/Right.tsx`
 
 ## 错误处理
 
-| 错误场景 | 处理方式 | 降级方案 |
-|----------|----------|----------|
-| **布局计算失败** | 回退到默认布局 | 强制显示左侧内容 |
-| **状态同步失败** | 记录错误日志 | 保持当前状态 |
-| **组件渲染失败** | 显示错误占位符 | 不影响其他区域 |
+*   **布局计算异常**：使用 CSS Flexbox 的自适应特性作为兜底，避免使用绝对定位计算宽度。
+*   **组件崩溃**：各子区域应包含 `ErrorBoundary`，防止局部错误导致整个页面白屏。
 
 ## 相关文档
 
-- [总体设计文档](./design.md) - 整体架构
-- [顶部操作栏设计](./layout-header.md) - 操作控制
-- [左侧区域设计](./layout-left.md) - 内容区布局
-- [右侧AI面板设计](./layout-right.md) - AI交互
-
-## 检查清单
-
-- [x] 布局适配规则明确
-- [x] 状态同步机制清晰
-- [x] 错误处理策略完整
-- [x] 文档长度控制在1页内
+- [总体设计](./design.md)
+- [顶部操作栏设计](./layout-header.md)
+- [左侧区域设计](./layout-left.md)
+- [右侧AI面板设计](./layout-right.md)

@@ -1,18 +1,22 @@
+import { CorpBasicNumFront } from '@/types/corpDetail'
+import { CorpMenuCfg } from '@/types/corpDetail/menu'
 import intl from '@/utils/intl'
 import { Select } from '@wind/wind-ui'
 import { SelectProps } from '@wind/wind-ui/lib/select'
 import { useControllableValue } from 'ahooks'
 import React, { FC, useMemo } from 'react'
-import { CorpMenuData } from '../../menu/type'
+import { buildCorpAllMenuData, CorpMenuData } from '../../menu'
+import { shouldUseCompleteMenu } from '../../menu/useCorpMenuData'
 
 export const MenuSearch: FC<{
   value?: string
   onChange?: (value: string) => void
-  allTreeDatas: CorpMenuData[]
+  menuConfig: CorpMenuCfg | null
+  basicNum: CorpBasicNumFront
   treeMenuClick: (keys: React.Key[], options: { selected: boolean }) => void
   setExpandedKeys: (keys: string[]) => void
 }> = (props) => {
-  const { allTreeDatas, treeMenuClick, setExpandedKeys } = props
+  const { menuConfig, basicNum, treeMenuClick, setExpandedKeys } = props
   const [inputValue, setInputValue] = useControllableValue<string | null>(props)
 
   const handleResultClick: SelectProps['onChange'] = (key) => {
@@ -29,18 +33,33 @@ export const MenuSearch: FC<{
     }
   }
 
+  const searchableMenus = useMemo<CorpMenuData[]>(() => {
+    if (!menuConfig || Object.keys(menuConfig).length === 0) {
+      return []
+    }
+    if (!shouldUseCompleteMenu(basicNum, menuConfig)) {
+      return []
+    }
+    return buildCorpAllMenuData(menuConfig, basicNum)
+  }, [menuConfig, basicNum])
+
   const searchedOptions = useMemo(() => {
     try {
       if (!inputValue) {
         return []
       }
-      return allTreeDatas
+      return searchableMenus
         .filter((item) => {
-          const title = item.titleStr || item.title
+          if (item.disabled) {
+            return false
+          }
+          const titleSource = (item.titleStr || item.title || '') as string
+          const title = typeof titleSource === 'string' ? titleSource : String(titleSource)
           return title && inputValue && title.toUpperCase().includes(inputValue.toUpperCase())
         })
         .map((item) => {
-          const title = (item.titleStr || item.title) as string
+          const titleSource = (item.titleStr || item.title || '') as string
+          const title = typeof titleSource === 'string' ? titleSource : String(titleSource)
           const index = title.toUpperCase().indexOf(inputValue.toUpperCase())
           const beforeStr = title.substring(0, index)
           const matched = title.substring(index, index + inputValue.length)
@@ -67,7 +86,7 @@ export const MenuSearch: FC<{
       console.error(error)
       return []
     }
-  }, [inputValue, allTreeDatas])
+  }, [inputValue, searchableMenus])
 
   return (
     <Select

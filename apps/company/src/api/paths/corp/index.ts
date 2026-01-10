@@ -1,6 +1,7 @@
 import { IndustryInfoResult, NewBigShareholderResult, StructuralSubjectResult, SubjectInfoResult } from '@/api/corp'
 import { TCorpTechScoreReport } from '@/api/corp/report.ts'
 import { CorpInfoApiPaths } from '@/api/paths/corp/info.ts'
+import { TenderApiPaths } from '@/api/paths/corp/tender.ts'
 import { PaginationParams } from 'gel-api'
 import type { ApiResponse } from '../../types'
 import { CorpBussApiPaths } from './buss'
@@ -36,4 +37,5 @@ export type CompanyApiPaths = {
   }
 } & CorpBussApiPaths &
   CorpInfoApiPaths &
-  CorpMiscApiPaths
+  CorpMiscApiPaths &
+  TenderApiPaths

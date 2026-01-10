@@ -11,12 +11,13 @@ import './index.less'
 import SearchResultCollectModal from './modal'
 import { SearchResultTag } from './tag'
 
+import { CompanyInfoInSearchWithCollect } from '../../useResultList'
 import {
   AddressInfo,
+  ComapnyTransNameInfo,
   CompanyNameInfo,
   CountryInfo,
   DomesticEntity,
-  EnglishNameInfo,
   EstablishDateInfo,
   HighlightInfo,
   IndustryInfo,
@@ -24,10 +25,9 @@ import {
   ProvinceInfo,
   RegisterCapitalInfo,
 } from './info'
-import { SearchResultItem } from './type'
 
-interface Props<T> {
-  data?: T[]
+interface Props {
+  data?: CompanyInfoInSearchWithCollect[]
   total?: number
   loading?: boolean
   pagination?: {
@@ -39,14 +39,14 @@ interface Props<T> {
   type?: GSTabsEnum
   next?: (reset?: boolean) => Promise<void>
   refresh?: () => void
-  updateData?: React.Dispatch<React.SetStateAction<T[]>>
+  updateData?: React.Dispatch<React.SetStateAction<CompanyInfoInSearchWithCollect[]>>
 }
 
 interface SearchResultCollectModalRef {
   open: (companyCode: string, callback: () => void) => void
 }
 
-const SearchResult = <T extends Record<string, any>>(props: Props<T>) => {
+const SearchResult = (props: Props) => {
   const collectModalRef = useRef<SearchResultCollectModalRef>(null)
   const moreRef = useRef<HTMLDivElement>(null)
   const { data, total, loading, next, type, done, updateData } = props
@@ -78,12 +78,12 @@ const SearchResult = <T extends Record<string, any>>(props: Props<T>) => {
 
   return (
     <>
-      <List<SearchResultItem>
+      <List<CompanyInfoInSearchWithCollect>
         className="search-result-list-container"
         loading={loading}
         itemLayout="vertical"
         size="large"
-        dataSource={data as unknown as SearchResultItem[]}
+        dataSource={data}
         renderItem={(item, index) => {
           return (
             <List.Item style={{ padding: '16px 12px' }} key={(item.corpId as string) || index}>
@@ -129,9 +129,14 @@ const SearchResult = <T extends Record<string, any>>(props: Props<T>) => {
                         {item.isCollect ? intl('138129', '已收藏') : intl('143165', '收藏')}
                       </Button>
                     </div>
-                    <EnglishNameInfo item={item} type={type} />
+                    <ComapnyTransNameInfo item={item} type={type} />
                     <div style={{ marginBlockStart: 8 }}>
-                      <SearchResultTag tags={item.tags} statusAfter={item.statusAfter} type={type} />
+                      <SearchResultTag
+                        tags={item.tags}
+                        statusAfter={item.statusAfter}
+                        statusAfterOriginal={item.statusAfterOriginal}
+                        type={type}
+                      />
                     </div>
                   </div>
                 </div>

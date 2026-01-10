@@ -1,10 +1,12 @@
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { ApiCodeForWfc, TRequestToChat } from 'gel-api';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { createChatRequest } from '../../api';
-import { rpContentActions, useReportContentDispatch } from '../../store/reportContentStore';
+import { useReportDetailContext } from '../../context';
+import { rpDetailActions, useRPDetailDispatch } from '../../store/reportContentStore';
+import { useAutoGenerate } from './hooks/useAutoGenerate';
 
 type FuncGetReport = TRequestToChat<'report/query'>;
 
@@ -22,23 +24,35 @@ const getReportOutlineFinished = (data: Awaited<ReturnType<FuncGetReport>> | und
  */
 export const useInitReportContent = () => {
   const { id: reportId } = useParams<{ id: string }>();
-  const dispatch = useReportContentDispatch();
+  const dispatch = useRPDetailDispatch();
+  const { cancelRequests, setMsgs } = useReportDetailContext();
+  const prevReportIdRef = useRef<string | undefined>();
+
   useEffect(() => {
-    dispatch(rpContentActions.setReportId(reportId));
+    dispatch(rpDetailActions.setReportId(reportId));
   }, [reportId, dispatch]);
+
+  useEffect(() => {
+    if (prevReportIdRef.current && prevReportIdRef.current !== reportId) {
+      cancelRequests();
+      setMsgs([]);
+      dispatch(rpDetailActions.setHydrationTask({ type: 'idle' }));
+    }
+    prevReportIdRef.current = reportId;
+  }, [reportId, cancelRequests, setMsgs, dispatch]);
 
   const { data, run } = useRequest<Awaited<ReturnType<FuncGetReport>>, Parameters<FuncGetReport>>(
     createChatRequest('report/query'),
     {
       manual: true,
       onBefore: () => {
-        dispatch(rpContentActions.startChapterLoading());
+        dispatch(rpDetailActions.startChapterLoading());
       },
       onSuccess: (data) => {
         // 当报告完成时更新状态
         if (data.ErrorCode === ApiCodeForWfc.SUCCESS) {
           dispatch(
-            rpContentActions.chapterLoadingSuccess({
+            rpDetailActions.chapterLoadingSuccess({
               chapters: data.Data?.chapters || [],
               reportName: data.Data?.name || '',
               referencePriority: data.Data?.referencePriority,
@@ -49,14 +63,14 @@ export const useInitReportContent = () => {
         } else {
           // API 返回错误码，视为失败
           const errorMsg = `获取报告大纲失败: ${data.ErrorCode}`;
-          dispatch(rpContentActions.chapterLoadingFailure(errorMsg));
+          dispatch(rpDetailActions.chapterLoadingFailure(errorMsg));
           message.error('获取报告大纲失败');
         }
       },
       onError: (error) => {
         // 网络错误或其他异常
         const errorMsg = error instanceof Error ? error.message : '获取报告大纲失败';
-        dispatch(rpContentActions.chapterLoadingFailure(errorMsg));
+        dispatch(rpDetailActions.chapterLoadingFailure(errorMsg));
         message.error('获取报告大纲失败');
         console.error('获取报告大纲失败:', error);
       },
@@ -74,6 +88,9 @@ export const useInitReportContent = () => {
 
   // 注意：章节数据和报告名称已在 chapterLoadingSuccess 中统一更新
   // 移除了重复的 setChapters 和 setReportName 调用，避免双重注水
+
+  // 自动生成全文逻辑
+  useAutoGenerate(data);
 
   return {
     chapters: data?.Data?.chapters || [],

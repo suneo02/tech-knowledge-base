@@ -1,4 +1,4 @@
-import { CorpGlobalPreSearchResultV1Parsed } from 'gel-api/*'
+import { CorpGlobalPreSearchResultV1Parsed } from 'gel-api'
 import { GroupBrowseHistoryItem } from '../../../api/paths/search'
 
 export type SearchItem =

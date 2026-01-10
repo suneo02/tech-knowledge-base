@@ -9,6 +9,7 @@ import { selectConversationsItems, setConversationsItems, useAppDispatch, useApp
 import { groupConversation } from './handle';
 import styles from './index.module.less';
 import { InfiniteScrollConversations } from './InfiniteScrollConversations';
+import { getNavigationPath, handleConversationNavigation } from './utils';
 
 /**
  * 处理 base conversations 的渲染
@@ -80,7 +81,11 @@ export const ChatConversationReport: React.FC<ChatConversationReportProps> = ({ 
     // 当前选中的会话 ID 从路由读取
     currentId: chatId || '',
     // 当需要更新选中的会话 ID 时路由跳转
-    onCurrentIdChange: (id) => navigate(`/chat/${id}`),
+    onCurrentIdChange: (id) => {
+      const conversation = conversationsItems.find((item) => item.groupId === id);
+      const navigationPath = getNavigationPath(conversation, `/chat/${id}`);
+      navigate(navigationPath);
+    },
     // 当会话列表为空时跳转首页
     createNewConversation: () => navigate('/home'),
     // 请求参数字段配置
@@ -97,7 +102,9 @@ export const ChatConversationReport: React.FC<ChatConversationReportProps> = ({ 
     return processConversations(conversationsItems);
   }, [conversationsItems]);
 
-  const handleConversationClick = (key: string) => navigate(`/chat/${key}`);
+  const handleConversationClick = (key: string) => {
+    handleConversationNavigation(navigate, conversationsItems, key, `/chat/${key}`);
+  };
 
   return (
     <div className={classNames(styles.menu, { [styles['menu--collapse']]: collapse })}>

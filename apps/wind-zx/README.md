@@ -1,186 +1,73 @@
-# Wind-ZX Project
+# wind-zx - 风险咨询网站
 
-This project has been migrated from static HTML/CSS/JS to a webpack-based build system.
+风险咨询网站，基于Vite构建的多页面静态网站，提供企业风险管理和咨询服务信息展示。
 
-## Project Structure
+## 目录结构
 
 ```
-wind-zx/
-├── dist/               # Build output directory
-├── src/                # Source files
-│   ├── css/            # CSS files
-│   ├── images/         # Image files
-│   ├── js/             # JavaScript/TypeScript files
-│   │   ├── components/ # JS components
-│   │   │   └── about/  # About page components
-│   │   ├── config/     # Configuration files
-│   │   ├── types/      # TypeScript type definitions
-│   │   └── utils/      # Utility functions
-│   └── templates/      # HTML templates
-├── resource/           # Legacy resource files (for reference)
-├── .babelrc            # Babel configuration
-├── package.json        # Project dependencies and scripts
-├── tsconfig.json       # TypeScript configuration
-├── webpack.common.js   # Common webpack configuration
-├── webpack.dev.js      # Development webpack configuration
-├── webpack.prod.js     # Production webpack configuration
-└── proxy.js            # API proxy server
+apps/wind-zx/
+├── src/                      # 主要资源文件
+│   ├── assets/               # 静态资源
+│   │   ├── images/           # 图片资源
+│   │   └── static/           # 静态文件
+│   ├── components/           # 组件目录
+│   │   ├── about/            # 关于页面组件
+│   │   ├── contact/          # 联系页面组件
+│   │   ├── footer/           # 页脚组件
+│   │   ├── header/           # 页头组件
+│   │   ├── home/             # 首页组件
+│   │   └── risk/             # 风险页面组件
+│   ├── entries/              # 页面入口文件
+│   │   ├── contact.ts        # 联系页面入口
+│   │   ├── index.ts          # 首页入口
+│   │   ├── other.ts          # 其他页面入口
+│   │   └── risk.ts           # 风险页面入口
+│   ├── styles/               # 样式文件
+│   ├── types/                # 类型定义
+│   └── utils/                # 工具函数
+│       ├── intl.ts           # 国际化工具
+│       ├── link.ts           # 链接工具
+│       ├── locales/          # 国际化语言包
+│       ├── misc.ts           # 杂项工具
+│       └── moveToZX.ts       # 迁移到ZX工具
+├── public/                   # 公共静态资源
+├── docs/                     # 文档目录
+├── index.html                # 网站首页
+├── contact.html              # 联系页面
+├── other.html                # 其他页面
+├── risk.html                 # 风险页面
+├── vite.config.ts            # Vite构建配置文件
+├── package.json              # 项目依赖和脚本配置
+└── tsconfig.json             # TypeScript配置文件
 ```
 
-## Development
+## 关键文件说明
 
-To start the development server:
+| 文件 | 作用 |
+|------|------|
+| `src/components/index.ts` | 组件统一导出文件 |
+| `src/components/loadHeaderFooter.ts` | 页头页脚加载工具 |
+| `src/entries/` | 各页面的入口文件，定义页面逻辑 |
+| `src/utils/intl.ts` | 国际化工具函数 |
+| `src/utils/moveToZX.ts` | 迁移到ZX相关工具 |
+| `vite.config.ts` | Vite构建配置，定义多页面应用构建规则 |
 
-```bash
-npm start
+## 依赖关系
+
+```mermaid
+graph LR
+    A[wind-zx] --> B[jQuery]
+    A --> C[Express]
+    A --> D[http-proxy-middleware]
+    A --> E[TypeScript]
+    A --> F[Vite]
+    A --> G[Less]
 ```
 
-This will start webpack-dev-server with hot module replacement and proxy configuration.
+## 相关文档
 
-## Production Build
-
-To build for production:
-
-```bash
-npm run build
-```
-
-This will create optimized assets in the `dist` directory.
-
-## Proxy Server
-
-If you need to run the standalone proxy server:
-
-```bash
-npm run proxy
-```
-
-This will start the Express proxy server that handles API requests.
-
-## Features
-
-- Automatic CSS and JS bundling
-- Image optimization
-- Hash-based cache busting for assets
-- Development server with hot reload
-- API proxy for development
-- Production optimization (minification, code splitting)
-- Component-based architecture for about pages
-- Dependencies managed with pnpm
-- JS-based components for better modularity
-- TypeScript support for type safety
-- Special resource files handling (PDF, DOCX, etc.)
-
-## Dependency Management
-
-The project uses pnpm to manage dependencies:
-
-- jQuery: Installed via pnpm
-  - Imported in JS files with `import 'jquery'`
-  - Bundled with webpack for better control and reliability
-
-This approach provides several benefits:
-1. Centralized dependency management with pnpm
-2. Consistent versioning across the application
-3. Better offline development experience
-4. Improved build reliability and control
-
-## Component Architecture
-
-The project uses a component-based architecture for better modularity:
-
-### JS Components
-
-- Components are defined as JavaScript functions that return HTML strings
-- Located in `src/js/components/` directory
-- Each component is a separate module that exports a default function
-- Components are imported and used in the application through the component loader
-
-### Component Loader
-
-The component loader (`src/js/componentLoader.js`) provides two main functions:
-
-- `loadComponent(componentName, container)`: Loads a component into a specified container
-- `getComponentContent(componentName)`: Returns the HTML content of a component
-
-### Usage Example
-
-```javascript
-// Import the component loader
-import { loadComponent } from './componentLoader';
-
-// Load the contact component into the .contact-content container
-loadComponent('about/contact', '.contact-content');
-```
-
-## TypeScript Support
-
-The project includes TypeScript support for better type safety and developer experience:
-
-### TypeScript Configuration
-
-- TypeScript configuration is defined in `tsconfig.json`
-- Supports both `.ts` and `.tsx` file extensions
-- Includes type definitions for jQuery via `@types/jquery`
-
-### TypeScript Features
-
-- Type definitions in `src/js/types/` directory
-- Utility functions with proper type annotations in `src/js/utils/`
-- Webpack configured to process TypeScript files
-
-### Usage Example
-
-```typescript
-// Import types
-import { Article } from './types';
-import { formatDate } from './utils';
-
-// Use with type safety
-const article: Article = {
-  id: 1,
-  title: 'Example Article',
-  content: 'This is an example article',
-  date: formatDate(new Date()),
-  source: 'Wind ZX'
-};
-```
-
-## Special Resource Files
-
-The project supports handling special resource files like PDF, DOCX, XLSX, etc.:
-
-### Configuration
-
-Special resource files are configured in `webpack.common.js` with the following rule:
-
-```javascript
-{
-  test: /\.(pdf|docx|xlsx|pptx|doc|xls|ppt)$/i,
-  type: 'asset/resource',
-  generator: {
-    filename: 'documents/[name][ext]',
-  },
-}
-```
-
-### Features
-
-- Automatically copies resource files to the `dist/documents/` directory
-- Preserves original filenames
-- Allows importing resource files directly in JavaScript/TypeScript files
-- Generates correct relative paths for use in the application
-
-### Usage Example
-
-```javascript
-// Import document files
-import applyFormDoc from '../resource/static/Objection-Application-form-legal-entity.docx';
-import reportDemo from '../resource/static/report-demo-11.pdf';
-
-// Use the imported paths
-const downloadLink = document.createElement('a');
-downloadLink.href = applyFormDoc;
-downloadLink.textContent = '下载申请表';
-downloadLink.setAttribute('download', 'Objection-Application-form-legal-entity.docx');
-```
+- [架构设计](./architecture.md) - 系统架构和设计决策
+- [入门指南](./docs/getting-started.md) - 项目入门指南
+- [部署文档](./docs/deployment.md) - 项目部署指南
+- [国际化使用](./docs/INTL_USAGE.md) - 国际化功能使用说明
+- [开发规范](../../docs/rule/) - TypeScript、React、样式等开发规范

@@ -1,7 +1,6 @@
-import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 import { getWebAIChatLinkWithIframe } from '@/handle/link/WebAI'
 import { isDeveloper } from '@/utils/common.ts'
-import { getEnvParams, IEnvParams, isDev, isStaging } from '@/utils/env'
+import { isDev, isStaging } from '@/utils/env'
 import { wftCommon } from '@/utils/utils.tsx'
 import { usedInClient } from 'gel-util/env'
 import { generateUrlByModule, LinkModule, PC_Front, WFC_Enterprise_Web } from 'gel-util/link'
@@ -21,8 +20,10 @@ import {
   getCompanyDataBrowserItem,
   getCompanyDynamicsItem,
   getReportPlatformItem,
+  getSuperAgentItem,
   getSuperItem,
 } from './config/EasyTool.tsx'
+import { InvestmentFinancingMenus } from './config/InvestmentFinancing.ts'
 import {
   getCompanyAtlasPlatformItem,
   getCompetitorAtlasItem,
@@ -32,15 +33,8 @@ import {
   getMultiToOneReachItem,
   getRelatedPartyAtlasItem,
 } from './config/KG.ts'
-import {
-  getCorporateMarketingWorkbenchItem,
-  getKeyParksItem,
-  getNewCompanyDiscoveryItem,
-  getPrimaryMarketTrackItem,
-  getStrategicIndustriesItem,
-  getSupplyChainExplorationItem,
-  getWanxunMapItem,
-} from './config/ScenarioApplication.ts'
+import { MarketingAcquisitionMenus } from './config/MarketingAcquisition.ts'
+import { getNewCompanyDiscoveryItem, getSupplyChainExplorationItem } from './config/ScenarioApplication.ts'
 import {
   getBondIssuingCompanyItem,
   getCompanyListDirectoryItem,
@@ -55,23 +49,17 @@ import { IFuncMenuGroup, IFuncMenuItem } from './type'
 
 // 便捷工具菜单组
 
-export const EasyToolMenus = (envParams: IEnvParams): IFuncMenuGroup => ({
+export const EasyToolMenus = (): IFuncMenuGroup => ({
   id: '247483',
   zh: '便捷工具',
   list: [
     getBatchQueryExportItem(),
     getReportPlatformItem(),
-    // getCompanyAtlasPlatformItem(),
     getCompanyDataBrowserItem(),
     getSuperItem(),
-    getCompanyDataApiItem(envParams),
-    getCompanyDynamicsItem(envParams),
-    getAiFinancialItem(envParams),
-    isDeveloper && {
-      id: '',
-      zh: 'Home AI',
-      url: getUrlByLinkModule(LinksModule.HOMEAI),
-    },
+    getCompanyDataApiItem(),
+    getCompanyDynamicsItem(),
+    getAiFinancialItem(),
     isDeveloper && {
       id: '',
       zh: 'AI Chat',
@@ -101,44 +89,25 @@ export const EasyToolMenus = (envParams: IEnvParams): IFuncMenuGroup => ({
         window.open(item.url, '_blank')
       },
     },
+    isDeveloper && getSuperAgentItem(),
   ].filter(Boolean),
 })
 
 // 图谱平台菜单组
-export const KGMenus = (envParams: IEnvParams) => ({
+export const KGMenus = () => ({
   id: '138167',
   zh: '图谱平台',
   list: [
     getCompanyAtlasPlatformItem(),
     getEquityPenetrationItem(),
     getRelatedPartyAtlasItem(),
-    // getSuspectedControllerItem(),
-    // getFinalBeneficiaryItem(),
     usedInClient() ? getFinancingAtlasItem() : getFinancingHistoryItem(),
     getMultiToOneReachItem(),
-    getCompetitorAtlasItem(envParams),
+    getCompetitorAtlasItem(),
+    getSupplyChainExplorationItem(),
   ],
 })
 // 场景应用菜单组
-
-export const ScenarioApplicationMenus = (envParams: IEnvParams) => ({
-  id: '247484',
-  zh: '场景应用',
-  list: [
-    getWanxunMapItem(envParams),
-    getKeyParksItem(),
-    getNewCompanyDiscoveryItem(),
-    getStrategicIndustriesItem(envParams),
-    getPrimaryMarketTrackItem(envParams),
-    getSupplyChainExplorationItem(envParams),
-    getCorporateMarketingWorkbenchItem(envParams),
-    isDeveloper && {
-      id: '422037',
-      zh: '企业图谱平台',
-      url: 'index.html#/aigraph?isSeparate=1&nosearch=1',
-    },
-  ].filter(Boolean),
-})
 
 // 特色企业菜单组
 export const SpecialCompanyMenus = () => ({
@@ -159,10 +128,17 @@ export const SpecialCompanyMenus = () => ({
 export const SpecialDataMenus = () => ({
   id: '223893',
   zh: '专项数据',
-  list: [getBiddingItem(), getRecruitmentItem(), getPatentItem(), getTrademarkItem()],
+  list: [
+    getBiddingItem(),
+    getRecruitmentItem(),
+    getPatentItem(),
+    getTrademarkItem(),
+    getCompanyListDirectoryItem(),
+    getCompanyQualificationItem(),
+  ],
 })
 
-export const ComprehensiveSearch = (envParams: IEnvParams) => ({
+export const ComprehensiveSearch = () => ({
   id: 223895,
   zh: '综合查询',
   list: [
@@ -171,21 +147,20 @@ export const ComprehensiveSearch = (envParams: IEnvParams) => ({
     getSearchPersonItem(),
     getSearchRelationItem(),
     getSearchGroupItem(),
-    getSearchRiskItem(envParams),
+    getSearchRiskItem(),
   ],
 })
-console.log('🚀 ~ ComprehensiveSearch ~ ComprehensiveSearch:', ComprehensiveSearch(getEnvParams()))
 
-export const overSeaMenus = (envParams: IEnvParams): IFuncMenuGroup[] => [
-  ComprehensiveSearch(envParams),
-  KGMenus(envParams),
+export const overSeaMenus = (): IFuncMenuGroup[] => [
+  ComprehensiveSearch(),
+  KGMenus(),
   SpecialDataMenus(),
   {
     id: '247484',
     zh: '场景应用',
     list: [getCompanyListDirectoryItem(), getNewCompanyDiscoveryItem()],
   },
-  EasyToolMenus(envParams),
+  EasyToolMenus(),
 ]
 
 // 全部功能下拉菜单配置项
@@ -194,19 +169,18 @@ export const getHeaderAllFuncMenus = (): Array<
     list: Array<Omit<IFuncMenuItem, 'disabled'>>
   }
 > => {
-  const envParams = getEnvParams()
   const isOversea = wftCommon.is_overseas_config
 
   // 根据环境获取菜单配置
   const menus = isOversea
-    ? overSeaMenus(envParams)
+    ? overSeaMenus()
     : [
-        ComprehensiveSearch(envParams),
+        ComprehensiveSearch(),
         SpecialDataMenus(),
-        KGMenus(envParams),
-        SpecialCompanyMenus(),
-        ScenarioApplicationMenus(envParams),
-        EasyToolMenus(envParams),
+        KGMenus(),
+        InvestmentFinancingMenus(),
+        MarketingAcquisitionMenus(),
+        EasyToolMenus(),
       ]
 
   // 过滤掉 disabled 为 true 的菜单项

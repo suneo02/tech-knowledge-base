@@ -81,7 +81,7 @@ export interface UseExternalComponentRendererOptions {
    * );
    * ```
    */
-  chapterLoadingChapters?: ChapterLoadingOverlayState[];
+  aigcLoadingChapters?: ChapterLoadingOverlayState[];
 }
 
 /**
@@ -312,7 +312,7 @@ export const useExternalComponentRenderer = (
     onStop: options.onStop,
     registerRenderer,
     requestRender,
-    activeChapters: options.chapterLoadingChapters ?? [],
+    activeChapters: options.aigcLoadingChapters ?? [],
   });
 
   /**
@@ -353,5 +353,17 @@ export const useExternalComponentRenderer = (
      * @description 需要在编辑器初始化后调用，用于监听章节标题的鼠标事件
      */
     initializeHoverDetection,
+
+    /**
+     * 注册外部组件渲染器
+     * @description 允许外部 hook（如 useAutoScrollOnStreaming）注册自己的渲染函数
+     */
+    registerRenderer,
+
+    /**
+     * 请求一次批量渲染
+     * @description 触发所有已注册渲染器的执行
+     */
+    requestRender,
   };
 };

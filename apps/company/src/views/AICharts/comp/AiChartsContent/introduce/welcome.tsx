@@ -8,32 +8,32 @@ import { AI_GRAPH_TYPE } from '@/views/AICharts/contansts'
 
 const list = [
   {
-    title: t('', '供应链探查'),
-    description: t('', '一键洞察企业供应链脉络，图谱清晰展现关键环节'),
+    title: t('467795', '供应链探查'),
+    description: t('467837', '一键洞察企业供应链脉络，图谱清晰展现关键环节'),
     key: 'ai_graph_supply_chain',
     type: AI_GRAPH_TYPE.AI_GRAPH_SUPPLY_CHAIN,
   },
   {
-    title: t('', '客户群探查'),
-    description: t('', '深度挖掘客户结构，图谱直观揭示客户分布与关联'),
+    title: t('467834', '客户群探查'),
+    description: t('467838', '深度挖掘客户结构，图谱直观揭示客户分布与关联'),
     key: 'ai_graph_customers',
     type: AI_GRAPH_TYPE.AI_GRAPH_CUSTOMERS,
   },
   {
-    title: t('', '竞争对手探查'),
-    description: t('', '快速锁定竞争对手格局，图谱助力精准决策'),
+    title: t('467835', '竞争对手探查'),
+    description: t('467797', '快速锁定竞争对手格局，图谱助力精准决策'),
     key: 'ai_graph_competitors',
     type: AI_GRAPH_TYPE.AI_GRAPH_COMPETITORS,
   },
   {
-    title: t('', 'Markdown文本生成图谱'),
-    description: t('', '让你的笔记一秒变关系图谱，内容高效可视化'),
+    title: t('467796', 'Markdown文本生成图谱'),
+    description: t('467839', '让你的笔记一秒变关系图谱，内容高效可视化'),
     key: 'ai_graph_markdown',
     type: AI_GRAPH_TYPE.AI_GRAPH_MARKDOWN,
   },
   {
-    title: t('', '导入Excel生成图谱'),
-    description: t('', '将数据表变身智能图谱，复杂关系一目了然'),
+    title: t('467836', '导入Excel生成图谱'),
+    description: t('467798', '将数据表变身智能图谱，复杂关系一目了然'),
     key: 'ai_graph_excel',
     type: AI_GRAPH_TYPE.AI_GRAPH_EXCEL,
   },

@@ -1,19 +1,22 @@
+import { RootAction } from '@/reducers/redux.types'
 import { globalIndustryOfNationalEconomy3 } from '@/utils/industryOfNationalEconomyTree'
 import { DatePicker, Radio } from '@wind/wind-ui'
 import RadioGroup from '@wind/wind-ui/lib/radio/group'
-import { WindCascade } from 'gel-ui'
+import { BidItem } from 'gel-types'
+import { ErrorBoundary, WindCascade } from 'gel-ui'
 import { globalAreaTree } from 'gel-util/config'
 import { isEn } from 'gel-util/intl'
-import React from 'react'
+import React, { Dispatch } from 'react'
 import { connect } from 'react-redux'
 import * as HomeActions from '../../actions/home'
 import * as SearchListActions from '../../actions/searchList'
-import { getBidSearchList, getBidViewList } from '../../api/searchListApi'
+import { getBidSearchList } from '../../api/searchListApi'
 import {
   AlreadyChooseFilter,
   ResultContainer,
   SearchTitleList,
 } from '../../components/searchListComponents/searchListComponents'
+import { handleBidTranslate } from '../../handle/bid/translate'
 import { bidResultOption, createDatebidSearch } from '../../handle/searchConfig'
 import { setPageTitle } from '../../handle/siteTitle'
 import global from '../../lib/global'
@@ -34,7 +37,6 @@ const StylePrefix = 'bid-search-list'
 class BidSearchList extends React.Component<BidSearchListProps, BidSearchListState> {
   private searchParam: any
   private dateAction: any
-  private param: any
   constructor(props) {
     super(props)
     this.state = {
@@ -45,8 +47,8 @@ class BidSearchList extends React.Component<BidSearchListProps, BidSearchListSta
       loading: true,
       loadingList: false,
       allFilter: [],
-      region: intl('265435', '不限'),
-      industry: intl('265435', '不限'),
+      region: intl('138649', '不限'),
+      industry: intl('138649', '不限'),
       queryText: '阿里',
       industryname: [],
       regioninfo: [],
@@ -62,34 +64,37 @@ class BidSearchList extends React.Component<BidSearchListProps, BidSearchListSta
       let keyword = this.props.keyword
       this.setState({ queryText: keyword }, () => this.clearAllFilter())
     }
+
+    // 当 globalSearchTimeStamp 变化时，重新执行搜索
+    if (
+      this.props.keyword === prevProps.keyword &&
+      this.props.globalSearchTimeStamp !== prevProps.globalSearchTimeStamp &&
+      this.props.globalSearchTimeStamp !== undefined
+    ) {
+      this.clearAllFilter()
+    }
   }
 
   componentDidMount = () => {
-    this.param = {
-      pageNo: this.state.pageNo,
-      pageSize: this.state.pageSize,
-      sort: 'sort_date_desc',
-    }
     const qsParam = parseQueryString()
     let urlSearch = qsParam['keyword'] || ''
     urlSearch = window.decodeURIComponent(urlSearch)
     let keyword = this.props.keyword || urlSearch || window.localStorage.getItem('searchValue') //redux中存储的预搜索框value
     keyword = window.decodeURIComponent(keyword)
     this.setState({ queryText: keyword }, () => this.getBidSearchList())
-    // this.props.getBidViewList(this.param)
-    // this.props.getBidSearchList(this.param)
     this.props.setGlobalSearch()
     this.typeClick(intl('228620', '30天内'), intl('138908', '发布日期'), 'oppTime', '~30', 1)
   }
   handleChange = (value, type, select) => {
     //排序功能事件
-    let { filter, allFilter } = this.state
-    filter[type] = value
-    if (select) {
-      searchCommon.allFilterAdd(allFilter, select, value, type)
-    }
-    this.setState({ loading: true, ...filter, loadingList: false, pageNo: 0, allFilter })
-    this.getBidSearchList()
+    const { filter, allFilter } = this.state
+    const nextFilter = { ...filter, [type]: value }
+    const nextAllFilter = select ? searchCommon.allFilterAdd([...allFilter], select, value, type) : allFilter
+
+    this.setState(
+      { loading: true, filter: nextFilter, loadingList: false, pageNo: 0, allFilter: nextAllFilter },
+      this.getBidSearchList
+    )
   }
   getBidSearchList = (_filter?: any, loadingList?: boolean) => {
     //执行搜索事件
@@ -140,7 +145,7 @@ class BidSearchList extends React.Component<BidSearchListProps, BidSearchListSta
   searchCallBack = (item) => {
     return <BidCard item={item}></BidCard>
   }
-  bidViewList = (item, _isDelete) => {
+  bidViewList = (item: BidItem, _isDelete) => {
     return (
       <li className="history_list" id="bidViewList">
         <div className="content-history-person">
@@ -189,24 +194,31 @@ class BidSearchList extends React.Component<BidSearchListProps, BidSearchListSta
     })
   }
   deleteFilter = (deleteType, deleteFilter) => {
-    let { filter, allFilter } = this.state
-    for (let key in filter) {
-      if (key == deleteType) {
-        delete filter[key]
-      }
+    const { filter, allFilter } = this.state
+    const nextFilter = { ...filter }
+    delete nextFilter[deleteType]
+
+    const nextState: Partial<BidSearchListState> = {
+      loading: true,
+      filter: nextFilter,
+      allFilter: allFilter.filter((e) => {
+        return e.type !== deleteFilter
+      }),
     }
-    if (deleteType == 'regioninfo' || deleteType == 'industryname') {
-      // @ts-expect-error ttt
-      this.setState({ [deleteType]: [] })
+
+    if (deleteType == 'regioninfo') {
+      nextState.regioninfo = []
+    } else if (deleteType == 'industryname') {
+      nextState.industryname = []
     } else if (deleteType == 'oppTime') {
-      filter['oppTime'] = ''
-      this.setState({ dateAllow: true, oppTime: '', filter: filter })
+      nextFilter['oppTime'] = ''
+      nextState.dateAllow = true
+      nextState.oppTime = ''
     }
-    const newAllFilter = allFilter.filter((e) => {
-      return e.type !== deleteFilter
+
+    this.setState(nextState as BidSearchListState, () => {
+      this.getBidSearchList()
     })
-    this.setState({ loading: true, ...filter, allFilter: newAllFilter })
-    this.getBidSearchList()
   }
   searchChange = (e: string[][], type: string, ctype: string, state: string) => {
     let choose = []
@@ -262,7 +274,11 @@ class BidSearchList extends React.Component<BidSearchListProps, BidSearchListSta
     let value = ''
     if (date) {
       for (let i = 0; i < dateString.length; i++) {
-        newArr.push(dateString[i].replace(/-/g, ''))
+        if (dateString[i]) {
+          newArr.push(dateString[i].replace(/-/g, ''))
+        } else {
+          newArr.push(null)
+        }
       }
       newArr = newArr.join('~') as any
       value = dateString.join('~')
@@ -344,34 +360,40 @@ class BidSearchList extends React.Component<BidSearchListProps, BidSearchListSta
                   </li>
                   <li className="industry-choose" id="bidChoose">
                     <span className="title-city-industry">{intl('451213', '省份地区')}：</span>
-                    <WindCascade
-                      placeholder={intl('265435', '不限')}
-                      options={globalAreaTree}
-                      value={this.state.regioninfo}
-                      className="casader-choose-region"
-                      fieldNames={{
-                        label: isEn() ? 'nameEn' : 'name',
-                        value: 'name',
-                        children: 'node',
-                      }}
-                      onChange={(e) => this.searchChange(e, 'regioninfo', intl('451213', '省份地区'), 'regioninfo')}
-                      data-uc-id="mu7kzFl0htv"
-                      data-uc-ct="windcascade"
-                    />
+                    <ErrorBoundary>
+                      <WindCascade
+                        placeholder={intl('138649', '不限')}
+                        options={globalAreaTree}
+                        value={this.state.regioninfo}
+                        className="casader-choose-region"
+                        fieldNames={{
+                          label: isEn() ? 'nameEn' : 'name',
+                          value: 'name',
+                          children: 'node',
+                        }}
+                        onChange={(e) => this.searchChange(e, 'regioninfo', intl('451213', '省份地区'), 'regioninfo')}
+                        data-uc-id="mu7kzFl0htv"
+                        data-uc-ct="windcascade"
+                      />
+                    </ErrorBoundary>
                     <span className="title-city-industry" id="TitleIndustry">
                       {intl('257690', '国标行业')}：
                     </span>
-                    <WindCascade
-                      placeholder={intl('265435', '不限')}
-                      options={globalIndustryOfNationalEconomy3}
-                      value={this.state.industryname}
-                      fieldNames={{ label: 'name', value: 'name', children: 'node' }}
-                      className="casader-choose-industry"
-                      popupPlacement="bottomRight"
-                      onChange={(e) => this.searchChange(e, 'industryname', intl('257690', '国标行业'), 'industryname')}
-                      data-uc-id="97nce2tIZ11"
-                      data-uc-ct="windcascade"
-                    />
+                    <ErrorBoundary>
+                      <WindCascade
+                        placeholder={intl('138649', '不限')}
+                        options={globalIndustryOfNationalEconomy3}
+                        value={this.state.industryname}
+                        fieldNames={{ label: 'name', value: 'name', children: 'node' }}
+                        className="casader-choose-industry"
+                        popupPlacement="bottomRight"
+                        onChange={(e) =>
+                          this.searchChange(e, 'industryname', intl('257690', '国标行业'), 'industryname')
+                        }
+                        data-uc-id="97nce2tIZ11"
+                        data-uc-ct="windcascade"
+                      />
+                    </ErrorBoundary>
                   </li>
                 </ul>
                 <ResultContainer
@@ -405,10 +427,11 @@ const mapStateToProps = (state) => {
     bidViewList: state.companySearchList.bidViewList,
     bidErrorCode: state.companySearchList.bidErrorCode,
     keyword: state.companySearchList.searchKeyWord,
+    globalSearchTimeStamp: state.companySearchList.globalSearchTimeStamp,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
     getBidSearchList: (data) => {
       data.industryGb2 = data.industryname || ''
@@ -416,46 +439,36 @@ const mapDispatchToProps = (dispatch) => {
 
       return getBidSearchList(data).then((res) => {
         if (res.ErrorCode == '0' && res.data && res.data.list && res.data.list.length) {
-          if (data.pageNo == '0') {
-            // 仅第一页，采用先展示中文，后展示英文方式，后续还是沿用 中文+英文，方式，避免填充数据紊乱
+          if (data.pageNo == 0 || data.pageNo == '0') {
+            // 仅第一页，采用先展示中文，后展示英文方式
             dispatch(SearchListActions.getBidSearchList({ ...res, ...data }))
           }
-        }
-        new Promise((resolve, _reject) => {
-          if (res.ErrorCode == '0' && res.data && res.data.list && res.data.list.length) {
-            res.data.list.map((t) => {
-              delete t.highlight
-            })
-            wftCommon.zh2en(
-              res.data.list,
-              (endata) => {
-                endata.map((t, idx) => {
-                  t.title_en = t.title || ''
-                  t.title_en = t.title_en.replace ? t.title_en.replace(/<em>|<\/em>/g, '') : t.title_en
-                  t.title = res.data.list[idx].title
+
+          // 异步翻译处理
+          handleBidTranslate(res.data.list)
+            .then((translatedData) => {
+              if (data.pageNo == 0 || data.pageNo == '0') {
+                // 首页：更新翻译数据
+                dispatch({
+                  type: 'UPDATE_BID_TRANSLATION',
+                  data: { translatedData },
                 })
-                res.data.list = endata
+              } else {
+                // 非首页：直接追加翻译后的数据
+                res.data.list = translatedData
                 dispatch(SearchListActions.getBidSearchList({ ...res, ...data }))
-                resolve(res)
-              },
-              null,
-              () => {
-                dispatch(SearchListActions.getBidSearchList({ ...res, ...data }))
-                resolve(res)
               }
-            )
-          } else {
-            dispatch(SearchListActions.getBidSearchList({ ...res, ...data }))
-            resolve(res)
-          }
-          // return res
-        })
-        return res
-      })
-    },
-    getBidViewList: (data) => {
-      return getBidViewList(data).then((res) => {
-        dispatch(SearchListActions.getBidViewList({ ...res, ...data }))
+            })
+            .catch((err) => {
+              console.error('Translation error:', err)
+              // 翻译失败时展示原始数据
+              if (data.pageNo != 0 && data.pageNo !== '0') {
+                dispatch(SearchListActions.getBidSearchList({ ...res, ...data }))
+              }
+            })
+        } else {
+          dispatch(SearchListActions.getBidSearchList({ ...res, ...data }))
+        }
         return res
       })
     },

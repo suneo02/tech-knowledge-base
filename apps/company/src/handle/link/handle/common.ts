@@ -1,6 +1,7 @@
 import { GelHashMap, HTMLPath, LinksModule, TLinkOptions } from '@/handle/link'
 import { getPrefixUrl } from '@/handle/link/handle/prefixUrl.ts'
-
+import { isFromRimePEVC } from 'gel-util/link'
+import { getUrlSearchValue } from 'gel-util/common'
 /**
  * 拼接 url 路径
  * 主要是用来拼接 index.html 路径
@@ -47,6 +48,11 @@ export const generateCommonLink = ({
       console.error(`未找到模块${module}对应的hash值`)
     }
     baseUrl.hash = hash
+
+    // 来自来觅pevc项目时，都添加linksource=rimepevc参数
+    params = isFromRimePEVC()
+      ? { ...params, linksource: 'rimepevc', ['wind.sessionid']: getUrlSearchValue('wind.sessionid') || '' }
+      : params
     baseUrl.search = new URLSearchParams(
       Object.fromEntries(Object.entries(params).map(([key, value]) => [key, String(value)]))
     ).toString()

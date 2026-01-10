@@ -1,2 +1,1 @@
-export { CorpBasicInfo , XxIndustry  } from 'gel-types'
-
+export { CorpBasicInfo, XxIndustry } from 'gel-types'

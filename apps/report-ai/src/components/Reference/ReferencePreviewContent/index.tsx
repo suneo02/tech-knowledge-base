@@ -1,13 +1,15 @@
+import { DPUPreviewData, FilePreviewData, RefPreviewData, RPChapterEnriched } from '@/types';
 import { useIntl } from 'gel-ui';
 import { FC } from 'react';
 import { DPUPreviewRenderer } from '../DPUPreviewRenderer';
 import { FilePreviewRenderer } from '../FilePreviewRenderer';
-import { DPUPreviewData, FilePreviewData, PreviewData } from '../type';
 import styles from './index.module.less';
 
 export interface ReferencePreviewContentProps {
-  previewData: PreviewData | null;
+  previewData: RefPreviewData | null;
   onBackToList: () => void;
+  /** 章节ID到章节对象的映射（用于显示章节名称） */
+  chapterMap?: Map<string, RPChapterEnriched>;
 }
 
 /**
@@ -21,15 +23,19 @@ export interface ReferencePreviewContentProps {
  * @author 开发团队
  */
 // 类型守卫函数
-const isFilePreviewData = (data: PreviewData): data is FilePreviewData => {
+const isFilePreviewData = (data: RefPreviewData): data is FilePreviewData => {
   return data.type === 'file';
 };
 
-const isDPUPreviewData = (data: PreviewData): data is DPUPreviewData => {
+const isDPUPreviewData = (data: RefPreviewData): data is DPUPreviewData => {
   return data.type === 'dpu';
 };
 
-export const ReferencePreviewContent: FC<ReferencePreviewContentProps> = ({ previewData, onBackToList }) => {
+export const ReferencePreviewContent: FC<ReferencePreviewContentProps> = ({
+  previewData,
+  onBackToList,
+  chapterMap,
+}) => {
   const t = useIntl();
 
   if (!previewData) {
@@ -48,6 +54,8 @@ export const ReferencePreviewContent: FC<ReferencePreviewContentProps> = ({ prev
         {isFilePreviewData(previewData) && (
           <FilePreviewRenderer
             file={previewData.data}
+            initialPage={previewData.pageNumber}
+            chapterMap={chapterMap}
             onLoad={() => console.log(`文件预览加载完成: ${previewData.title}`)}
             onError={(error) => console.error(`文件预览加载失败: ${previewData.title}`, error)}
           />

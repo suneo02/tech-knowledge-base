@@ -20,6 +20,11 @@ const devProxy: Record<string, ProxyOptions> = {
     changeOrigin: true,
     rewrite: (path) => path.replace(/^\/api\/xdev/, ''),
   },
+  '/api/xsh': {
+    target: 'https://wx.wind.com.cn',
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api\/xsh/, ''),
+  },
 }
 
 // https://vite.dev/config/
@@ -36,6 +41,7 @@ export default defineConfig(({ mode }) => {
         filename: 'dist/stats.html',
       }),
     ],
+    base: './',
     css: {
       modules: {
         // 开启 camelCase 格式的类名

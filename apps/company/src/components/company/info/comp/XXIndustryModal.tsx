@@ -6,13 +6,13 @@ import intl from '@/utils/intl'
 import { RightO } from '@wind/icons'
 import { Button, Pagination } from '@wind/wind-ui'
 import React, { useEffect, useState } from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 import { XXIndustryTree } from './XXIndustryTree'
 import styles from './style/XXIndustryModal.module.less'
 
 interface StrategicIndustryButtonModalProps {
   companyCode: string
-  basicInfo: ICorpBasicInfoFront
+  basicInfo: CorpBasicInfoFront
 }
 
 export const StrategicIndustryButtonModal: React.FC<StrategicIndustryButtonModalProps> = ({

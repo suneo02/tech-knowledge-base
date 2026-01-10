@@ -1,9 +1,9 @@
 import { Input, message } from '@wind/wind-ui'
 import classNames from 'classnames'
-import { CorpGlobalPreSearchResultV1Parsed, SearchHistoryParsed } from 'gel-api/*'
+import { CorpGlobalPreSearchResultV1Parsed, SearchHistoryParsed } from 'gel-api'
 import React, { useEffect, useRef, useState } from 'react'
-import { useSearchHistory } from '../../hooks/useSearchHistory'
 import { useRecentView } from '../../hooks/useRecentView'
+import { useSearchHistory } from '../../hooks/useSearchHistory'
 import intl from '../../utils/intl'
 import { HistoryAndRecentView, ResultList } from './searchList'
 import { SearchFormProps } from './type'
@@ -78,6 +78,21 @@ function MultiSearch(props: SearchFormProps) {
     document.addEventListener('mousedown', handleDocumentMouseDown, true)
     return () => document.removeEventListener('mousedown', handleDocumentMouseDown, true)
   }, [])
+
+  // 添加点击外部区域隐藏下拉列表的逻辑
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      // 检查点击是否在组件外部
+      const isOutsideComponent = !target.closest('.multi-search-area')
+      if (isOutsideComponent && listFlag) {
+        setListFlag(false)
+      }
+    }
+    
+    document.addEventListener('click', handleClickOutside, true)
+    return () => document.removeEventListener('click', handleClickOutside, true)
+  }, [listFlag])
 
   useEffect(() => {
     if (didMountRef.current) {
@@ -190,6 +205,9 @@ function MultiSearch(props: SearchFormProps) {
       console.error('itemClickHanle', item)
       return
     }
+    // 点击列表项后隐藏下拉列表
+    setListFlag(false)
+    
     if (showHistory) {
       const searchHistory = item as SearchHistoryParsed[number]
       const { nameFirst, nameSecond, valueFirst, valueSecond } = decryptSearchHistory(
@@ -313,12 +331,6 @@ function MultiSearch(props: SearchFormProps) {
               />
             )}
           </div>
-          {/* <a
-            className={classNames('btn_search', 'btn-default-primary', searchBtnClassName)}
-            onClick={() => serachSubmit()}
-          >
-            {intl('425436', '查询')}
-          </a> */}
           {showHistory && (
             <HistoryAndRecentView
               historyList={historyList}

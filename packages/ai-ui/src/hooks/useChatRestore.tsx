@@ -3,7 +3,7 @@ import { MessageInfo } from '@ant-design/x/es/use-x-chat'
 import { useRequest } from 'ahooks'
 import { AxiosInstance } from 'axios'
 import { ChatDetailTurn, createChatRequestWithAxios } from 'gel-api'
-import { AgentMsgDepre, transformChatRestoreToRawMessages } from 'gel-ui'
+import { AgentMsgOverall, transformChatRestoreToRawMessages } from 'gel-ui'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 export interface UseChatRestoreProps {
@@ -17,7 +17,7 @@ export interface UseChatRestoreProps {
 }
 
 export interface UseChatRestoreResult {
-  messagesByChatRestore: MessageInfo<AgentMsgDepre>[]
+  messagesByChatRestore: MessageInfo<AgentMsgOverall>[]
   /** 加载状态 - 包括初始加载和分页加载 */
   bubbleLoading: boolean
   // 手动触发恢复会话的方法
@@ -137,7 +137,7 @@ export const useChatRestore = ({
     }
   }, [scrollToIndex, bubbleLoading, allMessages.length, scrollToUserRoleByIndex, currentPage])
 
-  const messagesByChatRestore = useMemo<MessageInfo<AgentMsgDepre>[]>(() => {
+  const messagesByChatRestore = useMemo<MessageInfo<AgentMsgOverall>[]>(() => {
     return transformChatRestoreToRawMessages(allMessages)
   }, [allMessages])
 

@@ -28,10 +28,10 @@ import { useSaveController } from '@/hooks/useSaveController';
 import { ReportEditorRef } from '@/types/editor';
 import { message } from '@wind/wind-ui';
 import { MutableRefObject, useCallback, useEffect, useMemo, useRef } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../hooksRedux';
+import { useRPDetailDispatch, useRPDetailSelector } from '../hooksRedux';
 import { selectCanonicalChapterMap, selectReportId } from '../selectors';
 import { selectDocumentDraft } from '../selectors/draftTreeSelectors';
-import { rpContentSlice } from '../slice';
+import { rpDetailActions } from '../slice';
 
 export interface UseReportContentPersistenceOptions {
   /** 获取当前编辑器 HTML 内容 */
@@ -62,24 +62,24 @@ export function useReportContentPersistence(
   options: UseReportContentPersistenceOptions
 ): ReportContentPersistenceState {
   const { getEditorContent, autoSave, editorRef: editorRefRef } = options;
-  const dispatch = useReportContentDispatch();
-  const reportId = useReportContentSelector(selectReportId);
-  const canoicalChapterMap = useReportContentSelector(selectCanonicalChapterMap);
-  const documentDraft = useReportContentSelector(selectDocumentDraft);
+  const dispatch = useRPDetailDispatch();
+  const reportId = useRPDetailSelector(selectReportId);
+  const canoicalChapterMap = useRPDetailSelector(selectCanonicalChapterMap);
+  const documentDraft = useRPDetailSelector(selectDocumentDraft);
 
   const saveReport = useMemo(() => createSaveReport(), []);
 
   const controller = useSaveController({
     onSavingChange: (saving) => {
       if (saving) {
-        dispatch(rpContentSlice.actions.startDocumentSave());
+        dispatch(rpDetailActions.startDocumentSave());
       }
     },
     onError: (errorMessage) => {
       if (errorMessage) {
         message.error(errorMessage);
       }
-      dispatch(rpContentSlice.actions.handleSaveError());
+      dispatch(rpDetailActions.handleSaveError());
     },
     autoSave: {
       debounceMs: autoSave?.debounceMs ?? 2000,
@@ -113,7 +113,7 @@ export function useReportContentPersistence(
 
     // 1. 解析编辑器 HTML，得到 Document 章节树
     const parsed = parseDocumentChapterTree(editorHtml);
-    if (parsed.warnings.length > 0) {
+    if (parsed.warnings && parsed.warnings.length > 0) {
       console.warn('[useReportContentPersistence] Document parse warnings', parsed.warnings);
     }
 
@@ -160,8 +160,8 @@ export function useReportContentPersistence(
     }
 
     // 步骤 4：更新 Canonical 和 Draft 状态
-    dispatch(rpContentSlice.actions.applyDocumentSnapshot({ chapters: chaptersForSnapshot }));
-    dispatch(rpContentSlice.actions.completeDocumentSave({ snapshotTimestamp }));
+    dispatch(rpDetailActions.applyDocumentSnapshot({ chapters: chaptersForSnapshot }));
+    dispatch(rpDetailActions.completeDocumentSave({ snapshotTimestamp }));
   }, [buildSnapshot, dispatch, editorRefRef, reportId, saveReport, canoicalChapterMap]);
 
   const saveNow = useCallback(async () => {

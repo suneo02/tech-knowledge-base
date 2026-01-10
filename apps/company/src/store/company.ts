@@ -16,16 +16,15 @@ import { BuryCfgList } from '../api/pointBuried/config'
 
 import { getCompanyBasicNum } from '@/api/companyApi.ts'
 import { ICfgDetail, ICfgDetailJSON } from '@/types/configDetail/module.ts'
-import { CorpCardInfo } from 'gel-types'
+import { CorpBasicNumFront, CorpCardInfo } from 'gel-types'
 import { getInitCorpBidNum, getInitCorpBidPenetrationNum } from '../handle/corp/basicNum/bid.ts'
 import { getInitCorpPatentNum } from '../handle/corp/basicNum/patent.ts'
-import { ICorpBasicNumFront } from '../handle/corp/basicNum/type.ts'
 import { handleConfigDetailNum, handleTreeData } from './handle'
 
 export interface ICorpStoreState {
   corpCode: string | null | undefined
-  basicInfo: CorpCardInfo | object
-  basicNum: Partial<ICorpBasicNumFront>
+  basicNum: Partial<CorpBasicNumFront>
+  basicInfo: Partial<CorpCardInfo>
   treeData: ICfgDetail
   expandedKeys: any[]
   selectedKeys: any[]

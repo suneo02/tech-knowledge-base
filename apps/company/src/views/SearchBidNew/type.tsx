@@ -1,4 +1,4 @@
-import { SearchHistoryParsed } from 'gel-api/*'
+import { SearchHistoryParsed } from 'gel-api'
 
 export type SearchBidNewState = {
   pagesize: number

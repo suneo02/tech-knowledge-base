@@ -9,6 +9,11 @@
   border-radius: @border-radius-base;
   overflow: hidden;
 
+  &__viewer {
+    flex: 1;
+    overflow: hidden;
+  }
+
   // TODO: 全局覆盖 react-pdf-viewer 样式以适配设计系统
   :global {
     .rpv-core__viewer {

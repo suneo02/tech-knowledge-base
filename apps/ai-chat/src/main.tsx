@@ -1,3 +1,4 @@
+import './utils/patchWindowOpen'
 import { Fragment } from 'react'
 import { createRoot } from 'react-dom/client'
 

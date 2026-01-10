@@ -11,9 +11,9 @@
 
 import { useReportRelatedFiles } from '@/hooks/useReportRelatedFiles';
 import { useEffect } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../hooksRedux';
+import { useRPDetailDispatch, useRPDetailSelector } from '../hooksRedux';
 import { selectReportId } from '../selectors';
-import { rpContentSlice } from '../slice';
+import { rpDetailActions } from '../slice';
 
 export interface UseReportFilesParams {
   /** 是否启用自动请求 */
@@ -52,10 +52,10 @@ export interface UseReportFilesReturn {
 export const useReportFiles = (params: UseReportFilesParams = {}): UseReportFilesReturn => {
   const { enabled = true } = params;
 
-  const dispatch = useReportContentDispatch();
+  const dispatch = useRPDetailDispatch();
 
   // 从 Redux 获取报告 ID（如果没有通过 props 传入）
-  const reportId = useReportContentSelector(selectReportId);
+  const reportId = useRPDetailSelector(selectReportId);
 
   // 使用现有的文件获取 Hook
   const { files, loading, error, refresh } = useReportRelatedFiles({
@@ -66,7 +66,7 @@ export const useReportFiles = (params: UseReportFilesParams = {}): UseReportFile
   // 将获取到的文件列表同步到 Redux
   useEffect(() => {
     if (files && Array.isArray(files)) {
-      dispatch(rpContentSlice.actions.setReportFiles(files));
+      dispatch(rpDetailActions.setReportFiles(files));
     }
   }, [dispatch, files]);
 

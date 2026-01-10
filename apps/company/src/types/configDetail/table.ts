@@ -1,8 +1,8 @@
-import { TagProps } from '@wind/wind-ui/lib/tag/index'
-import { ICfgDetailNodeCommonJson, IConfigDetailApiJSON, IConfigDetailTitleJSON } from './common.ts'
 import { LinksModule, TLinkOptions } from '@/handle/link'
-import { ReactNode } from 'react'
+import { TagProps } from '@wind/wind-ui/lib/tag/index'
 import { AxiosRequestConfig } from 'axios'
+import { ReactNode } from 'react'
+import { ICfgDetailNodeCommonJson, IConfigDetailApiJSON, IConfigDetailTitleJSON } from './common.ts'
 
 /**
  * TODO
@@ -86,6 +86,11 @@ export type ICfgDetailTableJson = {
   showIndex?: boolean
   footerLeftRender?: any
   num?: any
+  /**
+   * 模式二（key-translate-official-only）下的“跳过翻译字段列表”。
+   * 仅当全局显示模式为模式二时生效；用于避免展示/逻辑字段在该模式被通用翻译。
+   */
+  skipTransFieldsInKeyMode?: string[]
 } & IConfigDetailTitleJSON &
   IConfigDetailApiJSON &
   ICfgDetailNodeCommonJson

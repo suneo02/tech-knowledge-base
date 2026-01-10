@@ -141,8 +141,9 @@
   ],
   "scripts": {
     "clean": "node ../../scripts/clean.cjs dist",
-    "dev": "vite build --watch --mode development --minify false --sourcemap",
+    "dev": "vite build --watch --mode development",
     "build": "npm run clean && vite build",
+    "build:dev": "vite build --mode development",
     "build:staging": "npm run clean && vite build --mode staging",
     "typecheck": "tsc --noEmit",
     "tsc": "npm run typecheck",
@@ -154,6 +155,7 @@
     "intl:entry2json": "node scripts/intlTools/entry2Json.js",
     "intl:migrate-locale": "node scripts/migrate-locale-to-json.js src/intl/locales/iml_en.js src/intl/locales/iml_cn.js",
     "intl:split": "node scripts/jsonTools/split-locale-json.js",
+    "intl:build": "node scripts/intl-build.js",
     "rime:prune2-to-en": "node scripts/jsonTools/rime-prune2-to-en.js",
     "check:circular": "madge --circular --extensions ts,tsx src/"
   },

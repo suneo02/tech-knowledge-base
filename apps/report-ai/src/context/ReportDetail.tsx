@@ -2,22 +2,21 @@
  * 报告内容 context
  */
 
-import { ReferenceViewHandle } from '@/components/Reference';
 import { useRPContentChat } from '@/hooks/ReportContent';
 import { RPContentSendInput } from '@/types/chat/RPContent';
 import { ReportEditorRef } from '@/types/editor';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
-import { createContext, FC, ReactNode, SetStateAction, useContext, useRef } from 'react';
-import { MessageParsedReportContent, RPContentAgentMsg } from '../types';
+import { createContext, FC, ReactNode, SetStateAction, useContext, useEffect, useRef } from 'react';
+import { ReferenceViewHandle, RPContentAgentMsg } from '../types';
 
 export type ReportDetailCtx = {
   sendRPContentMsg: (message: RPContentSendInput) => void;
-  parsedRPContentMsgs: MessageInfo<MessageParsedReportContent>[];
   rpContentAgentMsgs: MessageInfo<RPContentAgentMsg>[];
   setMsgs: (action: SetStateAction<MessageInfo<RPContentAgentMsg>[]>) => void;
   clearChapterMessages: (chapterId: string) => void;
   reportEditorRef: React.MutableRefObject<ReportEditorRef | null>;
   referenceViewRef: React.MutableRefObject<ReferenceViewHandle | null>;
+  cancelRequests: () => void;
 };
 
 const Context = createContext<ReportDetailCtx | undefined>(undefined);
@@ -33,9 +32,9 @@ export const useReportDetailContext = () => {
 export const ReportDetailProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const {
     sendMessage: sendRPContentMsg,
-    parsedMessages: parsedRPContentMsgs,
     agentMessages: rpContentAgentMsgs,
     setMessages: setMsgs,
+    cancelRequest,
   } = useRPContentChat();
 
   // 单点的编辑器 ref，通过 Context 在页面内共享，避免放入 Redux 导致被冻结
@@ -64,16 +63,25 @@ export const ReportDetailProvider: FC<{ children: ReactNode }> = ({ children }) 
     });
   };
 
+  useEffect(() => {
+    return () => {
+      cancelRequest();
+      setMsgs([]);
+      reportEditorRef.current = null;
+      referenceViewRef.current = null;
+    };
+  }, [cancelRequest, setMsgs]);
+
   return (
     <Context.Provider
       value={{
         sendRPContentMsg: sendRPContentMsg,
-        parsedRPContentMsgs,
         rpContentAgentMsgs,
         setMsgs,
         clearChapterMessages,
         reportEditorRef,
         referenceViewRef,
+        cancelRequests: cancelRequest,
       }}
     >
       {children}

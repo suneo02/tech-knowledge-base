@@ -6,7 +6,7 @@
  */
 
 import type { EditorFacade } from '@/domain/reportEditor/editor';
-import { useReportContentSelector } from '@/store/reportContentStore';
+import { useRPDetailSelector } from '@/store/reportContentStore';
 import { selectCanonicalChaptersEnrichedMap } from '@/store/reportContentStore/selectors';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -56,7 +56,7 @@ export const useChapterHoverWithInit = (
   const throttledHandlerRef = useRef<RafThrottledFunction<(clientX: number, clientY: number) => void> | null>(null);
   const isInitializedRef = useRef(false);
 
-  const chapterMap = useReportContentSelector(selectCanonicalChaptersEnrichedMap);
+  const chapterMap = useRPDetailSelector(selectCanonicalChaptersEnrichedMap);
 
   /**
    * 检测鼠标位置的章节，判断是否为 leaf chapter

@@ -5,7 +5,7 @@ import {
   ApiCodeForWfc,
   ApiResponseForChat,
   ApiResponseForIndicator,
-  ApiResponseForTable,
+  // ApiResponseForTable,
   ApiResponseForWFC,
   KnownError,
 } from 'gel-api'
@@ -29,7 +29,7 @@ function isStandardResponse(data: any): data is ApiResponseForChat<any> {
 
 export const responseInterceptor = (
   response: AxiosResponse<
-    ApiResponseForChat<any> | ApiResponseForWFC<any> | ApiResponseForIndicator<any> | ApiResponseForTable<any>
+    ApiResponseForChat<any> | ApiResponseForWFC<any> | ApiResponseForIndicator<any> 
   >
 ) => {
   // 如果是流式请求，直接返回响应

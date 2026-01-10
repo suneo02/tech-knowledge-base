@@ -20,8 +20,8 @@ const STRINGS = {
   FILE_NAME: t('31717', '文件名称'),
   EXPORT_TIME: t('425478', '导出时间'),
   STATUS: t('32098', '状态'),
-  OPERATION: t('114232', '操作'),
-  DOWNLOAD: t('432908', '下载'),
+  OPERATION: t('36348', '操作'),
+  DOWNLOAD: t('90846', '下载'),
   RETRY: t('313393', '重试'),
 }
 
@@ -93,7 +93,7 @@ export const FileTable: React.FC<FileTableProps> = ({ folderId }) => {
   }
 
   const handleRetry = (fileId: string) => {
-    // console.log('重试生成文件:', fileId)
+    // console.log(t('482254', '重试生成文件:'), fileId)
     postPointBuried('922604570304')
     // 重试文件
     retryFile(fileId)
@@ -176,7 +176,7 @@ export const FileTable: React.FC<FileTableProps> = ({ folderId }) => {
       dataSource={files}
       loading={loading}
       rowKey="id"
-      locale={{ emptyText: '该文件夹下没有文件' }}
+      locale={{ emptyText: t('482255', '该文件夹下没有文件') }}
       total={total}
       pagination={{
         pageSize: PAGE_SIZE,

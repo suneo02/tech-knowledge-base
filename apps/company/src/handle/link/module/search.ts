@@ -1,6 +1,5 @@
-import { HomeSearchTabKeys } from '@/views/HomeAI/comp/SearchForm'
+import { HomeSearchTabKeys } from '@/domain/home'
 import { getPrefixUrl, handleAppendUrlPath } from '../handle'
-
 
 /**
  * 查询结果列表

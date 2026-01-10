@@ -5,10 +5,10 @@ import { LinksModule } from '@/handle/link'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
-import React from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfo } from 'gel-types'
+import { CorpBasicInfoFront } from '../handle'
 
-export const getSHrows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns<ICorpBasicInfoFront> => {
+export const getSHrows = (baseInfo: Partial<CorpBasicInfo>): HorizontalTableColumns<CorpBasicInfoFront> => {
   const legalPersonFieldKey = getLegalPersonField(baseInfo?.corp_type, baseInfo?.corp_type_id)
   return [
     [
@@ -25,7 +25,7 @@ export const getSHrows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns
         dataIndex: 'state',
       },
       {
-        title: intl('207784', '成立登记日期'),
+        title: intl('448303', '成立登记日期'),
         dataIndex: 'reg_date',
         render: (txt, backData) => {
           return wftCommon.formatTime(backData.reg_date)
@@ -43,8 +43,8 @@ export const getSHrows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns
           return module ? <Links module={module} title={res} id={record.legal_person_id} /> : res || '--'
         },
       },
-      { title: intl('207787', '社会组织类型'), dataIndex: 'corp_type' },
-      { title: intl('208889', '登记管理机关'), dataIndex: 'reg_authority' },
+      { title: intl('448304', '社会组织类型'), dataIndex: 'corp_type' },
+      { title: intl('448324', '登记管理机关'), dataIndex: 'reg_authority' },
     ],
     [
       {
@@ -54,13 +54,13 @@ export const getSHrows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns
         contentWidth: '15%',
       },
       {
-        title: intl('207788', '登记证号'),
+        title: intl('448325', '登记证号'),
         dataIndex: 'biz_reg_no',
         titleWidth: '15%',
         contentWidth: '15%',
       },
       {
-        title: intl('207789', '证书有效期'),
+        title: intl('448305', '证书有效期'),
         dataIndex: 'oper_period_begin',
         titleWidth: '15%',
         contentWidth: '15%',
@@ -80,7 +80,7 @@ export const getSHrows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns
     ],
     [
       {
-        title: intl('207785', '住所'),
+        title: intl('448326', '住所'),
         dataIndex: 'reg_address',
         colSpan: 5,
         render: (txt, record) => {
@@ -90,7 +90,7 @@ export const getSHrows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns
     ],
     [
       {
-        title: intl('145358', '业务范围'),
+        title: intl('149609', '业务范围'),
         dataIndex: 'business_scope',
         colSpan: 5,
       },

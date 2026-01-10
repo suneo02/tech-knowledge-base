@@ -38,7 +38,7 @@ import {
   updatecustomergroup,
 } from '../../api/companyDynamic'
 import { parseQueryString } from '../../lib/utils.tsx'
-import intl from '../../utils/intl'
+import intl, { translateToEnglish } from '../../utils/intl'
 import { wftCommon } from '../../utils/utils.tsx'
 import RangePickerDialog from '../SingleCompanyDynamic/RangePickerDialog.tsx'
 import './CompanyDynamic.less'
@@ -49,6 +49,7 @@ import GroupList from './components/GroupList'
 import { CopyO, DeleteO, FileAddO, FileTextO, PlusCircleO } from '@wind/icons'
 import CheckboxGroup from '@wind/wind-ui/lib/checkbox/Group'
 import { getDynamicDetail } from 'gel-ui'
+import { isEn } from 'gel-util/intl'
 import { pointBuriedByModule } from '../../api/pointBuried/bury.ts'
 import Cancel from '../../assets/imgs/Cancel.png'
 import yidongdao from '../../assets/imgs/yidongdao.png'
@@ -291,9 +292,13 @@ function CompanyDynamic(props) {
       pagenum: pagenum,
       pageindex: pageindex.current,
     }).then((result) => {
-      if (window.en_access_config && result?.Data?.length) {
-        wftCommon.zh2en(result?.Data || [], (newData) => {
-          setDataSource(newData)
+      if (isEn() && result?.Data?.length) {
+        translateToEnglish(result?.Data || [], {
+          skipFields: ['CompanyName'],
+        }).then((newData) => {
+          if (newData.success) {
+            setDataSource(newData.data)
+          }
         })
       }
       setDataSource(() => result?.Data || [])
@@ -325,11 +330,18 @@ function CompanyDynamic(props) {
                   return
                 }
                 isRequestingData = false
-                if (window.en_access_config && result?.Data?.length) {
-                  wftCommon.zh2en(result?.Data || [], (newData) => {
-                    setDataSource((dataSource) => [...dataSource, ...newData])
-                    setLoading(false)
+                if (isEn() && result?.Data?.length) {
+                  translateToEnglish(result?.Data || [], {
+                    skipFields: ['CompanyName'],
                   })
+                    .then((newData) => {
+                      if (newData.success) {
+                        setDataSource((dataSource) => [...dataSource, ...newData.data])
+                      }
+                    })
+                    .finally(() => {
+                      setLoading(false)
+                    })
                 } else {
                   setDataSource((dataSource) => dataSource.concat(result?.Data) || [])
                   setLoading(false)
@@ -395,23 +407,21 @@ function CompanyDynamic(props) {
                 setCorpeventlist(res.Data || [])
               }
 
-              wftCommon.zh2en(
-                res.Data || [],
-                (newData) => {
-                  if (param.sortAfter) {
-                    res.Data && setCorpeventlist((arr) => [...arr, ...newData])
-                  } else {
-                    if (newData?.length) {
-                      setCorpeventlist([...newData])
-                    } else {
-                      setCorpeventlist([])
-                    }
+              translateToEnglish(res.Data || [], {
+                allowFields: ['event_type', 'text'],
+              }).then((newData) => {
+                if (param.sortAfter) {
+                  if (newData.success && newData.data) {
+                    res.Data && setCorpeventlist((arr) => [...arr, ...newData.data])
                   }
-                },
-                null,
-                null,
-                ['event_type', 'corp_name', 'text']
-              )
+                } else {
+                  if (newData?.data) {
+                    setCorpeventlist([...newData.data])
+                  } else {
+                    setCorpeventlist([])
+                  }
+                }
+              })
             } else {
               if (param.sortAfter) {
                 res.Data && setCorpeventlist((arr) => [...arr, ...res.Data])
@@ -1389,7 +1399,7 @@ function CompanyDynamic(props) {
                     data-uc-id="oAOJqy4kIS"
                     data-uc-ct="button"
                   >
-                    {intl('12855', '上一步')}
+                    {intl('478668', '上一步')}
                   </Button>,
                   <Button
                     key="submit"

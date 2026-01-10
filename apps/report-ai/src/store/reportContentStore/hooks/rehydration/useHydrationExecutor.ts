@@ -16,9 +16,9 @@
 
 import { ReportEditorRef } from '@/types/editor';
 import { useEffect, useRef } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../../hooksRedux';
+import { useRPDetailDispatch, useRPDetailSelector } from '../../hooksRedux';
 import { selectCanonicalDocHtml, selectChapterContentMap, selectCurrentHydrationTask } from '../../selectors';
-import { rpContentSlice } from '../../slice';
+import { rpDetailActions } from '../../slice';
 
 export interface UseHydrationExecutorOptions {
   /** 编辑器引用 */
@@ -32,11 +32,11 @@ export interface UseHydrationExecutorOptions {
  */
 export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
   const { editorRef } = options;
-  const dispatch = useReportContentDispatch();
+  const dispatch = useRPDetailDispatch();
 
-  const currentTask = useReportContentSelector(selectCurrentHydrationTask);
-  const docHtml = useReportContentSelector(selectCanonicalDocHtml);
-  const chapterContentHtmlMap = useReportContentSelector(selectChapterContentMap);
+  const currentTask = useRPDetailSelector(selectCurrentHydrationTask);
+  const docHtml = useRPDetailSelector(selectCanonicalDocHtml);
+  const chapterContentHtmlMap = useRPDetailSelector(selectChapterContentMap);
 
   // 追踪已执行的任务，避免重复
   const executedTaskRef = useRef<string | null>(null);
@@ -69,7 +69,7 @@ export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
             // 生成完整 HTML 并注入编辑器
             // 当 Redux 中的 chapter.content 被清空后，这里会将空内容注入 TinyMCE
             await editorRef.current?.setFullContent(docHtml);
-            dispatch(rpContentSlice.actions.completeHydrationTask({ taskType: 'full-init' }));
+            dispatch(rpDetailActions.completeHydrationTask({ taskType: 'full-init' }));
             break;
           }
 
@@ -78,7 +78,7 @@ export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
             // 全文生成开始时，Redux 中的 chapter.content 已被清空，这里会将空内容同步到编辑器
             // @see {@link ../../../../docs/RPDetail/ContentManagement/full-generation-flow.md#清空流程 | 全文生成流程 - 清空流程}
             await editorRef.current?.setFullContent(docHtml);
-            dispatch(rpContentSlice.actions.completeHydrationTask({ taskType: 'full-rehydrate' }));
+            dispatch(rpDetailActions.completeHydrationTask({ taskType: 'full-rehydrate' }));
             break;
           }
 
@@ -94,7 +94,7 @@ export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
             }
 
             // 完成任务
-            dispatch(rpContentSlice.actions.completeHydrationTask({ taskType: 'chapter-rehydrate' }));
+            dispatch(rpDetailActions.completeHydrationTask({ taskType: 'chapter-rehydrate' }));
             break;
           }
 
@@ -105,7 +105,7 @@ export const useHydrationExecutor = (options: UseHydrationExecutorOptions) => {
         console.error('[HydrationExecutor] Task execution failed:', error);
         // 失败也要重置任务，避免卡住
         dispatch(
-          rpContentSlice.actions.setHydrationTask({
+          rpDetailActions.setHydrationTask({
             type: 'idle',
           })
         );

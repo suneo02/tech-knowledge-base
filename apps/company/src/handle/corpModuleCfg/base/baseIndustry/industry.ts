@@ -181,4 +181,12 @@ export const industry = [
       },
     },
   ],
+  [
+    {
+      title: '国民经济行业分类',
+      dataIndex: 'nationalEconomicIndustry',
+      enTitle: 'National Economic Industry',
+      noTooltip: true,
+    },
+  ],
 ]

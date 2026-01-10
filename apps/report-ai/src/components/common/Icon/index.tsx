@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+﻿import classNames from 'classnames';
 import type { CSSProperties, ReactNode } from 'react';
 
 /**
@@ -35,8 +35,8 @@ export interface IconWrapperProps {
  * </IconWrapper>
  * ```
  *
- * @see 样式规范 docs/rule/style-rule.md
- * @see React 规范 docs/rule/react-rule.md
+ * @see 样式规范 docs/rule/code-style-less-bem-rule.md
+ * @see React 规范 docs/rule/code-react-component-rule.md
  */
 export const WuiIconWrapper = ({ children, size, className, style }: IconWrapperProps) => {
   const inlineStyle: CSSProperties = {
@@ -50,3 +50,4 @@ export const WuiIconWrapper = ({ children, size, className, style }: IconWrapper
     </span>
   );
 };
+

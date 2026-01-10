@@ -16,8 +16,10 @@ import {
   ChatModelTypeIdentifier,
   ChatRAGResponse,
   ChatRawSentenceIdIdentifier,
+  ChatTraceItem,
   GelData,
   ReportChatData,
+  RPResponseProgress,
   SplTable,
 } from 'gel-api'
 // 注意：LoggerInterface 已废弃，请使用新的 EventBus 日志系统
@@ -89,6 +91,10 @@ export interface RuntimeState
   reportData?: ReportChatData
   /** 实体识别结果 - entity 字段 (getUserQuestion 后生成) */
   entity?: ChatEntityRecognize[]
+  /** 追踪数据 - traces 字段 (流式完成后获取) */
+  traces?: ChatTraceItem[]
+  /** 报告进度信息 - reportProgress 字段 (getUserQuestion 后生成) */
+  reportProgress?: RPResponseProgress
 
   /** 流式内容累积 - content 分别累积 */
   aigcContent: string

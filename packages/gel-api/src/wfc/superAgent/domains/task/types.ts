@@ -82,6 +82,8 @@ export interface CurrentTaskDetail {
   logs: TaskLogItem[]
   createTime: string
   sheetId: number
+  pagingRestricted: boolean // 是否限制翻页
+  totalCandidateCount: number // 总挖掘客户数
 }
 
 /**
@@ -116,4 +118,30 @@ export interface TerminateTaskRequest {
  */
 export interface RetryTaskRequest {
   taskId: number
+}
+
+/**
+ * 最新挖掘信息 - 请求
+ */
+export interface GetLatestMiningInfoRequest {}
+
+/**
+ * 最新挖掘信息 - 响应
+ * 具体结构由后端返回决定，这里使用 unknown 以保持类型安全
+ */
+export type GetLatestMiningInfoResponse = unknown
+
+/**
+ * 通过企业找地区 - 请求
+ */
+export interface GetAreaCodeByCompanyCodeRequest {
+  companycode: number
+}
+
+/**
+ * 通过企业找地区 - 响应
+ * 具体结构由后端返回决定，这里使用 unknown 以保持类型安全
+ */
+export interface GetAreaCodeByCompanyCodeResponse {
+  data: string
 }

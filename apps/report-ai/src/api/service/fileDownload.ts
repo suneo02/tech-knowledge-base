@@ -14,6 +14,7 @@ export const downloadFile = async (fileId: string, fileName: string): Promise<vo
     const response = await requestToChatWithAxios(axiosInstanceWithoutIntercepter, 'report/fileDownload', undefined, {
       params: {
         fileID: fileId,
+        fileId,
       },
     });
 

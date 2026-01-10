@@ -31,7 +31,7 @@ export const formatMoneyFromWftCommon = (money: number, arr?: any, data?: any, n
   }
   let num = arr && arr[k] ? arr[k] : 4
   if (arr && arr[k] === 0) num = 0
-  let unit = arr && arr[k + 1] ? arr[k + 1] : t('20116', '万')
+  let unit = arr && arr[k + 1] ? arr[k + 1] : t('38701', '万')
   let isDivide = arr && arr[k + 2] ? 1000 : 1
   if (data && data.InvestRegUnit) {
     unit = '万' + data.InvestRegUnit //暂时还没有带

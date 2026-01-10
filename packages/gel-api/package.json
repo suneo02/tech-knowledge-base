@@ -23,9 +23,10 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite build --watch --mode development --minify false --sourcemap",
+    "dev": "vite build --watch --mode development",
     "clean": "node ../../scripts/clean.cjs dist",
     "build": "npm run clean && vite build",
+    "build:dev": "vite build --mode development",
     "build:staging": "npm run clean && vite build --mode staging",
     "typecheck": "tsc --noEmit",
     "tsc": "npm run typecheck",

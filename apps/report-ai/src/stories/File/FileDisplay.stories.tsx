@@ -1,10 +1,10 @@
 import { RPFileUploaded } from '@/types';
 import type { Meta, StoryObj } from '@storybook/react';
-import { FileDisplay } from '../../components/File/FileDisplay/index';
+import { OutlineFileDisplay } from '../../components/File/OutlineFileDisplay/index';
 
-const meta: Meta<typeof FileDisplay> = {
+const meta: Meta<typeof OutlineFileDisplay> = {
   title: 'File/FileDisplay',
-  component: FileDisplay,
+  component: OutlineFileDisplay,
   parameters: {
     layout: 'padded',
     docs: {

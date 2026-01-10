@@ -8,44 +8,11 @@
  * @see {@link ../../../domain/reportEditor/chapter/composition.ts}
  */
 
-import { renderChapter, renderContentFromChapter, renderFullDocument } from '@/domain/reportEditor';
-import { RPChapterEnriched } from '@/types';
+import { renderContentFromChapter, renderFullDocument } from '@/domain/reportEditor';
 import { createSelector } from '@reduxjs/toolkit';
 import type { RPDetailChapter } from 'gel-api';
-import { selectChapters, selectReportName } from './base';
+import { selectReportName } from './base';
 import { selectCanonicalChaptersEnriched, selectReferenceOrdinalMap } from './chaptersCanonical';
-
-/**
- * 选择器：章节 Canonical HTML 内容映射
- * 返回 chapterId -> canonical html 的映射，用于编辑器内容注入
- *
- * ⚠️ 注意：此选择器用于初始化和全量注水，使用 Canonical 层
- * - 使用 Canonical 层的 chapters、levelMap、pathMap 保持一致性
- * - 不应该用于实时反映用户的编辑状态
- * - 用户的编辑状态由编辑器 DOM 维护，不需要重新注水
- */
-export const selectCanonicalChapterHtmlMap = createSelector(
-  [selectCanonicalChaptersEnriched, selectReferenceOrdinalMap],
-  (chapters, referenceOrdinalMap): Record<string, string> => {
-    const htmlMap: Record<string, string> = {};
-
-    const traverseChapters = (chapterList: RPChapterEnriched[]) => {
-      chapterList.forEach((chapter) => {
-        const chapterId = String(chapter.chapterId);
-        htmlMap[chapterId] = renderChapter({
-          chapter,
-          referenceOrdinalMap,
-        });
-        if (chapter.children?.length) {
-          traverseChapters(chapter.children);
-        }
-      });
-    };
-
-    traverseChapters(chapters);
-    return htmlMap;
-  }
-);
 
 // 注意：createChapterStreamPreviewMap 已移至 domain 层
 // 请从 @/domain/reportEditor/chapter 导入
@@ -61,7 +28,7 @@ export const selectCanonicalChapterHtmlMap = createSelector(
  * @see {@link ../../../docs/issues/chapter-rendering-missing-source-data.md | 章节渲染缺失溯源数据问题}
  */
 export const selectChapterContentMap = createSelector(
-  [selectChapters, selectReferenceOrdinalMap],
+  [selectCanonicalChaptersEnriched, selectReferenceOrdinalMap],
   (chapters, referenceOrdinalMap): Record<string, string> => {
     const contentMap: Record<string, string> = {};
 
@@ -69,7 +36,7 @@ export const selectChapterContentMap = createSelector(
       chapterList.forEach((chapter) => {
         const chapterId = String(chapter.chapterId);
         // 直接使用 chapter.content，不依赖 messages
-        contentMap[chapterId] = renderContentFromChapter(chapter, undefined, referenceOrdinalMap);
+        contentMap[chapterId] = renderContentFromChapter(chapter, referenceOrdinalMap);
 
         if (chapter.children?.length) {
           traverseChapters(chapter.children);
@@ -90,8 +57,8 @@ export const selectChapterContentMap = createSelector(
  * 按大纲顺序拼接所有章节内容，用于全量注水
  */
 export const selectCanonicalDocHtml = createSelector(
-  [selectCanonicalChapterHtmlMap, selectReportName, selectChapters],
-  (htmlMap, reportName, chapters): string => {
-    return renderFullDocument(chapters, htmlMap, reportName);
+  [selectReportName, selectCanonicalChaptersEnriched, selectReferenceOrdinalMap],
+  (reportName, chapters, referenceOrdinalMap): string => {
+    return renderFullDocument(chapters, reportName, referenceOrdinalMap);
   }
 );

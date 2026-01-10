@@ -3,9 +3,9 @@ import { corpInfoAnotherNameRow } from '@/components/company/info/rowsCommon/nam
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const nzlRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const nzlRows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [
     {
       title: intl('138677', '企业名称'),
@@ -40,7 +40,7 @@ export const nzlRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   [
     { title: window.en_access_config ? 'Company Code' : '企业编号', dataIndex: 'biz_reg_no', colSpan: 2 },
     {
-      title: intl('259470', '实体类型'),
+      title: intl('448332', '实体类型'),
       dataIndex: 'corp_type',
       colSpan: 2,
     },

@@ -1,10 +1,6 @@
-import { getEnvParams, TGelEnv } from '@/utils/env'
-import { GELService } from 'gel-util/link'
-
-export const WFC_Enterprise_Web = 'Wind.WFC.Enterprise.Web'
-export const PC_Front = 'PC.Front'
-export const GEL_WEB_TEST = 'wind.ent.web/gel'
-export const GEL_WEB = 'web'
+import { isDev, TGelEnv } from '@/utils/env'
+import { getCurrentEnv } from 'gel-util/env'
+import { GEL_WEB, GEL_WEB_TEST, GELService, PC_Front, WFC_Enterprise_Web } from 'gel-util/link'
 
 /**
  * 通用获取服务URL前缀的方法
@@ -24,11 +20,10 @@ export const getGeneralPrefixUrl = ({
   envParam?: TGelEnv
 }) => {
   try {
-    const env = envParam || getEnvParams().env
+    const env = envParam || getCurrentEnv(isDev)
     let serverUrl
 
     switch (env) {
-      case 'terminalWeb':
       case 'terminal':
         serverUrl = `/${WFC_Enterprise_Web}/${PC_Front}/${service}/`
         break

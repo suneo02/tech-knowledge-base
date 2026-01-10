@@ -3,10 +3,11 @@ import { HorizontalTableCol } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { CorpAnotherName } from 'gel-ui'
 import { isEn } from 'gel-util/intl'
-import React from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const corpInfoUsedNamesRow = (baseInfo: ICorpBasicInfoFront): HorizontalTableCol<ICorpBasicInfoFront> => ({
+export const corpInfoUsedNamesRow = (
+  baseInfo: Partial<CorpBasicInfoFront>
+): HorizontalTableCol<CorpBasicInfoFront> => ({
   title: intl('451194', '曾用名'),
   dataIndex: 'usednames',
   colSpan: 3,
@@ -23,7 +24,7 @@ export const corpInfoUsedNamesRow = (baseInfo: ICorpBasicInfoFront): HorizontalT
       : '--'
   },
 })
-export const corpInfoHKUsedNames: HorizontalTableCol<ICorpBasicInfoFront> = {
+export const corpInfoHKUsedNames: HorizontalTableCol<CorpBasicInfoFront> = {
   title: intl('451194', '曾用名'),
   dataIndex: 'usednames',
   colSpan: 3,
@@ -48,15 +49,15 @@ export const corpInfoHKUsedNames: HorizontalTableCol<ICorpBasicInfoFront> = {
       : '--'
   },
 }
-export const corpInfoEngNameRow: HorizontalTableCol<ICorpBasicInfoFront> = {
+export const corpInfoEngNameRow: HorizontalTableCol<CorpBasicInfoFront> = {
   title: intl(35079, '英文名称'),
   dataIndex: 'eng_name',
   colSpan: 3,
 }
 
-export const corpInfoAnotherNameRow: HorizontalTableCol<ICorpBasicInfoFront> = {
+export const corpInfoAnotherNameRow: HorizontalTableCol<CorpBasicInfoFront> = {
   title: isEn() ? 'Name' : '别名',
   dataIndex: 'eng_name',
   colSpan: 5,
-  render: (_txt, backData: ICorpBasicInfoFront) => <CorpAnotherName anotherNames={backData?.anotherNames} />,
+  render: (_txt, backData: CorpBasicInfoFront) => <CorpAnotherName anotherNames={backData?.anotherNames} />,
 }

@@ -1,4 +1,4 @@
-import { AgentMsgAIDepre, AgentMsgDepre } from '@/types/ai-chat/message/agent'
+import { AgentMsgAIOverall, AgentMsgOverall } from '@/types/ai-chat/message/agent'
 import { AxiosInstance } from 'axios'
 import { ChatEntityRecognize, ChatQuestionStatus } from 'gel-api'
 import { formatAIAnswerFull } from 'gel-util/common'
@@ -11,8 +11,8 @@ type FetchAndUpdateEntitiesOptions = {
   axiosChat: AxiosInstance
   result: ChatSenderRes
   lines: { content: string; reason: string }
-  onSuccess: (response: AgentMsgDepre, entities: ChatEntityRecognize[] | undefined) => void
-  aiResRefCreator: () => AgentMsgAIDepre
+  onSuccess: (response: AgentMsgOverall, entities: ChatEntityRecognize[] | undefined) => void
+  aiResRefCreator: () => AgentMsgAIOverall
   isFirstQuestionRef: React.MutableRefObject<boolean>
 }
 

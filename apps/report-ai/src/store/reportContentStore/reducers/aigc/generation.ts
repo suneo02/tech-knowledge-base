@@ -97,6 +97,22 @@ export const fullGenerationReducers = {
       GlobalOpHelper.setError(state, action.payload);
     }
   },
+
+  /**
+   * 取消全文生成
+   *
+   * 保留已完成的章节内容，只清理未完成的章节
+   */
+  cancelFullDocumentGeneration: (state: ReportContentState) => {
+    if (!GlobalOpHelper.validate(state, 'full_generation', 'full_generation')) return;
+
+    const queueData = GlobalOpHelper.getQueueData(state);
+    if (queueData) {
+      // 只清理未完成的章节（currentIndex 及之后）
+      const remainingChapters = queueData.queue.slice(queueData.currentIndex || 0);
+      BatchChapterGenHelper.cancel(state, remainingChapters);
+    }
+  },
 };
 
 // ==================== 多章节顺序生成 ====================

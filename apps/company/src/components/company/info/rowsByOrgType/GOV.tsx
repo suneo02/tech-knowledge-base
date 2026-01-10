@@ -1,6 +1,6 @@
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfo } from 'gel-types'
 import {
   corpInfoBussScopeRow,
   corpInfoBussStateRow,
@@ -17,13 +17,13 @@ import {
   corpInfoUsedNamesRow,
 } from '../rowsCommon'
 
-export const corpInfoGOVRows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns => [
+export const corpInfoGOVRows = (baseInfo: Partial<CorpBasicInfo>): HorizontalTableColumns => [
   [{ ...corpInfoNameRow, title: intl(215800, '单位名称') }, corpInfoCreditCodeRow],
   [
     corpInfoEngNameRow,
     {
       ...corpInfoRegAuthorityRow,
-      title: intl(0, '批准机构'), // FIXME
+      title: intl(419627, '批准机构'), // FIXME
       render: (txt) => (txt ? txt : intl(410957, '未公示')),
     },
   ],

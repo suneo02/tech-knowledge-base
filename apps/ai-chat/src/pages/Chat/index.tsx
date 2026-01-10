@@ -58,11 +58,11 @@ const ChatContent: React.FC<{ resizable?: boolean }> = ({ resizable = true }) =>
 
   return (
     <div style={{ height: '100vh', width: '100%', display: 'flex' }}>
-      <div style={{ flex: 1, overflow: 'auto' }}>
+      <div style={{ flex: 'none', overflow: 'auto' }}>
         <ChatConversationBase />
       </div>
       {resizable && <Resizer unfoldedSize={200} onResize={handleResize} />}
-      <div className="f-df" style={{ flex: 4 }}>
+      <div className="f-df" style={{ flex: 1 }}>
         <Suspense fallback={<Loading />}>
           {showFavorites ? (
             <FavoritesList />

@@ -16,14 +16,38 @@ export const outlineMock4: RPDetailChapter[] = [
         title: '市场规模',
         writingThought: '根据最新数据显示，市场规模达到...',
         content: chatDetailTurnList3[0].answers,
-        contentType: 'md',
+        contentType: 'markdown',
         chapterId: 11,
         children: [],
         refData: chatDetailTurnList3[0].data.result.content?.data,
         refSuggest: chatDetailTurnList3[0].data.result.suggest?.items,
-        traceContent: chatDetailTurnList3[0].traceContent,
         entities: chatDetailTurnList3[0].entity,
-        files: rpFileMock1,
+        // 同一个 PDF 文件在第 11 章节，position 指向第 2 页
+        files: [
+          ...rpFileMock1,
+          {
+            ...rpFileMock2[0], // mock2-finished-1: 项目方案.pdf
+            position: { startPoint: { x: 0, y: 0, page: 2 } }, // 第 2 页
+          },
+        ],
+        // 添加 traceContent，index 指向 files 数组中的位置
+        // rpFileMock1 有 3 个文件（index 0-2），项目方案.pdf 是 index 3
+        traceContent: [
+          ...(chatDetailTurnList3[0].traceContent || []),
+          {
+            traced: [
+              {
+                start: 0,
+                index:
+                  (chatDetailTurnList3[0].data.result.content?.data || []).length +
+                  (chatDetailTurnList3[0].data.result.suggest?.items || []).length +
+                  rpFileMock1.length,
+                end: 100,
+              },
+            ],
+            value: '根据项目方案显示，市场规模持续增长...',
+          },
+        ],
       },
       {
         title: '市场趋势',
@@ -35,7 +59,26 @@ export const outlineMock4: RPDetailChapter[] = [
         children: [],
         refData: chatRefTableMock1,
         refSuggest: chatSuggestResMock1,
-        files: rpFileMock2,
+        // 同一个 PDF 文件在第 12 章节，position 指向第 5 页
+        files: [
+          {
+            ...rpFileMock2[0], // mock2-finished-1: 项目方案.pdf（同一个文件）
+            position: { startPoint: { x: 0, y: 0, page: 5 } }, // 第 5 页（不同页码）
+          },
+        ],
+        // 添加 traceContent，index 0 指向 files[0]：项目方案.pdf
+        traceContent: [
+          {
+            traced: [
+              {
+                start: 0,
+                index: 0, // 指向 files[0]：项目方案.pdf
+                end: 150,
+              },
+            ],
+            value: '根据市场趋势分析，行业呈现以下特点...',
+          },
+        ],
       },
     ],
   },
@@ -54,7 +97,14 @@ export const outlineMock4: RPDetailChapter[] = [
         contentType: 'html',
         refData: chatRefTableMock1,
         refSuggest: chatSuggestResMock1,
-        files: rpFileMock3,
+        // 同一个 PDF 文件在第 21 章节，position 指向第 8 页
+        files: [
+          ...rpFileMock3,
+          {
+            ...rpFileMock2[0], // mock2-finished-1: 项目方案.pdf（同一个文件）
+            position: { startPoint: { x: 0, y: 0, page: 8 } }, // 第 8 页（不同页码）
+          },
+        ],
         chapterId: 21,
         children: [],
       },
@@ -189,7 +239,13 @@ export const outlineMock4: RPDetailChapter[] = [
         content: '短期内建议采取以下策略...',
         contentType: 'html',
         chapterId: 31,
-        files: rpFileMock2,
+        // 同一个 PDF 文件在第 31 章节，position 指向第 12 页
+        files: [
+          {
+            ...rpFileMock2[0], // mock2-finished-1: 项目方案.pdf（同一个文件）
+            position: { startPoint: { x: 0, y: 0, page: 12 } }, // 第 12 页（不同页码）
+          },
+        ],
         children: [],
       },
       {

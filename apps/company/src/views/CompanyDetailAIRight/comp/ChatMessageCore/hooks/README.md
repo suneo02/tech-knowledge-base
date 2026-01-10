@@ -1,64 +1,48 @@
-# hooks - ChatMessageCore 自定义 Hooks
+﻿# hooks - ChatMessageCore 自定义钩子目录
 
-提供 ChatMessageCore 组件使用的自定义 hooks。
+存放 ChatMessageCore 组件使用的自定义钩子，提供状态管理和业务逻辑封装。
 
-## 目录结构
+## 目录树
 
 ```
 hooks/
-├── index.ts                    # hooks 导出
-├── usePresetQuestions.ts       # 预设问句展示判定 hook
-└── useVirtualChat.ts           # 虚拟滚动 hook
+├── usePresetQuestionsVisible.ts  # 预设问句可见性控制钩子
+├── useVirtualChat.ts             # 虚拟聊天控制钩子
+├── useMessageHistory.ts          # 消息历史管理钩子
+├── useScrollPosition.ts          # 滚动位置管理钩子
+└── index.ts                      # 钩子导出文件
 ```
 
-## Hooks 说明
+## 关键文件说明
 
-### usePresetQuestionsVisible
+| 文件 | 作用 |
+|------|------|
+| **usePresetQuestionsVisible.ts** | 预设问句可见性控制钩子，管理预设问句的显示逻辑 |
+| **useVirtualChat.ts** | 虚拟聊天控制钩子，管理消息状态和虚拟滚动 |
+| **useMessageHistory.ts** | 消息历史管理钩子，处理历史消息的加载和恢复 |
+| **useScrollPosition.ts** | 滚动位置管理钩子，处理滚动位置和自动滚动 |
+| **index.ts** | 钩子导出文件，统一导出所有钩子 |
 
-预设问句展示判定 hook，负责判断预设问句是否应该展示及展示位置。
+## 依赖示意
 
-**功能**:
-
-- 判断预设问句是否应该展示
-- 确定预设问句的展示位置（欢迎消息下方 / 历史消息后）
-- 基于 `isSentMsg` 状态控制展示逻辑
-
-**展示规则**:
-
-- 用户已发送过消息（`isSentMsg = true`）→ 隐藏
-- 无历史消息（`parsedMessages.length === 0`）→ 展示在欢迎消息下方
-- 有历史消息但用户未发言（`isSentMsg = false`）→ 展示在历史消息后
-
-**使用示例**:
-
-```tsx
-const { shouldShow, position } = usePresetQuestionsVisible(parsedMessages, isSentMsg)
-
-{
-  shouldShow && <PresetQuestions position={position} onSend={handleSendMessage} />
-}
+```
+hooks/
+├── usePresetQuestionsVisible
+│   └─> @/utils/questionHelper (问句工具)
+├── useVirtualChat
+│   └─> @tanstack/react-virtual (虚拟滚动库)
+├── useMessageHistory
+│   └─> @/api/chat (聊天 API)
+└── useScrollPosition
+    └─> @/utils/scrollHelper (滚动工具)
 ```
 
-**相关文档**:
-
-- [设计文档](../../../../../docs/specs/chat-message-core-preset-questions/spec-design-v1.md)
-- [需求文档](../../../../../docs/specs/chat-message-core-preset-questions/spec-require-v1.md)
-
-### useVirtualChat
-
-虚拟滚动 hook，优化大量消息场景下的渲染性能。
-
-**功能**:
-
-- 计算可视区域消息
-- 动态渲染优化
-- 滚动位置管理
-
-**使用场景**: 消息列表超过 100 条时启用
-
-> 与 `VirtualBubbleList` 协作约定：传入的 `groupedBubbleItemsWithKeys` 必须保持索引稳定；当分组数组为空时，组件会 fallback 渲染预设问句，避免欢迎态缺失。
+- **上游依赖**：@/utils/questionHelper、@tanstack/react-virtual、@/api/chat、@/utils/scrollHelper
+- **下游使用**：ChatMessageCore 组件及其子组件
 
 ## 相关文档
 
-- [ChatMessageCore 组件](../README.md)
-- [React 性能优化规范](../../../../../../../docs/rule/react-rule.md#性能优化)
+- [React 钩子开发规范](../../../../../../docs/rule/code-react-component-rule.md#自定义钩子)
+- [状态管理规范](../../../../../../docs/rule/state-management.md)
+- [性能优化指南](../../../../../../docs/rule/performance-optimization.md)
+

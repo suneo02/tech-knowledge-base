@@ -4,7 +4,7 @@ import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils'
 import { Link, Tooltip } from '@wind/wind-ui'
 import React, { FC } from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 import { ParkBox } from './Park'
 
 /**
@@ -70,7 +70,7 @@ const CompanyScaleTooltipTitle: FC<{
   }
 }
 
-export const getCorpInfoScaleRow = (onClickFeedback: () => void): HorizontalTableCol<ICorpBasicInfoFront> => ({
+export const getCorpInfoScaleRow = (onClickFeedback: () => void): HorizontalTableCol<CorpBasicInfoFront> => ({
   title: (
     <>
       {intl('219343', '企业规模')}
@@ -93,7 +93,7 @@ export const getCorpInfoScaleRow = (onClickFeedback: () => void): HorizontalTabl
   },
 })
 
-export const corpInfoEmployeeScaleRow: HorizontalTableCol<ICorpBasicInfoFront> = {
+export const corpInfoEmployeeScaleRow: HorizontalTableCol<CorpBasicInfoFront> = {
   title: intl('257664', '人员规模'),
   dataIndex: 'employee_num',
   render: (txt) => {
@@ -106,7 +106,7 @@ export const corpInfoEmployeeScaleRow: HorizontalTableCol<ICorpBasicInfoFront> =
   },
 }
 
-export const corpInfoEndowmentNumRow: HorizontalTableCol<ICorpBasicInfoFront> = {
+export const corpInfoEndowmentNumRow: HorizontalTableCol<CorpBasicInfoFront> = {
   title: intl('145878', '参保人数'),
   dataIndex: 'endowment_num',
   render: (txt) => {
@@ -122,24 +122,38 @@ export const corpInfoEndowmentNumRow: HorizontalTableCol<ICorpBasicInfoFront> = 
   },
 }
 
-export const corpInfoRegAddressRow: HorizontalTableCol<ICorpBasicInfoFront> = {
+export const corpInfoRegAddressRow: HorizontalTableCol<CorpBasicInfoFront> = {
   title: intl('35776', '注册地址'),
   dataIndex: 'reg_address',
   colSpan: 5,
   render: (title, row) => (
-    <ParkBox title={title} parkTitle={row?.registerPark} row={row} parkId={row?.registerParkId} isBusAddress={false} />
+    <ParkBox
+      title={title}
+      parkList={row?.registerParkList}
+      parkTitle={row?.registerPark}
+      row={row}
+      parkId={row?.registerParkId}
+      isBusAddress={false}
+    />
   ),
 }
 
-export const corpInfoBusAddressRow: HorizontalTableCol<ICorpBasicInfoFront> = {
+export const corpInfoBusAddressRow: HorizontalTableCol<CorpBasicInfoFront> = {
   title: intl('1588', '办公地址'),
   dataIndex: 'bus_address',
   colSpan: 5,
   render: (title, row) => (
-    <ParkBox title={title} parkTitle={row?.officePark} row={row} parkId={row?.officeParkId} isBusAddress={true} />
+    <ParkBox
+      title={title}
+      parkList={row?.officeParkList}
+      parkTitle={row?.officePark}
+      row={row}
+      parkId={row?.officeParkId}
+      isBusAddress={true}
+    />
   ),
 }
-export const corpInfoBussScopeRow: HorizontalTableCol<ICorpBasicInfoFront> = {
+export const corpInfoBussScopeRow: HorizontalTableCol<CorpBasicInfoFront> = {
   title: intl('9177', '经营范围'),
   dataIndex: 'business_scope',
   colSpan: 5,

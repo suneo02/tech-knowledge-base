@@ -3,21 +3,49 @@ import path from 'path'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: [
-    '@storybook/addon-webpack5-compiler-swc',
-    '@storybook/addon-essentials',
-    '@storybook/addon-onboarding',
-    '@storybook/addon-interactions',
-  ],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-onboarding', '@storybook/addon-interactions'],
   framework: {
     name: '@storybook/react-webpack5',
     options: {},
   },
+  staticDirs: ['../public'],
   webpackFinal: async (config) => {
-    // First, remove the existing rule for LESS if it exists from storybook default
-    const rules = config.module?.rules?.filter(
-      (rule) => rule && typeof rule === 'object' && rule.test && !rule.test.toString().includes('less')
-    )
+    const rules = config.module?.rules ? [...config.module.rules] : []
+
+    // 确保 TS/TSX 通过 Babel 编译（处理 import type 等语法）
+    rules.unshift({
+      test: /\.tsx?$/,
+      exclude: /node_modules/,
+      use: [
+        {
+          loader: require.resolve('babel-loader'),
+          options: {
+            presets: [
+              require.resolve('@babel/preset-env'),
+              [require.resolve('@babel/preset-react'), { runtime: 'automatic' }],
+              require.resolve('@babel/preset-typescript'),
+            ],
+          },
+        },
+      ],
+    })
+
+    // 处理 JS/JSX 文件
+    rules.unshift({
+      test: /\.(js|jsx|mjs)$/,
+      exclude: /node_modules/,
+      use: [
+        {
+          loader: require.resolve('babel-loader'),
+          options: {
+            presets: [
+              require.resolve('@babel/preset-env'),
+              [require.resolve('@babel/preset-react'), { runtime: 'automatic' }],
+            ],
+          },
+        },
+      ],
+    })
 
     // Rule for .module.less files
     rules?.push({
@@ -82,17 +110,16 @@ const config: StorybookConfig = {
         ...config.resolve.alias,
         '@': path.resolve(__dirname, '../src'),
         src: path.resolve(__dirname, '../src'),
-        // Add gel-util submodules aliases
-        'gel-util/env': path.resolve(gelUtilPath, 'dist/env.es.js'),
-        'gel-util/intl': path.resolve(gelUtilPath, 'dist/intl.es.js'),
-        'gel-util/link': path.resolve(gelUtilPath, 'dist/link.es.js'),
-        'gel-util/format': path.resolve(gelUtilPath, 'dist/format.es.js'),
-        'gel-util/translate': path.resolve(gelUtilPath, 'dist/translate.es.js'),
-        'gel-util/corp': path.resolve(gelUtilPath, 'dist/corp.es.js'),
-        'gel-util/config': path.resolve(gelUtilPath, 'dist/config.es.js'),
-        'gel-util/corpConfig': path.resolve(gelUtilPath, 'dist/corpConfig.es.js'),
-        'gel-util/download': path.resolve(gelUtilPath, 'dist/download.es.js'),
-        'gel-util/typeUtil': path.resolve(gelUtilPath, 'dist/typeUtil.es.js'),
+        'gel-util/env': path.resolve(gelUtilPath, 'dist/env.mjs'),
+        'gel-util/intl': path.resolve(gelUtilPath, 'dist/intl.mjs'),
+        'gel-util/link': path.resolve(gelUtilPath, 'dist/link.mjs'),
+        'gel-util/format': path.resolve(gelUtilPath, 'dist/format.mjs'),
+        'gel-util/translate': path.resolve(gelUtilPath, 'dist/misc/translate/core.mjs'),
+        'gel-util/corp': path.resolve(gelUtilPath, 'dist/corp.mjs'),
+        'gel-util/config': path.resolve(gelUtilPath, 'dist/config.mjs'),
+        'gel-util/corpConfig': path.resolve(gelUtilPath, 'dist/corpConfig.mjs'),
+        'gel-util/download': path.resolve(gelUtilPath, 'dist/common/download.mjs'),
+        'gel-util/typeUtil': path.resolve(gelUtilPath, 'dist/typeUtil.mjs'),
       }
 
       // Ensure we check the src directory when resolving modules
@@ -110,7 +137,7 @@ const config: StorybookConfig = {
         cacheGroups: {
           ...(config.optimization.splitChunks?.cacheGroups || {}),
           gelUtil: {
-            test: /[\\/]node_modules[\\/]gel-util[\\/]/,
+            test: /[\\/]gel-util[\\/]dist[\\/]/,
             name: 'gel-util',
             chunks: 'all',
             priority: 10,

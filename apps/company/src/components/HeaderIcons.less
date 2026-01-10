@@ -1,0 +1,37 @@
+@fcon-icons: BDML, CGS, CQQQY, CRW, CGX, CJTX, CSF, CZTB, CWZ, CZP, CZL, CSB, CZZQ, CBZ, GQCTT, GLFTP, SJKZR, ZZSYR,
+  RZTP, DDYCD, JZDS, YQGQ, SSFZQY, JRJG, KCQY, PEVC_BTQY, ZZDQ, WXDT, ZDYQ, XQFX, ZLXXXCY, TZSD, GYLTS, CYL, PLCXDC,
+  JDPT, QYTPPT, QYSJLLQ, EAPI, QYDT, AIFINANCIAL, SXSJ, SXWJ, SXSJ_COLOR, SXWJ_COLOR;
+
+.iconBase() {
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.genIconsFromPath(@list, @dir, @i: 1) when (@i <= length(@list)) {
+  @name: extract(@list, @i);
+  &.@{name} {
+    background-image: url('@{dir}/@{name}.svg');
+  }
+  .genIconsFromPath(@list, @dir, (@i + 1));
+}
+.genIconsFromPath(@list, @dir, @i: 1) when (@i > length(@list)) {
+}
+
+.HeaderToolbarIcons() {
+  .icon {
+    .iconBase();
+    &.new {
+      background-image: url('../assets/common/New@1x.svg');
+    }
+    &.hot {
+      background-image: url('../assets/common/hot@1x.svg');
+    }
+    .genIconsFromPath(@fcon-icons, '../assets/fcon');
+    &.SUPER {
+      background-image: url('../assets/fcon/YJHZQY.svg');
+    }
+  }
+}

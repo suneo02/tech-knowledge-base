@@ -1,11 +1,11 @@
 // 越南企业 自定义模块
 import CompanyLink from '@/components/company/CompanyLink.tsx'
-import React from 'react'
+import { CorpPrimaryModuleCfg } from '@/types/corpDetail'
 import { intlNoIndex } from '@/utils/intl'
-import { ICorpPrimaryModuleCfg } from '@/components/company/type'
+import React from 'react'
 
 const intl = intlNoIndex
-export const vieRowConfig: ICorpPrimaryModuleCfg = {
+export const vieRowConfig: CorpPrimaryModuleCfg = {
   showCompanyBranchInfo: {
     cmd: '/detail/company/getnewcompanybranchinfo_branch',
     title: intl('138183', '分支机构'),

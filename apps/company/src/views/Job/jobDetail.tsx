@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import intl from '../../utils/intl'
+import intl, { translateToEnglish } from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 
 import { geJobDetail, geJobHots } from '../../api/singleDetail'
@@ -38,10 +38,16 @@ const JobDetail = () => {
     })
       .then((res) => {
         if (res && Number(res.ErrorCode) === 0) {
-          if (window.en_access_config) {
-            wftCommon.translateService(res?.Data, (data) => {
-              setDetailInfo(data || {})
+          if (isEn()) {
+            translateToEnglish(res?.Data, {
+              skipFields: ['companyName'],
             })
+              .then((data) => {
+                setDetailInfo(data.data || {})
+              })
+              .catch(() => {
+                setDetailInfo(res?.Data || {})
+              })
           } else {
             setDetailInfo(res?.Data || {})
           }
@@ -63,11 +69,16 @@ const JobDetail = () => {
     })
       .then((res) => {
         if (res && Number(res.ErrorCode) === 0) {
-          if (window.en_access_config) {
-            setDataSource(res.Data || [])
-            wftCommon.zh2en(res?.Data, (data) => {
-              setDataSource(data || [])
+          if (isEn()) {
+            translateToEnglish(res?.Data, {
+              skipFields: ['companyName'],
             })
+              .then((data) => {
+                setDataSource(data.data || [])
+              })
+              .catch(() => {
+                setDataSource(res?.Data || [])
+              })
           } else {
             setDataSource(res.Data || [])
           }
@@ -81,7 +92,7 @@ const JobDetail = () => {
 
   const columns = [
     {
-      // title: intl('66742', '公司舆情'),
+      // title: intl('478577', '公司舆情'),
       dataIndex: 'news',
       width: '100%',
       render: (_key, data) => {
@@ -195,13 +206,13 @@ const JobDetail = () => {
 
         {/* 职位描述 */}
         <Card className="jobCard">
-          <p className="card-title">{intl('138355', '职位描述')}</p>
-          <p>{jobDuty}</p>
+          <p className="card-title">{intl('478715', '职位描述')}</p>
+          <p style={{ whiteSpace: 'pre-wrap' }}>{jobDuty}</p>
         </Card>
 
         {/* 热招职位 */}
         <Card className="jobCard">
-          <p className="card-title">{intl('214193', '所属企业热招的职位')}</p>
+          <p className="card-title">{intl('478716', '所属企业热招的职位')}</p>
           <Table
             key={'companynews'}
             locale={{

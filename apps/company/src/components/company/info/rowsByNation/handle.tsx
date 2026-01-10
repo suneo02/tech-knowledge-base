@@ -14,14 +14,14 @@ import { russiaRows } from '@/components/company/info/rowsByNation/russia.tsx'
 import { singaporeRows } from '@/components/company/info/rowsByNation/singapore.tsx'
 import { thaRows } from '@/components/company/info/rowsByNation/tha.tsx'
 import { vieRows } from '@/components/company/info/rowsByNation/vie.tsx'
-import { TCorpArea } from '@/handle/corp/corpArea'
+import { CorpArea } from '@/handle/corp/corpArea'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
-import React, { ReactNode } from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { ReactNode } from 'react'
+import { CorpBasicInfoFront } from '../handle'
 
-export const getCorpInfoRowsByArea = (corpArea: TCorpArea) => {
-  let updateDiv: ReactNode, rows: HorizontalTableColumns<ICorpBasicInfoFront>
+export const getCorpInfoRowsByArea = (corpArea: CorpArea) => {
+  let updateDiv: ReactNode, rows: HorizontalTableColumns<CorpBasicInfoFront>
   switch (corpArea) {
     case 'lux': {
       updateDiv = <span className="itemTitle"> {intl('342096', '数据来源')}：卢森堡商业登记处（LBR）</span>

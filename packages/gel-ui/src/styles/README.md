@@ -1,4 +1,4 @@
-# 样式资源管理
+﻿# 样式资源管理
 
 提供全局样式、混入、共享样式等样式资源，支撑组件库的视觉设计和主题系统。
 
@@ -53,5 +53,5 @@ styles/
 
 ## 相关文档
 
-- [样式规范](../../../docs/rule/style-rule.md) - Less Module 样式指南
-- [React 规范](../../../docs/rule/react-rule.md) - 组件样式集成指南
+- [样式规范](../../../docs/rule/code-style-less-bem-rule.md) - Less Module 样式指南
+- [React 规范](../../../docs/rule/code-react-component-rule.md) - 组件样式集成指南

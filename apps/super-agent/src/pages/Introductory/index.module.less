@@ -1,16 +1,36 @@
 @prefix: introductory;
-@keyframes caret-blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  50.01%,
-  100% {
-    opacity: 0;
-  }
-}
 
 .@{prefix} {
+  &-form {
+    label {
+      font-weight: bold;
+    }
+    :global {
+      // Cascader selector style
+      .w-select-selector {
+        border-radius: 4px !important;
+        border-color: rgb(217, 217, 217) !important;
+        padding-top: 3px;
+        padding-bottom: 3px;
+      }
+
+      // Textarea style
+      .w-input-affix-wrapper.w-input-affix-wrapper-textarea {
+        border-radius: 4px !important;
+        border-color: rgb(217, 217, 217) !important;
+        textarea {
+          border-color: rgb(217, 217, 217) !important;
+        }
+      }
+
+      // Placeholder color
+      .w-select-selection-placeholder,
+      .w-input-affix-wrapper-textarea textarea::placeholder {
+        color: rgba(0, 0, 0, 0.25) !important;
+        font-size: 16px;
+      }
+    }
+  }
   &-container {
     display: flex;
     flex-direction: column;
@@ -37,7 +57,6 @@
     height: 30px;
     background: currentColor;
     margin-left: 4px;
-    animation: caret-blink var(--caret-blink-duration, 1s) steps(1, end) infinite;
   }
   &-h1-highlight {
     background: linear-gradient(90deg, var(--click-3), var(--color-10));
@@ -65,7 +84,7 @@
     // grid-template-columns: 1fr 320px;
     // gap: 16px;
     align-items: start;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
   &-card {
     // background-color: var(--basic-15);
@@ -96,12 +115,9 @@
   }
   &-stagger-item {
     opacity: 0;
-    transform: translateY(var(--stagger-offset-y, 60px));
-    transition: all var(--stagger-duration, 0.8s) ease;
   }
   &-stagger-show {
     opacity: 1;
-    transform: translateY(0);
   }
   &-product-info-label {
     display: flex;
@@ -109,6 +125,16 @@
     justify-content: space-between;
     width: 100%;
     margin-bottom: 10px;
+  }
+  &-product-info-label-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  &-required-mark {
+    color: #ff4d4f;
+    font-weight: 600;
+    line-height: 1;
   }
   &-tips {
     &-title {
@@ -172,5 +198,37 @@
   }
   &-alert {
     margin-bottom: 12px;
+  }
+
+  &-label-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  &-label-title {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &-required-mark {
+    margin-left: 4px;
+    color: #ff4d4f;
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+  }
+
+  &-label-hint {
+    font-size: 14px;
+    color: var(--gray-2);
+    line-height: 1.5;
+    font-weight: normal;
+    white-space: pre-wrap;
+    margin-bottom: 12px;
+  }
+
+  &-custom-input {
   }
 }

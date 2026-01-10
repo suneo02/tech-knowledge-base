@@ -5,7 +5,7 @@ import {
 } from '@/__mocks__/cde/cdeConfig.mock'
 import { findCDEItemOptionByValue } from '@/components/filterOptions/OptionViewPort/hook'
 import type { Meta, StoryObj } from '@storybook/react'
-import { CDEFilterItem } from 'gel-api/*'
+import { CDEFilterItem } from 'gel-api'
 import React, { useState } from 'react'
 import { CheckBoxMulti } from '../../components/restructFilter/comps/filterOptions/CheckBoxMulti'
 

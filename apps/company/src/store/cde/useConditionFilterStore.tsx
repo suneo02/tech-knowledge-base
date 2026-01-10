@@ -5,7 +5,7 @@ import { getTerritoryList } from '@/store/cde/helpers/getTerritoryList.tsx'
 import { iteratorList } from '@/store/cde/helpers/iteratorList.tsx'
 import { setDefaultFilters } from '@/store/cde/helpers/setDefaultFilters.tsx'
 import { updateFilters } from '@/store/cde/helpers/updateFilters.tsx'
-import { CDEFilterItem, CDERankQueryFilterValue } from 'gel-api/*'
+import { CDEFilterItem, CDERankQueryFilterValue } from 'gel-api'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 

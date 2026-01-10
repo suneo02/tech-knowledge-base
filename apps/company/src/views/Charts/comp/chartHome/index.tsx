@@ -87,7 +87,7 @@ const ChartHome = ({ onSelectMenu, onBuildGraph }) => {
         key: AIGRAPH_SEND_TYPE_KEYS.MARKDOWN,
       },
       {
-        label: t('', '文件导入'),
+        label: t('437889', '文件导入'),
         key: AIGRAPH_SEND_TYPE_KEYS.EXCEL,
       },
     ],
@@ -280,7 +280,7 @@ const ChartHome = ({ onSelectMenu, onBuildGraph }) => {
                   openPopup(tabs[1].key)
                 }}
               >
-                {t('', '导入Excel生成图谱')}
+                {t('467836', '导入Excel生成图谱')}
               </div>
             </div>
           </div>

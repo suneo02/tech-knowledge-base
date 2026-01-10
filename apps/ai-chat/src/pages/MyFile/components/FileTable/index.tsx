@@ -11,6 +11,7 @@ import { t } from 'gel-util/intl'
 import FileIcon from './components/FileIcon'
 import { FileItem, FileStatus, useFileData } from './hooks/useFileData'
 import { useFilePolling } from './hooks/useFilePolling'
+import { selectVipStatus, useAppSelector, VipStatusEnum } from '@/store'
 
 interface FileTableProps {
   folderId: string
@@ -30,6 +31,12 @@ const PREFIX = 'my-file-table'
 const PAGE_SIZE = 10
 
 export const FileTable: React.FC<FileTableProps> = ({ folderId }) => {
+  const vipStatus = useAppSelector(selectVipStatus)
+  const grade = useMemo(
+    () => (vipStatus === VipStatusEnum.SVIP ? 'svip' : vipStatus === VipStatusEnum.VIP ? 'vip' : 'free'),
+    [vipStatus]
+  )
+
   // 使用拆分出来的hooks
   const { files, loading, setCurrentPage, updateFileStatus, retryFile, hasProcessingFiles, currentPage, total } =
     useFileData({
@@ -81,6 +88,7 @@ export const FileTable: React.FC<FileTableProps> = ({ folderId }) => {
   const handleDownload = (record: FileItem) => {
     postPointBuried('922604570303', {
       tablename: record.downloadFileName,
+      grade,
     })
     // console.log('🚀 ~ handleDownload ~ record:', record)
     const baseUrl = import.meta.env.DEV ? 'https://gel.wind.com.cn' : window.location.origin
@@ -170,7 +178,8 @@ export const FileTable: React.FC<FileTableProps> = ({ folderId }) => {
 
   return (
     <SmartPaginationTable
-      size="large"// @ts-expect-error
+      size="large"
+      // @ts-expect-error column 类型错误
       columns={columns}
       dataSource={files}
       loading={loading}

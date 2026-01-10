@@ -1,69 +1,234 @@
-# React + TypeScript + Vite
+# Super Agent - React + TypeScript + Vite 项目
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+这是一个基于 React 18、TypeScript 和 Vite 构建的现代化前端应用，专为超级代理业务场景设计。
 
-Currently, two official plugins are available:
+## 🚀 技术栈
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **前端框架**: React 18 + TypeScript
+- **构建工具**: Vite
+- **状态管理**: Redux Toolkit (RTK)
+- **UI 组件库**: Ant Design + Wind UI
+- **路由**: React Router DOM v7
+- **HTTP 客户端**: Axios
+- **Hooks 库**: ahooks
+- **样式方案**: CSS Modules (`.module.less`)
+- **代码规范**: ESLint + Prettier
 
-## Expanding the ESLint configuration
+## 📦 安装和运行
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 环境要求
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js >= 18.0.0
+- pnpm >= 10.13.1
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 安装依赖
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**重要规则**: 本项目必须使用 `npx pnpm` 进行包管理操作
+
+```bash
+# 安装依赖（必须使用 npx pnpm）
+npx pnpm install
+
+# 开发模式运行
+npx pnpm run dev
+
+# 构建项目
+npx pnpm run build
+
+# 预览构建结果
+npx pnpm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 可用脚本
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npx pnpm run dev          # 启动开发服务器
+npx pnpm run build        # 构建生产版本
+npx pnpm run build:staging # 构建测试环境版本
+npx pnpm run lint         # 运行 ESLint 检查
+npx pnpm run preview      # 预览构建结果
+npx pnpm run tsc          # TypeScript 类型检查
+npx pnpm run check:circular # 检查循环依赖
+npx pnpm run new:page     # 创建新页面脚手架
 ```
+
+## 📁 项目结构
+
+```
+super-agent/
+├── public/                     # 静态资源目录
+│   └── vite.svg               # Vite 图标
+├── src/                       # 源代码目录
+│   ├── api/                   # API 接口层
+│   │   ├── axios.ts          # Axios 实例配置
+│   │   ├── baseUrl.ts        # 基础 URL 配置
+│   │   ├── error-handling.ts # 错误处理
+│   │   ├── index.ts          # API 统一导出
+│   │   ├── entWeb/           # 企业相关 API
+│   │   ├── error/            # 错误类型定义
+│   │   └── interceptors/     # 请求拦截器
+│   ├── assets/                # 静态资源
+│   │   ├── demo/             # 演示相关资源
+│   │   ├── header/           # 头部组件资源
+│   │   ├── html/             # HTML 模板
+│   │   ├── New.png           # 新图标
+│   │   ├── react.svg         # React 图标
+│   │   └── svip.svg          # SVIP 图标
+│   ├── components/            # 通用组件
+│   │   ├── CellRegistry/    # 单元格注册组件
+│   │   ├── CustomList/      # 自定义列表组件
+│   │   ├── ErrorPopup/      # 错误弹窗组件
+│   │   └── layout/          # 布局组件
+│   │       ├── AppSideMenu/ # 应用侧边菜单
+│   │       ├── PageContainer/ # 页面容器
+│   │       └── ResponsiveAside/ # 响应式侧边栏
+│   ├── pages/               # 页面组件
+│   │   ├── CompanyDirectory/ # 企业名录页面
+│   │   ├── Dashboard/       # 仪表板页面
+│   │   ├── Fallback/       # 错误页面（404等）
+│   │   ├── Home/            # 首页
+│   │   ├── Introductory/   # 介绍页面
+│   │   ├── MyFile/         # 我的文件页面
+│   │   └── Prospect/       # 潜在客户页面
+│   ├── router/              # 路由配置
+│   │   ├── index.tsx       # 路由入口
+│   │   └── routes.tsx      # 路由定义
+│   ├── store/              # 状态管理
+│   │   ├── index.ts        # Store 配置
+│   │   ├── type.ts         # 类型定义
+│   │   ├── user/           # 用户相关状态
+│   │   └── superAgent/     # 超级代理状态
+│   ├── types/              # 类型定义
+│   │   └── wind-chart-builder.d.ts # Wind 图表构建器类型
+│   ├── utils/              # 工具函数
+│   │   ├── area.ts        # 区域相关工具
+│   │   ├── bury.ts        # 埋点工具
+│   │   ├── env.ts         # 环境变量工具
+│   │   └── md.ts          # Markdown 工具
+│   ├── App.tsx            # 根组件
+│   ├── App.css            # 根样式
+│   ├── index.css          # 全局样式
+│   ├── main.tsx           # 应用入口
+│   └── vite-env.d.ts      # Vite 环境类型
+├── scripts/               # 脚本工具
+│   └── CLI/              # CLI 工具
+│       ├── create/       # 创建模板
+│       └── new-page.mjs  # 新建页面脚本
+├── .cursor/              # Cursor 编辑器配置
+│   └── rules/           # 编码规则
+├── .gitignore           # Git 忽略文件
+├── .prettierrc          # Prettier 配置
+├── architecture.md      # 架构文档
+├── eslint.config.js     # ESLint 配置
+├── index.html           # HTML 入口
+├── package.json         # 项目配置
+├── tsconfig.json        # TypeScript 配置
+├── tsconfig.app.json    # TypeScript 应用配置
+├── tsconfig.node.json   # TypeScript Node 配置
+└── vite.config.ts       # Vite 配置
+```
+
+## 📋 目录职责说明
+
+### 核心目录
+
+- **`src/api/`**: 所有 API 请求相关的代码，包括 Axios 配置、错误处理、拦截器等
+- **`src/components/`**: 可复用的 React 组件，按功能模块组织
+- **`src/pages/`**: 页面级组件，每个页面对应一个目录，包含组件和样式文件
+- **`src/router/`**: 路由配置，定义应用的所有路由和页面映射关系
+- **`src/store/`**: Redux Toolkit 状态管理，包含全局状态和业务逻辑
+- **`src/utils/`**: 工具函数集合，提供通用的功能支持
+
+### 配置文件
+
+- **`.cursor/rules/`**: Cursor 编辑器的编码规范配置文件
+- **`architecture.md`**: 项目架构详细说明文档
+- **`package.json`**: 项目依赖和脚本配置
+
+## 🎯 页面功能
+
+根据路由配置，应用包含以下主要页面：
+
+- **首页 (`/home`)**: 应用的入口页面，提供导航和功能入口
+- **产品介绍 (`/introductory`)**: 产品功能介绍和使用引导
+- **潜在客户 (`/prospect`)**: 潜在客户管理和线索收集
+- **仪表板 (`/dashboard`)**: 数据概览和关键指标展示
+- **企业名录 (`/company-directory`)**: 企业客户信息管理和洞察
+- **我的文件 (`/my-file`)**: 个人文件管理和查看
+
+## 🔧 开发规范
+
+### 组件开发
+
+- 使用 **CSS Modules** (`.module.less`) 进行样式管理
+- 遵循 **React Hooks** 最佳实践
+- 使用 **TypeScript** 进行类型安全的开发
+- 组件命名使用 **PascalCase**
+
+### 状态管理
+
+- 使用 **Redux Toolkit** 管理全局状态
+- 局部状态使用 **React useState/useReducer**
+- 异步操作使用 **RTK Query** 或 **ahooks**
+
+### 代码风格
+
+- 使用 **ESLint** 和 **Prettier** 进行代码格式化
+- 遵循项目中 `.cursor/rules/` 目录下的编码规范
+- 使用 **TypeScript** 严格模式
+
+### 包管理规则
+
+⚠️ **重要**: 本项目强制使用 `npx pnpm` 进行所有包管理操作：
+
+```bash
+# 正确 ✅
+npx pnpm install
+npx pnpm add [package]
+npx pnpm remove [package]
+
+# 错误 ❌
+npm install
+pnpm install
+yarn add
+```
+
+## 🚀 快速开始
+
+1. **克隆项目**:
+   ```bash
+   git clone [repository-url]
+   cd super-agent
+   ```
+
+2. **安装依赖**:
+   ```bash
+   npx pnpm install
+   ```
+
+3. **启动开发服务器**:
+   ```bash
+   npx pnpm run dev
+   ```
+
+4. **访问应用**:
+   打开浏览器访问 `http://localhost:5173`
+
+## 📚 相关文档
+
+- [React 18 官方文档](https://react.dev/)
+- [Vite 官方文档](https://vitejs.dev/)
+- [TypeScript 官方文档](https://www.typescriptlang.org/)
+- [Ant Design 官方文档](https://ant.design/)
+- [Redux Toolkit 官方文档](https://redux-toolkit.js.org/)
+
+## 🤝 贡献指南
+
+1. 遵循项目的编码规范和开发流程
+2. 使用 `npx pnpm` 进行包管理操作
+3. 提交代码前运行 `npx pnpm run lint` 和 `npx pnpm run tsc`
+4. 保持代码风格一致，使用 Prettier 格式化代码
+
+---
+
+**注意**: 本项目使用 `npx pnpm` 作为唯一的包管理工具，请严格遵守这一规范。

@@ -6,6 +6,7 @@
  */
 
 import { RPOutlineAgentMsg, RPOutlineAgentMsgAI } from '@/types';
+import { ChatRawSentenceIdIdentifier } from 'gel-api';
 
 /**
  * 判断指定消息是否为最后一条AI agent 消息
@@ -14,7 +15,10 @@ import { RPOutlineAgentMsg, RPOutlineAgentMsgAI } from '@/types';
  * @param allMessages 所有消息列表
  * @returns 是否为最后一条AI消息
  */
-export function isLastAgentMsgAI(targetMessage: RPOutlineAgentMsgAI, allMessages: RPOutlineAgentMsg[]): boolean {
+export function isLastAgentMsgAI(
+  sentence: Partial<ChatRawSentenceIdIdentifier>,
+  allMessages: RPOutlineAgentMsg[]
+): boolean {
   try {
     // 找到所有AI消息
     const aiMessages = allMessages.filter((msg) => msg.role === 'ai');
@@ -25,7 +29,7 @@ export function isLastAgentMsgAI(targetMessage: RPOutlineAgentMsgAI, allMessages
     const lastAIMessage = aiMessages[aiMessages.length - 1];
 
     // 比较 rawSentenceID
-    return lastAIMessage.rawSentenceID === targetMessage.rawSentenceID;
+    return lastAIMessage.rawSentenceID === sentence.rawSentenceID;
   } catch (error) {
     console.error('isLastAIMessage error:', error);
     return true; // 出错时保守处理，允许交互

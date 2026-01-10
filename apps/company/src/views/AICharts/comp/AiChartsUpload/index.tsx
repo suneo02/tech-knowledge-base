@@ -80,7 +80,7 @@ const AIChartsUpload = ({ onUpload = (taskId: string, fileList: any[]) => {}, on
       <div className={styles.aiChartsUploadContent}>
         <div className={styles.aiChartsUploadContentTitle}>
           <div>
-            {t('', '第一步：点击下载')}
+            {t('370836', '第一步：点击下载')}
             <a
               href="https://wx.wind.com.cn/Wind.WFC.Enterprise.Web/PC.Front/resource/static/AiGraphTemplate.xlsx"
               download={'模版文件.xlsx'}
@@ -89,7 +89,7 @@ const AIChartsUpload = ({ onUpload = (taskId: string, fileList: any[]) => {}, on
             </a>
             ，{t('', '并在此Excel文件中补充数据')}
           </div>
-          <div>{t('', '第二步：保存文件后，点击下方按钮或拖拽文件到下方区域导入文件')}</div>
+          <div>{t('370259', '第二步：保存文件后，点击下方按钮或拖拽文件到下方区域导入文件')}</div>
         </div>
         <div className={styles.aiChartsUploadContentBody}>
           {/* @ts-expect-error ttt */}
@@ -152,7 +152,7 @@ const AIChartsUpload = ({ onUpload = (taskId: string, fileList: any[]) => {}, on
               data-uc-id="fBiymIpu9Bn"
               data-uc-ct="button"
             >
-              {t('', '生成图谱')}
+              {t('467841', '生成图谱')}
             </Button>
           </div>
         )}

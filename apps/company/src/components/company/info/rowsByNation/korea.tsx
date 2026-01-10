@@ -1,13 +1,10 @@
-import { industry_gb_render, industry_name_wind_render } from '@/components/company/info/comp/industry.tsx'
-import { TitleAttachmentRender } from '@/components/company/info/comp/misc.tsx'
 import { corpInfoAnotherNameRow } from '@/components/company/info/rowsCommon/names.tsx'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
-import React from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const koreaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const koreaRows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [{ title: intl('138677', '企业名称'), dataIndex: 'corp_name', colSpan: 5 }],
   [corpInfoAnotherNameRow],
   [
@@ -43,20 +40,6 @@ export const koreaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
         return wftCommon.formatTime(txt)
       },
     },
-  ],
-  [
-    {
-      title: intl('138722', '国民经济行业分类'),
-      dataIndex: 'industry_gb',
-      colSpan: 5,
-      render: industry_gb_render,
-    },
-    // {
-    //   title: <TitleAttachmentRender />,
-    //   dataIndex: 'industry_name',
-    //   render: industry_name_wind_render,
-    //   colSpan: 2,
-    // },
   ],
   [{ title: intl('438015', '公司地址'), dataIndex: 'reg_address', colSpan: 5 }],
 ]

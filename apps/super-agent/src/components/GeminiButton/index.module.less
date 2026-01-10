@@ -1,0 +1,133 @@
+@prefix: gemini-btn;
+
+.@{prefix} {
+  /* Base layer */
+  position: relative;
+  padding: 12px 80px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+
+  /* Theme background */
+  background: linear-gradient(135deg, #00aec7, #009eb5);
+
+  /* Initial shadow */
+  box-shadow:
+    0 4px 12px rgba(0, 174, 199, 0.25),
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+
+  /* Transitions */
+  transition:
+    transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Variables will be set by JS */
+  --x: 50%;
+  --y: 50%;
+  --ripple-x: 50%;
+  --ripple-y: 50%;
+
+  /* Hover state */
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 12px 24px rgba(0, 174, 199, 0.35),
+      0 8px 12px rgba(0, 0, 0, 0.08),
+      inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Active state */
+  &:active {
+    transform: scale(0.98) translateY(-1px);
+    box-shadow:
+      0 6px 12px rgba(0, 174, 199, 0.25),
+      inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Liquid Follower */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    background: radial-gradient(
+      circle 120px at var(--x) var(--y),
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.1) 20%,
+      transparent 50%
+    );
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  /* Gloss Shine */
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 40%,
+      rgba(255, 255, 255, 0) 50%
+    );
+    transform: translate(calc((var(--x) - 50%) * -0.2), calc((var(--y) - 50%) * -0.2));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  pointer-events: none;
+  animation: ripple-effect 0.6s linear;
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}

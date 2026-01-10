@@ -1,8 +1,9 @@
-import { getIfOverseaByUserInfo } from 'gel-util/user'
+import { requestToWFCSecure } from '@/api'
 import { type RootState } from '@/store/type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { requestToWFCSecure } from '@/api'
 import { type UserPackageInfo } from 'gel-types'
+import { t } from 'gel-util/intl'
+import { getIfOverseaByUserInfo } from 'gel-util/user'
 
 // --- Enums and Types ---
 
@@ -17,15 +18,6 @@ export const VipStatusEnum = {
 } as const
 
 export type VipStatusEnum = (typeof VipStatusEnum)[keyof typeof VipStatusEnum]
-
-// 后端返回的用户套餐名类型
-type UserPackageNameType =
-  | 'EQ_APL_GEL_FORTRAIL' // 试用 SVIP
-  | 'EQ_APL_GEL_FORSTAFF' // 员工
-  | 'EQ_APL_GEL_SVIP' // SVIP
-  | 'EQ_APL_GEL_VIP' // VIP
-  | 'EQ_APL_GEL_BS' // 终端 非Vip 非SVIP账号
-  | string // 兼容其他未知套餐
 
 // User slice 的状态结构
 export interface UserState {
@@ -58,7 +50,7 @@ const initialState: UserState = {
  * @param packageName - 套餐名称
  * @returns VIP 状态
  */
-const determineVipStatus = (packageName?: UserPackageNameType): VipStatusEnum => {
+const determineVipStatus = (packageName?: UserPackageInfo['packageName']): VipStatusEnum => {
   switch (packageName) {
     case 'EQ_APL_GEL_FORTRAIL':
     case 'EQ_APL_GEL_FORSTAFF':
@@ -83,7 +75,7 @@ export const fetchUserInfo = createAsyncThunk<UserPackageInfo, void, { rejectVal
       })
       return (response as { Data: UserPackageInfo }).Data
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '获取用户信息失败'
+      const errorMessage = err instanceof Error ? err.message : 'user error'
       return rejectWithValue(errorMessage)
     }
   }
@@ -110,7 +102,7 @@ const userSlice = createSlice({
         state.isUserInfoFetched = true
       })
       .addCase(fetchUserInfo.rejected, (state, action) => {
-        state.error = action.payload ?? '获取用户信息失败'
+        state.error = action.payload ?? t('398771', '获取用户信息失败')
         state.isLoading = false
         state.isUserInfoFetched = true // 即使失败也标记为已获取，避免重复请求
       }),
@@ -126,7 +118,7 @@ export const selectUserInfoFetched = (state: RootState) => state.user.isUserInfo
 export const selectUserLoading = (state: RootState) => state.user.isLoading
 export const selectUserError = (state: RootState) => state.user.error
 
-export const isOverseas = (state: RootState) => getIfOverseaByUserInfo(state.user.userInfo as UserPackageInfo)
+export const isOverseas = (state: RootState) => getIfOverseaByUserInfo(state.user.userInfo)
 
 // --- Export Reducer ---
 

@@ -1,4 +1,5 @@
-import { AgentMsgAIDepre, AgentMsgAIShare, ChatSendInput } from '@/types'
+import { AgentMsgAIOverall, AgentMsgAIShare, ChatSendInput } from '@/types'
+import { RPResponseProgress } from 'gel-api'
 import { ChatRunContext } from '../runContext'
 
 export const createAgentMsgAIInitBySendInput = (message: ChatSendInput): AgentMsgAIShare => ({
@@ -14,10 +15,23 @@ export const createAgentMsgAISubQuestion = (message: ChatSendInput, subQuestion:
   subQuestion,
 })
 
+export const createAgentMsgAIProgress = (
+  message: ChatSendInput,
+  progress: RPResponseProgress,
+  subQuestion?: string[]
+): AgentMsgAIOverall => ({
+  ...createAgentMsgAIInitBySendInput(message),
+  progress,
+  subQuestion,
+})
+
 /**
  * AI 消息在 数据召回 后
  */
-export const createAgentMsgAIDataRetrieval = (message: ChatSendInput, runContext: ChatRunContext): AgentMsgAIDepre => {
+export const createAgentMsgAIDataRetrieval = (
+  message: ChatSendInput,
+  runContext: ChatRunContext
+): AgentMsgAIOverall => {
   const { runtime } = runContext
   return {
     ...createAgentMsgAIInitBySendInput(message),
@@ -36,7 +50,7 @@ export const createAgentAIMsgStream = (
   runContext: ChatRunContext,
   content: string,
   reasonContent: string
-): AgentMsgAIDepre => ({
+): AgentMsgAIOverall => ({
   ...createAgentMsgAIDataRetrieval(message, runContext),
   content,
   reasonContent,

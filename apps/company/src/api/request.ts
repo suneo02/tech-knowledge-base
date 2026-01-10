@@ -206,6 +206,7 @@ export function requestStream<T extends ApiPath>(api: T, options: StreamApiOptio
  */
 export function createRequest(defaultOptions: Partial<ApiOptions<any>> = {}) {
   return function <T extends ApiPath>(api: T, options: ApiOptions<T> = {}): Promise<GetApiResponse<T>> {
+    console.log('🚀 ~ createRequest ~ options:', options)
     return request(api, {
       ...defaultOptions,
       ...options,

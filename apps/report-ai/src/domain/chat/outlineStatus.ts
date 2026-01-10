@@ -20,12 +20,7 @@ export const hasOutlineInMessages = (parsedMessages: MessageInfo<RPOutlineMsgPar
     const content = message.message;
 
     // 检查是否为大纲预览消息且有内容
-    if (content?.role === 'outlinePreview' && content.content) {
-      return true;
-    }
-
-    // 检查是否为大纲编辑器消息且有内容
-    if (content?.role === 'outlineEditor' && content.content) {
+    if (content?.role === 'outline' && content.content) {
       return true;
     }
 
@@ -45,7 +40,7 @@ export const getIsOutlineConfirmed = (parsedMessages: MessageInfo<RPOutlineMsgPa
   // 查找最后一个大纲相关消息
   const lastOutlineMessage = [...parsedMessages].reverse().find((message) => {
     const content = message.message;
-    return content?.role === 'outlinePreview' || content?.role === 'outlineEditor';
+    return content?.role === 'outline';
   });
 
   if (!lastOutlineMessage) {

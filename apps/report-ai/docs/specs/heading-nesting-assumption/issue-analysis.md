@@ -1,4 +1,4 @@
-# 问题分析 - 标题嵌套假设问题
+﻿# 问题分析 - 标题嵌套假设问题
 
 > 📖 [返回问题概览](./README.md) | 遵循 [Issue 文档编写规范](../../../../../docs/rule/issue-doc-rule.md)
 
@@ -92,9 +92,9 @@
 | `foundation/chapterStructure.ts:142-171`                        | getContentHtmlAfterHeading 实现  | 同样依赖平级结构       |
 | `document/parse.ts:108-208`                                     | collectChapterSegments 实现      | 使用 getContentHtml... |
 | `chapter/parse.ts:36-62`                                        | parseChapterContent 实现         | 使用 getContentHtml... |
-| [文档编写规范](../../../../../docs/rule/documentation-rule.md)  | 文档规范                         | 代码假设需明确文档化   |
-| [TypeScript 规范](../../../../../docs/rule/typescript-rule.md)  | 代码规范                         | 边界条件处理           |
-| [错误处理规范](../../../../../docs/rule/error-handling-rule.md) | 错误处理                         | 异常场景处理           |
+| [文档编写规范](../../../../../docs/rule/doc-general-rule.md)  | 文档规范                         | 代码假设需明确文档化   |
+| [TypeScript 规范](../../../../../docs/rule/code-typescript-style-rule.md)  | 代码规范                         | 边界条件处理           |
+| [错误处理规范](../../../../../docs/rule/code-error-boundary-rule.md) | 错误处理                         | 异常场景处理           |
 
 ## 相关代码片段
 
@@ -127,3 +127,4 @@ export const getContentNodesAfterHeading = (headingElement: Element): Node[] => 
 | 日期       | 修改人 | 更新内容             |
 | ---------- | ------ | -------------------- |
 | 2025-10-29 | Kiro   | 从主文档拆分问题分析 |
+

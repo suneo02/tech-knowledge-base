@@ -1,0 +1,81 @@
+[
+  {
+    "id": "credit-config-center-create-registry",
+    "title": "创建配置中心并定义 creditOpportunities",
+    "owner": "AI",
+    "code_paths": [
+      "/apps/company/src/config/features/index.ts"
+    ],
+    "@see": [
+      "/apps/company/docs/specs/credit-config-center/README.md",
+      "/docs/rule/doc-spec-rule.md"
+    ],
+    "status": "success",
+    "notes": "统一 title/titleId/desc/url 与 hide 规则"
+  },
+  {
+    "id": "credit-config-center-create-adapters",
+    "title": "创建上下文适配器",
+    "owner": "AI",
+    "code_paths": [
+      "/apps/company/src/config/features/adapters.ts"
+    ],
+    "@see": [
+      "/apps/company/docs/specs/credit-config-center/README.md"
+    ],
+    "status": "failed",
+    "notes": "home_recommend与menu_header结构差异通过适配器隔离"
+  },
+  {
+    "id": "credit-config-center-integrate-home",
+    "title": "改造首页推荐注入 creditOpportunities",
+    "owner": "AI",
+    "code_paths": [
+      "/apps/company/src/views/HomeAI/comp/RecommendFunc/config/shared.ts"
+    ],
+    "@see": [
+      "/apps/company/docs/specs/credit-config-center/README.md"
+    ],
+    "status": "failed",
+    "notes": "仅终端环境显示"
+  },
+  {
+    "id": "credit-config-center-integrate-menu",
+    "title": "改造Header菜单注入 creditOpportunities",
+    "owner": "AI",
+    "code_paths": [
+      "/apps/company/src/components/Home/AllMenus/config/MarketingAcquisition.ts"
+    ],
+    "@see": [
+      "/apps/company/docs/specs/credit-config-center/README.md"
+    ],
+    "status": "failed",
+    "notes": "始终可见，终端环境禁用"
+  },
+  {
+    "id": "credit-config-center-tests-jest",
+    "title": "新增Jest测试覆盖规则",
+    "owner": "AI",
+    "code_paths": [
+      "/apps/company/jest.config.mjs"
+    ],
+    "@see": [
+      "/apps/company/docs/specs/credit-config-center/README.md"
+    ],
+    "status": "failed",
+    "notes": "验证url一致与hide规则"
+  },
+  {
+    "id": "credit-config-center-doc-check",
+    "title": "完成文档校验与索引更新",
+    "owner": "AI",
+    "code_paths": [
+      "/apps/company/docs/specs/README.md"
+    ],
+    "@see": [
+      "/apps/company/docs/specs/credit-config-center/README.md",
+      "/docs/rule/doc-spec-rule.md"
+    ],
+    "status": "failed"
+  }
+]

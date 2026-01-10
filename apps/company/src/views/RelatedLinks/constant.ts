@@ -22,7 +22,7 @@ export const INNER_LINK_ENUM = {
 
 // 友情链接标题
 export const LINK_ENUM_TITLE = {
-  [LINK_ENUM.AI_FINANCIAL]: t('', '智能财报诊断'),
+  [LINK_ENUM.AI_FINANCIAL]: t('456274', '智能财报诊断'),
   [LINK_ENUM.AI_FINANCIAL_PROCESS]: t('', '智能财报诊断-上传'),
   [LINK_ENUM.PARK]: t('294403', '重点园区'),
   [LINK_ENUM.CHAIN]: t('298427', '产业链'),

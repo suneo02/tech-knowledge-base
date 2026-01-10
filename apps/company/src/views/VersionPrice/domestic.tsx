@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import intl from '../../utils/intl'
-import { wftCommon } from '../../utils/utils'
 
 import svipImg from '../../assets/imgs/svip.png'
 import vipEnImg from '../../assets/imgs/vip-en.png'
@@ -13,6 +12,7 @@ import { VipPopup } from '../../lib/globalModal'
 import { useUserInfoStore } from '../../store/userInfo'
 import { ProductIntro, VersionPriceFooter, VersionPriceSceneTable } from './comp'
 import { VersionPriceMenuLeft } from './comp/MenuLeft'
+import { MarketingCard } from './components/MarketingCard'
 import {
   VIPDueDiligenceCfg,
   VIPEnterpriseFeatureCfg,
@@ -30,7 +30,7 @@ import { VIPFuncCfgScene } from './type'
 
 export const VersionPriceDomestic = () => {
   usePageTitle('VIPServices')
-  const { isVipUser, setIsVipUser, isVipSelected, setIsVipSelected, currentIndex, setCurrentIndex, isSticky } =
+  const { isVipUser, isVipSelected, setIsVipSelected, currentIndex, setCurrentIndex, isSticky } =
     useVersionPriceCommonHook()
   const { isActivityUser, getActivityInfos } = useUserInfoStore()
   const ref = useRef(null)
@@ -83,19 +83,6 @@ export const VersionPriceDomestic = () => {
   return (
     <>
       <ProductIntro />
-      {wftCommon.isDevDebugger() ? (
-        <Button
-          style={{
-            top: '72px',
-            position: 'fixed',
-          }}
-          onClick={() => setIsVipUser((i) => !i)}
-          data-uc-id="tgyJJCHu-8W"
-          data-uc-ct="button"
-        >
-          切换vip(开发环境测试使用，上线时去掉)
-        </Button>
-      ) : null}
       {/* 轮播卡片 */}
       {isActivityUser ? (
         <div className="product-intro-map">
@@ -155,34 +142,7 @@ export const VersionPriceDomestic = () => {
             </div>
           </Card>
 
-          <Card className="product-intro-card">
-            <div className="intro-header corp-header ">{intl('208372', '企业套餐')}</div>
-            <div className="intro-main">
-              <div className="product-intro-li-price">{intl('416899', '多人购买，尽享优惠')}</div>
-              <div className="product-intro-li-text">
-                {window.en_access_config
-                  ? intl('', 'enterprise exclusive client manager service support')
-                  : intl('', '企业专属客户经理服务支持')}
-              </div>
-              {isVipUser ? null : (
-                <div className="product-intro-li-btn">
-                  <Button
-                    className="btn"
-                    style={{
-                      backgroundColor: '#57a3f6',
-                      color: '#fff',
-                      transform: 'scale(1.1)',
-                    }}
-                    onClick={VipPopup}
-                    data-uc-id="Md0QlkJF0Yd"
-                    data-uc-ct="button"
-                  >
-                    {intl('97182', '立即购买')}
-                  </Button>
-                </div>
-              )}
-            </div>
-          </Card>
+          <MarketingCard />
         </div>
       ) : (
         <div className="product-intro-map">
@@ -242,34 +202,7 @@ export const VersionPriceDomestic = () => {
             </div>
           </Card>
 
-          <Card className="product-intro-card">
-            <div className="intro-header corp-header ">{intl('208372', '企业套餐')}</div>
-            <div className="intro-main">
-              <div className="product-intro-li-price">{intl('416899', '多人购买，尽享优惠')}</div>
-              <div className="product-intro-li-text">
-                {window.en_access_config
-                  ? intl('', 'enterprise exclusive client manager service support')
-                  : intl('', '企业专属客户经理服务支持')}
-              </div>
-              {isVipUser ? null : (
-                <div className="product-intro-li-btn">
-                  <Button
-                    className="btn"
-                    style={{
-                      backgroundColor: '#57a3f6',
-                      color: '#fff',
-                      transform: 'scale(1.1)',
-                    }}
-                    onClick={VipPopup}
-                    data-uc-id="ACYy83CJYUg"
-                    data-uc-ct="button"
-                  >
-                    {intl('97182', '立即购买')}
-                  </Button>
-                </div>
-              )}
-            </div>
-          </Card>
+          <MarketingCard />
         </div>
       )}
       <VersionPriceMenuLeft

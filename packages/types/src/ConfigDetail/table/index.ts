@@ -1,4 +1,4 @@
-import { CorpBasicNumFront, TCorpDetailNodeKey } from '@/src/corp'
+import { CorpBasicNumFront, TCorpDetailNodeKey } from '@/src/corpDetail'
 import { ConfigDetailApiJSON, ConfigDetailCommentCfg, ConfigDetailTitleJSON } from '../common'
 import { ConfigTableCellJsonConfig, ConfigTableCellRenderOptions, ConfigTableCellRenderTypeLiteral } from './cell'
 

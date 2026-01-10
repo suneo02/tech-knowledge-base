@@ -6,11 +6,9 @@
  * 兼容现有的 RPDetailChapter 类型系统
  */
 
-import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { RPDetailChapter, RPFile, RPReferencePriority } from 'gel-api';
 
 // 引用核心业务类型
-import { MessageParsedReportContent } from '@/types';
 import type {
   ChapterFrontendState,
   // 本地草稿相关
@@ -53,7 +51,6 @@ export interface ReportContentState {
     name: string;
     referencePriority: RPReferencePriority | undefined;
   };
-
 
   /** 章节前端状态 - 与数据模型分离的前端状态 */
   chapterStates: Record<string, ChapterFrontendState>;

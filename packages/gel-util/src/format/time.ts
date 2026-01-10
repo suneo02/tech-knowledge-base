@@ -44,3 +44,21 @@ export const formatTimeIntl = (data: string) => {
     return EMPTY_PLACEHOLDER
   }
 }
+
+export const formatUTCDate = (data: Date | string | number | undefined) => {
+  try {
+    if (data == null || data === '') return EMPTY_PLACEHOLDER
+
+    const dateObj = data instanceof Date ? data : new Date(data as string | number)
+    const y = dateObj.getFullYear().toString()
+    const m = (dateObj.getMonth() + 1).toString().padStart(2, '0')
+    const d = dateObj.getDate().toString().padStart(2, '0')
+    const h = dateObj.getHours().toString().padStart(2, '0')
+    const min = dateObj.getMinutes().toString().padStart(2, '0')
+    const s = dateObj.getSeconds().toString().padStart(2, '0')
+    return `${y}-${m}-${d} ${h}:${min}:${s}`
+  } catch (error) {
+    console.error('formatUTCDate error:', error)
+    return EMPTY_PLACEHOLDER
+  }
+}

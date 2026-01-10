@@ -1,8 +1,7 @@
 // @ts-nocheck
 import { intlNoIndex } from './intl'
-import { wftCommon } from './utils'
 
-const STAFF_BETA_FEATURE_KEY = 'GEL_CB_LYX_LXH_ZWH' // beta功能体验key
+const STAFF_BETA_FEATURE_KEY = 'GEL_BETA' // beta功能体验key
 const STAFF_BETA_FEATURE_VALUE = 'GelDeveloper' // beta功能体验值
 
 /**
@@ -133,7 +132,7 @@ export const staffBetaFeature = {
 /**
  * 是否为开发者环境
  */
-export const isDeveloper = staffBetaFeature.get() === staffBetaFeature.value || wftCommon.isDevDebugger()
+export const isDeveloper: boolean = staffBetaFeature.get() === staffBetaFeature.value
 
 /**
  * 解析URL参数为JSON数组，支持多种格式：

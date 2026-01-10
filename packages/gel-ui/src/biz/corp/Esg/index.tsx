@@ -6,6 +6,7 @@ import {
   esgRatingBB,
   esgRatingBBB,
   esgRatingCCC,
+  esgRatingD,
 } from '@/assets/img'
 import { useIntl } from '@/common'
 import { InfoCircleButton } from '@/common/Button'
@@ -18,6 +19,16 @@ import { isEn } from 'gel-util/intl'
 import { getF9TerminalCommandLink, handleJumpTerminalCompatible } from 'gel-util/link'
 import { FC, useMemo } from 'react'
 import styles from './index.module.less'
+
+const VALID_RATINGS: CorpEsgScore['Rating'][] = ['A', 'AA', 'AAA', 'B', 'BB', 'BBB', 'CCC', 'D']
+
+export const isValidEsgRating = (rating?: string | null) => {
+  return !!rating && VALID_RATINGS.includes(rating as CorpEsgScore['Rating'])
+}
+
+export const isValidEsgInfo = (info?: CorpEsgScore | null) => {
+  return isValidEsgRating(info?.Rating)
+}
 
 export const EsgBrand: FC<{
   info: CorpEsgScore
@@ -51,6 +62,8 @@ export const EsgBrand: FC<{
         return esgRatingBBB
       case 'CCC':
         return esgRatingCCC
+      case 'D':
+        return esgRatingD
     }
   }, [info.Rating])
 

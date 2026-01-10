@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import Table from '@wind/wind-ui-table' // 根据实际路径调整
-import { HorizontalTableProps } from '@wind/wind-ui-table/lib/HorizontalTable'
-import { Button, Tooltip } from '@wind/wind-ui'
-import { InfoCircleO } from '@wind/icons'
-import InnerHtml from '@/components/InnerHtml'
 import { getServerApi } from '@/api/serverApi'
 import { TitleAttachmentRender } from '@/components/company/info/comp/misc'
+import InnerHtml from '@/components/InnerHtml'
 import intl from '@/utils/intl'
+import { InfoCircleO } from '@wind/icons'
+import { Button, Tooltip } from '@wind/wind-ui'
+import Table from '@wind/wind-ui-table' // 根据实际路径调整
+import { HorizontalTableProps } from '@wind/wind-ui-table/lib/HorizontalTable'
+import React, { useState } from 'react'
 
 const { HorizontalTable } = Table
 
@@ -51,6 +51,7 @@ interface RowItemWithDescription {
     fileName: string
     filePath: string
   }
+  noTooltip?: boolean
 }
 
 interface SmartHorizontalTableProps extends HorizontalTableProps {
@@ -176,6 +177,12 @@ const SmartHorizontalTable: React.FC<SmartHorizontalTableProps> = ({
   const processedRows = filteredRows.map((row) =>
     row.map((item) => {
       console.log('🚀 ~ row.map ~ item:', item)
+      if (item.noTooltip) {
+        return {
+          ...item,
+          titleWidth: 240,
+        }
+      }
       const currentTooltipState = tooltipData[item.dataIndex] || { loading: false, data: null, loaded: false }
 
       const handleTooltipVisibleChange = async (visible: boolean) => {

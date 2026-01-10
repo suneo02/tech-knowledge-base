@@ -194,7 +194,7 @@ const jyztList = [
     key: 'taiwan',
     options: [
       {
-        label: intl('207804', '核准設立'),
+        label: intl('271250', '核准設立'),
         value: '核准設立',
       },
       {
@@ -202,7 +202,7 @@ const jyztList = [
         value: '撤銷',
       },
       {
-        label: intl('207805', '廢止'),
+        label: intl('271274', '廢止'),
         value: '廢止',
       },
       {
@@ -210,11 +210,11 @@ const jyztList = [
         value: '解散',
       },
       {
-        label: intl('207807', '合併解散'),
+        label: intl('416884', '合併解散'),
         value: '合併解散',
       },
       {
-        label: intl('207808', '破產'),
+        label: intl('416916', '破產'),
         value: '破產',
       },
       {
@@ -231,7 +231,7 @@ const jyztList = [
     key: 'adminiOrg',
     options: [
       {
-        label: intl('207804', '核准設立'),
+        label: intl('271250', '核准設立'),
         value: '核准設立',
       },
       {
@@ -239,7 +239,7 @@ const jyztList = [
         value: '撤銷',
       },
       {
-        label: intl('207805', '廢止'),
+        label: intl('271274', '廢止'),
         value: '廢止',
       },
       {
@@ -247,11 +247,11 @@ const jyztList = [
         value: '解散',
       },
       {
-        label: intl('207807', '合併解散'),
+        label: intl('416884', '合併解散'),
         value: '合併解散',
       },
       {
-        label: intl('207808', '破產'),
+        label: intl('416916', '破產'),
         value: '破產',
       },
       {

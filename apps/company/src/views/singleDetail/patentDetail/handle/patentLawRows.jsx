@@ -11,7 +11,7 @@ export const patentLawRows = [
     },
   },
   {
-    title: intl('265671', '法律状态公告日'),
+    title: intl('470299', '法律状态公告日'),
     dataIndex: 'annTime',
     render: (txt, record, index) => {
       return wftCommon.formatTime(txt)
@@ -22,7 +22,7 @@ export const patentLawRows = [
     dataIndex: 'lawStatus',
   },
   {
-    title: intl('265670', '法律状态信息'),
+    title: intl('470300', '法律状态信息'),
     dataIndex: 'lawDesc',
   },
 ]

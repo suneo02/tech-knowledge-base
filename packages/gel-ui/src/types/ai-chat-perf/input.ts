@@ -5,17 +5,8 @@
  */
 
 // 导入现有的具体类型定义
-import type {
-  AgentIdentifiers,
-  AgentParam,
-  ChatChatIdIdentifier,
-  ChatClientTypeIdentifier,
-  ChatModelTypeIdentifier,
-  ChatReviewSignal,
-  ChatThinkSignal,
-  DeepSearchSignal,
-} from 'gel-api'
-import type { EntityOptions } from '../ai-chat/sender'
+import type { AgentIdentifiers, ChatChatIdIdentifier } from 'gel-api'
+import { ChatMsgInputOptions } from '../ai-chat/message'
 
 // ==================== 输入上下文类型 ====================
 
@@ -29,19 +20,9 @@ import type { EntityOptions } from '../ai-chat/sender'
  * 4. 展平结构，提供更直观的访问方式
  */
 export interface ChatInputContext
-  extends EntityOptions,
-    ChatModelTypeIdentifier,
-    DeepSearchSignal,
-    ChatThinkSignal,
-    ChatReviewSignal,
+  extends ChatMsgInputOptions,
     Partial<ChatChatIdIdentifier>,
-    AgentIdentifiers,
-    ChatClientTypeIdentifier {
-  // ==================== 会话和代理信息 ====================
-
-  /** 代理参数 - 代理的具体配置参数 */
-  agentParam?: AgentParam
-}
+    Pick<AgentIdentifiers, 'reAgentId'> {}
 
 /**
  * 通用输入类型
@@ -52,7 +33,7 @@ export interface ChatInputContext
 export interface ChatSendInput<TContent = string> extends ChatInputContext {
   /**
    * 核心输入内容 - 用户的主要输入，AI 处理的核心数据
-   * 对应 AgentMsgUserShare.content
+   * 对应 AgentMsgUserOverall.content
    */
   content: TContent
 }

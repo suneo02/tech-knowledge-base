@@ -1,4 +1,4 @@
-// ============================================================================
+﻿// ============================================================================
 // 导入依赖
 // ============================================================================
 import { axiosInstance } from '@/api/axios' // 通用 axios 实例，用于聊天 API 请求
@@ -10,7 +10,7 @@ import { getApiPrefix, getWsid, isDev } from '@/utils/env' // 环境工具：获
 import intl from '@/utils/intl' // 国际化工具
 import { hashParams } from '@/utils/links' // URL hash 参数解析工具
 import { createRolesBase, PlaceholderBase, useChatBase, useChatRestore, useChatRoomContext } from 'ai-ui' // AI UI 组件库提供的聊天基础能力
-import { ChatThinkSignal } from 'gel-api/*' // 聊天深度思考信号类型定义
+import { ChatThinkSignal } from 'gel-api' // 聊天深度思考信号类型定义
 import React, { useEffect, useMemo } from 'react'
 import ChatMessageCore from './ChatMessageCore' // 核心聊天 UI 组件
 
@@ -57,7 +57,7 @@ interface ChatMessageBaseProps {
  *
  * @see {@link file:./ChatMessageCore.tsx} - 核心展示组件实现
  * @see {@link file:./README.md} - 组件文档
- * @see {@link file:../../../../../../docs/rule/react-rule.md} - React 开发规范
+ * @see {@link file:../../../../../../docs/rule/code-react-component-rule.md} - React 开发规范
  */
 export const ChatMessageBase: React.FC<ChatMessageBaseProps> = ({
   entityName,

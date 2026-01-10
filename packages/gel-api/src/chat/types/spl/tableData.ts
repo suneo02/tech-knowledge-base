@@ -4,6 +4,7 @@ export interface SplTableHeader {
   relation: string
   title: string
   isShow: boolean
+  linkToIdColumn?: number // 1 是对应要跳转的
 }
 
 export interface SplTable {

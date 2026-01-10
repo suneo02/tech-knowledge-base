@@ -1,5 +1,5 @@
+import { aesEncrypt } from '../lib/utils'
 import axios from './index'
-import { aesEncrypt, encrypt, getFakePwd } from '../lib/utils'
 
 // 发送短信验证码
 export const sendMessage = (data) => {

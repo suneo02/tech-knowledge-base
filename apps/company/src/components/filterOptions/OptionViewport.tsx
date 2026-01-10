@@ -1,5 +1,5 @@
 import { Checkbox, Radio, Tag } from '@wind/wind-ui'
-import { CDEFilterItem } from 'gel-api/*'
+import { CDEFilterItem } from 'gel-api'
 import { isCDEValueObject } from 'gel-ui'
 import React, { FC } from 'react'
 import { pointBuried } from '../../api/configApi'
@@ -206,7 +206,7 @@ const OptionViewport: FC<{
                 })}
                 <a onClick={() => changeFilterVisible(info)} data-uc-id="k2QlaAEZJlw" data-uc-ct="a">
                   {' '}
-                  {intl('217745', '点击修改')}{' '}
+                  {intl('478636', '点击修改')}{' '}
                 </a>
               </div>
             )
@@ -251,7 +251,7 @@ const OptionViewport: FC<{
                 })}
               <a onClick={() => changeFilterVisible(info)} data-uc-id="JKBHV52IN8r" data-uc-ct="a">
                 {' '}
-                {intl('217745', '点击修改')}
+                {intl('478636', '点击修改')}
               </a>
             </div>
           )}

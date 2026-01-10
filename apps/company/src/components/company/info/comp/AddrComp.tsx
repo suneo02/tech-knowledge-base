@@ -1,8 +1,7 @@
-import { getWsid } from '@/utils/env'
 import { wftCommon } from '@/utils/utils.tsx'
 import { isEn } from 'gel-util/intl'
-import { getGovMapUrl } from 'gel-util/link'
-import React, { FC } from 'react'
+import { buildBaiFenMapUrl } from 'gel-util/link'
+import { FC } from 'react'
 
 interface Props {
   address: string
@@ -33,13 +32,9 @@ export const AddrComp: FC<Props> = ({ address, corpId, isBusinessAddress }) => {
 
   // 构建地图链接
   const handleClick = () => {
-    const isClient = wftCommon.usedInClient()
-    const sessionId = isClient ? '' : getWsid()
-    const mapUrl = getGovMapUrl({
+    const mapUrl = buildBaiFenMapUrl({
       corpId,
       isBusinessAddress: !!isBusinessAddress,
-      sessionId,
-      isClient,
     })
     wftCommon.jumpJqueryPage(mapUrl)
   }

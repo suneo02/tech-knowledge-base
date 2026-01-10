@@ -28,7 +28,7 @@ export const getProdDetailRows = (windId: string): HorizontalTableProps['rows'] 
       render: (data) => data || '--',
     },
     {
-      title: intl('208862', '下载总数量'),
+      title: intl('470278', '下载总数量'),
       dataIndex: 'downNum',
       titleAlign: 'left',
       render: (data) => data || '--',
@@ -36,13 +36,13 @@ export const getProdDetailRows = (windId: string): HorizontalTableProps['rows'] 
   ],
   [
     {
-      title: intl('208881', '评分'),
+      title: intl('470295', '评分'),
       dataIndex: 'score',
       titleAlign: 'left',
       render: (data) => (data && (+data).toFixed(1)) || '--', // 小数点保留一位
     },
     {
-      title: intl('208863', '评论总数量'),
+      title: intl('301063', '评论总数量'),
       dataIndex: 'noteNum',
       titleAlign: 'left',
       render: (data) => data || '--',
@@ -59,7 +59,7 @@ export const getProdDetailRows = (windId: string): HorizontalTableProps['rows'] 
   ],
   [
     {
-      title: intl('208888', '产品介绍'),
+      title: intl('470279', '产品介绍'),
       dataIndex: 'appDesc',
       colSpan: 3,
       titleAlign: 'left',

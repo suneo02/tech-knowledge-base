@@ -12,6 +12,7 @@ export type BidSearchListProps = {
   bidSearchList: any[]
   bidViewList: any[]
   bidErrorCode: string
+  globalSearchTimeStamp?: number
 }
 
 export type BidSearchListState = {

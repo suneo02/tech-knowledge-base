@@ -1,7 +1,7 @@
 import { ReferenceMap } from '@/domain/chat';
 import { generateChatRefKey } from '@/domain/chat/ref/referenceUtils';
+import { PreviewContentType, RefPreviewData, RefPreviewOptions } from '@/types';
 import { useCallback, useState } from 'react';
-import { PreviewContentType, PreviewData, PreviewOptions } from './type';
 import { createPreviewDataFromReference } from './utils/previewDataUtils';
 
 /**
@@ -11,19 +11,19 @@ import { createPreviewDataFromReference } from './utils/previewDataUtils';
  */
 export const useReferencePreview = (
   referenceMap: ReferenceMap,
-  onPreviewStart?: (previewData: PreviewData) => void,
+  onPreviewStart?: (previewData: RefPreviewData) => void,
   onPreviewEnd?: () => void,
   onRagFocus?: (id: string) => void
 ) => {
   // 预览状态管理
   const [previewMode, setPreviewMode] = useState<'list' | 'preview'>('list');
-  const [currentPreviewData, setCurrentPreviewData] = useState<PreviewData | null>(null);
+  const [currentPreviewData, setCurrentPreviewData] = useState<RefPreviewData | null>(null);
 
   /**
    * 开始预览的回调函数
    */
   const handlePreviewStart = useCallback(
-    (previewData: PreviewData) => {
+    (previewData: RefPreviewData) => {
       setCurrentPreviewData(previewData);
       setPreviewMode('preview');
       onPreviewStart?.(previewData);
@@ -45,7 +45,7 @@ export const useReferencePreview = (
    * 注意：rag 类型不会进入预览模式，而是触发聚焦行为
    */
   const previewById = useCallback(
-    (id: string, type: PreviewContentType, options?: PreviewOptions) => {
+    (id: string, type: PreviewContentType, options?: RefPreviewOptions) => {
       // 使用类型安全的 ReferenceMap，必须同时提供 type 和 id
       const rpRef = referenceMap.get(type, id);
       if (!rpRef) {

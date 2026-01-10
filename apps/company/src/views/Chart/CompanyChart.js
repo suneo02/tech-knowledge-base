@@ -1821,7 +1821,7 @@ let CompanyChart = {
 
         if (data && data.ErrorCode == '-10') {
           //无权限
-          VipPopup({ title: intl('', '融资历程'), description: `购买VIP/SVIP套餐，即可查看该企业的融资历程` })
+          VipPopup({ title: intl('138297', '融资历程'), description: `购买VIP/SVIP套餐，即可查看该企业的融资历程` })
           CompanyChart.chartNoData(intl('437656', '暂无融资历程数据'))
           return
         } else if (data && data.ErrorCode == '-9') {
@@ -2002,12 +2002,12 @@ let CompanyChart = {
                         intl('138664', '发行债券') +
                         '</h4>' +
                         '<span class="each-list-item">' +
-                        intl('138630', '实际发行数量') +
+                        intl('478665', '实际发行数量') +
                         ' : ' +
                         Common.formatCont(enent.realPublishNumber) +
-                        intl('205677', '亿元') +
+                        intl('464870', '亿元') +
                         '</span><span class="each-list-item">' +
-                        intl('138833', '起息日') +
+                        intl('478675', '起息日') +
                         ' : ' +
                         Common.formatTime(enent.interestDate) +
                         '</span><span class="each-list-item">' +
@@ -2048,10 +2048,10 @@ let CompanyChart = {
                     case 'MergerInfo':
                       list_item =
                         '<h4>' +
-                        intl('108785', '并购') +
+                        intl('478666', '并购') +
                         '</h4>' +
                         '<span class="each-list-item">' +
-                        intl('138565', '参与方类型') +
+                        intl('478676', '参与方类型') +
                         ' : ' +
                         Common.formatCont(enent._dealPartRoleCode) +
                         '</span><span class="each-list-item">' +
@@ -2109,7 +2109,7 @@ let CompanyChart = {
                         '</span><span class="each-list-item">' +
                         intl('138822', '授信额度(亿元)') +
                         ' : ' +
-                        Common.formatMoney(enent.grantedCreditMoney, [4, intl('205677', '亿元')]) +
+                        Common.formatMoney(enent.grantedCreditMoney, [4, intl('464870', '亿元')]) +
                         '</span>'
                       break
                     case 'EquityPledged':

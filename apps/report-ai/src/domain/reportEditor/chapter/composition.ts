@@ -8,13 +8,13 @@
  */
 
 import { determineChapterAIMessageStatus } from '@/domain/chapter';
-import { getLatestAgentMessageByChapterId, getLatestMessageByChapterIdRole } from '@/domain/chat/rpContentAIMessages';
+import { getLatestAgentMessageByChapterId } from '@/domain/chat/rpContentAIMessages';
 import { ReportReferenceOrdinalMap } from '@/domain/reportReference';
-import { MessageParsedReportContent, RPContentAgentMsg } from '@/types';
+import { RPContentAgentMsg } from '@/types';
 import { ChapterGenerationStatus } from '@/types/editor';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import type { RPDetailChapter } from 'gel-api';
-import { renderContentFromChapter } from './render';
+import { renderChapterContentFromAgentMessage } from './render';
 
 /**
  * 生成章节流式预览内容映射
@@ -33,7 +33,7 @@ import { renderContentFromChapter } from './render';
  */
 export const createChapterStreamPreviewMap = (
   chapters: RPDetailChapter[],
-  messages: MessageInfo<MessageParsedReportContent>[],
+  messages: MessageInfo<RPContentAgentMsg>[],
   referenceOrdinalMap?: ReportReferenceOrdinalMap
 ): Record<string, string> => {
   const contentMap: Record<string, string> = {};
@@ -41,9 +41,8 @@ export const createChapterStreamPreviewMap = (
   const traverseChapters = (chapterList: RPDetailChapter[]) => {
     chapterList.forEach((chapter) => {
       const chapterId = String(chapter.chapterId);
-      const message = getLatestMessageByChapterIdRole(messages || [], chapterId, 'aiReportContent');
-      // 优先使用 message（流式预览），无 message 时使用 chapter.content
-      contentMap[chapterId] = renderContentFromChapter(chapter, message, referenceOrdinalMap);
+      const message = getLatestAgentMessageByChapterId(messages || [], chapterId);
+      contentMap[chapterId] = renderChapterContentFromAgentMessage(message, chapter, referenceOrdinalMap);
 
       if (chapter.children?.length) {
         traverseChapters(chapter.children);
@@ -113,7 +112,7 @@ export interface ChapterLoadingState {
  *
  * @example
  * ```typescript
- * const loadingChapters = useReportContentSelector(selectLoadingChapters);
+ * const loadingChapters = useRPDetailSelector(selectLoadingChapters);
  * // [{ chapterId: '1', status: 'pending' }, { chapterId: '2', status: 'receiving' }]
  * ```
  */

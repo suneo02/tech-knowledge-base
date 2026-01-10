@@ -10,8 +10,8 @@ import {
   SubQuestionRole,
   UserRole,
 } from 'ai-ui'
-import { QuestionGuideRole } from './questionGuide.tsx'
 import { SmartTableRole } from './SmartTable.tsx'
+import { SplTableRoleComp } from './SplTable/index.tsx'
 import { RolesTypeSuper } from './type.ts'
 // 默认角色配置
 export const rolesSuper: Partial<RolesTypeSuper> = {
@@ -22,8 +22,28 @@ export const rolesSuper: Partial<RolesTypeSuper> = {
   file: FileRole,
   chart: createChartRole(isDev, getWsidDevProd(), entWebAxiosInstance),
   suggestion: createSuggestionRole(isDev, getWsidDevProd(), entWebAxiosInstance),
-  questionGuide: QuestionGuideRole,
+  splTable: {
+    placement: 'end',
+    variant: 'borderless',
+    style: {
+      marginBlock: 12,
+      backgroundColor: 'transparent',
+      padding: 0,
+    },
+    messageRender: (content) => {
+      return <SplTableRoleComp content={content} />
+    },
+  },
   smartTable: SmartTableRole,
+  aiFooter: {
+    placement: 'start',
+    variant: 'borderless',
+    style: {
+      width: '100%',
+      padding: 0,
+      backgroundColor: 'transparent',
+    },
+  },
 }
 
 // 不显示头像的超级名单角色配置

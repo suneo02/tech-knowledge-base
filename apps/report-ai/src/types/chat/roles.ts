@@ -1,14 +1,14 @@
 import { AntRoleType, RolesTypeCore } from 'gel-ui';
-import { OutlineEditorMessage, OutlinePreviewMessage } from './parsedMsg';
-import { RPOutlineUserMsgParse } from './RPOutline';
+import { OutlineMessage } from './parsedMsg';
+import { RPOutlineProgressMessage, RPOutlineUserMsgParse } from './RPOutline';
 
 /**
  * AI 报告大纲 角色配置集合
  */
 export type RolesTypeReportOutline = Pick<RolesTypeCore, 'aiHeader' | 'ai' | 'subQuestion' | 'suggestion'> & {
   user: AntRoleType<RPOutlineUserMsgParse['content']>;
-  outlineEditor: AntRoleType<OutlineEditorMessage['content']>;
-  outlinePreview: AntRoleType<OutlinePreviewMessage['content']>;
+  progress: AntRoleType<RPOutlineProgressMessage['content']>;
+  outline: AntRoleType<OutlineMessage['content']>;
 };
 
 /**

@@ -7,14 +7,9 @@
 
 import { isChapterAIGCOp, isGlobalBusy, shouldEditorBeReadonly } from '@/domain/globalOperation';
 import { createSelector } from '@reduxjs/toolkit';
-import { selectReportContent } from '../base';
+import { selectGlobalOp } from '../base';
 
 // ==================== 基础选择器 ====================
-
-/**
- * 选择整个 GlobalOperation 状态
- */
-export const selectGlobalOp = createSelector(selectReportContent, (state) => state.globalOp);
 
 /**
  * 选择当前操作类型

@@ -1,4 +1,5 @@
 @import './variable.module.less';
+@import 'gel-ui/variables.less';
 
 @first-screen-height: 902px - 36px;
 body {
@@ -11,6 +12,8 @@ body {
   margin: 0 auto;
 
   position: relative;
+
+  .scrollbar-style-hover();
 
   * {
     box-sizing: border-box;
@@ -87,26 +90,5 @@ body {
       }
     }
   }
-
-
 }
 
-.rectImg {
-  position: relative;
-  width: 1280px;
-  margin: 0 auto;
-
-  div {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0px;
-    z-index: 9;
-    width: 500px;
-    height: 400px;
-  }
-
-  img {
-    width: 100%;
-  }
-}

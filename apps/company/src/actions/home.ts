@@ -1,3 +1,4 @@
+import { GetUserPackageAction } from '@/reducers/home.types'
 import * as actionTypes from './actionTypes'
 
 export const getHotcorp = (data) => {
@@ -28,11 +29,11 @@ export const getAds = (data) => {
   }
 }
 
-export const getUserPackageInfo = (data) => {
+export const getUserPackageInfo = (data: GetUserPackageAction['data']) => {
   return {
     type: actionTypes.GET_USERPACKAGE,
     data,
-  }
+  } as const
 }
 
 export const showVipPopup = (data) => {
@@ -61,26 +62,26 @@ export const getPayGoods = (data) => {
   return {
     type: actionTypes.GET_PAYGOODS,
     data,
-  }
+  } as const
 }
 
 export const setGlobalSearch = (data) => {
   return {
     type: actionTypes.SET_GLOBALSEARCH,
     data,
-  }
+  } as const
 }
 
 export const setBindPhoneModal = (data) => {
   return {
     type: actionTypes.SET_BIND_PHONE_MODAL,
     data,
-  }
+  } as const
 }
 
 export const setUserPackageLoaded = (data) => {
   return {
     type: actionTypes.SET_USERPACKAGE_LOADED,
     data,
-  }
+  } as const
 }

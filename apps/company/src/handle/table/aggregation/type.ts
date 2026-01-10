@@ -1,4 +1,4 @@
-import { ICorpTableCfg } from '@/components/company/type/index.ts'
+import { CorpTableCfg } from '@/types/corpDetail'
 import { ISearchOptionCfg, ISearchOptionItem } from '../../../types/configDetail/search.ts'
 
 export type IAggregationDataOption = {
@@ -42,7 +42,7 @@ export type IAggregationList = {
 /**
  * 根据 searchOptionDataType 返回对应的 API 响应类型
  */
-export type AggregationApiResponse<T extends ICorpTableCfg['searchOptionDataType'] = undefined> = T extends 'aggList'
+export type AggregationApiResponse<T extends CorpTableCfg['searchOptionDataType'] = undefined> = T extends 'aggList'
   ? IAggregationList
   : { aggregations: IAggregationData }
 

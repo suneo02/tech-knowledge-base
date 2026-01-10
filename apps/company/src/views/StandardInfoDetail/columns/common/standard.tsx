@@ -79,7 +79,7 @@ export const PublishDate = {
 }
 
 export const ImplementDate = {
-  title: intl('328157', '实施日期'),
+  title: intl('478703', '实施日期'),
   dataIndex: 'implementationDate',
   colSpan: 2,
   contentAlign: 'left',
@@ -90,7 +90,7 @@ export const ImplementDate = {
 }
 
 export const AbolishDate = {
-  title: intl('328182', '废止日期'),
+  title: intl('328233', '废止日期'),
   dataIndex: 'abolishDate',
   colSpan: 2,
   contentAlign: 'left',
@@ -101,7 +101,7 @@ export const AbolishDate = {
 }
 
 export const StandardClassifyCN = {
-  title: intl('328193', '中国标准分类号'),
+  title: intl('478704', '中国标准分类号'),
   dataIndex: 'standardClassify_chinese',
   colSpan: 2,
   contentAlign: 'left',
@@ -111,7 +111,7 @@ export const StandardClassifyCN = {
   },
 }
 export const StandardClassifyInternational = {
-  title: intl('328183', '国际标准分类号'),
+  title: intl('478722', '国际标准分类号'),
   dataIndex: 'standardClassify_international',
   colSpan: 2,
   contentAlign: 'left',
@@ -122,7 +122,7 @@ export const StandardClassifyInternational = {
 }
 
 export const ScopeOfUse = {
-  title: intl('328195', '适用范围'),
+  title: intl('478705', '适用范围'),
   dataIndex: 'scopeOfApplication',
   colSpan: 5,
   render: (text) => {

@@ -19,5 +19,8 @@ export const formatNumberByType = (value: unknown, type?: unknown): string | Rea
   if (type === ColumnDataTypeEnum.PERCENT) {
     return `${num.toLocaleString(undefined, { maximumFractionDigits: 2 })}%`
   }
+  if (type === ColumnDataTypeEnum.TAG) {
+    return `${num.toLocaleString(undefined, { maximumFractionDigits: 2 })}分`
+  }
   return value as React.ReactNode
 }

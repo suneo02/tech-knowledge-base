@@ -8,7 +8,7 @@
  */
 
 import { ChatProcessEventBus, XRequestClass } from '@/service'
-import { AgentMsgAIDepre } from '@/types'
+import { AgentMsgAIOverall } from '@/types'
 import type { ChatSendInput } from '@/types/ai-chat-perf'
 import { formatAIAnswerFull } from 'gel-util/common'
 import { ChatRunContext } from '../runContext'
@@ -16,7 +16,7 @@ import { ChatRunContext } from '../runContext'
 /**
  * 流式处理依赖 - 包含外部依赖和回调函数
  */
-export interface StreamDependencies<AgentMsg extends AgentMsgAIDepre = AgentMsgAIDepre> {
+export interface StreamDependencies<AgentMsg extends AgentMsgAIOverall = AgentMsgAIOverall> {
   // UI 状态控制
   setContent: (content: string) => void
   setIsChating: (isChating: boolean) => void
@@ -32,7 +32,7 @@ export interface StreamDependencies<AgentMsg extends AgentMsgAIDepre = AgentMsgA
   create: XRequestClass['create']
 
   // 可选功能
-  transformerOnStreamSucces?: (message: AgentMsgAIDepre) => Promise<AgentMsgAIDepre>
+  transformerOnStreamSucces?: (message: AgentMsgAIOverall) => Promise<AgentMsgAIOverall>
 
   /**
    * 自定义内容格式化器（可选）
@@ -54,7 +54,7 @@ export interface StreamDependencies<AgentMsg extends AgentMsgAIDepre = AgentMsgA
 /**
  * 流程函数类型定义 - 简化为只需要 ChatRunContext 和 StreamDependencies
  */
-export type ProcessFunction<AgentMsg extends AgentMsgAIDepre = AgentMsgAIDepre> = (
+export type ProcessFunction<AgentMsg extends AgentMsgAIOverall = AgentMsgAIOverall> = (
   context: ChatRunContext,
   dependencies: StreamDependencies<AgentMsg>
 ) => Promise<void>

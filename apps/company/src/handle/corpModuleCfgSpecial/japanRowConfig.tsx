@@ -1,10 +1,10 @@
 // 日本企业 自定义模块
-import React from 'react'
+import { CorpPrimaryModuleCfg } from '@/types/corpDetail'
 import { intlNoIndex } from '@/utils/intl'
-import { ICorpPrimaryModuleCfg } from '@/components/company/type'
+import React from 'react'
 
 const intl = intlNoIndex
-export const japanRowConfig: ICorpPrimaryModuleCfg = {
+export const japanRowConfig: CorpPrimaryModuleCfg = {
   showHistoryChange: {
     title: window.en_access_config ? 'History Changes' : '变更历史',
     cmd: '/detail/company/changehistory',

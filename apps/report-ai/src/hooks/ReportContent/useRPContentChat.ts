@@ -1,5 +1,4 @@
-import { rpContentXChatParser } from '@/domain/chat/rpContentAIMessages';
-import { MessageParsedReportContent, RPContentAgentMsg } from '@/types';
+import { RPContentAgentMsg } from '@/types';
 import { RPContentAgentMsgUser, RPContentSendInput } from '@/types/chat/RPContent';
 import { useXChat } from '@ant-design/x';
 import { DefaultMessageInfo } from '@ant-design/x/es/use-x-chat';
@@ -28,14 +27,13 @@ export const useRPContentChat = (defaultMessages?: DefaultMessageInfo<RPContentA
     create,
   });
 
-  const { onRequest, parsedMessages, setMessages, messages } = useXChat<
+  const { onRequest, setMessages, messages } = useXChat<
     RPContentAgentMsg,
-    MessageParsedReportContent,
+    RPContentAgentMsg,
     { message: RPContentAgentMsgUser },
     RPContentAgentMsg
   >({
     agent,
-    parser: rpContentXChatParser,
     defaultMessages,
   });
 
@@ -59,7 +57,6 @@ export const useRPContentChat = (defaultMessages?: DefaultMessageInfo<RPContentA
 
   return {
     content,
-    parsedMessages,
     agentMessages: messages,
     handleContentChange: setContent,
     sendMessage,

@@ -1,4 +1,4 @@
-# 文档索引
+﻿# 文档索引
 
 ## 概览
 
@@ -169,9 +169,9 @@ graph TD
 - **[report-print](../../apps/report-print/docs/README.md)** - 打印服务
 
 ### 技术规范
-- **[TypeScript 规范](../../../docs/rule/typescript-rule.md)** - TypeScript 编码规范
-- **[React 规范](../../../docs/rule/react-rule.md)** - React 组件规范
-- **[文档规范](../../../docs/rule/documentation-rule.md)** - 文档编写规范
+- **[TypeScript 规范](../../../docs/rule/code-typescript-style-rule.md)** - TypeScript 编码规范
+- **[React 规范](../../../docs/rule/code-react-component-rule.md)** - React 组件规范
+- **[文档规范](../../../docs/rule/doc-general-rule.md)** - 文档编写规范
 
 ### 工具和框架
 - **[ahooks](https://ahooks.js.org/)** - React Hooks 工具库

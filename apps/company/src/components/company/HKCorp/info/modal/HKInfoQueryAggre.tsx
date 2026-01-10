@@ -25,7 +25,7 @@ export const HKInfoQueryAggreBtn: FC<{ title?: React.ReactNode }> = ({ title }) 
   return (
     <>
       <Button type="link" onClick={showModal} className={tipBtnClassNames} data-uc-id="ZWlh1jjKWB" data-uc-ct="button">
-        {title ? title : `《${intl(0, '企业信用信息查询委托协议')}》`}
+        {title ? title : `《${intl(478580, '企业信用信息查询委托协议')}》`}
       </Button>
       {isModalOpen && (
         <Modal
@@ -33,7 +33,7 @@ export const HKInfoQueryAggreBtn: FC<{ title?: React.ReactNode }> = ({ title }) 
           onCancel={handleCancel}
           footer={null}
           width={900}
-          title={intl(0, '企业信用信息查询委托协议')}
+          title={intl(478580, '企业信用信息查询委托协议')}
           wrapClassName={styles.modal}
           data-uc-id="YY3G_RzYCT"
           data-uc-ct="modalsafetype"

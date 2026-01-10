@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import { CompanyCardTag } from './CompanyCardTag'
 
 export const OverseaTagComp: FC<{
-  corpBasicInfo: CorpBasicInfo
+  corpBasicInfo: Partial<CorpBasicInfo>
 }> = ({ corpBasicInfo }) => {
   const corptypeid = corpBasicInfo.corp_type_id || '--'
   const ishk = corptypeid && String(corptypeid) == '298060000'

@@ -1,10 +1,10 @@
 import ToolsBar from '@/components/toolsBar'
 import React, { useEffect, useRef, useState } from 'react'
-import rectImg from '../../assets/imgs/rect.jpg'
 import Advertisement, { advertisementKey } from '../../components/modal/AdvertisementModal.tsx'
 import { pointHomepageLoad } from '../../lib/pointBuriedGel.tsx'
 import intl from '../../utils/intl'
 import { wftCommon } from '../../utils/utils.tsx'
+import { LogoPopup } from './comp/LogoPopup/index.tsx'
 import { HomeSearchForm } from './comp/SearchForm'
 import styles from './style/index.module.less'
 
@@ -112,7 +112,6 @@ function HomeAI() {
   } else {
     usePageTitle('CompanyHome')
   }
-  const [imgHover, setImgHover] = useState(false) // 征信备案
   const [scrollObj, setScrollObj] = useState({
     scrollHeight: 0,
     scrollTop: 0,
@@ -171,17 +170,6 @@ function HomeAI() {
   useEffect(() => {
     // 埋点
     pointHomepageLoad()
-
-    if (document.querySelector('.logo')) {
-      document.querySelector('.logo').addEventListener('mouseover', () => setImgHover(true))
-      document.querySelector('.logo').addEventListener('mouseout', () => setImgHover(false))
-    }
-    return () => {
-      if (document.querySelector('.logo')) {
-        document.querySelector('.logo').removeEventListener('hover', () => setImgHover(true))
-        document.querySelector('.logo').removeEventListener('mouseout', () => setImgHover(false))
-      }
-    }
   }, [])
 
   useEffect(() => {
@@ -232,7 +220,6 @@ function HomeAI() {
               清空弹窗广告时间限制(员工账号)
             </Button>
           )}
-          {/* @ts-expect-error ttt */}
           <Advertisement
             imageUrl={imageUrl}
             width="415px"
@@ -246,13 +233,7 @@ function HomeAI() {
           />
         </>
       )}
-      {imgHover && (
-        <div className={styles.rectImg}>
-          <div>
-            <img src={rectImg} />
-          </div>
-        </div>
-      )}
+      <LogoPopup />
       <div
         className={styles.searchHome}
         ref={searchHomeRef}

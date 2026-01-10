@@ -7,17 +7,14 @@
 
 import { calculateQueueProgress, getCurrentChapterId, isFullGenerationOp } from '@/domain/globalOperation';
 import { createSelector } from '@reduxjs/toolkit';
-import { selectReportContent } from '../base';
-import { selectGlobalOp } from './base';
+import { selectGlobalOp } from '../base';
 
 // ==================== 全文生成选择器 ====================
 
 /**
  * 选择全文生成进度
  */
-export const selectFullDocGenProgress = createSelector([selectReportContent], (state) => {
-  const op = state.globalOp;
-
+export const selectFullDocGenProgress = createSelector([selectGlobalOp], (op) => {
   if (!isFullGenerationOp(op)) {
     return {
       currentIndex: 0,
@@ -60,8 +57,8 @@ export const selectFullDocGenError = createSelector(selectGlobalOp, (globalOp) =
 /**
  * 判断全文生成是否被中断
  */
-export const selectIsGenerationInterrupted = createSelector(selectReportContent, (state) => {
-  const { kind, data } = state.globalOp;
+export const selectIsGenerationInterrupted = createSelector(selectGlobalOp, (globalOp) => {
+  const { kind, data } = globalOp;
   return kind === 'idle' && data?.type === 'full_generation' && data.currentIndex > 0;
 });
 
@@ -70,8 +67,7 @@ export const selectIsGenerationInterrupted = createSelector(selectReportContent,
 /**
  * 选择当前生成的章节 ID
  */
-export const selectChapterRegenerationChapterId = createSelector([selectReportContent], (state) => {
-  const op = state.globalOp;
+export const selectChapterRegenerationChapterId = createSelector([selectGlobalOp], (op) => {
   return op.kind === 'chapter_regeneration' && op.data?.type === 'chapter_regeneration' ? op.data.chapterId : null;
 });
 
@@ -79,8 +75,8 @@ export const selectChapterRegenerationChapterId = createSelector([selectReportCo
  * 判断是否正在进行章节重生成
  */
 export const selectIsChapterRegenerating = createSelector(
-  [selectReportContent],
-  (state) => state.globalOp.kind === 'chapter_regeneration'
+  [selectGlobalOp],
+  (globalOp) => globalOp.kind === 'chapter_regeneration'
 );
 
 // ==================== 多章节顺序生成选择器 ====================
@@ -88,9 +84,7 @@ export const selectIsChapterRegenerating = createSelector(
 /**
  * 选择多章节生成进度
  */
-export const selectMultiChapterGenerationProgress = createSelector([selectReportContent], (state) => {
-  const op = state.globalOp;
-
+export const selectMultiChapterGenerationProgress = createSelector([selectGlobalOp], (op) => {
   if (op.kind !== 'multi_chapter_generation' || !op.data || op.data.type !== 'multi_chapter_generation') {
     return {
       currentIndex: 0,
@@ -124,8 +118,7 @@ export const selectMultiChapterGenerationProgress = createSelector([selectReport
 /**
  * 选择多章节生成队列
  */
-export const selectMultiChapterGenerationQueue = createSelector(selectReportContent, (state) => {
-  const op = state.globalOp;
+export const selectMultiChapterGenerationQueue = createSelector(selectGlobalOp, (op) => {
   return op.kind === 'multi_chapter_generation' && op.data?.type === 'multi_chapter_generation' ? op.data.queue : [];
 });
 
@@ -133,15 +126,14 @@ export const selectMultiChapterGenerationQueue = createSelector(selectReportCont
  * 判断是否正在进行多章节生成
  */
 export const selectIsMultiChapterGenerating = createSelector(
-  [selectReportContent],
-  (state) => state.globalOp.kind === 'multi_chapter_generation'
+  [selectGlobalOp],
+  (globalOp) => globalOp.kind === 'multi_chapter_generation'
 );
 
 /**
  * 选择多章节生成失败的章节列表
  */
-export const selectMultiChapterFailedChapters = createSelector(selectReportContent, (state) => {
-  const op = state.globalOp;
+export const selectMultiChapterFailedChapters = createSelector(selectGlobalOp, (op) => {
   return op.kind === 'multi_chapter_generation' && op.data?.type === 'multi_chapter_generation'
     ? op.data.failedChapters
     : [];

@@ -7,6 +7,7 @@ import { fetchPoints } from '@/store'
 import { postPointBuried } from '@/utils/common/bury'
 import { TYPES } from '@visactor/vtable'
 import { CModal } from '@/components/Modal'
+import { LONG_TEXT_COLUMNS } from '@/config/longTextColumns'
 
 export interface CellRect {
   x: number
@@ -49,10 +50,17 @@ export const setEventListener = (ref: ListTableAll, sheetId: string, props: SetE
     const { x1, y1, x2, y2 } = cellRect.bounds
     const rect = { x: x1, y: y1, width: x2 - x1, height: y2 - y1 }
     const info = record[`${field}&`]
+    const columnName = headerInfo?.title as string
+    const value = record[field]
 
-    postPointBuried('922604570323', { column: headerInfo?.title })
+    postPointBuried('922604570323', { column: columnName })
+    if (LONG_TEXT_COLUMNS.has(columnName)) {
+      const metadata = (info || { columnIndex: col, rowIndex: row }) as any
+      onCellClick(rect, { ...metadata, columnName, value: String(value ?? '') })
+      return
+    }
     if (info.sourceId) {
-      onCellClick(rect, { ...info, columnName: headerInfo?.title, value: record[field] })
+      onCellClick(rect, { ...info, columnName, value })
     }
   })
 
@@ -71,11 +79,27 @@ export const setEventListener = (ref: ListTableAll, sheetId: string, props: SetE
     const field = ref.getHeaderField(col, row) as string
     const record = ref.getRecordByCell(col, row)
     const info = record[`${field}&`]
+    const columnName = (ref.columns.find((c) => c.field === field)?.title || '') as string
+    const value = record[field]
     if (info.sourceType === SourceTypeEnum.AI_GENERATE_COLUMN) {
       const rect = ref.getVisibleCellRangeRelativeRect({ col, row })
       ref.showTooltip(col, row, {
         content: '请点击查看详情',
-        referencePosition: { rect, placement: TYPES.Placement.bottom }, //TODO
+        referencePosition: { rect, placement: TYPES.Placement.bottom },
+        className: 'defineTooltip',
+        disappearDelay: 100,
+        style: {
+          color: '#333',
+          fontSize: 14,
+          arrowMark: true,
+        },
+      })
+    }
+    if (LONG_TEXT_COLUMNS.has(columnName)) {
+      const rect = ref.getVisibleCellRangeRelativeRect({ col, row })
+      ref.showTooltip(col, row, {
+        content: '点击查看全部',
+        referencePosition: { rect, placement: TYPES.Placement.bottom },
         className: 'defineTooltip',
         disappearDelay: 100,
         style: {

@@ -17,7 +17,7 @@ export const CustomSelectBidCompanySelf: FC<{
   }, [searchOption])
 
   const content =
-    (window.en_access_config ? 'Bids current company won' : intl(0, '本企业中标')) +
+    (window.en_access_config ? 'Bids current company won' : intl(417659, '本企业中标')) +
     (count !== undefined ? ` (${count || 0})` : '')
   return (
     <Checkbox

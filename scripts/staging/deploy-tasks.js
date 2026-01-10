@@ -12,6 +12,12 @@ const { logger } = require('./utils/logger')
  * @returns {object} 任务函数集合
  */
 function createDeployTasks(config, execCommand) {
+  const getDeployDirs = (deployDir) => {
+    if (Array.isArray(deployDir)) return deployDir
+    if (!deployDir) return []
+    return [deployDir]
+  }
+
   return {
     /**
      * 检查依赖
@@ -67,12 +73,15 @@ function createDeployTasks(config, execCommand) {
 
       // 检查各个应用目录
       Object.values(config.apps).forEach((app) => {
-        const appPath = path.join(config.deployPath, app.deployDir)
-        if (!fs.existsSync(appPath)) {
-          logger.warn(`应用目录不存在，正在创建: ${appPath}`)
-          execCommand(`sudo mkdir -p ${appPath}`)
-          execCommand(`sudo chown deploy:deploy ${appPath}`)
-        }
+        const deployDirs = getDeployDirs(app.deployDir)
+        deployDirs.forEach((deployDir) => {
+          const appPath = path.join(config.deployPath, deployDir)
+          if (!fs.existsSync(appPath)) {
+            logger.warn(`应用目录不存在，正在创建: ${appPath}`)
+            execCommand(`sudo mkdir -p ${appPath}`)
+            execCommand(`sudo chown deploy:deploy ${appPath}`)
+          }
+        })
       })
 
       logger.success('目录检查完成')
@@ -98,6 +107,10 @@ function createDeployTasks(config, execCommand) {
       const app = config.apps[appKey]
       if (!app) {
         throw new Error(`未知的应用: ${appKey}`)
+      }
+      const deployDirs = getDeployDirs(app.deployDir)
+      if (deployDirs.length === 0) {
+        throw new Error(`${app.description || appKey} 未配置 deployDir`)
       }
 
       logger.info(`开始部署 ${app.description}...`)
@@ -126,12 +139,13 @@ function createDeployTasks(config, execCommand) {
       // 构建项目
       logger.info(`构建 ${app.description}...`)
       if (config.verbose) {
-        logger.debug(`使用构建命令: pnpm run ${app.buildCommand}`, true)
+        logger.debug(`使用构建命令: pnpm ${app.buildCommand}`, true)
         logger.debug(`环境变量: NODE_ENV=${config.env.NODE_ENV}, VITE_MODE=${config.env.VITE_MODE}`, true)
       }
 
-      // 使用 --force 标志强制重新构建
-      const buildResult = execCommand(`pnpm run ${app.buildCommand} -- --force`, { stdio: 'inherit' })
+      // 使用 --force 标志强制重新构建（如果需要）
+      const forceFlag = config.clearCache ? ' --force' : ''
+      const buildResult = execCommand(`pnpm ${app.buildCommand}${forceFlag}`, { stdio: 'inherit' })
       if (!buildResult.success) {
         throw new Error(`${app.description} 构建失败`)
       }
@@ -143,23 +157,25 @@ function createDeployTasks(config, execCommand) {
       }
 
       // 复制构建产物到服务目录
-      const deployDirPath = path.join(config.deployPath, app.deployDir)
-      logger.info(`复制构建产物到 ${deployDirPath}...`)
+      deployDirs.forEach((deployDir) => {
+        const deployDirPath = path.join(config.deployPath, deployDir)
+        logger.info(`复制构建产物到 ${deployDirPath}...`)
 
-      const rmResult = execCommand(`sudo rm -rf ${deployDirPath}/*`)
-      if (!rmResult.success && config.verbose) {
-        logger.warn('清理目录失败，继续执行')
-      }
+        const rmResult = execCommand(`sudo rm -rf ${deployDirPath}/*`)
+        if (!rmResult.success && config.verbose) {
+          logger.warn('清理目录失败，继续执行')
+        }
 
-      const cpResult = execCommand(`sudo cp -r ${sourceDirPath}/* ${deployDirPath}/`)
-      if (!cpResult.success) {
-        throw new Error(`${app.description} 复制构建产物失败`)
-      }
+        const cpResult = execCommand(`sudo cp -r ${sourceDirPath}/* ${deployDirPath}/`)
+        if (!cpResult.success) {
+          throw new Error(`${app.description} 复制构建产物失败`)
+        }
 
-      const chownResult = execCommand(`sudo chown -R deploy:deploy ${deployDirPath}`)
-      if (!chownResult.success && config.verbose) {
-        logger.warn('设置文件权限失败')
-      }
+        const chownResult = execCommand(`sudo chown -R deploy:deploy ${deployDirPath}`)
+        if (!chownResult.success && config.verbose) {
+          logger.warn('设置文件权限失败')
+        }
+      })
 
       logger.success(`${app.description} 部署完成`)
     },
@@ -196,7 +212,9 @@ function createDeployTasks(config, execCommand) {
       console.log('🌐 访问地址：')
 
       Object.entries(config.apps).forEach(([, app]) => {
-        console.log(`   ${app.description}: http://your-domain.com/${app.deployDir}`)
+        const deployDirs = getDeployDirs(app.deployDir)
+        const links = deployDirs.map((deployDir) => `http://your-domain.com/${deployDir}`).join(', ')
+        console.log(`   ${app.description}: ${links}`)
       })
 
       console.log('')

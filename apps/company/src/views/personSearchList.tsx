@@ -1,14 +1,16 @@
 import { addPersonRecentViewItem } from '@/api/services/personRecentView.ts'
 import TextExpandable from '@/components/common/expandable/textExpandable/TextExpandable'
 import { LinksModule } from '@/handle/link'
+import { handlePersonTranslate } from '@/handle/person/translate.ts'
+import { RootAction } from '@/reducers/redux.types.ts'
 import { Modal } from '@wind/wind-ui'
 import { WindCascade } from 'gel-ui'
 import { globalAreaTree } from 'gel-util/config'
 import { isEn } from 'gel-util/intl'
-import React from 'react'
+import React, { Dispatch } from 'react'
 import { connect } from 'react-redux'
 import * as HomeActions from '../actions/home'
-import * as SearchListActions from '../actions/searchList'
+import * as SearchListActions from '../actions/searchList.ts'
 import { pointBuriedByModule } from '../api/pointBuried/bury'
 import { delPersonViewAll, delPersonViewOne, getPersonList, getPersonView } from '../api/searchListApi.ts'
 import man from '../assets/imgs/logo/man.png'
@@ -32,6 +34,7 @@ type PersonSearchListProps = {
   personList: any[]
   personListErrorCode: string
   personView: any[]
+  globalSearchTimeStamp?: number
 }
 
 type PersonSearchListState = {
@@ -68,10 +71,16 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
   }
 
   componentDidUpdate = (prevProps) => {
-    if (this.props.keyword !== prevProps.keyword) {
+    if (
+      this.props.keyword !== prevProps.keyword ||
+      (this.props.keyword === prevProps.keyword && this.props.globalSearchTimeStamp !== prevProps.globalSearchTimeStamp)
+    ) {
       const keyword = this.props.keyword
 
-      this.setState({ queryText: keyword, industryname: [], regioninfo: [], loading: true }, () => this.getPersonList())
+      this.setState(
+        { queryText: keyword, industryname: [], regioninfo: [], loading: true, filter: { pageNo: 0, pageSize: 10 } },
+        () => this.getPersonList()
+      )
     }
   }
 
@@ -253,7 +262,7 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
                   title={<h5 className="person-name-h5" dangerouslySetInnerHTML={{ __html: personName }}></h5>}
                 ></Links>
 
-                {window.en_access_config && titleEnName ? (
+                {isEn() && titleEnName ? (
                   <div className="div_Card_name_en">
                     {' '}
                     <span> {titleEnName} </span> {<i>{intl('362293', '该翻译由AI提供')} </i>}{' '}
@@ -426,7 +435,7 @@ class PersonSearchList extends React.Component<PersonSearchListProps, PersonSear
               data-uc-id="4-lVu0GPm"
               data-uc-ct="modal"
             >
-              <p>{intl('272002', '全部清除最近浏览人物')}</p>
+              <p>{intl('478728', '全部清除最近浏览人物')}</p>
             </Modal>
           ) : null}
         </div>
@@ -441,47 +450,64 @@ const mapStateToProps = (state) => {
     personListErrorCode: state.companySearchList.personListErrorCode,
     keyword: state.companySearchList.searchKeyWord,
     personView: state.companySearchList.personView,
+    globalSearchTimeStamp: state.companySearchList.globalSearchTimeStamp,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
     getPersonList: (data) => {
       return getPersonList(data).then((res) => {
-        if (res.ErrorCode == '0' && res.data && res.data.length) {
-          if (data.pageNo == '0') {
-            // 仅第一页，采用先展示中文，后展示英文方式，后续还是沿用 中文+英文，方式，避免填充数据紊乱
-            dispatch(SearchListActions.getPersonList({ ...res, ...data }))
-          }
+        // 如果返回错误或者没有数据，直接 dispatch 原始结果并返回
+        if (res.ErrorCode !== '0' || !res.data || !res.data.length) {
+          dispatch(SearchListActions.getPersonList({ ...res, ...data }))
+          return res
         }
-        new Promise((resolve) => {
-          if (res.ErrorCode == '0' && res.data && res.data.length) {
-            wftCommon.zh2en(
-              res.data,
-              (endata) => {
-                endata.map((t, idx) => {
-                  t.personName_en = t.personName || ''
-                  t.personName_en = t.personName_en.replace
-                    ? t.personName_en.replace(/<em>|<\/em>/g, '')
-                    : t.personName_en
-                  t.personName = res.data[idx].personName
-                })
-                res.data = endata
-                dispatch(SearchListActions.getPersonList({ ...res, ...data }))
-                resolve(res)
-              },
-              null,
-              () => {
-                dispatch(SearchListActions.getPersonList({ ...res, ...data }))
-                resolve(res)
-              }
-            )
-          } else {
+
+        const isFirstPage = data.pageNo == 0 || data.pageNo == '0'
+
+        // 首页数据：无论中英文，首先展示接口返回的原始数据（中文）
+        // 这样可以保证用户第一时间看到内容，避免翻译过程导致的白屏或延迟
+        if (isFirstPage) {
+          dispatch(SearchListActions.getPersonList({ ...res, ...data }))
+        }
+
+        // 非英文环境（中文环境）：不需要翻译
+        if (!isEn()) {
+          // 如果是非首页（翻页加载更多），直接追加原始数据
+          // 首页已经在上面处理过了，所以这里只需要处理非首页的情况
+          if (!isFirstPage) {
             dispatch(SearchListActions.getPersonList({ ...res, ...data }))
-            resolve(res)
           }
-          // return res;
-        })
+          return res
+        }
+
+        // 英文环境：需要进行异步翻译处理
+        handlePersonTranslate(res.data)
+          .then((translatedData) => {
+            if (isFirstPage) {
+              // 首页：之前已经展示了原始数据，这里通过 UPDATE_PERSON_TRANSLATION 更新翻译后的字段
+              // 这样用户会看到中文内容变为英文
+              dispatch({
+                type: 'UPDATE_PERSON_TRANSLATION',
+                data: { translatedData },
+              })
+            } else {
+              // 非首页（翻页）：直接将翻译后的数据追加到列表中
+              // 注意：这里没有像首页那样先展示原始数据，而是等待翻译完成后一次性展示
+              dispatch(SearchListActions.getPersonList({ ...res, ...data, data: translatedData }))
+            }
+          })
+          .catch((err) => {
+            console.error('Translation error:', err)
+            // 翻译失败时的兜底处理：
+            // 如果是非首页，因为之前没有 dispatch 过数据，所以这里需要 dispatch 原始数据
+            // 确保即使翻译失败，用户也能看到（中文）内容
+            if (!isFirstPage) {
+              dispatch(SearchListActions.getPersonList({ ...res, ...data }))
+            }
+          })
+
         return res
       })
     },

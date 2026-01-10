@@ -1,5 +1,15 @@
-import { PaginationParams } from 'gel-api'
-import { BalanceSheetData, CashFlowData, FinancialIndicatorData, ProfitData } from 'gel-types'
+import type { PaginationParams, wfcCorpFinanceApiPath } from 'gel-api'
+import {
+  BalanceSheetData,
+  CashFlowData,
+  FinancialIndicatorData,
+  FinancialIndicatorItem,
+  FinancialIndicatorResponse,
+  FinancialReportFilters,
+  FinancialReportIndicatorProps,
+  FinancialReportSummaryItem,
+  ProfitData,
+} from 'gel-types'
 import type { ApiResponse } from '../../types'
 
 export type CorpBussApiPaths = {
@@ -19,8 +29,18 @@ export type CorpBussApiPaths = {
     response: ApiResponse<CashFlowData[]>
   }
   // 财务指标
-  '/detail/company/financialIndicator': {
-    params: PaginationParams
-    response: ApiResponse<FinancialIndicatorData[]>
+  '/detail/company/financialIndicatorV3': {
+    params: FinancialReportIndicatorProps
+    response: ApiResponse<FinancialIndicatorResponse>
+  }
+  // 财务报表汇总
+  'detail/company/financialreportsummary': {
+    params: wfcCorpFinanceApiPath['detail/company/financialreportsummary']['data']
+    response: ApiResponse<FinancialReportSummaryItem[]>
+  }
+  // 财务报表筛选
+  'detail/company/financialreportfilters': {
+    params: wfcCorpFinanceApiPath['detail/company/financialreportfilters']['data']
+    response: ApiResponse<FinancialReportFilters>
   }
 }

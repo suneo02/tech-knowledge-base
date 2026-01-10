@@ -1,4 +1,4 @@
-# reportEditor
+﻿# reportEditor
 
 报告编辑器领域模块，提供报告内容渲染、章节处理和编辑器操作的纯函数工具集
 
@@ -45,4 +45,5 @@ document → chapter → foundation
 
 ---
 
-> 📖 本文档遵循 [README 编写规范](../../../../docs/rule/readme-rule.md)
+> 📖 本文档遵循 [README 编写规范](../../../../docs/rule/doc-readme-structure-rule.md)
+

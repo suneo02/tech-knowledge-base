@@ -1,13 +1,14 @@
 import * as actionTypes from '../actions/actionTypes'
 import global from '../lib/global'
+import type { GlobalAction, GlobalState } from './global.types'
 
 // 处理全局状态，全局弹窗等
-const initialState = {
+const initialState: GlobalState = {
   globalModalProps: null,
   language: global.default_language,
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state: GlobalState = initialState, action: GlobalAction) => {
   switch (action.type) {
     case actionTypes.SET_GLOBAL_MODAL:
       return {

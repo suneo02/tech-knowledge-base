@@ -10,6 +10,10 @@ export { useExternalComponentRenderer } from './useExternalComponentRenderer';
 export { useReportEditorRef } from './useReportEditorRef';
 export { useTextRewritePreview } from './useTextRewritePreview/hook';
 
+// ===== 工具函数导出 =====
+export { getChapterBottomPosition, getEditorFrameOffset } from './chapterPositionUtils';
+
 // ===== 类型定义导出 =====
+export type { ChapterBottomPosition } from './chapterPositionUtils';
 export type { UseExternalComponentRendererOptions } from './useExternalComponentRenderer';
 export type { UseReportEditorRefReturn } from './useReportEditorRef';

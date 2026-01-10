@@ -56,7 +56,7 @@ function CompanyNews() {
   }
   const columns = [
     {
-      title: intl('66742', '公司舆情'),
+      title: intl('478577', '公司舆情'),
       dataIndex: 'news',
       width: '100%',
       render: (_key, data) => {

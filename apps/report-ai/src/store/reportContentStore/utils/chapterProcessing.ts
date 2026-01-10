@@ -1,6 +1,6 @@
 import { findChapterById, findChapterPathById } from '@/domain/chapter';
-import { mergeMessagesToChapters } from '@/domain/chat/rpContentAIMessages';
-import { MessageParsedReportContent } from '@/types';
+import { mergeMessagesToChapter } from '@/domain/chat/rpContentAIMessages';
+import { RPContentAgentMsg } from '@/types';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { setTreeNodeByPath } from 'gel-util/common';
 import { ReportContentState } from '../types';
@@ -8,14 +8,10 @@ import { ReportContentState } from '../types';
 export interface ProcessSingleChapterCompletionParams {
   /** 目标章节ID */
   chapterId: string;
-  /** 解析后的消息列表（从 Context 传入） */
-  messages: MessageInfo<MessageParsedReportContent>[];
+  /** Agent 消息列表（原始消息，包含 entity 和 traces） */
+  messages: MessageInfo<RPContentAgentMsg>[];
   /** 关联ID（可选） */
   correlationId?: string;
-  /** 是否提取引用数据 */
-  extractRefData?: boolean;
-  /** 是否覆盖现有内容 */
-  overwriteExisting?: boolean;
 }
 
 /**
@@ -28,7 +24,7 @@ export const processSingleChapterCompletion = (
   state: ReportContentState,
   params: ProcessSingleChapterCompletionParams
 ): void => {
-  const { chapterId, messages, correlationId, extractRefData = true, overwriteExisting = true } = params;
+  const { chapterId, messages, correlationId } = params;
 
   // 查找目标章节
   const chapter = findChapterById(state.chapters, chapterId);
@@ -38,17 +34,13 @@ export const processSingleChapterCompletion = (
   }
 
   // 使用工具函数合并单个章节的消息
-  const mergeResult = mergeMessagesToChapters([chapter], messages, {
-    extractRefData,
-    overwriteExisting,
-  });
+  const success = mergeMessagesToChapter(chapter, messages);
 
-  if (mergeResult.stats.successCount > 0) {
-    // 查找章节路径并更新
+  if (success) {
+    // 查找章节路径并更新（chapter 已经被原地修改）
     const path = findChapterPathById(state.chapters, chapterId);
     if (path) {
-      const updatedChapter = mergeResult.updatedChapters[0];
-      state.chapters = setTreeNodeByPath(state.chapters, path, updatedChapter);
+      state.chapters = setTreeNodeByPath(state.chapters, path, chapter);
     }
 
     // 更新章节状态的 epoch

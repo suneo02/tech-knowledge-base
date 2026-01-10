@@ -1,122 +1,108 @@
 # 企业详情页顶部操作栏设计
 
-## 概述
+## 概览
 
-顶部操作栏提供企业信息展示、收藏管理、报告导出和AI助手控制功能，横跨整个页面宽度，为用户提供便捷的操作入口。
+顶部操作栏 (`LayoutHeader`) 位于左侧内容区的顶部，提供企业信息展示、全局操作（收藏、导出）以及 AI 面板的控制入口。
 
-**功能边界**：企业信息展示、全局操作控制、状态管理
-**目标人群**：企业尽调人员、投资分析师、业务用户
-**关键场景**：收藏企业、导出报告、切换AI面板、返回导航
+**功能边界**：
+- 企业基本信息展示（Logo、名称、状态标签）
+- 核心操作（收藏、导出报告、纠错）
+- AI 面板控制（展开/收起）
+
+**关键场景**：
+1. **信息浏览**：用户确认当前查看的企业名称和状态（如“存续”）。
+2. **AI 交互**：用户点击 AI 图标，展开右侧面板进行提问。
+3. **收藏管理**：用户点击星号图标收藏该企业。
 
 ## 信息架构
 
 ```mermaid
-graph TD
-    A[OperatorHeader] --> B[企业信息区]
-    A --> C[操作控制区]
-
-    B --> D[企业名称]
-    B --> E[页面标识]
-
-    C --> F[收藏按钮]
-    C --> G[导出报告]
-    C --> H[AI助手切换]
-    C --> I[用户反馈]
-    C --> J[返回首页]
+graph LR
+    Header[LayoutHeader] --> Info[企业信息区]
+    Header --> Actions[操作控制区]
+    
+    Info --> Logo[企业Logo]
+    Info --> Name[企业名称]
+    Info --> Status[经营状态]
+    
+    Actions --> Collect[收藏按钮]
+    Actions --> Export[导出报告]
+    Actions --> Feedback[纠错反馈]
+    Actions --> AI_Switch[AI面板开关]
 ```
 
 ## 页面蓝图
 
-| 区域 | 显示内容 | 可交互动作 | 可见条件 |
-|------|----------|------------|----------|
-| **企业信息** | 企业名称、页面类型 | 无操作 | 始终显示 |
-| **收藏按钮** | 收藏状态图标 | 收藏/取消收藏 | 始终显示 |
-| **导出报告** | 下载图标 | 生成并下载报告 | 企业数据完整时 |
-| **AI助手** | AI图标、开关状态 | 显示/隐藏AI面板 | AI功能可用时 |
-| **用户反馈** | 反馈图标 | 打开反馈弹窗 | 始终显示 |
-| **返回首页** | 首页图标 | 跳转到首页 | 始终显示 |
+| 区域 | 组件 | 展示数据 | 可交互动作 | 可见条件 |
+| :--- | :--- | :--- | :--- | :--- |
+| **企业信息** | `OperatorHeader` | `entityName`, `manageState` | 无 | 始终可见 |
+| **收藏** | `Collect` | `collectState` | 点击收藏/取消 | 始终可见 |
+| **导出** | `CompanyReportModal` | 无 | 点击打开导出弹窗 | 数据加载完成 |
+| **AI 开关** | `AiSwitch` | `showRight` | 点击切换面板状态 | 始终可见 |
 
 ## 任务流程
 
+### AI 面板切换流程
+
 ```mermaid
-stateDiagram-v2
-    [*] --> 收藏功能
-    收藏功能 --> AI切换
-    AI切换 --> 报告导出
-    报告导出 --> [*]
-
-    state 收藏功能 {
-        [*] --> 检查状态
-        检查状态 --> 已收藏: 点击取消
-        检查状态 --> 未收藏: 点击收藏
-        已收藏 --> 调用API
-        未收藏 --> 选择收藏夹
-        选择收藏夹 --> 调用API
-        调用API --> [*]
-    }
-
-    state AI切换 {
-        [*] --> 面板关闭
-        面板关闭 --> 面板显示: 点击AI按钮
-        面板显示 --> 面板关闭: 点击关闭按钮
-        面板显示 --> 调节宽度: 点击宽度按钮
-        调节宽度 --> 面板显示
-    }
+sequenceDiagram
+    participant User
+    participant Header as OperatorHeader
+    participant Container as CompanyDetailAIRight
+    
+    User->>Header: 点击 AI 图标
+    Header->>Container: 调用 setShowRight(!showRight)
+    Container->>Container: 更新 showRight 状态
+    Container-->>Header: 传入新的 showRight
+    Header-->>User: 更新图标状态 (高亮/灰置)
 ```
+
+### 收藏流程
+
+1.  **检查状态**：组件初始化时获取当前企业的收藏状态。
+2.  **点击收藏**：
+    *   未收藏 -> 弹出收藏夹选择弹窗 -> 确认 -> 调用 API -> 更新状态为已收藏。
+    *   已收藏 -> 直接调用取消 API -> 更新状态为未收藏。
+3.  **反馈**：操作成功后显示 Toast 提示。
 
 ## 数据与状态
 
-### 核心数据字段
+### 组件契约 (Props)
 
-| 字段 | 来源 | 用途 | 刷新策略 |
-|------|------|------|----------|
-| `entityName` | 企业基本信息 | 企业名称显示 | 实时同步 |
-| `collectState` | 收藏API | 收藏状态 | 实时同步 |
-| `showRight` | 主容器状态 | AI助手按钮状态 | 用户操作 |
-| `companyCode` | 企业基本信息 | 操作参数 | 页面级 |
+`OperatorHeader` 组件接收以下 Props：
 
-### 缓存策略
+| 属性名 | 类型 | 说明 | 来源 |
+| :--- | :--- | :--- | :--- |
+| `showRight` | `boolean` | AI 面板当前是否显示 | 主容器 State |
+| `setShowRight` | `(v: boolean) => void` | 切换 AI 面板显示状态的回调 | 主容器 State |
+| `entityName` | `string` | 企业名称 | Redux / API |
+| `companyCode` | `string` | 企业唯一标识 | URL 参数 |
 
-- **企业基本信息**：Redux全局缓存，页面刷新时更新
-- **收藏状态**：组件状态缓存，用户操作时实时同步
-- **收藏夹列表**：按需加载，弹窗关闭时清空
+### 内部状态
 
-## 组件复用
+*   **收藏状态**：由 `Collect` 组件内部管理，通过 API 同步。
+*   **导出弹窗**：`visible` 状态控制弹窗显示。
+
+## 组件复用与代码引用
 
 ### 核心组件
 
-- **OperatorHeader**：顶部操作栏主组件
-- **ToolsBar**：工具栏基础组件
-- **CompanyReportModal**：报告生成弹窗
-- **Collect**：收藏功能弹窗
-
-**@see apps/company/src/views/CompanyDetailAIRight/comp/OperatorHeader/index.tsx**
-
-### 组件边界
-
-- **OperatorHeader**：企业信息展示、操作按钮管理、状态同步
-- **Collect**：收藏夹选择、收藏操作
-- **CompanyReportModal**：报告格式选择、生成和下载
+*   **顶部栏容器**：`LayoutHeader` (在 `Left.tsx` 中定义)
+    *   职责：布局容器，处理样式。
+    *   @see `apps/company/src/views/CompanyDetailAIRight/Left.tsx`
+*   **业务逻辑组件**：`OperatorHeader`
+    *   职责：实现具体交互逻辑。
+    *   @see `apps/company/src/views/CompanyDetailAIRight/comp/OperatorHeader/index.tsx`
+*   **收藏组件**：`Collect`
+    *   职责：处理收藏逻辑。
+    *   @see `apps/company/src/components/company/detail/comp/Collect.tsx` (假设路径)
 
 ## 错误处理
 
-| 错误类型 | 处理方式 | 用户反馈 |
-|----------|----------|----------|
-| **收藏失败** | 显示错误提示，提供重试 | "收藏失败，请重试" |
-| **报告生成失败** | 显示错误状态 | "报告生成失败" |
-| **AI服务异常** | 显示错误提示 | "AI服务暂时不可用" |
-| **网络异常** | 显示网络错误 | "网络连接异常" |
+*   **API 失败**：收藏或导出接口失败时，显示全局 Message 错误提示。
+*   **数据缺失**：如果企业名称未加载，显示骨架屏或占位符。
 
 ## 相关文档
 
-- [总体设计文档](./design.md) - 整体架构
-- [主容器布局设计](./layout-container.md) - 布局管理
-- [左侧区域设计](./layout-left.md) - 内容区布局
-
-## 检查清单
-
-- [x] 功能区域职责明确
-- [x] 收藏功能流程完整
-- [x] AI切换机制清晰
-- [x] 错误处理策略完善
-- [x] 文档长度控制在1页内
+- [主容器布局设计](./layout-container.md) - 状态来源
+- [总体设计](./design.md)

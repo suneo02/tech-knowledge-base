@@ -1,30 +1,23 @@
 /** @format */
-import { openFeedbackModal } from '@/components/company/feedback/useFeedbackModal'
-import { CorpCardInfo } from 'gel-types'
+import { IState } from '@/reducers/type'
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { GlobalContext } from '../../../context/GlobalContext'
 import { wftCommon } from '../../../utils/utils'
+import { openFeedbackModal } from '../feedback/useFeedbackModal'
 import { CompanyInfoDisplay } from './CompanyInfoDisplay'
-import { ICorpBasicInfoFront } from './handle'
+import { CorpBasicInfoFront } from './handle'
 
 // 定义组件的 Props 和 State 接口
 interface CompanyInfoProps {
-  company: {
-    baseInfo: ICorpBasicInfoFront & {
-      corp: any
-    }
-    corpArea?: any
-    corpHeaderInfo?: CorpCardInfo
-    [key: string]: any
-  }
+  company: IState['company']
   history: any
   companycode?: any
 }
 
 interface CompanyInfoState {
-  en_corpInfo: any
+  en_corpInfo: Partial<CorpBasicInfoFront>
   loadingTime: number
 }
 
@@ -115,6 +108,7 @@ class CompanyInfo extends React.Component<CompanyInfoProps, CompanyInfoState> {
       loadingState = false
     }
 
+    console.log('🚀 ~ CompanyInfo ~ render ~ baseInfo:', baseInfo)
     return (
       <CompanyInfoDisplay
         baseInfo={baseInfo}
@@ -129,7 +123,7 @@ class CompanyInfo extends React.Component<CompanyInfoProps, CompanyInfoState> {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: IState) => {
   return {
     company: state.company,
   }

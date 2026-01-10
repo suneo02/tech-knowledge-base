@@ -47,10 +47,6 @@ export const createRPOutlineEventListeners = ({
       },
     });
 
-    const handleQuestionReceived = ({ questions }: { questions: string[] }) => {
-      console.log('🤔 RPOutline 问题拆解:', questions);
-    };
-
     const handleAnalysisStart = ({ chatId }: { chatId: string }) => {
       console.log('🔍 RPOutline 分析开始:', { chatId });
 
@@ -131,7 +127,6 @@ export const createRPOutlineEventListeners = ({
     };
 
     // 注册所有事件监听器
-    eventBus.on('question:received', handleQuestionReceived);
     eventBus.on('analysis:start', handleAnalysisStart);
     eventBus.on('analysis:success', handleAnalysisSuccess);
     eventBus.on('runtime:updated', handleRuntimeUpdated);
@@ -150,7 +145,6 @@ export const createRPOutlineEventListeners = ({
 
     return () => {
       cleanupLogListeners?.();
-      eventBus.off('question:received', handleQuestionReceived);
       eventBus.off('analysis:start', handleAnalysisStart);
       eventBus.off('analysis:success', handleAnalysisSuccess);
       eventBus.off('runtime:updated', handleRuntimeUpdated);

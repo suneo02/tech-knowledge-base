@@ -15,7 +15,7 @@ import { WIcon } from '@/components/common/Icon'
 import { CloseO, RatiohalfO, RatioonethirdO } from '@wind/icons'
 import { t } from 'gel-util/intl'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { PREFIX } from '.'
+import { LAYOUT_DETAIL_AI_PREFIX } from './constant'
 import styles from './index.module.less'
 // 延迟加载 ChatMessageBase
 const ChatMessageBaseLazy = lazy(() =>
@@ -70,15 +70,15 @@ const RightContent: React.FC<RightProps> = ({
   return (
     <div
       id="company-detail-ai-right-container" // 用于其他元素监听宽度是否改变
-      className={` ${styles[`${PREFIX}-right`]} ${!showRight ? styles[`${PREFIX}-right-hidden`] : ''}`}
+      className={` ${styles[`${LAYOUT_DETAIL_AI_PREFIX}-right`]} ${!showRight ? styles[`${LAYOUT_DETAIL_AI_PREFIX}-right-hidden`] : ''}`}
       style={dynamicStyle}
     >
-      <div className={styles[`${PREFIX}-right-controls`]}>
-        <div className={styles[`${PREFIX}-right-controls-avatar`]}>
+      <div className={styles[`${LAYOUT_DETAIL_AI_PREFIX}-right-controls`]}>
+        <div className={styles[`${LAYOUT_DETAIL_AI_PREFIX}-right-controls-avatar`]}>
           <img src={icon_alice} alt={STRINGS.AI_QUESTION_COMPANY} style={{ width: 32, height: 32 }} />
           <span>{STRINGS.AI_QUESTION_COMPANY}</span>
         </div>
-        <div className={styles[`${PREFIX}-right-controls-buttons`]}>
+        <div className={styles[`${LAYOUT_DETAIL_AI_PREFIX}-right-controls-buttons`]}>
           <Button
             onClick={() => {
               onWidthChange('25%')
@@ -159,11 +159,11 @@ const RightContent: React.FC<RightProps> = ({
         </div>
       </div>
       {shouldLoadChat ? (
-        <Suspense fallback={<div className={styles[`${PREFIX}-right-loading`]}></div>}>
+        <Suspense fallback={<div className={styles[`${LAYOUT_DETAIL_AI_PREFIX}-right-loading`]}></div>}>
           <ChatMessageBaseLazy entityType={entityType} entityName={entityName} />
         </Suspense>
       ) : (
-        <div className={styles[`${PREFIX}-right-loading`]}>{/* <Spin /> */}</div>
+        <div className={styles[`${LAYOUT_DETAIL_AI_PREFIX}-right-loading`]}>{/* <Spin /> */}</div>
       )}
     </div>
   )

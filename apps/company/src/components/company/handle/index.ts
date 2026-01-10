@@ -1,13 +1,12 @@
 import { CorpBasicInfo } from '@/api/corp/info/basicInfo.ts'
-import { listRowConfig } from '@/components/company/listRowConfig.tsx'
+import { corpModuleCfgIIP, listRowConfig } from '@/components/company/listRowConfig.tsx'
 import { getIfIndividualBusiness } from '@/handle/corp/corpType'
 import { bussRisk } from '@/handle/corpModuleCfg/bussRisk/bussRisk.tsx'
 import { risk } from '@/handle/corpModuleCfg/risk/risk.tsx'
-import { corpModuleCfgIIP } from '@/handle/corpModuleCfgSpecial/IIP.tsx'
 import { getVipInfo } from '@/lib/utils.tsx'
+import { CorpPrimaryModuleCfg } from '@/types/corpDetail/module.ts'
 import { wftCommon } from '@/utils/utils.tsx'
 import { useMemo } from 'react'
-import { ICorpPrimaryModuleCfg } from '../type/index.ts'
 
 export * from './miscT.ts'
 
@@ -22,7 +21,7 @@ export * from './miscT.ts'
 export const useCorpModuleCfg = (corpType: CorpBasicInfo['corp_type'], corpTypeId?: CorpBasicInfo['corp_type_id']) => {
   const userVipInfo = getVipInfo()
   return useMemo(() => {
-    let res: ICorpPrimaryModuleCfg[]
+    let res: CorpPrimaryModuleCfg[]
     if (getIfIndividualBusiness(corpType, corpTypeId)) {
       res = corpModuleCfgIIP
     } else {

@@ -34,11 +34,12 @@ const TAB_LIST = [
 interface Props {
   type?: GSTabsEnum
   queryText?: string
+  globalSearchTimeStamp?: number
   onUserActionChange?: (key: GSTabsEnum) => void
   onChange?: (key: GSTabsEnum) => void
 }
 
-const GSTabs: React.FC<Props> = ({ type = GSTabsEnum.CHINA, queryText, onUserActionChange, onChange }) => {
+const GSTabs: React.FC<Props> = ({ type = GSTabsEnum.CHINA, queryText, globalSearchTimeStamp, onUserActionChange, onChange }) => {
   const { getParamValue } = hashParams()
   const areaType = getParamValue('areaType')
 
@@ -50,7 +51,7 @@ const GSTabs: React.FC<Props> = ({ type = GSTabsEnum.CHINA, queryText, onUserAct
   const [activeKey, setActiveKey] = useState<GSTabsEnum | null>(type !== GSTabsEnum.CHINA ? type : GSTabsEnum.CHINA)
   const [disableTooltip, setDisableTooltip] = useState(false)
   const [remark, setRemark] = useState<string | null>(null)
-  const { chinaStats, globalStats, otherStats, loading } = useStats(queryText, type)
+  const { chinaStats, globalStats, otherStats, loading } = useStats(queryText, type, globalSearchTimeStamp)
 
   const openSearchPage = (key: GSTabsEnum) => {
     const urlMap = {

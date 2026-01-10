@@ -1,41 +1,49 @@
 import { pointBuriedGel } from '@/api/configApi'
 import { pointBuriedByModule } from '@/api/pointBuried/bury.ts'
-import { isArray } from 'lodash'
-
-import { CorpMenuData } from '@/views/Company/menu/type.ts'
-
-function hasMatchingChildKey(allMenu: CorpMenuData[], targetKey: string) {
-  return allMenu.some((menuLevel1) => {
-    if (!(menuLevel1.children && menuLevel1.children.length > 0)) {
-      return false
-    }
-    // 递归搜索所有子菜单
-    return menuLevel1.children.some((item) => item.key === targetKey)
-  })
-}
+import { CorpMenuCfg } from '@/types/corpDetail/menu'
 
 export const handleBuryInCorpDetailMenu = async (
-  selectedKeys: any,
+  selectedKeys: string | string[],
   corpId: string,
-  allTreeDataObj: any,
-  allMenu: CorpMenuData[]
+  currentMenus: CorpMenuCfg
 ) => {
   try {
-    if (!selectedKeys || !isArray(selectedKeys)) {
+    if (!selectedKeys) {
       return
     }
 
-    let menuStr: any = selectedKeys.toString()
-    const menuTitle = menuStr
-    if (allTreeDataObj && allTreeDataObj[menuStr]) {
-      menuStr = allTreeDataObj[menuStr]
+    const key = Array.isArray(selectedKeys) ? selectedKeys[0] : selectedKeys
+    if (!key) return
+
+    let titleStr = key
+    let isChild = false
+
+    // 遍历 currentMenus 查找对应的菜单项名称和层级
+    for (const moduleKey in currentMenus) {
+      const moduleCfg = currentMenus[moduleKey]
+      if (!moduleCfg) continue
+
+      // 检查是否是一级菜单
+      if (moduleKey === key) {
+        titleStr = moduleCfg.title
+        break
+      }
+
+      // 检查是否是二级菜单
+      const child = moduleCfg.children?.find((c) => c.showModule === key)
+      if (child) {
+        titleStr = child.showName || child.showModule
+        isChild = true
+        break
+      }
     }
-    if (selectedKeys.indexOf('gettechscore') !== -1) {
+
+    if (key.indexOf('gettechscore') !== -1) {
       pointBuriedByModule(922602101126, {
         company_id: corpId,
       })
     }
-    if (hasMatchingChildKey(allMenu, selectedKeys[0])) {
+    if (isChild) {
       // 是二级菜单
       pointBuriedByModule(922602100292, {
         currentPage: 'company',
@@ -46,7 +54,7 @@ export const handleBuryInCorpDetailMenu = async (
     /**
      * 之前的埋点逻辑很奇怪
      */
-    pointBuriedGel('922602100639', menuStr.titleStr ? menuStr.titleStr : menuTitle, 'listQY')
+    pointBuriedGel('922602100639', titleStr, 'listQY')
   } catch (e) {
     console.error(e)
   }

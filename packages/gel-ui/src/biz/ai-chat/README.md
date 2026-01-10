@@ -1,4 +1,4 @@
-# AI 对话业务组件
+﻿# AI 对话业务组件
 
 提供完整的 AI 对话交互界面和功能组件，支撑智能对话、多角色交互、流式响应等核心功能。
 
@@ -107,7 +107,7 @@ ai-chat/
 
 - [Agent 请求服务](../../service/agentRequest/README.md) - AI Agent 请求处理详情
 - [AI 对话类型定义](../../types/ai-chat/README.md) - AI 对话类型系统
-- [React 组件开发规范](../../../docs/rule/react-rule.md) - 组件开发指南
+- [React 组件开发规范](../../../docs/rule/code-react-component-rule.md) - 组件开发指南
 
 ## 使用示例
 

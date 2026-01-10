@@ -3,6 +3,7 @@
 import { getCorpHeaderInfo } from '@/api/companyApi'
 import { getMyCorpEventListNew } from '@/api/corp/event'
 import { ICorpEvent } from '@/api/corp/eventTypes'
+import { translateToEnglish } from '@/utils/intl'
 import { wftCommon } from '@/utils/utils'
 import { getDynamicDetail } from 'gel-ui'
 import { create } from 'zustand'
@@ -90,16 +91,13 @@ export const useSingleDynamicStore = create<DynamicStore>((set, get) => ({
 
     set({ isLoading: false })
 
-    wftCommon.zh2enAlwaysCallback(
-      Data,
-      (enData) => {
-        const dynamicList = format(enData)
-        set({ dynamicList, rawDynamicList: Data })
-      },
-      null,
-      null,
-      ['event_type', 'corp_name', 'text']
-    )
+    translateToEnglish(Data, {
+      allowFields: ['event_type', 'text'],
+    }).then((enDataResult) => {
+      const enData = enDataResult.data
+      const dynamicList = format(enData)
+      set({ dynamicList, rawDynamicList: Data })
+    })
   },
 
   addDynamicList: async (data) => {
@@ -119,25 +117,22 @@ export const useSingleDynamicStore = create<DynamicStore>((set, get) => ({
       item.event_type_raw = item.event_type
     })
 
-    wftCommon.zh2enAlwaysCallback(
-      Data,
-      (enData) => {
-        const oldData = get().dynamicList
-        const dynamicList = format(enData)
-        set({
-          dynamicList: [...oldData, ...dynamicList],
-          rawDynamicList: [...oldRawData, ...Data],
-        })
+    translateToEnglish(Data, {
+      allowFields: ['event_type', 'text'],
+    }).then((enDataResult) => {
+      const oldData = get().dynamicList
+      const enData = enDataResult.data
+      const dynamicList = format(enData)
+      set({
+        dynamicList: [...oldData, ...dynamicList],
+        rawDynamicList: [...oldRawData, ...Data],
+      })
 
-        if (Data?.length && oldData?.length && oldData.length < 7) {
-          setTimeout(() => {
-            get().addDynamicList(data)
-          }, 0)
-        }
-      },
-      null,
-      null,
-      ['event_type', 'corp_name', 'text']
-    )
+      if (Data?.length && oldData?.length && oldData.length < 7) {
+        setTimeout(() => {
+          get().addDynamicList(data)
+        }, 0)
+      }
+    })
   },
 }))

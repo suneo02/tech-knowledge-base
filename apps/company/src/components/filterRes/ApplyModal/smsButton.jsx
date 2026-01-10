@@ -38,7 +38,7 @@ const SmsButton = ({ onSmsCodeButtonClick }) => {
       data-uc-id="gQh7w574d"
       data-uc-ct="button"
     >
-      {!time ? intl('421619', '获取验证码') : `${time}${intl('', '后重试')}`}
+      {!time ? intl('421619', '获取验证码') : `${time}${intl('420209', '后重试')}`}
     </Button>
   )
 }

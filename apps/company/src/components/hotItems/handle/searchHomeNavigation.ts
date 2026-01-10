@@ -71,7 +71,7 @@ export const handleSearchHomeNavigation = (k: SearchHomeItemData['key'], url?: S
       if (!is_terminal) {
         message.warning('该功能需登录Wind金融终端。')
       } else {
-        window.open('http://corpeventserver/wind.ent.openapi/index.html')
+        window.open('//gelserver/wind.ent.openapi/index.html')
       }
       break
     case 'icon-topic-bidding-query':

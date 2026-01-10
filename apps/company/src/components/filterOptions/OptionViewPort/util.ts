@@ -1,4 +1,4 @@
-import { CDEFilterItem } from 'gel-api/*'
+import { CDEFilterItem } from 'gel-api'
 
 /**
  * 是否展示 单选

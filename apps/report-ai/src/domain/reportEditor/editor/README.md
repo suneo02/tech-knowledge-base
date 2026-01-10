@@ -1,4 +1,4 @@
-# editor
+﻿# editor
 
 编辑器工具模块，提供 TinyMCE 编辑器的统一访问接口、DOM 查找和内容清洗
 
@@ -38,4 +38,5 @@ contentSanitizer → foundation
 
 ---
 
-> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/readme-rule.md)
+> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/doc-readme-structure-rule.md)
+

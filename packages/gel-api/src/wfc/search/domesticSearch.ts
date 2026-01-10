@@ -72,9 +72,9 @@ export interface CompanyInfoInSearch {
   areaCn: string // 中文区域
   corpId: string // 企业ID
   corpNameEng: string // 企业英文名称
-  corpName: string // 企业名称
-  corpNameTrans: string // 企业翻译名称
-  corpNameAITransFlag: boolean // 企业 AI 翻译标志
+  corpName: string // 企业名称（原始名称）
+  corpNameTrans?: string // 企业翻译名称
+  corpNameAITransFlag?: boolean // 企业 AI 翻译标志
   establishDate: string // 成立日期
   registerAddress: string // 注册地址
   areaCode: string // 区域代码

@@ -7,8 +7,6 @@ export type TGelEnv =
   | 'web'
   // web 测试
   | 'webTest'
-  // 终端 web ，即通过浏览器访问
-  | 'terminalWeb'
 
 export type ClientFunc = (params: Record<string, unknown>) => Promise<string>
 

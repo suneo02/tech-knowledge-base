@@ -1,8 +1,9 @@
-import no_photo_list from '../../../assets/img/no_photo_list.png'
-import defaultCompanyImg from '../../../assets/img/default_company.png'
-import brand120 from '../../../assets/img/brand120.png'
-import { usedInClient, getWsidProd } from 'gel-util/env'
 import { Tooltip } from '@wind/wind-ui'
+import { getWsidProd, usedInClient } from 'gel-util/env'
+import { detectChinese } from 'gel-util/misc'
+import brand120 from '../../../assets/img/brand120.png'
+import defaultCompanyImg from '../../../assets/img/default_company.png'
+import no_photo_list from '../../../assets/img/no_photo_list.png'
 
 export const imageBase = (tableId, srcId, css?, isEnlarge?, defaultWidth?, imgType?) => {
   let url = window.location.protocol + '//news.windin.com/ns/imagebase/' + tableId + '/' + srcId
@@ -60,14 +61,4 @@ export const imageBase = (tableId, srcId, css?, isEnlarge?, defaultWidth?, imgTy
   )
 }
 
-/**
- * 判断字符串是否为中文名称，含繁体
- * /[\u4e00-\u9fff]/.test('汉') true
- * /[\u4e00-\u9fff]/.test('。') false
- * /[\u4e00-\u9fff]/.test('a') false
- * /[\u4e00-\u9fff]/.test('주식') false
- * /[\u4e00-\u9fff]/.test('華') true
- */
-export const isChineseName = (name: string) => {
-  return /[\u4e00-\u9fff]/.test(name)
-}
+export const isChineseName = detectChinese

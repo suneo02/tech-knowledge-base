@@ -25,7 +25,6 @@ const excludePatterns = [
   '**/src/utils/strategicEmergingIndustryTree.js',
   '**/src/components/table/tableDictionary.tsx',
   '**/src/views/overseaSearchList.js',
-  '**/src/views/jobSearchList.js',
   '**/src/views/groupSearchList.tsx',
   '**/src/views/Qualifications/qualificationBury.ts',
   '**/src/views/Qualifications/detail.js',

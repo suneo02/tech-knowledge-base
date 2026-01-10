@@ -1,68 +1,42 @@
 import { useCorpModuleCfg } from '@/components/company/handle'
 import { makeCorpTableByCorpArea } from '@/components/company/handle/makeTableByArea.tsx'
 import { useBuyStatusInDetail } from '@/components/company/HKCorp/api.ts'
-import { HKCorpInfo } from '@/components/company/HKCorp/info'
-import { ICorpSubModuleCfg, ICorpTableCfg } from '@/components/company/type'
-import { getCorpModuleNum } from '@/handle/corp/basicNum/handle.tsx'
-import { TCorpCategory } from '@/handle/corp/corpType/category.ts'
 import { downLoadExcelInCompanyBase } from '@/handle/corp/download.ts'
+import { RootAction } from '@/reducers/redux.types.ts'
+import { CorpBasicNumFront } from '@/types/corpDetail/basicNum.ts'
+import { CorpTableCfg } from '@/types/corpDetail/index.ts'
 import { DownloadO } from '@wind/icons'
-import { Button, Card, Tabs, Tooltip } from '@wind/wind-ui'
-import Table from '@wind/wind-ui-table'
-import { CorpOtherInfo, TCorpDetailSubModule } from 'gel-types'
-import React, { FC, lazy, memo, Suspense, useEffect, useMemo, useState } from 'react'
+import { Button, Card, Tooltip } from '@wind/wind-ui'
+import { TCorpDetailSubModule } from 'gel-types'
+import React, { Dispatch, FC, memo, useEffect, useMemo, useState } from 'react'
 import { connect } from 'react-redux'
 import * as companyActions from '../../actions/company'
 import * as globalActions from '../../actions/global'
 import { getCorpModuleInfo } from '../../api/companyApi'
-import { ICorpBasicNumFront } from '../../handle/corp/basicNum/type.ts'
 import { useCompanyTabWidth } from '../../hooks/useCompanyTabWidth'
-import global from '../../lib/global'
 import { getVipInfo } from '../../lib/utils'
 import { IState } from '../../reducers/type.ts'
 import store from '../../store/store'
 import intl from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import { InfoCircleButton } from '../icons/InfoCircle/index.tsx'
+import { CompanyVipCard } from './auth/CompanyVipCard.tsx'
 import CompanyTable from './CompanyTable.tsx'
-import { handleBuryInCorpDetailModuleTab } from './detail/bury'
-import { CorpModuleNum, CorpModuleNumClassChild } from './detail/comp/CorpNum'
 import { shficRowConfig } from './listRowConfig.tsx'
 import corpTableStyles from './style/corpTable.module.less'
 import { useTablesGel } from './tablesGel.tsx'
-import { CompanyBaseYProps } from './type/companyBaseY.ts'
-import VipModule from './VipModule'
+import { CompanyBaseProps, CompanyBaseYProps } from './type/companyBaseY.ts'
+import { useRenderTableDom } from './useRenderTableDom.tsx'
 
-// 懒加载 FinancialDataUnitFilter 组件 - 仅在财务数据模块时才加载
-const FinancialDataUnitFilter = lazy(() =>
-  import('./buss/financial/FinancialDataUnitFilter.tsx').then((module) => ({
-    default: module.FinancialDataUnitFilter,
-  }))
-)
-
-// 白名单：只有在这些 eachTableKey 中才显示额外的 div
-const whiteList = [
-  'biddingInfo', // 招标公告
-  'tiddingInfo', // 投标公告
-  'getpatent', // 专利
-]
-
-const TabPane = Tabs.TabPane
-const { HorizontalTable } = Table
-const StatisticalChartComp = () => React.lazy(() => import('./StatisticalChart'))
-const WCBChartComp = () => React.lazy(() => import('./WcbChartDiv'))
-// 这里如果放到具体组件里 父组件属性变动会造成重复渲染，必须拿出来
-const StatisticalChartCss = memo(StatisticalChartComp())
-const WCBChartCss = memo(WCBChartComp())
-
-const VTable: FC<{ ready; eachTableKey; eachTable; singleModuleId; smaller?; basicNum }> = ({
-  ready,
-  eachTableKey,
-  eachTable,
-  singleModuleId,
-  smaller,
-  basicNum,
-}) => {
+const VTable: FC<{
+  ready
+  eachTableKey
+  eachTable
+  singleModuleId
+  smaller?
+  basicNum: CorpBasicNumFront
+  corpNameIntl?: string
+}> = ({ ready, eachTableKey, eachTable, singleModuleId, smaller, basicNum, corpNameIntl }) => {
   const table = useMemo(() => {
     return (
       <CompanyTable
@@ -72,12 +46,13 @@ const VTable: FC<{ ready; eachTableKey; eachTable; singleModuleId; smaller?; bas
         singleModuleId={singleModuleId}
         eachTableKey={eachTableKey}
         eachTable={eachTable}
+        corpNameIntl={corpNameIntl}
         title={
           smaller ? <span className={corpTableStyles.corpTableTitleText}>{eachTable.title}</span> : eachTable.title
         }
       />
     )
-  }, [ready, basicNum])
+  }, [ready, basicNum, corpNameIntl])
   return <>{table}</>
 }
 
@@ -85,6 +60,7 @@ const VTable: FC<{ ready; eachTableKey; eachTable; singleModuleId; smaller?; bas
  * 企业详情组件
  */
 const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
+  const { corpNameIntl } = props
   const userVipInfo = getVipInfo()
   const isWidthLessThan985 = useCompanyTabWidth()
 
@@ -98,16 +74,10 @@ const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
   const [fundSizeData, setFundSizeData] = useState(null) // 公募基金
   const [fundSizeDataPie, setFundSizeDataPie] = useState(null) // 公募基金
 
-  const [privateFundBase, setPrivateFundBase] = useState(null) // 私募基金-基本信息
-  const [privateFundProduct, setPrivateFundProduct] = useState(null) // 私募基金-产品结构
-  const [privateFundProductFormance, setPrivateFundProductFormance] = useState(null) // 私募基金-产品结构-区间业绩
   // 企业详情配置
   const corpModuleCfg = useCorpModuleCfg(props.company?.baseInfo?.corp_type, props.company?.baseInfo?.corp_type_id)
 
   useEffect(() => {
-    if (props.corpCategory && props.corpCategory.indexOf('privatefund') > -1 && companyid) {
-      showPrivateFundInfoLoad()
-    }
     if (props.corpCategory && props.corpCategory.indexOf('publicfund') > -1 && companyid) {
       showFundSizeLoad()
     }
@@ -115,7 +85,7 @@ const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
 
   const { hkCorpInfoBuyData } = useBuyStatusInDetail(props.corpOtherInfo?.userPurchaseInfo)
 
-  const makeTable = (table: ICorpTableCfg, eachTableKey: TCorpDetailSubModule, idx?, smaller?) => {
+  const makeTable = (table: CorpTableCfg, eachTableKey: TCorpDetailSubModule, idx?, smaller?) => {
     // 无子表，直接展示
     if (table.menuClick) {
       table.menuClickFunc = props.menuClick
@@ -154,6 +124,7 @@ const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
           singleModuleId={props.singleModuleId}
           eachTableKey={eachTableKey + '-' + idx}
           eachTable={table}
+          corpNameIntl={corpNameIntl}
         ></VTable>
       )
     } else {
@@ -167,165 +138,12 @@ const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
         singleModuleId={props.singleModuleId}
         eachTableKey={eachTableKey}
         eachTable={table}
+        corpNameIntl={corpNameIntl}
       ></VTable>
     )
   }
   const downLoadExcel = (type, txt, name) => {
     downLoadExcelInCompanyBase(type, txt, name, companycode)
-  }
-  const showPrivateFundInfoLoad = () => {
-    getCorpModuleInfo(`detail/company/getinformationofund/${companycode}`, {
-      companyId: companyid,
-    }).then((res) => {
-      const rows = [
-        [
-          {
-            title: intl('141152', '核心人物'),
-            dataIndex: 'investmentDirector',
-            titleWidth: '15%',
-            contentWidth: '15%',
-          },
-          { title: intl('31990', '机构类型'), dataIndex: 'institutionType', titleWidth: '15%', contentWidth: '15%' },
-          {
-            title: intl('145394', '基金经理人数'),
-            dataIndex: 'fundManagerNumber',
-            titleWidth: '15%',
-            contentWidth: '15%',
-          },
-        ],
-        [
-          { title: intl('143097', '登记编号'), dataIndex: 'registerNo', titleWidth: '15%', contentWidth: '15%' },
-          {
-            title: intl('31990', '机构规模'),
-            dataIndex: 'managementScaleInterval',
-            titleWidth: '15%',
-            contentWidth: '15%',
-          },
-          { title: intl('143603', '是否协会会员'), dataIndex: 'beMember', titleWidth: '15%', contentWidth: '15%' },
-        ],
-      ]
-      if (res.data && res.data.length) {
-        if (window.en_access_config) {
-          wftCommon.zh2en(res.data, (endata) => {
-            setPrivateFundBase({ rows: rows, list: endata[0] })
-          })
-        } else {
-          setPrivateFundBase({ rows: rows, list: res.data[0] })
-        }
-      }
-    })
-    getCorpModuleInfo(`detail/company/getownedfundperformance/${companycode}`, {
-      companyId: companyid,
-    }).then((res) => {
-      const cols = [
-        {
-          title: '',
-          dataIndex: 'No.',
-          width: '4%',
-          render: (_txt, _row, idx) => {
-            return idx + 1
-          },
-        },
-        {
-          title: intl('7996', '基金名称'),
-          dataIndex: 'name',
-          width: '20%',
-          render: (txt, row) => {
-            if (txt && row.windCode) {
-              return wftCommon.linkF9(txt, row, ['', 'windCode'])
-            }
-          },
-        },
-        {
-          title: intl('14384', '投资策略'),
-          dataIndex: 'strategyType',
-          width: '15%',
-        },
-        {
-          title: intl('2823', '成立日期'),
-          dataIndex: 'foundDate',
-          width: '11%',
-        },
-      ]
-
-      if (res.data.length) {
-        if (window.en_access_config) {
-          wftCommon.zh2en(res.data, (endata) => {
-            setPrivateFundProductFormance({ columns: cols, list: endata })
-          })
-        } else {
-          setPrivateFundProductFormance({ columns: cols, list: res.data })
-        }
-      }
-    })
-    getCorpModuleInfo(`detail/company/getproductstructure/${companycode}`, {
-      companyId: companyid,
-    }).then((res) => {
-      const pieData = {}
-
-      if (res.Data && res.Data.length) {
-        const dataSorted = res.Data.sort((a, b) => b?.productNumber - a?.productNumber)
-        if (window.en_access_config) {
-          wftCommon.zh2en(dataSorted, (endata) => {
-            endata.map((t) => {
-              Object.defineProperty(pieData, t.strategyType, {
-                value: t.productNumber,
-                enumerable: true,
-              })
-            })
-            const option = {
-              chart: {
-                categoryAxisDataType: 'category',
-              },
-              config: {
-                layoutConfig: {
-                  isSingleSeries: true,
-                },
-              },
-              indicators: [
-                {
-                  meta: {
-                    type: 'pie',
-                    name: 'Institution Holdings',
-                    unit: '%',
-                  },
-                  data: pieData,
-                },
-              ],
-            }
-            setPrivateFundProduct({ list: endata, pie: option })
-          })
-        } else {
-          dataSorted.map((t) => {
-            Object.defineProperty(pieData, t.strategyType, {
-              value: t.productNumber,
-              enumerable: true,
-            })
-          })
-          const option = {
-            chart: {
-              categoryAxisDataType: 'category',
-            },
-            config: {
-              layoutConfig: {
-                isSingleSeries: true,
-              },
-            },
-            indicators: [
-              {
-                meta: {
-                  type: 'pie',
-                  name: 'Institution Holdings',
-                  unit: '%',
-                },
-                data: pieData,
-              },
-            ],
-          }
-          setPrivateFundProduct({ list: res.data, pie: option })
-        }
-      }
-    })
   }
 
   const showFundSizeLoad = () => {
@@ -379,7 +197,7 @@ const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
               meta: {
                 name: intl('313037', '管理规模'),
                 type: 'bar',
-                unit: intl('19493', '亿元'),
+                unit: intl('464870', '亿元'),
                 barWidth: '50',
                 barMinWidth: '40',
               },
@@ -461,268 +279,17 @@ const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
   }
 
   // 所有配置类表格生产Dom
-  const renderTableDom = (corpModuleSubCfg: ICorpSubModuleCfg, eachTableKey, tables) => {
-    if (eachTableKey == 'showMainMemberInfo') {
-      if (!basicNum.lastNotice || basicNum.lastNotice - 0 == 0) {
-        if ('children' in corpModuleSubCfg) {
-          delete corpModuleSubCfg.children[0].title
-          corpModuleSubCfg.children[0].extraParams = (param) => {
-            param.__primaryKey = param.companycode
-            param.companyCode = param.companycode
-            return param
-          }
-          corpModuleSubCfg = { ...corpModuleSubCfg, ...corpModuleSubCfg.children[0] }
-          // @ts-expect-error ttt
-          delete corpModuleSubCfg.children
-        }
-      }
-    }
-    if ('custom' in corpModuleSubCfg) {
-      if (eachTableKey === 'HKCorpInfo' && getCorpModuleNum(corpModuleSubCfg.modelNum, basicNum)) {
-        tables.push(
-          <HKCorpInfo
-            corpCode={companycode}
-            corpName={companyname}
-            tableReady={props.scrollModuleIds.indexOf(eachTableKey) > -1 ? true : false}
-            bussStatusData={hkCorpInfoBuyData}
-            baseInfo={props?.company?.baseInfo}
-            refreshHKCorpBussStatus={props.refreshCorpOtherInfo}
-          />
-        )
-      }
-    } else if ('withTab' in corpModuleSubCfg && corpModuleSubCfg.withTab) {
-      if (!userVipInfo.isSvip && !userVipInfo.isVip) {
-        if (
-          ('notVipTitle' in corpModuleSubCfg && corpModuleSubCfg.notVipTitle) ||
-          ('notVipTips' in corpModuleSubCfg && corpModuleSubCfg.notVipTips)
-        ) {
-          tables.push(
-            <Card
-              data-custom-id={eachTableKey}
-              key={eachTableKey}
-              className="table-custom-module-readyed vtable-container gqct-card"
-              divider={'none'}
-              title={corpModuleSubCfg.title}
-            >
-              <VipModule
-                modelInstanceNum={global.VIP_MODEL_COUNT++}
-                show={true}
-                title={('notVipTitle' in corpModuleSubCfg && corpModuleSubCfg.notVipTitle) || ''}
-                tips={('notVipTips' in corpModuleSubCfg && corpModuleSubCfg.notVipTips) || ''}
-              />
-            </Card>
-          )
-          return
-        }
-      }
-
-      // 带tab切换的普通页面
-      const titleStr = (
-        <>
-          {' '}
-          {corpModuleSubCfg.title} {corpModuleSubCfg.modelNumStr}{' '}
-          {corpModuleSubCfg.rightLink
-            ? corpModuleSubCfg.rightLink({
-                companyCode: companycode,
-                companyName: companyname,
-                companyId: companyid,
-              })
-            : null}{' '}
-        </>
-      )
-
-      const tabs = (
-        <Card
-          key={'card_' + eachTableKey}
-          className={`vtable-container ${eachTableKey}_tab_div  `}
-          // @ts-expect-error 不能删
-          multiTabId={eachTableKey}
-          divider={'none'}
-          title={titleStr}
-        >
-          {/* // 商标 专利 图表 */}
-          {corpModuleSubCfg.statisticalChart && getCorpModuleNum(corpModuleSubCfg.statisticalChartNum, basicNum) ? (
-            <React.Suspense fallback={<div></div>}>
-              {
-                <StatisticalChartCss
-                  eachTable={corpModuleSubCfg}
-                  companyRegDate={companyRegDate}
-                  companycode={companycode}
-                  type={corpModuleSubCfg.statisticalChart}
-                />
-              }
-            </React.Suspense>
-          ) : null}
-
-          {'children' in corpModuleSubCfg && corpModuleSubCfg.children?.length ? (
-            <Tabs
-              className="VTable"
-              defaultActiveKey="0"
-              onChange={(e) => {
-                if (props.scrollModuleIds.indexOf(`${eachTableKey}-${e}`) == -1) {
-                  const tmp = [...props.scrollModuleIds]
-                  tmp.push(`${eachTableKey}-${e}`)
-                  props.setCorpModuleReadyed(tmp)
-                }
-              }}
-              onTabClick={(key) => {
-                handleBuryInCorpDetailModuleTab(corpModuleSubCfg, key, corpId)
-                const dom = document.querySelector('[multitabid=tiddingInfo]')?.querySelector('.w-tabs-top-bar')
-                if (key === '0' && dom) {
-                  dom.className = 'w-tabs-top-bar'
-                } else if (key !== '0' && dom) {
-                  dom.className = 'w-tabs-top-bar noMaxWidth'
-                }
-              }}
-              data-uc-id="mLgOkU9tWW"
-              data-uc-ct="tabs"
-            >
-              {corpModuleSubCfg.children.map((t, idx) => {
-                t.hideTitle = true
-                if (corpModuleSubCfg.withTab) {
-                  t.hideTitle = false
-                }
-
-                const tabChildNumStr = (
-                  <>
-                    {t.title}
-                    <CorpModuleNum
-                      modelNum={t.modelNum}
-                      basicNum={basicNum}
-                      numHide={t.numHide}
-                      className={CorpModuleNumClassChild}
-                    />
-                  </>
-                )
-                const tableStr = makeTable(t, eachTableKey, idx, true)
-
-                return (
-                  <TabPane
-                    className={corpModuleSubCfg.withTab ? 'tab-show-small-title' : ''}
-                    tab={tabChildNumStr}
-                    key={idx}
-                    data-uc-id="lqxC1LBIXy"
-                    data-uc-ct="tabpane"
-                    data-uc-x={idx}
-                  >
-                    {isWidthLessThan985 && whiteList.includes(eachTableKey) && <div style={{ height: '40px' }}></div>}
-                    {tableStr}
-                  </TabPane>
-                )
-              })}
-            </Tabs>
-          ) : null}
-        </Card>
-      )
-
-      tables.push(tabs)
-    } else {
-      if ('children' in corpModuleSubCfg && corpModuleSubCfg.children) {
-        if (
-          !userVipInfo.isSvip &&
-          !userVipInfo.isVip &&
-          (('notVipTitle' in corpModuleSubCfg && corpModuleSubCfg.notVipTitle) ||
-            ('notVipTips' in corpModuleSubCfg && corpModuleSubCfg.notVipTips))
-        ) {
-          tables.push(
-            <Card
-              data-custom-id={eachTableKey}
-              key={eachTableKey}
-              className="table-custom-module-readyed vtable-container gqct-card"
-              divider={'none'}
-              title={corpModuleSubCfg.title}
-            >
-              <VipModule
-                modelInstanceNum={global.VIP_MODEL_COUNT++}
-                show={true}
-                title={('notVipTitle' in corpModuleSubCfg && corpModuleSubCfg.notVipTitle) || ''}
-                tips={('notVipTips' in corpModuleSubCfg && corpModuleSubCfg.notVipTips) || ''}
-              />
-            </Card>
-          )
-          return
-        }
-
-        // 有子表
-        const tableChildren = []
-        corpModuleSubCfg.children.forEach((childTable, idx) => {
-          // @ts-expect-error ttt
-          if (childTable.hideWhenNumZero && basicNum[childTable.modelNum] == 0) {
-            return
-          }
-          tableChildren.push(makeTable(childTable, eachTableKey, idx, true))
-        })
-        const titleStr = (
-          <div className="has-child-table">
-            <span className="table-title">{corpModuleSubCfg.title}</span>
-
-            {'hint' in corpModuleSubCfg && corpModuleSubCfg.hint ? (
-              <Tooltip
-                overlayClassName="corp-tooltip"
-                title={<div dangerouslySetInnerHTML={{ __html: corpModuleSubCfg.hint }}></div>}
-              >
-                <InfoCircleButton />
-              </Tooltip>
-            ) : null}
-
-            {corpModuleSubCfg.modelNumStr}
-            {('notVipTitle' in corpModuleSubCfg && corpModuleSubCfg.notVipTitle) ||
-            ('notVipTips' in corpModuleSubCfg && corpModuleSubCfg.notVipTips) ? (
-              <span className="module-vip-tips" style={{ marginBlockStart: 7 }}></span>
-            ) : null}
-            {'rightLink' in corpModuleSubCfg && corpModuleSubCfg.rightLink
-              ? corpModuleSubCfg.rightLink({
-                  companyCode: companycode,
-                  companyName: companyname,
-                  companyId: companyid,
-                })
-              : null}
-            {'downDocType' in corpModuleSubCfg && corpModuleSubCfg.downDocType ? (
-              <Button
-                onClick={() => {
-                  // @ts-expect-error ttt
-                  downLoadExcel(corpModuleSubCfg.downDocType, corpModuleSubCfg.title, corpModuleSubCfg.companyname)
-                }}
-                icon={
-                  <DownloadO
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                    data-uc-id="55QZVSikT"
-                    data-uc-ct="downloado"
-                  />
-                }
-                data-uc-id="Tlj4KDP4XW"
-                data-uc-ct="button"
-              >
-                {intl('4698', '导出数据')}
-              </Button>
-            ) : null}
-            {eachTableKey == 'FinancialData' ? (
-              <div className="financial-select">
-                {' '}
-                <span> {intl('31686', '单位')}：</span>
-                <Suspense fallback={<div></div>}>
-                  <FinancialDataUnitFilter corpModuleSubCfg={corpModuleSubCfg} />
-                </Suspense>
-              </div>
-            ) : null}
-          </div>
-        )
-        const tableWrapper = (
-          <Card key={eachTableKey + '-wrapper'} className="vtable-container" divider={'none'} title={titleStr}>
-            {tableChildren.map((t) => {
-              return t
-            })}
-          </Card>
-        )
-
-        tables.push(tableWrapper)
-      } else {
-        const tableStr = makeTable(corpModuleSubCfg, eachTableKey)
-        tables.push(tableStr)
-      }
-    }
-  }
+  const renderTableDom = useRenderTableDom({
+    basicNum,
+    companycode,
+    companyname,
+    companyid,
+    hkCorpInfoBuyData,
+    companyRegDate,
+    corpId,
+    props,
+    makeTable,
+  })
 
   const tablesGEL = useTablesGel({
     props,
@@ -730,9 +297,6 @@ const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
     renderTableDom,
     fundSizeDataPie,
     fundSizeData,
-    privateFundBase,
-    privateFundProduct,
-    privateFundProductFormance,
     companyid,
     isWidthLessThan985,
   })
@@ -750,20 +314,12 @@ const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
           if (!userVipInfo.isSvip && !userVipInfo.isVip) {
             if (eachTable.notVipTitle || eachTable.notVipTips) {
               tables.push(
-                <Card
-                  data-custom-id={eachTableKey}
+                <CompanyVipCard
+                  dataCustomId={eachTableKey}
                   key={eachTableKey}
-                  className="table-custom-module-readyed vtable-container gqct-card"
-                  divider={'none'}
                   title={eachTable.title}
-                >
-                  <VipModule
-                    modelInstanceNum={global.VIP_MODEL_COUNT++}
-                    show={true}
-                    title={eachTable.notVipTitle || ''}
-                    tips={eachTable.notVipTips || ''}
-                  />
-                </Card>
+                  vipTitle={eachTable.notVipTitle || ''}
+                />
               )
               return
             }
@@ -944,7 +500,7 @@ const CompanyBaseY: FC<CompanyBaseYProps> = (props) => {
  * 减少重复渲染Hoc
  * @date 3/26/2024 - 11:33:41 AM
  */
-const CompanyBase = memo(
+const CompanyBase = memo<CompanyBaseProps>(
   ({
     scrollModuleIds,
     singleModuleId,
@@ -957,23 +513,6 @@ const CompanyBase = memo(
     setCorpModuleReadyed,
     allMenuDataObj,
     ...prop
-  }: {
-    companyname
-    companyid
-    basicNum: ICorpBasicNumFront
-    companycode
-    companyRegDate
-    company: IState['company']
-    corpArea
-    corpCategory: TCorpCategory[]
-    menuClick
-    singleModuleId
-    singleModuleOrder?: string[]
-    scrollModuleIds: any[]
-    setCorpModuleReadyed
-    allMenuDataObj
-    corpOtherInfo: CorpOtherInfo
-    refreshCorpOtherInfo: () => void
   }) => {
     return (
       <CompanyBaseY
@@ -982,6 +521,7 @@ const CompanyBase = memo(
         singleModuleId={singleModuleId}
         singleModuleOrder={singleModuleOrder}
         companyname={companyname}
+        corpNameIntl={prop.corpNameIntl}
         companycode={companycode}
         companyid={companyid}
         scrollModuleIds={scrollModuleIds}
@@ -1040,7 +580,7 @@ const mapStateToProps = (state: IState) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
     setCorpModuleReadyed: (data) => {
       dispatch(companyActions.setCorpModuleReadyed(data))

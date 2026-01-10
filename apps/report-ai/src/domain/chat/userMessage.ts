@@ -1,18 +1,6 @@
-import { RPFileUploaded, RPOutlineUserMsgParse } from '@/types';
-import { ChatThinkSignal } from 'gel-api';
+import { RPOutlineAgentMsgUser, RPOutlineUserMsgParse } from '@/types';
 
-/**
- * 通用用户消息解析器
- *
- * @description 将原始用户消息转换为带附件信息的解析结构
- */
-type UserMessageLike = {
-  content?: string;
-  files?: RPFileUploaded[];
-  refFiles?: RPFileUploaded[];
-} & ChatThinkSignal;
-
-export const createUserMessageWithFiles = (agentMessage: UserMessageLike): RPOutlineUserMsgParse => {
+export const createUserMessageWithFiles = (agentMessage: RPOutlineAgentMsgUser): RPOutlineUserMsgParse => {
   if (!agentMessage.content) {
     console.error('createUserMessageWithFiles: content is undefined', agentMessage);
   }
@@ -24,6 +12,5 @@ export const createUserMessageWithFiles = (agentMessage: UserMessageLike): RPOut
       files: agentMessage.files,
       refFiles: agentMessage.refFiles,
     },
-    think: agentMessage.think,
   };
 };

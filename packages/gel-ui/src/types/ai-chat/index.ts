@@ -1,16 +1,17 @@
 export type {
-  AgentMessageShared,
-  AgentMsgAIDepre,
+  AgentMsgAIOverall,
   AgentMsgAIShare,
-  AgentMsgDepre,
-  AgentMsgUserShare,
+  AgentMsgOverall,
+  AgentMsgUserOverall,
   AIHeaderMsg,
   AIMessageGEL,
+  AIFooterMsg,
   AIMessageReportContent,
   AIMessageStatus,
   AIMsgBaseContent,
-  BaseMessageFields,
   ChartMessage,
+  ChatMsgInputOptions,
+  EntityOptions,
   FileMessage,
   MsgParsedDepre,
   OtherMessageStatus,
@@ -26,7 +27,6 @@ export type {
   ChatSenderOptions,
   ChatSenderState,
   ConversationSetupHookResult,
-  EntityOptions,
 } from './sender'
 
 export type { AntRoleType, RolesTypeBase, RolesTypeCore } from './roles'

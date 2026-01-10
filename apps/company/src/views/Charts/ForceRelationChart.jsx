@@ -230,8 +230,8 @@ function ForceRelationChart() {
                 {window.en_access_config ? null : (
                   <>
                     <div>{window.en_access_config ? 'Tips:' : '注:'} </div>
-                    <div>{intl('265512', '股权关系包含：对外投资、对外控股、实际控股')} </div>
-                    <div>{intl('265522', '合作关系包含：并购、股权出质、担保、中标、供应链')}</div>
+                    <div>{intl('478677', '股权关系包含：对外投资、对外控股、实际控股')} </div>
+                    <div>{intl('478678', '合作关系包含：并购、股权出质、担保、中标、供应链')}</div>
                   </>
                 )}
               </div>

@@ -9,7 +9,7 @@ import { CHAT_ROOM_ID_PREFIX, ChatActions, ScrollToBottomButton, useBubbleItems,
 import { Spin } from 'antd'
 import cn from 'classnames'
 import { ChatThinkSignal } from 'gel-api'
-import { AliceLogo, useInitialMsgFromUrl, useScrollToBottom } from 'gel-ui'
+import { AliceLogo, useAutoScrollOnSend, useInitialMsgFromUrl, useScrollToBottom } from 'gel-ui'
 import { t } from 'gel-util/intl'
 import { FC, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
@@ -68,49 +68,17 @@ export const ChatMessageSuper: FC<{ setShowChat?: (show: boolean) => void }> = (
   })
 
   // 使用滚动控制 hook
-  const { chatContainerRef, showScrollBottom, scrollToBottom } = useScrollToBottom({
-    parsedMessages,
-    isChating,
+  const { chatContainerRef, showScrollBottom, scrollToBottom } = useScrollToBottom()
+
+  // 使用发送消息后自动滚动 hook
+  const sendMessageAndScroll = useAutoScrollOnSend({
+    scrollToBottom,
+    sendMessage,
   })
-
-  // 首屏自动滚动到底部（仅执行一次）
-  const didInitialAutoScrollRef = useRef(false)
-  useEffect(() => {
-    if (didInitialAutoScrollRef.current) return
-    if (bubbleLoading) return
-    if (!parsedMessages?.length) return
-    requestAnimationFrame(() => {
-      scrollToBottom()
-      didInitialAutoScrollRef.current = true
-    })
-  }, [bubbleLoading, parsedMessages, scrollToBottom])
-
-  // 新消息到达时自动滚动（长度增长）
-  const prevMessagesLengthRef = useRef(0)
-  useEffect(() => {
-    const length = parsedMessages?.length ?? 0
-    if (length > prevMessagesLengthRef.current) {
-      requestAnimationFrame(() => {
-        scrollToBottom()
-      })
-    }
-    prevMessagesLengthRef.current = length
-  }, [parsedMessages, scrollToBottom])
-
-  // 开始回答时（isChating 从 false -> true）自动滚动
-  const prevIsChatingRef = useRef(isChating)
-  useEffect(() => {
-    if (!prevIsChatingRef.current && isChating) {
-      requestAnimationFrame(() => {
-        scrollToBottom()
-      })
-    }
-    prevIsChatingRef.current = isChating
-  }, [isChating, scrollToBottom])
 
   // 气泡项处理逻辑
   const { bubbleItems } = useBubbleItems(parsedMessages, chatId, true, undefined, (message) =>
-    sendMessage(message, undefined, deepthink)
+    sendMessageAndScroll(message, undefined, deepthink)
   )
 
   // 处理历史消息恢复
@@ -134,8 +102,6 @@ export const ChatMessageSuper: FC<{ setShowChat?: (show: boolean) => void }> = (
 
   // 从 URL 同步 deepSearch 初始状态
   useEffect(() => {
-    const deep = searchParams.get('deepSearch')
-    console.log('🚀 ~ ChatMessageSuper ~ deep:', deep)
     // 给一句话找企业直接写死true
     // if (deep != null) setDeepSearch(deep === '1' || deep === 'true')
     setDeepSearch(true)
@@ -150,9 +116,9 @@ export const ChatMessageSuper: FC<{ setShowChat?: (show: boolean) => void }> = (
       // const deepFlag = deep === '1' || deep === 'true'
       // 给一句话找企业直接写死true
       const deepFlag = true
-      sendMessage(initialMessage, undefined, deepthink, chatId, deepFlag ? 1 : undefined)
+      sendMessageAndScroll(initialMessage, undefined, deepthink, chatId, deepFlag ? 1 : undefined)
     }
-  }, [initialMessage, sendMessage, chatId, searchParams])
+  }, [initialMessage, sendMessageAndScroll, chatId, deepthink])
 
   // 监听工作表列表版本变化
   useEffect(() => {
@@ -187,23 +153,7 @@ export const ChatMessageSuper: FC<{ setShowChat?: (show: boolean) => void }> = (
         </div>
 
         {/* 使用独立的滚动到底部按钮组件 */}
-        <ScrollToBottomButton visible={showScrollBottom} onClick={scrollToBottom} />
-
-        {/* 针对超级名单的表格筛选区域 */}
-        {/* <div>
-          <h4>表格筛选区域 (Sheet List):</h4>
-          {sheetList && sheetList.length > 0 ? (
-            <ul>
-              {sheetList.map((sheet) => (
-                <li key={sheet.id}>
-                  {sheet.name} (ID: {sheet.id})
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>当前没有工作表数据。</p>
-          )}
-        </div> */}
+        <ScrollToBottomButton visible={showScrollBottom} onClick={() => scrollToBottom()} />
 
         {/* 聊天操作区域 */}
         <div className={cn(styles.chatActionsContainer, styles.chatContainerTop)}>
@@ -216,16 +166,8 @@ export const ChatMessageSuper: FC<{ setShowChat?: (show: boolean) => void }> = (
             onCancel={cancelRequest}
             handleContentChange={handleContentChange}
             sendMessage={(message) => {
-              const result = sendMessage(message, undefined, deepthink, undefined, deepSearch ? 1 : undefined)
-              requestAnimationFrame(() => {
-                scrollToBottom()
-              })
-              return result
+              return sendMessageAndScroll(message, undefined, deepthink, undefined, deepSearch ? 1 : undefined)
             }}
-            // suggestions={sheetInfos?.map((sheet) => ({
-            //   label: sheet.sheetName,
-            //   value: sheet.sheetName,
-            // }))}
             renderLeftActions={() => {
               // 给一句话找企业直接写死true
               return <DeepSearchBtn initialValue={true} onChange={setDeepSearch} />

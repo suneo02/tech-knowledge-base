@@ -13,39 +13,47 @@ import { createFastCrawl, getCorpHeaderInfo, getCorpInfo, myWfcAjax } from '@/ap
 import { getcustomercountgroupnew } from '@/api/companyDynamic'
 import { pointBuriedGel } from '@/api/configApi'
 import { CorpBasicNum, getCompanyBasicNumT } from '@/api/corp/basicNum/index.ts'
-import { getCorpOtherInfo } from '@/api/corp/info/otherInfo.ts'
+import { getCorpOtherInfo } from '@/api/corp/info/otherInfo'
 import { pointBuriedByModule } from '@/api/pointBuried/bury.ts'
-import { translateByAlice } from '@/api/translate'
-import { ApiCodeForWfc, ApiResponse } from '@/api/types.ts'
+import { ApiResponse } from '@/api/types'
 import CompanyBase from '@/components/company/CompanyBase'
 import CompanyIntroduction from '@/components/company/CompanyIntroduction.tsx'
 import { handleBuryInCorpDetailMenu } from '@/components/company/detail/bury/menu'
 import CompanyInfo from '@/components/company/info/CompanyInfo.tsx'
-import { ICorpBasicInfoFront } from '@/components/company/info/handle'
+import { CorpBasicInfoFront } from '@/components/company/info/handle'
 import Collect from '@/components/searchListComponents/collect'
 import ToolsBar from '@/components/toolsBar/index.tsx'
-import { getIfPrivateFundCorpByBasicNum, getIfPublicFundCorpByBasicNum } from '@/handle/corp/basicNum/fund.ts'
-import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type.ts'
-import { getOverSea, TCorpArea } from '@/handle/corp/corpArea.ts'
+import { isOverseaCorp } from '@/domain/corpDetail/corpType'
+import { translateCorpBaseInfoData } from '@/handle/corp/base/translate'
+import { CorpArea, getCorpAreaByAreaCode } from '@/handle/corp/corpArea.ts'
 import { useHandleOverseaCorp } from '@/handle/corp/corpType'
 import { TCorpCategory } from '@/handle/corp/corpType/category.ts'
 import { createCorpDetailScrollCallback, SCROLL_FROM_MENU_CLICK_ID, triggerInitialModuleLoad } from '@/handle/corp/misc'
 import { handleCorpDetailScrollMenuChanged, handleCorpDetailScrollMenuLoad } from '@/handle/corp/misc/scroll'
 import { usePageTitle } from '@/handle/siteTitle'
 import { parseQueryString } from '@/lib/utils'
+import { selectCorpNameIntl } from '@/reducers/company'
 import { IState } from '@/reducers/type.ts'
+import { CorpBasicNumFront } from '@/types/corpDetail'
 import { wftCommon } from '@/utils/utils'
 import { Card, message } from '@wind/wind-ui'
-import { CorpOtherInfo } from 'gel-types'
+import { ApiCodeForWfc, ApiResponseForWFC } from 'gel-api'
+import { CorpBasicInfo, CorpCardInfo, CorpOtherInfo, TCorpDetailModule } from 'gel-types'
 import { mergeCorpBasicNum } from 'gel-util/corp'
 import { multiTabIds } from 'gel-util/corpConfig'
-import { isEn } from 'gel-util/intl'
+import { getCorpNameOriginalByBaseAndCardInfo } from 'gel-util/misc'
 import { cloneDeep, isNil } from 'lodash'
 import React, { FC, UIEventHandler, useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import CorpDetailMenu from '../Company/comp/menu'
-import { getIfIPOCorpByBasicNum } from '../Company/handle/corpBasicNum'
-import { CorpMenuData, handleCorpDetailMenu, ICorpMenuCfg, useCorpMenuByType } from '../Company/menu'
+import { connect, useSelector } from 'react-redux'
+
+import {
+  getIfIPOCorpByBasicNum,
+  getIfPrivateFundCorpByBasicNum,
+  getIfPublicFundCorpByBasicNum,
+} from '@/domain/corpDetail'
+import { isDev, isStaging } from '@/utils/env'
+import { CorpDetailMenu } from '../Company/comp/menu'
+import { useCorpMenuByType, useCorpMenuData } from '../Company/menu'
 import { Content } from './comp/ScrollContent/index'
 import './corpDetail.less'
 
@@ -63,16 +71,14 @@ export const ScrollContainerClass = 'companyDetailScrollContainer' // 滚动容�
 const scrollCallback = createCorpDetailScrollCallback(BODYOFFSETTOP)
 
 const CompanyDetail: FC<{
-  baseInfo: ICorpBasicInfoFront
-  corpNameEng: string
-  setCorpNameEng: (corpNameEng: string) => void
+  baseInfo: CorpBasicInfoFront
   setCorpModuleReadyed
   getCorpHeaderInfo
-  setCorpArea
+  setCorpArea: React.Dispatch<React.SetStateAction<CorpArea>>
   getBasicNum
   corpCategory: TCorpCategory[]
   setCorpCategory: (arg0: TCorpCategory[]) => any
-  getCorpInfo
+  getCorpInfo: (data: any, cb: (res: ApiResponse<CorpBasicInfo>) => void) => void
   setCorpOtherInfo
   setCollectState
   setIsObjection
@@ -82,7 +88,6 @@ const CompanyDetail: FC<{
   userPackageinfo
   userPackageInfoApiLoaded
 }> = (props) => {
-  const { corpNameEng, setCorpNameEng } = props
   const qsParam = parseQueryString()
   let companycode = qsParam['companycode']
   if (!companycode) {
@@ -113,36 +118,61 @@ const CompanyDetail: FC<{
   let f9grid = qsParam['grid'] || ''
   f9grid = f9grid?.toLocaleLowerCase() // alice 跳转定位到指定模块
   const linksource = qsParam['linksource'] || null || ''
-  // 这三个都是 menu 的 data 不知道有啥区别
-  const [allTreeDatas, setAllTreeDatas] = useState<CorpMenuData[]>([])
-  const [allTreeDataObj, setAllTreeDataObj] = useState({})
-  const [treeDatas, setTreeDatas] = useState<CorpMenuData[]>([])
-  const [expandedKeys, setExpandedKeys] = useState([])
 
-  const [autoExpandParent, setAutoExpandParent] = useState(true)
   const corpid = qsParam['companyid'] || ''
   const [companyid, setCompanyid] = useState(corpid)
-  const [corpname, setCorpname] = useState('')
-  const companyNameIntl = isEn() ? corpNameEng : corpname
-  usePageTitle('CompanyDetail', companyNameIntl)
+  const companyState = useSelector((state: any) => state.company)
+  const corpname = getCorpNameOriginalByBaseAndCardInfo(companyState?.baseInfo, companyState?.corpHeaderInfo)
+  const corpNameIntl = useSelector(selectCorpNameIntl)
+  usePageTitle('CompanyDetail', corpNameIntl)
   const [corpBaseInfoCard, setCorpBaseInfoCard] = useState(null)
-  const [basicNum, setBasicNum] = useState<ICorpBasicNumFront>({})
+  const [basicNum, setBasicNum] = useState<CorpBasicNumFront>({})
   const [companyRegDate, setCompanyRegDate] = useState('')
-
-  const [selectedKeys, setSelectedKeys] = useState<string[]>(['showCompanyInfo'])
 
   const [collectList, setCollectList] = useState([])
 
   const [modalShow, setModalShow] = useState(false)
 
-  const [corpArea, setCorpArea] = useState<TCorpArea>('')
+  const [corpArea, setCorpArea] = useState<CorpArea>('')
 
   const [loadedBrandAndPatent, setLoadedBrandAndPatent] = useState(false)
   const [loadedBid, setLoadedBid] = useState(false)
   const [userPackageInfoReady, setUserPackageInfoReady] = useState(false)
 
   // 使用 Hook 获取菜单配置（自动处理基金/IPO等特殊菜单项和海外企业）
-  const currentMenus = useCorpMenuByType(props.baseInfo, basicNum, corpArea)
+  const currentMenus = useCorpMenuByType(props.baseInfo, basicNum)
+
+  // 使用 Hook 管理菜单数据和状态
+  const { allTreeDataObj, expandedKeys, selectedKeys, autoExpandParent, setExpandedKeys, setSelectedKeys, onExpand } =
+    useCorpMenuData(currentMenus, basicNum, () => {
+      // 菜单构建完成后的回调：触发初次模块加载检测
+      if (!singleModuleId) {
+        triggerInitialModuleLoad(
+          BODYOFFSETTOP,
+          (moduleId) => {
+            handleCorpDetailScrollMenuLoad(moduleId, {
+              loadedBrandAndPatent,
+              setLoadedBrandAndPatent,
+              loadedBid,
+              setLoadedBid,
+              props,
+              allTreeDataObj,
+              setSelectedKeys,
+              setExpandedKeys,
+              expandedKeys,
+            })
+          },
+          (moduleId) => {
+            handleCorpDetailScrollMenuChanged(moduleId, {
+              setSelectedKeys,
+              setExpandedKeys,
+              expandedKeys,
+              allTreeDataObj,
+            })
+          }
+        )
+      }
+    })
 
   window.__GELCOMPANYCODE__ = companycode
 
@@ -179,23 +209,29 @@ const CompanyDetail: FC<{
       let f9grid2 = ''
       for (const k in currentMenus) {
         if (f9grid2) break
-        for (let i = 0; i < currentMenus[k].showList.length; i++) {
-          const t = currentMenus[k].showList[i]
-          const lowMenuStr = t?.toLocaleLowerCase()
+        const moduleConfig = currentMenus[k as TCorpDetailModule]
+        if (!moduleConfig?.children) continue
+
+        // 第一次遍历：查找匹配的模块
+        for (let i = 0; i < moduleConfig.children.length; i++) {
+          const child = moduleConfig.children[i]
+          const lowMenuStr = child.showModule?.toLocaleLowerCase()
           if (lowMenuStr === f9grid) {
-            f9grid = t
+            f9grid = child.showModule
             f9grid2 = f9grid
             break
           }
         }
-        currentMenus[k].showList.map((t) => {
-          const lowMenuStr = t?.toLocaleLowerCase()
+
+        // 第二次遍历：再次确认（保持原有逻辑）
+        moduleConfig.children.forEach((child) => {
+          const lowMenuStr = child.showModule?.toLocaleLowerCase()
           if (lowMenuStr === f9grid) {
-            f9grid = t
+            f9grid = child.showModule
           }
         })
       }
-      if (is_terminal) {
+      if (is_terminal || isDev || isStaging) {
         // 终端内才支持alice模块定位，浏览器模式先不支持，性能效果不佳
         setTimeout(() => {
           treeMenuClick([f9grid], { selected: true })
@@ -223,31 +259,6 @@ const CompanyDetail: FC<{
     }
   }, [basicNum, currentMenus])
   useHandleOverseaCorp(corpBaseInfoCard)
-  useEffect(() => {
-    if (!currentMenus || Object.keys(currentMenus).length === 0) return
-
-    const allMenu = []
-    for (const k in currentMenus) {
-      const menu = {
-        key: k,
-        title: currentMenus[k].title,
-        children: [],
-      }
-      if (k == 'overview') {
-        menu.children.push({
-          key: currentMenus[k].showList[0],
-          title: currentMenus[k].showName[0],
-          titleStr: currentMenus[k].showName[0],
-          titleNum: '',
-          parentMenuKey: k,
-        })
-      }
-      if (!currentMenus[k].hide) {
-        allMenu.push(menu)
-      }
-    }
-    setTreeDatas(allMenu)
-  }, [currentMenus])
 
   const refreshCorpOtherInfo = async () => {
     try {
@@ -271,7 +282,7 @@ const CompanyDetail: FC<{
   }
 
   const getCorpBasicNumLocal = () => {
-    let basicNumNew: Partial<ICorpBasicNumFront> = {}
+    let basicNumNew: Partial<CorpBasicNumFront> = {}
     props.getBasicNum(companycode, (res: ApiResponse<CorpBasicNum>) => {
       if (isNil(res) || isNil(res.Data)) {
         console.error('~ get basic num error', res)
@@ -336,35 +347,40 @@ const CompanyDetail: FC<{
         props.setCorpModuleReadyed([singleModuleId])
       }
     } else {
-      props.getCorpHeaderInfo(companycode, (res) => {
-        setCorpBaseInfoCard(res?.data)
-        // 如果companycode有效，触发快爬
-        if (res?.data?.corp_id) {
-          createFastCrawl(companycode)
+      props.getCorpHeaderInfo(
+        companycode,
+        (
+          res: ApiResponseForWFC<CorpCardInfo> & {
+            data?: CorpCardInfo & {
+              corp?: CorpCardInfo
+            }
+          }
+        ) => {
+          setCorpBaseInfoCard(res?.data)
+          // 如果companycode有效，触发快爬
+          if (res?.data?.corp_id) {
+            createFastCrawl(companycode)
+          }
+          res.data.corp = res.data
+          const area = res.data.corp.areaCode ? getCorpAreaByAreaCode(res.data.corp.areaCode) : ''
+          if (area && !corpArea) {
+            props.setCorpArea(area)
+            setCorpArea(area)
+          }
+
+          window.__GELCOMPANYNAME__ = res.data.corp.corp_name
+          window.__GELCOMPANYID__ = res.data.corp.corp_old_id
+          if (!companyid) {
+            setCompanyid(res.data.corp.corp_old_id)
+          }
+          setCompanyRegDate(res.data.corp.reg_date ? res.data.corp.reg_date.substring(0, 4) : '')
         }
-        res.data.corp = res.data
-        setCorpname(res.data.corp.corp_name)
-        const area = res.data.corp.areaCode ? getOverSea(res.data.corp.areaCode) : ''
-        if (area && !corpArea) {
-          props.setCorpArea(area)
-          setCorpArea(area)
-        }
-        if (window.en_access_config) {
-          window.__GELCOMPANYNAMEEN__ = res.data.eng_name || res.data.corp.corp_name || ''
-          setCorpNameEng(res.data.eng_name || '--')
-        }
-        window.__GELCOMPANYNAME__ = res.data.corp.corp_name
-        window.__GELCOMPANYID__ = res.data.corp.corp_old_id
-        if (!companyid) {
-          setCompanyid(res.data.corp.corp_old_id)
-        }
-        setCompanyRegDate(res.data.corp.reg_date ? res.data.corp.reg_date.substring(0, 4) : '')
-      })
+      )
 
       getCorpBasicNumLocal()
       props.getCorpInfo(companycode, (res) => {
         const corpCategory = [...(props.corpCategory || [])]
-        const area = res.data.areaCode ? getOverSea(res.data.areaCode) : ''
+        const area = res.data.areaCode ? getCorpAreaByAreaCode(res.data.areaCode) : ''
         if (area && !corpArea) {
           props.setCorpArea(area)
           setCorpArea(area)
@@ -391,11 +407,7 @@ const CompanyDetail: FC<{
         }
 
         // 判断是否为海外企业
-        if (
-          String(corptypeid) == '298060000' ||
-          res.Data.areaCode == '030407' ||
-          res.Data.areaCode?.indexOf('18') == 0
-        ) {
+        if (isOverseaCorp(corptypeid, res.Data.areaCode)) {
           ifOverseaCorp = 1
         }
 
@@ -438,14 +450,6 @@ const CompanyDetail: FC<{
     console.warn('~ props.userPackageInfo updated:', props.userPackageinfo)
   }, [props.userPackageinfo])
 
-  // 监听菜单配置和统计数据变化，自动更新菜单树
-  useEffect(() => {
-    // 确保有足够的统计数据后再构建菜单树
-    if (Object.entries(basicNum).length >= 5 && currentMenus && Object.keys(currentMenus).length > 0) {
-      handleMenuTree(currentMenus, basicNum)
-    }
-  }, [currentMenus, basicNum])
-
   useEffect(() => {
     // 专门拉取 商标 专利 统计数字
     if (!loadedBrandAndPatent) {
@@ -460,7 +464,7 @@ const CompanyDetail: FC<{
       companyType: 0,
       __primaryKey: companycode,
     }
-    let numsObj: Partial<ICorpBasicNumFront> = {}
+    let numsObj: Partial<CorpBasicNumFront> = {}
     let patentAndBrandReady = 0
     myWfcAjax('getintellectual', params).then(
       (backRes) => {
@@ -505,7 +509,7 @@ const CompanyDetail: FC<{
 
     if (loadedBid) {
       const paramBid = { companycode, pageNo: 0, pageSize: 1, roleType: 0, __primaryKey: companycode }
-      const numsObj: Partial<ICorpBasicNumFront> = {}
+      const numsObj: Partial<CorpBasicNumFront> = {}
       let bidTidReady = 0
       myWfcAjax('detail/company/penetration_bid_statistical_number', paramBid).then((backRes) => {
         bidTidReady++
@@ -562,44 +566,7 @@ const CompanyDetail: FC<{
     }
   }, [loadedBid])
 
-  const handleMenuTree = (menus: ICorpMenuCfg, nums: ICorpBasicNumFront) => {
-    const { allMenu, allMenuData, allMenuDataObj } = handleCorpDetailMenu(menus, nums, corpArea)
-    setAllTreeDatas(allMenuData)
-    setTreeDatas(allMenu)
-    setAllTreeDataObj(allMenuDataObj)
-
-    onExpand(['overview'])
-
-    // 菜单构建完成后，触发初次模块加载检测
-    setTimeout(() => {
-      if (!singleModuleId) {
-        triggerInitialModuleLoad(
-          BODYOFFSETTOP,
-          (moduleId) => {
-            handleCorpDetailScrollMenuLoad(moduleId, {
-              loadedBrandAndPatent,
-              setLoadedBrandAndPatent,
-              loadedBid,
-              setLoadedBid,
-              props,
-              allTreeDataObj,
-              setSelectedKeys,
-              setExpandedKeys,
-              expandedKeys,
-            })
-          },
-          (moduleId) => {
-            handleCorpDetailScrollMenuChanged(moduleId, {
-              setSelectedKeys,
-              setExpandedKeys,
-              expandedKeys,
-              allTreeDataObj,
-            })
-          }
-        )
-      }
-    }, 100) // 等待DOM更新后触发
-  }
+  // 菜单构建完成后的回调逻辑
 
   const scrollEventHandler: UIEventHandler<HTMLDivElement> = (e) => {
     if (singleModuleId) return false
@@ -632,8 +599,12 @@ const CompanyDetail: FC<{
     )
   }
 
-  const treeMenuClick = (menuData: string[], e: any) => {
-    const menu = menuData
+  /**
+   * 处理左侧菜单点击事件
+   * @see apps/company/docs/specs/2025-12/2025-12-04-fix-menu-jump/spec-analysis.md - 关于修复菜单抖动问题的详细分析
+   */
+  const treeMenuClick = (menuData: string[] | string, e: any) => {
+    const menu = Array.isArray(menuData) ? menuData[0] : menuData
     if (Object.entries(basicNum).length == 0) {
       return null
     }
@@ -644,14 +615,13 @@ const CompanyDetail: FC<{
     let tableOffsetTop = null
 
     if (!e._reRender) {
-      handleBuryInCorpDetailMenu(menuData, corpid, allTreeDataObj, treeDatas)
+      handleBuryInCorpDetailMenu(menuData, corpid, currentMenus)
     }
 
-    setSelectedKeys(menu)
+    setSelectedKeys([menu])
 
     const scrollContainer = document.querySelector(`.${ScrollContainerClass}`)
 
-    // @ts-expect-error
     if (menu == 'showCompanyInfo') {
       table = document.querySelector(`.showCompanyInfo`)
       table = table.offsetParent
@@ -659,7 +629,6 @@ const CompanyDetail: FC<{
       scrollContainer.scrollTo({ top: tableOffsetTop, behavior: 'instant' }) // smooth instant
       return
     }
-    // @ts-expect-error ttt
     if (currentMenus[menu]) {
       // 点击一级模块名跳转
       const moduleTitle: any = document.querySelector(`.module-title-${menu}`)
@@ -677,6 +646,7 @@ const CompanyDetail: FC<{
     if (table) {
       tableOffsetTop = table.offsetTop
       SCROLL_FROM_MENU_CLICK_ID.value = menu
+      SCROLL_FROM_MENU_CLICK_ID.time = Date.now()
     } else {
       let i = 0
       for (i = 0; i < 5; i++) {
@@ -698,6 +668,7 @@ const CompanyDetail: FC<{
         }
       }
       SCROLL_FROM_MENU_CLICK_ID.value = `${menu}-${i}`
+      SCROLL_FROM_MENU_CLICK_ID.time = Date.now()
     }
     if (!table) {
       return
@@ -715,11 +686,6 @@ const CompanyDetail: FC<{
         treeMenuClick(menu, { selected: true, _reRender: true })
       }, 600)
     }
-  }
-
-  const onExpand = (expandedKeys) => {
-    setExpandedKeys(expandedKeys)
-    setAutoExpandParent(false)
   }
 
   const showCollectModal = () => {
@@ -740,22 +706,18 @@ const CompanyDetail: FC<{
       <>
         {!(singleModuleId || fromShfic) ? (
           <div className="tree-menu-container">
-            {treeDatas.length ? (
-              <CorpDetailMenu
-                expandedKeys={expandedKeys}
-                setExpandedKeys={setExpandedKeys}
-                treeDatas={treeDatas}
-                allTreeDatas={allTreeDatas}
-                treeMenuClick={treeMenuClick}
-                onExpand={onExpand}
-                autoExpandParent={autoExpandParent}
-                selectedKeys={selectedKeys}
-                data-uc-id="WUEJ-ZqUl"
-                data-uc-ct="corpdetailmenu"
-              />
-            ) : (
-              ''
-            )}
+            <CorpDetailMenu
+              menuConfig={currentMenus}
+              basicNum={basicNum}
+              expandedKeys={expandedKeys}
+              setExpandedKeys={setExpandedKeys}
+              treeMenuClick={treeMenuClick}
+              onExpand={onExpand}
+              autoExpandParent={autoExpandParent}
+              selectedKeys={selectedKeys}
+              data-uc-id="WUEJ-ZqUl"
+              data-uc-ct="corpdetailmenu"
+            />
           </div>
         ) : null}
         <div
@@ -794,6 +756,7 @@ const CompanyDetail: FC<{
                     menuClick={treeMenuClick}
                     allMenuDataObj={allTreeDataObj}
                     refreshCorpOtherInfo={refreshCorpOtherInfo}
+                    corpNameIntl={corpNameIntl}
                   />
                 ) : null}
               </Card>
@@ -805,7 +768,7 @@ const CompanyDetail: FC<{
               backTopWrapClass={ScrollContainerClass}
               isShowHome={true}
               isShowHelp={false}
-              companyName={companyNameIntl}
+              companyName={corpNameIntl}
             />
           ) : null}
         </div>
@@ -894,64 +857,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     getCorpHeaderInfo: (data, fn) => {
       getCorpHeaderInfo(data).then(async (res) => {
-        // 中文环境 直接返回
-        if (!window.en_access_config) {
-          dispatch(companyActions.getCorpHeaderInfo(res))
-          fn?.(res)
-          return
-        }
-
-        // 英文环境 分步骤翻译
-        // 处理企业名称翻译，如果eng_name不存在，则翻译corp_name
-        if (res.Data?.eng_name) {
-          res.Data.corp_name = res.Data.eng_name
-        } else if (res.Data?.corp_name) {
-          try {
-            const { data: translateRes } = await translateByAlice({
-              transText: res.Data.corp_name,
-            })
-            if (translateRes?.code === 1000) {
-              res.Data.eng_name = translateRes.response?.content
-              res.Data.corp_name = res.Data.eng_name
-            }
-          } catch (error) {
-            console.error('Failed to translate corp_name:', error)
-          }
-        }
-
-        // 并行处理其他翻译
-        const translatePromises: Promise<void>[] = []
-
-        // 翻译主要数据
-        if (res.Data) {
-          translatePromises.push(
-            new Promise<void>((resolve) => {
-              wftCommon.translateService(res.Data, (endata) => {
-                res.Data = endata
-                resolve()
-              })
-            })
-          )
-        }
-
-        // 翻译企业曾用名
-        if (res.Data?.former_name?.length) {
-          translatePromises.push(
-            new Promise<void>((resolve) => {
-              wftCommon.zh2en(res.Data.former_name, (endata) => {
-                res.Data.former_name = endata
-                resolve()
-              })
-            })
-          )
-        }
-
-        // 等待所有翻译完成
-        await Promise.all(translatePromises)
-
+        const newRes = await translateCorpBaseInfoData(res)
         // 统一dispatch和回调
-        dispatch(companyActions.getCorpHeaderInfo(res))
-        fn?.(res)
+        dispatch(companyActions.getCorpHeaderInfo(newRes))
+        fn?.(newRes)
       })
     },
     setCorpCategory: (data) => {

@@ -1,6 +1,8 @@
 export {
   createAIContentMessage,
+  createAIFooterMessage,
   createAIHeaderMessage,
+  createSplTableMessage,
   createChartMessage,
   createSimpleChartMessage,
   createSubQuestionMessage,

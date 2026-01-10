@@ -1,5 +1,5 @@
 import { AICopyButton, AIDislikeButton, AILikeButton, AIRetryButton } from '@/common'
-import { AgentMsgAIDepre } from '@/types/ai-chat/message/agent'
+import { AgentMsgAIOverall } from '@/types/ai-chat/message/agent'
 import { AxiosInstance } from 'axios'
 import { ChatQuestionStatus } from 'gel-api'
 import { FC } from 'react'
@@ -11,11 +11,11 @@ export const AiFooterBase: FC<{
   axiosChat: AxiosInstance
   axiosEntWeb: AxiosInstance
   content: string
-  agentMessage: AgentMsgAIDepre
+  agentMessage: AgentMsgAIOverall
   sendMessage?: (
     message: string,
-    agentId?: AgentMsgAIDepre['agentId'],
-    think?: AgentMsgAIDepre['think'],
+    agentId?: AgentMsgAIOverall['agentId'],
+    think?: AgentMsgAIOverall['think'],
     options?: { chatId?: string; modelType?: string }
   ) => void
 }> = ({ axiosChat, axiosEntWeb, content, agentMessage, sendMessage }) => {

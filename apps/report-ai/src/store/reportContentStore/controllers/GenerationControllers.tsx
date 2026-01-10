@@ -4,7 +4,7 @@
  * 此组件负责挂载所有 AIGC 生成相关的控制器 Hook
  * 这些控制器负责监听 Redux 状态变化并触发副作用
  *
- * ⚠️ 重要：此组件应该只在 ReportContentRTKScope 内部挂载一次
+ * ⚠️ 重要：此组件应该只在 RPDetailRTKScope 内部挂载一次
  * 多次挂载会导致重复监听和重复请求
  *
  * @see {@link ../../docs/issues/full-doc-generation-duplicate-requests.md | 全文生成重复请求问题}

@@ -49,6 +49,14 @@ export interface AIChatHistory extends ChatGroupIdIdentifier {
   collectTime: string // 收藏时间 收藏专用
   answers: string // 回答 收藏专用
   title: string // 标题 收藏专用
+
+  /**
+   * 会话相关联的实体
+   */
+  entities?: {
+    entityCode?: string
+    entityType?: 'report'
+  }[]
 }
 
 /** 问答状态枚举 */

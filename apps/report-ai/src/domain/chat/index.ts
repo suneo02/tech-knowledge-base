@@ -15,13 +15,6 @@ export { createUserMessageWithFiles } from './userMessage';
 // 大纲状态检测
 export { getIsOutlineConfirmed, hasOutlineInMessages } from './outlineStatus';
 
-// 大纲数据处理
-export {
-  getOutlineChaptersByParsedMessages,
-  getOutlineNameByParsedMessages,
-  getOutlineTreeByParsedMessages,
-  hasOutlineByAgentMessages,
-} from './outline';
 
 export {
   buildSortedReferencesFromChapters,

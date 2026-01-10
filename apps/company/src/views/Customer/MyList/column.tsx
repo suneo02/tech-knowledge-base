@@ -1,9 +1,9 @@
 import { ColumnProps } from '@wind/wind-ui-table'
 import { DownloadFileResponse } from 'gel-api'
-import React, { FC, useMemo } from 'react'
+import { formatUTCDate } from 'gel-util/format'
+import { FC, useMemo } from 'react'
 import { myWfcAjax } from '../../../api/companyApi'
 import intl from '../../../utils/intl'
-import { wftCommon } from '../../../utils/utils'
 import { getDownloadCfg } from './downReport/getDownloadCfg'
 
 const NameRowComp: FC<{ row: DownloadFileResponse }> = ({ row }) => {
@@ -39,7 +39,7 @@ export const getMyListColumn = (getMyList) => {
       dataIndex: 'created',
       width: '240px',
       render: (data) => {
-        return wftCommon.formatUTCDate(data)
+        return formatUTCDate(data)
       },
     },
     {
@@ -50,13 +50,13 @@ export const getMyListColumn = (getMyList) => {
         switch (data) {
           case 0:
           case 1:
-            return <span className="color-status-creating">{intl('222472', '生成中')}</span>
+            return <span className="color-status-creating">{intl('286699', '生成中')}</span>
           case 2: //pdf 能查看、下载
           case 4: // 是能下载
             return <span className="color-status-success">{intl('425472', '生成成功')}</span>
           case 3:
           case 5:
-            return <span className="color-status-error">{intl('233326', '生成失败')}</span>
+            return <span className="color-status-error">{intl('286684', '生成失败')}</span>
           default:
             return data
         }
@@ -72,7 +72,7 @@ export const getMyListColumn = (getMyList) => {
           <>
             {row?.status === 0 || row?.status === 1 ? (
               <span>
-                {downFileType == 'pdf' ? intl('233330', '报告生成中，请稍后') : intl('233324', '文件生成中，请稍后')}
+                {downFileType == 'pdf' ? intl('478669', '报告生成中，请稍后') : intl('233324', '文件生成中，请稍后')}
                 &nbsp; &nbsp;
               </span>
             ) : (
@@ -96,7 +96,7 @@ export const getMyListColumn = (getMyList) => {
                       data-uc-id="vjGneYxMUU"
                       data-uc-ct="a"
                     >
-                      {intl('233327', '重新生成')}
+                      {intl('286700', '重新生成')}
                     </a>{' '}
                     &nbsp; &nbsp;
                   </span>

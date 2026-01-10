@@ -13,9 +13,9 @@ import { buildRewriteContent } from '@/domain/chat/aiTask';
 import { generateTextRewriteCorrelationId } from '@/domain/chat/correlation';
 import type { AIActionData, AIInvokeFunction } from '@/types/editor';
 import { useCallback, useRef } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../hooksRedux';
+import { useRPDetailDispatch, useRPDetailSelector } from '../hooksRedux';
 import { selectIsTextRewriting, selectTextRewriteCorrelationId } from '../selectors';
-import { rpContentSlice } from '../slice';
+import { rpDetailActions } from '../slice';
 
 /**
  * Hook 配置选项
@@ -65,11 +65,11 @@ export interface UseTextRewriteReturn {
 export function useTextRewrite(): UseTextRewriteReturn {
   const { sendRPContentMsg, setMsgs } = useReportDetailContext();
 
-  const dispatch = useReportContentDispatch();
+  const dispatch = useRPDetailDispatch();
 
   // 从 Redux 获取状态
-  const isRewriting = useReportContentSelector(selectIsTextRewriting);
-  const correlationId = useReportContentSelector(selectTextRewriteCorrelationId);
+  const isRewriting = useRPDetailSelector(selectIsTextRewriting);
+  const correlationId = useRPDetailSelector(selectTextRewriteCorrelationId);
 
   // 防重复请求标记
   const requestedRef = useRef<string | null>(null);
@@ -98,7 +98,7 @@ export function useTextRewrite(): UseTextRewriteReturn {
 
         // 更新 Redux 状态
         dispatch(
-          rpContentSlice.actions.startTextRewrite({
+          rpDetailActions.startTextRewrite({
             snapshot,
             correlationId: newCorrelationId,
             chapterId: chapterId || '',
@@ -117,7 +117,7 @@ export function useTextRewrite(): UseTextRewriteReturn {
         const errorMessage = err instanceof Error ? err.message : 'Failed to start rewrite';
 
         dispatch(
-          rpContentSlice.actions.failTextRewrite({
+          rpDetailActions.failTextRewrite({
             code: 'START_FAILED',
             message: errorMessage,
           })
@@ -149,7 +149,7 @@ export function useTextRewrite(): UseTextRewriteReturn {
     }
 
     // 重置状态，结束整个 operation
-    dispatch(rpContentSlice.actions.resetTextRewrite());
+    dispatch(rpDetailActions.resetTextRewrite());
     requestedRef.current = null;
   }, [isRewriting, correlationId, dispatch]);
 
@@ -173,7 +173,7 @@ export function useTextRewrite(): UseTextRewriteReturn {
     }
 
     // 重置状态，结束整个 operation（不执行内容替换）
-    dispatch(rpContentSlice.actions.resetTextRewrite());
+    dispatch(rpDetailActions.resetTextRewrite());
     requestedRef.current = null;
   }, [isRewriting, correlationId, dispatch]);
 

@@ -1,4 +1,4 @@
-# chapterOrdinal
+﻿# chapterOrdinal
 
 章节序号管理模块，提供章节序号生成、渲染、同步和查找
 
@@ -37,4 +37,5 @@ find → render → foundation
 
 ---
 
-> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/readme-rule.md)
+> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/doc-readme-structure-rule.md)
+

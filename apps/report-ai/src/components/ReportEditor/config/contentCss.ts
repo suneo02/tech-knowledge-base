@@ -1,4 +1,4 @@
-import { isDev } from '@/utils';
+﻿import { isDev } from '@/utils';
 import { IProps } from '@tinymce/tinymce-react/lib/cjs/main/ts/components/Editor';
 import { GELService, generatePrefixUrl } from 'gel-util/link';
 import path from 'path-browserify';
@@ -9,7 +9,7 @@ import path from 'path-browserify';
  * 构建注入到 TinyMCE iframe 的 CSS 文件列表，所有编辑器专用样式集中管理。
  *
  * @see ../../../docs/RPDetail/RPEditor/QuickToolbar.md Quick Toolbar 设计文档（非目标：不覆盖视觉主题）
- * @see ../../../../docs/rule/style-rule.md 样式规范
+ * @see ../../../../docs/rule/code-style-less-bem-rule.md 样式规范
  *
  * 方案优势：
  * 1. 静态文件缓存友好
@@ -30,9 +30,7 @@ export const getEditorContentCss = (): IProps['init']['content_css'] => {
     'base.css', // 基础样式：HTML 标签、字体等
     'layout.css', // 布局样式：间距、对齐等
     'noneditable.css', // 不可编辑区域样式
-    'rpGenerating.css', // 报告生成状态样式
     'table.css', // 表格样式
-    'statusTip.css', // 状态提示样式
     'wind-ui.css', // Wind UI 组件样式适配
   ];
 
@@ -41,3 +39,4 @@ export const getEditorContentCss = (): IProps['init']['content_css'] => {
     ...customCssFiles.map((file) => path.join('/', prefix, editorStylePath, file)),
   ];
 };
+

@@ -22,7 +22,7 @@ import { SpecialStatisticsSection } from './comp/SpecialStatisticsSection'
 import { SpecialStatisticsConfigId } from './config/specialStatistics'
 
 import { getVipInfo } from '../../lib/utils'
-import intl from '../../utils/intl'
+import intl, { translateToEnglish } from '../../utils/intl'
 import { debounce, wftCommon } from '../../utils/utils'
 
 import { globalIndustryOfNationalEconomy2 } from '@/utils/industryOfNationalEconomyTree'
@@ -45,7 +45,6 @@ import './feturedcompany.less'
 
 import { Links } from '@/components/common/links/index.ts'
 import { GELSearchParam, getUrlByLinkModule, LinksModule, SearchLinkEnum } from '@/handle/link/index.ts'
-import { isTestSite } from '@/utils/env/index.ts'
 import { hashParams } from '@/utils/links/index.ts'
 import classNames from 'classnames'
 import { getRimeOrganizationUrl, isFromRime } from 'gel-util/link'
@@ -250,7 +249,7 @@ function Feturedcompany() {
           let link = ''
           const id = String(row[i.jumpField])
           if (isFromRime()) {
-            link = getRimeOrganizationUrl({ id, isTestSite: isTestSite() })
+            link = getRimeOrganizationUrl({ id })
           } else {
             link = getUrlByLinkModule(LinksModule.COMPANY, {
               id,
@@ -781,7 +780,7 @@ function Feturedcompany() {
               dataIndex: 'key',
             },
             {
-              title: intl('283647', '截至%年企业数量').replace(
+              title: intl('420111', '截至%年企业数量').replace(
                 '%',
                 new Date().getFullYear() + (window.en_access_config ? '' : '年')
               ),
@@ -850,7 +849,7 @@ function Feturedcompany() {
             dataIndex: 'key',
           },
           {
-            title: intl('283647', '截至%年企业数量').replace(
+            title: intl('420111', '截至%年企业数量').replace(
               '%',
               new Date().getFullYear() + (window.en_access_config ? '' : '年')
             ),
@@ -1120,7 +1119,7 @@ function Feturedcompany() {
             setDataSource(result.Data?.list || [])
             setFilterCount(() => result.Page?.Records || 0)
             setTableLoading(false)
-            wftCommon.zh2enAlwaysCallback(result.Data?.list || [], (newData) => {
+            const handleSuccess = (newData) => {
               if (!selectConfig) {
                 const config = result.Data?.selectConfig || {}
                 wftCommon.pureTranslateService(wftCommon.deepClone(config) || {}, (enConfig) => {
@@ -1137,6 +1136,11 @@ function Feturedcompany() {
                 setIsFilter(() => Object.values(columnParam).some((i) => i) || !includingExpired)
                 setDataSource(newData || [])
               }
+            }
+            translateToEnglish(result.Data?.list || [], {
+              skipFields: ['corpName', 'originalCompName'],
+            }).then((newData) => {
+              handleSuccess(newData.data)
             })
           })
         }
@@ -1178,7 +1182,10 @@ function Feturedcompany() {
             )
             // if()
             setColumns(() => column || [])
-            wftCommon.zh2enAlwaysCallback(result.Data?.list || [], (newData) => {
+            translateToEnglish(result.Data?.list || [], {
+              skipFields: ['corpName'],
+            }).then((newDataRes) => {
+              const newData = newDataRes.data
               setIsFilter(() => Object.values(columnParam).some((i) => i) || !includingExpired)
               setFilterCount(() => result.Page.Records || 0)
 
@@ -1238,8 +1245,8 @@ function Feturedcompany() {
     const fn = (res) => {
       if (res && (res.ErrorCode == '20012' || res.ErrorCode == '-9')) {
         // Common.PupupNoAccess(
-        //   intl("" ,'该功能的使用量已超限，请联系客服咨询更多数据获取方式。'),
-        //   intl("" ,'超限提示')
+        //   intl("272899" ,'该功能的使用量已超限，请联系客服咨询更多数据获取方式。'),
+        //   intl("272882" ,'超限提示')
         // );
         return
       }
@@ -1250,7 +1257,7 @@ function Feturedcompany() {
         wftCommon.jumpJqueryPage('index.html#/customer?type=mylist')
         // }
       } else {
-        message.error(intl('204684', '导出出错'))
+        message.error(intl('478689', '导出出错'))
       }
     }
     let parameter = {
@@ -1797,7 +1804,7 @@ function Feturedcompany() {
             >
               {isFilter ? (
                 // @ts-expect-error
-                <span>{intl('358394', '当前筛选条件下共找到%家企业').replace('%', filterCount)}</span>
+                <span>{intl('478696', '当前筛选条件下共找到%家企业').replace('%', filterCount)}</span>
               ) : (
                 <></>
               )}
@@ -1848,7 +1855,7 @@ function Feturedcompany() {
                 </div>
                 <div className="area-statistics">
                   <Table
-                    title={() => intl('259184', '区域分布统计')}
+                    title={() => intl('478690', '区域分布统计')}
                     columns={areaColumns}
                     empty={intl('17235', '暂无数据')}
                     pagination={false}
@@ -1868,7 +1875,7 @@ function Feturedcompany() {
                 <div id="drawRoundArea" className="draw-round-area" ref={industryRoundRef}></div>
                 <div className="area-statistics">
                   <Table
-                    title={() => intl('261357', '行业分布统计')}
+                    title={() => intl('478691', '行业分布统计')}
                     columns={industryColumns}
                     pagination={false}
                     dataSource={industryTable}
@@ -1987,14 +1994,12 @@ function Feturedcompany() {
         onOk={() => {
           // @ts-expect-error
           if (/^\d+\.?\d*$/.test(leftVal) && 0 <= leftVal) {
-            console.log(leftVal)
           } else {
             setIsError(true)
             return false
           }
           // @ts-expect-error
           if (/^\d+\.?\d*$/.test(rightVal) && 0 < rightVal) {
-            console.log(rightVal)
           } else {
             setIsError(true)
             return false

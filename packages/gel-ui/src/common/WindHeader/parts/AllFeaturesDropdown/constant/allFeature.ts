@@ -2,8 +2,8 @@ import comprehensiveSearch from './comprehensiveSearch.json'
 import specificData from './specificData.json'
 import tools from './tools.json'
 import kg from './kg.json'
-import specialEnterprise from './specialCompany.json'
-import sceneApplication from './scenarioApplication.json'
+import investmentFinancing from './investmentFinancing.json'
+import marketingAcquisition from './marketingAcquisition.json'
 
 import allFeatureMenu from './allFeatureMenu.json'
 import type { GenerateUrlInput } from 'gel-util/link'
@@ -39,8 +39,8 @@ export const allFeatureList: AllFeatureItem[] = [
   ...comprehensiveSearch, // 综合查询
   ...specificData, // 专项数据
   ...kg, // 图谱平台
-  ...specialEnterprise, // 特色企业
-  ...sceneApplication, // 场景应用
+  ...investmentFinancing, // 投资融资
+  ...marketingAcquisition, // 营销获取
   ...tools, // 便捷工具
 ] as AllFeatureItem[]
 

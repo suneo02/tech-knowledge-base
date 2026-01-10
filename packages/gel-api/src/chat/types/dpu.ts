@@ -1,4 +1,4 @@
-import { ECorpDetailSubModule } from 'gel-types'
+import { TCorpDetailSubModule } from 'gel-types'
 import { ChatTypeEnum } from './enums'
 import { ChatRawSentenceIdentifier, ChatRawSentenceIdIdentifier } from './identfiers'
 
@@ -14,7 +14,7 @@ export interface DPUItem extends ChatRawSentenceIdentifier {
   Content: (string | number | null)[][] // 表内容
   Total: number // 总条数
   NewName: string // 新名称
-  moduleID?: ECorpDetailSubModule
+  moduleID?: TCorpDetailSubModule
 
   id: string
 }

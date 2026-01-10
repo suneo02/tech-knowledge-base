@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
-import styles from './index.module.less'
-import 'gel-ui/dist/index.css'
-import { WindHeader } from 'gel-ui'
-import { Outlet } from 'react-router-dom'
-import { getAllUrlSearch } from 'gel-util/common'
 import { ResponsiveAside } from '@/components/layout/ResponsiveAside'
+import { useAppSelector, VipStatusEnum } from '@/store'
+import { WindHeader } from 'gel-ui'
+import 'gel-ui/dist/index.css'
+import { getAllUrlSearch } from 'gel-util/common'
+import { useEffect, useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import styles from './index.module.less'
 export type PageContainerProps = {
   full?: boolean
   // 是否启用左侧菜单/侧栏
@@ -20,20 +21,26 @@ const PREFIX = 'page-container'
 
 export const PageContainer: React.FC<PageContainerProps> = (props) => {
   const { full: fullWidth, enableAside, asideContent, asideWidth, contentMinWidth } = props
-  console.log('🚀 ~ PageContainer ~ fullWidth:', fullWidth)
   const [full, setFull] = useState(false)
   const [showHeader, setShowHeader] = useState(true)
   const params = getAllUrlSearch()
+  const user = useAppSelector((state) => state.user)
   useEffect(() => {
     setFull(!!fullWidth || !!params.full)
     setShowHeader(!params.notoolbar)
   }, [params, fullWidth])
-
+  const isDeveloper = localStorage.getItem('GEL_BETA') === 'GelDeveloper'
   return (
     <div className={styles[`${PREFIX}-container`]}>
       {showHeader && (
         <div className={styles[`${PREFIX}-header`]}>
-          <WindHeader vip={'svip'} fullWidth={full} isDev={process.env.NODE_ENV === 'development'} />
+          <WindHeader
+            vip={
+              user.vipStatus === VipStatusEnum.SVIP ? 'svip' : user.vipStatus === VipStatusEnum.VIP ? 'vip' : undefined
+            }
+            fullWidth={full}
+            isDev={process.env.NODE_ENV === 'development' || isDeveloper}
+          />
         </div>
       )}
       <div className={styles[`${PREFIX}-content`]}>

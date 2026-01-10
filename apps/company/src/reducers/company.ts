@@ -1,75 +1,12 @@
 /** @format */
 
-import { ICorpBasicInfoFront } from '@/components/company/info/handle'
-import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type.ts'
-import { TCorpCategory } from '@/handle/corp/corpType/category.ts'
-import { CorpCardInfo, CorpOtherInfo } from 'gel-types'
+import { getCorpNameOriginalByBaseAndCardInfo, getCorpNameTransByCardInfo } from 'gel-util/misc'
 import * as actionTypes from '../actions/actionTypes'
 import global from '../lib/global'
+import { CorpAction, CorpState } from './company.types'
+import { IState } from './type'
 
-export type FeedBackPara = {
-  type?: '数据纠错' | '功能提升' | '其他建议' | '异议处理'
-  companyname?: string
-  message?: string
-  tel?: string
-}
-export interface CorpState {
-  baseInfo: Partial<
-    ICorpBasicInfoFront & {
-      basicNum?: ICorpBasicNumFront
-    }
-  >
-  corpHeaderInfo: Partial<CorpCardInfo>
-  corpOtherInfo?: CorpOtherInfo
-  shareholder: any[]
-  shareholderPagination: {
-    pageNum: number
-    pageSize: number
-    total: number
-  }
-  collectState?: string
-  tenderingTags: any[]
-  tenderingTypes: any[]
-  tenderingList: any[]
-  tenderingPagination: {
-    pageNum: number
-    pageSize: number
-    total: number
-  }
-  biddingTags: any[]
-  biddingTypes: any[]
-  biddingList: any[]
-  biddingPagination: {
-    pageNum: number
-    pageSize: number
-    total: number
-  }
-  telList: any[]
-  telPagination: {
-    pageNum: number
-    pageSize: number
-    total: number
-  }
-  mailList: any[]
-  mailPagination: {
-    pageNum: number
-    pageSize: number
-    total: number
-  }
-  branchList: any[]
-  branchPagination: {
-    pageNum: number
-    pageSize: number
-    total: number
-  }
-  corpNews: any[]
-  companyConfigList: any[]
-  scrollModuleIds: string[]
-  basicnum: Record<string, any>
-  corpCategory: TCorpCategory[]
-  feedBackPara: FeedBackPara
-  corpArea: string
-}
+export type { CorpState, FeedBackPara } from './company.types'
 
 const initialState: CorpState = {
   baseInfo: {},
@@ -136,16 +73,7 @@ const initialState: CorpState = {
   corpArea: '',
 }
 
-export type TCorpAction =
-  | {
-      type: 'SET_CORP_OTHER_INFO'
-      data: CorpOtherInfo
-    }
-  | {
-      type: any
-      [key: string]: any
-    }
-const reducer = (state = initialState, action: TCorpAction) => {
+const reducer = (state = initialState, action: CorpAction): CorpState => {
   switch (action.type) {
     case 'SET_CORP_OTHER_INFO':
       return {
@@ -255,24 +183,7 @@ const reducer = (state = initialState, action: TCorpAction) => {
         }
       }
       break
-    case actionTypes.QUERY_CROPNEWS:
-      // console.log(action)
-      if (action.data.code === global.SUCCESS) {
-        ;[].push.apply(state.corpNews, action.data.data)
-        return {
-          ...state,
-        }
-      }
-      break
-    case actionTypes.COMPANY_DETAIL_TOGGLE_COLLECT:
-      // console.log(action)
-      if (action.data.code === global.SUCCESS) {
-        state.baseInfo.collect_flag = state.baseInfo.collect_flag === '1' ? '0' : '1'
-        return {
-          ...state,
-        }
-      }
-      break
+
     case actionTypes.COMPANY_TEL_INFO:
       // console.log(action)
       if (action.data.code === global.SUCCESS) {
@@ -331,3 +242,11 @@ const reducer = (state = initialState, action: TCorpAction) => {
   return state
 }
 export default reducer
+
+export const selectCorpNameIntl = (state: IState): string => {
+  const { baseInfo, corpHeaderInfo } = state.company
+  const trans = getCorpNameTransByCardInfo(corpHeaderInfo || {}) || ''
+  const original = getCorpNameOriginalByBaseAndCardInfo(baseInfo || {}, corpHeaderInfo || {}) || ''
+  const val = typeof trans === 'string' ? trans.trim() : ''
+  return val ? val : original
+}

@@ -641,7 +641,7 @@ const rows = {
       ],
       [
         {
-          title: intl('142498', '单位累计欠缴金额'),
+          title: intl('314877', '单位累计欠缴金额'),
           colSpan: 5,
           contentAlign: 'left',
           titleAlign: 'left',
@@ -652,7 +652,7 @@ const rows = {
                 <tbody className="wind-ui-table-tbody" style={{ backgroundColor: 'transparent' }}>
                   <tr className="wind-ui-table-row">
                     <td colSpan="2" className="wind-ui-table-item-content">
-                      {intl('142498', '单位累计欠缴金额')}
+                      {intl('314877', '单位累计欠缴金额')}
                     </td>
                     <td colSpan="3" className="wind-ui-table-item-content">
                       {flag ? wftCommon.formatMoneyComma(row.endowment_amount_owed) : '企业选择不公示'}

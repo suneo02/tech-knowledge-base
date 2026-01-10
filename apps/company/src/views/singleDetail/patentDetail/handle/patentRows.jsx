@@ -74,7 +74,7 @@ export const patentRows = [
   ],
   [
     {
-      title: intl('265611', '授权号'),
+      title: intl('437719', '授权号'),
       dataIndex: 'authorizationAnnouncementNumber',
       titleWidth: 100,
       contentWidth: 100,
@@ -149,7 +149,7 @@ export const patentRows = [
   ],
   [
     {
-      title: intl('265617', '发明人'),
+      title: intl('470297', '发明人'),
       dataIndex: 'inventor',
       colSpan: '3',
       titleAlign: 'left',
@@ -204,7 +204,7 @@ export const patentRows = [
       },
     },
     {
-      title: intl('265637', '代理人'),
+      title: intl('452503', '代理人'),
       dataIndex: 'agent',
       titleWidth: 100,
       contentWidth: 100,
@@ -216,7 +216,7 @@ export const patentRows = [
   ],
   [
     {
-      title: intl('222876', '本国优先权'),
+      title: intl('470285', '本国优先权'),
       dataIndex: 'localPriority',
       titleWidth: 100,
       contentWidth: 100,
@@ -238,7 +238,7 @@ export const patentRows = [
   ],
   [
     {
-      title: intl('265645', '摘要/简要说明'),
+      title: intl('470286', '摘要/简要说明'),
       dataIndex: 'summary',
       colSpan: '3',
       titleAlign: 'left',

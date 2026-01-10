@@ -4,7 +4,7 @@ import { client } from '@wind/windjs'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import { I18nextProvider } from 'gel-ui'
-import { i18n, imlCn, imlEn } from 'gel-util/intl'
+import { i18n, loadFlatDict } from 'gel-util/intl'
 import React from 'react'
 import intl, { getLang, getLocale } from '../utils/intl'
 import { wftCommon } from '../utils/utils'
@@ -45,21 +45,17 @@ function init() {
       break
   }
 
-  const locales = {
-    'zh-CN': imlCn,
-    'en-US': imlEn,
-  }
-
-  // 异步载入多语言文件(记得注释上面import的多语言资源)
-  return intl.init({
-    currentLocale: locale,
-    locales,
-    commonLocaleDataUrls: {
-      // index.html相对的路径
-      en: 'assets/js/react-intl-universal/en.js',
-      zh: 'assets/js/react-intl-universal/zh.js',
-    },
-  })
+  return loadFlatDict(locale).then((dict) =>
+    intl.init({
+      currentLocale: locale,
+      locales: { [locale]: dict },
+      commonLocaleDataUrls: {
+        en: 'assets/js/react-intl-universal/en.js',
+        zh: 'assets/js/react-intl-universal/zh.js',
+      },
+    })
+  )
+  
 }
 
 const promiseInit = init()

@@ -14,36 +14,30 @@ export interface LocalesI18nOptions {
 
 type LocaleData = Record<string, string>
 
-// 预加载 src/locales/namespaces 下所有 json，支持扁平和二级目录（<ns>/<ns>.<lang>.json）
-// @ts-expect-error ttt
-const EAGER_MODULES = import.meta.glob('./namespaces/**/*.json', { eager: true }) as unknown as Record<string, any>
+const LAZY_MODULES = import.meta.glob('./namespaces/**/*.json') as unknown as Record<string, () => Promise<any>>
 
-const buildResourcesFromModules = (mods: Record<string, any>) => {
-  const resources: Record<string, Record<string, LocaleData>> = {}
-  for (const [key, mod] of Object.entries(mods)) {
-    const data: LocaleData = (mod && 'default' in mod ? (mod as any).default : (mod as any)) || {}
-    // 尝试两种匹配：
-    // 1) ./namespaces/common.en.json → ns=common, lang=en
-    // 2) ./namespaces/windHeader/windHeader.en.json → ns=windHeader, lang=en
-    let m = key.match(/\/namespaces\/([^\/]+)\.([^.]+)\.json$/)
-    let ns = ''
-    let lang = ''
-    if (m) {
-      ns = m[1]
-      lang = m[2]
-    } else {
-      const m2 = key.match(/\/namespaces\/([^\/]+)\/\1\.([^.]+)\.json$/)
-      if (m2) {
-        ns = m2[1]
-        lang = m2[2]
-      } else {
-        continue
-      }
-    }
-
-    if (!resources[lang]) resources[lang] = {}
-    resources[lang][ns] = { ...(resources[lang][ns] || {}), ...data }
+const loadResourcesForLang = async (mods: Record<string, () => Promise<any>>, targetLang: string) => {
+  const resources: Record<string, LocaleData> = {}
+  const entries = Object.entries(mods)
+  const matchLang = (p: string) => {
+    const m1 = p.match(/\/namespaces\/([^\/]+)\.([^.]+)\.json$/)
+    if (m1) return m1[2] === targetLang ? m1[1] : ''
+    const m2 = p.match(/\/namespaces\/([^\/]+)\/\1\.([^.]+)\.json$/)
+    if (m2) return m2[2] === targetLang ? m2[1] : ''
+    return ''
   }
+  const tasks: Array<Promise<void>> = []
+  for (const [key, loader] of entries) {
+    const ns = matchLang(key)
+    if (!ns) continue
+    tasks.push(
+      loader().then((mod) => {
+        const data: LocaleData = (mod && 'default' in mod ? (mod as any).default : (mod as any)) || {}
+        resources[ns] = { ...(resources[ns] || {}), ...data }
+      })
+    )
+  }
+  await Promise.all(tasks)
   return resources
 }
 
@@ -98,7 +92,6 @@ export const createLocalesI18n = (options: LocalesI18nOptions = {}) => {
     initOptions: userInitOptions = {},
   } = options
 
-  const resources = buildResourcesFromModules(EAGER_MODULES)
   const instance = i18n.createInstance()
   const initOptions: InitOptions = {
     lng: detectBrowserLanguage(supportedLngs, fallbackLng),
@@ -106,14 +99,20 @@ export const createLocalesI18n = (options: LocalesI18nOptions = {}) => {
     supportedLngs,
     defaultNS,
     ns: [defaultNS],
-    resources,
+    resources: {},
     initImmediate: false,
     interpolation: { escapeValue: false },
     react: { useSuspense: true },
     ...userInitOptions,
   }
-
   instance.use(initReactI18next).init(initOptions)
+  ;(async () => {
+    const lang = initOptions.lng || fallbackLng
+    const res = await loadResourcesForLang(LAZY_MODULES, lang)
+    Object.entries(res).forEach(([ns, data]) => {
+      instance.addResourceBundle(lang, ns, data, true, true)
+    })
+  })()
   return instance
 }
 

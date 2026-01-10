@@ -10,73 +10,58 @@
  */
 
 import { useReportDetailContext } from '@/context';
+import { isReportChapterGenerationFinished } from '@/domain/chat/rpContentAIMessages';
 import { useEffect } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../../hooksRedux';
-import { selectChapters, selectGlobalOperationKind } from '../../selectors';
-import { selectHydration } from '../../selectors/base';
-import { rpContentSlice } from '../../slice';
+import { useRPDetailDispatch, useRPDetailSelector } from '../../hooksRedux';
+import { selectGlobalOp } from '../../selectors';
+import { rpDetailActions } from '../../slice';
 
 export const useCompletionHandler = () => {
-  const dispatch = useReportContentDispatch();
-  const { clearChapterMessages, parsedRPContentMsgs: parsedMessages } = useReportDetailContext();
+  const dispatch = useRPDetailDispatch();
+  const { clearChapterMessages, rpContentAgentMsgs: agentMessages } = useReportDetailContext();
 
-  const chapters = useReportContentSelector(selectChapters);
-  const hydration = useReportContentSelector(selectHydration);
-  const globalOpKind = useReportContentSelector(selectGlobalOperationKind);
+  const globalOp = useRPDetailSelector(selectGlobalOp);
 
   // ========== 职责 1: 检测章节完成 ==========
   useEffect(() => {
-    if (!parsedMessages || parsedMessages.length === 0) return;
-    if (!chapters || chapters.length === 0) return;
-
-    // 只检查最近消息，避免全量扫描
-    const tail = parsedMessages.slice(-6);
-
-    for (const msg of tail) {
-      const isFinish =
-        msg.message.role === 'aiReportContent' && msg.message.chapterId && msg.message.status === 'finish';
-
-      if (!isFinish) continue;
-
-      const chapterId = String(msg.message.chapterId);
-
-      // 仅针对单章节重生成：全文生成在 useFullDocGeneration 中自行处理完成逻辑（其进度依赖 generationQueue）
-      if (globalOpKind !== 'chapter_regeneration') {
-        continue;
-      }
-
-      // 通过 activeOperations 查询当前 pending 的 correlationId，保证与注水任务对齐
-      const operations = Object.values(hydration?.activeOperations || {}).filter(
-        (op) => op.chapterId === chapterId && op.status === 'pending'
-      );
-
-      if (operations.length === 0) continue;
-
-      // 使用最新的操作
-      const latest = operations.sort((a, b) => b.startTime - a.startTime)[0];
-
-      // 合并消息到章节
-      dispatch(
-        rpContentSlice.actions.processSingleChapterCompletion({
-          chapterId,
-          messages: parsedMessages,
-          correlationId: latest.correlationId,
-          extractRefData: true,
-          overwriteExisting: true,
-        })
-      );
-
-      // 清理该章节的流式消息，确保渲染切换到 chapter.content
-      clearChapterMessages(chapterId);
-
-      // 触发注水任务（在消息清理后，确保使用 chapter.content）
-      dispatch(
-        rpContentSlice.actions.setHydrationTask({
-          type: 'chapter-rehydrate',
-          chapterIds: [chapterId],
-          correlationIds: [latest.correlationId],
-        })
-      );
+    // 仅针对单章节重生成：全文生成在 useFullDocGeneration 中自行处理完成逻辑（其进度依赖 generationQueue）
+    if (globalOp.kind !== 'chapter_regeneration') {
+      return;
     }
-  }, [parsedMessages, chapters, hydration?.activeOperations, dispatch, globalOpKind]);
+
+    // 从 globalOp.data 中获取章节信息
+    if (!globalOp.data || globalOp.data.type !== 'chapter_regeneration') {
+      return;
+    }
+
+    const { chapterId, correlationId } = globalOp.data;
+
+    // 使用 domain 层的工具函数检查章节是否完成
+    const isFinished = isReportChapterGenerationFinished(agentMessages, chapterId);
+
+    if (!isFinished) return;
+
+    // 合并消息到章节（使用 agent 消息，包含 entity 和 traces）
+    dispatch(
+      rpDetailActions.processSingleChapterCompletion({
+        chapterId,
+        messages: agentMessages,
+        correlationId,
+        extractRefData: true,
+        overwriteExisting: true,
+      })
+    );
+
+    // 清理该章节的流式消息，确保渲染切换到 chapter.content
+    clearChapterMessages(chapterId);
+
+    // 触发注水任务（在消息清理后，确保使用 chapter.content）
+    dispatch(
+      rpDetailActions.setHydrationTask({
+        type: 'chapter-rehydrate',
+        chapterIds: [chapterId],
+        correlationIds: [correlationId],
+      })
+    );
+  }, [agentMessages, globalOp, dispatch, clearChapterMessages]);
 };

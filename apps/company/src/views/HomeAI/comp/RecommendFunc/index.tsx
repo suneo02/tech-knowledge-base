@@ -1,9 +1,9 @@
 import { ThemeF } from '@wind/icons'
-import React from 'react'
-import { useHomeEntryList } from './config/domestic'
-import { SearchHomeItemData } from './config/type'
-import styles from './index.module.less'
 import { t } from 'gel-util/intl'
+import React from 'react'
+import { SearchHomeItemData } from './config/type'
+import { useHomeEntryList } from './config/useHomeEntryList'
+import styles from './index.module.less'
 
 const intlMsg = {
   recommendFunc: t('422016', '推荐功能'),

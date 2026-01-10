@@ -1,29 +1,22 @@
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
 
 /**
  * 股权出质人
  */
-export const corpDetailEquityPledgor: ICorpSubModuleCfg = {
+export const corpDetailEquityPledgor: CorpSubModuleCfg = {
   modelNum: 'equitypledgedCountbypledgor',
 }
 
 /**
  * 股权 质权人
  */
-export const corpDetailEquityPledgePawnee: ICorpSubModuleCfg = {
+export const corpDetailEquityPledgePawnee: CorpSubModuleCfg = {
   modelNum: 'equitypledgedCountbypledgee',
 }
 
 /**
  * 出质标的
  */
-export const corpDetailEquityPledgePCorp: ICorpSubModuleCfg = {
+export const corpDetailEquityPledgePCorp: CorpSubModuleCfg = {
   modelNum: 'equitypledgedCountbycomid',
-}
-
-/**
- * 股权出质
- */
-export const corpDetailEquityPledge: ICorpSubModuleCfg = {
-  modelNum: ['equitypledgedCountbypledgor', 'equitypledgedCountbypledgee', 'equitypledgedCountbycomid'],
 }

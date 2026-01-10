@@ -1,15 +1,17 @@
 /** @format */
 
-import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { Row, Col, Button, Empty } from '@wind/wind-ui'
-import { wftCommon } from '../../utils/utils'
-import intl from '../../utils/intl'
-import styled from 'styled-components'
-import { linkToCompany } from '../../views/Charts/handle'
 import { CHART_HASH } from '@/components/company/intro/charts'
-import GcctGraph from '../../views/Charts/comp/gcctGraph'
-import { GRAPH_MENU_TYPE, GRAPH_LINKSOURCE } from '../../views/Charts/types'
+import { Button, Col, Empty, Row } from '@wind/wind-ui'
 import { getUrlSearchValue } from 'gel-util/common'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import styled from 'styled-components'
+import intl from '../../utils/intl'
+import { wftCommon } from '../../utils/utils'
+import GcctGraph from '../../views/Charts/comp/gcctGraph'
+import { linkToCompany } from '../../views/Charts/handle'
+import { GRAPH_LINKSOURCE, GRAPH_MENU_TYPE } from '../../views/Charts/types'
+import { EIsSeparate, generateUrlByModule, KGLinkActiveKeyEnum, LinkModule } from 'gel-util/link'
+import { handleJumpTerminalCompatibleAndCheckPermission } from '@/handle/link'
 
 // 常量定义
 const CHART_HEIGHT = 450
@@ -51,7 +53,7 @@ const GqctChart: React.FC<GqctChartProps> = ({ companycode, companyname, title }
   const linksource = getUrlSearchValue('linksource')
   const linkSourceRIME = linksource === GRAPH_LINKSOURCE.RIME
   const companyCode = companycode
-  const companyName = window.en_access_config ? window.__GELCOMPANYNAMEEN__ || '--' : companyname || title
+  const companyName = companyname || title || ''
 
   const [dimensions, setDimensions] = useState<ChartDimensions>({ width: 0, height: 0 })
   const [actions, setActions] = useState<ChartActions>({
@@ -81,8 +83,19 @@ const GqctChart: React.FC<GqctChartProps> = ({ companycode, companyname, title }
   // 跳转到图表全屏页面
   const redirectToChart = useCallback(() => {
     try {
-      const url = `index.html?isSeparate=1&nosearch=1&companycode=${companyCode}&companyname=${companyName}&activeKey=chart_gqct#/${CHART_HASH}`
-      wftCommon.jumpJqueryPage(url)
+      const baseParams = {
+        companycode: companyCode,
+        companyname: companyName,
+      }
+      const url = generateUrlByModule({
+        module: LinkModule.KG_PLATFORM,
+        params: {
+          activeKey: KGLinkActiveKeyEnum.chart_gqct,
+          isSeparate: EIsSeparate.True,
+          ...baseParams,
+        },
+      })
+      handleJumpTerminalCompatibleAndCheckPermission(url)
     } catch (error) {
       console.error('Error redirecting to chart:', error)
     }

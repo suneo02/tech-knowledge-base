@@ -1,14 +1,16 @@
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
+import { CompanyDetailCustom } from '@/types/corpDetail/node/custom'
 import { intlNoNO as intl } from 'src/utils/intl'
 
-export const corpDetailFinancialAnalysis: ICorpSubModuleCfg = {
+export const corpDetailFinancialAnalysis = {
   title: intl('451239', '财务指标'),
-  cmd: '/detail/company/financialIndicator',
-  modelNum: 'financial_indicator_num',
+  cmd: '/detail/company/financialIndicatorV3',
+  modelNum: ['domesticFinancialIndicatorNum', 'overseasFinancialIndicatorNum'],
+  custom: CompanyDetailCustom.FinancialIndicators,
   extraParams: (param) => {
     param.__primaryKey = param.companycode
     return {
       ...param,
     }
   },
-}
+} as CorpSubModuleCfg

@@ -1,4 +1,4 @@
-# AI Agent 请求服务
+﻿# AI Agent 请求服务
 
 负责处理 AI 对话的完整请求流程，包括意图分析、数据召回、问句拆解等核心功能。
 
@@ -82,9 +82,9 @@ agentRequest/
 ## 相关文档
 
 - [流程处理详细文档](./processes/README.md) - 业务流程处理详细说明
-- [设计文档](../../../docs/rule/design-doc.md) - 通用设计文档规范
-- [API 请求规范](../../../docs/rule/api-request-rule.md) - API 调用规范
-- [错误处理规范](../../../docs/rule/error-handling-rule.md) - 错误处理指南
+- [设计文档](../../../docs/rule/doc-design-rule.md) - 通用设计文档规范
+- [API 请求规范](../../../docs/rule/code-api-client-rule.md) - API 调用规范
+- [错误处理规范](../../../docs/rule/code-error-boundary-rule.md) - 错误处理指南
 
 ## 使用示例
 

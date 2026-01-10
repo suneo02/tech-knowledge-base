@@ -12,12 +12,3 @@ export const getFilterItem = (data) => {
   })
 }
 
-export const getListData = (data) => {
-  return axios.request({
-    url: '/rankinglist/getCorpListOfLists',
-    method: 'post',
-    data: { ...data },
-    restfulApi: true,
-    noProdcutName: true,
-  })
-}

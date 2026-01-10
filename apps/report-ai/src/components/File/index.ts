@@ -1,5 +1,5 @@
-export { FileDisplay } from './FileDisplay';
-export { FileItem } from './FileItem';
+export { OutlineFileDisplay } from './OutlineFileDisplay';
+export { OutlineFileItem } from './OutlineFileItem';
 
 // 新增通用文件组件
 export { FileActions, type FileAction } from './Actions';

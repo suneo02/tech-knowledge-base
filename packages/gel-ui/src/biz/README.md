@@ -1,4 +1,4 @@
-# 业务组件模块
+﻿# 业务组件模块
 
 提供面向特定业务场景的高级组件，支撑 AI 对话、企业服务、ESG 分析等核心业务功能。
 
@@ -86,7 +86,7 @@ biz/
 
 - [AI 对话组件详细文档](./ai-chat/README.md) - AI 对话功能详细说明
 - [Agent 请求服务](../service/agentRequest/README.md) - AI Agent 请求处理
-- [React 组件开发规范](../../../docs/rule/react-rule.md) - 组件开发指南
+- [React 组件开发规范](../../../docs/rule/code-react-component-rule.md) - 组件开发指南
 
 ## 使用示例
 

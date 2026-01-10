@@ -17,7 +17,7 @@ const STRINGS = {
   CURRENT_CONSUME_LABEL: t('464126', '当前消耗'),
   UNIT_PRICE_LABEL: t('464118', '单价'),
   ROWS_LABEL: t('464194', '行'),
-  TOTAL_CONSUME_LABEL: t('464138', '总消耗')
+  TOTAL_CONSUME_LABEL: t('464138', '总消耗'),
 }
 
 interface CreditsDisplayProps {
@@ -104,14 +104,8 @@ export const CreditsDisplay: React.FC<CreditsDisplayProps> = ({ credits, records
         />
       </div>
       <Tooltip title={renderTooltipContent()} placement="top">
-        <Button
-          className={styles[`${PREFIX}-info-btn`]}
-          icon={
-            // @ts-expect-error wind-icon
-            <InfoCircleO style={{ fontSize: FOOTER_CONSTANTS.UI.INFO_ICON_SIZE, color: 'var(--basic-8)' }} />
-          }
-          type="text"
-        />
+        {/* @ts-expect-error wind-icon */}
+        <InfoCircleO style={{ fontSize: FOOTER_CONSTANTS.UI.INFO_ICON_SIZE, color: 'var(--basic-8)' }} />
       </Tooltip>
     </div>
   )

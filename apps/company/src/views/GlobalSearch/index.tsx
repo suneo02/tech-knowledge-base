@@ -2,6 +2,7 @@ import LayoutScrollContent from '@/components/layout/layoutScrollContent'
 import StickyBox from '@/components/StickyBox'
 import { hashParams } from '@/utils/links'
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import GSTabs from './components/GSTabs'
 import HistorySearch from './components/HistorySearch'
 import './index.less'
@@ -13,7 +14,11 @@ const StylePrefix = 'global-search'
 const DEFAULT_RIGHT_BOX_WIDTH = 280 // 默认右侧宽度
 const PRIMARY_TOP = 12 // 通用距离
 
-const GlobalSearch = () => {
+type GlobalSearchProps = {
+  globalSearchTimeStamp?: number
+}
+
+const GlobalSearch: React.FC<GlobalSearchProps> = ({ globalSearchTimeStamp }) => {
   const { getParamValue } = hashParams()
   const GSType = getParamValue('type') as GSTabsEnum
   const [type, setType] = useState<GSTabsEnum>(GSType || GSTabsEnum.CHINA)
@@ -28,6 +33,7 @@ const GlobalSearch = () => {
           <GSTabs
             type={type}
             queryText={queryText}
+            globalSearchTimeStamp={globalSearchTimeStamp}
             onChange={setActive}
             onUserActionChange={setType}
             data-uc-id="QAnvQikDox"
@@ -47,4 +53,10 @@ const GlobalSearch = () => {
   )
 }
 
-export default GlobalSearch
+const mapStateToProps = (state) => {
+  return {
+    globalSearchTimeStamp: state.companySearchList.globalSearchTimeStamp,
+  }
+}
+
+export default connect(mapStateToProps)(GlobalSearch)

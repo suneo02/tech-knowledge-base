@@ -1,5 +1,6 @@
 import { legacyLogicalPropertiesTransformer, StyleProvider } from '@ant-design/cssinjs';
 
+import { useOutlineFilePolling } from '@/hooks';
 import { ChatRoomProvider, useChatRoomContext } from 'ai-ui';
 import { getGapCompatTransformer, needsBrowserCompat, useInitialMsgFromUrl } from 'gel-ui';
 import { Suspense, useEffect } from 'react';
@@ -24,6 +25,7 @@ const ChatContent: React.FC = () => {
   const { chatId } = useParams<{ chatId?: string }>();
 
   useClearInitialMsg(initialMessage);
+  useOutlineFilePolling();
 
   // 当 URL 中的 chatId 参数变化时，更新 room id
   useEffect(() => {

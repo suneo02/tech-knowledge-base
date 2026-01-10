@@ -1,5 +1,4 @@
-import { createChapter, getRealChapterId as getDomainRealChapterId } from '@/domain/chapter';
-import { RPChapterSavePayload } from 'gel-api';
+import { createChapter, getRealChapterId as getDomainRealChapterId, isTempChapter } from '@/domain/chapter';
 import { getTreeNodeByPath, TreePath } from 'gel-util/common';
 import { useCallback } from 'react';
 import { OutlineAction, useOutlineDispatch, useOutlineState } from '../context';
@@ -122,7 +121,7 @@ export function useOutlineOperations(options: UseOutlineOperationsOptions = {}):
 
           // 获取真实的 chapterId
           // 注意：大多数情况下章节已有 chapterId，只有刚创建未保存的章节才有 tempId
-          const tempId = (chapter as Partial<RPChapterSavePayload>).tempId;
+          const tempId = isTempChapter(chapter) ? chapter.tempId : undefined;
           const realChapterId = getRealChapterId(tempId, idMap, path);
           if (!realChapterId) {
             console.warn('[rename] 无法获取真实 chapterId，跳过编写思路生成');

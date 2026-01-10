@@ -1,51 +1,22 @@
 import { exportCorpModuleData, getshareholdertracedetail } from '@/api/companyApi.ts'
 import { pointBuriedNew } from '@/api/configApi'
 import { commonBuryList } from '@/api/pointBuried'
-import { pointBuriedByModule } from '@/api/pointBuried/bury.ts'
 import { RightGotoLink } from '@/components/common/RightGotoLink'
 import { CHART_HASH } from '@/components/company/intro/charts'
 import { VipPopup } from '@/lib/globalModal'
 import { getVipInfo } from '@/lib/utils'
 import { isDev, usedInClient } from '@/utils/env'
 import { wftCommon } from '@/utils/utils.tsx'
-import { wftCommonType } from '@/utils/WFTCommonWithType'
 import { DownloadO } from '@wind/icons'
 import { Button } from '@wind/wind-ui'
 import { message } from 'antd'
 import cn from 'classnames'
-import React, { FC } from 'react'
+import { ShareholderBreakthroughCombined } from 'gel-types'
+import { FC } from 'react'
 import { intlNoNO } from 'src/utils/intl'
 import { RimeIcon } from '../icons/rime'
 import styles from './style/corpCompMisc.module.less'
 
-export const showChain = (rate, row, header, apiParams, buryItem?) => {
-  if (window.en_access_config) {
-    return wftCommonType.displayPercent(rate) // FIXME 临时处理
-  }
-  if (row?.isShareRoute) {
-    const shareRate = wftCommonType.displayPercent(rate)
-    return (
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        {/*@ts-expect-error ttt*/}
-        <div style={{ width: 140 }}>{shareRate ? (shareRate == 0 ? '--' : shareRate) : '--'}</div>
-        <div
-          className="share-route"
-          onClick={() => {
-            if (buryItem?.moduleId) {
-              // @ts-expect-error ttt
-              pointBuriedByModule(buryItem?.moduleId, buryItem?.entity ? `-${buryItem.entity}` : '')
-            }
-            wftCommon.showRoute(row.shareRoute, header, apiParams)
-          }}
-          data-uc-id="LOnkBx39n7u"
-          data-uc-ct="div"
-        ></div>
-      </div>
-    )
-  } else {
-    return wftCommonType.displayPercent(rate)
-  }
-}
 export const addChangeTag = function (data, afterData) {
   if (data && data.indexOf('text-insert') > -1) {
     data = data.replace(/<span class='text-insert'>/g, '')
@@ -197,7 +168,15 @@ export const benfitRender = (data) => {
   )
 }
 // 股东穿透，持股路径，展开请求数据
-export const expandHandle = ({ code, id, callback }) => {
+export const expandHandle = ({
+  code,
+  id,
+  callback,
+}: {
+  code: string
+  id: string
+  callback: (data: ShareholderBreakthroughCombined['shareRoute']) => void
+}) => {
   getshareholdertracedetail(code, id).then((res) => {
     callback(res.Data)
   })

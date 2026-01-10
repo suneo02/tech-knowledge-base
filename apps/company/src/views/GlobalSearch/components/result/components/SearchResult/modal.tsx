@@ -28,7 +28,7 @@ export const SearchResultCollectModal = React.forwardRef<
       const { Data } = await getcustomercountgroupnew()
       setOptions(Data.filter((item) => item.group_id !== 'all').map((res) => ({ label: res.name, value: res.groupId })))
     } catch (error) {
-      message.error(intl('272001', '获取收藏分组失败'))
+      message.error(intl('416939', '获取收藏分组失败'))
     }
   }
 
@@ -41,7 +41,7 @@ export const SearchResultCollectModal = React.forwardRef<
           CompanyCode: currentCompanyCode,
         }).finally(() => setLoading(false))
         if (ErrorCode === '0') {
-          message.success(intl('283661', '收藏成功，可至“我的收藏”查看！'))
+          message.success(intl('416955', '收藏成功，可至“我的收藏”查看！'))
           if (props.onCollectSuccess) {
             props.onCollectSuccess(currentCompanyCode)
           }
@@ -50,7 +50,7 @@ export const SearchResultCollectModal = React.forwardRef<
           message.error(ErrorMessage)
         }
       } catch (error) {
-        message.error(intl('283662', '收藏失败！'))
+        message.error(intl('416940', '收藏失败！'))
       }
     }
   }

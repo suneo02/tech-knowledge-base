@@ -1,8 +1,7 @@
 import { GELSearchParam, getUrlByLinkModule, getWKGUrl, KGLinkEnum, LinksModule, WKGModule } from '@/handle/link'
-import { IEnvParams } from '@/utils/env'
 import { wftCommon } from '@/utils/utils'
-import { IFuncMenuItem } from '../type'
 import { t } from 'gel-util/intl'
+import { IFuncMenuItem } from '../type'
 
 // 企业图谱平台
 export const getCompanyAtlasPlatformItem = (): IFuncMenuItem => {
@@ -130,7 +129,7 @@ export const getMultiToOneReachItem = (): IFuncMenuItem => ({
 })
 
 // 竞争对手图谱
-export const getCompetitorAtlasItem = ({ isTerminal }: IEnvParams): IFuncMenuItem => {
+export const getCompetitorAtlasItem = (): IFuncMenuItem => {
   const isOversea = wftCommon.is_overseas_config
   return {
     id: '396973',
@@ -138,8 +137,7 @@ export const getCompetitorAtlasItem = ({ isTerminal }: IEnvParams): IFuncMenuIte
     url: getWKGUrl(WKGModule.COMPETITOR),
     css: 'detach-icon',
     icon: 'JZDS',
-    //     new: true,
-    disabled: !isTerminal || isOversea,
+    disabled: isOversea,
   }
 }
 

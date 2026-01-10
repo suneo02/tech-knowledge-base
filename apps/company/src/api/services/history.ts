@@ -1,4 +1,4 @@
-import { SearchHistoryParsed, SearchHistoryType } from 'gel-api/*'
+import { SearchHistoryParsed, SearchHistoryType } from 'gel-api'
 import { request } from '../request'
 
 // 获取搜索历史

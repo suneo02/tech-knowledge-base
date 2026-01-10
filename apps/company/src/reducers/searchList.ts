@@ -1,26 +1,10 @@
 import * as actionTypes from '../actions/actionTypes'
 import global from '../lib/global'
+import type { SearchListAction, SearchListState } from './searchList.types'
 
-const initialState: {
-  companySearchList?: any[]
-  groupList?: any[]
-  personList?: any[]
-  overseaSearchList?: any[]
-  jobList?: any[]
-  intelluctalList?: any[]
-  patentSecondType?: string
-  patentType?: string
-  bidSearchList?: any[]
-  bidViewList?: any[]
-  searchKeyWord?: string
-  outCompanySearchList?: any[]
-  outCompanyView?: any[]
-  companyViewHot?: any[]
-  brandState?: string
-  brandType?: string
-} = {}
+const initialState: SearchListState = {}
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: SearchListAction): SearchListState => {
   switch (action.type) {
     case actionTypes.HOT_VIEW_GROUP:
       if (action.data.code === global.SUCCESS) {
@@ -57,7 +41,7 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
 
-          companySearchList: state.companySearchList ? state.companySearchList : '',
+          companySearchList: state.companySearchList ? state.companySearchList : [],
           companySearchErrorCode: action.data.ErrorCode,
         }
       }
@@ -131,9 +115,25 @@ const reducer = (state = initialState, action) => {
         } else {
           return {
             ...state,
-            personList: '',
+            personList: [],
             personListErrorCode: action.data.ErrorCode,
           }
+        }
+      }
+      break
+
+    case 'UPDATE_PERSON_TRANSLATION':
+      if (action.data.translatedData && Array.isArray(state.personList)) {
+        // 根据 personId 精确替换翻译数据
+        const updatedList = state.personList.map((item) => {
+          const translatedItem = action.data.translatedData.find(
+            (t) => t.personId === item.personId && t.companyCode === item.companyCode
+          )
+          return translatedItem ? { ...item, ...translatedItem } : item
+        })
+        return {
+          ...state,
+          personList: updatedList,
         }
       }
       break
@@ -152,7 +152,7 @@ const reducer = (state = initialState, action) => {
         } else {
           return {
             ...state,
-            overseaSearchList: '',
+            overseaSearchList: [],
             overseaSearchListErrorCode: action.data.ErrorCode,
           }
         }
@@ -220,16 +220,16 @@ const reducer = (state = initialState, action) => {
                 ? action.data.data.aggregations.aggs_international_classification
                 : '',
             intelluctalErrorCode: action.data.ErrorCode,
-            patentSecondType: '',
+            patentSecondType: [],
           }
         } else {
           return {
             ...state,
-            intelluctalList: '',
+            intelluctalList: [],
             brandState: '',
             brandType: '',
             intelluctalErrorCode: action.data.ErrorCode,
-            patentSecondType: '',
+            patentSecondType: [],
           }
         }
       }
@@ -250,18 +250,18 @@ const reducer = (state = initialState, action) => {
                 ? state.patentSecondType
                 : action.data.data.aggregations && action.data.data.aggregations.agg_patentClassification
                   ? action.data.data.aggregations.agg_patentClassification
-                  : ''
+                  : []
               : action.data.data.aggregations && action.data.data.aggregations.agg_patentClassification
                 ? action.data.data.aggregations.agg_patentClassification
-                : '',
+                : [],
             intelluctalErrorCode: action.data.ErrorCode,
             patentType: action.data.patentType ? action.data.patentType : '',
           }
         } else {
           return {
             ...state,
-            intelluctalList: '',
-            patentSecondType: '',
+            intelluctalList: [],
+            patentSecondType: [],
             intelluctalErrorCode: action.data.ErrorCode,
           }
         }
@@ -269,7 +269,7 @@ const reducer = (state = initialState, action) => {
         if (!action.data.pageNo) {
           return {
             ...state,
-            intelluctalList: '',
+            intelluctalList: [],
           }
         }
       }
@@ -289,7 +289,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         brandState: '',
         brandType: '',
-        patentSecondType: '',
+        patentSecondType: [],
       }
       break
     case actionTypes.SEARCH_BID:
@@ -307,22 +307,51 @@ const reducer = (state = initialState, action) => {
         } else {
           return {
             ...state,
-            bidSearchList: '',
+            bidSearchList: [],
             bidErrorCode: action.data.ErrorCode,
           }
         }
       }
       break
-    case actionTypes.VIEW_BID:
-      if (action.data.code === global.SUCCESS) {
-        if (action.data.data && action.data.data.list.length > 0) {
-          return {
-            ...state,
-            bidViewList: action.data.data.list,
-          }
+
+    case 'UPDATE_BID_TRANSLATION':
+      if (action.data.translatedData && Array.isArray(state.bidSearchList)) {
+        // 根据 detail_id 精确替换翻译数据
+        const updatedList = state.bidSearchList.map((item) => {
+          const translatedItem = action.data.translatedData.find((t) => t.detail_id === item.detail_id)
+          return translatedItem ? { ...item, ...translatedItem } : item
+        })
+        return {
+          ...state,
+          bidSearchList: updatedList,
         }
       }
       break
+
+    case 'UPDATE_PATENT_TRANSLATION':
+      if (action.data.translatedData && Array.isArray(state.intelluctalList)) {
+        // 根据 dataId 精确替换翻译数据
+        const updatedList = state.intelluctalList.map((item) => {
+          const translatedItem = action.data.translatedData.list.find((t) => item.dataId && item.dataId === t.dataId)
+          return translatedItem ? { ...item, ...translatedItem } : item
+        })
+        const translatedAgg = action.data.translatedData.aggregations?.agg_patentClassification
+        let updatedPatentSecondType = state.patentSecondType
+        if (Array.isArray(state.patentSecondType) && Array.isArray(translatedAgg) && translatedAgg.length) {
+          updatedPatentSecondType = state.patentSecondType.map((item: any, idx: number) => {
+            const t = translatedAgg[idx]
+            const en = t?.key_en ?? t?.key
+            return typeof en === 'string' ? { ...item, key_en: en } : item
+          })
+        }
+        return {
+          ...state,
+          intelluctalList: updatedList,
+          patentSecondType: updatedPatentSecondType,
+        }
+      }
+      break
+
     case actionTypes.SET_GLOBAL_SEARCH_KEYWORD:
       if (action.data !== undefined && action.data !== null) {
         return {
@@ -332,6 +361,11 @@ const reducer = (state = initialState, action) => {
       }
 
       break
+    case actionTypes.SET_GLOBAL_SEARCH_TIMESTAMP:
+      return {
+        ...state,
+        globalSearchTimeStamp: action.data,
+      }
     // case actionTypes.SEARCH_HOT_OUTCOMPANY:
     // if (action.data.code === global.SUCCESS) {
     //     if (action.data.data && action.data.data.length > 0) {

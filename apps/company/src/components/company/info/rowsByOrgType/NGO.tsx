@@ -1,6 +1,7 @@
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfo } from 'gel-types'
+import { CorpBasicInfoFront } from '../handle'
 import {
   corpInfoBussScopeRow,
   corpInfoBussStateRow,
@@ -21,33 +22,33 @@ import {
 /**
  * @param baseInfo
  */
-export const corpInfoNGORows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns<ICorpBasicInfoFront> => [
+export const corpInfoNGORows = (baseInfo: Partial<CorpBasicInfo>): HorizontalTableColumns<CorpBasicInfoFront> => [
   [{ ...corpInfoNameRow, title: intl(410940, '社会组织名称') }, corpInfoCreditCodeRow],
   [
     corpInfoEngNameRow,
     {
       ...corpInfoStartDateRow,
-      title: intl(207784, '成立登记日期'),
+      title: intl(448303, '成立登记日期'),
     },
   ],
   [
     corpInfoUsedNamesRow(baseInfo),
     {
       ...corpInfoOperPeriodRangeRow,
-      title: intl(207789, '证书有效期'),
+      title: intl(448305, '证书有效期'),
     },
   ],
   [
     {
       ...corpInfoTypeRow,
-      title: intl(207787, '社会组织类型'),
+      title: intl(448304, '社会组织类型'),
     },
     {
       ...corpInfoBussStateRow,
       title: intl(138772, '登记状态'),
     },
   ],
-  [corpInfoLegalPersonRow, { ...corpInfoRegAuthorityRow, title: intl(208889, '登记管理机关') }],
+  [corpInfoLegalPersonRow, { ...corpInfoRegAuthorityRow, title: intl(448324, '登记管理机关') }],
   [
     {
       ...corpInfoIndustryRow(),
@@ -55,19 +56,19 @@ export const corpInfoNGORows = (baseInfo: ICorpBasicInfoFront): HorizontalTableC
     },
     {
       ...corpInfoRegCapitalRow,
-      title: intl('138473', '注册资金'),
+      title: intl('448309', '注册资金'),
     },
   ],
   [
     {
       ...corpInfoRegAddressRow,
-      title: intl(207785, '住所'),
+      title: intl(448326, '住所'),
     },
   ],
   [
     {
       ...corpInfoBussScopeRow,
-      title: intl(145358, '业务范围'),
+      title: intl(149609, '业务范围'),
     },
   ],
 ]

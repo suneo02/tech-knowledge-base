@@ -42,6 +42,12 @@ export const DevModeConfigPanel: React.FC<DevModeConfigPanelProps> = ({
           </Radio.Group>
         </div>
 
+        {apiPrefixDev === '' && (
+          <div style={{ fontSize: 12, color: 'rgba(0,0,0,0.65)', marginTop: 4 }}>
+            当前使用相对路径，跟随主应用环境，不做前缀覆盖。
+          </div>
+        )}
+
         <Divider style={{ margin: '12px 0' }} />
 
         <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>WSID 配置</div>

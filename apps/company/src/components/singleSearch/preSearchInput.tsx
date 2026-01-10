@@ -1,5 +1,5 @@
 import { Input } from '@wind/wind-ui'
-import { SearchHistoryParsed } from 'gel-api/*'
+import { SearchHistoryParsed } from 'gel-api'
 import React from 'react'
 import { connect } from 'react-redux'
 import { getPreCorpSearchNew } from '../../api/homeApi'

@@ -9,18 +9,18 @@
 // 工厂函数和 Provider
 export { createReportContentStore } from './factory';
 export type { ReportContentDispatch, ReportContentStore } from './factory';
-export { ReportContentRTKScope } from './provider';
-export type { ReportContentRTKScopeProps } from './provider';
+export { RPDetailRTKScope } from './provider';
 
 // Redux Slice
-export { rpContentActions, rpContentSlice } from './slice';
+export { rpDetailActions } from './slice';
 
 // Hooks
 // Redux Hooks
-export { useReportContentDispatch, useReportContentSelector } from './hooksRedux';
+export { useRPDetailDispatch, useRPDetailSelector } from './hooksRedux';
 
 // 业务 Hooks
 export {
+  useCancelGeneration,
   useChapterRegeneration,
   useEditorDraftSync,
   useFullDocGeneration,
@@ -30,6 +30,7 @@ export {
 
 export type {
   ReportContentPersistenceState,
+  UseCancelGenerationReturn,
   UseChapterRegenerationReturn,
   UseEditorDraftSyncOptions,
   UseEditorDraftSyncReturn,
@@ -41,7 +42,6 @@ export type {
 
 // 选择器
 export {
-  selectCanonicalChapterHtmlMap,
   selectCanonicalDocHtml,
   selectChapterContentMap,
   selectChapterEpoch,
@@ -64,7 +64,6 @@ export {
   selectReferenceMap,
   selectReferenceOrdinalMap,
   selectReferencePriority,
-  selectReportContent,
   selectReportId,
   selectReportName,
   selectShouldEditorBeReadonly,

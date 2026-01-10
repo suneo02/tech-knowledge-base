@@ -14,12 +14,12 @@
  */
 
 import { useCallback } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../hooksRedux';
+import { useRPDetailDispatch, useRPDetailSelector } from '../hooksRedux';
 
 import { selectIsGlobalBusy, selectLeafChapters } from '../selectors';
 
 import { useReportDetailContext } from '@/context';
-import { rpContentSlice } from '../slice';
+import { rpDetailActions } from '../slice';
 
 export interface UseFullDocumentGenerationReduxParams {
   /** 生成开始回调 */
@@ -47,13 +47,13 @@ export const useFullDocGeneration = (
 ): UseFullDocumentGenerationReduxReturn => {
   const { onGenerationStart } = params || {};
 
-  const dispatch = useReportContentDispatch();
+  const dispatch = useRPDetailDispatch();
 
   const { setMsgs } = useReportDetailContext();
 
   // 从Redux获取状态
-  const leafChapters = useReportContentSelector(selectLeafChapters);
-  const isGlobalBusy = useReportContentSelector(selectIsGlobalBusy);
+  const leafChapters = useRPDetailSelector(selectLeafChapters);
+  const isGlobalBusy = useRPDetailSelector(selectIsGlobalBusy);
 
   // 注：重注水与合并逻辑由 reducers + useRehydrationOrchestrator 统一处理
 
@@ -76,7 +76,7 @@ export const useFullDocGeneration = (
 
       // 1. 准备章节队列 - 只生成叶子节点（没有子章节的章节）
       if (leafChapters.length === 0) {
-        dispatch(rpContentSlice.actions.setFullDocumentGenerationError('No leaf chapters to generate'));
+        dispatch(rpDetailActions.setFullDocumentGenerationError('No leaf chapters to generate'));
         return;
       }
 
@@ -84,17 +84,17 @@ export const useFullDocGeneration = (
 
       // 统一入口：批量锁定章节、清空内容并为每个章节生成 correlationId
       dispatch(
-        rpContentSlice.actions.startChapterOperation({
+        rpDetailActions.startChapterOperation({
           mode: 'batch',
           chapterIds,
         })
       );
-      dispatch(rpContentSlice.actions.startFullDocumentGeneration({ chapterIds }));
+      dispatch(rpDetailActions.startFullDocumentGeneration({ chapterIds }));
 
       onGenerationStart?.();
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to start generation';
-      dispatch(rpContentSlice.actions.setFullDocumentGenerationError(errorMessage));
+      dispatch(rpDetailActions.setFullDocumentGenerationError(errorMessage));
     }
   }, [leafChapters, dispatch, isGlobalBusy, onGenerationStart]);
 

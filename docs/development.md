@@ -13,115 +13,124 @@
 git clone <repository-url>
 cd gel-workspace-dev
 pnpm install
-pnpm dev
+
+# 启动开发环境 (推荐使用 turbo)
+pnpm turbo dev
 ```
 
 ## 应用访问
 
-| 应用 | 端口 | 访问地址 |
-|------|------|---------|
-| ai-chat | 3000 | http://localhost:3000 |
-| company | 3001 | http://localhost:3001 |
-| report-config | 3002 | http://localhost:3002 |
+| 应用           | 端口 | 访问地址              |
+| -------------- | ---- | --------------------- |
+| ai-chat        | 3000 | http://localhost:3000 |
+| company        | 3001 | http://localhost:3001 |
+| report-config  | 3002 | http://localhost:3002 |
 | report-preview | 3003 | http://localhost:3003 |
-| report-print | 3004 | http://localhost:3004 |
+| report-print   | 3004 | http://localhost:3004 |
+| super-agent    | 3005 | http://localhost:3005 |
 
-## 开发命令
+## 开发命令 (Turbo)
 
-### 基础命令
+我们推荐直接使用 `turbo` 进行开发，以获得最佳性能和缓存体验。
+
+### 启动开发服务器
 
 ```bash
-# 启动开发环境
-pnpm dev
+# 启动特定应用
+pnpm turbo dev --filter=report-ai
+pnpm turbo dev --filter=company
+pnpm turbo dev --filter=ai-chat
 
-# 应用特定开发
-pnpm dev:ai-chat     # AI 聊天 (3000)
-pnpm dev:company     # 企业管理 (3001)
-pnpm dev:report-config  # 报表配置 (3002)
-
-# 构建
-pnpm build
-pnpm build:company
-
-# 代码质量
-pnpm lint
-pnpm tsc
-pnpm test
-
-# 清理缓存
-pnpm clean
+# 调试模式 (packages 源码调试)
+pnpm turbo dev:debug --filter=report-ai
 ```
 
-### run-app 工具
-
-统一应用管理工具，支持开发、构建、部署。
+### 构建应用
 
 ```bash
-# 开发模式
-pnpm app dev <app>
+# 构建特定应用
+pnpm turbo build --filter=company...
 
-# 构建
-pnpm app build <app>
-pnpm app build <app> --staging  # 预发布版本
-pnpm app build --all           # 构建所有应用
+# 注意: 使用 ... 后缀可以同时构建所有依赖项
+```
 
+### 代码质量
+
+```bash
 # 类型检查
-pnpm app tsc <app>
+pnpm turbo tsc --filter=ai-chat...
 
 # 循环依赖检查
-pnpm app check:circular <app>
-
-# Storybook 开发
-pnpm app storybook <app>
-
-# 本地预览
-pnpm app serve <app>
-
-# 部署
-pnpm app deploy-prod <app>
-pnpm app deploy-prod --all     # 部署所有应用
-pnpm app deploy-staging <app>
+pnpm turbo check:circular --filter=report-ai...
 ```
 
-#### 常用参数
-
-| 参数 | 作用 | 适用命令 |
-|------|------|----------|
-| `--all` | 操作所有应用 | build, deploy-prod, deploy-staging |
-| `--staging` | 预发布版本 | build |
-| `--verbose` | 详细输出 | deploy-prod, deploy-staging |
-| `--dry-run` | 验证模式 | deploy-prod, deploy-staging |
-| `--clear-cache` | 清除缓存 | deploy-prod, deploy-staging |
-
-#### 支持应用
-
-- `ai-chat` - AI 聊天应用
-- `company` - 企业主应用
-- `report-ai` - 报告 AI 应用
-- `report-print` - 报告打印应用
-- `report-preview` - 报告预览应用
-- `wind-zx` - Wind ZX 应用
-- `super-agent` - Super Agent 应用
-
-#### 常用工作流
+### Storybook
 
 ```bash
-# 本地开发
-pnpm app dev company
+pnpm turbo storybook --filter=report-ai
+```
 
-# 代码质量检查
-pnpm app tsc company
-pnpm app check:circular company
+## 部署流程
 
-# 构建并本地预览
-pnpm app build company
-pnpm app serve company
+我们提供了一系列独立脚本来处理部署任务。
 
-# 部署到生产环境
-pnpm app deploy-prod company
+### 1. `scripts/deploy.js` - 仅部署
 
-# 部署到预发布环境
-pnpm app deploy-staging company --verbose
+用于将已构建的产物部署到指定分支。
+
+```bash
+# 部署单个应用
+node scripts/deploy.js company
+
+# 部署多个应用 !!NEW!!
+node scripts/deploy.js company ai-chat
+
+# 部署所有应用 !!NEW!!
+node scripts/deploy.js --all
+
+# 配合自定义分支
+node scripts/deploy.js company --branch feat/user-login
+node scripts/deploy.js --all --branch staging
+```
+
+### 2. `scripts/build-and-deploy.js` - 构建并部署
+
+自动执行安装依赖、构建应用、然后调用 `deploy.js` 进行部署。
+
+```bash
+# 构建并部署单个应用
+node scripts/build-and-deploy.js company
+
+# 构建并部署多个应用 !!NEW!!
+node scripts/build-and-deploy.js company ai-chat
+
+# 构建并部署所有应用 !!NEW!!
+node scripts/build-and-deploy.js --all
+
+# 配合自定义分支
+node scripts/build-and-deploy.js --all --branch staging
+```
+
+### 3. `scripts/staging/deploy-staging.js` - 预发布环境
+
+专门用于部署到预发布环境（远程服务器）。
+
+```bash
+# 部署单个应用
+node scripts/staging/deploy-staging.js company
+
+# 部署所有应用
+node scripts/staging/deploy-staging.js --all
+```
+
+## 快捷查询
+
+你可以随时运行以下命令查看此帮助指南：
+
+```bash
+pnpm guide
+# 或者
+npm run guide
 ```
 
 ## 代码规范
@@ -142,28 +151,22 @@ pnpm lint:fix      # 自动修复
 pnpm format        # 格式化代码
 ```
 
-## 开发流程
+## 常见问题
 
-1. 创建功能分支
-2. 开发和测试
-3. 提交代码（遵循规范）
-4. 创建 Pull Request
-
-## 开发问题
-
-| 问题 | 解决方案 |
-|------|---------|
-| 构建失败 | `pnpm tsc` 检查错误 |
-| 类型错误 | 检查 TypeScript 配置 |
+| 问题     | 解决方案                |
+| -------- | ----------------------- | -------------- |
+| 构建失败 | `pnpm tsc` 检查错误     |
+| 类型错误 | 检查 TypeScript 配置    |
 | 依赖问题 | `pnpm install` 重新安装 |
-| 端口占用 | `lsof -ti:3000 | xargs kill -9` |
+| 端口占用 | `lsof -ti:3000          | xargs kill -9` |
 
 ## 项目结构
 
 ```
 apps/          # 应用程序
 packages/      # 共享包
-docs/         # 项目文档
+docs/          # 项目文档
+scripts/       # 工具脚本
 ```
 
 ## 相关文档
@@ -175,7 +178,9 @@ docs/         # 项目文档
 
 ## 相关脚本
 
-- [应用管理工具](../scripts/run-app.js) - 统一应用管理入口
+- [应用管理工具](../scripts/guide.js) - 统一应用管理入口 (指南)
 - [本地部署器](../scripts/deployers/LocalDeployer.js) - 本地部署实现
 - [预发布部署器](../scripts/deployers/StagingDeployer.js) - 预发布部署实现
 - [统一部署脚本](../scripts/deploy.js) - 完整部署流程
+- [预发布脚本](../scripts/staging/deploy-staging.js) - 预发布部署
+- [Nginx配置](../scripts/staging/deploy-nginx-config.js) - Nginx 配置管理

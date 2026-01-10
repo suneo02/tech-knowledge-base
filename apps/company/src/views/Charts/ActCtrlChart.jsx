@@ -622,7 +622,7 @@ function ActCtrlChart({ companycode, watermask = true, saveImgName = intl('35611
             )}
             {bottom ? (
               <div className="chart-bottom">
-                {intl('261373', '计算结果基于公开信息和第三方数据利用大数据技术独家计算生成')}
+                {intl('437654', '计算结果基于公开信息和第三方数据利用大数据技术独家计算生成')}
               </div>
             ) : null}
           </>

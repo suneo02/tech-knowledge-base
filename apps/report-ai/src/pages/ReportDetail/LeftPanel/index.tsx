@@ -1,5 +1,5 @@
 import { OutlineView } from '@/components/outline/OutlineView';
-import { useReportContentSelector } from '@/store/reportContentStore';
+import { useRPDetailSelector } from '@/store/reportContentStore';
 import { selectIsServerLoading, selectOutlineViewChapters } from '@/store/reportContentStore/selectors';
 import { FC } from 'react';
 import { useReportDetailContext } from '../../../context/ReportDetail';
@@ -22,8 +22,8 @@ import styles from './index.module.less';
  * @returns JSX.Element 左侧大纲视图组件
  */
 export const RPLeftPanel: FC = () => {
-  const outlineViewChapters = useReportContentSelector(selectOutlineViewChapters);
-  const isServerLoading = useReportContentSelector(selectIsServerLoading);
+  const outlineViewChapters = useRPDetailSelector(selectOutlineViewChapters);
+  const isServerLoading = useRPDetailSelector(selectIsServerLoading);
   const { reportEditorRef } = useReportDetailContext();
 
   const handleChapterSelect = (chapterId: string) => {

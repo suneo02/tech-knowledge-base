@@ -1,7 +1,7 @@
 import { corpInfoAnotherNameRow } from '@/components/company/info/rowsCommon/names.tsx'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 import {
   corpInfoAreaRow,
   corpInfoBussNoRow,
@@ -14,7 +14,7 @@ import {
   corpInfoTypeRow,
 } from '../rowsCommon'
 
-export const canadaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const canadaRows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [
     {
       ...corpInfoNameRow,
@@ -48,7 +48,7 @@ export const canadaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
     },
     {
       ...corpInfoCreditCodeRow,
-      title: intl(0, '商业编号'),
+      title: intl(467595, '商业编号'),
       colSpan: 2,
     },
   ],

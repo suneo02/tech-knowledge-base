@@ -28,6 +28,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash')
+const EnsureCssContentPlugin = require('./webpack/plugins/EnsureCssContentPlugin')
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
@@ -386,23 +387,12 @@ module.exports = function (webpackEnv) {
                     const identifier = module.identifier()
                     const source = module._source && module._source._value
 
-                    // 更精确的WindUI样式匹配
+                    // 更精确的WindUI样式匹配，确保只匹配es版本
                     return (
-                      identifier.includes('@wind/wind-ui') || identifier.includes('/wind-ui/')
-                      // 以下判断过于激进，先不开启，需要充分验证
-                      // ||
-                      // (source &&
-                      //   (source.includes('.w-row') ||
-                      //     source.includes('.w-col') ||
-                      //     source.includes('.w-menu') ||
-                      //     source.includes('.w-dropdown') ||
-                      //     source.includes('.w-steps') ||
-                      //     source.includes('.w-theme-') ||
-                      //     source.includes('.w-img-') ||
-                      //     source.includes('.w-text-') ||
-                      //     source.includes('.w-mark') ||
-                      //     source.includes('.w-small') ||
-                      //     source.includes('.w-hoverable')))
+                      identifier.includes('@wind/wind-ui/es') ||
+                      identifier.includes('/wind-ui/es/') ||
+                      // 匹配样式文件路径
+                      (identifier.includes('@wind/wind-ui') && identifier.includes('/style.css'))
                     )
                   }
                   return false
@@ -561,7 +551,8 @@ module.exports = function (webpackEnv) {
                   //   ['import', { libraryName: 'antd', libraryDirectory: "es", style: "css" }, 'antd'], // `style: "css"` 会加载 全量 css 文件
 
                   ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }, 'antd'],
-                  ['import', { libraryName: '@wind/wind-ui', libraryDirectory: 'es', style: true }], // `style: "css"` 会加载 全量 css 文件
+                  // 修改@wind/wind-ui的babel-plugin-import配置，确保只使用es版本
+                  ['import', { libraryName: '@wind/wind-ui', libraryDirectory: 'es', style: true }], // 使用默认样式处理
                   [
                     'import',
                     {
@@ -735,11 +726,16 @@ module.exports = function (webpackEnv) {
           ],
         },
         {
-          test: /@wind[\\/]wind-ui[\\/](es|lib)[\\/]result[\\/]theme-bg-component[\\/](light|dark)[\\/].+\.js$/,
+          // 排除@wind/wind-ui/lib版本的result组件，避免与es版本重复编译
+          test: /@wind[\\/]wind-ui[\\/]lib[\\/]result[\\/].*\.js$/,
           use: ['null-loader'],
-          // 只处理 src/ 目录下的内容，也即company目录下
-          include: path.resolve(__dirname, '../src'),
         },
+        // {
+        //   test: /@wind[\\/]wind-ui[\\/](es|lib)[\\/]result[\\/]theme-bg-component[\\/](light|dark)[\\/].+\.js$/,
+        //   use: ['null-loader'],
+        //   // 只处理 src/ 目录下的内容，也即company目录下
+        //   include: path.resolve(__dirname, '../src'),
+        // },
       ].filter(Boolean),
     },
     plugins: [
@@ -816,6 +812,7 @@ module.exports = function (webpackEnv) {
           filename: 'static/css/[name].[contenthash:8].css',
           chunkFilename: 'static/css/[name].[contenthash:8].css',
         }),
+      isEnvProduction && new EnsureCssContentPlugin(),
       // Generate an asset manifest file with the following content:
       // - "files" key: Mapping of all asset filenames to their corresponding
       //   output file so that tools can pick it up without having to parse

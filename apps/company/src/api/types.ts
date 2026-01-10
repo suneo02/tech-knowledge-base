@@ -1,4 +1,4 @@
-import { ApiCodeForWfc, ApiResponseForWFC } from 'gel-api/*'
+import { ApiCodeForWfc, ApiResponseForWFC } from 'gel-api'
 import { ApiPaths } from './paths'
 export { ApiCodeForWfc } from 'gel-api'
 

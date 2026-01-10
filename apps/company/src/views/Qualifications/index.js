@@ -113,7 +113,7 @@ function QualificationsIndex(props) {
             __html: i.nameHighlight || '',
           }}
         ></span>
-        <span className="tag">{i.typeInfo || intl('299914', '资质')}</span>
+        <span className="tag">{i.typeInfo || intl('478717', '资质')}</span>
       </Option>
     )
   })
@@ -182,7 +182,7 @@ function QualificationsIndex(props) {
                         <span>
                           <a>
                             {wftCommon.formatMoney(i.total, [4, ' ']) || '--'}{' '}
-                            {window.en_access_config ? '' : intl('', '条')}
+                            {window.en_access_config ? '' : intl('149186', '条')}
                             <RightO data-uc-id="12S0WO5JA9" data-uc-ct="righto" />
                           </a>{' '}
                         </span>

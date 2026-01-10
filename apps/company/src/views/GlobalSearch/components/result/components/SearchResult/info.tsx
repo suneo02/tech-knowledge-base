@@ -1,13 +1,14 @@
+import { Links } from '@/components/common/links'
 import InnerHtml from '@/components/InnerHtml'
+import { LinksModule } from '@/handle/link'
 import { formatCurrency } from '@/utils/common.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils'
 import { GSTabsEnum } from '@/views/GlobalSearch/types'
+import { ProvidedByAI } from 'gel-ui'
 import React from 'react'
-import { BaseInfoItemProps, OrgTypeEnum, SearchResultItem, TextProps } from './type'
-import { LinksModule } from '@/handle/link'
-import { Links } from '@/components/common/links'
-import { refreshHistoryEmitter } from '@/views/GlobalSearch/emitter'
+import { CompanyInfoInSearchWithCollect } from '../../useResultList'
+import { BaseInfoItemProps, OrgTypeEnum, TextProps } from './type'
 
 // TODO 未来可以替换成和tableColumns同样的方法，看后续改造
 const Text = <T extends Record<string, any>>({ type, item, field, unit, href }: TextProps<T>) => {
@@ -85,63 +86,84 @@ const BaseInfoItem = <T extends Record<string, any>>({
 }
 
 /** 公司名称 */
-export const CompanyNameInfo = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => (
-  <Links
-    module={LinksModule.COMPANY}
-    id={item?.corpId || ''}
-    title={
-      <h4>
-        <Text
-          item={item}
-          field={window.en_access_config && type === GSTabsEnum.CHINA ? 'corpNameEng' : 'corpName'}
-        ></Text>
-      </h4>
-    }
-    addRecordCallback={() => {
-      refreshHistoryEmitter.emit() // 通知更新最近浏览企业列表
-    }}
-  ></Links>
-)
-
-/** 英语名称 */
-export const EnglishNameInfo = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => (
-  <>
-    <BaseInfoItem<T>
-      item={item}
-      type={type}
-      field="corpNameEng"
-      // ToDo 所属省份
-      showCondition={(_, type) => !(window.en_access_config && type === GSTabsEnum.CHINA)}
-      extraContent={
-        item?.aiTransFlag ? <small style={{ marginInlineStart: 12, color: '#575d67' }}>Provided by AI</small> : null
+export const CompanyNameInfo = <T extends CompanyInfoInSearchWithCollect>({ item }: { item: T; type?: GSTabsEnum }) => {
+  // 使用 corpName 作为原始名称
+  const displayName = item?.corpName
+  return (
+    <Links
+      module={LinksModule.COMPANY}
+      id={item?.corpId || ''}
+      title={
+        <h4>
+          <InnerHtml html={displayName}></InnerHtml>
+        </h4>
       }
-      data-uc-id="f4EKqRkP7E"
-      data-uc-ct="baseinfoitem"
-    />
-  </>
-)
+    ></Links>
+  )
+}
+
+/** 翻译名称 */
+export const ComapnyTransNameInfo = <T extends CompanyInfoInSearchWithCollect>({
+  item,
+  type,
+}: {
+  item: T
+  type?: GSTabsEnum
+}) => {
+  if (!item?.corpNameTrans) {
+    return null
+  }
+  return (
+    <>
+      <BaseInfoItem<T>
+        item={item}
+        type={type}
+        field="corpNameTrans"
+        extraContent={item?.corpNameAITransFlag ? <ProvidedByAI /> : null}
+        data-uc-id="f4EKqRkP7E"
+        data-uc-ct="baseinfoitem"
+      />
+    </>
+  )
+}
 
 /** 国家地区 */
-export const CountryInfo = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => (
+export const CountryInfo = <T extends CompanyInfoInSearchWithCollect>({
+  item,
+  type,
+}: {
+  item: T
+  type?: GSTabsEnum
+}) => (
   <BaseInfoItem<T>
     item={item}
     type={type}
     label={intl('6886', '国家/地区')}
     field="areaCn"
     // ToDo 所属省份
-    showCondition={(item) => true}
+    showCondition={() => true}
     data-uc-id="C6xpHsqF1w"
     data-uc-ct="baseinfoitem"
   />
 )
 
 /** 所属省份 */
-export const ProvinceInfo = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => (
-  <BaseInfoItem<T> item={item} type={type} label={intl('437319', '所属省份')} field="province" />
-)
+export const ProvinceInfo = <T extends CompanyInfoInSearchWithCollect>({
+  item,
+  type,
+}: {
+  item: T
+  type?: GSTabsEnum
+}) => <BaseInfoItem<T> item={item} type={type} label={intl('437319', '所属省份')} field="province" />
 
 /** 成立日期 */
-export const EstablishDateInfo = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => (
+export const EstablishDateInfo = <T extends CompanyInfoInSearchWithCollect>({
+  item,
+  type,
+}: {
+  item: T
+  type?: GSTabsEnum
+}) => (
   <BaseInfoItem<T>
     item={item}
     type={type}
@@ -153,7 +175,13 @@ export const EstablishDateInfo = <T extends SearchResultItem>({ item, type }: { 
 )
 
 /** 注册资本 */
-export const RegisterCapitalInfo = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => (
+export const RegisterCapitalInfo = <T extends CompanyInfoInSearchWithCollect>({
+  item,
+  type,
+}: {
+  item: T
+  type?: GSTabsEnum
+}) => (
   <BaseInfoItem<T>
     item={item}
     type={type}
@@ -166,12 +194,22 @@ export const RegisterCapitalInfo = <T extends SearchResultItem>({ item, type }: 
 )
 
 /** 所属行业 */
-export const IndustryInfo = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => (
-  <BaseInfoItem<T> item={item} type={type} label={intl('246676', '国标行业')} field="industryName" />
-)
+export const IndustryInfo = <T extends CompanyInfoInSearchWithCollect>({
+  item,
+  type,
+}: {
+  item: T
+  type?: GSTabsEnum
+}) => <BaseInfoItem<T> item={item} type={type} label={intl('246676', '国标行业')} field="industryName" />
 
 /** 法人 */
-export const LegalPersonInfo = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => {
+export const LegalPersonInfo = <T extends CompanyInfoInSearchWithCollect>({
+  item,
+  type,
+}: {
+  item: T
+  type?: GSTabsEnum
+}) => {
   const linksParams = {
     id: item?.artificialPersonId,
     title: item?.artificialPersonName,
@@ -194,7 +232,13 @@ export const LegalPersonInfo = <T extends SearchResultItem>({ item, type }: { it
 }
 
 /** 地址 */
-export const AddressInfo = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => (
+export const AddressInfo = <T extends CompanyInfoInSearchWithCollect>({
+  item,
+  type,
+}: {
+  item: T
+  type?: GSTabsEnum
+}) => (
   <BaseInfoItem<T>
     item={item}
     type={type}
@@ -208,7 +252,7 @@ export const AddressInfo = <T extends SearchResultItem>({ item, type }: { item: 
 )
 
 /** 高亮 */
-export const HighlightInfo = <T extends SearchResultItem>({ item }: { item: T }) =>
+export const HighlightInfo = <T extends CompanyInfoInSearchWithCollect>({ item }: { item: T }) =>
   item.highlight.length && item.highlight.filter((res) => res?.isDisplayedInList === 1)?.length ? (
     <div style={{ marginBlockStart: 4 }}>
       {item.highlight.map((res, index) => (
@@ -220,7 +264,13 @@ export const HighlightInfo = <T extends SearchResultItem>({ item }: { item: T })
     </div>
   ) : null
 
-export const DomesticEntity = <T extends SearchResultItem>({ item, type }: { item: T; type?: GSTabsEnum }) => {
+export const DomesticEntity = <T extends CompanyInfoInSearchWithCollect>({
+  item,
+  type,
+}: {
+  item: T
+  type?: GSTabsEnum
+}) => {
   return (
     <BaseInfoItem<T> item={item} type={type} label={intl('437189', '境内运营实体')} field="domesticEntity">
       <Links module={LinksModule.COMPANY} id={item.domesticEntityId} title={item.domesticEntity} useUnderline />

@@ -1,4 +1,4 @@
-# 常量定义模块
+﻿# 常量定义模块
 
 提供应用中的常量定义，包括枚举值、魔法数字、固定配置等，避免硬编码提升代码可维护性。
 
@@ -122,8 +122,8 @@ export const CHAT_EVENTS = {
 
 ## 相关文档
 
-- [TypeScript 规范](../../../docs/rule/typescript-rule.md) - TypeScript 开发规范
-- [API 请求规范](../../../docs/rule/api-request-rule.md) - API 调用规范
+- [TypeScript 规范](../../../docs/rule/code-typescript-style-rule.md) - TypeScript 开发规范
+- [API 请求规范](../../../docs/rule/code-api-client-rule.md) - API 调用规范
 
 ## 使用示例
 

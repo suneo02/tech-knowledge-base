@@ -1,11 +1,11 @@
-import { AgentMsgAIDepre, AgentMsgUserShare } from '@/types'
+import { AgentMsgAIOverall, AgentMsgUserOverall } from '@/types'
 import { ChatEntityRecognize } from 'gel-api'
 import { ChatSenderRes } from '../saveChatItem'
 
 /**
  * ai 消息在任意接口之前
  */
-export const createAIResponseInit = (message: AgentMsgUserShare): AgentMsgAIDepre => ({
+export const createAIResponseInit = (message: AgentMsgUserOverall): AgentMsgAIOverall => ({
   role: 'ai',
   rawSentence: message.content,
   think: message.think,
@@ -15,18 +15,21 @@ export const createAIResponseInit = (message: AgentMsgUserShare): AgentMsgAIDepr
 })
 
 /**ai 消息在 字句拆解中 */
-export const createAIResponseSubQuestion = (message: AgentMsgUserShare, subQuestion: string[]): AgentMsgAIDepre => ({
+export const createAIResponseSubQuestion = (
+  message: AgentMsgUserOverall,
+  subQuestion: string[]
+): AgentMsgAIOverall => ({
   ...createAIResponseInit(message),
   subQuestion,
 })
 
 /**ai 消息在 数据召回后 */
 export const createAIResponseDataRetrieval = (
-  message: AgentMsgUserShare,
+  message: AgentMsgUserOverall,
   subQuestion: string[],
   entities: ChatEntityRecognize[],
   result: ChatSenderRes | undefined
-): AgentMsgAIDepre => {
+): AgentMsgAIOverall => {
   console.log('🚀 ~createAIResponseDataRetrieval result:', result)
   return {
     ...createAIResponseInit(message),
@@ -42,12 +45,12 @@ export const createAIResponseDataRetrieval = (
 
 /** ai 消息在流式输出中 */
 export const createAIResponseStream = (
-  message: AgentMsgUserShare,
+  message: AgentMsgUserOverall,
   content: string,
   reasonContent: string,
   entities: ChatEntityRecognize[],
   result: ChatSenderRes
-): AgentMsgAIDepre => ({
+): AgentMsgAIOverall => ({
   ...createAIResponseDataRetrieval(message, [], entities, result),
   content,
   reasonContent,

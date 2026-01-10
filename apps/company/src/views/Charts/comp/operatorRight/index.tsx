@@ -5,6 +5,7 @@ import intl from '@/utils/intl'
 import { OPERATOR_RIGHT_MENU_LIST } from '../constants'
 import { WIND_BDG_GRAPH_OPERATOR_RIGHT_TYPE, GRAPH_MENU_TYPE } from '../../types'
 import './index.less'
+import { isFromRimePEVC } from 'gel-util/link'
 
 /**
  * 操作组件属性
@@ -249,9 +250,13 @@ const buttonConfigs = {
  * @type {Record<string, React.ComponentType<OperatorProps>>}
  */
 const componentMap = {
-  exportReport: (props: OperatorProps) => (
-    <OperatorButton type="exportReport" {...buttonConfigs.exportReport} {...props} />
-  ),
+  ...(isFromRimePEVC()
+    ? {}
+    : {
+        exportReport: (props: OperatorProps) => (
+          <OperatorButton type="exportReport" {...buttonConfigs.exportReport} {...props} />
+        ),
+      }),
   saveImage: (props: OperatorProps) => <OperatorButton type="saveImage" {...buttonConfigs.saveImage} {...props} />,
   fullScreen: (props: OperatorProps) => <OperatorButton type="fullScreen" {...buttonConfigs.fullScreen} {...props} />,
   restore: (props: OperatorProps) => <OperatorButton type="restore" {...buttonConfigs.restore} {...props} />,

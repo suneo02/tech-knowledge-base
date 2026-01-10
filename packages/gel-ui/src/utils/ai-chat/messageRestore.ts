@@ -1,4 +1,4 @@
-import { AgentMsgAIDepre, AgentMsgDepre, AgentMsgUserShare } from '@/types'
+import { AgentMsgAIOverall, AgentMsgOverall, AgentMsgUserOverall } from '@/types'
 import { MessageInfo } from '@ant-design/x/es/use-x-chat'
 import { ChatDetailTurn } from 'gel-api'
 import { formatAIAnswerFull } from 'gel-util/common'
@@ -6,7 +6,7 @@ import { ERROR_TEXT } from 'gel-util/config'
 
 export function transformChatRestoreItemToRawUserMessage(
   item: ChatDetailTurn
-): MessageInfo<AgentMsgUserShare> | undefined {
+): MessageInfo<AgentMsgUserOverall> | undefined {
   if (!item) {
     return undefined
   }
@@ -29,7 +29,7 @@ export function transformChatRestoreItemToRawUserMessage(
 
 export function transformChatRestoreItemToRawAIMessage(
   item: ChatDetailTurn | undefined
-): MessageInfo<AgentMsgAIDepre> | undefined {
+): MessageInfo<AgentMsgAIOverall> | undefined {
   try {
     if (!item) {
       return undefined
@@ -90,11 +90,11 @@ export function transformChatRestoreItemToRawAIMessage(
   return undefined
 }
 
-export function transformChatRestoreItemToRawMessages(item: ChatDetailTurn): MessageInfo<AgentMsgDepre>[] {
+export function transformChatRestoreItemToRawMessages(item: ChatDetailTurn): MessageInfo<AgentMsgOverall>[] {
   if (!item) {
     return []
   }
-  const bubbleList: MessageInfo<AgentMsgDepre>[] = []
+  const bubbleList: MessageInfo<AgentMsgOverall>[] = []
 
   const userMessage = transformChatRestoreItemToRawUserMessage(item)
   if (userMessage) {
@@ -113,11 +113,11 @@ export function transformChatRestoreItemToRawMessages(item: ChatDetailTurn): Mes
  * @param chatRestoreRes selectChatAIRecord 返回的数据
  * @returns 转换后的消息列表
  */
-export const transformChatRestoreToRawMessages = (chatRestoreRes: ChatDetailTurn[]): MessageInfo<AgentMsgDepre>[] => {
+export const transformChatRestoreToRawMessages = (chatRestoreRes: ChatDetailTurn[]): MessageInfo<AgentMsgOverall>[] => {
   if (!chatRestoreRes) {
     return []
   }
-  const bubbleList: MessageInfo<AgentMsgDepre>[] = []
+  const bubbleList: MessageInfo<AgentMsgOverall>[] = []
 
   chatRestoreRes.forEach((item) => {
     bubbleList.push(...transformChatRestoreItemToRawMessages(item))

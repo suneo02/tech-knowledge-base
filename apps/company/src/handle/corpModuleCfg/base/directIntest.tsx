@@ -1,12 +1,14 @@
 import CompanyLink from '@/components/company/CompanyLink.tsx'
 import { LinkByRowCompatibleCorpPerson } from '@/components/company/link/CorpOrPersonLink.tsx'
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
 import { formatCurrency } from '@/utils/common.ts'
 import { TooltipMap } from '@/utils/TooltipUtil.ts'
+import { Tag } from '@wind/wind-ui'
+import { t } from 'gel-util/locales'
 import React from 'react'
 import { intlNoNO as intl } from 'src/utils/intl'
 
-export const corpDetailDirectInvest: ICorpSubModuleCfg = {
+export const corpDetailDirectInvest: CorpSubModuleCfg = {
   cmd: '/detail/company/getinvestsearch',
   extraParams: (param) => {
     param.__primaryKey = param.companycode
@@ -37,6 +39,7 @@ export const corpDetailDirectInvest: ICorpSubModuleCfg = {
     'invest_reg_status',
     'invest_rate|formatPercent',
   ],
+  skipTransFieldsInKeyMode: ['invest_name', 'invest_legal_person'],
   dataCallback: (res) => {
     return res.list && res.list.length ? res.list : []
   },
@@ -44,7 +47,16 @@ export const corpDetailDirectInvest: ICorpSubModuleCfg = {
     null,
     {
       render: (txt, row) => {
-        return <CompanyLink name={txt} id={row.invest_id} />
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <CompanyLink name={txt} id={row.invest_id} />
+            {row.invest_name_is_fund && (
+              <Tag color="color-2" style={{ marginLeft: 8 }}>
+                {t('', '基金')}
+              </Tag>
+            )}
+          </div>
+        )
       },
     },
     {

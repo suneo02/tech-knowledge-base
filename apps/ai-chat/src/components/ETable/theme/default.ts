@@ -41,6 +41,7 @@ export const WIND_UI_THEME = VTable.themes.ARCO.extends({
       inlineRowBgColor: '#eaf6fa',
       // inlineColumnBgColor: '#eaf6fa',
     },
+    fontWeight: 'normal',
   },
   columnResize: {
     lineWidth: 1,
@@ -53,9 +54,9 @@ export const WIND_UI_THEME = VTable.themes.ARCO.extends({
     visible: 'focus',
     scrollSliderColor: '#0596b3',
     scrollRailColor: '#bac3cc',
-    hoverOn: false,
+    hoverOn: true,
     barToSide: true,
-    width: 6,
+    width: 12,
   },
   dragHeaderSplitLine: {
     lineColor: '#0596b3',

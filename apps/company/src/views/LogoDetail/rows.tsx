@@ -1,9 +1,9 @@
 import CompanyLink from '@/components/company/CompanyLink'
 import { wftCommon } from '@/utils/utils'
-import React from 'react'
+import { BrandDetail } from 'gel-api'
 import placeHolderPic from '../../assets/imgs/logo/other.png'
 
-export const getLogoDetailRows = (data: any) => ({
+export const getLogoDetailRows = (data: Partial<BrandDetail>) => ({
   info: {
     columns: [
       [
@@ -237,11 +237,11 @@ export const getLogoDetailRows = (data: any) => ({
           dataIndex: 'brand_graphic_link',
           colSpan: 2,
           render: (_text) => {
-            return data.info.brand_graphic_link ? (
+            return data.brand_graphic_link ? (
               <img
                 className="logo-pic"
                 width="170"
-                src={data.info.brand_graphic_link}
+                src={wftCommon.addWsidForImg(data.brand_graphic_link)}
                 onError={(e) => {
                   const img = e.currentTarget
                   img.src = placeHolderPic

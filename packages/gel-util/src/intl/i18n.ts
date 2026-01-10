@@ -2,16 +2,10 @@ import i18next from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
 import { getLocale } from './handle'
-import { imlCn, imlEn } from './locales'
+import { loadFlatDict } from './locales/flat'
 
-const resources = {
-  'zh-CN': {
-    common: imlCn,
-  },
-  'en-US': {
-    common: imlEn,
-  },
-}
+const currentLng = getLocale()
+const resources: Record<string, any> = {}
 const i18nInstance = i18next.createInstance()
 i18nInstance
   // detect user language
@@ -26,13 +20,18 @@ i18nInstance
     ns: ['common'],
     defaultNS: 'common',
     interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
+      escapeValue: false,
     },
     react: {
-      useSuspense: false, // When using resources, no need for suspense
+      useSuspense: false,
     },
-    lng: getLocale(),
+    lng: currentLng,
   })
+
+loadFlatDict(currentLng as 'zh-CN' | 'en-US').then((dict) => {
+  i18nInstance.addResourceBundle(currentLng, 'common', dict, true, true)
+  i18nInstance.changeLanguage(currentLng)
+})
 
 export const i18n = i18nInstance
 

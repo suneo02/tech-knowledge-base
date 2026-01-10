@@ -29,12 +29,12 @@ import { corpInfoIndustryRow } from '@/components/company/info/rowsCommon/indust
 import { corpInfoEngNameRow, corpInfoUsedNamesRow } from '@/components/company/info/rowsCommon/names.tsx'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable'
 import intl from '@/utils/intl'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfo } from 'gel-types'
 
 export const getIndividualBusinessRows = (
-  baseInfo: ICorpBasicInfoFront,
+  baseInfo: Partial<CorpBasicInfo>,
   onClickFeedback: () => void
-): HorizontalTableColumns<ICorpBasicInfoFront> => {
+): HorizontalTableColumns<CorpBasicInfo> => {
   return [
     [corpInfoNameRow, corpInfoCreditCodeRow],
     [corpInfoEngNameRow, corpInfoBizRegNoRow],

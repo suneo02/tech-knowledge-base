@@ -96,7 +96,7 @@ export const downloadReport = ({ id, onlysvip, corpName, companycode }) => {
   if (onlysvip) {
     if (!userVipInfo.isSvip) {
       if (wftCommon.is_overseas_config) {
-        message.info(intl('245503', '该功能暂未开放'))
+        message.info(intl('478600', '该功能暂未开放'))
       } else {
         message.info('很抱歉，该功能仅SVIP用户可用。')
       }
@@ -104,7 +104,7 @@ export const downloadReport = ({ id, onlysvip, corpName, companycode }) => {
     }
   } else if (!userVipInfo.isVip) {
     if (wftCommon.is_overseas_config) {
-      message.info(intl('245503', '该功能暂未开放'))
+      message.info(intl('478600', '该功能暂未开放'))
       return
     }
     message.info('很抱歉，该功能仅VIP/SVIP用户可用。')

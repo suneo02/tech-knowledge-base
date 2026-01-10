@@ -127,7 +127,7 @@ function mergeTranslatedFields<T>(original: T, translatedData: T, allowFields?: 
  * - allowFields 优先级高于 skipFields，当两者同时存在时，以 allowFields 为准。
  *
  * 使用建议（企业详情场景）：
- * - 建议将 `ICorpTableCfg.skipTransFields` 映射到这里的 `skipFields`，以屏蔽名称/ID/代码等关键字段的通用翻译。
+ * - 建议将 `CorpTableCfg.skipTransFields` 映射到这里的 `skipFields`，以屏蔽名称/ID/代码等关键字段的通用翻译。
  * - 对于明确知道需要翻译哪些字段的场景，可使用 `allowFields` 精确控制。
  */
 export async function translateDataByFields<T>(

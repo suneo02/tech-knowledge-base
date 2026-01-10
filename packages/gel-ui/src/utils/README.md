@@ -1,4 +1,4 @@
-# 工具函数模块
+﻿# 工具函数模块
 
 提供通用的工具函数库，支撑业务逻辑处理、数据转换、兼容性处理等功能。
 
@@ -91,8 +91,8 @@ utils/
 
 ## 相关文档
 
-- [TypeScript 规范](../../../docs/rule/typescript-rule.md) - TypeScript 开发规范
-- [错误处理规范](../../../docs/rule/error-handling-rule.md) - 错误处理指南
+- [TypeScript 规范](../../../docs/rule/code-typescript-style-rule.md) - TypeScript 开发规范
+- [错误处理规范](../../../docs/rule/code-error-boundary-rule.md) - 错误处理指南
 
 ## 使用示例
 

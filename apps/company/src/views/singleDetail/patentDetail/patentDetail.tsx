@@ -3,12 +3,13 @@ import { Steps, Tabs } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
 import { ErrorBoundary } from 'gel-ui'
 import { getUrlSearchValue } from 'gel-util/common'
+import { isEn } from 'gel-util/intl'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { patentDetailApi } from '../../../api/singleDetail'
 import CompanyLink from '../../../components/company/CompanyLink'
 import { usePageTitle } from '../../../handle/siteTitle'
 import { useTranslateService } from '../../../hook'
-import intl from '../../../utils/intl'
+import intl, { translateToEnglish } from '../../../utils/intl'
 import { wftCommon } from '../../../utils/utils'
 import { handlePatentDetailApi } from './api'
 import { patentIndustryRows } from './handle/patentIndustryRows'
@@ -54,7 +55,7 @@ export default function PatentDetail() {
           setShowType(res.Data.patentType)
         }
 
-        if (window.en_access_config) {
+        if (isEn()) {
           isTranslateRef.current = true
           // 分类号及分类描述翻译单独处理，数据结构太恶心了
           let lists = res.Data.classifyDescriptionMap || {}
@@ -69,10 +70,16 @@ export default function PatentDetail() {
                 .join('')}`
             })
             .join('')
-          wftCommon.pureTranslateService(res.Data, (newData) => {
-            isTranslateRef.current = false
-            setDetailData(() => newData)
+          translateToEnglish(res.Data, {
+            skipFields: ['assigneeName', 'assigneeList', 'applicantList'],
           })
+            .then((newDataRes) => {
+              isTranslateRef.current = false
+              setDetailData(() => newDataRes.data)
+            })
+            .catch(() => {
+              setDetailData(() => res.Data)
+            })
         }
         setDetailData(() => res.Data)
       } else {
@@ -275,7 +282,7 @@ export default function PatentDetail() {
         data-uc-ct="step"
       />,
       <Step
-        title={needEstimate ? intl('383128', '预估失效日期') : intl('', '失效日期')}
+        title={needEstimate ? intl('383128', '预估失效日期') : intl('383313', '失效日期')}
         description={
           needEstimate
             ? detailData.anticipatedExpiryDate == '20790604'
@@ -322,7 +329,7 @@ export default function PatentDetail() {
               emptyText: intl('132725', '暂无数据'),
             }}
             loading={loading}
-            title={intl('222875', '专利基本信息')}
+            title={intl('478739', '专利基本信息')}
             size="default"
             rows={tableRow}
             dataSource={detailData}
@@ -358,7 +365,7 @@ export default function PatentDetail() {
         </div>
         <div className="pdf-detail">
           <Table
-            title={intl('265685', 'PDF文件')}
+            title={intl('478740', 'PDF文件')}
             empty={intl('132725', '暂无数据')}
             columns={patentPdfRows}
             dataSource={pdfList}
@@ -374,7 +381,7 @@ export default function PatentDetail() {
   const powerNeed = () => {
     return (
       <div className="middle-detail">
-        <span className="middle-title">{intl('265660', '权利要求')}</span>
+        <span className="middle-title">{intl('470287', '权利要求')}</span>
         {detailRight ? ( // @ts-expect-error 类型错误
           <div dangerouslySetInnerHTML={{ __html: detailRight.content }} className="long-content"></div>
         ) : (
@@ -387,7 +394,7 @@ export default function PatentDetail() {
   const instructionBook = () => {
     return (
       <div className="middle-detail">
-        <span className="middle-title">{intl('260342', '说明书')}</span>
+        <span className="middle-title">{intl('470288', '说明书')}</span>
         {instruction ? ( // @ts-expect-error 类型错误
           <div dangerouslySetInnerHTML={{ __html: instruction.content }} className="long-content"></div>
         ) : (

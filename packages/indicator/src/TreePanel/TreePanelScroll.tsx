@@ -34,8 +34,10 @@ export const IndicatorTreePanelScroll = forwardRef<
     confirmLoading?: boolean
     onPrecheck?: (props: CustomerPointCountByColumnIndicatorRequest['classificationList']) => Promise<number>
     rowLength?: number
+    onSelectionChange?: (checkedIndicators: Set<number>, unitCredits: number) => void
+    hideRightFooter?: boolean
   }
->(({ onConfirm, close, indicatorTree, loading, className, onPrecheck, rowLength = 0, confirmLoading }, ref) => {
+>(({ onConfirm, close, indicatorTree, loading, className, onPrecheck, rowLength = 0, confirmLoading, onSelectionChange, hideRightFooter }, ref) => {
   const [checkedIndicators, setCheckedIndicators] = useState<Set<number>>(new Set())
   const [checkedIndicatorsMap, setCheckedIndicatorsMap] = useState<Map<number, IndicatorTreeIndicator>>(new Map())
   const [initialCheckedIndicators, setInitialCheckedIndicators] = useState<Set<number>>(new Set())
@@ -65,6 +67,7 @@ export const IndicatorTreePanelScroll = forwardRef<
       setSelectedIndicators: (indicators) => {
         setInitialCheckedIndicators(indicators)
       },
+      getCheckedIndicators: () => indicatorTreeRef.getCheckedIndicators(),
     }),
     [indicatorTreeRef]
   )
@@ -84,6 +87,7 @@ export const IndicatorTreePanelScroll = forwardRef<
       sum += indicator.points || 0
     })
     setUnitCredits(sum)
+    if (onSelectionChange) onSelectionChange(checkedIds, sum)
   }
 
   const handleConfirm = async () => {
@@ -160,16 +164,18 @@ export const IndicatorTreePanelScroll = forwardRef<
           handleIndicatorCheck={indicatorTreeRef.handleIndicatorCheck}
           initialCheckedIndicators={initialCheckedIndicators}
         />
-        <div className={styles.rightFooter}>
-          <CreditsDisplay unitCredits={unitCredits} rowLength={rowLength} displayCredits={totalPoints} />
-          <ActionButtons
-            loading={precheckLoading || loading || confirmLoading}
-            onClose={close!}
-            onConfirm={handleConfirm}
-            disabled={checkedIndicators.size === 0}
-            okText={totalPoints ? STRINGS.ESTIMATE : STRINGS.OK}
-          />
-        </div>
+        {hideRightFooter ? null : (
+          <div className={styles.rightFooter}>
+            <CreditsDisplay unitCredits={unitCredits} rowLength={rowLength} displayCredits={totalPoints} />
+            <ActionButtons
+              loading={precheckLoading || loading || confirmLoading}
+              onClose={close!}
+              onConfirm={handleConfirm}
+              disabled={checkedIndicators.size === 0}
+              okText={totalPoints ? STRINGS.ESTIMATE : STRINGS.OK}
+            />
+          </div>
+        )}
       </div>
     </div>
   )

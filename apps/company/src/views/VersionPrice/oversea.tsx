@@ -1,7 +1,3 @@
-import React from 'react'
-import { wftCommon } from '../../utils/utils'
-
-import { Button } from '@wind/wind-ui'
 import { VersionPriceMenuLeft } from './comp/MenuLeft'
 import {
   VIPEnterpriseOverviewCfg,
@@ -14,18 +10,17 @@ import {
 } from './config'
 import { useVersionPriceCommonHook } from './handle'
 
+import { isEn } from 'gel-util/intl'
 import SvipOversea from '../../assets/vip/SvipOversea.png'
 import SvipOverseaEn from '../../assets/vip/SvipOverseaEn.png'
+import { usePageTitle } from '../../handle/siteTitle'
 import { VersionPriceFooter, VersionPriceSceneTable } from './comp'
 import { VIPOverseaDueDiligenceCfg } from './config/DueDiligence'
-import { usePageTitle } from '../../handle/siteTitle'
-import { isEn } from 'gel-util/intl'
 
 export const VersionPriceOversea = () => {
   usePageTitle('VIPServices')
   const {
     isVipUser,
-    setIsVipUser,
     isVipSelected,
     setIsVipSelected,
     currentIndex,
@@ -70,19 +65,6 @@ export const VersionPriceOversea = () => {
   ]
   return (
     <>
-      {wftCommon.isDevDebugger() ? (
-        <Button
-          style={{
-            top: '72px',
-            position: 'fixed',
-          }}
-          onClick={() => setIsVipUser((i) => !i)}
-          data-uc-id="EnLdOZQeW20"
-          data-uc-ct="button"
-        >
-          切换vip(开发环境测试使用，上线时去掉)
-        </Button>
-      ) : null}
       <VersionPriceMenuLeft
         className={'left-menu'}
         menuArr={VIPMenuArr}

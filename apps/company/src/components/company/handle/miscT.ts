@@ -15,6 +15,6 @@ export const getLegalPersonField = (
   if (window.en_access_config) {
     return 'Managing Partner'
   } else {
-    return intl('', '执行事务合伙人')
+    return intl('410935', '执行事务合伙人')
   }
 }

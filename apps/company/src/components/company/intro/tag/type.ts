@@ -1,4 +1,4 @@
-import { CorpTag } from 'gel-api/*'
+import { CorpTag } from 'gel-api'
 
 export type CorpTagTrans = CorpTag & {
   nameOriginal: string

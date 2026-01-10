@@ -1,6 +1,6 @@
 import CompanyLink from '@/components/company/CompanyLink.tsx'
-import { ICorpSubModuleVipCfg } from '@/components/company/type'
 import { InfoCircleButton } from '@/components/icons/InfoCircle'
+import { CorpSubModuleVipCfg } from '@/types/corpDetail'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
 import { Tooltip } from '@wind/wind-ui'
@@ -8,7 +8,7 @@ import React from 'react'
 import { vipDescDefault } from '../common/vipDesc'
 import { DetailLink } from '../components'
 
-export const CompanyHistoryPatentCfg: ICorpSubModuleVipCfg = {
+export const CompanyHistoryPatentCfg: CorpSubModuleVipCfg = {
   cmd: 'detail/company/historyPatent',
   downDocType: 'download/createtempfile/historyPatent', // 导出暂时关闭 待后端升级后上线
   title: intl('390634', '历史专利'),
@@ -35,6 +35,7 @@ export const CompanyHistoryPatentCfg: ICorpSubModuleVipCfg = {
     'publicAnnouncementDate|formatTime',
     'corpName',
   ],
+  skipTransFieldsInKeyMode: ['corpName'],
   notVipPageTurning: true,
   notVipPageTitle: intl('390634', '历史专利'),
   notVipPagedesc: intl('224212', '购买VIP/SVIP套餐，即可不限次查看企业更多专利信息'),

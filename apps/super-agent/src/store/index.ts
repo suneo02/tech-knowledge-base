@@ -11,7 +11,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    superAgent: superAgentReducer,
+    superAgentReducer,
   },
 })
 

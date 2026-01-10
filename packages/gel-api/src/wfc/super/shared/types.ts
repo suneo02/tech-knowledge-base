@@ -19,6 +19,7 @@ export enum ColumnDataTypeEnum {
   MAIL = 105, // 邮箱
   WEB = 106, // 网址
   PERCENT = 200, // 百分比
+  TAG = 201, // 标签
 }
 
 /**

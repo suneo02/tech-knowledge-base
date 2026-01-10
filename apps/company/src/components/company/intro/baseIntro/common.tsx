@@ -1,11 +1,11 @@
 import { Col } from '@wind/wind-ui'
 import { CorpCardInfo } from 'gel-types'
 import React from 'react'
-import { ICorpBasicInfoFront } from '../../info/handle'
+import { CorpBasicInfoFront } from '../../info/handle'
 
 export interface BaseCorpIntroProps {
   headerInfo: Partial<CorpCardInfo>
-  companybaseInfo: Partial<ICorpBasicInfoFront>
+  companybaseInfo: Partial<CorpBasicInfoFront>
 }
 
 export interface BaseCorpIntroItemProps {

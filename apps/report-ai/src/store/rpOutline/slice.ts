@@ -4,7 +4,6 @@
  * @description RPOutline 模块的 Redux 状态管理
  */
 
-import { createInitialProgressState } from '@/domain/outlineProgress';
 import { createSlice } from '@reduxjs/toolkit';
 import { allReducers } from './reducers';
 import { RPOutlineState } from './types';
@@ -14,8 +13,6 @@ import { RPOutlineState } from './types';
  */
 const createInitialState = (): RPOutlineState => ({
   files: [],
-  progress: createInitialProgressState(),
-  agentMessages: [],
 });
 
 /**
@@ -24,7 +21,10 @@ const createInitialState = (): RPOutlineState => ({
 export const rpOutlineSlice = createSlice({
   name: 'rpOutline',
   initialState: createInitialState(),
-  reducers: allReducers,
+  reducers: {
+    ...allReducers,
+    reset: () => createInitialState(),
+  },
 });
 
 // 导出 actions

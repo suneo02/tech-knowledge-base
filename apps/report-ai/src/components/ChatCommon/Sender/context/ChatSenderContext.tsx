@@ -1,8 +1,8 @@
+import { FileUploadSuccessCallback } from '@/components/File/UploadFileBtn';
 import { RPFileUploaded } from '@/types';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useChatFileManager, useFileSuggestion, useSendMessage } from '../hooks';
 import { RPOutlineChatSenderCB } from '../type';
-import { FileUploadSuccessCallback } from '@/components/File/UploadFileBtn';
 
 /**
  * ChatSender 上下文状态接口
@@ -71,7 +71,7 @@ export const ChatSenderProvider: React.FC<{
   config: ChatSenderContextConfig;
 }> = ({ children, config }) => {
   const {
-    placeholder = '告诉我您的写作思路，您也可以直接在下方上传报告模版或者需要引用内容的素材文档，为您自动生成报告',
+    placeholder = '',
     defaultValue,
     value,
     onChange,

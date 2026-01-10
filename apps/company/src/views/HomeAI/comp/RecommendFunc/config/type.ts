@@ -25,6 +25,7 @@ export type HomeFuncItemKey =
   | 'trademark'
   | 'patent'
   | 'recruit'
+  | 'cjmd' // 超级名单
 
 export interface SearchHomeItemData {
   key: HomeFuncItemKey

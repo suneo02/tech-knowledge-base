@@ -3,6 +3,7 @@ import { useRef } from 'react'
 export interface IndicatorTreePanelInnerRef {
   setSelectedIndicators: (indicators: Set<number>) => void
   reset: () => void
+  getCheckedIndicators: () => Set<number>
 }
 
 export interface IndicatorTreePanelInnerInstance extends IndicatorTreePanelInnerRef {
@@ -20,6 +21,7 @@ export const useIndicatorTreePanelScroll = () => {
       console.warn('IndicatorTreeOverall is not ready. ' + 'Please ensure it is rendered with valid props.')
     }
   }
+  // @ts-expect-error ttt
   const instance: IndicatorTreePanelInnerInstance = {
     getTreeRef: () => ref,
     reset: () => {

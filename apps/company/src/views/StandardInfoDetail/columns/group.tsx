@@ -37,11 +37,11 @@ export const standardDataGroup = {
       ],
     ],
     horizontal: true,
-    name: intl('328180', '标准信息详情'),
+    name: intl('478706', '标准信息详情'),
   },
   draft: {
     columns: [DraftUnit, DraftNum, RegisterCapital, EstablishDate],
     horizontal: false,
-    name: intl('328188', '起草单位'),
+    name: intl('478702', '起草单位'),
   },
 }

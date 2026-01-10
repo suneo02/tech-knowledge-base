@@ -75,7 +75,7 @@ const getDataSource = async (page = 0, pageSize = 10): Promise<{ dataSource: Fil
       total,
     }
   } catch (error) {
-    console.error('获取文件列表失败:', error)
+    console.error(t('482233', '获取文件列表失败:'), error)
     return {
       dataSource: [],
       total: 0,

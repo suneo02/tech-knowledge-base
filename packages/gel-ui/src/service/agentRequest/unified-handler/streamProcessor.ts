@@ -9,7 +9,7 @@
  */
 
 import { isAbortError } from '@/constants/error'
-import { AgentMsgAIDepre } from '@/types'
+import { AgentMsgAIOverall } from '@/types'
 import {
   BuryAction,
   ChatEntityRecognize,
@@ -61,6 +61,7 @@ function createFinalMessage(
   return {
     ...createAgentAIMsgStream(input, context, formattedContent, runtime.aigcReason),
     entity: entities,
+    traces: context.runtime.traces,
     gelData: runtime.gelData,
     splTable: runtime.splTable,
     reportData: runtime.reportData,
@@ -86,7 +87,7 @@ function createFallbackMessage(context: ChatRunContext, questionStatus: ChatQues
  * 处理流式完成逻辑
  * 参考 handleStreamRequest.ts 的 handleFinish 函数
  */
-async function handleStreamFinish<AgentMsg extends AgentMsgAIDepre = AgentMsgAIDepre>(
+async function handleStreamFinish<AgentMsg extends AgentMsgAIOverall = AgentMsgAIOverall>(
   context: ChatRunContext,
   dependencies: StreamDependencies<AgentMsg>,
   questionStatus: ChatQuestionStatus
@@ -102,7 +103,7 @@ async function handleStreamFinish<AgentMsg extends AgentMsgAIDepre = AgentMsgAID
   // StreamAbortController 清理现在通过 context.clearStreamAbortController() 处理
 
   // 更新为 stream_finish 状态
-  const agentMsg: AgentMsgAIDepre = {
+  const agentMsg: AgentMsgAIOverall = {
     ...createAgentAIMsgStream(input, context, runtime.aigcContent, runtime.aigcReason),
     gelData: runtime.gelData,
     splTable: runtime.splTable,
@@ -163,7 +164,7 @@ async function handleStreamFinish<AgentMsg extends AgentMsgAIDepre = AgentMsgAID
  * 重要：参考旧版逻辑，onUpdate 的 DONE 和 onSuccess 都可能被调用
  * 使用 ChatRunContext.entitiesFetched 标志防止重复处理实体获取和最终化逻辑
  */
-export async function processStreamRequest<AgentMsg extends AgentMsgAIDepre = AgentMsgAIDepre>(
+export async function processStreamRequest<AgentMsg extends AgentMsgAIOverall = AgentMsgAIOverall>(
   context: ChatRunContext,
   dependencies: StreamDependencies<AgentMsg>
 ): Promise<void> {
@@ -226,7 +227,7 @@ export async function processStreamRequest<AgentMsg extends AgentMsgAIDepre = Ag
               context.updateRuntime(updates)
             }
 
-            const agentMsg: AgentMsgAIDepre = {
+            const agentMsg: AgentMsgAIOverall = {
               ...createAgentAIMsgStream(input, context, runtime.aigcContent, runtime.aigcReason),
               status: 'receiving',
             }

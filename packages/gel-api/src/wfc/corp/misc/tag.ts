@@ -37,6 +37,19 @@ export type CorpTagType =
   | 'RISK'
   // 产业
   | 'INDUSTRY'
+  /* ---- 基金类别的标签 ---- */
+  // 基金管理人
+  | 'FUND_MANAGER'
+  // 基金有限合伙人
+  | 'LIMITED_PARTNER'
+  // 基协备案基金
+  | 'FUND_AMAC'
+  // 未备案基金
+  | 'FUND_NON_AMAC'
+  // 连续获投
+  | 'CONSECUTIVE_ROUNDS'
+  // DOWN ROUND
+  | 'DOWN_ROUND'
 
 export type CorpTagModule =
   // 企业标签
@@ -50,6 +63,17 @@ export type CorpTagModule =
   // 风险标签
   | 'RISK'
 
+export type CaliberConfidenceItem = {
+  // 人行
+  PBOC?: 1 | 2 // 1.严口径 2.宽口径
+  // 金监总局
+  NFSA?: 1 | 2 // 1.严口径 2.宽口径
+  // 中保登
+  CIR?: 1 | 2 // 1.严口径 2.宽口径
+  // 理财登
+  LCR?: 1 | 2 // 1.严口径 2.宽口径
+}
+
 export type CorpTag = {
   id: string
   name: string // 标签名称
@@ -59,4 +83,5 @@ export type CorpTag = {
    * 置信度 只有 INDUSTRY 模块有
    */
   confidence?: number // 置信度
+  caliberConfidence?: CaliberConfidenceItem // 口径数据
 }

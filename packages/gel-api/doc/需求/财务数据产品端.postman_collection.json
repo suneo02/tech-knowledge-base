@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "cfe94c34-215b-46a5-ad9a-230afc15537b",
+		"name": "财务数据产品端",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "financialIndicator Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "114.80.154.45"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+					},
+					{
+						"key": "client-type",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "cookie",
+						"value": "wind.sessionid=910e60975a624054823868ff9d5be108; windsessionid=910e60975a624054823868ff9d5be108; SESSION=MjBmNjYxNjMtYzVjZS00NzVmLWFkNjUtNDEzZjI1YTNkZjhh; JSESSIONID=0E386A70BB16CE97C7FC48DFB7D48D1F"
+					},
+					{
+						"key": "languageset",
+						"value": "zh_CN"
+					},
+					{
+						"key": "origin",
+						"value": "https://114.80.154.45"
+					},
+					{
+						"key": "referer",
+						"value": "https://114.80.154.45/Wind.WFC.Enterprise.Web/PC.Front/Company/Company.html?lan=cn&notoolbar=1&fromPage=f9&CompanyCode=1173319566&stockname=%E6%AF%94%E4%BA%9A%E8%BF%AA&grid=UNDEFINED&FromSrc=CMD8514&isSeparate=1"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Chromium\";v=\"109\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "traceid",
+						"value": "175866787"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "wind-language",
+						"value": "zh-CN"
+					},
+					{
+						"key": "wind.sessionid",
+						"value": "910e60975a624054823868ff9d5be108"
+					},
+					{
+						"key": "windsessionid",
+						"value": "910e60975a624054823868ff9d5be108"
+					},
+					{
+						"key": "windsessionid2",
+						"value": "05B698A8744F328D018099CAA3FA3602VRH"
+					},
+					{
+						"key": "x-wind-rval",
+						"value": "eyJvcCI6IndtYWluLmV4ZSIsInBpZCI6MjYyNzMsInRpbWUiOiIyMDI1LTExLTIxIDE1OjI1OjE1IiwibiI6IndhYndYSnN4OC9JZXlEL1VOUVlkdit0NFRqQTRYS1JYd1pRMDU2ejFBYTQ9IiwicGFnZSI6Mjc3LCJtYWdpYyI6MTE0NjcxOH0="
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "regionType",
+							"value": "全部",
+							"type": "text"
+						},
+						{
+							"key": "reportDate",
+							"value": "[2022,2025]",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://114.80.154.45/Wind.WFC.Enterprise.Web/Enterprise/gel//detail/company/financialIndicator/1173319566?gelmodule=gelpc",
+					"protocol": "https",
+					"host": [
+						"114",
+						"80",
+						"154",
+						"45"
+					],
+					"path": [
+						"Wind.WFC.Enterprise.Web",
+						"Enterprise",
+						"gel",
+						"",
+						"detail",
+						"company",
+						"financialIndicator",
+						"1173319566"
+					],
+					"query": [
+						{
+							"key": "gelmodule",
+							"value": "gelpc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "financialreportsummary Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "test.wind.com.cn"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+					},
+					{
+						"key": "client-type",
+						"value": "web"
+					},
+					{
+						"key": "content-type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "cookie",
+						"value": "Hm_lvt_b97569d26a525941d8d163729d284198=1739151473; Hm_lvt_e8002ef3d9e0d8274b5b74cc4a027d08=1739151473; wind.sessionid=34bf9e2bd0b34bbd9be8dcd9b4e6d5c3; SESSION=MGI2ZjA1NDEtNTI2OS00MWVjLTgyM2UtZTE5MDAyMmZlOTMz"
+					},
+					{
+						"key": "languageset",
+						"value": "zh_CN"
+					},
+					{
+						"key": "origin",
+						"value": "https://test.wind.com.cn"
+					},
+					{
+						"key": "referer",
+						"value": "https://test.wind.com.cn/Wind.WFC.Enterprise.Web/PC.Front/Company/Company.html?lan=cn&notoolbar=1&fromPage=f9&CompanyCode=1024879248&stockname=%E7%99%BE%E5%A4%A7%E9%9B%86%E5%9B%A2&grid=UNDEFINED&FromSrc=CMD8514&isSeparate=1"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Chromium\";v=\"109\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "traceid",
+						"value": "173083094"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "wind-language",
+						"value": "zh-CN"
+					},
+					{
+						"key": "wind.sessionid",
+						"value": "34bf9e2bd0b34bbd9be8dcd9b4e6d5c3"
+					},
+					{
+						"key": "windsessionid",
+						"value": "34bf9e2bd0b34bbd9be8dcd9b4e6d5c3"
+					},
+					{
+						"key": "windsessionid2",
+						"value": "7CFB298A6754B6CA6684ED07BACFC2CATZK"
+					},
+					{
+						"key": "x-wind-rval",
+						"value": "eyJvcCI6IndtYWluLmV4ZSIsInBpZCI6MTUzNDQsInRpbWUiOiIyMDI1LTExLTE3IDE3OjQ3OjMzIiwibiI6IjdOMW1GOHNFaTdQWExaVFhpUC9FbFJYSG93TzJSUzlsTGgvL2tHYk5OdWs9IiwicGFnZSI6NzA3LCJtYWdpYyI6MTM1MjQ1Mn0="
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "regionType",
+							"value": "全部",
+							"type": "default"
+						},
+						{
+							"key": "reportTemplate",
+							"value": "年报&单季报",
+							"type": "default"
+						},
+						{
+							"key": "reportType",
+							"value": "合并调整",
+							"type": "default",
+							"disabled": true
+						},
+						{
+							"key": "reportDate",
+							"value": "[2022,2025]",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test.wind.com.cn/Wind.WFC.Enterprise.Web/Enterprise/gel/detail/company/financialreportsummary/1020515907",
+					"protocol": "https",
+					"host": [
+						"test",
+						"wind",
+						"com",
+						"cn"
+					],
+					"path": [
+						"Wind.WFC.Enterprise.Web",
+						"Enterprise",
+						"gel",
+						"detail",
+						"company",
+						"financialreportsummary",
+						"1020515907"
+					],
+					"query": [
+						{
+							"key": "gelmodule",
+							"value": "gelpc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

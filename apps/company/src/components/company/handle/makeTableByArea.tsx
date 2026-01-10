@@ -1,15 +1,15 @@
-import { japanRowConfig } from '@/handle/corpModuleCfgSpecial/japanRowConfig.tsx'
-import { thaRowConfig } from '@/handle/corpModuleCfgSpecial/thaRowConfig.tsx'
-import { ICorpTableCfg } from '@/components/company/type'
-import { vieRowConfig } from '@/handle/corpModuleCfgSpecial/vieRowConfig.tsx'
 import { englandRowConfig } from '@/handle/corpModuleCfgSpecial/englandRowConfig.tsx'
 import { indRowConfig } from '@/handle/corpModuleCfgSpecial/indRowConfig.tsx'
+import { japanRowConfig } from '@/handle/corpModuleCfgSpecial/japanRowConfig.tsx'
+import { thaRowConfig } from '@/handle/corpModuleCfgSpecial/thaRowConfig.tsx'
+import { vieRowConfig } from '@/handle/corpModuleCfgSpecial/vieRowConfig.tsx'
 import intl from '@/utils/intl'
 
-import { TCorpArea } from '@/handle/corp/corpArea.ts'
+import { CorpArea } from '@/handle/corp/corpArea.ts'
+import { CorpTableCfg } from '@/types/corpDetail'
 import { TCorpDetailSubModule } from 'gel-types'
 
-export const makeCorpTableByCorpArea = (corpArea: TCorpArea, table: ICorpTableCfg, moduleKey: TCorpDetailSubModule) => {
+export const makeCorpTableByCorpArea = (corpArea: CorpArea, table: CorpTableCfg, moduleKey: TCorpDetailSubModule) => {
   if (corpArea) {
     // 所有海外国家，股东信息hint不展示
     if (/showShareholder/.test(moduleKey)) {

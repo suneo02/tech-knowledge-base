@@ -1,0 +1,28 @@
+[
+  {
+    "id": "task-scroll-optimize-logic",
+    "title": "优化 scrollToBottom 滚动逻辑",
+    "owner": "trae-ai",
+    "code_paths": [
+      "/packages/gel-ui/src/hooks/useScrollToBottom.ts"
+    ],
+    "@see": [
+      "/docs/specs/chat-scroll-optimization/README.md"
+    ],
+    "status": "success",
+    "notes": "增加位置检测，若已在底部则跳过 scrollTo 调用，消除闪烁"
+  },
+  {
+    "id": "task-scroll-verify",
+    "title": "验证滚动优化效果",
+    "owner": "trae-ai",
+    "code_paths": [
+      "/packages/gel-ui/src/hooks/useScrollToBottom.ts"
+    ],
+    "@see": [
+      "/docs/specs/chat-scroll-optimization/README.md"
+    ],
+    "status": "success",
+    "notes": "确认流式输出时不再出现向上闪烁现象"
+  }
+]

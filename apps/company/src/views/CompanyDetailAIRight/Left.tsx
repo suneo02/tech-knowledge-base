@@ -10,14 +10,15 @@
  */
 
 import * as companyActions from '@/actions/company'
+import { withContactManager } from '@/components/company/ContactManager/ContactManagerButton'
 import { IState } from '@/reducers/type'
-import React, { memo, useCallback, useState, lazy, Suspense } from 'react'
+import { getCorpNameOriginalByBaseAndCardInfo } from 'gel-util/misc'
+import React, { lazy, memo, Suspense, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { PREFIX } from '.'
 import { OperatorHeader } from './comp/OperatorHeader'
 import CompanyDetail, { ScrollContainerClass } from './CompanyDetail'
+import { LAYOUT_DETAIL_AI_PREFIX } from './constant'
 import styles from './index.module.less'
-import { withContactManager } from '@/components/company/ContactManager/ContactManagerButton'
 
 // 懒加载 CompanyReportModal 组件 - 优化首屏加载性能
 // 只有在用户点击报告按钮时才会动态加载该组件
@@ -50,8 +51,7 @@ export const LayoutHeader = memo(
 
       const { corp_id, corp_old_id } = companyState?.baseInfo || {}
       const collectState = !!companyState?.collectState || false
-      const entityName =
-        (companyState?.baseInfo as any)?.corp?.chinese_abbr || (companyState?.corpHeaderInfo as any)?.corp_name
+      const entityName = getCorpNameOriginalByBaseAndCardInfo(companyState?.baseInfo, companyState?.corpHeaderInfo)
       const companyCode = corp_id || '' // 获取企业ID
 
       // 更新收藏状态的函数
@@ -75,7 +75,7 @@ export const LayoutHeader = memo(
       }, [])
 
       return (
-        <div className={styles[`${PREFIX}-header`]}>
+        <div className={styles[`${LAYOUT_DETAIL_AI_PREFIX}-header`]}>
           <OperatorHeader
             entityName={entityName}
             companyCode={companyCode}
@@ -86,6 +86,7 @@ export const LayoutHeader = memo(
             onAliceClick={toggleAiSider}
             showRight={showRight}
             corpNameIntl={corpNameIntl}
+            corpHeaderInfo={companyState?.corpHeaderInfo}
             data-uc-id="C25wZAkyf8"
             data-uc-ct="operatorheader"
           />
@@ -116,13 +117,10 @@ export const LayoutHeader = memo(
 
 LayoutHeader.displayName = 'LayoutHeader'
 
-export const Left: React.FC<{
-  corpNameEng: string
-  setCorpNameEng: (corpNameEng: string) => void
-}> = ({ corpNameEng, setCorpNameEng }) => {
+export const Left: React.FC<{}> = () => {
   return (
-    <div className={`${styles[`${PREFIX}-left`]}`}>
-      <CompanyDetail corpNameEng={corpNameEng} setCorpNameEng={setCorpNameEng} />
+    <div className={`${styles[`${LAYOUT_DETAIL_AI_PREFIX}-left`]}`}>
+      <CompanyDetail />
     </div>
   )
 }

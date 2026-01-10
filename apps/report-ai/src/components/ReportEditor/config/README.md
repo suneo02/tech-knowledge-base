@@ -1,4 +1,4 @@
-# ReportEditor 配置模块
+﻿# ReportEditor 配置模块
 
 TinyMCE 编辑器配置集合，负责初始化、样式注入、菜单注册和运行时行为绑定。
 
@@ -36,4 +36,5 @@ TinyMCE 实例
 ## 相关文档
 
 - [Quick Toolbar 设计](../../../docs/RPDetail/RPEditor/QuickToolbar.md) - 编辑入口设计
-- [样式规范](../../../../docs/rule/style-rule.md)
+- [样式规范](../../../../docs/rule/code-style-less-bem-rule.md)
+

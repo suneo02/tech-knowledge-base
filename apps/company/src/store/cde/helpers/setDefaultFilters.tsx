@@ -238,7 +238,7 @@ export const setDefaultFilters = (set, param) => {
           field: 'listing_tags_id',
           itemId: 83,
           logic: 'any',
-          title: intl('259917', '上榜榜单'),
+          title: intl('478645', '上榜榜单'),
           itemType: '9',
           search: [
             {

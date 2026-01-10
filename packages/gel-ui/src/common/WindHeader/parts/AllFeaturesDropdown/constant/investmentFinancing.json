@@ -1,0 +1,68 @@
+[
+  {
+    "id": "478374",
+    "title": "一级市场投融数据",
+    "titleIntl": "478374",
+    "moduleId": "investmentFinancing",
+    "url": {
+      "target": "rime",
+      "module": 0
+    },
+    "iconKey": "PevcC"
+  },
+  {
+    "id": "396033",
+    "title": "一级市场来觅赛道",
+    "titleIntl": "396033",
+    "moduleId": "investmentFinancing",
+    "url": {
+      "target": "rime",
+      "module": 1
+    },
+    "iconKey": "FlowC"
+  },
+  {
+    "id": "440458",
+    "title": "私募股权基金",
+    "titleIntl": "440458",
+    "moduleId": "investmentFinancing",
+    "url": {
+      "target": "rime",
+      "module": 2
+    },
+    "iconKey": "BondIssuingC"
+  },
+  {
+    "id": "451231",
+    "title": "投资机构",
+    "titleIntl": "451231",
+    "moduleId": "investmentFinancing",
+    "url": {
+      "target": "rime",
+      "module": 3
+    },
+    "iconKey": "BankC"
+  },
+  {
+    "id": "429083",
+    "title": "政府出资平台",
+    "titleIntl": "429083",
+    "moduleId": "investmentFinancing",
+    "url": {
+      "target": "rime",
+      "module": 4
+    },
+    "iconKey": "SoesC"
+  },
+  {
+    "id": "437608",
+    "title": "AI商业计划书分析",
+    "titleIntl": "437608",
+    "moduleId": "investmentFinancing",
+    "url": {
+      "target": "rime",
+      "module": 5
+    },
+    "iconKey": "CotrunC"
+  }
+]

@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* */
 import React from 'react'
 import type { BasicColumn, BasicRecord } from './types'
 import { Typography } from 'antd'
 import styles from './index.module.less'
 import { ColumnDataTypeEnum } from 'gel-api'
-import { DEFAULT_ELLIPSIS_WIDTH, formatNumberByType, t } from './common'
+import { DEFAULT_ELLIPSIS_WIDTH, t } from './common'
 import { DrawerCell } from './handleCell/DrawerCell'
-import { CompanyCell } from './handleCell/CompanyCell'
+import { CellView } from '@/components/CellRegistry'
 
 export interface BuildColumnsOptions {
   columns: BasicColumn[]
@@ -31,12 +32,10 @@ export interface BuildColumnsOptions {
 //
 
 const STRINGS = {
-  GENERATE: t('common.generate', '生成'),
-  GENERATING: t('common.generating', '生成中'),
-  OPEN_DRAWER: t('common.openDrawer', '打开抽屉'),
-  MICRO: t('company.tag.micro', '小微企业'),
-  GREEN: t('company.tag.green', '绿色低碳转型产业*'),
-  VIEW: t('common.view', '查看'),
+  GENERATE: t('13152', '生成'),
+  GENERATING: t('286699', '生成中'),
+  OPEN_DRAWER: t('', '打开抽屉'),
+  VIEW: t('257641', '查看'),
 } as const
 
 export const buildColumns = (opts: BuildColumnsOptions): BasicColumn[] => {
@@ -65,25 +64,26 @@ export const buildColumns = (opts: BuildColumnsOptions): BasicColumn[] => {
 
     const prevRender = col?.render
 
-    // 公司列：统一在这里渲染
-    if (col?.type === 'company') {
+    // 公司、标签、电话列：使用统一渲染器
+    // company: 附加 drawer 增强
+    if (col?.type === 'company' || col?.type === 'phone' || col?.type === ColumnDataTypeEnum.TAG) {
       return {
         ...col,
         render: (value: unknown, record: BasicRecord) => {
-          const name = (value ?? '') as string
           return (
-            <CompanyCell
-              name={name}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              code={(record[`${col.dataIndex}&`] as any)?.entityId}
-              labels={{ openDrawer: STRINGS.OPEN_DRAWER, micro: STRINGS.MICRO, green: STRINGS.GREEN }}
+            <CellView
+              value={value}
+              record={record}
+              column={col as any}
+              mode={expandAll ? 'expanded' : 'inline'}
+              addons={col?.type === 'company' ? ['drawer'] : []}
             />
           )
         },
       }
     }
 
-    // Markdown 列：打开抽屉与 drawer 一致，内容渲染为 MD
+    // Markdown 列：统一渲染为 MD；允许展开时由 drawer 增强负责交互
     if (col?.type === 'md') {
       return {
         ...col,
@@ -91,62 +91,91 @@ export const buildColumns = (opts: BuildColumnsOptions): BasicColumn[] => {
         width: !expandAll ? (col?.width ?? DEFAULT_ELLIPSIS_WIDTH) : col?.width,
         render: (value: unknown, record: BasicRecord, index?: number) => {
           const allowExpandByCell = shouldExpandCell ? shouldExpandCell(record, col) : true
-          if (!allowExpandByCell) {
+          // 计算生成状态：0 待生成 / 1 生成中 / 2 正常
+          const statusKey = dataIndex ? `${dataIndex}Status` : 'status'
+          const initialStatus = (record?.[statusKey] as number | undefined) ?? (value ? 2 : 0)
+          if (!allowExpandByCell || initialStatus < 2) {
+            // 不允许展开或处于生成态：沿用旧的 DrawerCell 逻辑
             const cellContent = prevRender ? prevRender(value, record, index) : value
+            if (!allowExpandByCell) {
+              return (
+                <Typography.Paragraph style={{ margin: 0 }} ellipsis={{ rows: 1 }}>
+                  {(cellContent as React.ReactNode) ?? null}
+                </Typography.Paragraph>
+              )
+            }
             return (
-              <Typography.Paragraph style={{ margin: 0 }} ellipsis={{ rows: 1 }}>
-                {(cellContent as React.ReactNode) ?? null}
-              </Typography.Paragraph>
+              <DrawerCell
+                value={cellContent}
+                record={record}
+                title={col?.title}
+                dataIndex={dataIndex}
+                rowIndex={index ?? 0}
+                expandAll={expandAll}
+                columnType={col?.type as string}
+                labels={{
+                  openDrawer: STRINGS.OPEN_DRAWER,
+                  generate: STRINGS.GENERATE,
+                  generating: STRINGS.GENERATING,
+                  view: STRINGS.VIEW,
+                }}
+              />
             )
           }
+          // 正常态：统一走 CellView + drawer 增强
           return (
-            <DrawerCell
-              value={value}
+            <CellView
+              value={prevRender ? prevRender(value, record, index) : value}
               record={record}
-              title={col?.title}
-              dataIndex={dataIndex}
-              rowIndex={index ?? 0}
-              expandAll={expandAll}
-              columnType={col?.type as string}
-              labels={{
-                openDrawer: STRINGS.OPEN_DRAWER,
-                generate: STRINGS.GENERATE,
-                generating: STRINGS.GENERATING,
-                view: STRINGS.VIEW,
-              }}
+              column={col as any}
+              mode={expandAll ? 'expanded' : 'inline'}
+              addons={['drawer']}
             />
           )
         },
       }
     }
 
-    // 抽屉列：支持状态与抽屉打开
+    // 抽屉列：支持状态与抽屉打开，正常态走统一渲染 + drawer 增强
     if (col?.type === 'drawer') {
       return {
         ...col,
         render: (value: unknown, record: BasicRecord, index?: number) => {
+          const statusKey = dataIndex ? `${dataIndex}Status` : 'status'
+          const initialStatus = (record?.[statusKey] as number | undefined) ?? (value ? 2 : 0)
+          if (initialStatus < 2) {
+            return (
+              <DrawerCell
+                value={value}
+                record={record}
+                title={col?.title}
+                dataIndex={dataIndex}
+                rowIndex={index ?? 0}
+                expandAll={expandAll}
+                columnType={col?.type as string}
+                labels={{
+                  openDrawer: STRINGS.OPEN_DRAWER,
+                  generate: STRINGS.GENERATE,
+                  generating: STRINGS.GENERATING,
+                  view: STRINGS.VIEW,
+                }}
+              />
+            )
+          }
           return (
-            <DrawerCell
-              value={value}
+            <CellView
+              value={prevRender ? prevRender(value, record, index) : value}
               record={record}
-              title={col?.title}
-              dataIndex={dataIndex}
-              rowIndex={index ?? 0}
-              expandAll={expandAll}
-              columnType={col?.type as string}
-              labels={{
-                openDrawer: STRINGS.OPEN_DRAWER,
-                generate: STRINGS.GENERATE,
-                generating: STRINGS.GENERATING,
-                view: STRINGS.VIEW,
-              }}
+              column={col as any}
+              mode={expandAll ? 'expanded' : 'inline'}
+              addons={['drawer']}
             />
           )
         },
       }
     }
 
-    // 数字类统一靠右 + 千分位
+    // 数字类统一靠右 + 使用统一渲染器
     if (
       col?.type === ColumnDataTypeEnum.FLOAT ||
       col?.type === ColumnDataTypeEnum.INTEGER ||
@@ -156,13 +185,27 @@ export const buildColumns = (opts: BuildColumnsOptions): BasicColumn[] => {
         ...col,
         align: 'right',
         render: (value: unknown, record: BasicRecord, index?: number) => {
-          if (prevRender) return prevRender(value, record, index)
-          return formatNumberByType(value, col?.type)
+          return (
+            <CellView
+              value={prevRender ? prevRender(value, record, index) : value}
+              record={record}
+              column={col as any}
+              mode={expandAll ? 'expanded' : 'inline'}
+            />
+          )
         },
       }
     }
 
     if (!expandAll) {
+      // 如果配置了 ellipsis: true，则保持默认展示（Antd Table 原生 ellipsis），不强制包裹 Typography
+      if (col.ellipsis) {
+        return {
+          ...col,
+          width: col?.width ?? DEFAULT_ELLIPSIS_WIDTH,
+        }
+      }
+
       // 收起：单行省略，列宽兜底，确保表头对齐
       return {
         ...col,
@@ -172,7 +215,7 @@ export const buildColumns = (opts: BuildColumnsOptions): BasicColumn[] => {
           const cellContent = prevRender ? prevRender(value, record, index) : value
           return (
             <Typography.Paragraph style={{ margin: 0 }} ellipsis={{ rows: 1 }}>
-              {(cellContent as React.ReactNode) ?? null}
+              <CellView value={cellContent} record={record} column={col as any} mode={'inline'} />
             </Typography.Paragraph>
           )
         },
@@ -185,17 +228,20 @@ export const buildColumns = (opts: BuildColumnsOptions): BasicColumn[] => {
       ellipsis: false,
       render: (value: unknown, record: BasicRecord, index?: number) => {
         const allowExpandByCell = shouldExpandCell ? shouldExpandCell(record, col) : true
+        const cellContent = prevRender ? prevRender(value, record, index) : value
         if (!allowExpandByCell) {
           // 本行不展开时仍旧单行省略
-          const cellContent = prevRender ? prevRender(value, record, index) : value
           return (
             <Typography.Paragraph style={{ margin: 0 }} ellipsis={{ rows: 1 }}>
-              {(cellContent as React.ReactNode) ?? null}
+              <CellView value={cellContent} record={record} column={col as any} mode={'inline'} />
             </Typography.Paragraph>
           )
         }
-        const cellContent = prevRender ? prevRender(value, record, index) : value
-        return <div className={styles.fullText}>{(cellContent as React.ReactNode) ?? null}</div>
+        return (
+          <div className={styles.fullText}>
+            <CellView value={cellContent} record={record} column={col as any} mode={'expanded'} />
+          </div>
+        )
       },
     }
   })
@@ -212,6 +258,7 @@ export const buildColumns = (opts: BuildColumnsOptions): BasicColumn[] => {
     render: (_: unknown, __: BasicRecord, index?: number) => {
       return getRowNumber({ index, pagination: opts?.pagination })
     },
+    columnId: '',
   }
 
   return [indexCol, ...mapped]

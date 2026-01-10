@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { LayoutStateProvider, useLayoutStateContext } from '../../context/LayoutState';
 import { ReportDetailProvider } from '../../context/ReportDetail';
 import { useCollapsedSidebar } from '../../hooks/usePageSidebar';
-import { selectReportId, useReportContentSelector } from '../../store/reportContentStore';
-import { ReportContentRTKScope } from '../../store/reportContentStore/provider';
+import { selectReportId, useRPDetailSelector } from '../../store/reportContentStore';
+import { RPDetailRTKScope } from '../../store/reportContentStore/provider';
 import { ReportDetailHeader } from './Header';
 import { useInitReportContent } from './hook';
 import styles from './index.module.less';
@@ -26,7 +26,7 @@ const ReportDetailInner: React.FC = () => {
   // 获取布局状态
   const { isPreviewExpanded, restoreNormalLayout } = useLayoutStateContext();
   // 获取是否需要兼容性修复的标志
-  const reportId = useReportContentSelector(selectReportId);
+  const reportId = useRPDetailSelector(selectReportId);
 
   // 处理左侧面板展开事件
   const handleLeftPanelExpand = () => {
@@ -77,13 +77,13 @@ export const ReportDetail: React.FC = () => {
   useCollapsedSidebar();
   return (
     <ChatRoomProvider>
-      <ReportContentRTKScope>
+      <RPDetailRTKScope>
         <ReportDetailProvider>
           <LayoutStateProvider>
             <ReportDetailInner />
           </LayoutStateProvider>
         </ReportDetailProvider>
-      </ReportContentRTKScope>
+      </RPDetailRTKScope>
     </ChatRoomProvider>
   );
 };

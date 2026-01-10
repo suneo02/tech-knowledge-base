@@ -9,10 +9,10 @@
  */
 
 import { useCallback, useEffect } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../hooksRedux';
+import { useRPDetailDispatch, useRPDetailSelector } from '../hooksRedux';
 
 import {
-  selectChapters,
+  selectCanonicalChaptersEnriched,
   selectIsGlobalBusy,
   selectIsMultiChapterGenerating,
   selectLatestRequestedOperations,
@@ -26,7 +26,7 @@ import {
 import { useReportDetailContext } from '@/context';
 import { findChapterById } from '@/domain/chapter';
 import { getLeafNodes } from 'gel-util/common';
-import { rpContentSlice } from '../slice';
+import { rpDetailActions } from '../slice';
 import { ChapterHookGenUtils } from './utils/generationUtils';
 
 export interface UseMultiChapterGenerationParams {
@@ -62,20 +62,20 @@ export const useMultiChapterGeneration = (
   params?: UseMultiChapterGenerationParams
 ): UseMultiChapterGenerationReturn => {
   const { onGenerationStart, onChapterComplete } = params || {};
-  const { sendRPContentMsg, parsedRPContentMsgs, setMsgs, clearChapterMessages } = useReportDetailContext();
+  const { sendRPContentMsg, rpContentAgentMsgs, setMsgs, clearChapterMessages } = useReportDetailContext();
 
-  const dispatch = useReportContentDispatch();
+  const dispatch = useRPDetailDispatch();
 
   // 从 Redux 获取状态
-  const chapters = useReportContentSelector(selectChapters);
-  const leafChapterMap = useReportContentSelector(selectLeafChapterMap);
-  const leafChapterOrderMap = useReportContentSelector(selectLeafChapterOrderMap);
-  const isGenerating = useReportContentSelector(selectIsMultiChapterGenerating);
-  const isGlobalBusy = useReportContentSelector(selectIsGlobalBusy);
-  const progress = useReportContentSelector(selectMultiChapterGenerationProgress);
-  const generationQueue = useReportContentSelector(selectMultiChapterGenerationQueue);
-  const failedChapters = useReportContentSelector(selectMultiChapterFailedChapters);
-  const latestRequestedOperations = useReportContentSelector(selectLatestRequestedOperations);
+  const chapters = useRPDetailSelector(selectCanonicalChaptersEnriched);
+  const leafChapterMap = useRPDetailSelector(selectLeafChapterMap);
+  const leafChapterOrderMap = useRPDetailSelector(selectLeafChapterOrderMap);
+  const isGenerating = useRPDetailSelector(selectIsMultiChapterGenerating);
+  const isGlobalBusy = useRPDetailSelector(selectIsGlobalBusy);
+  const progress = useRPDetailSelector(selectMultiChapterGenerationProgress);
+  const generationQueue = useRPDetailSelector(selectMultiChapterGenerationQueue);
+  const failedChapters = useRPDetailSelector(selectMultiChapterFailedChapters);
+  const latestRequestedOperations = useRPDetailSelector(selectLatestRequestedOperations);
 
   /**
    * 开始多章节生成
@@ -118,14 +118,14 @@ export const useMultiChapterGeneration = (
 
         // 4. 批量锁定章节并初始化队列
         dispatch(
-          rpContentSlice.actions.startChapterOperation({
+          rpDetailActions.startChapterOperation({
             mode: 'batch',
             chapterIds: sortedIds,
           })
         );
 
         dispatch(
-          rpContentSlice.actions.startMultiChapterGeneration({
+          rpDetailActions.startMultiChapterGeneration({
             chapterIds: sortedIds,
           })
         );
@@ -154,8 +154,8 @@ export const useMultiChapterGeneration = (
     // 验证章节存在性
     if (!leafChapterMap.has(currentChapterId)) {
       console.error('[MultiChapterGeneration] Chapter not found:', currentChapterId);
-      dispatch(rpContentSlice.actions.markMultiChapterFailed({ chapterId: currentChapterId }));
-      dispatch(rpContentSlice.actions.progressMultiChapterToNext());
+      dispatch(rpDetailActions.markMultiChapterFailed({ chapterId: currentChapterId }));
+      dispatch(rpDetailActions.progressMultiChapterToNext());
       return;
     }
 
@@ -191,7 +191,7 @@ export const useMultiChapterGeneration = (
     const currentChapterId = ChapterHookGenUtils.getCurrentChapterId(generationQueue, progress.currentIndex);
     if (!currentChapterId) return;
 
-    const isCurrentChapterFinished = ChapterHookGenUtils.isChapterFinished(currentChapterId, parsedRPContentMsgs);
+    const isCurrentChapterFinished = ChapterHookGenUtils.isChapterFinished(currentChapterId, rpContentAgentMsgs);
 
     if (isCurrentChapterFinished) {
       const isLast = ChapterHookGenUtils.isLastChapter(progress.currentIndex, generationQueue.length);
@@ -200,14 +200,14 @@ export const useMultiChapterGeneration = (
 
       if (!correlationId) {
         console.warn('[MultiChapterGeneration] Missing correlationId for chapter completion', { currentChapterId });
-        dispatch(rpContentSlice.actions.markMultiChapterFailed({ chapterId: currentChapterId }));
+        dispatch(rpDetailActions.markMultiChapterFailed({ chapterId: currentChapterId }));
         onChapterComplete?.(currentChapterId, false);
       } else {
         // 合并消息到章节
         dispatch(
-          rpContentSlice.actions.processSingleChapterCompletion({
+          rpDetailActions.processSingleChapterCompletion({
             chapterId: currentChapterId,
-            messages: parsedRPContentMsgs,
+            messages: rpContentAgentMsgs,
             correlationId,
             extractRefData: true,
             overwriteExisting: true,
@@ -219,7 +219,7 @@ export const useMultiChapterGeneration = (
 
         // 触发注水任务（在消息清理后，确保使用 chapter.content）
         dispatch(
-          rpContentSlice.actions.setHydrationTask({
+          rpDetailActions.setHydrationTask({
             type: 'chapter-rehydrate',
             chapterIds: [currentChapterId],
             correlationIds: [correlationId],
@@ -230,19 +230,19 @@ export const useMultiChapterGeneration = (
       }
 
       // 推进到下一章节
-      dispatch(rpContentSlice.actions.progressMultiChapterToNext());
+      dispatch(rpDetailActions.progressMultiChapterToNext());
 
       // 若为最后一章，触发完成
       if (isLast) {
         dispatch(
-          rpContentSlice.actions.completeMultiChapterGeneration({
+          rpDetailActions.completeMultiChapterGeneration({
             success: !!correlationId && failedChapters.length === 0,
           })
         );
       }
     }
   }, [
-    parsedRPContentMsgs,
+    rpContentAgentMsgs,
     isGenerating,
     progress.currentIndex,
     generationQueue,

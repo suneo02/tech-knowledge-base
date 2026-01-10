@@ -1,9 +1,9 @@
+import { SingleTable } from '@/components/detail/singleTable'
 import { Steps } from '@wind/wind-ui'
 import { isArray } from 'lodash'
 import queryString from 'qs'
 import React, { useEffect, useMemo } from 'react'
 import { pointBuriedGel } from '../../api/configApi'
-import Tables from '../../components/detail/singleTable'
 import { usePageTitle } from '../../handle/siteTitle'
 import { useTranslateService } from '../../hook'
 import intl from '../../utils/intl'
@@ -64,17 +64,17 @@ const StandardInfoDetail = () => {
     let replaced = !!(standardData?.replacedDate && standardData?.replacedDate.length)
     let abolish = !!(standardData?.abolishDate && standardData?.abolishDate.length)
     let releaseText = release
-      ? intl('328156', '发布于') + wftCommon.formatTime(standardData?.releaseDate)
+      ? intl('478725', '发布于') + wftCommon.formatTime(standardData?.releaseDate)
       : intl('328201', '发布')
     let implementationText = implementation
-      ? intl('328178', '实施于') + wftCommon.formatTime(standardData?.implementationDate)
+      ? intl('478713', '实施于') + wftCommon.formatTime(standardData?.implementationDate)
       : intl('328213', '实施')
     let abolishText = abolish
       ? intl('328236', '废止于') + wftCommon.formatTime(standardData?.abolishDate)
-      : intl('207805', '废止')
+      : intl('478734', '废止')
     let replaceText = wftCommon.formatTime(standardData?.replacedDate)
     let htmlArr = replaced
-      ? [releaseText, implementationText, intl('328179', '被代替于') + replaceText, abolishText]
+      ? [releaseText, implementationText, intl('478735', '被代替于') + replaceText, abolishText]
       : [releaseText, implementationText, abolishText]
 
     var end = -1
@@ -197,12 +197,13 @@ const StandardInfoDetail = () => {
       </div>
       {/**标准信息和备案信息和起草单位表格 */}
       {Object.keys(rows).map((i) => (
-        <Tables
+        <SingleTable
           className="each-div"
           key={i}
           title={rows[i].name}
           horizontal={rows[i].horizontal}
           info={tableConfig[i].data}
+          skipTransFieldsInKeyMode={tableConfig[i].skipTransFieldsInKeyMode}
           isLoading={false}
           columns={rows[i].columns}
           hideTableConstruct={true}
@@ -214,21 +215,21 @@ const StandardInfoDetail = () => {
       {/**起草人 */}
       {isArray(standardData?.drafter) && standardData?.drafter.length > 0 && (
         <div className="each-div">
-          <p className="standardinfo-title">{intl('328160', '起草人')}</p>
+          <p className="standardinfo-title">{intl('478726', '起草人')}</p>
           <p>{standardData?.drafter?.map((i) => i.drafterName).join(',')}</p>
         </div>
       )}
       {/**文件下载 */}
       {standardData?.file && (
         <div className="each-div">
-          <span className="standardinfo-title">{intl('328190', '标准文件下载')}</span>
+          <span className="standardinfo-title">{intl('478736', '标准文件下载')}</span>
           <span className="append-tip">
-            {intl('328192', '点击下方链接将跳转该标准公布的文件地址，为第三方地址，可能存在失效或安全风险，请谨慎操作')}
+            {intl('478737', '点击下方链接将跳转该标准公布的文件地址，为第三方地址，可能存在失效或安全风险，请谨慎操作')}
           </span>
           <div className="downloadAppend">
             <button id="downloadAppend">
               <a href={standardData?.file} target="_blank" rel="noreferrer" data-uc-id="nS9yI9mBE-x" data-uc-ct="a">
-                {intl('328191', '下载附件')}
+                {intl('478738', '下载附件')}
               </a>
             </button>
           </div>

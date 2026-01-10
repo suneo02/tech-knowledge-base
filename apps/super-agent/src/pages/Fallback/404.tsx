@@ -1,4 +1,5 @@
 import { Button, Result } from '@wind/wind-ui'
+import { t } from 'gel-util/intl'
 import { useNavigate } from 'react-router-dom'
 
 const Fallback404 = () => {
@@ -9,11 +10,11 @@ const Fallback404 = () => {
       status={404}
       extra={
         <Button style={{ width: 82 }} onClick={() => navigate('/')}>
-          返回
+          {t('464221', '返回')}
         </Button>
       }
-      title={'页面失踪了'}
-      subTitle={'您浏览的页面失踪了, 请返回上一级页面吧'}
+      title={t('482226', '页面失踪了')}
+      subTitle={t('482227', '您浏览的页面失踪了, 请返回上一级页面吧')}
     />
   )
 }
