@@ -1,167 +1,89 @@
-# Report Print & Preview PDF 生成应用 | 2024.05 - 2024.09
+# report-print 复盘档案
 
-**角色**：核心开发
-**项目背景**：
-针对企业征信报告的 PDF 导出需求，开发的高性能服务端渲染应用。支持 30+ 种不同企业类型的报告模板（如 CO/FCP 等），需在无头浏览器环境（Headless Browser）下精确还原复杂的 Web 报表样式，并解决 wkhtmltopdf 对现代 CSS/JS 特性的兼容性问题。
-**核心技术栈**：React 18, Webpack 5, Vite, wkhtmltopdf, jQuery (Legacy Support)
+## 0. 受众与用途
+- 受众：我自己。
+- 用途：用于个人优化复盘与面试备忘。
+- 叙述人称：我。
 
-## 1. 全景架构 (The Big Picture)
+## 1. 全景（Situation & Task）
+- 业务背景：我面对的业务是将报告数据与配置动态生成可打印的静态 HTML，并在 wkhtmltopdf 环境输出 PDF。
+- 任务目标：我需要保证可分页、样式可控、内容完整，同时在老旧 JS 引擎中稳定执行。
+- 架构描述（文字，包含组件关系与数据流）：我用入口页完成配置与语言初始化，渲染器驱动数据拉取与内容生成，分页由页面管理器与表格处理器完成，极端行交给行内拆分器。
+- 技术选型对比（文字）：我依据《核心架构设计》的兼容性原则选择 ES5 + jQuery，以避免 wkhtmltopdf 的兼容性静默失败，并把“导出 PDF”作为唯一验收；替代方案取舍细节暂无证据，TODO 补充。
+- 边界与非目标：我不引入 React 等现代框架，不做交互渲染，只聚焦静态输出与分页可靠性。
+- 证据锚点（设计文档章节或指标来源，1-3 条）：《核心架构设计》(private/carrier/assets/gel-workspace/apps/report-print/docs/core-architecture.md) / 核心原则，《核心渲染流程》(private/carrier/assets/gel-workspace/apps/report-print/docs/core-rendering-flow.md) / 阶段详解，《PDF 自动分页流程与实现》(private/carrier/assets/gel-workspace/apps/report-print/docs/pdf-pagination-process.md) / 步骤详解
 
-### 1.1 业务背景
+## 2. 设计文档引用与要点（必须）
+- 设计文档名称/版本：核心架构设计、核心渲染流程、PDF 自动分页架构设计、PDF 自动分页流程与实现、DOM 行分割问题与目标、DOM 行分割算法与实现、开发指南、report-print 技术文档 README。
+- 设计文档清单：以上文档集合覆盖架构、流程、分页与行拆分。
+- 设计文档路径（关键条目）：private/carrier/assets/gel-workspace/apps/report-print/docs/core-architecture.md；private/carrier/assets/gel-workspace/apps/report-print/docs/core-rendering-flow.md；private/carrier/assets/gel-workspace/apps/report-print/docs/pdf-pagination-architecture.md；private/carrier/assets/gel-workspace/apps/report-print/docs/pdf-pagination-process.md；private/carrier/assets/gel-workspace/apps/report-print/docs/dom-based-row-algorithm-implementation.md
+- 关键章节引用（章节标题 + 关联要点）：
+- 核心架构设计 > 核心原则：ES5 兼容与 wkhtmltopdf 约束是最高优先级。
+- 核心架构设计 > 多层职责分离架构：渲染器、页面管理器、表格处理器、行内拆分器的职责拆分与调用链。
+- 核心渲染流程 > 阶段详解/关键决策点：初始化、并行数据获取、内容构建与分页渲染、完成事件。
+- PDF 自动分页架构设计 > 核心问题与目标：自动分页、表头重复、极端行处理。
+- PDF 自动分页流程与实现 > 步骤详解：逐行添加、溢出判断与极端行拆分。
+- DOM 行分割问题与目标/算法与实现：从纯文本估算转为 HTML 单元迭代适配。
 
-一句话解释：**为企业征信报告提供“所见即所得”的 PDF 导出服务，确保打印版与网页版像素级一致。**
+## 3. 核心功能与实现（Action - Construction）
+- 功能 1：我实现了渲染编排与数据汇聚，入口完成配置后并行拉取表格数据，再统一生成内容序列。
+- 功能 2：我搭建了三层分页体系，由页面管理器负责基准高度与页眉页脚，表格处理器逐行追加并检测溢出，常规溢出时移除行并创建新页重建表头，极端行交给行内拆分器拆分后回填剩余行继续处理。
+- 功能 3：我实现 DOM 感知的行拆分，先以 HTML 单元迭代适配，再进入细粒度文本拆分以保持标签完整性，并在无法适配时兜底返回空首行。
+- 实现流程（文字步骤）：我先完成配置与语言初始化，再并行拉取表格数据，随后由渲染器按封面、说明、正文、附录顺序生成内容，正文表格进入分页逻辑，分页完成后统一更新总页码。
+- 分页分支与取舍：当非空表体出现溢出时，我先移除该行再判断页面是否“接近满”（默认阈值 80%，以内容区高度与页面基准高度比较），若页面已接近满则整行移动到新页；若页面未接近满则在当前页尝试行内拆分，以减少空洞并保证信息连续性。
+- 阈值解释与案例：我用 80% 作为“接近满”的经验阈值，是在“减少页面空洞”和“避免频繁拆分”之间取平衡；当剩余空间不足以稳定容纳整行时优先整行迁移，避免出现一页只放几行的视觉断裂。TODO：补充具体样例 PDF 或日志统计作为证据。
+- 数据结构与复杂度说明：我用章节配置与扁平化配置描述章节与表格，用接口缓存保存表格数据，用单元格数据、HTML 单元与拆分结果表示行拆分过程；请求按配置条目线性遍历，行拆分按 HTML 单元迭代测试并按文本长度逐步试探。
+- 证据锚点（设计文档章节或指标来源，1-3 条）：《核心渲染流程》(private/carrier/assets/gel-workspace/apps/report-print/docs/core-rendering-flow.md) / 阶段详解，《PDF 自动分页架构设计》(private/carrier/assets/gel-workspace/apps/report-print/docs/pdf-pagination-architecture.md) / 核心架构，《PDF 自动分页流程与实现》(private/carrier/assets/gel-workspace/apps/report-print/docs/pdf-pagination-process.md) / 步骤详解
 
-### 1.2 架构视图
+## 4. 个人执行与成果（Action & Result）
+- 执行范围与边界：我覆盖渲染编排、分页与 DOM 行拆分等核心模块；缺少 commit/PR 佐证，TODO 补充。
+- 关键决策与执行：我以三层职责拆分分页逻辑，并将行拆分从纯文本估算迁移为 HTML 感知；替代方案取舍仍需补证。
+- 量化结果与证据锚点（指标来源/文档章节，1-3 条）：暂无硬指标，TODO 补充分页正确率、导出成功率、导出耗时或 PDF 体积；证据锚点：《开发指南》(private/carrier/assets/gel-workspace/apps/report-print/docs/development.md) / 开发验证流程
 
-```mermaid
-graph TD
-    subgraph Input [输入源]
-        Config[JSON Config]
-        API[Data API]
-    end
+## 5. 深挖案例（Action - Optimization & Result）
+- 现象：我遇到单行内容高度超过页面高度的问题，纯文本估算会破坏 HTML 结构且高度预测不准。
+- 排查过程：我在逐行追加流程中用页面高度对比判断溢出，若当前页非空且首行溢出则移除整表并创建新页重建表头，若在空页上首行溢出则识别为极端行进入拆分，否则走常规分页路径并重建表头。
+- 方案 V1（失败）：我尝试按纯文本长度估算分割点，出现结构破坏与预测不准的问题。
+- 方案 V2（最终）：我采用 HTML 单元迭代适配，先批量追加单元测试高度，溢出时回退并对单个单元做细粒度拆分，直至得到可适配的首段内容，并按“首段填充当前页、剩余内容回填到新页”的顺序继续处理。
+- 分支与回填顺序：我在非首行溢出时先移除溢出行，再根据页面接近满阈值判断是否整行迁移；整行迁移则新页重建表头后重新追加该行，行内拆分则先渲染首段，再把剩余内容作为新行插回处理队列头部递归处理。
+- 关键机制说明（不贴代码，1-3 条）：《PDF 自动分页流程与实现》(private/carrier/assets/gel-workspace/apps/report-print/docs/pdf-pagination-process.md) / 步骤详解，《DOM 行分割算法与实现》(private/carrier/assets/gel-workspace/apps/report-print/docs/dom-based-row-algorithm-implementation.md) / 核心方法
+- 失败路径与兜底：当无内容适配时我返回空首行并保留剩余内容，避免渲染中断，并在剩余内容非空时创建新页继续处理。
+- 局限性：我对单元格内 DOM 拆分只做两次递归遍历，目前两次递归已经覆盖主要场景。
+- 量化结果：暂无硬指标，TODO 补充对比样例 PDF 或日志统计。
 
-    subgraph Core [双模渲染引擎]
-        subgraph Preview [Preview Mode (Vite)]
-            React[React 18 Components]
-            Canvas[Canvas Preview]
-        end
+## 11. 面试追问准备（Q&A 草案）
+- 问：为什么选择“接近满”再整行迁移的策略？答：我需要在可读性与页面利用率之间取平衡；接近满时迁移可避免一页只剩少量内容导致视觉断裂。TODO：补充样例或日志支持。
+- 问：为什么行内拆分只做两次递归？答：我以“收益递减”为判断，两次递归已覆盖主要场景，继续递归会增加复杂度与性能成本。TODO：补充边界样例与数据验证。
 
-        subgraph Print [Print Mode (Webpack)]
-            Legacy[ES5/Polyfills]
-            Alg[Pagination Algorithm]
-            DOM[DOM Manipulation]
-        end
-    end
+## 6. 过程记录（可选）
+- 关键里程碑：TODO 补充版本节点与发布记录。
+- 重要权衡与取舍：TODO 补充选型对比与拒绝方案依据。
+- 交付节奏或流程改进：TODO 补充流水线或工单记录。
 
-    subgraph Output [输出端]
-        Headless[wkhtmltopdf / QT WebKit]
-        PDF[PDF File]
-    end
+## 7. 事故复盘（可选）
+- 时间线：暂无事故记录，TODO 补充证据。
+- 根因：暂无事故记录，TODO 补充证据。
+- 行动项：暂无事故记录，TODO 补充证据。
 
-    Input --> Preview
-    Input --> Print
-    Preview -- User Interaction --> User[用户配置]
-    Print -- Render HTML --> Headless
-    Headless -- Snapshot --> PDF
-```
+## 8. 知识库（Legacy）
+- 片段 1（文字说明）：我将 wkhtmltopdf 兼容性置为最高优先级，所有变更以导出脚本产出 PDF 作为验收。
+- 片段 2（文字说明）：我用三层职责拆分分页逻辑，将页面管理、行处理与行内拆分解耦以降低复杂度。
+- 注意事项：我必须在 wkhtmltopdf 环境中回归验证分页与样式，浏览器调试仅作辅助。
+- 证据锚点（设计文档章节或指标来源，1-3 条）：《核心架构设计》(private/carrier/assets/gel-workspace/apps/report-print/docs/core-architecture.md) / 核心原则，《开发指南》(private/carrier/assets/gel-workspace/apps/report-print/docs/development.md) / 开发验证流程
 
-### 1.3 技术选型决策表 (ADR)
+## 9. 质量协议清单
+- [ ] 证据锚点检查（每节 1-3 条，避免长列表）
+- [x] 文字化检查（无代码块/图表/表格）
+- [ ] 逻辑检查（技术选择与业务关联）
+- [x] 设计文档引用检查（名称/章节明确）
+- [x] 受众检查（面试者个人复盘与备考用途）
+- [x] 第一人称叙述检查（我...）
+- [ ] 深挖复盘版检查（权衡、失败路径、回滚条件）
 
-| 决策点       | 选择                        | 对比                   | 理由/证据                                                                                                                                           |
-| :----------- | :-------------------------- | :--------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **渲染引擎** | **wkhtmltopdf**             | Puppeteer / Playwright | 虽然 Puppeteer 支持现代 Chrome，但 wkhtmltopdf 生成的 PDF 文件体积小 80%，且对矢量字体的处理更符合打印出版标准。                                    |
-| **构建工具** | **双构建 (Vite + Webpack)** | 单一构建               | 开发预览需要 Vite 的 HMR 秒级响应；打印端运行在老旧 QT WebKit 上，必须用 Webpack + Babel 强转 ES5，Vite 的 `legacy` 插件无法完美覆盖所有 Polyfill。 |
-| **分页策略** | **前端计算分页**            | 后端分页 / CSS 分页    | CSS `break-inside` 在复杂表格截断时经常失效且无法重复表头；后端分页无法感知渲染后的真实字体高度；前端 DOM 计算是唯一精确解。                        |
-
-## 2. 核心功能实现 (Core Features & Implementation)
-
-### Feature 1：三层分页算法体系 (Three-Layer Pagination)
-
-- **目标**：解决长表格跨页截断、表头丢失、行内文本溢出等打印痛点。
-- **实现逻辑**：
-  - **物理层 (Page Level)**：`PDFPage` 类管理 A4 纸张的物理尺寸、页眉页脚留白及水印注入。
-  - **逻辑层 (Row Level)**：`TableHandler` 负责计算表格行高，识别自然分页点，并在新页自动重绘表头（Thead Repetition）。
-  - **微观层 (Cell Level)**：`CellSplitter` 实现 DOM 级内容的深度分割。
-- **流程图**：
-  ```mermaid
-  graph TD
-      Row[待处理行] --> Check{高度溢出?}
-      Check -- No --> Append[添加到当前页]
-      Check -- Yes --> IsFirst{是当前页首行?}
-      IsFirst -- No --> NewPage[创建新页 & 重绘表头] --> Row
-      IsFirst -- Yes --> Split[调用 CellSplitter 微观分割]
-      Split --> Fit[适配部分 -> 当前页]
-      Split --> Remain[剩余部分 -> 下一页]
-  ```
-
-### Feature 2：差异化双引擎架构
-
-- **目标**：既要开发爽（现代技术栈），又要打印稳（兼容老旧内核）。
-- **实现逻辑**：
-  - **Report-Preview**：使用 Vite + React 18，提供流畅的参数配置和实时 Canvas 预览。
-  - **Report-Print**：使用 Webpack 5 + Babel，注入大量 Polyfill（如 `Promise`, `Object.assign`），甚至降级使用 jQuery 操作 DOM，确保在 wkhtmltopdf 的 QT 浏览器中不报错。
-- **复杂度**：需维护两套入口文件，并抽取公共组件库（`gel-ui`）以确保样式一致性。
-
-## 3. 核心难点攻坚 (Deep Dive Case Study)
-
-### 案例 A：富文本单元格的跨页截断 (The Cell Splitting Problem)
-
-- **现象 (Symptoms)**：
-  - 当一个单元格包含大量文本（超过一页高度）时，简单的 `CSS` 截断会导致文字被拦腰切断。
-  - 若单元格内包含 HTML 标签（如 `<b>重点</b>`），粗暴截断字符串会导致标签未闭合，下一页样式错乱。
-- **排查 (Investigation)**：
-  - 传统的基于字符数截断（`text.slice(0, n)`）无法感知渲染宽度和 HTML 结构。
-  - 必须在 DOM 层面进行“试探性渲染”。
-- **方案 (Solution)**：
-  - **V1 (Fail)**：纯文本估算。将 HTML 转为纯文本，按行高估算截断点。导致富文本格式丢失，且高度预测不准。
-  - **V2 (Success)**：**迭代式 DOM 适配算法 (Iterative DOM Fitting)**。
-    1.  将单元格内容解析为 `HtmlUnit` 队列（标签节点或文本节点）。
-    2.  逐个将 Unit 追加到临时容器中。
-    3.  实时检测 `container.scrollHeight > pageHeight`。
-    4.  一旦溢出，回退最后一个 Unit，并对该 Unit 进行更细粒度的文本分割。
-    5.  自动补全截断处的闭合标签（`Close Tags`）。
-- **代码**：
-  ```typescript
-  // 伪代码：基于 DOM 的试探性分割
-  function splitForSingleLineFit(units: HtmlUnit[], maxHeight: number) {
-    let currentHtml = "";
-    for (let i = 0; i < units.length; i++) {
-      const unit = units[i];
-      const testHtml = currentHtml + unit.html;
-
-      // 渲染并测量
-      if (measureHeight(testHtml) > maxHeight) {
-        // 溢出！进入微观分割
-        return splitTextUnit(unit, maxHeight - measureHeight(currentHtml));
-      }
-      currentHtml = testHtml;
-    }
-  }
-  ```
-
-### 案例 B：wkhtmltopdf 进程僵死与内存泄漏
-
-- **现象**：在批量导出 1000 份报告时，任务进行到第 200 份左右，Node.js 进程无响应，服务器内存耗尽。
-- **排查**：wkhtmltopdf 自身存在内存泄漏 bug，且对某些特定 CSS（如 `flex: 1`）处理极慢，可能导致死锁。
-- **方案**：
-  - **进程守护**：使用 `child_process.spawn` 启动 wkhtmltopdf，并设置超时时间（如 30s）。
-  - **错误重试**：捕获 `EPIPE` 或超时错误，自动重试 3 次。
-  - **样式降级**：在打印端禁用 Flexbox，回退到 `float` 或 `table` 布局。
-
-## 4. 事故与反思 (Post-Mortem)
-
-- **Timeline**：
-  - 15:00 上线新版报告，包含 ECharts 动态图表。
-  - 15:10 客服反馈 PDF 中图表区域空白。
-  - 15:30 排查发现 wkhtmltopdf 截图时 JS 尚未执行完毕。
-- **Root Cause**：wkhtmltopdf 默认在 `window.onload` 后立即截图，而 React/ECharts 的渲染是异步的。
-- **Action Item**：
-  - 引入信号机制：在页面中定义 `window.status`。
-  - 当所有图表渲染完成（监听 `finished` 事件）后，将 `window.status` 置为 `'ready'`。
-  - 启动参数添加 `--window-status ready`，强制等待信号。
-
-## 5. 知识库 (Wiki / Snippets)
-
-- **wkhtmltopdf 像素对齐参数**：
-  禁止智能缩放，确保 CSS 像素与打印毫米数严格对应。
-  ```bash
-  wkhtmltopdf \
-    --disable-smart-shrinking \
-    --dpi 96 \
-    --margin-top 0 \
-    --margin-bottom 0 \
-    --page-size A4
-  ```
-- **DOM 解析器 (Unit Parser)**：
-  将 HTML 字符串解析为可操作的 Unit 数组。
-  ```typescript
-  function getCellHtmlUnits(html: string): HtmlUnit[] {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return Array.from(div.childNodes).map((node) => ({
-      type: node.nodeType === 3 ? "text" : "tag",
-      content:
-        node.nodeType === 3 ? node.nodeValue : (node as Element).outerHTML,
-    }));
-  }
-  ```
+## 10. TODO 与问题
+- TODO：提供 commit/PR 或变更记录，用于证明我覆盖的核心模块与关键决策。
+- TODO：补充分页正确率、导出成功率、平均导出时长、PDF 体积等指标基线与改变量化数据，并给出日志或仪表盘来源。
+- TODO：补充选型对比与拒绝方案依据，例如 CSS 分页或后端分页的取舍。
+- TODO：补充回滚策略与触发条件。
+- 问题：最脆弱的边界场景是什么，我用什么样例或日志覆盖它。
+- 问题：是否存在生产监控或报警面板作为分页异常证据来源。
