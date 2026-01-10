@@ -1,13 +1,13 @@
 import CompanyLink from '@/components/company/CompanyLink.tsx'
-import { ICorpSubModuleVipCfg } from '@/components/company/type'
 import { vipDescDefault } from '@/handle/corpModuleCfg/common/vipDesc.ts'
 import { CommonAggParam } from '@/handle/table/aggregation/config.ts'
+import { CorpSubModuleVipCfg } from '@/types/corpDetail'
 import intl from '@/utils/intl'
 import { wftCommonQueryStringObjs } from '@/utils/links/url'
 import { Link } from '@wind/wind-ui'
 import React from 'react'
 
-export const CorpDetailQualificationGetGameApprovalCfg: ICorpSubModuleVipCfg = {
+export const CorpDetailQualificationGetGameApprovalCfg: CorpSubModuleVipCfg = {
   fn: 'getgameapproval',
   cmd: 'detail/company/getGameApprovalList',
   title: intl('354853', '游戏审批'),
@@ -39,6 +39,7 @@ export const CorpDetailQualificationGetGameApprovalCfg: ICorpSubModuleVipCfg = {
     'publicationNumber',
     'year|formatTime',
   ],
+  skipTransFieldsInKeyMode: ['operatingUnit', 'publisher'],
   columns: [
     null,
     {

@@ -1,13 +1,11 @@
 import { AddrComp } from '@/components/company/info/comp/AddrComp.tsx'
-import { industry_gb_render } from '@/components/company/info/comp/industry.tsx'
 import { corpInfoAnotherNameRow } from '@/components/company/info/rowsCommon/names.tsx'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
-import React from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const otherRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const otherRows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [{ title: intl('138677', '企业名称'), dataIndex: 'corp_name', colSpan: 5 }],
   [corpInfoAnotherNameRow],
   [
@@ -24,7 +22,7 @@ export const otherRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       },
     },
     {
-      title: intl('259461', '经营期限终止日期'),
+      title: intl('478586', '经营期限终止日期'),
       dataIndex: 'issue_date',
       colSpan: 2,
       render: (_txt, backData) => {
@@ -58,14 +56,7 @@ export const otherRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       colSpan: 2,
     },
   ],
-  [
-    {
-      title: intl('138722', '国民经济行业分类'),
-      dataIndex: 'industry_gb',
-      colSpan: 5,
-      render: industry_gb_render,
-    },
-  ],
+
   [{ title: intl('35776', '注册地址'), dataIndex: 'reg_address', colSpan: 5 }],
   [
     {

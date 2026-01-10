@@ -4,7 +4,7 @@ import { detectFileType, isFilePreviewable } from '@/utils/file';
 import { Alert, Spin } from '@wind/wind-ui';
 import classNames from 'classnames';
 import { useIntl } from 'gel-ui';
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useMemo } from 'react';
 import styles from './FilePreviewRenderer.module.less';
 import { PDFPreviewWrapper } from './PDFPreviewWrapper';
 import { FilePreviewRendererProps } from './types';
@@ -26,45 +26,22 @@ import { FilePreviewRendererProps } from './types';
  * />
  * ```
  */
-export const FilePreviewRenderer: FC<FilePreviewRendererProps> = ({ file, style, className, onLoad, onError }) => {
+export const FilePreviewRenderer: FC<FilePreviewRendererProps> = ({
+  file,
+  initialPage,
+  chapterMap,
+  style,
+  className,
+  onLoad,
+  onError,
+}) => {
   const t = useIntl();
-  const [contentLoading, setContentLoading] = useState(true);
-  const [contentError, setContentError] = useState<string | null>(null);
 
   // 使用文件预览 Hook 加载文件
   const { previewUrl, loading: apiLoading, error: apiError, fileName } = useFilePreview(file);
 
   // 检测文件类型
   const fileType = useMemo(() => detectFileType(file), [file]);
-
-  // 合并加载状态
-  const loading = apiLoading || contentLoading;
-  const error = apiError || contentError;
-
-  // 处理加载完成
-  const handleLoad = useCallback(() => {
-    setContentLoading(false);
-    setContentError(null);
-    onLoad?.();
-  }, [onLoad]);
-
-  // 处理加载错误
-  const handleError = useCallback(
-    (err: Error) => {
-      setContentLoading(false);
-      setContentError(err.message);
-      onError?.(err);
-    },
-    [onError]
-  );
-
-  // 当 API 加载完成时，通知父组件
-  useEffect(() => {
-    if (!apiLoading && !apiError && previewUrl) {
-      // API 加载完成，但内容还在加载中
-      setContentLoading(true);
-    }
-  }, [apiLoading, apiError, previewUrl]);
 
   // 如果文件不可预览，直接显示不支持预览的组件
   if (!isFilePreviewable(file)) {
@@ -75,7 +52,33 @@ export const FilePreviewRenderer: FC<FilePreviewRendererProps> = ({ file, style,
     );
   }
 
-  // 如果无法生成预览URL，显示错误信息
+  // FIXED: 简化异常处理逻辑，只处理 API 层错误，子组件自己处理内容加载状态
+  // @see ../../../../docs/issues/pdf-preview-issues.md
+
+  // API 加载中，显示加载状态
+  if (apiLoading) {
+    return (
+      <div className={classNames(styles['file-preview-renderer'], className)} style={style}>
+        <div className={styles['file-preview-renderer__loading-overlay']}>
+          <Spin size="large" />
+          <div className={styles['file-preview-renderer__loading-text']}>{t('正在获取文件...')}</div>
+        </div>
+      </div>
+    );
+  }
+
+  // API 加载失败，显示错误
+  if (apiError) {
+    return (
+      <div className={classNames(styles['file-preview-renderer'], className)} style={style}>
+        <div className={styles['file-preview-renderer__error-container']}>
+          <Alert message={t('文件加载失败')} description={apiError} type="error" showIcon />
+        </div>
+      </div>
+    );
+  }
+
+  // API 加载完成但没有 URL，显示错误
   if (!previewUrl) {
     return (
       <div className={classNames(styles['file-preview-renderer'], className)} style={style}>
@@ -91,24 +94,34 @@ export const FilePreviewRenderer: FC<FilePreviewRendererProps> = ({ file, style,
     );
   }
 
-  // 渲染对应的预览组件
+  // 渲染对应的预览组件（子组件自己处理加载和错误状态）
   const renderPreviewContent = () => {
-    if (!previewUrl) return null;
-
-    const commonProps = {
-      url: previewUrl,
-      fileName: fileName,
-      onLoad: handleLoad,
-      onError: handleError,
-      style: { height: '100%' },
-    };
-
     switch (fileType) {
       case 'pdf':
-        return <PDFPreviewWrapper {...commonProps} />;
+      case 'word':
+        // Word 文件后端会转换为 PDF，使用 PDF 预览组件
+        return (
+          <PDFPreviewWrapper
+            url={previewUrl}
+            fileName={fileName}
+            initialPage={initialPage}
+            file={file}
+            chapterMap={chapterMap}
+            onLoad={onLoad}
+            style={{ height: '100%' }}
+          />
+        );
 
       case 'image':
-        return <ImagePreview {...commonProps} />;
+        return (
+          <ImagePreview
+            url={previewUrl}
+            fileName={fileName}
+            onLoad={onLoad}
+            onError={onError}
+            style={{ height: '100%' }}
+          />
+        );
 
       case 'text':
         // TODO: 实现文本预览组件
@@ -127,49 +140,7 @@ export const FilePreviewRenderer: FC<FilePreviewRendererProps> = ({ file, style,
 
   return (
     <div className={classNames(styles['file-preview-renderer'], className)} style={style}>
-      {/* 加载状态 */}
-      {loading && (
-        <div className={styles['file-preview-renderer__loading-overlay']}>
-          <Spin size="large" />
-          <div className={styles['file-preview-renderer__loading-text']}>{t('正在加载文件...')}</div>
-        </div>
-      )}
-
-      {/* 错误状态 */}
-      {error && !loading && (
-        <div className={styles['file-preview-renderer__error-container']}>
-          <Alert
-            message={t('文件加载失败')}
-            description={error}
-            type="error"
-            showIcon
-            action={
-              apiError ? undefined : (
-                <button
-                  className={styles['file-preview-renderer__retry-button']}
-                  onClick={() => {
-                    setContentError(null);
-                    setContentLoading(true);
-                  }}
-                >
-                  {t('重试')}
-                </button>
-              )
-            }
-          />
-        </div>
-      )}
-
-      {/* 预览内容 */}
-      <div
-        className={styles['file-preview-renderer__preview-content']}
-        style={{
-          display: loading || error ? 'none' : 'block',
-          height: '100%',
-        }}
-      >
-        {renderPreviewContent()}
-      </div>
+      {renderPreviewContent()}
     </div>
   );
 };

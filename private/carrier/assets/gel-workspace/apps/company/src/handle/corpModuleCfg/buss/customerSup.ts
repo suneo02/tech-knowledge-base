@@ -1,13 +1,13 @@
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
 
-export const corpDetailCustomerSup: ICorpSubModuleCfg = {
+export const corpDetailCustomerSup: CorpSubModuleCfg = {
   modelNum: ['customer_num', 'supplier_num'],
 }
 
-export const corpDetailCustomer: ICorpSubModuleCfg = {
+export const corpDetailCustomer: CorpSubModuleCfg = {
   modelNum: 'customer_num',
 }
 
-export const corpDetailSupplier: ICorpSubModuleCfg = {
+export const corpDetailSupplier: CorpSubModuleCfg = {
   modelNum: 'supplier_num',
 }

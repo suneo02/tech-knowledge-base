@@ -8,12 +8,14 @@ import { getSHrows } from './rowsByCorpTypeId/SH'
 import { TWrows } from './rowsByCorpTypeId/TW'
 import { corpInfoUsedNamesRow } from './rowsCommon'
 
-export type ICorpBasicInfoFront = CorpBasicInfo & {
+export type CorpBasicInfoFront = CorpBasicInfo & {
   state_zh?: CorpBasicInfo['state']
   collect_flag?: string
 }
 
-export const getCorpInfoRowsByCorpTypeId = (baseInfo: CorpBasicInfo): HorizontalTableColumns<ICorpBasicInfoFront> => {
+export const getCorpInfoRowsByCorpTypeId = (
+  baseInfo: Partial<CorpBasicInfo>
+): HorizontalTableColumns<CorpBasicInfoFront> => {
   const SHrows = getSHrows(baseInfo)
   const corptypeid = baseInfo.corp_type_id || '--'
   if (wftCommon.corpState_shList.indexOf(wftCommon.corpFroms[corptypeid]) > -1) {
@@ -79,7 +81,7 @@ export const getCorpInfoRowsByCorpTypeId = (baseInfo: CorpBasicInfo): Horizontal
 /**
  * 处理 企业详情工商信息 rows 的默认渲染
  */
-export const handleCorpInfoRowsDefaultRender = (rows: HorizontalTableColumns<ICorpBasicInfoFront>) => {
+export const handleCorpInfoRowsDefaultRender = (rows: HorizontalTableColumns<CorpBasicInfoFront>) => {
   rows.map((row) => {
     row.map((item) => {
       if (!item.render) {

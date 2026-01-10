@@ -7,7 +7,7 @@
  * - 报告基本信息
  */
 
-import { MessageParsedReportContent } from '@/types';
+import { RPContentAgentMsg } from '@/types';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { PayloadAction } from '@reduxjs/toolkit';
 import type { RPDetailChapter } from 'gel-api';
@@ -42,8 +42,8 @@ export const canonicalReducers = {
     action: PayloadAction<{
       /** 目标章节ID */
       chapterId: string;
-      /** 解析后的消息列表（从 Context 传入） */
-      messages: MessageInfo<MessageParsedReportContent>[];
+      /** Agent 消息列表（原始消息，包含 entity 和 traces） */
+      messages: MessageInfo<RPContentAgentMsg>[];
       /** 关联ID（可选） */
       correlationId?: string;
       /** 是否提取引用数据 */

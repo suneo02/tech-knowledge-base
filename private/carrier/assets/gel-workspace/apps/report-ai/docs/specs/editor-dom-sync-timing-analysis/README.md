@@ -1,4 +1,4 @@
-# 编辑器 DOM 同步性能优化分析
+﻿# 编辑器 DOM 同步性能优化分析
 
 > 📖 本文档遵循 [Issue 文档编写规范](../../../../../docs/rule/issue-doc-rule.md)
 
@@ -35,4 +35,5 @@
 
 - [Issue 文档编写规范](../../../../../docs/rule/issue-doc-rule.md)
 - [性能优化规范](../../../../../docs/rule/performance-rule.md)
-- [TypeScript 编码规范](../../../../../docs/rule/typescript-rule.md)
+- [TypeScript 编码规范](../../../../../docs/rule/code-typescript-style-rule.md)
+

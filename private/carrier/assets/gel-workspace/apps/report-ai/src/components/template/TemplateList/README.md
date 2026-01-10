@@ -1,4 +1,4 @@
-# TemplateList
+﻿# TemplateList
 
 模板列表组件，展示报告模板列表，支持模板预览、删除和使用功能。
 
@@ -84,13 +84,14 @@ TemplateList/
 
 ## 规范遵循
 
-- [React规范](../../../../../docs/rule/react-rule.md)
-- [TypeScript规范](../../../../../docs/rule/typescript-rule.md)
-- [样式规范](../../../../../docs/rule/style-rule.md)
-- [API请求规范](../../../../../docs/rule/api-request-rule.md)
+- [React规范](../../../../../docs/rule/code-react-component-rule.md)
+- [TypeScript规范](../../../../../docs/rule/code-typescript-style-rule.md)
+- [样式规范](../../../../../docs/rule/code-style-less-bem-rule.md)
+- [API请求规范](../../../../../docs/rule/code-api-client-rule.md)
 
 ## 更新记录
 
 | 日期 | 修改人 | 更新内容 |
 |------|--------|----------|
 | 2025-10-30 | Kiro | 新增模板使用公司选择功能，添加弹窗组件和业务逻辑Hook |
+

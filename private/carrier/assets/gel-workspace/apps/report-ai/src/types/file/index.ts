@@ -36,9 +36,7 @@ export type RPFileUnified = RPFile &
 
 export interface RPFileUploaded extends RPFileIdIdentifier {
   fileName?: string;
-  uploadTime: string;
-  /** 文件类型，用于显示不同的图标颜色 */
-  fileType?: 'word' | 'excel' | 'pdf' | 'other';
+  uploadTime?: string;
   /** 上传进度，0-100，100表示完成 */
   uploadProgress?: number;
 }

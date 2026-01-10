@@ -1,5 +1,5 @@
 import { myWfcAjax } from '@/api/common.ts'
-import { TranslatePayload, TranslateResponse } from 'gel-api/*'
+import { TranslatePayload, TranslateResponse } from 'gel-api'
 import { isEn } from 'gel-util/intl'
 import { translateDataWithApi, TranslateServiceOptions, type TranslateResult } from 'gel-util/misc'
 import { wftCommon } from '../utils.tsx'

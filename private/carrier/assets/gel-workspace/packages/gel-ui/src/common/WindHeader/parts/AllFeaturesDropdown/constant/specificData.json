@@ -42,5 +42,28 @@
       "module": "TRADEMARK_SEARCH"
     },
     "iconKey": "TmC"
+  },
+  {
+    "id": "259148",
+    "title": "企业榜单名录",
+    "titleIntl": "259148",
+    "moduleId": "features-title-2",
+    "url": {
+      "target": "module",
+      "module": "FEATURED_SEARCH"
+    },
+    "hot": true,
+    "iconKey": "CertifiedC"
+  },
+  {
+    "id": "395053",
+    "title": "企业资质大全",
+    "titleIntl": "395053",
+    "moduleId": "features-title-2",
+    "url": {
+      "target": "module",
+      "module": "COMPANY_QUALIFICATION"
+    },
+    "iconKey": "SafetyC"
   }
 ]

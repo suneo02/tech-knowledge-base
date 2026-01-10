@@ -7,9 +7,9 @@ import { CorpBasicNumFront } from 'gel-types'
  * to calculate a sum or return a boolean. If `modelNum` is a boolean or array
  * of keys, it evaluates each key's corresponding value from `basicNum`.
  *
- * @param {ICorpTableCfg['modelNum'] | boolean} modelNum - Either a boolean value or the model number(s) to be processed.
+ * @param {CorpTableCfg['modelNum'] | boolean} modelNum - Either a boolean value or the model number(s) to be processed.
  *        If an array, it contains keys referencing values in `basicNum`. Can also include boolean values.
- * @param {ICorpBasicNumFront} basicNum - An object containing numeric values corresponding to the keys from `modelNum`.
+ * @param {CorpBasicNumFront} basicNum - An object containing numeric values corresponding to the keys from `modelNum`.
  * @returns {number | true} - Returns the sum of number values mapped from `modelNum` to `basicNum`.
  *        If the sum is zero and `modelNum` includes `true`, it returns `true`. Otherwise, returns 0 or the computed sum.
  */

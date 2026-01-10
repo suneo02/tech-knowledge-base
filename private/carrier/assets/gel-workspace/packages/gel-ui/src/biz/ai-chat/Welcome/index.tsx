@@ -10,9 +10,10 @@ export * from './WelcomeSuper'
 interface WelcomeProps {
   size?: 'normal' | 'small'
   className?: string
+  customRoleText?: string
 }
 
-export const WelcomeSection: React.FC<WelcomeProps> = ({ size = 'normal', className }) => {
+export const WelcomeSection: React.FC<WelcomeProps> = ({ size = 'normal', className, customRoleText }) => {
   const innerStyles =
     size === 'normal'
       ? {
@@ -47,7 +48,7 @@ export const WelcomeSection: React.FC<WelcomeProps> = ({ size = 'normal', classN
         <div className={styles['welcome-description']} style={{ color: '#666' }}>
           我是
           <SuperListGradientText> Alice </SuperListGradientText>
-          ，是你的商业查询智能助手
+          ，{customRoleText || '是你的商业查询智能助手'}
         </div>
       }
       styles={innerStyles}

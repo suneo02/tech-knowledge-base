@@ -1,6 +1,6 @@
 import { getPayInvoice } from '@/api/userApi'
 import { TableProps } from '@wind//wind-ui-table'
-import { UserOrder } from 'gel-api/*'
+import { UserOrder } from 'gel-api'
 import React from 'react'
 import intl from '../../../utils/intl'
 
@@ -97,7 +97,7 @@ export const useOrderColumns = ({
               data-uc-id="j3hJ-Qe3l"
               data-uc-ct="span"
             >
-              {intl('307843', '发票信息')}
+              {intl('478673', '发票信息')}
             </span>
           )
         }
@@ -115,7 +115,7 @@ export const useOrderColumns = ({
               data-uc-id="cjaeHRIeEL"
               data-uc-ct="span"
             >
-              {intl('517997', '补开发票')}
+              {intl('478684', '补开发票')}
             </span>
           )
         }

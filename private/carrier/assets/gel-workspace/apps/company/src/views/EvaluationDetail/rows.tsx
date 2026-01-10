@@ -12,7 +12,7 @@ export const evaluationDetailRows = {
       columns: [
         [
           {
-            title: intl('370006', '标的物名称'),
+            title: intl('478694', '标的物名称'),
             dataIndex: 'subjectName',
             colSpan: 5,
             contentAlign: 'left',
@@ -28,7 +28,7 @@ export const evaluationDetailRows = {
             titleAlign: 'left',
           },
           {
-            title: intl('370007', '标的物类型'),
+            title: intl('478685', '标的物类型'),
             dataIndex: 'propertyType',
             colSpan: 2,
             contentAlign: 'left',
@@ -44,7 +44,7 @@ export const evaluationDetailRows = {
             titleAlign: 'left',
           },
           {
-            title: intl('370008', '确定参考价方式'),
+            title: intl('469544', '确定参考价方式'),
             dataIndex: 'deterRefer',
             colSpan: 2,
             contentAlign: 'left',
@@ -63,7 +63,7 @@ export const evaluationDetailRows = {
             titleAlign: 'left',
           },
           {
-            title: intl('370009', '原文'),
+            title: intl('478695', '原文'),
             dataIndex: 'rowkey',
             colSpan: 2,
             contentAlign: 'left',
@@ -98,7 +98,7 @@ export const evaluationDetailRows = {
           },
         },
         {
-          title: intl('370010', '角色名称'),
+          title: intl('478686', '角色名称'),
           dataIndex: 'companyName',
           contentAlign: 'left',
           titleAlign: 'left',
@@ -113,7 +113,7 @@ export const evaluationDetailRows = {
           },
         },
         {
-          title: intl('370011', '角色类型'),
+          title: intl('478687', '角色类型'),
           dataIndex: 'roleName',
           contentAlign: 'left',
           titleAlign: 'left',
@@ -121,7 +121,7 @@ export const evaluationDetailRows = {
         },
       ],
       horizontal: false,
-      name: intl('370012', '角色信息'),
+      name: intl('478688', '角色信息'),
     },
     orgs: {
       columns: [
@@ -229,7 +229,7 @@ export const evaluationDetailRows = {
           },
         },
         {
-          title: intl('370010', '角色名称'),
+          title: intl('478686', '角色名称'),
           dataIndex: 'companyName',
           contentAlign: 'left',
           titleAlign: 'left',
@@ -244,7 +244,7 @@ export const evaluationDetailRows = {
           },
         },
         {
-          title: intl('370011', '角色类型'),
+          title: intl('478687', '角色类型'),
           dataIndex: 'roleName',
           contentAlign: 'left',
           titleAlign: 'left',
@@ -252,7 +252,7 @@ export const evaluationDetailRows = {
         },
       ],
       horizontal: false,
-      name: intl('370012', '角色信息'),
+      name: intl('478688', '角色信息'),
     },
     orgs: {
       columns: [

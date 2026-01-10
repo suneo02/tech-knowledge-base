@@ -33,7 +33,7 @@ export const ReportEditor = forwardRef<ReportEditorRef, ReportEditorProps>(
       loading,
       textRewriteState,
       onTextRewriteDecision,
-      loadingChapters = [],
+      aigcLoadingChapters = [],
     },
     ref
   ) => {
@@ -59,12 +59,24 @@ export const ReportEditor = forwardRef<ReportEditorRef, ReportEditorProps>(
 
     // 使用外部组件渲染器 hook
     // 外部组件（AIGC 按钮、Loading 指示器）完全由内部状态和 props 驱动，无需暴露手动渲染接口
-    const { renderComponents, initializeHoverDetection } = useExternalComponentRenderer(editorFacadeRef, {
-      onStop: onStopGenerating,
-      onAIGCButtonClick,
-      aigcButtonDisabled,
-      chapterLoadingChapters: loadingChapters,
-    });
+    const { renderComponents, initializeHoverDetection, registerRenderer, requestRender } =
+      useExternalComponentRenderer(editorFacadeRef, {
+        onStop: onStopGenerating,
+        onAIGCButtonClick,
+        aigcButtonDisabled,
+        aigcLoadingChapters,
+      });
+
+    // AIGC 流式生成时自动滚动
+    // const { scrollToGenerating, userHasScrolled } = useAutoScrollOnStreaming(editorFacadeRef, {
+    //   activeChapters: aigcLoadingChapters,
+    //   registerRenderer,
+    //   requestRender,
+    // });
+
+    // TODO: 暴露 scrollToGenerating 和 userHasScrolled 给父组件
+    // 父组件可以根据 userHasScrolled 显示"跳转到生成位置"按钮
+    // 并调用 scrollToGenerating() 执行跳转
 
     // 根据 readonly 切换编辑器模式（design/readonly）
     useEffect(() => {

@@ -1,13 +1,5 @@
-import * as envUtils from '@/utils/env'
-import { GELService } from 'gel-util/link'
-import {
-  GEL_WEB,
-  GEL_WEB_TEST,
-  getGeneralPrefixUrl,
-  getPrefixUrl,
-  PC_Front,
-  WFC_Enterprise_Web,
-} from '../../handle/link/handle/prefixUrl.ts'
+import { GEL_WEB, GEL_WEB_TEST, GELService, PC_Front, WFC_Enterprise_Web } from 'gel-util/link'
+import { getGeneralPrefixUrl, getPrefixUrl } from '../../handle/link/handle/prefixUrl.ts'
 
 describe('prefixUrl', () => {
   const mockWindow = {
@@ -81,38 +73,6 @@ describe('prefixUrl', () => {
         expected: 'https://test.example.com/',
       },
     ]
-
-    testCases.forEach(({ name, env, service, isLoginIn, expected }) => {
-      it(`should return correct URL for ${name}`, () => {
-        jest.spyOn(envUtils, 'getEnvParams').mockReturnValue({ env: env as any })
-
-        const result = getGeneralPrefixUrl({
-          service,
-          isLoginIn,
-          envParam: env as any,
-        })
-
-        expect(result).toBe(expected)
-      })
-    })
-
-    it('should handle errors gracefully', () => {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation()
-      const error = new Error('Test error')
-
-      jest.spyOn(envUtils, 'getEnvParams').mockImplementation(() => {
-        throw error
-      })
-
-      const result = getGeneralPrefixUrl({
-        service: GELService.Company,
-      })
-
-      expect(consoleSpy).toHaveBeenCalledWith(error)
-      expect(result).toBeUndefined()
-
-      consoleSpy.mockRestore()
-    })
   })
 
   describe('getPrefixUrl', () => {

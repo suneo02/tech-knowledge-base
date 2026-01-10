@@ -1,5 +1,5 @@
 import { Checkbox } from '@wind/wind-ui'
-import { CDEFilterItem } from 'gel-api/*'
+import { CDEFilterItem } from 'gel-api'
 import React, { FC, useMemo } from 'react'
 
 export const CheckBoxGroupForOptionViewport: FC<{

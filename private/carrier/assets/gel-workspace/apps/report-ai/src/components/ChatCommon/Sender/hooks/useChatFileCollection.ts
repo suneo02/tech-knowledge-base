@@ -1,9 +1,8 @@
+import { FileUploadSuccessCallback } from '@/components/File/UploadFileBtn';
 import { RPFileUploaded } from '@/types';
 import { message } from 'antd';
 import { RPFileIdIdentifier } from 'gel-api';
 import { useCallback, useReducer } from 'react';
-import { detectFileType } from '../../../File/FileItem/utils';
-import { FileUploadSuccessCallback } from '@/components/File/UploadFileBtn';
 
 /** 最大文件上传数量 */
 // 默认最大文件数量（可通过参数覆盖）
@@ -23,7 +22,7 @@ interface ChatFileCollectionState {
  * 上传管理器 Action 类型
  */
 type ChatFileCollectionAction =
-  | { type: 'UPLOAD_START'; payload: RPFileIdIdentifier & { fileName: string; fileType?: string } }
+  | { type: 'UPLOAD_START'; payload: RPFileIdIdentifier & { fileName: string } }
   | { type: 'UPLOAD_PROGRESS'; payload: RPFileIdIdentifier & { progress: number } }
   | { type: 'UPLOAD_SUCCESS'; payload: { file: RPFileUploaded; matchingFileId?: string } }
   | { type: 'UPLOAD_ERROR'; payload: RPFileIdIdentifier }
@@ -39,13 +38,12 @@ const chatFileCollectionReducer = (
 ): ChatFileCollectionState => {
   switch (action.type) {
     case 'UPLOAD_START': {
-      const { fileId, fileName, fileType } = action.payload;
+      const { fileId, fileName } = action.payload;
 
       const uploadingFile: RPFileUploaded = {
         fileId,
         fileName,
         uploadTime: new Date().toISOString(),
-        fileType: detectFileType(fileType, fileName),
         uploadProgress: 1, // 开始时设置为 1%，表示上传已开始
       };
 
@@ -87,7 +85,6 @@ const chatFileCollectionReducer = (
                     ...file,
                     uploadProgress: 100,
                     uploadTime: f.uploadTime,
-                    fileType: f.fileType,
                   }
                 : f
             ),
@@ -197,7 +194,7 @@ export const useChatFileCollection = (
 
   // 开始文件上传 - 添加上传中的文件项
   const handleUploadStart = useCallback(
-    (fileName: string, fileType?: string) => {
+    (fileName: string) => {
       // 检查文件数量限制
       if (state.files.length >= maxFileCount) {
         message.warning(`最多可上传${maxFileCount}个文件`);
@@ -207,7 +204,7 @@ export const useChatFileCollection = (
       const fileId = `uploading-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       dispatch({
         type: 'UPLOAD_START',
-        payload: { fileId, fileName, fileType },
+        payload: { fileId, fileName },
       });
 
       return fileId;

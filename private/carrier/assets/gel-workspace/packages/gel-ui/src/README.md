@@ -1,4 +1,4 @@
-# GEL UI 组件库源码
+﻿# GEL UI 组件库源码
 
 提供企业级 AI 应用所需的基础组件、业务组件和工具函数，支持金融、ESG、企业服务等场景。
 
@@ -108,9 +108,9 @@ gel-ui/src/
 
 - [业务组件使用指南](./biz/ai-chat/README.md) - AI 对话组件详细说明
 - [Agent 请求服务文档](./service/agentRequest/README.md) - AI Agent 请求处理
-- [组件开发规范](../../../docs/rule/react-rule.md) - React 组件开发规范
-- [样式规范](../../../docs/rule/style-rule.md) - Less Module 样式指南
-- [测试规范](../../../docs/rule/testing-rule.md) - 组件测试指南
+- [组件开发规范](../../../docs/rule/code-react-component-rule.md) - React 组件开发规范
+- [样式规范](../../../docs/rule/code-style-less-bem-rule.md) - Less Module 样式指南
+- [测试规范](../../../docs/rule/code-testing-vitest-storybook-rule.md) - 组件测试指南
 
 ## 使用示例
 

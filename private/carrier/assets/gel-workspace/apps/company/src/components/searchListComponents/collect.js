@@ -69,7 +69,7 @@ class Collect extends React.Component {
     } else {
       deleteCollect({ CompanyCode: code, groupId: 'all' }).then((res) => {
         if (res.Data == true) {
-          message.success(intl('138853', '取消收藏'), 2)
+          message.success(intl('257657', '取消收藏'), 2)
           if (this.props.from == 'detail') {
             this.props.close()
             this.props.change(false)
@@ -140,7 +140,7 @@ class Collect extends React.Component {
           data-uc-id="MudbqxW7G96"
           data-uc-ct="modal"
         >
-          <div className="warn-layer-msg">{intl('138853', '取消收藏')}?</div>
+          <div className="warn-layer-msg">{intl('257657', '取消收藏')}?</div>
         </Modal>
         {this.props.from == 'detail' ? null : (
           <Button onClick={this.changeStatus} data-uc-id="XNxevhSWwTs" data-uc-ct="button">

@@ -3,35 +3,24 @@ import './App.css'
 import { RouterProvider } from 'react-router-dom'
 import router from './router'
 import { ConfigProvider } from 'antd'
-// import '@wind/chart-builder/lib/WCBChart/style/css'
+import { DEFAULT_WIND_THEME } from './theme'
+import { CellRegistryProvider } from '@/components/CellRegistry'
+import ErrorBoundary from '@/components/ErrorBoundary'
+import { useEffect } from 'react'
+import { fetchUserInfo, useAppDispatch } from './store'
 
 function App() {
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(fetchUserInfo())
+  }, [dispatch])
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: 'red',
-        },
-        components: {
-          Typography: {
-            colorLink: 'var(--font-color-1)',
-            colorLinkHover: 'var(--click-5)',
-            colorLinkActive: 'var(--click-7)',
-          },
-          Table: {
-            headerBorderRadius: 0,
-            headerBg: 'var(--basic-13)',
-          },
-          Pagination: {
-            borderRadius: 2,
-            colorPrimary: 'var(--click-6)',
-            colorPrimaryHover: 'var(--click-6)',
-            colorPrimaryActive: 'var(--click-6)',
-          },
-        },
-      }}
-    >
-      <RouterProvider router={router} />
+    <ConfigProvider theme={{ ...DEFAULT_WIND_THEME }}>
+      <CellRegistryProvider>
+        <ErrorBoundary>
+          <RouterProvider router={router} />
+        </ErrorBoundary>
+      </CellRegistryProvider>
     </ConfigProvider>
   )
 }

@@ -3,7 +3,7 @@ import { CorpAreaCode } from 'gel-types'
 /**
  * 前端自己维护的 海外国家 枚举
  */
-export type TCorpArea =
+export type CorpArea =
   | 'america'
   | 'canada'
   | 'singapore'
@@ -22,7 +22,7 @@ export type TCorpArea =
   | 'russia'
   | 'other'
   | ''
-export const TCorpAreaCodeMap: Partial<Record<CorpAreaCode, TCorpArea>> = {
+export const CorpAreaCodeMap: Partial<Record<CorpAreaCode, CorpArea>> = {
   '180401': 'america',
   '180402': 'canada',
   '180101': 'singapore',
@@ -41,8 +41,11 @@ export const TCorpAreaCodeMap: Partial<Record<CorpAreaCode, TCorpArea>> = {
   '180235': 'russia',
 }
 
-export function getOverSea(areaCode: CorpAreaCode): TCorpArea | '' {
+export function getCorpAreaByAreaCode(areaCode?: CorpAreaCode): CorpArea | '' {
   try {
+    if (!areaCode) {
+      return ''
+    }
     const area = ''
     if (areaCode[0] + areaCode[1] !== '18') {
       return area
@@ -51,8 +54,8 @@ export function getOverSea(areaCode: CorpAreaCode): TCorpArea | '' {
     // 又大写，又小写，又缩写，真的人才 吐槽by Calvin
 
     // 如果 code 存在 map 中，直接返回
-    if (TCorpAreaCodeMap[areaCode]) {
-      return TCorpAreaCodeMap[areaCode]
+    if (CorpAreaCodeMap[areaCode]) {
+      return CorpAreaCodeMap[areaCode]
     }
     return 'other'
   } catch (e) {

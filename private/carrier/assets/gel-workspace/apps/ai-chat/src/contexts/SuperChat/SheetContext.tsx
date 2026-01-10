@@ -2,7 +2,7 @@ import * as VTable from '@visactor/vtable'
 import { CellAddress } from '@visactor/vtable-editors'
 import { SearchComponent } from '@visactor/vtable-search'
 import { useSetState } from 'ahooks'
-import { createContext, ReactNode, useCallback, useContext, useRef, useState } from 'react'
+import { createContext, ReactNode, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { ISheetInfo, useTableContext } from './TableContext'
 import { fetchPoints, useAppDispatch } from '@/store'
 import { createWFCSuperlistRequestFcs } from '@/api'
@@ -74,6 +74,10 @@ export interface SheetContextState {
    * @param sheetId 要删除的 SheetId（字符串形式）
    */
   deleteSheet: (sheetId: string) => Promise<void>
+  /** 是否正在执行插入表格操作（用于全局互斥） */
+  isInsertTableInProgress: boolean
+  /** 设置插入表格操作状态 */
+  setInsertTableInProgress: (inProgress: boolean) => void
 }
 
 export const SheetContext = createContext<SheetContextState | undefined>(undefined)
@@ -104,6 +108,7 @@ export const SheetProvider = ({ children, activeSheetId, setActiveSheetId }: She
   const pendingActions = useRef<Record<string, ((element: VTable.ListTable) => void)[]>>({})
   const clearFns = useRef<Record<string, () => void>>({})
   const dispatch = useAppDispatch()
+  const [isInsertTableInProgress, setInsertTableInProgress] = useState(false)
 
   const registerClearFn = useCallback((tabKey: string, clearFn: (() => void) | null) => {
     if (clearFn) {
@@ -318,11 +323,11 @@ export const SheetProvider = ({ children, activeSheetId, setActiveSheetId }: She
       if (Number.isNaN(idNum)) return
 
       if (!sheetInfos || sheetInfos.length === 0) return
-      // 不允许删除最后一个
-      if (sheetInfos.length <= 1) {
-        console.warn('Cannot delete the last sheet.')
-        return
-      }
+      // @important产品说不需要判断了 不允许删除最后一个
+      // if (sheetInfos.length <= 1) {
+      //   console.warn('Cannot delete the last sheet.')
+      //   return
+      // }
 
       // 取消该 sheet 的所有请求
       cancelAllRequests(sheetId)
@@ -383,7 +388,20 @@ export const SheetProvider = ({ children, activeSheetId, setActiveSheetId }: She
     registerSearchInstance,
     addDataToCurrentSheet,
     deleteSheet,
+    isInsertTableInProgress,
+    setInsertTableInProgress,
   }
+
+  useEffect(() => {
+    Object.values(searchInstances).forEach((instance) => {
+      try {
+        instance?.search('')
+        instance?.clear?.()
+      } catch (error) {
+        console.error('ETableSearch clear searchInstance error:', error)
+      }
+    })
+  }, [activeSheetId, searchInstances])
 
   return <SheetContext.Provider value={value}>{children}</SheetContext.Provider>
 }

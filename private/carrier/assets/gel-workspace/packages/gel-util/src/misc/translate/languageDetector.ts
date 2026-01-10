@@ -1,5 +1,13 @@
 import { SupportedLocale } from '@/intl'
 
+/**
+ * 中文字符正则表达式
+ * 只检测中文字符本身，不包括标点符号
+ * \u4e00-\u9fff: 中日韩统一表意文字（CJK Unified Ideographs）
+ *
+ * 注意：标点符号（如括号、逗号等）不应影响中文检测，
+ * 只要文本中包含中文字符，就认为是中文内容
+ */
 export const CHINESE_CHAR_REGEX = /[\u4e00-\u9fff]/
 
 export type TextDetector = (text: string) => boolean
@@ -8,7 +16,7 @@ const ENGLISH_LETTER_REGEX = /[A-Za-z]/
 
 /**
  * 检测文本是否包含可翻译内容（即是否包含实际的语言文字）
- * 
+ *
  * 此函数用于过滤不需要翻译的内容，排除纯数字、纯符号、空白等。
  * 只有包含中文字符或英文字母的文本才被认为是可翻译的。
  *
@@ -49,12 +57,14 @@ export const detectChinese: TextDetector = (text: string) => CHINESE_CHAR_REGEX.
  * - "张三" -> false (包含中文字符)
  * - "John张三" -> false (包含中文字符)
  */
-export const detectEnglish: TextDetector = (text: string) =>
-  !CHINESE_CHAR_REGEX.test(text) && ENGLISH_LETTER_REGEX.test(text)
+export const detectEnglish: TextDetector = (text: string) => {
+  const plain = text.replace(/<[^>]+>/g, '')
+  return !CHINESE_CHAR_REGEX.test(plain) && ENGLISH_LETTER_REGEX.test(plain)
+}
 
 /**
  * 根据语言环境获取对应的文本检测器
- * 
+ *
  * 根据目标语言返回相应的检测函数，用于判断文本是否已经是目标语言。
  * 这在翻译流程中用于跳过已经是目标语言的文本。
  *
@@ -66,7 +76,7 @@ export const detectEnglish: TextDetector = (text: string) =>
  * const enDetector = getDetectorByLocale('en-US')
  * enDetector('Hello') // true - 是英文
  * enDetector('你好') // false - 不是英文
- * 
+ *
  * const zhDetector = getDetectorByLocale('zh-CN')
  * zhDetector('你好') // true - 是中文
  * zhDetector('Hello') // false - 不是中文

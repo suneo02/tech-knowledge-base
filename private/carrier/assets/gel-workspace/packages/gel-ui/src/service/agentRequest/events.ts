@@ -17,7 +17,7 @@
  * - 更好的 TypeScript 支持：自动推导事件名称和载荷类型
  */
 import type { ChatSendInput } from '@/types/ai-chat-perf'
-import { ChatEntityRecognize, ChatQuestionStatus, ChatTraceItem } from 'gel-api'
+import { ChatEntityRecognize, ChatQuestionStatus, ChatTraceItem, RPResponseProgress } from 'gel-api'
 import type { RuntimeState } from './types'
 
 /**
@@ -43,6 +43,12 @@ export type ProcessEventMap<TInput extends ChatSendInput = ChatSendInput> = {
   'questionDecomposition:error': { error: Error; input: TInput; runtime: RuntimeState }
   'question:received': {
     questions: string[]
+    input: TInput
+    runtime: RuntimeState
+  }
+  'progress:received': {
+    progress: RPResponseProgress
+    questions?: string[]
     input: TInput
     runtime: RuntimeState
   }

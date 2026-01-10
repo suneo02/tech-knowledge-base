@@ -1,0 +1,41 @@
+[
+  {
+    "id": "menu-tree-disabled-nodes",
+    "title": "保留无数据子菜单并输出禁用态",
+    "owner": "AI",
+    "code_paths": [
+      "/apps/company/src/views/Company/menu/handleCorpDetailMenu.tsx",
+      "/apps/company/src/views/Company/menu/type.ts",
+      "/apps/company/src/views/Company/menu/useCorpMenuData.ts"
+    ],
+    "@see": ["/apps/company/docs/specs/menu-empty-disabled/spec-design.md"],
+    "status": "success",
+    "notes": "生成 treeDatas 时保留所有配置项，追加 hasData/disabled 字段并调整数字展示。"
+  },
+  {
+    "id": "corpdetail-menu-props-currentmenus",
+    "title": "调整菜单组件接口以接受 currentMenus 并使用禁用态数据",
+    "owner": "AI",
+    "code_paths": [
+      "/apps/company/src/views/Company/comp/menu/index.tsx",
+      "/apps/company/src/views/CompanyDetail/index.tsx",
+      "/apps/company/src/views/CompanyDetailAIRight/CompanyDetail.tsx"
+    ],
+    "@see": ["/apps/company/docs/specs/menu-empty-disabled/spec-design.md"],
+    "status": "success",
+    "notes": "组件层接入 menuState/searchableTreeDatas，禁用节点不可选中、不可触发滚动或埋点。"
+  },
+  {
+    "id": "menu-disabled-tests",
+    "title": "补充菜单禁用态与搜索/滚动联动测试",
+    "owner": "AI",
+    "code_paths": [
+      "/apps/company/src/views/Company/menu/handleCorpDetailMenu.test.tsx",
+      "/apps/company/src/handle/corp/misc/scroll.ts",
+      "/apps/company/src/views/Company/comp/menu"
+    ],
+    "@see": ["/apps/company/docs/specs/menu-empty-disabled/spec-design.md"],
+    "status": "success",
+    "notes": "覆盖禁用节点输出、默认选中回退、滚动同步忽略禁用节点等场景，新增 Jest 单测。"
+  }
+]

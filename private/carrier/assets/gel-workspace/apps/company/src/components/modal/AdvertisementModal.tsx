@@ -1,7 +1,7 @@
 // 图片弹窗广告
 
 import { getLocalStorageWithExpiry, setLocalStorageWithExpiry } from 'gel-util/storage'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { pointBuriedNew } from '../../api/configApi'
 /**
  * 一个浮动的圆形按钮组件，可以使用JavaScript对象的属性来设置其位置和大小，位置相对于第一个开启定位的父元素。
@@ -80,7 +80,7 @@ const Advertisement = ({
     top: 262,
   },
   onJump,
-  onClose,
+  onClose = undefined,
 }) => {
   const [showAd, setShowAd] = useState(true)
 

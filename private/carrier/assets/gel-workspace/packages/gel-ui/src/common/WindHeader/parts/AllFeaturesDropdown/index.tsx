@@ -36,7 +36,11 @@ export const AllFeaturesDropdown = ({
 }: AllFeaturesDropdownProps) => {
   const isTerminal = usedInClient()
 
-  const list = allFeatureListWithMenu
+  const list = allFeatureListWithMenu.filter((menu) => {
+    const m = menu as unknown as AllFeatureItem
+    if (isOverseas && m.hideInOverseas) return false
+    return true
+  })
 
   const isVisibleWithoutDev = (item: AllFeatureItem) => {
     if (item.disabled) return false
@@ -117,8 +121,11 @@ export const AllFeaturesDropdown = ({
                     {child.iconKey ? getIcon(child.iconKey as string) : null}
                   </div>
 
-                  <span className={styles[`${PREFIX}-mega-text`]} title={t(child.titleIntl, child.title)}>
-                    {t(child.titleIntl, child.title)}
+                  <span
+                    className={styles[`${PREFIX}-mega-text`]}
+                    title={t(`windHeader:${child.titleIntl}`, child.title)}
+                  >
+                    {t(`windHeader:${child.titleIntl}`, child.title)}
                   </span>
                   <span className={styles[`${PREFIX}-badge-group`]}>
                     {child.new && (

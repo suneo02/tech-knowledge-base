@@ -1,4 +1,5 @@
-import { isBaiFenTerminalOrWeb, isDev } from '@/utils/env'
+import { isDev } from '@/utils/env'
+import { isBaiFenTerminalOrWeb } from '@/utils/utilCallWftCommon'
 import React, { Suspense, lazy, useMemo } from 'react'
 import { hashParams } from '../../utils/links/index'
 

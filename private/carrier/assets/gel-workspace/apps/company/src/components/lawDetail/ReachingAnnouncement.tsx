@@ -1,7 +1,8 @@
+import { handleJumpTerminalCompatibleAndCheckPermission } from '@/handle/link'
 import { Card } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
 import { generateUrlByModule, LinkModule } from 'gel-util/link'
-import React from 'react'
+import { ComponentProps } from 'react'
 import { usePageTitle } from '../../handle/siteTitle'
 import { wftCommon } from '../../utils/utils'
 
@@ -52,15 +53,23 @@ function ReachingAnnouncement(props) {
                   params: { companycode: ele.id },
                 })
                 return linkUrl ? (
-                  <a href={linkUrl} target="_blank" rel="noreferrer" data-uc-id="GqKR4mPS7D" data-uc-ct="a">
+                  <a
+                    href={linkUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleJumpTerminalCompatibleAndCheckPermission(linkUrl)
+                    }}
+                    data-uc-id="GqKR4mPS7D"
+                    data-uc-ct="a"
+                  >
                     {text}
                   </a>
                 ) : (
                   text
                 )
               })
-              // return <a href={"./companyDetail?needtoolbar=1&companycode=" + item.id}>{item.name}</a>
-              // return item.name
             },
             contentAlign: 'left',
             titleAlign: 'left',
@@ -100,8 +109,7 @@ function ReachingAnnouncement(props) {
         loading={isLoading}
         title={null}
         size={'default'}
-        // @ts-expect-error ttt
-        rows={rows.concat(parties).concat(append)}
+        rows={rows.concat(parties).concat(append) as ComponentProps<typeof HorizontalTable>['rows']}
         dataSource={info}
         data-uc-id="yMl8-CWJeR"
         data-uc-ct="horizontaltable"

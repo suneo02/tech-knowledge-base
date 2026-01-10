@@ -1,6 +1,10 @@
 import { WindSessionHeader } from 'gel-util/env'
 
-export type DevLocalStorageKey = typeof WindSessionHeader | 'GEL_API_PREFIX_DEV'
+export type DevLocalStorageKey =
+  | typeof WindSessionHeader
+  | 'GEL_API_PREFIX_DEV'
+  | 'GEL_DEV_PERMISSION'
+  | 'GEL_DEV_OVERSEAS'
 
 export const loaclDevManager = {
   get(key: DevLocalStorageKey) {

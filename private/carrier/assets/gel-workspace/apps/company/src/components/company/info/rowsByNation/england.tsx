@@ -3,10 +3,10 @@ import { corpInfoAnotherNameRow } from '@/components/company/info/rowsCommon/nam
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
-import { ICorpBasicInfoFront } from '../handle.tsx'
+import { CorpBasicInfoFront } from '../handle.tsx'
 import { corpInfoRegAddressRow } from '../rowsCommon/index.ts'
 
-export const englandRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const englandRows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [{ title: intl('138677', '企业名称'), dataIndex: 'corp_name', colSpan: 5 }],
   [corpInfoAnotherNameRow],
   [
@@ -31,7 +31,7 @@ export const englandRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       },
     },
     {
-      title: intl('206125', '关闭/解散日期'),
+      title: intl('448330', '关闭/解散日期'),
       dataIndex: 'cancel_date',
       colSpan: 2,
       render: (txt) => {
@@ -41,7 +41,7 @@ export const englandRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   ],
   [
     {
-      title: intl('', '经营范围（SIC）'),
+      title: intl('448331', '经营范围（SIC）'),
       dataIndex: 'business_scope',
       colSpan: 5,
       render: industry_oversea_render,

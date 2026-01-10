@@ -1,12 +1,11 @@
-import { ICorpPrimaryModuleCfg, ICorpSubModuleCfg } from '@/components/company/type'
+import { getIfBondCorpByBasicNum, getIfIPOCorpByBasicNum } from '@/domain/corpDetail'
 import { getCorpModuleNum } from '@/handle/corp/basicNum/handle.tsx'
-import { getIfBondCorpByBasicNum, getIfIPOCorpByBasicNum } from '@/views/Company/handle/corpBasicNum.ts'
-import { Card, Col, Row } from '@wind/wind-ui'
+import { CorpPrimaryModuleCfg, CorpSubModuleCfg } from '@/types/corpDetail'
 import Table from '@wind/wind-ui-table'
 import { TCorpDetailSubModule } from 'gel-types'
 import React, { memo, useMemo } from 'react'
 import intl from '../../utils/intl'
-import { wftCommon } from '../../utils/utils'
+import PublicFundSize from './buss/fund/PublicFundSize'
 import { CorpModuleNum } from './detail/comp/CorpNum'
 import { CompanyBaseYProps } from './type/companyBaseY'
 
@@ -14,31 +13,23 @@ const { HorizontalTable } = Table
 const WCBChartComp = () => React.lazy(() => import('./WcbChartDiv'))
 // 这里如果放到具体组件里 父组件属性变动会造成重复渲染，必须拿出来
 const WCBChartCss = memo(WCBChartComp())
+const FinancialDataRegionToggleComp = () => React.lazy(() => import('./buss/financial/FinancialDataRegionToggle'))
+const FinancialDataRegionToggleCss = memo(FinancialDataRegionToggleComp())
 
 export const useTablesGel = (params: {
   props: CompanyBaseYProps
-  corpModuleCfg: ICorpPrimaryModuleCfg[]
-  renderTableDom: (corpModuleSubCfg: ICorpSubModuleCfg, eachTableKey, tables) => void
+  corpModuleCfg: CorpPrimaryModuleCfg[]
+  renderTableDom: (
+    corpModuleSubCfg: CorpSubModuleCfg,
+    eachTableKey: TCorpDetailSubModule | 'moduleTitle',
+    tables
+  ) => void
   fundSizeDataPie: any
   fundSizeData: any
-  privateFundBase: any
-  privateFundProduct: any
-  privateFundProductFormance: any
   companyid: string
   isWidthLessThan985: boolean
 }) => {
-  const {
-    props,
-    corpModuleCfg,
-    renderTableDom,
-    fundSizeDataPie,
-    fundSizeData,
-    privateFundBase,
-    privateFundProduct,
-    privateFundProductFormance,
-    companyid,
-    isWidthLessThan985,
-  } = params
+  const { props, corpModuleCfg, renderTableDom, fundSizeDataPie, fundSizeData, companyid, isWidthLessThan985 } = params
   const { basicNum } = props
   return useMemo(() => {
     if (!props.singleModuleId) {
@@ -72,19 +63,13 @@ export const useTablesGel = (params: {
             ) {
               break
             }
-            if (
-              corpModulePrimaryCfg.showPrivateFundInfo &&
-              (!props.corpCategory || props.corpCategory.indexOf('privatefund') == -1)
-            ) {
-              break
-            }
             if (corpModulePrimaryCfg.showIpoYield && (!props.corpCategory || props.corpCategory.indexOf('ipo') == -1)) {
               break
             }
 
             // 只渲染当前指定的模块
             const eachTableKey = moduleId
-            let corpModuleSubCfg = corpModulePrimaryCfg[eachTableKey] as ICorpSubModuleCfg
+            let corpModuleSubCfg = corpModulePrimaryCfg[eachTableKey] as CorpSubModuleCfg
 
             // 处理特殊模块配置
             if (
@@ -153,13 +138,6 @@ export const useTablesGel = (params: {
               continue
             }
           }
-          if (corpModulePrimaryCfg.showPrivateFundInfo) {
-            // 私募基金模块， 如果当前企业非私募基金类型，直接跳过
-            if (!props.corpCategory || props.corpCategory.indexOf('privatefund') == -1) {
-              currentModuleIsEmpty = false
-              continue
-            }
-          }
           if (corpModulePrimaryCfg.showIpoYield) {
             // 业务数据模块， 如果当前企业非上市公司，直接跳过
             if (!props.corpCategory || props.corpCategory.indexOf('ipo') == -1) {
@@ -170,144 +148,18 @@ export const useTablesGel = (params: {
           /* ------------------------------------------------------------------------------------------------- */
 
           if (eachTableKey == 'showFundSize') {
-            const pieStr = fundSizeDataPie ? (
-              <Row gutter={16}>
-                <Col span={12}>
-                  <React.Suspense fallback={<div></div>}>
-                    {<WCBChartCss data={fundSizeDataPie.pie} waterMark={false} style={{ height: 400 }} />}
-                  </React.Suspense>
-                </Col>
-                <Col span={12}>
-                  <Table
-                    style={{ marginTop: '32px' }}
-                    key={'fundSizeDataPie'}
-                    columns={[
-                      {
-                        dataIndex: 'fundTypeName',
-                        title: intl('66063', '基金类型'),
-                      },
-                      {
-                        dataIndex: 'assets',
-                        title: intl('18827', '资产净值合计(亿元)'),
-                        align: 'right',
-                      },
-                      {
-                        dataIndex: 'assetsPercentage',
-                        title: intl('105862', '占比'),
-                        align: 'right',
-                        render: (txt, _row) => {
-                          return wftCommon.formatPercent(txt * 100)
-                        },
-                      },
-                    ]}
-                    pagination={false}
-                    dataSource={fundSizeDataPie.list}
-                    data-uc-id="SMNosOT1Fu"
-                    data-uc-ct="table"
-                    data-uc-x={'fundSizeDataPie'}
-                  />
-                </Col>
-              </Row>
-            ) : (
-              ''
-            )
-
+            const tableReady = props.scrollModuleIds.indexOf(eachTableKey) > -1
+            const hasSingleModule = props.singleModuleId && props.singleModuleId.indexOf(eachTableKey) > -1
+            const shouldRenderContent = props.singleModuleId ? hasSingleModule : tableReady
             tables.push(
-              <Card
+              <PublicFundSize
                 key={eachTableKey}
-                className="vtable-container card-fundsize"
-                /*@ts-expect-error ttt*/
-                multiTabId={eachTableKey}
-                divider={'none'}
-                title={intl('37109', '基金规模')}
-              >
-                {' '}
-                {fundSizeDataPie ? pieStr : ''}{' '}
-                {fundSizeData ? (
-                  <React.Suspense fallback={<div></div>}>
-                    {<WCBChartCss data={fundSizeData} waterMark={false} style={{ height: 400 }} />}
-                  </React.Suspense>
-                ) : (
-                  ''
-                )}{' '}
-              </Card>
-            )
-            currentModuleIsEmpty = false
-            continue
-          }
-
-          if (eachTableKey == 'showPrivateFundInfo') {
-            const tableStr = privateFundBase ? (
-              <HorizontalTable
-                bordered={'default'}
-                className=""
-                loading={false}
-                title={<span>{intl('205468', '基本信息')}</span>}
-                rows={privateFundBase.rows}
-                dataSource={privateFundBase.list}
-                data-uc-id="YGlbBuf429"
-                data-uc-ct="horizontaltable"
-              ></HorizontalTable>
-            ) : null
-
-            privateFundBase && tables.push(tableStr)
-
-            const pieStr = privateFundProduct ? (
-              <Row gutter={16}>
-                <Col span={12}>
-                  <React.Suspense fallback={<div></div>}>
-                    {<WCBChartCss data={privateFundProduct.pie} waterMark={false} style={{ height: 400 }} />}
-                  </React.Suspense>
-                </Col>
-                <Col span={12}>
-                  <Table
-                    style={{ marginTop: '12px', marginBottom: '32px' }}
-                    key={'privateFundBasePie'}
-                    columns={[
-                      {
-                        dataIndex: 'strategyType',
-                        title: intl('228375', '产品策略'),
-                      },
-                      {
-                        dataIndex: 'productNumber',
-                        title: intl('2491', '产品数量'),
-                        align: 'right',
-                      },
-                    ]}
-                    pagination={false}
-                    dataSource={privateFundProduct.list}
-                    data-uc-id="9NDynugHth"
-                    data-uc-ct="table"
-                    data-uc-x={'privateFundBasePie'}
-                  />
-                </Col>
-              </Row>
-            ) : null
-
-            tables.push(
-              <Card
-                key={'privateFundProductFormance'}
-                /*@ts-expect-error ttt*/
-                multiTabId={eachTableKey}
-                className="vtable-container private-fund-card"
-                divider={'none'}
-                title={intl('37254', '产品结构')}
-              >
-                {' '}
-                {privateFundProduct ? pieStr : ''}{' '}
-                {privateFundProductFormance ? (
-                  <Table
-                    style={{ marginTop: '12px' }}
-                    key={'privateFundBaseTable'}
-                    columns={privateFundProductFormance.columns}
-                    pagination={false}
-                    dataSource={privateFundProductFormance.list}
-                    data-uc-id="Y28L-uk00H"
-                    data-uc-ct="table"
-                    data-uc-x={'privateFundBaseTable'}
-                  />
-                ) : null}{' '}
-              </Card>
+                eachTableKey={eachTableKey}
+                fundSizeDataPie={fundSizeDataPie}
+                fundSizeData={fundSizeData}
+                shouldRenderContent={shouldRenderContent}
+                ChartComp={WCBChartCss}
+              />
             )
             currentModuleIsEmpty = false
             continue
@@ -323,21 +175,33 @@ export const useTablesGel = (params: {
 
           if (!props.singleModuleId) {
             if (eachTableKey == 'moduleTitle') {
-              tables.push(
-                <div
-                  key={corpModulePrimaryCfg[eachTableKey].moduleKey + '-moduleTitle'}
-                  className={` module-title  module-title-${corpModulePrimaryCfg[eachTableKey].moduleKey} `}
-                >
-                  {corpModulePrimaryCfg[eachTableKey].title}
+              const mk = corpModulePrimaryCfg[eachTableKey].moduleKey
+              const titleNode = (
+                <div key={mk + '-moduleTitle'} className={` module-title  module-title-${mk} `}>
+                  <div>{corpModulePrimaryCfg[eachTableKey].title}</div>
+                  {mk === 'financialData' &&
+                  props.basicNum?.domesticFinancialReportNum > 0 &&
+                  props.basicNum?.overseasFinancialReportNum > 0 ? (
+                    <React.Suspense fallback={<div></div>}>
+                      {
+                        <FinancialDataRegionToggleCss
+                          companycode={props.companycode}
+                          style={{ marginInlineStart: 8 }}
+                          basicNum={props.basicNum}
+                        />
+                      }
+                    </React.Suspense>
+                  ) : null}
                 </div>
               )
+              tables.push(titleNode)
               continue
             }
           }
           // corpModulePrimaryCfg - 每个一级菜单包含的所有模块(大类)
           // eachTableKey - 每个二级菜单也就是独立模块对应的key
           // corpModuleSubCfg - 每个二级菜单对应：这里分两类 一类是包含多个子表的 如：股东信息模块，包含两个子表模块
-          let corpModuleSubCfg: ICorpSubModuleCfg = corpModulePrimaryCfg[eachTableKey] as ICorpSubModuleCfg
+          let corpModuleSubCfg: CorpSubModuleCfg = corpModulePrimaryCfg[eachTableKey] as CorpSubModuleCfg
 
           /**
            * asharelist_num  判断A股上市   >0就是上市，=0就是非上市
@@ -456,8 +320,6 @@ export const useTablesGel = (params: {
     props.singleModuleOrder, // 添加新的依赖
     companyid,
     basicNum,
-    privateFundProduct,
-    privateFundProductFormance,
     isWidthLessThan985,
   ])
 }

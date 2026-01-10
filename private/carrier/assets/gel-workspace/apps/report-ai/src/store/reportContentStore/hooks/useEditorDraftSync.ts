@@ -12,10 +12,10 @@
 import { DocumentChapterNode, parseDocumentChapterTree } from '@/domain/reportEditor';
 import { DebouncedFunc, debounce } from 'lodash-es';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../hooksRedux';
-import { selectBaselineDocHash, selectChapters, selectGlobalOp } from '../selectors';
+import { useRPDetailDispatch, useRPDetailSelector } from '../hooksRedux';
+import { selectBaselineDocHash, selectCanonicalChaptersEnriched, selectGlobalOp } from '../selectors';
 import { selectHasDraftState } from '../selectors/draftTreeSelectors';
-import { rpContentSlice } from '../slice';
+import { rpDetailActions } from '../slice';
 import { calculateContentHash } from '../utils/contentHash';
 
 export interface UseEditorDraftSyncOptions {
@@ -47,17 +47,17 @@ export interface UseEditorDraftSyncReturn {
 export const useEditorDraftSync = (options: UseEditorDraftSyncOptions = {}): UseEditorDraftSyncReturn => {
   const { enabled = true, debounceMs = 100, onError } = options;
 
-  const dispatch = useReportContentDispatch();
+  const dispatch = useRPDetailDispatch();
   const syncingRef = useRef(false);
   const lastSyncAtRef = useRef<number | null>(null);
   const errorRef = useRef<Error | null>(null);
   const enabledRef = useRef(enabled);
 
   // 从 Redux store 获取状态
-  const chapters = useReportContentSelector(selectChapters);
-  const hasDraftState = useReportContentSelector(selectHasDraftState);
-  const globalOperation = useReportContentSelector(selectGlobalOp);
-  const baselineDocHash = useReportContentSelector(selectBaselineDocHash);
+  const chapters = useRPDetailSelector(selectCanonicalChaptersEnriched);
+  const hasDraftState = useRPDetailSelector(selectHasDraftState);
+  const globalOperation = useRPDetailSelector(selectGlobalOp);
+  const baselineDocHash = useRPDetailSelector(selectBaselineDocHash);
 
   // 更新启用状态
   useEffect(() => {
@@ -89,7 +89,7 @@ export const useEditorDraftSync = (options: UseEditorDraftSyncOptions = {}): Use
           // 更新 Redux 状态
           const timestamp = Date.now();
           dispatch(
-            rpContentSlice.actions.handleEditorContentChange({
+            rpDetailActions.handleEditorContentChange({
               currentDocHash,
               timestamp,
               chapterTree,

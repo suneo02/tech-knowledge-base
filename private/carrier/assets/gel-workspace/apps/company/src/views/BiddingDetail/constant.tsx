@@ -116,7 +116,7 @@ export const DETAIL_COLUMNS = {
         },
       },
       {
-        title: intl('228341', '投标保证金'),
+        title: intl('257703', '投标保证金'),
         dataIndex: 'deposit',
         colSpan: 2,
         contentAlign: 'left',
@@ -266,7 +266,7 @@ export const DETAIL_COLUMNS = {
         },
       },
       {
-        title: intl('228341', '投标保证金'),
+        title: intl('257703', '投标保证金'),
         dataIndex: 'deposit',
         colSpan: 2,
         contentAlign: 'left',
@@ -310,7 +310,7 @@ export const DETAIL_COLUMNS = {
         },
       },
       {
-        title: intl('228348', '开标时间'),
+        title: intl('257665', '开标时间'),
         dataIndex: 'bidOpenTime',
         colSpan: 2,
         contentAlign: 'left',
@@ -416,7 +416,7 @@ export const DETAIL_COLUMNS = {
         },
       },
       {
-        title: intl('228341', '投标保证金'),
+        title: intl('257703', '投标保证金'),
         dataIndex: 'deposit',
         colSpan: 2,
         contentAlign: 'left',
@@ -534,7 +534,7 @@ export const DETAIL_COLUMNS = {
     ],
     [
       {
-        title: intl('228352', '中标/成交日期'),
+        title: intl('478653', '中标/成交日期'),
         dataIndex: 'bidWinningTime',
         colSpan: 2,
         contentAlign: 'left',
@@ -544,7 +544,7 @@ export const DETAIL_COLUMNS = {
         },
       },
       {
-        title: intl('228353', '总中标/成交金额'),
+        title: intl('478674', '总中标/成交金额'),
         dataIndex: 'totalTradeAmount',
         colSpan: 2,
         contentAlign: 'left',

@@ -18,7 +18,7 @@ import {
 import classNames from 'classnames'
 import { AIChatHistory, ApiResponseForWFC } from 'gel-api'
 import { LogoSection } from 'gel-ui'
-import { t } from 'gel-util/intl'
+import { isEn, t } from 'gel-util/intl'
 import { useMemo } from 'react'
 import { groupConversation } from './handle'
 import styles from './index.module.less'
@@ -161,7 +161,11 @@ export const ChatConversationBase: React.FC = () => {
   }
 
   return (
-    <div className={classNames(styles.menu)}>
+    <div
+      className={classNames(styles.menu, {
+        [styles['menu--en']]: isEn(),
+      })}
+    >
       <LogoSection logoText={t('466895', '万得企业库Alice')} />
       <span className={styles.description}>{t('453645', 'Hi，我是您的商业查询智能助手')}</span>
       <AddConversationBtn

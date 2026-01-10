@@ -9,6 +9,10 @@ import {
   SubmitTaskRequest,
   SubmitTaskResponse,
   TerminateTaskRequest,
+  GetLatestMiningInfoRequest,
+  GetLatestMiningInfoResponse,
+  GetAreaCodeByCompanyCodeRequest,
+  GetAreaCodeByCompanyCodeResponse,
 } from './types'
 
 /**
@@ -34,5 +38,13 @@ export interface SuperAgentTaskApiPathMap {
   [SUPER_AGENT_API_PATHS.RETRY_TASK]: {
     data: RetryTaskRequest
     response: ApiResponseForWFC<Record<string, never>>
+  }
+  [SUPER_AGENT_API_PATHS.GET_LATEST_MINING_INFO]: {
+    data: GetLatestMiningInfoRequest
+    response: ApiResponseForWFC<GetLatestMiningInfoResponse>
+  }
+  [SUPER_AGENT_API_PATHS.GET_AREA_CODE_BY_COMPANY_CODE]: {
+    data: GetAreaCodeByCompanyCodeRequest
+    response: ApiResponseForWFC<GetAreaCodeByCompanyCodeResponse>
   }
 }

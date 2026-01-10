@@ -1,49 +1,31 @@
 import { request } from '@/api/request'
-import { addSearchHistory, getSearchHistoryAndSlice, deleteSearchHistoryItem } from '@/api/services/history'
+import { addSearchHistory, deleteSearchHistoryItem, getSearchHistoryAndSlice } from '@/api/services/history'
 import { SearchFormProps } from '@/components/searchForm/type'
 
-import { COMPANY, GROUP, PEOPLE, RELATION } from './config'
-import { t } from 'gel-util/intl'
 import {
-  getGroupRecentViewList,
-  addGroupRecentViewItem,
-  clearAllGroupRecentView,
-  deleteGroupRecentViewItem,
-} from '@/api/services/groupRecentView'
-import {
-  getCompanyRecentViewList,
   addCompanyRecentViewItem,
   clearAllCompanyRecentView,
   deleteCompanyRecentViewItem,
+  getCompanyRecentViewList,
 } from '@/api/services/companyRecentView'
 import {
-  getPersonRecentViewList,
+  addGroupRecentViewItem,
+  clearAllGroupRecentView,
+  deleteGroupRecentViewItem,
+  getGroupRecentViewList,
+} from '@/api/services/groupRecentView'
+import {
   addPersonRecentViewItem,
   clearAllPersonRecentView,
   deletePersonRecentViewItem,
+  getPersonRecentViewList,
 } from '@/api/services/personRecentView'
+import { HomeSearchTabKeys } from '@/domain/home'
 import { getUrlByLinkModule, handleJumpTerminalCompatibleAndCheckPermission, LinksModule } from '@/handle/link'
+import { t } from 'gel-util/intl'
 
-export type SearchFormConfig = Pick<
-  SearchFormProps,
-  | 'type'
-  | 'placeHolder'
-  | 'historyAddTiming'
-  | 'pageFlag'
-  | 'onFetchHistory'
-  | 'onAddHistoryItem'
-  | 'onClearHistory'
-  | 'onDeleteHistoryItem'
-  | 'onFetchRecentView'
-  | 'onAddRecentViewItem'
-  | 'onClearRecentView'
-  | 'onDeleteRecentViewItem'
-  | 'onRecentViewItemClick'
-  | 'withLogo'
->
-
-export const searchFormConfigs = {
-  [COMPANY]: {
+export const searchFormConfigs: Record<HomeSearchTabKeys, Partial<SearchFormProps>> = {
+  [HomeSearchTabKeys.Company]: {
     placeHolder: t('455517', '请输入企业名称、注册号或统一社会信用代码'),
     historyAddTiming: 'click',
     pageFlag: 'homeSearch',
@@ -85,7 +67,7 @@ export const searchFormConfigs = {
     },
     withLogo: true,
   },
-  [PEOPLE]: {
+  [HomeSearchTabKeys.People]: {
     placeHolder: t('437322', '请输入法定代表人、股东或高管的完整姓名'),
     historyAddTiming: 'click',
     pageFlag: 'homeSearch',
@@ -126,7 +108,7 @@ export const searchFormConfigs = {
       )
     },
   },
-  [GROUP]: {
+  [HomeSearchTabKeys.Group]: {
     placeHolder: t('437323', '请输入集团系、公司、人名、品牌等关键词'),
     historyAddTiming: 'click',
     pageFlag: 'homeSearch',
@@ -167,7 +149,7 @@ export const searchFormConfigs = {
       )
     },
   },
-  [RELATION]: {
+  [HomeSearchTabKeys.Relation]: {
     type: 'multi',
     historyAddTiming: 'click',
     placeHolder: t('315909', '请输入公司名称'),
@@ -188,4 +170,4 @@ export const searchFormConfigs = {
       await deleteSearchHistoryItem('RELATION_SEARCH', searchKey)
     },
   },
-} as const
+}

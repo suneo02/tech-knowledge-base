@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "node ../../scripts/clean.cjs dist",
     "dev": "vite",
+    "dev:debug": "vite",
     "build": "npm run clean && tsc -b && vite build",
     "build:staging": "npm run clean && tsc -b && vite build --mode staging",
     "lint": "eslint .",
@@ -18,12 +19,13 @@
     "@reduxjs/toolkit": "^2.5.1",
     "@wind/chart-builder": "^1.0.0",
     "@wind/icons": "^1.1.99",
-    "@wind/wind-ui": "4.5.9",
+    "@wind/wind-ui": "^4.5.9",
     "ahooks": "^3.8.5",
-    "antd": "^5.25.4",
+    "antd": "^6.0.0",
     "axios": "^1.12.2",
     "babel-plugin-import": "^1.13.8",
     "classnames": "^2.5.1",
+    "dayjs": "^1.11.13",
     "gel-api": "workspace:*",
     "gel-types": "workspace:*",
     "gel-ui": "workspace:*",
@@ -35,8 +37,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.2.0",
     "rollup-plugin-visualizer": "^5.14.0",
-    "vite-plugin-svgr": "^4.3.0",
-    "dayjs": "^1.11.13"
+    "vite-plugin-svgr": "^4.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

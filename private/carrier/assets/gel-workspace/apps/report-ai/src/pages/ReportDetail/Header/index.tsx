@@ -4,7 +4,7 @@ import {
   selectIsServerLoading,
   selectReportId,
   selectReportName,
-  useReportContentSelector,
+  useRPDetailSelector,
 } from '@/store/reportContentStore';
 import { isDev } from '@/utils';
 import { Button, message, Spin } from '@wind/wind-ui';
@@ -29,10 +29,10 @@ type Props = {
 type FuncExportReport = TRequestToChat<'report/createReportFile'>;
 
 export const ReportDetailHeader: FC<Props> = ({ onShare }) => {
-  const reportId = useReportContentSelector(selectReportId);
-  const reportName = useReportContentSelector(selectReportName);
+  const reportId = useRPDetailSelector(selectReportId);
+  const reportName = useRPDetailSelector(selectReportName);
   const { reportEditorRef } = useReportDetailContext();
-  const isServerLoading = useReportContentSelector(selectIsServerLoading);
+  const isServerLoading = useRPDetailSelector(selectIsServerLoading);
 
   // 模板保存逻辑
   const templateSave = useTemplateSave({

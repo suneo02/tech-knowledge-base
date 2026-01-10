@@ -3,6 +3,7 @@
  * 用于定义 HTML 元素上的自定义 data 属性和 CSS 选择器
  */
 
+import { convertChapterIdToString } from '@/domain/chapter';
 import { SOURCE_MARKER_CONSTANTS } from 'gel-util/common';
 
 export const RP_DATA_ATTRIBUTES = {
@@ -30,8 +31,10 @@ export const RP_DATA_ATTRIBUTES = {
   POSITIONS: SOURCE_MARKER_CONSTANTS.POSITIONS,
   /** 溯源标记-引用ID（全局唯一） - 报告扩展属性 */
   REF_ID: 'data-ref-id',
-  /** 溯源标记-引用类型（dpu/rag） - 报告扩展属性 */
+  /** 溯源标记-引用类型（dpu/rag/file） - 报告扩展属性 */
   REF_TYPE: 'data-ref-type',
+  /** 溯源标记-PDF页码（仅用于 file 类型，同一文件不同引用位置可能有不同页码） - 报告扩展属性 */
+  PAGE_NUMBER: 'data-page-number',
   /** TinyMCE-不导出标记 - TinyMCE 特定属性 */
   MCE_BOGUS: 'data-mce-bogus',
 } as const;
@@ -74,26 +77,6 @@ export const RP_DATA_VALUES = {
  * CSS 类名常量
  */
 export const RP_CSS_CLASSES = {
-  /** 加载占位符类名 */
-  LOADING_PLACEHOLDER: 'loading-placeholder',
-  /** 加载容器类名 */
-  LOADING_CONTAINER: 'loading-container',
-  /** 加载旋转器类名 */
-  LOADING_SPINNER: 'loading-spinner',
-  /** 加载文本类名 */
-  LOADING_TEXT: 'loading-text',
-  /** 加载指示器类名 */
-  LOADING_INDICATOR: 'loading-indicator',
-  /** 内容容器类名 */
-  CONTENT_CONTAINER: 'content-container',
-  /** 待处理状态类名 */
-  LOADING_PENDING: 'loading-container--pending',
-  /** 接收中状态类名 */
-  LOADING_RECEIVING: 'loading-container--receiving',
-  /** 淡入效果类名 */
-  LOADING_FADE_IN: 'loading-fade-in',
-  /** 淡出效果类名 */
-  LOADING_FADE_OUT: 'loading-fade-out',
   /** 溯源标记类名 - 与 gel-util/common SOURCE_MARKER_CONSTANTS.CLASS_NAME 保持一致 */
   SOURCE_MARKER: SOURCE_MARKER_CONSTANTS.CLASS_NAME,
 } as const;
@@ -102,27 +85,9 @@ export const RP_CSS_CLASSES = {
  * CSS 选择器常量
  */
 export const RP_SELECTORS = {
-  /** 查找所有加载状态的容器 */
-  LOADING_CONTAINERS: `[${RP_DATA_ATTRIBUTES.LOADING}="${RP_DATA_VALUES.LOADING_TRUE}"]`,
   /** 查找指定章节 ID 的元素 */
-  CHAPTER_BY_ID: (chapterId: string) => `[${RP_DATA_ATTRIBUTES.CHAPTER_ID}="${chapterId}"]`,
-  /** 查找章节 ID 属性 */
-  CHAPTER_ID_ATTRIBUTE: `[${RP_DATA_ATTRIBUTES.CHAPTER_ID}]`,
-  /** 查找指定章节内的加载容器 */
-  LOADING_IN_CHAPTER: (chapterId: string) =>
-    `[${RP_DATA_ATTRIBUTES.CHAPTER_ID}="${chapterId}"] [${RP_DATA_ATTRIBUTES.LOADING}="${RP_DATA_VALUES.LOADING_TRUE}"]`,
-  /** 查找加载容器（通过类名） */
-  LOADING_CONTAINER_CLASS: `.${RP_CSS_CLASSES.LOADING_CONTAINER}`,
-  /** 查找加载容器（通过属性） */
-  LOADING_CONTAINER_ATTR: `[${RP_DATA_ATTRIBUTES.LOADING_CONTAINER}]`,
+  CHAPTER_BY_ID: (chapterId: string | string) =>
+    `[${RP_DATA_ATTRIBUTES.CHAPTER_ID}="${convertChapterIdToString(chapterId)}"]`,
   /** 查找所有溯源标记 */
   SOURCE_MARKERS: `.${RP_CSS_CLASSES.SOURCE_MARKER}`,
-} as const;
-
-/**
- * 选择器生成工具函数
- */
-export const createSelector = {
-  /** 根据章节 ID 生成选择器 */
-  chapterById: (chapterId: string | number) => RP_SELECTORS.CHAPTER_BY_ID(String(chapterId)),
 } as const;

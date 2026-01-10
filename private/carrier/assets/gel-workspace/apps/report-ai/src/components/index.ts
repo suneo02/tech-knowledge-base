@@ -1,5 +1,4 @@
 export { ChatSenderReport } from './ChatCommon/Sender';
-export { ChatRPLeftMessages } from './ChatRPLeft/messages';
 export { ChatRPOutlineMessages, OperationArea } from './ChatRPOutline';
 export { HomeBtn } from './layout';
 export { SiderMain } from './layout/SiderMain';

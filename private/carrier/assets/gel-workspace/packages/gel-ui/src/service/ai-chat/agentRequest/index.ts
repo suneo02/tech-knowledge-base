@@ -1,5 +1,5 @@
 import { XRequestClass } from '@/service'
-import { AgentMsgDepre, AgentMsgUserShare, ChatSenderHookResultForStream } from '@/types'
+import { AgentMsgOverall, AgentMsgUserOverall, ChatSenderHookResultForStream } from '@/types'
 import { XAgentConfig } from '@ant-design/x/es/use-x-agent'
 import { message as messageApi } from '@wind/wind-ui'
 import { AnyObject } from 'antd/es/_util/type'
@@ -46,8 +46,8 @@ export const createAgentRequestHandler = (dependencies: {
   isFirstQuestionRef: React.MutableRefObject<boolean>
   onRefresh?: () => void
   // stream 流式输出成功时的自定义 transfom 函数
-  transformerOnStreamSucces?: (message: AgentMsgDepre) => Promise<AgentMsgDepre>
-}): XAgentConfig<AgentMsgDepre, RequestFnInfo<AgentMsgUserShare>, AgentMsgDepre>['request'] => {
+  transformerOnStreamSucces?: (message: AgentMsgOverall) => Promise<AgentMsgOverall>
+}): XAgentConfig<AgentMsgOverall, RequestFnInfo<AgentMsgUserOverall>, AgentMsgOverall>['request'] => {
   const {
     axiosChat,
     axiosEntWeb,

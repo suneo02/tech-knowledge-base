@@ -3,11 +3,12 @@ import React from 'react'
 
 import { LinkByRowCompatibleCorpPerson } from '@/components/company/link/CorpOrPersonLink.tsx'
 import { wftCommonType } from '@/utils/WFTCommonWithType'
+import { ColumnProps } from '@wind/wind-ui-table'
 import { ActCtrlTag, BeneficiaryTag, ChangeNameTag, RelatedPartyTag } from 'gel-ui'
 import { t } from 'gel-util/intl'
 import { CorpDetailNoColumn } from '../../common/columns.ts'
 
-const ShareholderNameColumn = {
+const ShareholderNameColumn: ColumnProps = {
   title: intl('138783', '股东名称'),
   dataIndex: 'shareholder_name',
   key: 'shareholder_name',
@@ -27,7 +28,7 @@ const ShareholderNameColumn = {
   ),
 }
 
-export const CountColumn = {
+export const CountColumn: ColumnProps = {
   title: intl('32505', '持股数量'),
   dataIndex: 'number',
   align: 'right',
@@ -36,7 +37,7 @@ export const CountColumn = {
     return wftCommonType.formatMoney(txt)
   },
 }
-const PercentageColumn = {
+const PercentageColumn: ColumnProps = {
   title: intl('337815', '占总股本比例（%）'),
   dataIndex: 'proportion',
   align: 'right',
@@ -51,4 +52,9 @@ const PercentageColumn = {
   },
 }
 
-export const AnnouncementColumns = [CorpDetailNoColumn, ShareholderNameColumn, CountColumn, PercentageColumn]
+export const AnnouncementColumns: ColumnProps[] = [
+  CorpDetailNoColumn,
+  ShareholderNameColumn,
+  CountColumn,
+  PercentageColumn,
+]

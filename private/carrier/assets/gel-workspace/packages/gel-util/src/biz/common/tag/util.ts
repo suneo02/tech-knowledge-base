@@ -42,15 +42,22 @@ export const getPublicSentimentTagColorAndType = (
  * @returns 拆分后的标签列表 排序顺序为：CORP -> INDUSTRY -> LIST -> PRODUCTION
  */
 export const splitTags2ArrByModule = (tags: CorpTag[]): CorpTag[][] => {
+  const investmentTagList: CorpTag[] = []
   const corpTagList: CorpTag[] = []
   const industryTagList: CorpTag[] = []
   const listTagList: CorpTag[] = []
   const productionTagList: CorpTag[] = []
   const riskTagList: CorpTag[] = []
+  const fundTagList: CorpTag[] = []
+  const financingStatusTagList: CorpTag[] = []
 
   tags.forEach((item) => {
     if (item.module === 'CORP') {
-      corpTagList.push(item)
+      if (item.type === 'INVESTMENT_INSTITUTION') {
+        investmentTagList.push(item)
+      } else {
+        corpTagList.push(item)
+      }
     } else if (item.module === 'INDUSTRY') {
       industryTagList.push(item)
     } else if (item.module === 'LIST') {
@@ -59,11 +66,24 @@ export const splitTags2ArrByModule = (tags: CorpTag[]): CorpTag[][] => {
       productionTagList.push(item)
     } else if (item.module === 'RISK') {
       riskTagList.push(item)
+    } else if (item.module === 'FUND') {
+      fundTagList.push(item)
+    } else if (item.module === 'FINANCING_STATUS') {
+      financingStatusTagList.push(item)
     } else {
       console.error('unknown tag module', item)
     }
   })
-  return [corpTagList, industryTagList, listTagList, riskTagList, productionTagList]
+  return [
+    investmentTagList,
+    fundTagList,
+    corpTagList,
+    industryTagList,
+    listTagList,
+    riskTagList,
+    productionTagList,
+    financingStatusTagList,
+  ]
 }
 
 /**

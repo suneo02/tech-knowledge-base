@@ -404,19 +404,6 @@
 
 响应：`ApiResponseForSuperlist<AiRenameConversationResponse>`
 
-### 7. 问句引导
-
-**接口路径**：`chat/questionGuide`
-
-| 参数名      | 类型   | 必填 | 描述     |
-| ----------- | ------ | ---- | -------- |
-| rawSentence | string | 是   | 原始问句 |
-| text        | string | 是   | 语义文本 |
-
-响应：`ApiResponseForSuperlistWithPage<string>`
-
----
-
 ## @credits/
 
 来源：`src/superlist/credits/*`

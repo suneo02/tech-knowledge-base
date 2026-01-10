@@ -1,17 +1,17 @@
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
 
 /**
  * 征信备案
  *
  */
-export const corpDetailInvestigationFiling: ICorpSubModuleCfg = {
+export const corpDetailInvestigationFiling: CorpSubModuleCfg = {
   modelNum: ['companyCreditNum', 'personCreditNum'],
 }
 
-export const corpDetailInvestigationFilingCorp: ICorpSubModuleCfg = {
+export const corpDetailInvestigationFilingCorp: CorpSubModuleCfg = {
   modelNum: 'companyCreditNum',
 }
 
-export const corpDetailInvestigationFilingPerson: ICorpSubModuleCfg = {
+export const corpDetailInvestigationFilingPerson: CorpSubModuleCfg = {
   modelNum: 'personCreditNum',
 }

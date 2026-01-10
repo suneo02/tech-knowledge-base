@@ -4,6 +4,7 @@ export {
   createAgentAIMsgStream,
   createAgentMsgAIDataRetrieval,
   createAgentMsgAIInitBySendInput,
+  createAgentMsgAIProgress,
   createAgentMsgAISubQuestion,
   createChatRunContext,
   createXAgentRequest,
@@ -20,11 +21,11 @@ export {
 } from './agentRequest'
 export {
   cancelChatRequest,
-  createAgentRequestHandler,
   createAIResponseDataRetrieval,
   createAIResponseInit,
   createAIResponseStream,
   createAIResponseSubQuestion,
+  createAgentRequestHandler,
   createChatCore,
   getUserQuestion,
   handleDataRetrieval,

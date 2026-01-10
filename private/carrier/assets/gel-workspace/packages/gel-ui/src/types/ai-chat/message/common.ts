@@ -1,25 +1,32 @@
 import {
   AgentIdentifiers,
+  AgentParam,
+  ChatClientTypeIdentifier,
+  ChatEntityType,
   ChatModelTypeIdentifier,
-  ChatRawSentenceIdentifier,
-  ChatRawSentenceIdIdentifier,
+  ChatReviewSignal,
   ChatThinkSignal,
   DeepSearchSignal,
 } from 'gel-api'
-import { ReactNode } from 'react'
-import { EntityOptions } from '../sender'
 
-/** 所有消息共享的基础属性 */
-export type BaseMessageFields = {
-  /** 消息底部附加内容 */
-  footer?: ReactNode
-} & Pick<AgentIdentifiers, 'agentId'> &
-  ChatThinkSignal &
-  EntityOptions &
-  ChatModelTypeIdentifier &
-  DeepSearchSignal &
-  Partial<ChatRawSentenceIdIdentifier> &
-  Partial<ChatRawSentenceIdentifier>
+/** 实体参数选项 各详情页用 */
+export type EntityOptions = {
+  entityType?: ChatEntityType
+  entityName?: string
+  entityCode?: string
+}
+
+export interface ChatMsgInputOptions
+  extends Pick<AgentIdentifiers, 'agentId'>,
+    ChatThinkSignal,
+    EntityOptions,
+    ChatReviewSignal,
+    ChatClientTypeIdentifier,
+    ChatModelTypeIdentifier,
+    DeepSearchSignal {
+  /** 代理参数 - 代理的具体配置参数 */
+  agentParam?: AgentParam
+}
 
 /** AI消息状态 */
 export type AIMessageStatus = 'pending' | 'receiving' | 'stream_finish' | 'finish'

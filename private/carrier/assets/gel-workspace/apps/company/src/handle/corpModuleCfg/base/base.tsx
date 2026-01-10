@@ -1,53 +1,41 @@
-import { pointBuriedNew } from '@/api/configApi.ts'
 import { getApiPathsUrl } from '@/api/paths'
-import { commonBuryList } from '@/api/pointBuried'
 import Links from '@/components/common/links/Links.tsx'
 import { RightGotoLink } from '@/components/common/RightGotoLink'
 import CompanyLink from '@/components/company/CompanyLink.tsx'
-import { addChangeTag, benfitRender, DetailLink, downLoadExcel, showChain } from '@/components/company/corpCompMisc.tsx'
+import { addChangeTag, DetailLink, downLoadExcel } from '@/components/company/corpCompMisc.tsx'
 import { CHART_HASH } from '@/components/company/intro/charts'
 import { CorpOrPersonLinkWithTag, LinkByRowCompatibleCorpPerson } from '@/components/company/link/CorpOrPersonLink.tsx'
-import { ICorpPrimaryModuleCfg } from '@/components/company/type'
 import LongTxtLabel from '@/components/LongTxtLabel.tsx'
-import { ECorpDetailTable } from 'gel-types'
-import {
-  CompanyDetailShareholderAnnouncementReportCfg,
-  CompanyDetailShareholderAnnouncementUnRegularCfg,
-  corpDetailBaseActualCtrl,
-  corpDetailComapnyNotice,
-  corpDetailFinalBeneficiary,
-  corpDetailFinalBeneficiaryInstitution,
-  corpDetailFinalBeneficiaryOwner,
-  corpDetailFinalBeneficiaryPerson,
-  corpDetailGroup,
-} from '@/handle/corpModuleCfg'
-import { corpDetailDirectInvest } from '@/handle/corpModuleCfg/base/directIntest.tsx'
-import {
-  corpDetailIndustrialRegist,
-  corpDetailLastNotice,
-  corpDetailMainMember,
-} from '@/handle/corpModuleCfg/base/mainMember.ts'
-import { CorpDetailNoColumn } from '@/handle/corpModuleCfg/common/columns.ts'
-import { CompanyDetailMajorShareholderCfg } from '@/handle/corpModuleCfg/Shareholder/major'
+
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
+import { selectCorpNameIntl as selectCorpNameIntlFromRedux } from '@/reducers/company'
+import store from '@/store/store'
+import { CorpPrimaryModuleCfg } from '@/types/corpDetail'
 import { formatCurrency } from '@/utils/common.ts'
 import { isDev } from '@/utils/env'
 import { intlNoNO as intl } from '@/utils/intl'
-import { hashParams } from '@/utils/links'
 import { TooltipMap } from '@/utils/TooltipUtil.ts'
 import { wftCommon } from '@/utils/utils.tsx'
 import { wftCommonType } from '@/utils/WFTCommonWithType'
 import { ArrowDownO, ArrowUpO, DownloadO } from '@wind/icons'
 import { Button } from '@wind/wind-ui'
-import { ActualControllerGroupTag } from 'gel-ui'
-import { t } from 'gel-util/intl'
-import React from 'react'
+import { CorpDetailNoColumn } from '../common/columns'
+import {
+  CompanyDetailShareholderAnnouncementReportCfg,
+  CompanyDetailShareholderAnnouncementUnRegularCfg,
+} from '../Shareholder'
 import { CompanyDetailBJEEShareholderCfg } from '../Shareholder/bjee'
+import { CompanyDetailMajorShareholderCfg } from '../Shareholder/major'
 import { getIndustryColumns } from './baseIndustry/renderIndustry'
-import { ShowShareSearchLayerByMergeSharePath } from './ShowShareSearch/CombinedStatistics'
-import { ShowShareSearchLayerByLayerSharePath } from './ShowShareSearch/showShareSearch'
-
-const { getParamValue } = hashParams()
+import { corpDetailComapnyNotice } from './companyNotice'
+import { corpDetailDirectInvest } from './directIntest'
+import { corpFinalBeneficiary } from './finalBeneficiary'
+import { corpDetailGroup } from './group'
+import { corpDetailIndustrialRegist, corpDetailLastNotice, corpDetailMainMember } from './mainMember'
+import { corpPublishActualController } from './publishActualController'
+import { corpShareSearch } from './shareSearch'
+import { corpDetailBaseActualCtrl } from './showActualController'
+import { corpSuspectedActualController } from './suspectedActualController'
 
 const STRINGS = {
   DESCRIBE: intl(
@@ -59,9 +47,9 @@ const STRINGS = {
   LOW: intl('449774', '3：结合企业主营特征等公开数据分类，具有较低关联性'),
 }
 
-export const base: ICorpPrimaryModuleCfg = {
+export const base: CorpPrimaryModuleCfg = {
   HKCorpInfo: {
-    custom: true,
+    custom: 'HKCorpInfo',
     modelNum: 'hkUnlisted',
   },
   showIndustry: {
@@ -97,121 +85,7 @@ export const base: ICorpPrimaryModuleCfg = {
       '<i><div><span>' +
       intl('372165', '实际控制人指通过投资关系、协议或者其他安排，能够实际支配公司行为的自然人、法人或者其他组织。') +
       '</span></div></i>',
-    children: [
-      {
-        title: intl('312174', '公告披露'),
-        hint: '<i><div><span>' + intl('372190', '企业年报、公告披露的实际控制人。') + '</span></div></i>',
-        cmd: '/detail/company/getcorpactcontrol_publish',
-        thWidthRadio: ['5.2%', '76', '20%'],
-        modelNum: 'actualcontrollerPublishCount',
-        thName: [intl('28846', '序号'), intl('37962', '实际控制人名称'), intl('451217', '持股比例(%)')],
-        align: [1, 0, 2],
-        fields: ['NO.', 'ActControName', 'ActInvestRate'],
-        extraParams: (param) => {
-          return {
-            ...param,
-            __primaryKey: param.companycode,
-          }
-        },
-        columns: [
-          null,
-          {
-            render: (txt, row) => {
-              let module
-              if (row.typeName === 'company') {
-                module = LinksModule.COMPANY
-              }
-              if (row.typeName === 'person') {
-                module = LinksModule.CHARACTER
-              }
-              return (
-                <>
-                  <Links module={module} id={row.ActControId} title={txt} />
-                  {row.actor?.length ? row.actor.map((num) => <ActualControllerGroupTag num={num} intl={t} />) : null}
-                </>
-              )
-            },
-          },
-          {
-            render: (rate, row) => {
-              return showChain(
-                rate,
-                row,
-                {
-                  left: intl('13270', '实际控制人'),
-                  right: intl('138412', '实际持股比例'),
-                },
-                {
-                  api: `detail/company/getcorpactcontrolshareroute/${getParamValue('companycode')}`,
-                  params: { detailId: row.detailId },
-                },
-                {
-                  moduleId: 922602100967,
-                  entity: intl('13270', '实际控制人'),
-                }
-              )
-            },
-          },
-        ],
-      },
-      {
-        title: intl('261456', '疑似实控人'),
-        hint:
-          '<i><div><span>' +
-          intl(
-            '372191',
-            '全球企业库依据股权穿透计算后得出疑似实际控制人，企业在公司章程或股东协议中或许有其他安排，在使用该数据前建议跟企业做进一步核实。数据仅供用户参考，不代表全球企业库的任何明示、暗示之观点或保证。'
-          ) +
-          '</span></div></i>',
-        cmd: '/detail/company/getcorpactcontrol_calc',
-        thWidthRadio: ['5.2%', '76', '20%'],
-        modelNum: 'actualcontrollerCalcCount',
-        thName: [intl('28846', '序号'), intl('298298', '疑似实控人名称'), intl('451217', '持股比例(%)')],
-        align: [1, 0, 2],
-        fields: ['NO.', 'ActControName', 'ActInvestRate'],
-        extraParams: (param) => {
-          return {
-            ...param,
-            __primaryKey: param.companycode,
-          }
-        },
-        columns: [
-          null,
-          {
-            render: (txt, row) => {
-              let module
-              if (row.typeName === 'company') {
-                module = LinksModule.COMPANY
-              }
-              if (row.typeName === 'person') {
-                module = LinksModule.CHARACTER
-              }
-              return <Links title={txt} id={row.ActControId} module={module} />
-            },
-          },
-          {
-            render: (rate, row) => {
-              return showChain(
-                rate,
-                row,
-                {
-                  left: intl('261456', '疑似实控人'),
-                  right: intl('138412', '实际持股比例'),
-                },
-                {
-                  api: `detail/company/getcorpactcontrolshareroute/${getParamValue('companycode')}`,
-                  params: { detailId: row.detailId },
-                },
-                {
-                  moduleId: 922602100967,
-                  entity: intl('261456', '疑似实控人'),
-                }
-              )
-            },
-          },
-        ],
-      },
-    ],
+    children: [corpPublishActualController, corpSuspectedActualController],
     rightLink: (data) => {
       return (
         <span className={'benefitLink'}>
@@ -258,7 +132,7 @@ export const base: ICorpPrimaryModuleCfg = {
       CompanyDetailMajorShareholderCfg,
       CompanyDetailBJEEShareholderCfg,
       {
-        enumKey: ECorpDetailTable.ShareholderBusinessRegistration,
+        enumKey: 'shareholderBusinessRegistration',
         title: intl('312175', '工商登记'),
 
         hint: `<i><div><span>${intl(
@@ -353,112 +227,7 @@ export const base: ICorpPrimaryModuleCfg = {
     },
   },
   /* 股东穿透 */
-  showShareSearch: {
-    cmd: '/detail/company/getshareholdertrace',
-    f9cmd: '/detail/wft/getshareholdertrace',
-    modelNum: undefined,
-    needNoneTable: true,
-    title: intl('228894', '股东穿透'),
-    selName: ['shareSearchLev', 'shareSearchRadio'],
-    thWidthRadio: ['5.2%', '24%', '11%', '11%', '50%'],
-    thName: [
-      intl('28846', '序号'),
-      intl('138783', '股东名称'),
-      intl('451200', '层级'),
-      intl('451217', '持股比例(%)'),
-      intl('231780', '持股路径'),
-    ],
-    align: [1, 0, 1, 2, 0],
-    fields: ['NO.', 'shareholderName', 'level', 'breakThroughPercent', 'path-x'],
-    extraParams: (param) => {
-      return {
-        ...param,
-        __primaryKey: param.companycode,
-        type: 1,
-        percent: '',
-        level: '6',
-      }
-    },
-    columns: [
-      null,
-      {
-        render: (_txt, row) => {
-          /**
-           * 1：有企业编码的企业，则第三位是企业编码
-           * 2：无企业编码的企业，则第三位是企业名
-           * 3：有个人编码的个人，则第三位是个人编码
-           * 4：无个人编码的个人，则第三位是个人名
-           * 5：有基金编码的基金，则第三位是基金编码
-           */
-          return (
-            <LinkByRowCompatibleCorpPerson
-              nameKey={'shareholderName'}
-              idKey={'shareholderId'}
-              typeKey={'typeName'}
-              row={row}
-            />
-          )
-        },
-      },
-      null,
-
-      {
-        render: (txt) => wftCommonType.displayPercent(txt),
-      },
-      {
-        render: (_txt, row) => {
-          return <ShowShareSearchLayerByLayerSharePath row={row} />
-        },
-      },
-    ],
-    typeMergence: {
-      thWidthRadio: ['5.2%', '24%', '11%', '61%'],
-      thName: [
-        intl('28846', '序号'),
-        intl('138783', '股东名称'),
-        intl('349496', '合计持股比例'),
-        intl('231780', '持股路径'),
-      ],
-      align: [1, 0, 2, 0],
-      fields: ['NO.', 'shareholderName', 'breakThroughPercent', 'path-x'],
-      columns: [
-        null,
-        {
-          render: (_txt, row) => {
-            return (
-              <LinkByRowCompatibleCorpPerson
-                nameKey={'shareholderName'}
-                idKey={'shareholderId'}
-                typeKey={'typeName'}
-                row={row}
-              />
-            )
-          },
-        },
-
-        {
-          render: (txt) => wftCommonType.displayPercent(txt),
-        },
-        {
-          render: (_txt, row, _idx) => {
-            return <ShowShareSearchLayerByMergeSharePath row={row} />
-          },
-        },
-      ],
-    },
-    extension: {
-      tabs: [
-        {
-          name: intl('369953', '逐层展示'),
-          value: 1,
-        },
-        {
-          name: intl('369973', '合并统计'),
-          value: 2,
-        },
-      ],
-    },
-  },
+  showShareSearch: corpShareSearch,
   /* 股权穿透图 */
   getShareAndInvest: {
     title: intl('138279', '股权穿透图'),
@@ -612,6 +381,7 @@ export const base: ICorpPrimaryModuleCfg = {
         },
       },
     ],
+    skipTransFieldsInKeyMode: ['branch_name'],
     extraParams: (param) => {
       return {
         ...param,
@@ -650,6 +420,7 @@ export const base: ICorpPrimaryModuleCfg = {
       'rate|formatPercent',
       'realStockPathList',
     ],
+    skipTransFieldsInKeyMode: ['invest_name', 'name'],
     notVipTitle: intl('451208', '控股企业'),
     notVipTips: intl('208265', '购买企业套餐，即可挖掘公司直接或间接拥有其疑似实际控制权的企业'),
     dataCallback: (res) => {
@@ -714,7 +485,7 @@ export const base: ICorpPrimaryModuleCfg = {
                   data-name={window.__GELCOMPANYNAME__}
                   data-code={window.__GELCOMPANYCODE__}
                 >
-                  {window.en_access_config ? window.__GELCOMPANYNAMEEN__ : window.__GELCOMPANYNAME__}
+                  {selectCorpNameIntlFromRedux(store.getState())}
                 </span>
               )
               // str += '<span class="td-span-route-left underline wi-secondary-color wi-link-color" data-name="' + window.__GELCOMPANYNAME__ + '" data-code="' + window.__GELCOMPANYCODE__ + '">' + window.__GELCOMPANYNAME__ + '</span>';
@@ -810,194 +581,7 @@ export const base: ICorpPrimaryModuleCfg = {
   },
 
   /* 最终受益人 */
-  showFinalBeneficiary: {
-    title: intl('138180', '最终受益人'),
-    notVipTitle: intl('138180', '最终受益人'),
-    notVipTips: intl('208263', '购买企业套餐，即可挖掘直接或间接拥有疑似超过25%公司股权的自然人或企业'),
-    hint:
-      '<i><div><span>' +
-      intl('353933', '依据银发【2017】235号文件') +
-      '</span><br/><br/><span>' +
-      intl(
-        '353953',
-        '受益所有人为依据相关政策文件识别标准，层层深入并最终明确为掌握控制权或者获取收益的一个或多个自然人。'
-      ) +
-      '</span><br/><span>' +
-      intl(
-        '353934',
-        '受益自然人为拥有25%（含）以上股权或疑似拥有合伙权益或收益权的自然人及对法人或非法人组织进行实际控制的多个自然人。'
-      ) +
-      '</span><br/><span>' +
-      intl(
-        '353954',
-        '受益机构为拥有25%（含）以上股权或疑似拥有合伙权益或收益权的法人及对法人或非法人组织进行实际控制的多个法人。'
-      ) +
-      '</span><br/><br/><span style="color:#666666">' +
-      intl('353935', '该结果仅供用户参考，并不代表万得的任何观点或保证。') +
-      '</span></div></i>',
-    modelNum: corpDetailFinalBeneficiary.modelNum,
-    numHide: true,
-    children: [
-      {
-        cmd: 'detail/company/getbeneficiary_owner',
-        title: intl('326056', '受益所有人'),
-        modelNum: corpDetailFinalBeneficiaryOwner.modelNum,
-        thWidthRadio: ['5.2%', '20%', '15%', '25%', '36%'],
-        thName: [
-          intl('28846', '序号'),
-          intl('326055', '受益所有人名称'),
-          intl('261486', '最终受益股份'),
-          intl('326073', '受益类型'),
-          intl('326074', '判定理由'),
-        ],
-        align: [1, 0, 2, 0],
-        fields: ['NO.', 'name', 'shareRate', 'beneficType', 'judgeReason'],
-        columns: [
-          null,
-          {
-            render: (_txt, row) => {
-              return (
-                <>
-                  <LinkByRowCompatibleCorpPerson nameKey={'name'} idKey={'beneficiaryId'} row={row} />
-                  {row.actor?.length ? row.actor.map((num) => <ActualControllerGroupTag num={num} intl={t} />) : null}
-                </>
-              )
-            },
-          },
-          {
-            render: (txt, row, _idx) => {
-              if (window.en_access_config) {
-                return wftCommonType.displayPercent(txt) // FIXME 临时处理
-              }
-              if (row.shareRoute && row.shareRoute.length > 0) {
-                const shareRate = wftCommonType.displayPercent(txt)
-                return (
-                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    {/*// @ts-expect-error ttt*/}
-                    <div style={{ flex: 1 }}>{shareRate ? (shareRate == 0 ? '--' : shareRate) : '--'}</div>
-                    <div
-                      className="share-route"
-                      onClick={() => {
-                        const { moduleId, opActive, describe } = commonBuryList.find(
-                          (res) => res.moduleId === 922602100968
-                        )
-                        pointBuriedNew(moduleId, { opActive, opEntity: describe })
-                        wftCommon.showRoute(row.shareRoute)
-                      }}
-                      data-uc-id="eqkjp-3fPq"
-                      data-uc-ct="div"
-                    ></div>
-                  </div>
-                )
-              } else {
-                return wftCommonType.displayPercent(txt)
-              }
-            },
-          },
-          null,
-          null,
-        ],
-        extraParams: (param) => {
-          param.__primaryKey = param.companycode
-          return param
-        },
-      },
-      {
-        cmd: 'detail/company/getbeneficiary_naturalpersion',
-        title: intl('326053', '受益自然人'),
-        modelNum: corpDetailFinalBeneficiaryPerson.modelNum,
-        thWidthRadio: ['5.2%', '20%', '15%', '25%', '36%'],
-        thName: [
-          intl('28846', '序号'),
-          intl('326054', '受益自然人名称'),
-          intl('261486', '最终受益股份'),
-          intl('326073', '受益类型'),
-          intl('326093', '任职类型'),
-        ],
-        align: [1, 0, 2, 0, 0],
-        fields: ['NO.', 'name', 'shareRate', 'beneficType', 'jobType'],
-        columns: [
-          null,
-          {
-            render: (_txt, row) => {
-              return (
-                <>
-                  <LinkByRowCompatibleCorpPerson nameKey={'name'} idKey={'beneficiaryId'} row={row} />
-                  {row.actor?.length ? row.actor.map((num) => <ActualControllerGroupTag num={num} intl={t} />) : null}
-                </>
-              )
-            },
-          },
-          {
-            render: (txt, row, _idx) => {
-              if (window.en_access_config) {
-                return wftCommonType.displayPercent(txt) // 临时处理
-              }
-              if (row.shareRoute && row.shareRoute.length > 0) {
-                const shareRate = wftCommonType.displayPercent(txt)
-                return (
-                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    {/*// @ts-expect-error ttt*/}
-                    <div style={{ flex: 1 }}>{shareRate ? (shareRate == 0 ? '--' : shareRate) : '--'}</div>
-                    <div
-                      className="share-route"
-                      onClick={() => wftCommon.showRoute(row.shareRoute)}
-                      data-uc-id="4EIuf-mY85"
-                      data-uc-ct="div"
-                    ></div>
-                  </div>
-                )
-              } else {
-                return wftCommonType.displayPercent(txt)
-              }
-            },
-          },
-          null,
-          null,
-        ],
-        extraParams: (param) => {
-          param.__primaryKey = param.companycode
-          return param
-        },
-      },
-      {
-        cmd: 'detail/company/getbeneficiary_org',
-        title: intl('326075', '受益机构'),
-        modelNum: corpDetailFinalBeneficiaryInstitution.modelNum,
-        thWidthRadio: ['5.2%', '35%', '15%', '46%'],
-        thName: [
-          intl('28846', '序号'),
-          intl('326076', '受益机构名称'),
-          intl('261486', '最终受益股份'),
-          intl('326073', '受益类型'),
-        ],
-        align: [1, 0, 2, 0],
-        fields: ['NO.', 'name', 'shareRate|formatPercent', 'beneficType'],
-        columns: [
-          null,
-          {
-            render: (txt, row) => {
-              return (
-                <>
-                  {txt}
-                  {row.actor?.length ? row.actor.map((num) => <ActualControllerGroupTag num={num} intl={t} />) : null}
-                </>
-              )
-            },
-          },
-          null,
-          null,
-        ],
-        extraParams: (param) => {
-          param.__primaryKey = param.companycode
-          return param
-        },
-      },
-    ],
-    rightLink: (data) => {
-      return benfitRender(data)
-    },
-  },
+  showFinalBeneficiary: corpFinalBeneficiary,
   /* 主要人员 */
   showMainMemberInfo: {
     title: intl('138503', '主要人员'),
@@ -1005,7 +589,7 @@ export const base: ICorpPrimaryModuleCfg = {
     numHide: true,
     children: [
       {
-        enumKey: ECorpDetailTable.MainMemberLatestDisclosure,
+        enumKey: 'mainMemberLatestDisclosure',
         cmd: 'detail/company/getprimarymembers',
         title: intl('342094', '最新公示'),
         modelNum: corpDetailLastNotice.modelNum,
@@ -1027,7 +611,7 @@ export const base: ICorpPrimaryModuleCfg = {
         },
       },
       {
-        enumKey: ECorpDetailTable.MainMemberRegistration,
+        enumKey: 'mainMemberRegistration',
         cmd: 'detail/company/getprimarymembers',
         title: intl('312175', '工商登记'),
         modelNum: corpDetailIndustrialRegist.modelNum,
@@ -1239,6 +823,7 @@ export const base: ICorpPrimaryModuleCfg = {
       intl('451220', '注册资本（万）'),
     ],
     fields: ['NO.', 'company_name', 'reg_date|formatTime', 'legal_person_name', 'reg_capital'],
+    skipTransFieldsInKeyMode: ['company_name'],
     notVipTitle: intl('138219', '竞争对手'),
     notVipTips: intl('224197', '购买VIP/SVIP套餐，即可不限次查看企业竞争对手信息'),
     columns: [
@@ -1265,7 +850,7 @@ export const base: ICorpPrimaryModuleCfg = {
       if (!usedInClient && !isDev) return ''
       return (
         <RightGotoLink
-          txt={intl('265528', '查看竞争对手图谱')}
+          txt={intl('478639', '查看竞争对手图谱')}
           func={() => {
             const url = `http://windkgserver/windkg/index.html#/competitors?id=${window.__GELCORPID__}&companyName=${data.companyName}`
             window.open(url)

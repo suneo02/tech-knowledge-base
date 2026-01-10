@@ -7,7 +7,7 @@
  * - 依赖纯 DOM API，方便在 TinyMCE 之外的环境复用
  */
 
-import { createSelector, RP_DATA_ATTRIBUTES } from './constants';
+import { RP_DATA_ATTRIBUTES, RP_SELECTORS } from './constants';
 
 /**
  * DOM 查询辅助函数
@@ -25,7 +25,7 @@ export const querySelector = {
     const id = String(chapterId);
 
     // 优先查找持久化章节
-    const persistentChapter = container.querySelector(createSelector.chapterById(id));
+    const persistentChapter = container.querySelector(RP_SELECTORS.CHAPTER_BY_ID(id));
     if (persistentChapter) {
       return persistentChapter;
     }

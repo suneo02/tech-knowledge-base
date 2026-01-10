@@ -3,13 +3,13 @@ import { Links } from '@/components/common/links'
 import { LinksModule } from '@/handle/link'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils'
+import { refreshHistoryEmitter } from '@/views/GlobalSearch/emitter'
 import { DeleteOutlined } from '@ant-design/icons'
 import { CloseO } from '@wind/icons'
 import { Button, Card, List, message, Modal, Tooltip } from '@wind/wind-ui'
-import { CompanybrowsehistorylistResult } from 'gel-api/*'
+import { CompanybrowsehistorylistResult } from 'gel-api'
 import React, { useEffect, useState } from 'react'
 import './index.less'
-import { refreshHistoryEmitter } from '@/views/GlobalSearch/emitter'
 
 const HistorySearch: React.FC = () => {
   const [list, setList] = useState<CompanybrowsehistorylistResult[]>([])
@@ -32,8 +32,8 @@ const HistorySearch: React.FC = () => {
   refreshHistoryEmitter.useSubscription(() => getList())
   const showModal = () => {
     Modal.confirm({
-      title: intl(138910, '提示'),
-      content: intl(272001, '全部清除最近浏览企业'),
+      title: intl(31041, '提示'),
+      content: intl(478693, '全部清除最近浏览企业'),
       onOk: () => {
         api('operation/delete/companybrowsehistorydeleteall').then(() => {
           getList()

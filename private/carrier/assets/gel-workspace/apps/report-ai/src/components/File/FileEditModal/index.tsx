@@ -18,7 +18,7 @@ interface FileEditModalProps {
 
 // 表单数据类型
 interface FileEditFormData {
-  companyId?: string;
+  companyCode?: string;
   companyName?: string;
 }
 
@@ -29,16 +29,16 @@ interface ApiError {
 }
 
 export const FileEditModal: React.FC<FileEditModalProps> = ({ visible, file, onClose, onSuccess }) => {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<FileEditFormData>();
   const [tags, setTags] = useState<RPFileTag[]>(file?.tags || []);
-  const [, setSelectedCorpId] = useState<string>(file?.fileRelateCode || '');
+  const [, setSelectedCompanyCode] = useState<string>(file?.fileRelateCode || '');
 
   // 处理企业选择
-  const handleCorpChange = (corpId: string, corpName: string) => {
-    setSelectedCorpId(corpId);
+  const handleCorpChange = (companyCode: string, companyName: string) => {
+    setSelectedCompanyCode(companyCode);
     form.setFieldsValue({
-      companyId: corpId,
-      companyName: corpName,
+      companyCode: companyCode,
+      companyName: companyName,
     });
   };
 
@@ -50,10 +50,10 @@ export const FileEditModal: React.FC<FileEditModalProps> = ({ visible, file, onC
         return;
       }
       const response = await requestToChat('report/fileUpdate', {
-        fileID: file?.fileID,
-        fileRelateCode: values.companyId,
-        fileRelateName: values.companyName,
-        fileTags: tags,
+        fileId: file?.fileID,
+        companyCode: values.companyCode,
+        companyName: values.companyName,
+        tags: tags,
       });
       return response;
     },
@@ -89,11 +89,11 @@ export const FileEditModal: React.FC<FileEditModalProps> = ({ visible, file, onC
   useEffect(() => {
     if (file && visible) {
       form.setFieldsValue({
-        companyId: file.fileRelateCode,
+        companyCode: file.fileRelateCode,
         companyName: file.fileRelateName,
       });
       setTags(file.tags || []);
-      setSelectedCorpId(file.fileRelateCode || '');
+      setSelectedCompanyCode(file.fileRelateCode || '');
     }
   }, [file, visible, form]);
 

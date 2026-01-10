@@ -1,18 +1,11 @@
-import { ReportOutlineData } from 'gel-api';
-import { BaseMessageFields, OtherMessageStatus } from 'gel-ui';
+import { ChatRawSentenceIdIdentifier, ReportOutlineData } from 'gel-api';
+import { OtherMessageStatus } from 'gel-ui';
 
-/** 大纲编辑器消息 */
-export type OutlineEditorMessage = BaseMessageFields & {
-  role: 'outlineEditor';
+/** 大纲消息（统一类型，通过 context 判断是否为最后一条来决定编辑/预览模式） */
+/** 关联的 agent 消息 ID，用于判断是否为最后一条 */
+export interface OutlineMessage {
+  role: 'outline';
   status: OtherMessageStatus;
-  /** 现在是 rawsentenc id，根据此 id 查询大纲 */
-  content?: ReportOutlineData;
-};
-
-/** 大纲预览消息 */
-export type OutlinePreviewMessage = BaseMessageFields & {
-  role: 'outlinePreview';
-  status: OtherMessageStatus;
-  /** 现在是 rawsentenc id，根据此 id 查询大纲 */
-  content?: ReportOutlineData;
-};
+  /** 大纲数据 */
+  content?: ReportOutlineData & Partial<ChatRawSentenceIdIdentifier>;
+}

@@ -1,13 +1,12 @@
-import { RPChapterEnriched } from '@/types';
+import { RefPreviewData, RPChapterEnriched } from '@/types';
 import { RPFileUnified } from '@/types/file';
 import { FC, useCallback } from 'react';
 import { ReferenceItemFile } from '../ReferenceItemFile';
-import { PreviewData } from '../type';
 import styles from './index.module.less';
 
 export interface TopFilesSectionProps {
   files: RPFileUnified[];
-  onPreviewStart?: (preview: PreviewData) => void;
+  onPreviewStart?: (preview: RefPreviewData) => void;
   /** 删除成功后的回调（用于刷新列表等） */
   onDeleteSuccess?: (fileId: string) => void;
   /** 章节ID到章节对象的映射 */

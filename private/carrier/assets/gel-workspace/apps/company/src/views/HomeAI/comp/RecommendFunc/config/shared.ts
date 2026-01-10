@@ -7,16 +7,12 @@ import {
   SearchLinkEnum,
 } from '@/handle/link'
 import { getWebAIChatLinkWithIframe } from '@/handle/link/WebAI'
-import { getWsid, isDev } from '@/utils/env'
+import { isDev } from '@/utils/env'
 
 import { CHART_HASH } from '@/components/company/intro/charts'
-import { usedInClient } from 'gel-util/env'
 import { t } from 'gel-util/intl'
-import { generateUrlByModule, LinkModule } from 'gel-util/link'
+import { buildBaiFenMapUrl, generateUrlByModule, LinkModule } from 'gel-util/link'
 import { HomeFuncItemKey, SearchHomeItemData } from './type'
-
-const isTerminal = usedInClient()
-const wsidStr = getWsid()
 
 // Common configuration items that can be shared between domestic and oversea
 export const getSharedItems = (extendData: {
@@ -28,6 +24,15 @@ export const getSharedItems = (extendData: {
     desc: t('436174', '您的商业查询智能助手'),
     fIcon: 'QYK_Alice',
     url: getWebAIChatLinkWithIframe(),
+  },
+  cjmd: {
+    title: t('222402', '超级名单'),
+    desc: t('481498', '找到对的客户，不再浪费时间。'),
+    fIcon: 'CBZ',
+    url: generateUrlByModule({
+      module: LinkModule.SUPER_AGENT,
+      isDev,
+    }),
   },
   yjhzqy: {
     title: t('464234', '一句话找企业'),
@@ -135,10 +140,7 @@ export const getSharedItems = (extendData: {
     title: t('223901', '万寻地图'),
     desc: t('456565', '周边企业一搜即得'),
     fIcon: 'WXDT_L',
-    url: isTerminal
-      ? 'https://GOVWebSite/govmap/index.html?mode=2&pureMode&title=万寻地图&right=4C203DE15#/'
-      : 'http://dgov.wind.com.cn/govmap/index.html?mode=2&pureMode&title=万寻地图&right=4C203DE15&wind.sessionid=' +
-        wsidStr,
+    url: buildBaiFenMapUrl({}),
   },
   'batch-output': {
     title: t('208389', '批量查询导出'),
@@ -181,17 +183,13 @@ export const getSharedItems = (extendData: {
       subModule: ScenarioApplicationLinkEnum.PARK,
     }),
   },
-  // 根据条件添加 sxsj 项
-  ...(isTerminal
-    ? {
-        sxsj: {
-          title: t('391093', '授信商机'),
-          desc: t('422058', '大数据模型推荐潜在融资需求企业'),
-          fIcon: 'SXSJ',
-          url: BaiFenSites().creditOpportunities,
-        },
-      }
-    : {}),
+
+  sxsj: {
+    title: t('391093', '授信商机'),
+    desc: t('422058', '大数据模型推荐潜在融资需求企业'),
+    fIcon: 'SXSJ',
+    url: BaiFenSites().creditOpportunities,
+  },
   cksj: {
     title: t('422059', '存款商机'),
     desc: t('422060', '大数据模型推荐潜在存款需求企业'),
@@ -206,7 +204,7 @@ export const getSharedItems = (extendData: {
   },
   'invest-track': {
     title: t('223898', '投资赛道'),
-    desc: t('', '100W+投资赛道企业'),
+    desc: t('437225', '100W+投资赛道企业'),
     fIcon: 'TZCX_L',
     url: '//RIME/rime/frontend/web/vertical/all',
   },

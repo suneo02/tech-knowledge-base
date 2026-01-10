@@ -18,8 +18,9 @@
   },
   "scripts": {
     "clean": "node ../../scripts/clean.cjs dist",
-    "dev": "vite build --watch --mode development --minify false --sourcemap",
+    "dev": "vite build --watch --mode development",
     "build": "npm run clean && vite build",
+    "build:dev": "vite build --mode development",
     "build:staging": "npm run clean && vite build --mode staging",
     "preview": "vite preview",
     "lint": "pnpm -s eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

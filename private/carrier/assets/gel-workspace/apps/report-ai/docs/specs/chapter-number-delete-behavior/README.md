@@ -1,4 +1,4 @@
-# 章节编号删除行为异常（Spec 总览）
+﻿# 章节编号删除行为异常（Spec 总览）
 
 | 字段 | 内容 |
 | --- | --- |
@@ -8,7 +8,7 @@
 | 目标上线时间 | 待定 |
 | 当前版本 | v1 |
 | 关联文档 | [spec-core-v1.md](./spec-core-v1.md) |
-| 参考规范 | [Spec 文档编写规范](../../../docs/rule/spec-doc-rule.md) |
+| 参考规范 | [Spec 文档编写规范](../../../docs/rule/doc-spec-rule.md) |
 
 ## 文档索引
 
@@ -23,3 +23,4 @@
 - 内容清洗：apps/report-ai/src/domain/reportEditor/editor/contentSanitizer.ts
 - 编辑器配置（valid_elements 等）：apps/report-ai/src/components/ReportEditor/config/editorConfig.ts
 - 历史问题（已归档）：apps/report-ai/docs/issues/archived/chapter-number-node-filtered-fix.md
+

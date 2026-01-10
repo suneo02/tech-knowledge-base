@@ -2,13 +2,13 @@ import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
 import React from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 import { ParkBox } from '../rowsCommon/Park'
 
 /**
  * 事务所
  */
-export const LSrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const LSrows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [
     {
       title: intl('35779', '注册资本'),
@@ -23,7 +23,7 @@ export const LSrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       dataIndex: 'state',
     },
     {
-      title: intl('207784', '成立登记日期'),
+      title: intl('448303', '成立登记日期'),
       dataIndex: 'reg_date',
       render: (txt, backData) => {
         return wftCommon.formatTime(backData.reg_date)
@@ -31,12 +31,12 @@ export const LSrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
     },
   ],
   [
-    { title: intl('139921', '负责人'), dataIndex: 'legal_person_name' },
+    { title: intl('448323', '负责人'), dataIndex: 'legal_person_name' },
     {
       title: window.en_access_config ? 'Type' : '律所类型',
       dataIndex: 'corp_type',
     },
-    { title: intl('208889', '登记管理机关'), dataIndex: 'reg_authority' },
+    { title: intl('448324', '登记管理机关'), dataIndex: 'reg_authority' },
   ],
   [
     {

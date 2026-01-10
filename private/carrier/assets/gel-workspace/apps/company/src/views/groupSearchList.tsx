@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as HomeActions from '../actions/home'
-import * as SearchListActions from '../actions/searchList'
+import * as SearchListActions from '../actions/searchList.ts'
 import { getGroupHotView, getGroupList } from '../api/searchListApi.ts'
 import defaultCompanyImg from '../assets/imgs/default_company.png'
 import CompanyLink from '../components/company/CompanyLink'
@@ -18,8 +18,20 @@ import { groupCollationOption } from '../handle/searchConfig/groupCollationOptio
 import { parseQueryString } from '../lib/utils'
 import { searchCommon } from './commonSearchFunc'
 
+// 定义 Props 类型
+interface GroupSearchListProps {
+  groupList?: any
+  groupListErrorCode?: any
+  keyword?: string
+  groupViewHot?: any
+  globalSearchTimeStamp?: number
+  getGroupList?: (data: any) => Promise<any>
+  getGroupHotView?: (data: any) => Promise<any>
+  setGlobalSearch?: () => void
+}
+
 // 产品介绍页面，游客访问
-class GroupSearchList extends React.Component<any, any> {
+class GroupSearchList extends React.Component<GroupSearchListProps, any> {
   param: any
   constructor(props) {
     super(props)
@@ -41,6 +53,17 @@ class GroupSearchList extends React.Component<any, any> {
       const keyword = this.props.keyword
 
       this.setState({ queryText: keyword ? keyword : '小米' }, () => this.getGroupList())
+    }
+
+    // 当 globalSearchTimeStamp 变化时，重新执行搜索
+    if (
+      this.props.keyword === prevProps.keyword &&
+      this.props.globalSearchTimeStamp !== prevProps.globalSearchTimeStamp &&
+      this.props.globalSearchTimeStamp !== undefined
+    ) {
+      this.setState({ loading: true, pageNo: 0 }, () => {
+        this.getGroupList()
+      })
     }
   }
 
@@ -279,6 +302,7 @@ const mapStateToProps = (state) => {
     groupListErrorCode: state.companySearchList.groupListErrorCode,
     keyword: state.companySearchList.searchKeyWord,
     groupViewHot: state.companySearchList.groupViewHot,
+    globalSearchTimeStamp: state.companySearchList.globalSearchTimeStamp,
   }
 }
 

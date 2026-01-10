@@ -25,6 +25,8 @@ export type ICfgDetailCompJson = (
   display?: boolean
   hot?: boolean
   data?: any
+  bury?: Record<string, unknown>
+  num?: number
 } & IConfigDetailTitleJSON &
   IConfigDetailApiJSON
 

@@ -1,14 +1,19 @@
 import { isDev, isStaging } from '@/utils/env'
 import { loaclDevManager } from 'gel-ui'
+let cachedApiPrefix: string | undefined
 
 /**
  * 获取基础请求地址
  */
 export const getApiPrefix = () => {
-  const apiPrefixDev = loaclDevManager.get('GEL_API_PREFIX_DEV')
-
-  if ((isDev || isStaging) && apiPrefixDev) {
-    return apiPrefixDev
+  if (cachedApiPrefix !== undefined) {
+    return cachedApiPrefix
   }
-  return ''
+  const apiPrefixDev = loaclDevManager.get('GEL_API_PREFIX_DEV')
+  if ((isDev || isStaging) && apiPrefixDev) {
+    cachedApiPrefix = apiPrefixDev
+    return cachedApiPrefix
+  }
+  cachedApiPrefix = ''
+  return cachedApiPrefix
 }

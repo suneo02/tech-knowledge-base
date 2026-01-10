@@ -1,6 +1,6 @@
 import { FolderO, HomeO } from '@wind/icons'
-import { t } from 'gel-util/locales'
-import { useCallback, useMemo } from 'react'
+import { t } from 'gel-util/intl'
+import { useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styles from './index.module.less'
 
@@ -31,32 +31,10 @@ export const AppSideMenu: React.FC<AppSideMenuProps> = (props) => {
   const navigate = useNavigate()
 
   const STRINGS = {
-    MENU_HOME: t('menu.home', '首页'),
-    MENU_DASHBOARD: t('menu.dashboard', '仪表盘'),
-    MENU_PROSPECT: t('menu.prospect', '线索拓展'),
-    MENU_COMPANY: t('menu.companyDirectory', '我的下载'),
-    ROLE_ASSISTANT: t('role.assistant', '助理'),
-    ROLE_CS: t('role.cs', '客服'),
-    ROLE_SALERS: t('role.salers', '销售'),
+    MENU_HOME: t('254999', '找客户'),
+    // MENU_PROSPECT: t('482234', '线索拓展'),
+    MENU_COMPANY: t('464132', '我的下载'),
   } as const
-
-  //   const availableRoles = props.roles ?? ['assistant', 'cs', 'salers']
-  //   const [role, setRole] = useState<string>(props.defaultRole ?? availableRoles[0])
-
-  //   const defaultRoleCards = useMemo(
-  //     () => [
-  //       {
-  //         key: 'assistant',
-  //         label: STRINGS.ROLE_ASSISTANT,
-  //         miniSrc: assistantMini, // 小图
-  //         fullSrc: assistant, // 大图
-  //       },
-  //       { key: 'cs', label: STRINGS.ROLE_CS, miniSrc: csMini, fullSrc: cs }, // 小图
-  //       { key: 'salers', label: STRINGS.ROLE_SALERS, miniSrc: salersMini, fullSrc: salers }, // 大图
-  //     ],
-  //     [STRINGS.ROLE_ASSISTANT, STRINGS.ROLE_CS, STRINGS.ROLE_SALERS]
-  //   )
-  //   const roleCards = props.roleCards ?? defaultRoleCards
 
   const defaultItems: AppSideMenuItem[] = [
     {
@@ -95,31 +73,6 @@ export const AppSideMenu: React.FC<AppSideMenuProps> = (props) => {
 
   return (
     <div className={styles[`${PREFIX}-container`]}>
-      {/* <div className={styles[`${PREFIX}-roleCards`]}>
-        {roleCards
-          .filter((c) => availableRoles.includes(c.key))
-          .map((c) => {
-            const isActive = c.key === role
-            return (
-              <div
-                key={c.key}
-                className={isActive ? styles[`${PREFIX}-roleCardActive`] : styles[`${PREFIX}-roleCard`]}
-                style={{
-                  background: `url(${c.miniSrc}) center no-repeat`,
-                  backgroundSize: 'auto 70%',
-                }}
-                title={c.label}
-                onClick={() => handleRoleChange(c.key)}
-                aria-pressed={isActive}
-              >
-                <span className={styles[`${PREFIX}-roleCardBgMini`]} aria-hidden />
-                <span className={styles[`${PREFIX}-roleCardBgFull`]} aria-hidden />
-                <div className={styles[`${PREFIX}-roleCardTitle`]}>{c.label}</div>
-              </div>
-            )
-          })}
-      </div> */}
-
       <nav className={styles[`${PREFIX}-menu`]} aria-label="side menu">
         {items.map((item) => {
           const active = location.pathname === item.path

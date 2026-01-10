@@ -1,16 +1,15 @@
 import {
-  AgentMsgAIDepre,
+  AgentMsgAIOverall,
   AIHeaderMsg,
   AIMessageGEL,
-  BaseMessageFields,
   ChatSendInput,
   OtherMessageStatus,
   SubQuestionMessage,
   SuggestionMessage,
 } from 'gel-ui';
-import { OutlineEditorMessage, OutlinePreviewMessage } from './parsedMsg';
 import { RPFileUploaded } from '../file';
 import { RPOutlineUserMsgParse } from './RPOutline';
+import { OutlineMessage } from './parsedMsg';
 
 export type RPDetailSendInput = ChatSendInput<string> & {
   files?: RPFileUploaded[];
@@ -22,7 +21,7 @@ export type RPDetailLeftAgentMsgUser = RPDetailSendInput & {
   status?: OtherMessageStatus;
 };
 
-export type RPDetailLeftAgentMsgAI = AgentMsgAIDepre & {
+export type RPDetailLeftAgentMsgAI = AgentMsgAIOverall & {
   /**
    * 文件ID列表，sender 中有可能上传
    */
@@ -39,7 +38,7 @@ export type RPDetailLeftAgentMsgAI = AgentMsgAIDepre & {
 export type RPDetailLeftAgentMsg = RPDetailLeftAgentMsgAI | RPDetailLeftAgentMsgUser;
 
 /** 用户消息 */
-export type RPDetailLeftUserMsgParse = BaseMessageFields & {
+export type RPDetailLeftUserMsgParse = {
   role: 'user';
   content: {
     message: string;
@@ -57,5 +56,4 @@ export type RPDetailLeftMsgParsed =
   | AIHeaderMsg
   | SuggestionMessage
   | SubQuestionMessage
-  | OutlineEditorMessage
-  | OutlinePreviewMessage;
+  | OutlineMessage;

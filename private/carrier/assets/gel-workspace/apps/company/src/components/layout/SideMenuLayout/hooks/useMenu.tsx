@@ -1,13 +1,12 @@
 import { ReportTemplate } from '@/api/paths'
 import { createRequest } from '@/api/request'
+import { ApiCodeForWfc } from '@/api/types'
 import { IframeMessageProps } from '@/utils/iframe/index'
 import { ReportHomeIframeAction } from '@/utils/iframe/paths/report'
 import { Button, Input, message, Modal } from '@wind/wind-ui'
+import Form from '@wind/wind-ui-form'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { MenuItemProps, MenuParams } from '../types'
-// import { Button, Input, Modal } from '@wind/wind-ui'
-import { ApiCodeForWfc } from '@/api/types'
-import Form from '@wind/wind-ui-form'
 
 interface UseMenuOptions {
   initialMenu: MenuItemProps[]

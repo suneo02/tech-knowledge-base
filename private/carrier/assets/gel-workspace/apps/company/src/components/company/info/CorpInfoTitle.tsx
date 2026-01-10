@@ -1,6 +1,6 @@
 import { CorpOrganizationType } from '@/api/corp/info/common.ts'
 import { InfoCircleButton } from '@/components/icons/InfoCircle'
-import { TCorpArea } from '@/handle/corp/corpArea'
+import { CorpArea } from '@/handle/corp/corpArea'
 import intl from '@/utils/intl'
 import { Tooltip } from '@wind/wind-ui'
 
@@ -9,7 +9,7 @@ import React, { FC, useMemo } from 'react'
 const baseInfoLetter = intl('257642', '基本信息')
 const businessInfoLetter = intl('257705', '工商信息')
 
-export const CorpInfoTitle: FC<{ corpArea: TCorpArea; orgType: CorpOrganizationType }> = ({ corpArea, orgType }) => {
+export const CorpInfoTitle: FC<{ corpArea: CorpArea; orgType: CorpOrganizationType }> = ({ corpArea, orgType }) => {
   const tooltipTitle = useMemo<string>(() => {
     let title = null
     if (orgType === 'GOV') {

@@ -1,8 +1,9 @@
 import {
-  AgentMsgAIDepre,
-  AgentMsgDepre,
+  AgentMsgAIOverall,
+  AgentMsgOverall,
   AIHeaderMsg,
   AIMessageGEL,
+  AIFooterMsg,
   ChartMessage,
   SimpleChartMessage,
   SplTableMessage,
@@ -11,28 +12,27 @@ import {
   UserMessageGEL,
 } from '@/types'
 import { Space } from 'antd'
-import { ChatTypeEnum } from 'gel-api'
+import { ChatTypeEnum, SplTable } from 'gel-api'
 import { isEn } from 'gel-util/intl'
 import { FC } from 'react'
 
 /**
  * 处理用户消息
  */
-export const createUserMessage = <T extends AgentMsgDepre>(agentMessage: T): UserMessageGEL => {
+export const createUserMessage = <T extends AgentMsgOverall>(agentMessage: T): UserMessageGEL => {
   if (!agentMessage.content) {
     console.error('agentMessage.content is undefined', agentMessage)
   }
   return {
     role: 'user',
     content: agentMessage.content || '',
-    think: agentMessage.think,
   }
 }
 
 /**
  * 创建AI头部消息
  */
-export const createAIHeaderMessage = <T extends AgentMsgAIDepre>(agentMessage: T, roleName?: string): AIHeaderMsg => {
+export const createAIHeaderMessage = <T extends AgentMsgAIOverall>(agentMessage: T, roleName?: string): AIHeaderMsg => {
   const aiHeaderStatus = agentMessage.status === 'pending' ? 'pending' : 'finish'
 
   const defaultRoleName = 'Alice'
@@ -40,7 +40,6 @@ export const createAIHeaderMessage = <T extends AgentMsgAIDepre>(agentMessage: T
 
   return {
     role: 'aiHeader',
-    think: agentMessage.think,
     status: aiHeaderStatus,
     content: (
       <Space>
@@ -64,7 +63,7 @@ export const createAIHeaderMessage = <T extends AgentMsgAIDepre>(agentMessage: T
 /**
  * 创建子问题消息
  */
-export const createSubQuestionMessage = <T extends AgentMsgAIDepre>(agentMessage: T): SubQuestionMessage | null => {
+export const createSubQuestionMessage = <T extends AgentMsgAIOverall>(agentMessage: T): SubQuestionMessage | null => {
   if (agentMessage.status !== 'pending') {
     return null
   }
@@ -79,7 +78,7 @@ export const createSubQuestionMessage = <T extends AgentMsgAIDepre>(agentMessage
 /**
  * 创建AI回答消息
  */
-export const createAIContentMessage = <T extends AgentMsgAIDepre>(
+export const createAIContentMessage = <T extends AgentMsgAIOverall>(
   agentMessage: T,
   FooterComp?: FC<{ content: string; agentMessage: T; onRetry?: () => void }>
 ): AIMessageGEL | null => {
@@ -102,7 +101,6 @@ export const createAIContentMessage = <T extends AgentMsgAIDepre>(
           <FooterComp content={agentMessage.content || ''} agentMessage={agentMessage} />
         ) : null
       ) : null,
-    think: agentMessage.think,
     status: agentMessage.status || 'finish',
   }
 }
@@ -110,7 +108,7 @@ export const createAIContentMessage = <T extends AgentMsgAIDepre>(
 /**
  * 创建建议消息
  */
-export const createSuggestionMessage = <T extends AgentMsgAIDepre>(agentMessage: T): SuggestionMessage | null => {
+export const createSuggestionMessage = <T extends AgentMsgAIOverall>(agentMessage: T): SuggestionMessage | null => {
   if (
     (!agentMessage.ragList || agentMessage.ragList.length === 0) &&
     (!agentMessage.dpuList || agentMessage.dpuList.length === 0)
@@ -128,14 +126,13 @@ export const createSuggestionMessage = <T extends AgentMsgAIDepre>(agentMessage:
       dpuList: agentMessage.dpuList || [],
     },
     status: 'finish',
-    think: agentMessage.think,
   }
 }
 
 /**
  * 创建图表消息
  */
-export const createChartMessage = <T extends AgentMsgAIDepre>(agentMessage: T): ChartMessage | null => {
+export const createChartMessage = <T extends AgentMsgAIOverall>(agentMessage: T): ChartMessage | null => {
   if (!agentMessage.gelData) {
     return null
   }
@@ -144,17 +141,27 @@ export const createChartMessage = <T extends AgentMsgAIDepre>(agentMessage: T): 
     role: 'chart',
     content: agentMessage.gelData,
     status: agentMessage.status === 'finish' ? 'finish' : 'pending',
-    think: agentMessage.think,
   }
 }
 
 /**
  * 创建超级名单表格消息
  */
-export const createSplTableMessage = <T extends AgentMsgAIDepre>(agentMessage: T): SplTableMessage | null => {
-  if (!agentMessage.splTable || agentMessage.splTable.length === 0) {
+export const createSplTableMessage = <T extends AgentMsgAIOverall>(agentMessage: T): SplTableMessage | null => {
+  // 尝试获取 splTable 数据，支持直接属性和嵌套属性
+  let splTables: SplTable[] | undefined = agentMessage.splTable
+
+  if (!splTables || !Array.isArray(splTables) || splTables.length === 0) {
+    const withData = agentMessage as unknown as { data?: { result?: { splTable?: SplTable[] } } }
+    if (withData.data?.result?.splTable && Array.isArray(withData.data.result.splTable)) {
+      splTables = withData.data.result.splTable
+    }
+  }
+
+  if (!splTables || !Array.isArray(splTables) || splTables.length === 0) {
     return null
   }
+
   // 流式输出完成 或者 处理完成 才展示表格
   if (agentMessage.status !== 'finish' && agentMessage.status !== 'stream_finish') {
     return null
@@ -162,16 +169,33 @@ export const createSplTableMessage = <T extends AgentMsgAIDepre>(agentMessage: T
 
   return {
     role: 'splTable',
-    content: agentMessage.splTable,
+    content: splTables,
     status: agentMessage.status === 'finish' ? 'finish' : 'pending',
-    think: agentMessage.think,
+  }
+}
+
+export const createAIFooterMessage = <T extends AgentMsgAIOverall>(
+  agentMessage: T,
+  FooterComp?: FC<{ content: string; agentMessage: T; onRetry?: () => void }>
+): AIFooterMsg | null => {
+  if (agentMessage.status !== 'finish' && agentMessage.status !== 'stream_finish') {
+    return null
+  }
+  if (!FooterComp) {
+    return null
+  }
+
+  return {
+    role: 'aiFooter',
+    status: 'finish',
+    content: <FooterComp content={agentMessage.content || ''} agentMessage={agentMessage} />,
   }
 }
 
 /**
  * 创建简单图表消息
  */
-export const createSimpleChartMessage = <T extends AgentMsgAIDepre>(agentMessage: T): SimpleChartMessage | null => {
+export const createSimpleChartMessage = <T extends AgentMsgAIOverall>(agentMessage: T): SimpleChartMessage | null => {
   if (
     !agentMessage.dpuList ||
     !agentMessage.chartType || // 图表类型
@@ -188,6 +212,5 @@ export const createSimpleChartMessage = <T extends AgentMsgAIDepre>(agentMessage
     role: 'simpleChart',
     content: agentMessage,
     status: agentMessage.status === 'finish' ? 'finish' : 'pending',
-    think: agentMessage.think,
   }
 }

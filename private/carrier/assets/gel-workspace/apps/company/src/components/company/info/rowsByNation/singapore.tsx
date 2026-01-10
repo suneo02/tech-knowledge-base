@@ -3,13 +3,13 @@ import { corpInfoAnotherNameRow } from '@/components/company/info/rowsCommon/nam
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const singaporeRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const singaporeRows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [{ title: intl('138677', '企业名称'), dataIndex: 'corp_name', colSpan: 5 }],
   [corpInfoAnotherNameRow],
   [
-    { title: intl('259470', '实体类型'), dataIndex: 'corp_type', colSpan: 2 },
+    { title: intl('448332', '实体类型'), dataIndex: 'corp_type', colSpan: 2 },
     { title: intl('32098', '状态'), dataIndex: 'state', colSpan: 2 },
   ],
   [
@@ -30,7 +30,7 @@ export const singaporeRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   [
     { title: 'UEN编号', dataIndex: 'biz_reg_no', colSpan: 2 },
     {
-      title: intl('206130', 'UEN登记机构'),
+      title: intl('448336', 'UEN登记机构'),
       dataIndex: 'reg_authority',
       colSpan: 2,
     },

@@ -8,7 +8,7 @@ import {
   SuggestionMessage,
   UserMessageGEL,
 } from './message'
-import { FileMessage, SimpleChartMessage, SplTableMessage } from './message/parsed'
+import { AIFooterMsg, FileMessage, SimpleChartMessage, SplTableMessage } from './message/parsed'
 
 /**
  * Ant Design 气泡组件角色类型
@@ -34,6 +34,7 @@ export type RolesTypeCore = {
   subQuestion: AntRoleType<SubQuestionMessage['content']>
   simpleChart: AntRoleType<SimpleChartMessage['content']>
   splTable: AntRoleType<SplTableMessage['content']>
+  aiFooter?: AntRoleType<AIFooterMsg['content']>
 }
 
 /**

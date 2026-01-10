@@ -1,25 +1,29 @@
 import { RPOutlineAgentMsgAI } from '@/types';
 import { useChatRoomContext } from 'ai-ui';
 import { ChatQuestionStatus } from 'gel-api';
-import { AICopyButton, AIDislikeButton, AILikeButton, AIRetryButton, ChatSenderOptions } from 'gel-ui';
+import { AICopyButton, AIDislikeButton, AILikeButton, AIRetryButton } from 'gel-ui';
 import { FC } from 'react';
 import { axiosInstance } from '../../../api/axios';
 import { entWebAxiosInstance } from '../../../api/entWeb';
+import { useRPOutlineContext } from '../context';
 import { CompanySelector } from './CompanySelector';
 import styles from './index.module.less';
 
 /**
  * AI消息底部组件，包含复制、点赞、踩一下和重试按钮
+ *
+ * @description 从 context 中获取 sendMessage 和 isLastAIMessage 方法
  */
 export const RPOutlineAIFooter: FC<{
   content: string;
   agentMessage: RPOutlineAgentMsgAI;
-  sendMessage?: (message: string, options: Pick<ChatSenderOptions, 'agentId' | 'think' | 'entityCode'>) => void;
-  /** 是否为最后一条消息 */
-  isLastMessage?: boolean;
-}> = ({ content, agentMessage, sendMessage, isLastMessage = true }) => {
+}> = ({ content, agentMessage }) => {
   const { companyList } = agentMessage?.reportData || {};
   const { isChating } = useChatRoomContext();
+  const { sendMessage, isLastAIMessage } = useRPOutlineContext();
+
+  // 判断当前消息是否为最后一条 AI 消息
+  const isLastMessage = isLastAIMessage(agentMessage);
 
   // 只有最后一条消息且不在对话中才允许交互
   const isInteractive = isLastMessage && !isChating;
@@ -38,8 +42,9 @@ export const RPOutlineAIFooter: FC<{
           rawSentenceID={agentMessage.rawSentenceID}
           onRetry={() => {
             // 调用sendMessage重新发送原始问题
-            if (sendMessage && agentMessage.rawSentence) {
-              sendMessage(agentMessage.rawSentence, {
+            if (agentMessage.rawSentence) {
+              sendMessage({
+                content: agentMessage.rawSentence,
                 agentId: agentMessage.agentId,
                 think: agentMessage.think,
                 entityCode: agentMessage.entityCode,
@@ -57,8 +62,9 @@ export const RPOutlineAIFooter: FC<{
           candidates={companyList}
           disabled={!isInteractive}
           onSelect={({ entityCode, entityName }) => {
-            if (sendMessage && isInteractive) {
-              sendMessage(entityName, {
+            if (isInteractive) {
+              sendMessage({
+                content: entityName,
                 agentId: agentMessage.agentId,
                 think: agentMessage.think,
                 entityCode,

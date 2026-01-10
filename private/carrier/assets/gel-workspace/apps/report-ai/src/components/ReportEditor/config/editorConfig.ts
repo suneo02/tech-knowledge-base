@@ -1,4 +1,4 @@
-import { RPReferenceType } from '@/domain/chat/ref';
+﻿import { RPReferenceType } from '@/domain/chat/ref';
 import { EditorFacade } from '@/domain/reportEditor';
 import { RP_DATA_ATTRIBUTES, RP_SELECTORS } from '@/domain/reportEditor/foundation';
 import type { AIActionData } from '@/types/editor';
@@ -20,7 +20,7 @@ import {
  * @see ../../../docs/RPDetail/RPEditor/QuickToolbar.md Quick Toolbar 设计文档
  * @see ./contextMenuConfig.md Context Menu 配置说明（已废弃，改用 Quick Toolbar）
  * @see ./menubarConfig.md Menubar 配置说明
- * @see ../../../../docs/rule/typescript-rule.md TypeScript 规范
+ * @see ../../../../docs/rule/code-typescript-style-rule.md TypeScript 规范
  *
  * 编辑器入口配置：
  * - Quick Toolbar：选中文本自动浮现，承载 AI 能力和编辑工具
@@ -37,7 +37,7 @@ export interface StaticEditorConfigOptions {
 export interface EditorRuntimeOptions {
   onAIAction: (data: AIActionData) => void;
   onContentChange?: (fullHtml: string) => void;
-  onReferenceClick?: (referenceInfo: { refId: string; refType: RPReferenceType }) => void;
+  onReferenceClick?: (referenceInfo: { refId: string; refType: RPReferenceType; pageNumber?: number }) => void;
 }
 
 export const createStaticEditorInit = (options: StaticEditorConfigOptions): IProps['init'] => {
@@ -220,9 +220,13 @@ export const bindEditorRuntime = (
 
           const refId = target.getAttribute(RP_DATA_ATTRIBUTES.REF_ID);
           const refType = target.getAttribute(RP_DATA_ATTRIBUTES.REF_TYPE) as RPReferenceType;
+          const pageNumberStr = target.getAttribute(RP_DATA_ATTRIBUTES.PAGE_NUMBER);
+
+          // 解析页码（仅用于 file 类型）
+          const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : undefined;
 
           if (refId && refType) {
-            onReferenceClick({ refId, refType });
+            onReferenceClick({ refId, refType, pageNumber });
           }
         }
       };
@@ -245,3 +249,4 @@ export const bindEditorRuntime = (
     console.warn('[bindEditorRuntime] failed to bind runtime behaviors', e);
   }
 };
+

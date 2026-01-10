@@ -23,7 +23,8 @@ export const routes: RouteObject[] = [
     path: '/',
     children: [
       {
-        element: <PageContainer enableAside={true} asideContent={<AppSideMenu />} />,
+        // 产品要求隐藏
+        element: <PageContainer enableAside={false} asideContent={<AppSideMenu />} />,
         children: [
           { index: true, element: <Navigate to="/home" replace /> },
           {

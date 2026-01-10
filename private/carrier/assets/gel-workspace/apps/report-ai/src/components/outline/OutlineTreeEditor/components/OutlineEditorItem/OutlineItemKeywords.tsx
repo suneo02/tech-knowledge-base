@@ -28,10 +28,6 @@ export const OutlineItemKeywords: React.FC<OutlineItemKeywordsProps> = ({ path, 
   const commitAdd = useCallback(() => {
     const nextKeyword = inputValue.trim();
     if (!nextKeyword) return;
-    if (keywords.includes(nextKeyword)) {
-      setInputValue('');
-      return;
-    }
 
     const nextKeywords = [...keywords, nextKeyword];
     markUnsaved();

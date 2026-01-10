@@ -9,6 +9,7 @@ export {
   useInitialMsgFromUrl,
   useRefLink,
 } from './aiChat'
+export { useAutoScrollOnSend } from './useAutoScrollOnSend'
 export { useConversationsInfiniteScroll } from './useConversationsInfiniteScroll'
 export { usePageInfiniteScroll } from './usePageInfiniteScroll'
 export { useScrollToBottom } from './useScrollToBottom'

@@ -1,5 +1,4 @@
-import { ICorpTableCfg } from '@/components/company/type'
-import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type.ts'
+import { CorpBasicNumFront, CorpTableCfg } from '@/types/corpDetail'
 import { isArray } from 'lodash'
 
 /**
@@ -9,18 +8,18 @@ import { isArray } from 'lodash'
  * to calculate a sum or return a boolean. If `modelNum` is a boolean or array
  * of keys, it evaluates each key's corresponding value from `basicNum`.
  *
- * @param {ICorpTableCfg['modelNum'] | boolean} modelNum - Either a boolean value or the model number(s) to be processed.
+ * @param {CorpTableCfg['modelNum'] | boolean} modelNum - Either a boolean value or the model number(s) to be processed.
  *        If an array, it contains keys referencing values in `basicNum`. Can also include boolean values.
- * @param {ICorpBasicNumFront} basicNum - An object containing numeric values corresponding to the keys from `modelNum`.
+ * @param {CorpBasicNumFront} basicNum - An object containing numeric values corresponding to the keys from `modelNum`.
  * @returns {number | true} - Returns the sum of number values mapped from `modelNum` to `basicNum`.
  *        If the sum is zero and `modelNum` includes `true`, it returns `true`. Otherwise, returns 0 or the computed sum.
  */
 export const getCorpModuleNum = (
-  modelNum: ICorpTableCfg['modelNum'] | boolean,
-  basicNum: ICorpBasicNumFront
+  modelNum: CorpTableCfg['modelNum'] | boolean,
+  basicNum: CorpBasicNumFront
 ): number | true => {
   try {
-    let modelNumArr: Array<keyof ICorpBasicNumFront | boolean>
+    let modelNumArr: Array<keyof CorpBasicNumFront | boolean>
     if (!isArray(modelNum)) {
       modelNumArr = [modelNum]
     } else {

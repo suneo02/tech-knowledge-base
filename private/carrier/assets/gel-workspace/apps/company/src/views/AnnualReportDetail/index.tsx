@@ -2,12 +2,12 @@ import intl from '@/utils/intl'
 import queryString from 'qs'
 import React, { useEffect } from 'react'
 import { pointBuriedGel } from '../../api/configApi'
-import Tables from '../../components/detail/singleTable'
 import rows from './columnsConfig'
 import styles from './styles/index.module.less'
 import useAnnualReportDetail from './useAnnualReportDetail'
 import { usePageTitle } from '../../handle/siteTitle'
 import { useTranslateService } from '../../hook'
+import { SingleTable } from '@/components/detail/singleTable'
 
 const AnnualDetail = () => {
   const location = window.location
@@ -29,7 +29,7 @@ const AnnualDetail = () => {
       {Object.keys(rows).map((i) => {
         return (
           <div className={styles.eachDiv} key={i}>
-            <Tables
+            <SingleTable
               title={rows[i].name}
               horizontal={rows[i].horizontal}
               info={dataIntl[i]}

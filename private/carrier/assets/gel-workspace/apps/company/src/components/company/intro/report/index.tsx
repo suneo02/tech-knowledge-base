@@ -1,5 +1,5 @@
 import { createRequestByPath } from '@/api/request'
-import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type.ts'
+import { CorpBasicNumFront } from '@/types/corpDetail'
 import { Modal } from '@wind/wind-ui'
 import { useRequest } from 'ahooks'
 import cn from 'classnames'
@@ -34,7 +34,7 @@ const ReportGroup: FC<{
   company: {
     baseInfo?: CorpBasicInfo
   }
-  basicNum: ICorpBasicNumFront
+  basicNum: CorpBasicNumFront
 }> = ({ companycode, onClickCallHelp, company, basicNum }) => {
   const { data: basicNumStockData, run: runBasicNumStock } = useRequest(
     createRequestByPath('detail/company/getentbasicnum'),
@@ -119,7 +119,7 @@ export const CompanyReportModal: FC<{
   companyid: string
   onClickCallHelp: () => void
   company: any
-  basicNum: ICorpBasicNumFront
+  basicNum: CorpBasicNumFront
 }> = ({ open, setOpen, companycode, companyid, onClickCallHelp, company, basicNum }) => {
   const Footer = (
     <div className={`${StylePrefix}--footer`}>

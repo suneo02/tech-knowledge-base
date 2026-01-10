@@ -16,6 +16,16 @@ export interface ApiResponseForChat<T> extends ChatModelTypeIdentifier {
 }
 
 /**
+   * reportProgress
+: 
+{currentStepCode: "TEMPLATE_CONFIRMED", currentStepName: "模板已确认", progressPercentage: 25}
+   */
+export interface RPResponseProgress {
+  currentStepCode: string
+  currentStepName: string
+  progressPercentage: number
+}
+/**
  * @deprecated 接口不规范
  */
 export interface ApiResponseForGetUserQuestion<T> extends ChatModelTypeIdentifier {
@@ -26,16 +36,7 @@ export interface ApiResponseForGetUserQuestion<T> extends ChatModelTypeIdentifie
   content?: ChatDPUResponse
   reportData?: ReportChatData
   splTable?: SplTable[]
-  /**
-   * reportProgress
-: 
-{currentStepCode: "TEMPLATE_CONFIRMED", currentStepName: "模板已确认", progressPercentage: 25}
-   */
-  reportProgress: {
-    currentStepCode: string
-    currentStepName: string
-    progressPercentage: number
-  }
+  reportProgress?: RPResponseProgress
   Data?: T
   status?: string
   gelData?: GelData[]

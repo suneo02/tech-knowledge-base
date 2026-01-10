@@ -6,8 +6,8 @@ import { useRequest } from 'ahooks'
 import { AxiosInstance } from 'axios'
 import { AgentIdentifiers, ChatEntityRecognize, ChatThinkSignal, createChatRequestWithAxios } from 'gel-api'
 import {
-  AgentMsgDepre,
-  AgentMsgUserShare,
+  AgentMsgOverall,
+  AgentMsgUserOverall,
   ChatSenderHookResultForStream,
   ChatSenderRes,
   createAgentRequestHandler,
@@ -40,7 +40,7 @@ export const useChatBase = (
   isDev: boolean,
   wsid: string,
   baseUrl: string,
-  defaultMessages?: XChatConfig<AgentMsgDepre, MsgParsedDepre>['defaultMessages'],
+  defaultMessages?: XChatConfig<AgentMsgOverall, MsgParsedDepre>['defaultMessages'],
   roleName?: string,
   entityCode?: string
 ) => {
@@ -179,7 +179,7 @@ export const useChatBase = (
   })
 
   // 使用请求处理器初始化智能体
-  const [agent] = useXAgent<AgentMsgDepre, AgentMsgUserShare, AgentMsgDepre>({
+  const [agent] = useXAgent<AgentMsgOverall, AgentMsgUserOverall, AgentMsgOverall>({
     request: agentReqFunc,
   })
 
@@ -187,13 +187,13 @@ export const useChatBase = (
    * 使用智能体和解析器初始化聊天功能
    * 这提供了消息处理、状态管理和请求触发
    */
-  const parserRef = useRef<NonNullable<XChatConfig<AgentMsgDepre, MsgParsedDepre>['parser']>>()
+  const parserRef = useRef<NonNullable<XChatConfig<AgentMsgOverall, MsgParsedDepre>['parser']>>()
 
   const { onRequest, parsedMessages, setMessages } = useXChat<
-    AgentMsgDepre,
+    AgentMsgOverall,
     MsgParsedDepre,
-    AgentMsgUserShare,
-    AgentMsgDepre
+    AgentMsgUserOverall,
+    AgentMsgOverall
   >({
     agent,
     parser: (message) => {

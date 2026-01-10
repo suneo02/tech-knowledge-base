@@ -4,9 +4,9 @@ import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
 import React from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const HKrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const HKrows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [
     {
       title: intl('138677', '企业名称'),

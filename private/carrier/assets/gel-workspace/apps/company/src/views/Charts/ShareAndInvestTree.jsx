@@ -770,7 +770,7 @@ function ShareAndInvestTree(props) {
       })
 
     tagDebtTexts.append('tspan').text(function (t) {
-      return window.en_access_config ? 'Bonded' : intl('259109', '发债')
+      return window.en_access_config ? 'Bonded' : intl('437678', '发债')
     })
 
     // a

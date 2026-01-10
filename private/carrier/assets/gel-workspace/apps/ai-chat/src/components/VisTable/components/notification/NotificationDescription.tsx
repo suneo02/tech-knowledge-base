@@ -158,9 +158,11 @@ export const NotificationDescription = (props: NotificationDescriptionProps) => 
           ) : (
             value && <Markdown content={value} />
           )}
-          <Divider dashed style={{ marginBlockStart: 12, marginBlockEnd: 12 }} />
+          {/* 产品说：数据来源暂时去除 */}
+          {/* <Divider dashed style={{ marginBlockStart: 12, marginBlockEnd: 12 }} /> */}
         </>
-        <DataSourceSection
+        {/* 产品说：数据来源暂时去除 */}
+        {/* <DataSourceSection
           leftContent={
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <h4 style={{ color: '#999' }}>{STRINGS.DATA_SOURCE}</h4>
@@ -177,7 +179,7 @@ export const NotificationDescription = (props: NotificationDescriptionProps) => 
               <p>{sourceDetail || STRINGS.NO_DATA_SOURCE}</p>
             </div>
           )}
-        </DataSourceSection>
+        </DataSourceSection> */}
       </div>
     </div>
   )

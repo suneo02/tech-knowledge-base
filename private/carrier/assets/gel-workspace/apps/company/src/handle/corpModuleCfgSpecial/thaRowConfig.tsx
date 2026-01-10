@@ -1,22 +1,21 @@
 // 泰国企业 自定义模块
-import { wftCommon } from '@/utils/utils.tsx'
 import CompanyLink from '@/components/company/CompanyLink.tsx'
-import React from 'react'
+import { CorpPrimaryModuleCfg } from '@/types/corpDetail'
 import { intlNoIndex } from '@/utils/intl'
-import { ICorpPrimaryModuleCfg } from '@/components/company/type'
-import { ECorpDetailTable } from 'gel-types'
+import { wftCommon } from '@/utils/utils.tsx'
+import React from 'react'
 
 const intl = intlNoIndex
-export const thaRowConfig: ICorpPrimaryModuleCfg = {
+export const thaRowConfig: CorpPrimaryModuleCfg = {
   showShareholder: {
-    enumKey: ECorpDetailTable.ShareholderBusinessRegistration,
+    enumKey: 'shareholderBusinessRegistration',
     title: intl('138506', '股东信息'),
     modelNum: 'businessregisterCount',
     children: [
       {
         title: window.en_access_config ? intl('312175') : '登记信息',
         modelNum: 'businessregisterCount',
-        enumKey: ECorpDetailTable.ShareholderBusinessRegistration,
+        enumKey: 'shareholderBusinessRegistration',
         columns: [
           {
             title: '',

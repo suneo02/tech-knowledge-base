@@ -29,19 +29,7 @@ export const isLinkSourceF9 = () => {
   return getUrlSearchValue('linksource')?.toLocaleLowerCase() === 'f9'
 }
 
-/**
- * 判断是否是终端的应用路径，包括在终端及 web 环境都会生效
- */
-export const isTerminalApp = () => {
-  try {
-    return /pc\.front/i.test(window.location.href?.toLocaleLowerCase())
-  } catch (e) {
-    console.error('isTerminalApp error', e)
-    return false
-  }
-}
-
-// 是否时独立web测试站
+// 是否是独立web测试站
 export const isWebTest = () => {
   try {
     const host = window.location.host?.toLocaleLowerCase() || ''

@@ -70,8 +70,13 @@ export const chapterOperationReducers = {
       // 锁定章节
       ChapterStateHelper.lock(state, chapterId);
 
-      // 清空章节内容，提供视觉反馈并避免旧内容干扰
+      // 清空章节内容及数据，提供视觉反馈并避免旧内容干扰
       chapter.content = '';
+      chapter.refData = undefined;
+      chapter.refSuggest = undefined;
+      chapter.files = undefined;
+      chapter.entities = undefined;
+      chapter.traceContent = undefined;
 
       // 生成 correlationId 并创建操作记录
       const correlationId = generateCorrelationId();

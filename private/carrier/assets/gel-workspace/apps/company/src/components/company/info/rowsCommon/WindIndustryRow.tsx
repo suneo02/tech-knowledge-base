@@ -2,9 +2,9 @@ import { HorizontalTableCol } from '@/types/WindUI/horizontalTable.ts'
 import { Tree } from '@wind/wind-ui'
 import React from 'react'
 import { TitleAttachmentRender, makeTree } from '../comp/misc'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const corpInfoWindIndustryRow = (fromShfic: boolean): HorizontalTableCol<ICorpBasicInfoFront> => ({
+export const corpInfoWindIndustryRow = (fromShfic: boolean): HorizontalTableCol<CorpBasicInfoFront> => ({
   title: <TitleAttachmentRender />,
   dataIndex: 'industryWindFold',
   render: (_txt, backData) => {

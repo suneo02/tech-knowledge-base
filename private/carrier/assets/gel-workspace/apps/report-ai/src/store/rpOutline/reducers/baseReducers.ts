@@ -5,14 +5,9 @@
  */
 
 import { PayloadAction } from '@reduxjs/toolkit';
-import { RPOutlineState, SetRawMessagesPayload } from '../types';
+import { RPOutlineState } from '../types';
 
 export const baseReducers = {
-  // === 原始消息管理 ===
-  setAgentMessages: (state: RPOutlineState, action: PayloadAction<SetRawMessagesPayload>) => {
-    state.agentMessages = action.payload.rawMessages;
-  },
-
   // === 批量更新 ===
   batchUpdate: (state: RPOutlineState, action: PayloadAction<Partial<RPOutlineState>>) => {
     Object.assign(state, action.payload);

@@ -1,10 +1,11 @@
-import { IUltimateBeneficiaryShareRoute } from '@/handle/corpModuleCfg/base/ultimateBeneficiary'
-import { translateService } from '@/utils/intl/translateService.ts'
-import { wftCommonType } from '@/utils/WFTCommonWithType'
+import { renderRouteContent, renderRouteHeader } from '@/components/common/shareHolder'
 import { Modal, Tooltip } from '@wind/wind-ui'
 import axios from 'axios'
+import { ApiResponseForWFC } from 'gel-api'
+import { EquityRouteDetail, ShareRouteDetail } from 'gel-types'
+import { loaclDevManager } from 'gel-ui'
 import { formatMoneyFromWftCommon, formatMoneyTempFromWftCommon, formatText, formatTime } from 'gel-util/format'
-import { bidType2EnStage, bidType2Stage } from 'gel-util/misc'
+import { bidType2EnStage, bidType2Stage, detectChinese } from 'gel-util/misc'
 import { default as React, ReactNode } from 'react'
 import * as globalActions from '../actions/global'
 import { getCorpModuleInfo } from '../api/companyApi'
@@ -15,18 +16,28 @@ import CompanyLink from '../components/company/CompanyLink'
 import { overseaTipsSimple, tryVip, VipPopup } from '../lib/globalModal'
 import store from '../store/store'
 import { getWsid } from './env'
-import { isBaiFenTerminal, isBaiFenTerminalOrWeb } from './env/baifen'
-import { isDev, isDevDebugger, isWebTest, usedInClient } from './env/misc'
+import { isDev, isDevDebugger, isStaging, isWebTest, usedInClient } from './env/misc'
+import { formatShareRate } from './format'
 import intl from './intl'
+import { pureTranslateService } from './intl/pureTranslateService'
 import { translateDivHtml } from './intl/translateDivHtml'
 import { translateHtml } from './intl/translateHtml'
 import { translateLoadManager } from './intl/translateLoadManager'
+import { translateService } from './intl/translateService'
 import { translateTabHtml } from './intl/translateTabHtml'
 import { translateTable } from './intl/translateTable'
+import {
+  convertArrayObjectKeys,
+  zh2en,
+  zh2enAlwaysCallback,
+  zh2enFlattened,
+  zh2enNestedPart,
+  zh2enResult,
+} from './intl/zh2enFlattened'
 import { wftCommonGetUrlSearch } from './links/url'
 import { localStorageManager, sessionStorageManager } from './storage'
-import { pureTranslateService } from './intl/pureTranslateService'
-import { convertArrayObjectKeys, zh2en, zh2enAlwaysCallback, zh2enFlattened, zh2enNestedPart, zh2enResult } from './intl/zh2enFlattened'
+import { isBaiFenTerminal, isBaiFenTerminalOrWeb } from './utilCallWftCommon'
+import { formatPercentFromWftCommon, wftCommonType } from './WFTCommonWithType'
 
 /**
  * 创建一个防抖函数，该函数在一定时间内只会执行一次，并且在该时间段内再次触发时，会重新计算时间。
@@ -263,17 +274,6 @@ export const wftCommon = {
     const d = time.getDate()
     return `${y.toString()}-${m}-${d}`
   },
-  formatUTCDate: (data) => {
-    // 对筛选条件的时间戳进行转换
-    const time = new Date(data)
-    const y = time.getFullYear()
-    const m = time.getMonth() + 1
-    const d = time.getDate()
-    const h = time.getHours()
-    const min = time.getMinutes()
-    const s = time.getSeconds()
-    return `${y.toString()}-${m}-${d} ${h}:${min}:${s}`
-  },
   formatTimeChinese: (data) => {
     if (data) {
       const time = wftCommon.formatTime(data).split('-')
@@ -321,22 +321,7 @@ export const wftCommon = {
   /**
    * 格式化百分比
    */
-  formatPercent: (str, num?) => {
-    if (str === '0' || str === 0) {
-      return '0%'
-    }
-    if (typeof num == 'number' || typeof num == 'string') {
-      num = num
-    } else {
-      num = 2
-    }
-    if (parseFloat(str)) {
-      let perc = String(parseFloat(parseFloat(str).toFixed(num)))
-      perc = String(parseFloat(perc).toFixed(num))
-      return perc + '%'
-    }
-    return '--'
-  },
+  formatPercent: formatPercentFromWftCommon,
   formatCont: formatText,
   getPinyinMaps: function (_successFun, _errorFun) {
     const is_terminal = wftCommon.usedInClient()
@@ -372,7 +357,7 @@ export const wftCommon = {
           .request({
             url: oUrl,
             headers: {
-              'wind.sessionid': sessionStorageManager.get('GEL-wsid'),
+              'wind.sessionid': sessionid,
               'Content-Type': 'application/json;charset=UTF-8',
             },
             params: data,
@@ -453,25 +438,7 @@ export const wftCommon = {
     })
     return list
   },
-  linkMarker: (code, name, tag, moreCompany) => {
-    //增加对一行出现多个公司或人物的情况的兼容处理 moreCompany=1为多个 0为1个
-    tag = tag || 'span'
-    if (code && code !== 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX') {
-      if (moreCompany == '1') {
-        return `<${tag} class="wi-link-color" style='padding-right:0.26667rem' data-code="${code}" data-name="${name}">${wftCommon.formatCont(name)}</${tag}>`
-      }
-      // <span class="wi-link-color" data-code="${id}" data-name="${name}">${wftCommon.formatCont(name)}</span>;
-      else {
-        return `<${tag} class="wi-link-color" data-code="${code}" data-name="${name}">${wftCommon.formatCont(name)}</${tag}>`
-      }
-    } else {
-      if (moreCompany == '1') {
-        return `<${tag} style='padding-right:0.26667rem'>${wftCommon.formatCont(name)}</${tag}>`
-      } else {
-        return wftCommon.formatCont(name)
-      }
-    }
-  },
+
   getlogoAccess: (logoStr, type, num) => {
     let result = type == 'title' ? '../assets/imgs/company_logo.png' : defaultCompanyImg
     if (logoStr) {
@@ -1074,15 +1041,21 @@ export const wftCommon = {
         </div>
       </React.Fragment>
     )
-    Modal.warning({ title: intl('107460', '温馨提示'), content: str, width: 560 })
+    Modal.warning({ title: intl('237485', '温馨提示'), content: str, width: 560 })
   },
   en_access_config: false,
 
-  showRoute: async (route: IUltimateBeneficiaryShareRoute[], header: any = {}, apiParams: any = {}) => {
+  showRoute: async (
+    route: ShareRouteDetail[],
+    header: Parameters<typeof renderRouteHeader>[0] = {},
+    apiParams: {
+      api?: string
+      params?: any
+    } = {}
+  ) => {
     const { api, params } = apiParams
-    const { left, right } = header
     if (params) {
-      const { Data } = await getCorpModuleInfo(api, params)
+      const { Data } = (await getCorpModuleInfo(api, params)) as ApiResponseForWFC<EquityRouteDetail>
       if (Data.name) {
         header = { ...header, ...Data }
       }
@@ -1090,104 +1063,13 @@ export const wftCommon = {
         route = Data.shareRoute
       }
     }
-    const Header =
-      header.left && header.name ? (
-        <div
-          style={{
-            display: 'flex',
-            paddingBlockEnd: 12,
-            marginBlockEnd: 12,
-            borderBlockEnd: '1px dashed #ededed',
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <label>{left}：</label>
-            <span style={{ color: '#00aec7' }}>{header.name}</span>
-          </div>
-          <div style={{ flex: 1 }}>
-            <label>{right}：</label>
-            <span style={{ color: '#00aec7' }}> {wftCommonType.displayPercent(header.shareRate)}</span>
-          </div>
-        </div>
-      ) : null
-    const c = route
-    let vCount = 0
-    const a = c.map((x, _y) => {
-      let item = null
-      let rate = 0
-      item = x.route
-      const nameL = item[0]['nodeName'] ? item[0]['nodeName'] : '--'
-      const title = item?.some((r) => r.typeName)
-        ? intl('272901', '决定路径')
-        : `${intl('231780', '持股路径')}${++vCount}：（${intl('138459', '占比约')} ${wftCommonType.displayPercentWithTwoDecimalWhenZero(x.ratio)}）`
-      let way
-      for (var j = 0; j < item.length - 1; j++) {
-        if (item[j].directRatioValue && item[j].directRatioValue !== -1 && item[j].directRatioValue !== -2) {
-          rate = rate ? (rate * item[j].directRatioValue) / 100 : item[j].directRatioValue
-        }
-        if (item[j].directRatioValue < 0) {
-          console.log(item[j].directRatioValue)
-        }
-      }
 
-      if (item[0]['nodeId']) {
-        // let buryParam = pingParam + item[0]['nodeId']; //bury
-        if (item[0]['nodeId'].length < 15) {
-          way = (
-            <span
-              className="td-span-route-left underline wi-secondary-color wi-link-color"
-              onClick={() => {
-                item[0]['nodeId'] && wftCommon.linkCompany('Bu3', item[0]['nodeId'])
-              }}
-              data-uc-id="lFtRgjvjm"
-              data-uc-ct="span"
-            >
-              {nameL}
-            </span>
-          )
-        } else {
-          way = <span className="td-span-route-left">{nameL}</span>
-        }
-      } else {
-        way = nameL ? <span className="td-span-route-left">{nameL}</span> : ''
-      }
-      const f = []
-      for (var j = 1; j < item.length; j++) {
-        const nameR = item[j]['nodeName'] ? item[j]['nodeName'] : '--'
-        const sRate = item[j - 1]['directRatioValue'] ? item[j - 1]['directRatioValue'] : ''
-        const nodeId1 = item[j]['nodeId'] ? item[j]['nodeId'] : ''
-
-        const name = item[j - 1]?.['typeName']
-
-        f.push(
-          <span>
-            <span className="td-span-route-right">
-              <b style={{ textAlign: 'center' }}>{name || wftCommon.formatPercent(sRate)}</b>
-              <i></i>
-            </span>
-            <span
-              className="wi-secondary-color underline ctrlright wi-link-color"
-              data-val={nodeId1}
-              onClick={(_e) => {
-                nodeId1 && wftCommon.linkCompany('Bu3', nodeId1)
-              }}
-              data-uc-id="r0GYWFsZ5x"
-              data-uc-ct="span"
-            >
-              {nameR}
-            </span>
-          </span>
-        )
-      }
-      return (
-        <div style={{ marginBottom: '10px' }}>
-          {title}
-          <br />
-          {way}
-          {f}
-        </div>
-      )
+    const Header = renderRouteHeader({
+      ...header,
+      shareRate: wftCommonType.displayPercent(header.shareRate),
     })
+    const content = renderRouteContent(route)
+
     store.dispatch(
       globalActions.setGolbalModal({
         className: 'companyIntroductionTagModal',
@@ -1198,12 +1080,58 @@ export const wftCommon = {
         content: (
           <>
             {Header}
-            {a}
+            {content}
           </>
         ),
-        footer: [
-          //   <Button type="grey" onClick={() => store.dispatch(globalActions.clearGolbalModal()) }>{'222'}</Button>,
-        ],
+        footer: [],
+      })
+    )
+  },
+
+  /**
+   * 使用新字段 showShareRate 的股权路径展示
+   */
+  renderShareRouteModal: async (
+    route: ShareRouteDetail[],
+    header: {
+      left?: ReactNode
+      right?: ReactNode
+      name?: ReactNode
+      showShareRate?: string | number
+    } = {},
+    apiParams: {
+      api?: string
+      params?: any
+    } = {}
+  ) => {
+    const { api, params } = apiParams
+    if (params) {
+      const { Data } = (await getCorpModuleInfo(api, params)) as ApiResponseForWFC<EquityRouteDetail>
+      if (Data.name) {
+        header = { ...header, ...Data }
+      }
+      if (Data.shareRoute) {
+        route = Data.shareRoute
+      }
+    }
+
+    const Header = renderRouteHeader({ ...header, shareRate: formatShareRate(header.showShareRate) })
+    const content = renderRouteContent(route)
+
+    store.dispatch(
+      globalActions.setGolbalModal({
+        className: 'companyIntroductionTagModal',
+        width: 560,
+        visible: true,
+        onCancel: () => store.dispatch(globalActions.clearGolbalModal()),
+        title: intl('451209', '股权链'),
+        content: (
+          <>
+            {Header}
+            {content}
+          </>
+        ),
+        footer: [],
       })
     )
   }, // 是否终端内使用
@@ -1492,6 +1420,17 @@ export const wftCommon = {
       // ip 境外
       wftCommon.is_overseas_config = true
     }
+    try {
+      if (isDev || isStaging) {
+        const overseasOverride = loaclDevManager.get('GEL_DEV_OVERSEAS') || ''
+        if (overseasOverride === 'overseas') {
+          wftCommon.is_overseas_config = true
+        }
+        if (overseasOverride === 'domestic') {
+          wftCommon.is_overseas_config = false
+        }
+      }
+    } catch (e) {}
     if (wftCommon.is_overseas_config) {
       if (!window.document.body.className || window.document.body.className.indexOf('wind-global-oversea') == -1) {
         window.document.body.className = window.document.body.className + ' wind-global-oversea '
@@ -2207,7 +2146,7 @@ export const wftCommon = {
               }
             }
             // context.drawImage(shuiying, canvas.width / 2 - 100, canvas.height / 2 - 57, 200, 57); // x,y,w,h
-            const marker = intl('232624', '基于公开信息和第三方数据利用大数据技术独家计算生成!')
+            const marker = intl('478649', '基于公开信息和第三方数据利用大数据技术独家计算生成!')
             context.font = '14px 微软雅黑'
             context.fillStyle = '#aaaaaa'
             context.fillText(marker, canvas.width / 2 - context.measureText(marker).width / 2, canvas.height - 20)
@@ -2480,10 +2419,10 @@ export const wftCommon = {
   removeLoadTask: translateLoadManager.removeLoadTask,
 
   translateService: translateService, // 纯函数 深拷贝后翻译， 不改变原对象
-  pureTranslateService: pureTranslateService,/*
+  pureTranslateService: pureTranslateService /*
    * 中文翻译为英文
    * zhWords，中文词条 arr格式； successCallback，翻译成功后的回调，参数中返回了英文词条arr， extraFun，需要对中文词条做的一些额外处理方法
-   */
+   */,
   zh2enFlattened: zh2enFlattened,
   checkCh: function (str) {
     const reg = /[\u4e00-\u9fa5]+/
@@ -2523,7 +2462,7 @@ export const wftCommon = {
    *
    * @returns {Array} 转换后的数据数组，保持原有的数组结构，同时将特殊格式的 key 转换回数组对象格式
    */
-  convertArrayObjectKeys :convertArrayObjectKeys,
+  convertArrayObjectKeys: convertArrayObjectKeys,
   zh2en: zh2en,
 
   replaceScript: (str) => {
@@ -2914,14 +2853,4 @@ export function getUserInfo() {
   return userInfo
 }
 
-/**
- * 判断字符串是否为中文名称，含繁体
- * /[\u4e00-\u9fff]/.test('汉') true
- * /[\u4e00-\u9fff]/.test('。') false
- * /[\u4e00-\u9fff]/.test('a') false
- * /[\u4e00-\u9fff]/.test('주식') false
- * /[\u4e00-\u9fff]/.test('華') true
- */
-export const isChineseName = (name: string) => {
-  return /[\u4e00-\u9fff]/.test(name)
-}
+export const isChineseName = detectChinese

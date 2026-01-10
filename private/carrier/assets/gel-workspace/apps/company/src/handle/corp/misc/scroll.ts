@@ -6,11 +6,13 @@
  * @see ../../../docs/CorpDetail/lazyLoad.md - 懒加载设计文档
  */
 
+import { CorpMenuSimpleData } from '@/views/Company/menu'
 import { multiTabIds } from 'gel-util/corpConfig'
 import { debounce } from 'lodash'
 
 export const SCROLL_FROM_MENU_CLICK_ID = {
   value: null,
+  time: 0,
 }
 /**
  * 创建初次加载时的模块检测函数
@@ -371,7 +373,7 @@ export const handleCorpDetailScrollMenuLoad = (
     setLoadedBrandAndPatent: (value: boolean) => void
     loadedBid: boolean
     setLoadedBid: (value: boolean) => void
-    allTreeDataObj: any
+    allTreeDataObj: Record<string, CorpMenuSimpleData>
     setSelectedKeys: (value: string[]) => void
     setExpandedKeys: (value: string[]) => void
     expandedKeys: string[]
@@ -434,6 +436,15 @@ export const handleCorpDetailScrollMenuLoad = (
   if (moduleId && moduleId.length) {
     const menuId = moduleId[0].split('-')[0]
     if (menuId) {
+      // 修复菜单点击跳转抖动问题
+      if (SCROLL_FROM_MENU_CLICK_ID.value) {
+        if (Date.now() - SCROLL_FROM_MENU_CLICK_ID.time > 1000) {
+          SCROLL_FROM_MENU_CLICK_ID.value = null
+          SCROLL_FROM_MENU_CLICK_ID.time = 0
+        } else if (SCROLL_FROM_MENU_CLICK_ID.value !== menuId) {
+          return
+        }
+      }
       setSelectedKeys([menuId])
     }
     if (menuId && allTreeDataObj[menuId] && allTreeDataObj[menuId].parentMenuKey) {
@@ -448,21 +459,37 @@ export const handleCorpDetailScrollMenuLoad = (
   }
 }
 
+/**
+ * 处理企业详情页滚动时菜单的变化
+ *
+ * @param moduleId - 当前视口中的模块ID
+ * @param cbs - 回调函数集合
+ * @see apps/company/docs/specs/2025-12/2025-12-04-fix-menu-jump/spec-analysis.md - 关于修复菜单抖动问题的详细分析
+ */
 export const handleCorpDetailScrollMenuChanged = (
   moduleId: string,
   cbs: {
     setSelectedKeys: (value: string[]) => void
     setExpandedKeys: (value: string[]) => void
     expandedKeys: string[]
-    allTreeDataObj: any
+    allTreeDataObj: Record<string, CorpMenuSimpleData>
   }
 ) => {
   const { setSelectedKeys, setExpandedKeys, expandedKeys, allTreeDataObj } = cbs
   //  加载过的模块，此回调函数用于更新menu
   if (moduleId) {
     const menuId = moduleId.split('-')[0]
-    setSelectedKeys([menuId])
+    // 修复菜单点击跳转抖动问题
+    if (SCROLL_FROM_MENU_CLICK_ID.value) {
+      if (Date.now() - SCROLL_FROM_MENU_CLICK_ID.time > 1000) {
+        SCROLL_FROM_MENU_CLICK_ID.value = null
+        SCROLL_FROM_MENU_CLICK_ID.time = 0
+      } else if (SCROLL_FROM_MENU_CLICK_ID.value !== menuId) {
+        return
+      }
+    }
     if (!allTreeDataObj[menuId]) return
+    setSelectedKeys([menuId])
     if (expandedKeys) {
       if (expandedKeys.indexOf(allTreeDataObj[menuId].parentMenuKey) == -1) {
         setExpandedKeys([...expandedKeys, allTreeDataObj[menuId].parentMenuKey])

@@ -142,11 +142,11 @@ const Introduce: React.FC<IntroduceProps> = (props) => {
         height={480}
         wrapClassName={'ai-graph-modal-container'}
         visible={investigationModalVisible}
-        title={t('', '供应链探查')}
+        title={t('467795', '供应链探查')}
         onCancel={() => setInvestigationModalVisible(false)}
         footer={[
           <Button key="back" size="large">
-            {t('', '取消')}
+            {t('19405', '取消')}
           </Button>,
           <Button
             key="submit"
@@ -157,7 +157,7 @@ const Introduce: React.FC<IntroduceProps> = (props) => {
               handleExploreAiGraphAgent(AI_GRAPH_ENTITY_TYPE.SUPPLY)
             }}
           >
-            {t('', '生成图谱')}
+            {t('467841', '生成图谱')}
           </Button>,
         ]}
       >
@@ -177,7 +177,7 @@ const Introduce: React.FC<IntroduceProps> = (props) => {
           </div>
           <div className="ai-graph-modal-content-corp-presearch">
             <span className="ai-graph-modal-content-corp-presearch-required">*</span>
-            <span className="ai-graph-modal-content-corp-presearch-label">{t('', '公司名称')}:</span>
+            <span className="ai-graph-modal-content-corp-presearch-label">{t('32914', '公司名称')}:</span>
             <CorpPresearch
               minWidth={500}
               onClickItem={(item) => {

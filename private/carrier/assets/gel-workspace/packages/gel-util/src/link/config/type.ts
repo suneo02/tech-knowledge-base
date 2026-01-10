@@ -1,6 +1,14 @@
-// 环境配置
+/**
+ * 链接配置类型定义
+ *
+ * 定义模块配置的数据结构
+ *
+ * @see ../../docs/link-config-design.md 设计文档
+ */
+
 import { TGelEnv } from '@/env'
 
+// 环境配置
 export interface EnvConfig {
   prefixPath?: string
   htmlPath?: string
@@ -16,4 +24,5 @@ export interface BaseModuleConfig {
   customGenerate?: (config: BaseModuleConfig) => string
   appendParamsToHash?: boolean // 是否将查询参数附加到hash后面而不是作为URL的search部分
   hashPathParam?: string // 用于在hash中添加路径段的参数名，如 'chatId'
+  defaultParams?: Record<string, unknown> // 模块的默认参数配置，用于与调用参数合并
 }

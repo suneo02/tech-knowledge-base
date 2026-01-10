@@ -11,17 +11,17 @@ export const prodDetailColumns: TableProps['columns'] = [
     width: 60,
   },
   {
-    title: intl('207828', '应用市场'),
+    title: intl('470281', '应用市场'),
     dataIndex: 'storeName',
     render: (data) => data || '--',
   },
   {
-    title: intl('208884', '产品全称'),
+    title: intl('478699', '产品全称'),
     dataIndex: 'appName',
     render: (data) => data || '--',
   },
   {
-    title: intl('207829', '开发商名称'),
+    title: intl('470282', '开发商名称'),
     dataIndex: 'creatorName',
     render: (data) => data || '--',
     width: 200,
@@ -32,22 +32,22 @@ export const prodDetailColumns: TableProps['columns'] = [
     render: (data) => data || '--',
   },
   {
-    title: intl('208885', '下载数量'),
+    title: intl('470296', '下载数量'),
     dataIndex: 'downNum',
     render: (data) => data || '--',
   },
   {
-    title: intl('208881', '评分'),
+    title: intl('470295', '评分'),
     dataIndex: 'score',
     render: (data) => data || '--',
   },
   {
-    title: intl('207830', '评论数量'),
+    title: intl('470283', '评论数量'),
     dataIndex: 'noteNum',
     render: (data) => data || '--',
   },
   {
-    title: intl('208874', '最新版本号'),
+    title: intl('470284', '最新版本号'),
     dataIndex: 'lstVer',
     render: (data) => data || '--',
   },

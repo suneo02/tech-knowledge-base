@@ -1,11 +1,11 @@
 import { eaglesError } from '@/api/eagles'
 import { ApiResponse } from '@/api/types.ts'
-import { getWsid, isTestSite } from '@/utils/env'
-import { getApiPrefix, isDevDebugger, isTerminalAppPath, usedInClient } from '@/utils/env/misc'
+import { getApiPrefix, getWsid } from '@/utils/env'
 import { localStorageManager } from '@/utils/storage'
 import { Button, message, Modal, notification } from 'antd'
 import axios from 'axios'
 import { isEn } from 'gel-util/intl'
+import { DEFAULT_DISPLAY_MODE } from 'gel-util/misc'
 import qs from 'qs'
 import React from 'react'
 import store from '../store/store'
@@ -65,12 +65,17 @@ class HttpRequest {
                 languageSet: store.getState().global.language === 'en' ? 'en_US' : 'zh_CN',
                 'wind.sessionid': wsid,
                 'client-type': 'web',
+                /**
+                 * translation-type
+                 */
+                'translation-type': DEFAULT_DISPLAY_MODE,
               },
             }
           : {
               headers: {
                 languageSet: store.getState().global.language === 'en' ? 'en_US' : 'zh_CN',
                 'client-type': 'web',
+                'translation-type': DEFAULT_DISPLAY_MODE,
               },
             }
     }
@@ -570,7 +575,6 @@ class HttpRequest {
    */
   requestToEntWeb(cmd, data, method?, formType?) {
     const host = window.location.host
-    const isTestEnvironment = isTestSite()
     // 终端内使用、终端应用内使用、开发环境使用 的域名要做手动处理，其余情况使用当前域名
     // 后端已支持在终端内直接使用当前域名访问到 wind.ent.web 服务
     const baseUrl = `https://${host}`

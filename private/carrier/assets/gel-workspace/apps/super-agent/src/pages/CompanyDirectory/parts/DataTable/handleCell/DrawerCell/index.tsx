@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Drawer, Popover, Typography } from 'antd'
 import { Button } from '@wind/wind-ui'
-import { InfoCircleO, RatiohalfO } from '@wind/icons'
+import { DownO, InfoCircleO, RatiohalfO, UpO } from '@wind/icons'
 import styles from './index.module.less'
 import type { BasicRecord } from '../../types'
 import { TableContext } from '../../context'
-import { t, formatNumberByType } from '../../common'
+import { t } from '../../common'
 import { createStockCodeAwareMarkdownRenderer } from '@/utils/md'
 import { isDev } from '@/utils/env'
-import { ColumnDataTypeEnum } from 'gel-api'
+import CList from '@/components/CList'
 
 export interface DrawerCellProps {
   value: unknown
@@ -36,27 +36,9 @@ export const DrawerCell: React.FC<DrawerCellProps> = ({
   expandAll,
   columnType,
   labels,
+  title,
 }) => {
   const STOCK_MD = useMemo(() => createStockCodeAwareMarkdownRenderer(isDev), [])
-  const renderByType = useMemo(
-    () =>
-      (raw: unknown, type?: unknown): React.ReactNode => {
-        if (type === 'md') {
-          const source = typeof raw === 'string' ? raw : String(raw ?? '')
-          const html = STOCK_MD.render(source)
-          return <div dangerouslySetInnerHTML={{ __html: html }} />
-        }
-        if (
-          type === ColumnDataTypeEnum.INTEGER ||
-          type === ColumnDataTypeEnum.FLOAT ||
-          type === ColumnDataTypeEnum.PERCENT
-        ) {
-          return formatNumberByType(raw, type)
-        }
-        return (raw as React.ReactNode) ?? null
-      },
-    [STOCK_MD]
-  )
   const [open, setOpen] = useState(false)
   const ctx = React.useContext(TableContext)
   const listRef = useRef<HTMLDivElement>(null)
@@ -68,7 +50,7 @@ export const DrawerCell: React.FC<DrawerCellProps> = ({
   const showGenerate = localStatus === 0
   const isGenerating = localStatus === 1
 
-  const content = (value ?? '') as React.ReactNode
+  const content = title || ((value ?? '') as React.ReactNode)
 
   const visibleColumns = useMemo(() => {
     const cols = ctx?.columns ?? []
@@ -127,46 +109,30 @@ export const DrawerCell: React.FC<DrawerCellProps> = ({
         <Drawer open={open} onClose={() => setOpen(false)} placement="right" width={520}>
           <div className={styles[`${PREFIX}-drawerHeader`]}>
             <div className={styles[`${PREFIX}-drawerHeaderLeft`]}>
-              {hasPrev && (
-                <Button size="small" onClick={() => setIndex((i) => Math.max(0, i - 1))}>
-                  {t('common.prev', '上一条')}
-                </Button>
-              )}
-              {hasNext && (
-                <Button size="small" onClick={() => setIndex((i) => Math.min(dataList.length - 1, i + 1))}>
-                  {t('common.next', '下一条')}
-                </Button>
-              )}
+              <Button
+                size="small"
+                onClick={() => setIndex((i) => Math.max(0, i - 1))}
+                type="text"
+                icon={<UpO />}
+                disabled={!hasPrev}
+              />
+
+              <Button
+                size="small"
+                onClick={() => setIndex((i) => Math.min(dataList.length - 1, i + 1))}
+                type="text"
+                icon={<DownO />}
+                disabled={!hasNext}
+              />
             </div>
             <div className={styles[`${PREFIX}-drawerHeaderRight`]}>
               <Button size="small" onClick={() => setOpen(false)}>
-                {t('common.close', '关闭')}
+                {t('6653', '关闭')}
               </Button>
             </div>
           </div>
           <div ref={listRef} className={styles[`${PREFIX}-drawerList`]}>
-            {visibleColumns.map((col) => {
-              const key = String(col.dataIndex)
-              const label = col.title as React.ReactNode
-              const rawValue = currentRecord?.[key]
-              const cellValue = renderByType(rawValue, col?.type)
-              const titleText = typeof label === 'string' ? label : undefined
-              const tooLong = (titleText?.length ?? 0) > 10
-              return (
-                <div key={key} className={styles[`${PREFIX}-drawerItem`]} data-col-key={key}>
-                  <div
-                    className={tooLong ? styles[`${PREFIX}-drawerItemLabelBlock`] : styles[`${PREFIX}-drawerItemLabel`]}
-                  >
-                    {label}
-                  </div>
-                  <div
-                    className={tooLong ? styles[`${PREFIX}-drawerItemValueBlock`] : styles[`${PREFIX}-drawerItemValue`]}
-                  >
-                    {cellValue}
-                  </div>
-                </div>
-              )
-            })}
+            <CList dataSource={[currentRecord]} columns={visibleColumns} expandAll={true} />
           </div>
         </Drawer>
       </div>
@@ -213,46 +179,29 @@ export const DrawerCell: React.FC<DrawerCellProps> = ({
       <Drawer open={open} onClose={() => setOpen(false)} placement="right" width={520}>
         <div className={styles[`${PREFIX}-drawerHeader`]}>
           <div className={styles[`${PREFIX}-drawerHeaderLeft`]}>
-            {hasPrev && (
-              <Button size="small" onClick={() => setIndex((i) => Math.max(0, i - 1))}>
-                {t('common.prev', '上一条')}
-              </Button>
-            )}
-            {hasNext && (
-              <Button size="small" onClick={() => setIndex((i) => Math.min(dataList.length - 1, i + 1))}>
-                {t('common.next', '下一条')}
-              </Button>
-            )}
+            <Button
+              size="small"
+              onClick={() => setIndex((i) => Math.max(0, i - 1))}
+              type="text"
+              icon={<UpO />}
+              disabled={!hasPrev}
+            />
+            <Button
+              size="small"
+              onClick={() => setIndex((i) => Math.min(dataList.length - 1, i + 1))}
+              type="text"
+              icon={<DownO />}
+              disabled={!hasNext}
+            />
           </div>
           <div className={styles[`${PREFIX}-drawerHeaderRight`]}>
             <Button size="small" onClick={() => setOpen(false)}>
-              {t('common.close', '关闭')}
+              {t('6653', '关闭')}
             </Button>
           </div>
         </div>
         <div ref={listRef} className={styles[`${PREFIX}-drawerList`]}>
-          {visibleColumns.map((col) => {
-            const key = String(col.dataIndex)
-            const label = col.title as React.ReactNode
-            const rawValue = currentRecord?.[key]
-            const cellValue = renderByType(rawValue, col?.type)
-            const titleText = typeof label === 'string' ? label : undefined
-            const tooLong = (titleText?.length ?? 0) > 10
-            return (
-              <div key={key} className={styles[`${PREFIX}-drawerItem`]} data-col-key={key}>
-                <div
-                  className={tooLong ? styles[`${PREFIX}-drawerItemLabelBlock`] : styles[`${PREFIX}-drawerItemLabel`]}
-                >
-                  {label}
-                </div>
-                <div
-                  className={tooLong ? styles[`${PREFIX}-drawerItemValueBlock`] : styles[`${PREFIX}-drawerItemValue`]}
-                >
-                  {cellValue}
-                </div>
-              </div>
-            )
-          })}
+          <CList dataSource={[currentRecord]} columns={visibleColumns} expandAll={true} />
         </div>
       </Drawer>
     </div>

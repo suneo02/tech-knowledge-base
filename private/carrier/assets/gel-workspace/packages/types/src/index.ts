@@ -5,8 +5,10 @@
 
 // ======== 导出所有子模块 ========
 export * from './ConfigDetail'
-export * from './corp'
+export * from './corpDetail'
+export * from './intellectual'
 export * from './search'
 export * from './user'
-export * from './windui'
 export * from './vip'
+export * from './windui'
+

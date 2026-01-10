@@ -30,6 +30,7 @@ export default defineConfig(
     build: {
       emptyOutDir: false, // 确保每次构建前清空目录
       minify: mode === 'development' ? false : 'esbuild', // 开发环境不压缩，生产环境使用 esbuild 压缩
+      sourcemap: mode === 'development' ? true : false, // 开发环境生成 sourcemap
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
         name: 'ai-ui',

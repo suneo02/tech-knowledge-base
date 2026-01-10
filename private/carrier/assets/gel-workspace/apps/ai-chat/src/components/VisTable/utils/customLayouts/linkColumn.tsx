@@ -35,6 +35,7 @@ export const buildLinkColumn = (defaultColumn: ColumnDefine) => {
             attribute={{
               text: dataValue || '',
               fontSize: 14,
+              fontWeight: 400,
               fill: '#333',
               fontStyle: getTextStyle(),
               textAlign: 'left',

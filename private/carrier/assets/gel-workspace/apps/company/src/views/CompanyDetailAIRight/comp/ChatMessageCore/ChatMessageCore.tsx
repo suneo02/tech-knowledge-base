@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 企业详情页AI对话核心组件
  *
  * 提供AI智能对话功能，支持企业上下文感知、虚拟滚动、预设问题等
@@ -36,7 +36,7 @@ import cn from 'classnames' // 类名拼接工具
 import { AgentIdentifiers, ChatThinkSignal, EModelType } from 'gel-api' // 聊天相关类型
 import { getChatPlaceholder, MsgParsedDepre, RolesTypeCore, useScrollToBottom } from 'gel-ui' // 聊天 UI 工具
 import { t } from 'gel-util/intl' // 国际化工具
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom' // 路由 location hook
 
 // 本地依赖
@@ -147,7 +147,7 @@ interface BubbleListProps {
  *
  * @see {@link file:./index.tsx} - 容器组件
  * @see {@link file:./README.md} - 组件文档
- * @see {@link file:../../../../../../docs/rule/react-rule.md} - React 开发规范
+ * @see {@link file:../../../../../../docs/rule/code-react-component-rule.md} - React 开发规范
  */
 interface ChatMessageCoreProps<T extends BubbleListProps['roles'] = BubbleListProps['roles']> {
   /** 自定义角色配置，用于覆盖默认的角色样式和行为 */
@@ -301,14 +301,7 @@ const ChatMessageCore = memo(
      * - 用户手动滚动时隐藏/显示按钮
      * - 滚动到顶部时触发加载更多
      */
-    const { chatContainerRef, showScrollBottom, scrollToBottom } = useScrollToBottom({
-      parsedMessages,
-      isChating,
-      hasMore,
-      bubbleLoading,
-      onLoadMore,
-      loadMoreThreshold: 100, // 距离顶部 100px 时触发加载更多
-    } as any)
+    const { chatContainerRef, showScrollBottom, scrollToBottom } = useScrollToBottom()
 
     // ============================================================================
     // 消息发送处理
@@ -655,7 +648,7 @@ const ChatMessageCore = memo(
           <ScrollToBottomButton
             style={{ bottom: '100px', right: '20px' }}
             visible={showScrollBottom}
-            onClick={scrollToBottom}
+            onClick={() => scrollToBottom()}
             data-uc-id="JYP1Z6l8fe"
             data-uc-ct="scrolltobottombutton"
           />

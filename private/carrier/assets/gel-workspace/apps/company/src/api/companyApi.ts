@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/api/types.ts'
-import { CorpTag } from 'gel-api/*'
+import { CorpTag } from 'gel-api'
 import { CorpCardInfo } from 'gel-types'
 import axios from './index.ts'
 
@@ -19,11 +19,39 @@ export const getCorpHeaderInfo = (id): Promise<ApiResponse<CorpCardInfo>> => {
   })
 }
 
+// Mock Flags - Change these to test different states
+// export const mockFlags = {
+//   peFundAmacRegistrationStatus: 0, // 基协备案基金
+//   peFundManagerRegistrationStatus: 1, // 登记基金管理人
+// }
+
 // 获取企业工商信息
 export const getCorpInfo = (id) => {
   return axios.request({
     method: 'post',
     cmd: 'detail/company/getcorpbasicinfo_basic',
+    data: {
+      __primaryKey: id,
+    },
+  })
+}
+
+// 获取基金信息 (基协备案基金)
+export const getFundInfo = (id) => {
+  return axios.request({
+    method: 'post',
+    cmd: `detail/company/getAmacFundInfo`,
+    data: {
+      __primaryKey: id,
+    },
+  })
+}
+
+// 获取管理人信息 (登记基金管理人)
+export const getManagerInfo = (id) => {
+  return axios.request({
+    method: 'post',
+    cmd: `detail/company/getFundManagerInfo`,
     data: {
       __primaryKey: id,
     },

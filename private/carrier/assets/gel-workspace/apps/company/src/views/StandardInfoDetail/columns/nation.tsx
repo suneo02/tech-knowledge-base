@@ -21,7 +21,7 @@ import {
 import { ExecuteUnit, ManageUnit, PutUnderUnit, TechnicalUnit } from './common/department'
 
 const ApplicantCNName = {
-  title: intl('328186', '替代情况'),
+  title: intl('478723', '替代情况'),
   dataIndex: 'alternativeSituation',
   colSpan: 5,
   contentAlign: 'left',
@@ -30,7 +30,7 @@ const ApplicantCNName = {
 }
 
 const StandardAcquisition = {
-  title: intl('328187', '采标情况'),
+  title: intl('478707', '采标情况'),
   dataIndex: 'standardAcquisition',
   colSpan: 5,
   render: (text) => {
@@ -54,11 +54,11 @@ export const standardDataCountry = {
       [StandardAcquisition],
     ],
     horizontal: true,
-    name: intl('328180', '标准信息详情'),
+    name: intl('478706', '标准信息详情'),
   },
   draft: {
     columns: [DraftUnit, DraftNum, RegisterCapital, EstablishDate],
     horizontal: false,
-    name: intl('328188', '起草单位'),
+    name: intl('478702', '起草单位'),
   },
 }

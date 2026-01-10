@@ -40,7 +40,7 @@ const RecentViewList: FC<RecentViewListProps> = ({
               if (!onClearRecentView) return
               Modal.confirm({
                 title: t('', '是否清空最近浏览？'),
-                // content: t('此操作不可撤销，请确认。', '此操作不可撤销，请确认。'),
+                // content: t('478638', '此操作不可撤销，请确认。'),
                 okText: t('12238', '确定'),
                 cancelText: t('372173', '取消'),
                 onOk: () => onClearRecentView?.(),

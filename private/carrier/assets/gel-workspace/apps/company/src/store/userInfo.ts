@@ -55,7 +55,9 @@ interface GlobalStore {
     userPackageinfo?: UserInfo
   }
 }
-
+/**
+ * @deprecated 使用 redux
+ */
 export const useUserInfoStore = create<UserInfoState>((set, get) => ({
   userInfo: {},
   activityInfos: [],

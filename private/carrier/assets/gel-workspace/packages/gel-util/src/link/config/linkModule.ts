@@ -1,6 +1,11 @@
 /**
- * 这个不能改 value json 中有没调用该module
- * ！！！
+ * 链接模块枚举定义
+ *
+ * 定义所有支持的业务模块标识，用作 URL 配置的 key
+ *
+ * ⚠️ 注意：不能修改枚举值，JSON 配置中有引用
+ *
+ * @see ../../docs/link-config-design.md 设计文档
  */
 export enum LinkModule {
   GROUP = 'GROUP', // 集团系
@@ -64,6 +69,8 @@ export enum LinkModule {
   SUPER_DOWNLOAD = 'SUPER_DOWNLOAD', // 超级名单下载
 
   CREDIT = 'CREDIT', // 积分中心
+
+  SUPER_AGENT = 'SUPER_AGENT', // 超级名单Agent
 
   COMPANY_DYNAMIC = 'COMPANY_DYNAMIC', // 企业动态
 

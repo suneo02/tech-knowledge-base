@@ -5,5 +5,6 @@ import esgRatingB from './rating_B.png'
 import esgRatingBB from './rating_BB.png'
 import esgRatingBBB from './rating_BBB.png'
 import esgRatingCCC from './rating_CCC.png'
+import esgRatingD from './rating_D.png'
 
-export { esgRatingA, esgRatingAA, esgRatingAAA, esgRatingB, esgRatingBB, esgRatingBBB, esgRatingCCC }
+export { esgRatingA, esgRatingAA, esgRatingAAA, esgRatingB, esgRatingBB, esgRatingBBB, esgRatingCCC, esgRatingD }

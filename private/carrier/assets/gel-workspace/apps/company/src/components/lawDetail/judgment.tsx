@@ -193,7 +193,7 @@ function Judgment(props) {
             data-uc-ct="horizontaltable"
           />
         </Card>
-        <Card className="baseinfo-container" title={intl('222856', '文书正文')}>
+        <Card className="baseinfo-container" title={intl('478619', '文书正文')}>
           {showContentText()}
         </Card>
       </div>
@@ -231,7 +231,7 @@ function Judgment(props) {
                     data-uc-id="kkCDcWD7u"
                     data-uc-ct="i"
                   ></i>
-                  {intl('222856', '文书正文')}
+                  {intl('478619', '文书正文')}
                 </h3>
                 <div className="cate-children">
                   {keyOrder.map((item, index) => (

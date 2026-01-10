@@ -15,21 +15,22 @@ util 包中 misc 目录下如果加方法，需要注意 site title ，及 compa
 ## Usage
 
 ```typescript
-import { getCurrentEnv, callClientFunc, type TGelEnv } from '@gel/util';
+import { getCurrentEnv, callClientFunc, type TGelEnv } from '@gel/util'
 
 // Get current environment
-const env: TGelEnv = getCurrentEnv();
-
+const env: TGelEnv = getCurrentEnv()
 
 // Call client function
-callClientFunc({
-  func: 'querydata',
-  name: 'example',
-  isGlobal: 1
-}, (data) => {
-  console.log('Response:', data);
-});
-
+callClientFunc(
+  {
+    func: 'querydata',
+    name: 'example',
+    isGlobal: 1,
+  },
+  (data) => {
+    console.log('Response:', data)
+  }
+)
 ```
 
 ## API Reference
@@ -87,57 +88,57 @@ UNLICENSED - Private use only
 
 ```typescript
 // ❌ 不再支持
-import {  isDev, formatTime } from 'gel-util';
+import { isDev, formatTime } from 'gel-util'
 ```
 
 修改为相应子模块的导入：
 
-```typescript 
+```typescript
 // ✅ 正确方式
-import {  isDev } from 'gel-util/env';
-import { formatTime } from 'gel-util/format';
+import { isDev } from 'gel-util/env'
+import { formatTime } from 'gel-util/format'
 ```
 
 ## 可用子模块
 
 `gel-util` 包含以下子模块：
 
-| 模块名 | 描述 | 主要函数/类型 |
-|--------|------|--------------|
-| `env` | 环境相关函数 |  `isDev`, `usedInClient`, `WindSessionHeader` |
-| `intl` | 国际化相关 | `i18n`, `t`, `getLocale`, `SupportedLocale` |
-| `link` | 链接生成 | `generateUrlByModule`, `LinkModule` |
-| `format` | 格式化函数 | `formatTime`, `formatMoney`, `numberFormat` |
-| `translate` | 翻译相关函数 | |
-| `corp` | 企业相关函数和类型 | `TCorpArea` |
-| `config` | 配置相关 | |
-| `corpConfig` | 企业配置相关 | |
-| `typeUtil` | 类型工具 | |
+| 模块名       | 描述               | 主要函数/类型                                |
+| ------------ | ------------------ | -------------------------------------------- |
+| `env`        | 环境相关函数       | `isDev`, `usedInClient`, `WindSessionHeader` |
+| `intl`       | 国际化相关         | `i18n`, `t`, `getLocale`, `SupportedLocale`  |
+| `link`       | 链接生成           | `generateUrlByModule`, `LinkModule`          |
+| `format`     | 格式化函数         | `formatTime`, `formatMoney`, `numberFormat`  |
+| `translate`  | 翻译相关函数       |                                              |
+| `corp`       | 企业相关函数和类型 | `CorpArea`                                   |
+| `config`     | 配置相关           |                                              |
+| `corpConfig` | 企业配置相关       |                                              |
+| `typeUtil`   | 类型工具           |                                              |
 
 ## 常用函数对照表
 
 以下是常用函数所在的子模块：
 
-| 函数名 | 子模块 |
-|--------|------|
-| `isDev` | `env` |
-| `usedInClient` | `env` |
-| `WindSessionHeader` | `env` |
-| `i18n` | `intl` |
-| `t` | `intl` |
-| `getLocale` | `intl` |
-| `isEn` | `intl` |
-| `SupportedLocale` | `intl` |
-| `formatTime` | `format` |
-| `formatMoney` | `format` |
-| `formatMoneyComma` | `format` |
-| `numberFormat` | `format` |
-| `generateUrlByModule` | `link` |
-| `LinkModule` | `link` |
-| `STATIC_FILE_PATH` | `download` |
-| `TCorpArea` | `corp` |
-| `makeTree` | `corp` |
+| 函数名                | 子模块     |
+| --------------------- | ---------- |
+| `isDev`               | `env`      |
+| `usedInClient`        | `env`      |
+| `WindSessionHeader`   | `env`      |
+| `i18n`                | `intl`     |
+| `t`                   | `intl`     |
+| `getLocale`           | `intl`     |
+| `isEn`                | `intl`     |
+| `SupportedLocale`     | `intl`     |
+| `formatTime`          | `format`   |
+| `formatMoney`         | `format`   |
+| `formatMoneyComma`    | `format`   |
+| `numberFormat`        | `format`   |
+| `generateUrlByModule` | `link`     |
+| `LinkModule`          | `link`     |
+| `STATIC_FILE_PATH`    | `download` |
+| `CorpArea`            | `corp`     |
+| `makeTree`            | `corp`     |
 
 ## 使用问题
 
-如果不确定某个函数属于哪个模块，请参考上面的对照表或查看相应模块的源代码。 
+如果不确定某个函数属于哪个模块，请参考上面的对照表或查看相应模块的源代码。

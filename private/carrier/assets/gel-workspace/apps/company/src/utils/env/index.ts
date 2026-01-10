@@ -1,27 +1,9 @@
-import { getCurrentEnv, getWsidProd, TGelEnv } from 'gel-util/env'
-import { isEn } from 'gel-util/intl'
+import { getWsidProd } from 'gel-util/env'
 import { DEFAULT_WSID } from '../constant/session'
 import { isDev } from './misc'
 export type { TGelEnv } from 'gel-util/env'
 
-export * from './baifen'
 export * from './misc'
-
-export interface IEnvParams {
-  env?: TGelEnv
-  isTerminal?: boolean
-  isEnUS?: boolean
-}
-
-export const getEnvParams = (): IEnvParams => {
-  let env: TGelEnv = getCurrentEnv(isDev)
-
-  return {
-    env,
-    isTerminal: env === 'terminal',
-    isEnUS: isEn(),
-  }
-}
 
 /**
  * 获取是否是测试站

@@ -11,7 +11,7 @@
 
 import { ChatPresetQuestion } from 'gel-api';
 import { useCallback, useEffect, useRef } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../hooksRedux';
+import { useRPDetailDispatch, useRPDetailSelector } from '../hooksRedux';
 
 import {
   selectChapterRegenerationChapterId,
@@ -21,7 +21,7 @@ import {
 } from '../selectors';
 
 import { useReportDetailContext } from '@/context';
-import { rpContentSlice } from '../slice';
+import { rpDetailActions } from '../slice';
 
 export interface UseChapterRegenerationReturn {
   // 操作方法（包含业务逻辑）
@@ -42,14 +42,14 @@ export interface UseChapterRegenerationReturn {
  */
 export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
   const { sendRPContentMsg, setMsgs } = useReportDetailContext();
-  const dispatch = useReportContentDispatch();
+  const dispatch = useRPDetailDispatch();
 
   // 从Redux获取状态
-  const isRegenerating = useReportContentSelector(selectIsChapterRegenerating);
-  const currentChapterId = useReportContentSelector(selectChapterRegenerationChapterId);
-  const isGlobalBusy = useReportContentSelector(selectIsGlobalBusy);
-  const globalOperation = useReportContentSelector((state) => state.reportContent.globalOp);
-  const latestRequestedOperations = useReportContentSelector(selectLatestRequestedOperations);
+  const isRegenerating = useRPDetailSelector(selectIsChapterRegenerating);
+  const currentChapterId = useRPDetailSelector(selectChapterRegenerationChapterId);
+  const isGlobalBusy = useRPDetailSelector(selectIsGlobalBusy);
+  const globalOperation = useRPDetailSelector((state) => state.reportContent.globalOp);
+  const latestRequestedOperations = useRPDetailSelector(selectLatestRequestedOperations);
   const lastRequestedCorrelationRef = useRef<string | null>(null);
 
   /**
@@ -68,7 +68,7 @@ export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
         setMsgs([]);
         // 触发共享的章节操作启动逻辑：负责锁定章节、清空 canonical 内容并生成 correlationId
         dispatch(
-          rpContentSlice.actions.startChapterOperation({
+          rpDetailActions.startChapterOperation({
             mode: 'single',
             chapterIds: [chapterId],
           })
@@ -77,7 +77,7 @@ export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
         const errorMessage = err instanceof Error ? err.message : 'Failed to start regeneration';
 
         dispatch(
-          rpContentSlice.actions.setChapterRegenerationError({
+          rpDetailActions.setChapterRegenerationError({
             code: 'START_FAILED',
             message: errorMessage,
           })
@@ -135,7 +135,7 @@ export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
     lastRequestedCorrelationRef.current = correlationId;
 
     dispatch(
-      rpContentSlice.actions.markChapterOperationRequested({
+      rpDetailActions.markChapterOperationRequested({
         chapterId: currentChapterId,
         correlationId,
       })
@@ -149,7 +149,7 @@ export const useChapterRegeneration = (): UseChapterRegenerationReturn => {
   useEffect(() => {
     if (!isRegenerating && currentChapterId) {
       dispatch(
-        rpContentSlice.actions.clearChapterOperationRequest({
+        rpDetailActions.clearChapterOperationRequest({
           chapterId: currentChapterId,
         })
       );

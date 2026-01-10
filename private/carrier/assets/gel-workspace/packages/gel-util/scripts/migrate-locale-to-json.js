@@ -1,7 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import { spawnSync } from 'child_process';
-import { argv, exit } from 'process';
+const fs = require('fs');
+const path = require('path');
+const { spawnSync } = require('child_process');
+const { argv, exit } = require('process');
 
 // 处理命令行参数
 const files = argv.slice(2);
@@ -95,4 +95,4 @@ async function main() {
 main().catch(error => {
     console.error('执行过程中出现错误:', error);
     exit(1);
-}); 
+});

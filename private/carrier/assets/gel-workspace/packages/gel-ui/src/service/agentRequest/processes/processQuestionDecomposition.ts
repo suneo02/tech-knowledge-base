@@ -121,12 +121,24 @@ function processResponse<TInput extends ChatSendInput = ChatSendInput>(
   context: ChatRunContext<TInput>,
   response: ApiResponseForGetUserQuestion<string>
 ): void {
-  const { content, result, suggest, gelData, splTable, reportData, modelType } = response
+  const { content, result, suggest, gelData, splTable, reportData, modelType, reportProgress } = response
 
-  // 事件：收到拆解问题列表
+  // 解析问题列表
+  let questions: string[] | undefined
   if (result && typeof result === 'string') {
-    const questions = result.split('\n')
+    questions = result.split('\n')
+    // 事件：收到拆解问题列表
     context.eventBus?.emit('question:received', {
+      questions,
+      input: context.input,
+      runtime: context.runtime,
+    })
+  }
+
+  // 事件：收到进度信息
+  if (reportProgress) {
+    context.eventBus?.emit('progress:received', {
+      progress: reportProgress,
       questions,
       input: context.input,
       runtime: context.runtime,
@@ -141,6 +153,7 @@ function processResponse<TInput extends ChatSendInput = ChatSendInput>(
     splTable,
     reportData,
     modelType,
+    reportProgress,
   })
 }
 

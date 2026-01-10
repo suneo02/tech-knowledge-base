@@ -1,19 +1,21 @@
 export type { ReportIdIdentifier } from './common'
 export type {
-  RPChapterPayloadTempIdentifier,
   RPChapterPayloadTempIdIdentifier,
+  RPChapterPayloadTempIdentifier,
   RPChapterSavePayload,
+  RPChapterSavePayloadPersisted,
+  RPChapterSavePayloadTemp,
   RPDetailChapter,
 } from './detail'
 export { RPFileStatus, RPFileTag } from './file'
 export type { RPFile, RPFileIdIdentifier, RPFileIdIdentifierDepre, RPFileListItem, RPFileTraced } from './file'
 export type {
-  ReportChatData,
-  ReportOutlineCorpCandidates,
-  ReportOutlineData,
   RPChapter,
   RPChapterIdIdentifier,
   RPChapterOperation,
+  ReportChatData,
+  ReportOutlineCorpCandidates,
+  ReportOutlineData,
 } from './outline'
 export type { RPReferencePriority } from './report'
 export type { ReportTemplateItem } from './template'

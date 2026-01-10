@@ -1,12 +1,13 @@
-import { t } from '@/locales/i18n'
 import { postPointBuried } from '@/utils/common/bury'
 import { DeepThinkO } from '@wind/icons'
 import { Button, Tooltip } from '@wind/wind-ui'
 import { ChatActions } from 'ai-ui'
 import cn from 'classnames'
 import { ChatThinkSignal } from 'gel-api'
-import { FC, useEffect, useState } from 'react'
+import { t } from 'gel-util/intl'
+import { FC, useEffect, useMemo, useState } from 'react'
 import styles from './index.module.less'
+import { selectVipStatus, useAppSelector, VipStatusEnum } from '@/store'
 
 interface Props {
   loading?: boolean
@@ -69,6 +70,11 @@ export const SuperListChatSender: FC<Props> = ({
 }) => {
   const [content, setContent] = useState('')
   const [innerDeepSearch, setInnerDeepSearch] = useState<boolean>(deepSearch ?? true)
+  const vipStatus = useAppSelector(selectVipStatus)
+  const grade = useMemo(
+    () => (vipStatus === VipStatusEnum.SVIP ? 'svip' : vipStatus === VipStatusEnum.VIP ? 'vip' : 'free'),
+    [vipStatus]
+  )
 
   const isControlled = typeof deepSearch === 'boolean' && typeof onDeepSearchChange === 'function'
   const currentDeepSearch = isControlled ? (deepSearch as boolean) : innerDeepSearch
@@ -90,7 +96,7 @@ export const SuperListChatSender: FC<Props> = ({
       handleContentChange={handleContentChange}
       className={className}
       sendMessage={(message) => {
-        postPointBuried('922604570279', { click: content })
+        postPointBuried('922604570279', { click: content, grade })
         return sendMessage(message, { deepSearch: currentDeepSearch })
       }}
       placeholder={STRINGS.PLACEHOLDER}

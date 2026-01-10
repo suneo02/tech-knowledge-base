@@ -19,26 +19,63 @@ import { getDPUId, getRAGId } from 'gel-util/biz';
 import { RP_CSS_CLASSES, RP_DATA_ATTRIBUTES, RP_DATA_VALUES } from '../foundation';
 
 /**
+ * 溯源标记参数接口
+ */
+interface SourceMarkerParams {
+  /** 章节内的源索引 */
+  sourceIndex: number;
+  /** 引用ID（全局唯一） */
+  refId: string;
+  /** 引用类型（dpu/rag/file） */
+  refType: RPReferenceType;
+  /** 位置信息数组 */
+  positions: { start: string; end: string }[];
+  /** 显示的索引号（可能是全局索引） */
+  displayIndex: number | string;
+  /** PDF 页码（仅用于 file 类型，从 1 开始）
+   * 注意：同一文件可能在不同位置被引用，每次引用的页码可能不同
+   */
+  pageNumber?: number;
+}
+
+/**
  * 生成单个溯源标记的 HTML
  *
- * @param sourceIndex - 章节内的源索引
- * @param refId - 引用ID（全局唯一）
- * @param refType - 引用类型（dpu/rag/file）
- * @param positions - 位置信息数组
- * @param displayIndex - 显示的索引号（可能是全局索引）
+ * @param params - 溯源标记参数
  * @returns 溯源标记的 HTML 字符串
  */
-const generateSingleMarkerHtml = (
-  sourceIndex: number,
-  refId: string,
-  refType: RPReferenceType,
-  positions: { start: string; end: string }[],
-  displayIndex: number | string
-): string => {
+const generateSingleMarkerHtml = (params: SourceMarkerParams): string => {
+  const { sourceIndex, refId, refType, positions, displayIndex, pageNumber } = params;
   const positionsJson = JSON.stringify(positions);
 
+  // 构建属性对象
+  const attrs: Record<string, string> = {
+    class: RP_CSS_CLASSES.SOURCE_MARKER,
+    [RP_DATA_ATTRIBUTES.GEL_EXTERNAL]: RP_DATA_VALUES.GEL_EXTERNAL_SOURCE_MARKER,
+    contenteditable: RP_DATA_VALUES.CONTENTEDITABLE_FALSE,
+    [RP_DATA_ATTRIBUTES.SOURCE_ID]: String(sourceIndex),
+    [RP_DATA_ATTRIBUTES.REF_ID]: refId,
+    [RP_DATA_ATTRIBUTES.REF_TYPE]: refType,
+    [RP_DATA_ATTRIBUTES.POSITIONS]: positionsJson,
+  };
+
+  // 如果是 file 类型且有页码，添加 data-page-number 属性
+  // 关键：页码必须存储在 DOM 中，因为同一文件可能在不同位置引用不同页码
+  if (refType === 'file' && pageNumber) {
+    attrs[RP_DATA_ATTRIBUTES.PAGE_NUMBER] = String(pageNumber);
+  }
+
+  // 拼接属性字符串
+  const attrsStr = Object.entries(attrs)
+    .map(([key, value]) => {
+      // positions 是 JSON，使用单引号包裹
+      const quote = key === RP_DATA_ATTRIBUTES.POSITIONS ? "'" : '"';
+      return `${key}=${quote}${value}${quote}`;
+    })
+    .join(' ');
+
   // 生成 HTML - 包含 data-gel-external 属性标记为外部渲染节点
-  return `<span class="${RP_CSS_CLASSES.SOURCE_MARKER}" ${RP_DATA_ATTRIBUTES.GEL_EXTERNAL}="${RP_DATA_VALUES.GEL_EXTERNAL_SOURCE_MARKER}" contenteditable="${RP_DATA_VALUES.CONTENTEDITABLE_FALSE}" ${RP_DATA_ATTRIBUTES.SOURCE_ID}="${sourceIndex}" ${RP_DATA_ATTRIBUTES.REF_ID}="${refId}" ${RP_DATA_ATTRIBUTES.REF_TYPE}="${refType}" ${RP_DATA_ATTRIBUTES.POSITIONS}='${positionsJson}'>【${displayIndex}】</span>`;
+  return `<span ${attrsStr}>【${displayIndex}】</span>`;
 };
 
 /**
@@ -99,6 +136,7 @@ export const generateSourceMarkersHtml = (
       let refId: string;
       let refType: RPReferenceType;
       let displayIndex: number | string = sourceIndex;
+      let pageNumber: number | undefined;
 
       // 根据索引确定是 DPU、RAG 还是 file 引用
       // 引用顺序：dpu -> rag -> file
@@ -116,6 +154,9 @@ export const generateSourceMarkersHtml = (
         const fileIndex = sourceIndex - dpuLength - ragLength;
         const fileItem = fileList[fileIndex];
         refId = fileItem ? getFileReferenceId(fileItem) : '';
+        // 提取 PDF 页码信息（从 position.startPoint.page）
+        // 关键：每个引用位置可能对应文件的不同页码
+        pageNumber = fileItem?.position?.startPoint?.page;
       }
 
       // 如果提供了全局引用序号映射，使用全局序号
@@ -127,7 +168,14 @@ export const generateSourceMarkersHtml = (
       }
 
       // 生成单个标记的 HTML
-      const markerHtml = generateSingleMarkerHtml(sourceIndex, refId, refType, positions, displayIndex);
+      const markerHtml = generateSingleMarkerHtml({
+        sourceIndex,
+        refId,
+        refType,
+        positions,
+        displayIndex,
+        pageNumber,
+      });
       sourceMarkers.push(markerHtml);
     });
 

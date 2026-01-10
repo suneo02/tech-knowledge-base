@@ -6,8 +6,9 @@
  */
 
 import { generateChapterTempId } from '@/domain/chapter';
+import { convertChapterIdToNumber } from '@/domain/chapter/transforms/converters';
 import { parseHtml } from '@/utils/common';
-import { RPChapterPayloadTempIdentifier, RPChapterPayloadTempIdIdentifier } from 'gel-api';
+import { RPChapterIdIdentifier, RPChapterPayloadTempIdentifier, RPChapterPayloadTempIdIdentifier } from 'gel-api';
 import {
   extractHeadingText,
   getContentHtmlAfterHeading,
@@ -16,21 +17,6 @@ import {
   RP_DATA_ATTRIBUTES,
   RP_DATA_VALUES,
 } from '../foundation';
-
-interface RPChapterIdIdentifier {
-  chapterId?: string;
-}
-
-type DebugLog = (message: string, context?: Record<string, unknown>) => void;
-
-const noopLog: DebugLog = () => {};
-
-const createDebugLogger = (enabled?: boolean): DebugLog => {
-  if (!enabled) return noopLog;
-  return (message, context = {}) => {
-    console.log(`[documentParse] ${message}`, context);
-  };
-};
 
 interface ChapterSegment
   extends RPChapterPayloadTempIdentifier,
@@ -88,7 +74,7 @@ export interface DocumentChapterNode
  */
 export interface DocumentChapterTreeResult {
   chapters: DocumentChapterNode[];
-  warnings: string[];
+  warnings?: string[];
 }
 
 const removeReportTitleNodes = (document: Document) => {
@@ -97,7 +83,7 @@ const removeReportTitleNodes = (document: Document) => {
     .forEach((node) => node.remove());
 };
 
-const collectChapterSegments = (document: Document, log: DebugLog): ChapterSegment[] => {
+const collectChapterSegments = (document: Document): ChapterSegment[] => {
   // 1. 先移除报告标题等非章节节点，确保不会被当成章节处理
   removeReportTitleNodes(document);
 
@@ -110,8 +96,9 @@ const collectChapterSegments = (document: Document, log: DebugLog): ChapterSegme
     const level = getHeadingLevel(heading);
     if (level === 0) return;
 
-    // 2.1 优先读取持久化 ID
-    const chapterId = heading.getAttribute(RP_DATA_ATTRIBUTES.CHAPTER_ID)?.trim() ?? '';
+    // 2.1 优先读取持久化 ID（从 DOM string 转换为 number）
+    const domChapterId = heading.getAttribute(RP_DATA_ATTRIBUTES.CHAPTER_ID)?.trim() ?? '';
+    const chapterId = convertChapterIdToNumber(domChapterId);
 
     // 2.2 检查是否为临时章节（读取 data-temp-chapter-id）
     let tempId = heading.getAttribute(RP_DATA_ATTRIBUTES.TEMP_CHAPTER_ID)?.trim() ?? '';
@@ -175,10 +162,6 @@ const collectChapterSegments = (document: Document, log: DebugLog): ChapterSegme
     // 2.6 提取正文内容（复用 chapterStructure 的工具函数）
     // getContentHtmlAfterHeading 会自动处理：从标题后收集内容，直到遇到任意级别的下一个标题
     const content = getContentHtmlAfterHeading(heading);
-
-    if (isTemporary) {
-      log('detected temporary chapter', { title, level, tempId });
-    }
 
     segments.push({
       chapterId: isTemporary ? undefined : chapterId,
@@ -257,27 +240,25 @@ const buildChapterTree = (segments: ChapterSegment[]): DocumentChapterNode[] => 
  * 2. 收集标题节点，组装章节片段（自动补全临时章节标记）
  * 3. 按标题层级构建章节树，并返回结构化结果
  */
-export const parseDocumentChapterTree = (
-  html: string,
-  options: DocumentChapterParseOptions = {}
-): DocumentChapterTreeResult => {
-  const { debug } = options;
-  const log = createDebugLogger(debug);
-
+export const parseDocumentChapterTree = (html: string): DocumentChapterTreeResult => {
   if (!html || typeof html !== 'string' || html.trim().length === 0) {
-    throw new Error('Invalid HTML input: HTML must be a non-empty string');
+    console.error('Invalid HTML input: HTML must be a non-empty string');
+    return {
+      chapters: [],
+    };
   }
 
-  const parseResult = parseHtml(html, { debug });
+  const parseResult = parseHtml(html);
   if (!parseResult.success) {
-    throw new Error(parseResult.error ?? 'HTML parsing failed');
+    console.error(parseResult.error ?? 'HTML parsing failed');
+    return {
+      chapters: [],
+    };
   }
 
-  const segments = collectChapterSegments(parseResult.document, log);
-  log('collected chapter segments', { count: segments.length });
+  const segments = collectChapterSegments(parseResult.document);
 
   const chapters = buildChapterTree(segments);
-  log('built chapter tree', { rootCount: chapters.length });
 
   return {
     chapters,

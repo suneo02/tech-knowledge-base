@@ -2,8 +2,8 @@ import { XChatConfig } from '@ant-design/x/es/use-x-chat'
 import { AxiosInstance } from 'axios'
 import { AgentIdentifiers, ChatThinkSignal } from 'gel-api'
 import {
-  AgentMsgAIDepre,
-  AgentMsgDepre,
+  AgentMsgAIOverall,
+  AgentMsgOverall,
   AiFooterBase,
   createAIContentMessage,
   createAIHeaderMessage,
@@ -38,9 +38,9 @@ export const useXChatParser = (
   const messageCreators = useMemo(
     () => ({
       createUserMessage,
-      createAIHeaderMessage: (message: AgentMsgAIDepre) => createAIHeaderMessage(message, roleName),
+      createAIHeaderMessage: (message: AgentMsgAIOverall) => createAIHeaderMessage(message, roleName),
       createSubQuestionMessage,
-      createAIContentMessage: (message: AgentMsgAIDepre) => createAIContentMessage(message, FooterComponent),
+      createAIContentMessage: (message: AgentMsgAIOverall) => createAIContentMessage(message, FooterComponent),
       createSimpleChartMessage,
       createSuggestionMessage,
       createChartMessage,
@@ -48,7 +48,7 @@ export const useXChatParser = (
     [roleName, FooterComponent]
   )
 
-  return useCallback<NonNullable<XChatConfig<AgentMsgDepre, MsgParsedDepre>['parser']>>(
+  return useCallback<NonNullable<XChatConfig<AgentMsgOverall, MsgParsedDepre>['parser']>>(
     (agentMessage) => {
       if (agentMessage.role === 'user') {
         return messageCreators.createUserMessage(agentMessage)

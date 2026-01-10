@@ -352,7 +352,7 @@ const InputWithSearch = ({ item }) => {
                   selectObj[t].itemOption &&
                   selectObj[t].itemOption.length ? (
                     <div className="select-corplist-option">
-                      <div>{intl('334077', '认证年度')}：</div>
+                      <div>{intl('478597', '认证年度')}：</div>
                       <SingleOption
                         itemOption={selectObj[t].itemOption}
                         info={selectObj[t]}

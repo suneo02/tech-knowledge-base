@@ -1,11 +1,11 @@
-# Hooks
+﻿# Hooks
 
 项目级别的自定义 React Hooks，封装可复用的状态逻辑和副作用。
 
 ## 相关文档
 
-- [API 请求规范](../../../docs/rule/api-request-rule.md) - API 调用最佳实践
-- [React 规范](../../../docs/rule/react-rule.md) - React 开发规范
+- [API 请求规范](../../../docs/rule/code-api-client-rule.md) - API 调用最佳实践
+- [React 规范](../../../docs/rule/code-react-component-rule.md) - React 开发规范
 
 ## 目录结构
 
@@ -76,3 +76,4 @@ usePdfLoader
 - **可组合**：Hooks 可以相互组合使用
 - **类型安全**：完整的 TypeScript 类型定义
 - **统一 API**：使用 ahooks 的 useRequest 统一异步请求
+

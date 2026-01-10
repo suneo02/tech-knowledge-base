@@ -12,7 +12,7 @@
  * @template TChunk - 模型分片类型，默认为 ModelChunk
  */
 
-import { AgentMsgAIDepre } from '@/types'
+import { AgentMsgAIOverall } from '@/types'
 import type { ChatSendInput } from '@/types/ai-chat-perf'
 import { ChatEntityRecognize, ChatQuestionStatus } from 'gel-api'
 import { ChatRunContext } from '../runContext'
@@ -57,7 +57,7 @@ export interface StreamFinalizationResult {
  */
 export async function processStreamFinalization<
   TInput extends ChatSendInput = ChatSendInput,
-  AgentMsg extends AgentMsgAIDepre = AgentMsgAIDepre,
+  AgentMsg extends AgentMsgAIOverall = AgentMsgAIOverall,
 >(
   context: ChatRunContext<TInput>,
   config: StreamFinalizationConfig,

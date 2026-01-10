@@ -40,3 +40,26 @@ export const requestRaw = {
   patch: <T = Record<string, unknown>>(url: string, data?: Record<string, unknown>, config?: AxiosRequestConfig) =>
     axiosInstance.patch<T>(url, data, config),
 }
+
+export const request = {
+  get: async <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+    const res = await axiosInstance.get<T>(url, config)
+    return res.data as T
+  },
+  post: async <T = unknown>(url: string, data?: Record<string, unknown>, config?: AxiosRequestConfig): Promise<T> => {
+    const res = await axiosInstance.post<T>(url, data, config)
+    return res.data as T
+  },
+  put: async <T = unknown>(url: string, data?: Record<string, unknown>, config?: AxiosRequestConfig): Promise<T> => {
+    const res = await axiosInstance.put<T>(url, data, config)
+    return res.data as T
+  },
+  delete: async <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+    const res = await axiosInstance.delete<T>(url, config)
+    return res.data as T
+  },
+  patch: async <T = unknown>(url: string, data?: Record<string, unknown>, config?: AxiosRequestConfig): Promise<T> => {
+    const res = await axiosInstance.patch<T>(url, data, config)
+    return res.data as T
+  },
+}

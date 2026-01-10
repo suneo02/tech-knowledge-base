@@ -1,4 +1,4 @@
-import { FileItem } from '../../File/FileItem';
+import { OutlineFileItem } from '../../File/OutlineFileItem';
 import { useChatSenderContext } from './context';
 import styles from './header.module.less';
 
@@ -22,7 +22,7 @@ export const ChatSenderReportHeader = () => {
       <div className={styles['chat-sender-report-header-files']}>
         <div className={styles['chat-sender-report-header-files-list']}>
           {files.map((file) => (
-            <FileItem key={file.fileId} file={file} onRemove={handleFileRemove} showRemoveButton={true} />
+            <OutlineFileItem key={file.fileId} file={file} onRemove={handleFileRemove} showRemoveButton={true} />
           ))}
         </div>
       </div>

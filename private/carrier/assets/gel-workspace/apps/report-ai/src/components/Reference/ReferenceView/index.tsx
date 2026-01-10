@@ -1,14 +1,13 @@
 import { PreviewArea } from '@/components/common';
 import { ReferenceMap, RPReferenceItem } from '@/domain/chat';
 import { ReportReferenceOrdinalMap } from '@/domain/reportReference';
-import { RPChapterEnriched } from '@/types';
+import { ReferenceViewHandle, RefPreviewData, RPChapterEnriched } from '@/types';
 import { RPFileUnified, RPFileUploaded } from '@/types/file';
 import { useIntl } from 'gel-ui';
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { ReferencePreviewContent } from '../ReferencePreviewContent';
 import { ReportFileUpload } from '../ReportFileUpload';
 import { RPReferenceListWithChapter, RPReferenceListWithChapterHandle } from '../RPReferenceListWithChapter';
-import { PreviewData, ReferenceViewHandle } from '../type';
 import { useReferencePreview } from '../useReferencePreview';
 import styles from './index.module.less';
 
@@ -35,13 +34,9 @@ export interface RPReferenceViewProps {
   topFiles?: RPFileUnified[];
   /** 删除成功后的回调（用于刷新列表等） */
   onDeleteSuccess?: (fileId: string) => void;
-  onPreviewStart?: (previewData: PreviewData) => void;
+  onPreviewStart?: (previewData: RefPreviewData) => void;
   onPreviewEnd?: () => void;
   onFileUploadSuccess?: (fileInfo: RPFileUploaded) => void;
-  /** 确认重新生成全文回调 */
-  onRegenerationConfirm?: () => void;
-  /** 是否显示重新生成提示（默认 true） */
-  showRegenerationPrompt?: boolean;
   /** 章节ID到章节对象的映射 */
   chapterMap?: Map<string, RPChapterEnriched>;
   /** 确认重新生成关联章节的回调 */
@@ -61,8 +56,7 @@ export const RPReferenceView = forwardRef<ReferenceViewHandle, RPReferenceViewPr
       onPreviewStart,
       onPreviewEnd,
       onFileUploadSuccess,
-      onRegenerationConfirm,
-      showRegenerationPrompt = true,
+
       chapterMap,
       onRegenerateChapters,
     },
@@ -122,16 +116,7 @@ export const RPReferenceView = forwardRef<ReferenceViewHandle, RPReferenceViewPr
       <div className={styles['reference-view']}>
         <div className={styles['reference-view__header']}>
           <div>{t('参考资料列表')}</div>
-          <div>
-            {reportId ? (
-              <ReportFileUpload
-                reportId={reportId}
-                onUploadSuccess={onFileUploadSuccess}
-                onRegenerationConfirm={onRegenerationConfirm}
-                showRegenerationPrompt={showRegenerationPrompt}
-              />
-            ) : null}
-          </div>
+          <div>{reportId ? <ReportFileUpload reportId={reportId} onUploadSuccess={onFileUploadSuccess} /> : null}</div>
         </div>
         <div className={styles['reference-view__content']}>
           <PreviewArea
@@ -150,7 +135,11 @@ export const RPReferenceView = forwardRef<ReferenceViewHandle, RPReferenceViewPr
               />
             }
             previewContent={
-              <ReferencePreviewContent previewData={currentPreviewData} onBackToList={handleBackToList} />
+              <ReferencePreviewContent
+                previewData={currentPreviewData}
+                onBackToList={handleBackToList}
+                chapterMap={chapterMap}
+              />
             }
           />
         </div>

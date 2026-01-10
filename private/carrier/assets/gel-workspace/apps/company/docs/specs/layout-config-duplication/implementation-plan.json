@@ -1,0 +1,120 @@
+[
+  {
+    "id": "infra-types",
+    "title": "定义统一配置数据结构",
+    "owner": "待分配",
+    "code_paths": [
+      "/apps/company/src/types/module-config.ts",
+      "/apps/company/src/types/module-tree.ts"
+    ],
+    "status": "failed",
+    "@see": [
+      "/apps/company/docs/specs/layout-config-duplication/spec-design-data.md"
+    ],
+    "notes": "定义 UnifiedModuleConfig, ModuleTree, VisibilityRule 接口"
+  },
+  {
+    "id": "infra-converter",
+    "title": "创建配置转换工具",
+    "owner": "待分配",
+    "code_paths": [
+      "/apps/company/src/utils/module-config-converter.ts",
+      "/apps/company/src/utils/module-visibility-filter.ts"
+    ],
+    "status": "failed",
+    "@see": [
+      "/apps/company/docs/specs/layout-config-duplication/spec-design.md"
+    ],
+    "notes": "实现 buildVisibleModuleTree, convertToMenuConfig, loadAndConvertContentConfig"
+  },
+  {
+    "id": "infra-loader",
+    "title": "实现配置加载管理器",
+    "owner": "待分配",
+    "code_paths": [
+      "/apps/company/src/hooks/useModuleConfigLoader.ts"
+    ],
+    "status": "failed",
+    "@see": [
+      "/apps/company/docs/specs/layout-config-duplication/spec-design.md"
+    ],
+    "notes": "实现 useModuleConfigLoader Hook，支持按需加载和缓存"
+  },
+  {
+    "id": "migration-config",
+    "title": "创建统一配置文件",
+    "owner": "待分配",
+    "code_paths": [
+      "/apps/company/src/config/unified-module-config.ts"
+    ],
+    "status": "failed",
+    "@see": [
+      "/apps/company/docs/specs/layout-config-duplication/spec-design-data.md"
+    ],
+    "notes": "迁移 11 个模块的配置到统一配置源，实现 contentConfigLoader"
+  },
+  {
+    "id": "refactor-menu",
+    "title": "重构菜单配置生成逻辑",
+    "owner": "待分配",
+    "code_paths": [
+      "/apps/company/src/views/Company/menu/useCorpMenuByType.ts",
+      "/apps/company/src/views/Company/menu/getMenuByCorpType.ts"
+    ],
+    "status": "failed",
+    "@see": [
+      "/apps/company/docs/specs/layout-config-duplication/spec-issue.md"
+    ],
+    "notes": "使用统一配置源生成菜单，移除重复的过滤和统计逻辑"
+  },
+  {
+    "id": "refactor-content",
+    "title": "重构内容配置生成逻辑",
+    "owner": "待分配",
+    "code_paths": [
+      "/apps/company/src/components/company/listRowConfig.tsx",
+      "/apps/company/src/components/company/handle/index.ts",
+      "/apps/company/src/components/company/CompanyBase.tsx"
+    ],
+    "status": "failed",
+    "@see": [
+      "/apps/company/docs/specs/layout-config-duplication/spec-issue.md"
+    ],
+    "notes": "支持按需加载，移除 listRowConfig 全量导入"
+  },
+  {
+    "id": "refactor-special",
+    "title": "更新特殊企业过滤逻辑",
+    "owner": "待分配",
+    "code_paths": [
+      "/apps/company/src/components/company/CompanyBase.tsx"
+    ],
+    "status": "failed",
+    "@see": [
+      "/apps/company/docs/specs/layout-config-duplication/spec-issue.md"
+    ],
+    "notes": "移除 CompanyBase 对菜单配置的依赖，使用统一可见性规则"
+  },
+  {
+    "id": "verify-perf",
+    "title": "性能优化验证",
+    "owner": "待分配",
+    "code_paths": [],
+    "status": "failed",
+    "@see": [
+      "/apps/company/docs/specs/layout-config-duplication/spec-verification.md"
+    ],
+    "notes": "验证首屏加载时间、配置数量、内存占用"
+  },
+  {
+    "id": "verify-regression",
+    "title": "完整回归测试",
+    "owner": "待分配",
+    "code_paths": [],
+    "status": "failed",
+    "@see": [
+      "/apps/company/docs/specs/layout-config-duplication/spec-verification.md"
+    ],
+    "notes": "覆盖所有企业类型（普通、海外、个体、特殊）"
+  }
+]

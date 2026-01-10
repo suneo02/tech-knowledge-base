@@ -17,10 +17,10 @@ interface FileListQueryParams extends ApiRequestPage {
 /**
  * 文件管理-编辑接口请求参数
  */
-interface FileUpdateParams extends RPFileIdIdentifierDepre {
-  fileRelateName?: string // 关联企业
-  fileRelateCode?: string // 关联企业 code
-  fileTags?: string[] // 标签，多个用逗号拼接
+interface FileUpdateParams extends RPFileIdIdentifier {
+  companyName?: string // 关联企业
+  companyCode?: string // 关联企业 code
+  tags?: string[] // 标签，多个用逗号拼接
 }
 
 export interface reportAIFileApiPathMap {
@@ -40,11 +40,11 @@ export interface reportAIFileApiPathMap {
     response: ApiResponseForWFC<RPFileIdIdentifierDepre>
   }
   'report/fileDownload': {
-    params: RPFileIdIdentifierDepre
+    params: RPFileIdIdentifierDepre & RPFileIdIdentifier
     response: Blob // 文件流
   }
   'report/filePreview': {
-    params: RPFileIdIdentifierDepre
+    params: RPFileIdIdentifierDepre & RPFileIdIdentifier
     response: ApiResponseForWFC<{
       fileName: string
       /**
@@ -58,7 +58,7 @@ export interface reportAIFileApiPathMap {
       fileIds?: string[] // 文件id数组
     } & Partial<RPFileIdIdentifierDepre> &
       PaginationParams
-    response: ApiResponseForWFC<Pick<RPFileDepre, 'fileID' | 'fileName' | 'status'>>
+    response: ApiResponseForWFC<Array<Pick<RPFileDepre, 'fileID' | 'fileName' | 'status'>>>
   }
   'report/createReportFile': {
     data: {

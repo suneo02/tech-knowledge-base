@@ -1,0 +1,65 @@
+[
+  {
+    "id": "task-copy-update",
+    "title": "产品文案更新",
+    "owner": "pending",
+    "code_paths": [
+      "/apps/company/src/components/company/VipModuleNew.tsx",
+      "/apps/company/src/components/company/VipMarketingEdition.tsx"
+    ],
+    "@see": [
+      "/apps/company/docs/specs/vip-permission-popup-optimization/spec-requirement-v1.md"
+    ],
+    "status": "failed",
+    "notes": "更新营销版名称和说明，移除第三方提示文案"
+  },
+  {
+    "id": "task-link-jump",
+    "title": "服务链接动态跳转",
+    "owner": "pending",
+    "code_paths": [
+      "/apps/company/src/components/company/VipModuleNew.tsx"
+    ],
+    "@see": [
+      "/apps/company/docs/specs/vip-permission-popup-optimization/spec-design-v1.md"
+    ],
+    "status": "failed",
+    "notes": "根据选中产品动态调整服务说明页面链接"
+  },
+  {
+    "id": "task-contact-api",
+    "title": "联系接口切换",
+    "owner": "pending",
+    "code_paths": [
+      "/apps/company/src/components/company/VipModuleNew.tsx",
+      "/apps/company/src/api/homeApi.ts"
+    ],
+    "@see": [
+      "/apps/company/docs/specs/vip-permission-popup-optimization/spec-design-v1.md"
+    ],
+    "status": "failed",
+    "notes": "将营销版'立即联系'接口切换至百分模块接口"
+  },
+  {
+    "id": "task-mask-strategy",
+    "title": "遮罩策略实现",
+    "owner": "pending",
+    "code_paths": [],
+    "@see": [
+      "/apps/company/docs/specs/vip-permission-popup-optimization/spec-requirement-v1.md"
+    ],
+    "status": "failed",
+    "notes": "表格类型遮罩保留列头可见（待确认具体位置）"
+  },
+  {
+    "id": "task-testing",
+    "title": "测试与验收",
+    "owner": "pending",
+    "code_paths": [],
+    "@see": [
+      "/apps/company/docs/specs/vip-permission-popup-optimization/spec-verification-v1.md"
+    ],
+    "status": "failed",
+    "notes": "验证所有改动点及无回归问题"
+  }
+]

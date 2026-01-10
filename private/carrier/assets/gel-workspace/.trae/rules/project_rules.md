@@ -11,22 +11,21 @@
 
 ### 🔧 代码开发规范
 
-- [TypeScript 规范](../../docs/rule/typescript-rule.md) - 类型定义与代码风格
-- [React 规范](../../docs/rule/react-rule.md) - 组件与状态管理
-- [样式规范](../../docs/rule/style-rule.md) - Less Module + BEM
-- [测试规范](../../docs/rule/testing-rule.md) - Vitest + Storybook
-- [错误处理规范](../../docs/rule/error-handling-rule.md) - 错误边界与异常处理
-- [项目结构规范](../../docs/rule/project-structure.md) - 目录组织与命名
-- [API 请求规范](../../docs/rule/api-request-rule.md) - API 调用与数据请求
+- [TypeScript 规范](docs/rule/code-typescript-style-rule.md) - 类型定义与代码风格
+- [React 规范](docs/rule/code-react-component-rule.md) - 组件与状态管理
+- [样式规范](docs/rule/code-style-less-bem-rule.md) - Less Module + BEM
+- [测试规范](docs/rule/code-testing-vitest-storybook-rule.md) - Vitest + Storybook
+- [错误处理规范](docs/rule/code-error-boundary-rule.md) - 错误边界与异常处理
+- [项目结构规范](docs/rule/code-project-structure-rule.md) - 目录组织与命名
+- [API 请求规范](docs/rule/code-api-client-rule.md) - API 调用与数据请求
 
 ### 📖 文档编写规范
 
-- [文档规范](../../docs/rule/documentation-rule.md) - 通用文档编写
-- [README 规范](../../docs/rule/readme-rule.md) - 目录说明文档
-- [需求规范](../../docs/rule/require-doc.md) - 需求文档编写
-- [设计规范](../../docs/rule/design-doc.md) - 设计文档编写
-- [Spec 规范](../../docs/rule/spec-doc-rule.md) - 任务方案与交付说明
-- [Issue 规范](../../docs/rule/issue-doc-rule.md) - 问题文档编写
+- [文档规范](docs/rule/doc-general-rule.md) - 通用文档编写
+- [README 规范](docs/rule/doc-readme-structure-rule.md) - 目录说明文档
+- [需求规范](docs/rule/doc-requirements-rule.md) - 需求文档编写
+- [设计规范](docs/rule/doc-design-rule.md) - 设计文档编写
+- [Spec 规范](docs/rule/doc-spec-rule.md) - 任务方案与交付说明
 
 ## 📋 使用场景指南
 
@@ -37,6 +36,5 @@
 | 代码开发 | typescript-rule.md + react-rule.md + style-rule.md |
 | API 调用 | api-request-rule.md                                |
 | 测试编写 | testing-rule.md                                    |
-| 问题排查 | issue-doc-rule.md                                  |
 | 任务拆解 | spec-doc-rule.md                                   |
 | 文档整理 | readme-rule.md + documentation-rule.md             |

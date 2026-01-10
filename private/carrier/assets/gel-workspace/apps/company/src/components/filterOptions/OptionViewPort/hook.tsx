@@ -1,5 +1,5 @@
 import { getCDEItemOptionLabel } from 'cde'
-import { CDEFilterItem } from 'gel-api/*'
+import { CDEFilterItem } from 'gel-api'
 import { isEn } from 'gel-util/intl'
 import { isArray } from 'lodash'
 import { useMemo } from 'react'

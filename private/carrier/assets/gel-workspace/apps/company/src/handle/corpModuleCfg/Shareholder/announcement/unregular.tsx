@@ -1,12 +1,11 @@
+import { CorpTableCfg } from '@/types/corpDetail/index.ts'
 import intl from '@/utils/intl'
 import { AnnouncementColumns } from './columns.tsx'
 import { AnnouncementDataCallback, AnnouncementExtraParams } from './comp.tsx'
-import { ECorpDetailTable } from 'gel-types'
-import { ICorpTableCfg } from '@/components/company/type'
 
 // 企业详情/股东信息/公告披露 cfg
-export const CompanyDetailShareholderAnnouncementUnRegularCfg: ICorpTableCfg = {
-  enumKey: ECorpDetailTable.ShareholderIrregularDisclosure,
+export const CompanyDetailShareholderAnnouncementUnRegularCfg: CorpTableCfg = {
+  enumKey: 'shareholderIrregularDisclosure',
   title: intl('392253', '非定期公告披露'),
   cmd: '/detail/company/getnewshareholdertunregular',
   downDocType: 'download/createtempfile/getnewshareholdertunregular',

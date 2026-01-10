@@ -1,25 +1,24 @@
 import { Links } from '@/components/common/links'
 import CompanyLink from '@/components/company/CompanyLink.tsx'
-import { DetailLink, showChain } from '@/components/company/corpCompMisc.tsx'
+import { DetailLink } from '@/components/company/corpCompMisc.tsx'
 import { LinkByRowCompatibleCorpPerson } from '@/components/company/link/CorpOrPersonLink.tsx'
-import { ICorpPrimaryModuleCfg } from '@/components/company/type'
+import { LinksModule } from '@/handle/link'
+import { CorpPrimaryModuleCfg } from '@/types/corpDetail'
+import { intlNoNO as intl } from '@/utils/intl'
+import { wftCommon } from '@/utils/utils.tsx'
+import React from 'react'
+import { vipDescDefault } from '../common/vipDesc'
+import { corpHistoryBeneficiary } from './beneficiary'
 import {
-  CompanyHistoryPatentCfg,
   corpDetailHisEquityPledge,
   corpDetailHisEquityPledgePawnee,
   corpDetailHisEquityPledgePCorp,
   corpDetailHisEquityPledgor,
-} from '@/handle/corpModuleCfg'
-import { LinksModule } from '@/handle/link'
-import { intlNoNO as intl } from '@/utils/intl'
-import { hashParams } from '@/utils/links'
-import { wftCommon } from '@/utils/utils.tsx'
-import React from 'react'
-import { vipDescDefault } from '../common/vipDesc'
+} from './equityPledge'
+import { CompanyHistoryPatentCfg } from './patent'
+import { corpHistoryUltimatecontroller } from './ultimateController'
 
-const { getParamValue } = hashParams()
-
-export const history: ICorpPrimaryModuleCfg = {
+export const history: CorpPrimaryModuleCfg = {
   moduleTitle: {
     title: intl('33638', '历史数据'),
     moduleKey: 'history', // 与左侧大菜单齐名
@@ -163,6 +162,7 @@ export const history: ICorpPrimaryModuleCfg = {
       'start_date|formatTime',
       'exit_date|formatTime',
     ],
+    skipTransFieldsInKeyMode: ['investcompany_name'],
     columns: [
       null,
       {
@@ -272,6 +272,7 @@ export const history: ICorpPrimaryModuleCfg = {
           'ep_reg_date|formatTime',
           'ep_reg_state',
         ],
+        skipTransFieldsInKeyMode: ['ep_pledgor_name', 'ep_pawnee_name', 'ep_plex'],
         extraParams: (param) => {
           param.__primaryKey = param.companycode
           return param
@@ -333,6 +334,7 @@ export const history: ICorpPrimaryModuleCfg = {
           'ep_reg_date|formatTime',
           'ep_reg_state',
         ],
+        skipTransFieldsInKeyMode: ['ep_pledgor_name', 'ep_pawnee_name', 'ep_plex'],
         extraParams: (param) => {
           param.__primaryKey = param.companycode
           return param
@@ -394,6 +396,7 @@ export const history: ICorpPrimaryModuleCfg = {
           'ep_reg_date|formatTime',
           'ep_reg_state',
         ],
+        skipTransFieldsInKeyMode: ['ep_pledgor_name', 'ep_pawnee_name', 'ep_plex'],
         extraParams: (param) => {
           param.__primaryKey = param.companycode
           return param
@@ -526,94 +529,7 @@ export const history: ICorpPrimaryModuleCfg = {
       'replacement_status',
     ],
   },
-  beneficiary: {
-    title: intl('439434', '历史最终受益人'),
-    cmd: 'detail/company/gethistoricalbeneficiary',
-    notVipTitle: intl('439434', '历史最终受益人'),
-    notVipTips: vipDescDefault,
-    extraParams: (param) => {
-      param.__primaryKey = param.companycode
-      return {
-        ...param,
-      }
-    },
-    thName: [
-      intl('28846', '序号'),
-      intl('138180', '最终受益人'),
-      intl('261486', '最终受益股份'),
-      intl('451201', '变更日期'),
-    ],
-    fields: ['NO.', 'beneficiaryName', 'ratio', 'endDate'],
-    align: [0, 0, 2, 0],
-    thWidthRadio: ['5.2%', '70%', '16%', '20%'],
-    modelNum: 'historicalbeneficiaryCount',
-    columns: [
-      null,
-      null,
-      {
-        render: (txt, row, _idx) => {
-          if (window.en_access_config) {
-            return wftCommon.formatPercent(txt) // 临时处理
-          }
-          if (row.shareRoute && row.shareRoute.length > 0) {
-            const shareRate = wftCommon.ultimateBeneficialShares(row.shareRoute)
-            return (
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <div style={{ width: 140 }}>{shareRate ? (shareRate == 0 ? '--' : shareRate) : '--'}</div>
-                <div
-                  className="share-route"
-                  onClick={() => wftCommon.showRoute(row.shareRoute)}
-                  data-uc-id="oOEwLhnQj"
-                  data-uc-ct="div"
-                ></div>
-              </div>
-            )
-          } else {
-            return wftCommon.formatPercent(txt)
-          }
-        },
-      },
-      null,
-    ],
-  },
-  ultimatecontroller: {
-    title: intl('439454', '历史实际控制人'),
-    cmd: 'detail/company/gethistoricalcontroller',
-    notVipTitle: intl('439454', '历史实际控制人'),
-    notVipTips: vipDescDefault,
-    extraParams: (param) => {
-      param.__primaryKey = param.companycode
-      return {
-        ...param,
-      }
-    },
-    thName: [
-      intl('28846', '序号'),
-      intl('439435', '实控人名称'),
-      intl('138412', '实际持股比例'),
-      intl('451201', '变更日期'),
-    ],
-    fields: ['NO.', 'controllerName', 'ratio', 'endDate'],
-    align: [0, 0, 2, 0],
-    thWidthRadio: ['5.2%', '70%', '16%', '20%'],
-    modelNum: 'historicalcontrollerCount',
-    columns: [
-      null,
-      null,
-      {
-        render: (rate, row) => {
-          return showChain(
-            rate,
-            row,
-            { left: '历史实控人', right: intl('138412', '实际持股比例') },
-            {
-              api: `detail/company/getcorpactcontrolshareroute/${getParamValue('companycode')}`,
-              params: { detailId: row.detailId },
-            }
-          )
-        },
-      },
-    ],
-  },
+  beneficiary: corpHistoryBeneficiary,
+  ultimatecontroller: corpHistoryUltimatecontroller,
   historypatent: CompanyHistoryPatentCfg,
 }

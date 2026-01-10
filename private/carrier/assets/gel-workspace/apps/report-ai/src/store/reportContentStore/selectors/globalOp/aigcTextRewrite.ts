@@ -10,7 +10,7 @@
 import { isTextRewriteOp } from '@/domain/globalOperation';
 import type { TextRewriteOperationData } from '@/types/editor';
 import { createSelector } from '@reduxjs/toolkit';
-import { selectGlobalOp } from './base';
+import { selectGlobalOp } from '../base';
 
 /**
  * 是否正在改写

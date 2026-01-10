@@ -42,7 +42,7 @@ export const Home: React.FC = () => {
   return (
     <div className={styles.homeContent} ref={modalRef}>
       <div className={styles.homeContentInner}>
-        <WelcomeSection className={styles.homeLogoSection} />
+        <WelcomeSection className={styles.homeLogoSection} customRoleText="是你的智能报告助手" />
 
         <ChatSenderReport className={styles.chatSender} sendMessage={handleSendMessage} />
       </div>

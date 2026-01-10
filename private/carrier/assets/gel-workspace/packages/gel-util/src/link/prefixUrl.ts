@@ -1,3 +1,11 @@
+/**
+ * URL 前缀生成
+ *
+ * 根据环境和服务类型生成对应的 URL 前缀路径
+ *
+ * @see ../docs/link-config-design.md 设计文档
+ */
+
 import { getCurrentEnv, TGelEnv } from '@/env'
 import path from 'path-browserify'
 import { PC_Front, WFC_Enterprise_Web } from './constant'
@@ -10,6 +18,7 @@ export enum GELService {
   ReportAI = 'reportai', // 新报告 AI 项目
   GovMap = 'govmap', // 万寻地图项目
   EAPI = 'wind.ent.openapi', // EAPI 项目
+  Agent = 'agent', // Agent 项目
 }
 
 /**
@@ -33,7 +42,6 @@ export const generatePrefixUrl = ({
     let serverUrl
 
     switch (env) {
-      case 'terminalWeb':
       case 'terminal':
       case 'web':
       case 'webTest':

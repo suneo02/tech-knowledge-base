@@ -100,10 +100,18 @@
       white-space: nowrap;
       flex: 1;
     }
-    &-delete {
+    &-icon {
       cursor: pointer;
-      color: #999;
       font-size: 20px;
+      transition: color 0.2s ease-in-out;
+
+      &--active {
+        color: @primary;
+
+        &:hover {
+          color: @primary-hover;
+        }
+      }
     }
     &-text {
       font-size: 14px;

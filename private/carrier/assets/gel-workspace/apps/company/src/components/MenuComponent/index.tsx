@@ -60,7 +60,7 @@ const MenuComponent: React.FC<MenuComponentProps> = ({
                   {item.title}
 
                   {item.ai && (
-                    <Tooltip title={intl('', '该报告由Alice Writer生成')} placement="top">
+                    <Tooltip title={intl('419883', '该报告由Alice Writer生成')} placement="top">
                       {/* @ts-expect-error icon */}
                       <AISubtitleO
                         style={{ marginInlineStart: 4, color: '#e22c2f', fontWeight: 500 }}

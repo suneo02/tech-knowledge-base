@@ -1,14 +1,15 @@
 import CompanyLink from '@/components/company/CompanyLink'
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
+import { StatisticalChartType } from '@/components/company/type/statisticalChart'
 import { intlNoNO as intl } from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
 import React from 'react'
 import { DetailLink } from '../components'
 
-export const corpDetailBrand: ICorpSubModuleCfg = {
+export const corpDetailBrand: CorpSubModuleCfg = {
   title: intl('138799', '商标'),
   withTab: true,
-  statisticalChart: 'brand',
+  statisticalChart: StatisticalChartType.brand,
   statisticalChartNum: 'trademark_num_self',
   modelNum: undefined,
   children: [
@@ -41,6 +42,7 @@ export const corpDetailBrand: ICorpSubModuleCfg = {
         'applicationDate|formatTime',
         'corpName',
       ],
+      skipTransFieldsInKeyMode: ['corpName'],
       notVipPageTurning: true,
       notVipPageTitle: intl('138799', '商标'),
       notVipPagedesc: intl('224213', '购买VIP/SVIP套餐，即可不限次查看企业更多商标信息'),
@@ -122,6 +124,7 @@ export const corpDetailBrand: ICorpSubModuleCfg = {
         'corpName',
         'relativeType|relativeType',
       ],
+      skipTransFieldsInKeyMode: ['corpName'],
       notVipPageTurning: true,
       notVipPageTitle: intl('138799', '商标'),
       notVipPagedesc: intl('224213', '购买VIP/SVIP套餐，即可不限次查看企业更多商标信息'),
@@ -203,6 +206,7 @@ export const corpDetailBrand: ICorpSubModuleCfg = {
         'corpName',
         'relativeType|relativeType',
       ],
+      skipTransFieldsInKeyMode: ['corpName'],
       notVipPageTurning: true,
       notVipPageTitle: intl('138799', '商标'),
       notVipPagedesc: intl('224213', '购买VIP/SVIP套餐，即可不限次查看企业更多商标信息'),
@@ -284,6 +288,7 @@ export const corpDetailBrand: ICorpSubModuleCfg = {
         'corpName',
         'relativeType|relativeType',
       ],
+      skipTransFieldsInKeyMode: ['corpName'],
       notVipPageTurning: true,
       notVipPageTitle: intl('138799', '商标'),
       notVipPagedesc: intl('224213', '购买VIP/SVIP套餐，即可不限次查看企业更多商标信息'),

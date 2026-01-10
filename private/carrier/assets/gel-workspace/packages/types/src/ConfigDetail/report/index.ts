@@ -1,4 +1,4 @@
-import { TCorpDetailNodeKey, TCorpDetailSectionKey } from '@/src/corp'
+import { TCorpDetailNodeKey, TCorpDetailSectionKey } from '@/src/corpDetail'
 import { ConfigDetailApiJSON, ConfigDetailCommentCfg, ConfigDetailTitleJSON } from '../common'
 import { ReportDetailTableJson } from '../table'
 

@@ -1,4 +1,4 @@
-import { SearchHistoryParsed } from 'gel-api/*'
+import { SearchHistoryParsed } from 'gel-api'
 import { RecentViewItem } from './searchList/type'
 
 type CommonProps = {

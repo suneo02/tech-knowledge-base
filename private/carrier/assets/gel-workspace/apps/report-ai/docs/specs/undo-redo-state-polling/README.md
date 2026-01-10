@@ -1,4 +1,4 @@
-# Undo/Redo 状态轮询问题
+﻿# Undo/Redo 状态轮询问题
 
 > 📖 本文档遵循 [Issue 文档编写规范](../../../../../docs/rule/issue-doc-rule.md)
 
@@ -45,5 +45,6 @@
 ## 相关文档
 
 - [Issue 文档编写规范](../../../../../docs/rule/issue-doc-rule.md)
-- [React 组件规范](../../../../../docs/rule/react-rule.md)
-- [TypeScript 编码规范](../../../../../docs/rule/typescript-rule.md)
+- [React 组件规范](../../../../../docs/rule/code-react-component-rule.md)
+- [TypeScript 编码规范](../../../../../docs/rule/code-typescript-style-rule.md)
+

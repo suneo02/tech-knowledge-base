@@ -1,5 +1,5 @@
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
 
-export const corpDetailBankCredit: ICorpSubModuleCfg = {
+export const corpDetailBankCredit: CorpSubModuleCfg = {
   modelNum: 'banktrust_num',
 }

@@ -1,10 +1,21 @@
-import React from 'react'
 import Table from '@wind/wind-ui-table'
-import useDetailHooks from './useDetailHooks'
 import { isArray } from 'lodash'
+import React, { FC } from 'react'
+import useDetailHooks from './useDetailHooks'
 
 const { HorizontalTable } = Table
 
+type TablesProps = {
+  title?: string | React.ReactNode
+  columns?: any[]
+  horizontal?: boolean
+  key?: string
+  isLoading?: boolean
+  className?: string
+  hideTableConstruct?: boolean
+  info: any
+  skipTransFieldsInKeyMode?: string[]
+}
 /**
  *
  * @param props
@@ -12,7 +23,7 @@ const { HorizontalTable } = Table
  * @returns {React.JSX.Element|false}
  * @constructor
  */
-function Tables(props) {
+const Tables: FC<TablesProps> = (props) => {
   const { title = '', columns = [], horizontal = false, key, isLoading, className, hideTableConstruct } = props
   const { dataSource, loading, pagination, onChangePage } = useDetailHooks(props)
 
@@ -58,4 +69,4 @@ function Tables(props) {
   )
 }
 
-export default React.memo(Tables)
+export const SingleTable = React.memo(Tables)

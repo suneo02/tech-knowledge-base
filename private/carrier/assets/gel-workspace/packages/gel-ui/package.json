@@ -20,15 +20,17 @@
     "./mixin/gradient-bottom.less": "./dist/styles/mixin/gradient-bottom.less"
   },
   "scripts": {
-    "dev": "vite build --watch --mode development --minify false --sourcemap",
+    "dev": "vite build --watch --mode development",
     "clean": "node ../../scripts/clean.cjs dist",
     "build": "npm run clean && vite build",
+    "build:dev": "vite build --mode development",
     "build:staging": "npm run clean && vite build --mode staging",
     "preview": "vite preview",
     "lint": "pnpm -s eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "tsc": "tsc --noEmit",
     "story": "storybook dev -p 6006",
     "build-story": "storybook build",
+    "build:locales:wind-header": "node script/process-wind-header-locales.mjs",
     "check:circular": "madge --circular --extensions ts,tsx src/"
   },
   "peerDependencies": {
@@ -68,6 +70,7 @@
     "gel-api": "workspace:*",
     "gel-types": "workspace:*",
     "gel-util": "workspace:*",
+    "glob": "^11.0.2",
     "less": "^4.2.2",
     "rollup-plugin-copy": "^3.5.0",
     "typescript": "^5.2.2"

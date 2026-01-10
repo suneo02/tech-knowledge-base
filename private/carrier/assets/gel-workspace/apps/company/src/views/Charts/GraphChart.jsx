@@ -564,7 +564,7 @@ function makeLinks(link, t, allColorsObj, label) {
     _label = prop
   }
   if (t === 'merge') {
-    _label = link.props.merge_props ? link.props.merge_props.mergerTitle : intl('108785', '并购')
+    _label = link.props.merge_props ? link.props.merge_props.mergerTitle : intl('478666', '并购')
   }
   if (t === 'customer') {
     if (link.props && link.props.customer_props && link.props.customer_props.reportPeriod) {
@@ -1475,7 +1475,7 @@ function GraphChartComp({
       ) : null}
       {!loading ? (
         !mapData ? (
-          <div className="chart-graph-empty">{intl('138403', '暂无关联路径数据')} </div>
+          <div className="chart-graph-empty">{intl('478679', '暂无关联路径数据')} </div>
         ) : (
           <>
             <div ref={domRef} style={{ width: '100%', height: '100%' }} className="chart-graph-cgx"></div>

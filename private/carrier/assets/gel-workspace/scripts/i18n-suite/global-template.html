@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monorepo 国际化报告</title>
+    <link rel="stylesheet" href="https://unpkg.com/antd@4.24.13/dist/antd.min.css" />
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/antd@4.24.13/dist/antd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <style>
+      :root {
+        --border: #e2e8f0;
+        --text: #1e293b;
+        --text-muted: #64748b;
+        --text-light: #0f172a;
+        --green: #10b981;
+        --red: #ef4444;
+      }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      }
+      .wrap {
+        padding: 16px;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .summary {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 12px 0;
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px 16px;
+        min-width: 140px;
+      }
+      .card .label {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .card .val {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-light);
+      }
+      .chart {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px;
+        margin: 12px 0;
+      }
+      .charts-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      @media (min-width: 1024px) {
+        .charts-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .ok {
+        color: var(--green);
+      }
+      .no {
+        color: var(--red);
+      }
+      .refs {
+        color: #64748b;
+      }
+      .progress {
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        background: #10b981;
+      }
+      .tools {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin: 8px 0;
+      }
+      .btn {
+        display: inline-block;
+        padding: 6px 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        text-decoration: none;
+        color: var(--text);
+        background: #fff;
+        cursor: pointer;
+      }
+      .btn:hover {
+        border-color: #1e40af;
+        color: #1e40af;
+      }
+      .btn-primary {
+        background: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+      }
+      .btn-primary:hover {
+        background: #2563eb;
+        color: white;
+        border-color: #2563eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div id="root"></div>
+    </div>
+    <script>
+      const ALL = __ALL_DATA__
+      const GLOBAL = __GLOBAL_SUMMARY__
+      const IS_SINGLE = __IS_SINGLE__
+      const { Tabs, Table } = antd
+      const icon = (b) => React.createElement('span', { className: b ? 'ok' : 'no' }, b ? '✅' : '❌')
+
+      const exportToExcel = (data, filename) => {
+        const ws = XLSX.utils.json_to_sheet(
+          data.map((r) => ({
+            ID: r.id,
+            Text: r.text,
+            Status: r.type === 'matched' ? '已匹配' : '未匹配',
+            Suggest: r.suggest || '',
+            Refs: (r.refs || '').replace(/<[^>]+>/g, ''), // Remove HTML tags
+          }))
+        )
+        const wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, ws, 'Report')
+        XLSX.writeFile(wb, filename)
+      }
+
+      const SummaryView = ({ summary, title, chartId }) =>
+        React.createElement('div', {}, [
+          React.createElement('div', { className: 'header', key: 'hd' }, [
+            React.createElement('h2', { key: 'ttl' }, title),
+            React.createElement('div', {}, new Date().toLocaleString()),
+          ]),
+          React.createElement('div', { className: 'summary', key: 'sm' }, [
+            React.createElement('div', { className: 'card' }, [
+              React.createElement('div', { className: 'label' }, '总词条数'),
+              React.createElement('div', { className: 'val' }, String(summary.total || 0)),
+            ]),
+            React.createElement('div', { className: 'card' }, [
+              React.createElement('div', { className: 'label' }, '已匹配'),
+              React.createElement('div', { className: 'val' }, String(summary.matched || 0)),
+              React.createElement('div', { className: 'progress' }, [
+                React.createElement('div', {
+                  className: 'progress-bar',
+                  style: { width: `${(summary.matched / Math.max(summary.total, 1)) * 100}%` },
+                }),
+              ]),
+            ]),
+            React.createElement('div', { className: 'card' }, [
+              React.createElement('div', { className: 'label' }, '未匹配'),
+              React.createElement('div', { className: 'val' }, String(summary.unmatched || 0)),
+            ]),
+          ]),
+        ])
+
+      const AppView = ({ app }) => {
+        const allRows = [].concat(
+          app.data.unmatched.map((r) => ({ ...r, type: 'unmatched' })),
+          app.data.matched.map((r) => ({ ...r, type: 'matched' }))
+        )
+        const [filterType, setFilterType] = React.useState('全部')
+        const [query, setQuery] = React.useState('')
+
+        const viewRows = allRows.filter((r) => {
+          if (filterType === '已匹配' && r.type !== 'matched') return false
+          if (filterType === '未匹配' && r.type !== 'unmatched') return false
+          if (filterType === '有推荐' && !r.suggest) return false
+          if (
+            query &&
+            !(
+              `${r.id}`.includes(query) ||
+              (r.text || '').includes(query) ||
+              (r.refs || '').includes(query) ||
+              (r.suggest || '').includes(query)
+            )
+          )
+            return false
+          return true
+        })
+
+        const columns = [
+          {
+            title: 'ID',
+            dataIndex: 'id',
+            sorter: (a, b) => String(a.id || '').localeCompare(String(b.id || '')),
+            width: 180,
+          },
+          {
+            title: '文本内容',
+            dataIndex: 'text',
+            width: 300,
+          },
+          {
+            title: '推荐词条',
+            dataIndex: 'suggest',
+            width: 200,
+            render: (v) => v || '-',
+          },
+          {
+            title: '状态',
+            dataIndex: 'type',
+            width: 100,
+            render: (v) =>
+              v === 'matched'
+                ? React.createElement('span', { className: 'ok' }, '已匹配')
+                : React.createElement('span', { className: 'no' }, '未匹配'),
+          },
+          {
+            title: '引用位置',
+            dataIndex: 'refs',
+            render: (html) =>
+              React.createElement('span', { className: 'refs', dangerouslySetInnerHTML: { __html: html || '-' } }),
+          },
+        ]
+
+        return React.createElement('div', {}, [
+          React.createElement(SummaryView, { key: 'sum', summary: app.summary, title: app.name }),
+          React.createElement('div', { style: { marginTop: 12 } }, [
+            React.createElement('div', { className: 'tools' }, [
+              React.createElement(
+                'select',
+                { className: 'btn', value: filterType, onChange: (e) => setFilterType(e.target.value) },
+                [
+                  React.createElement('option', { value: '全部' }, '全部'),
+                  React.createElement('option', { value: '已匹配' }, '已匹配'),
+                  React.createElement('option', { value: '未匹配' }, '未匹配'),
+                  React.createElement('option', { value: '有推荐' }, '有推荐'),
+                ]
+              ),
+              React.createElement('input', {
+                className: 'btn',
+                placeholder: '搜索：ID、文本或引用位置',
+                value: query,
+                onChange: (e) => setQuery(e.target.value),
+                style: { minWidth: '220px' },
+              }),
+              React.createElement(
+                'button',
+                {
+                  className: 'btn btn-primary',
+                  onClick: () => exportToExcel(viewRows, `${app.name}-i18n-report.xlsx`),
+                },
+                '导出Excel'
+              ),
+            ]),
+            React.createElement(Table, {
+              key: 't',
+              columns,
+              dataSource: viewRows.map((r, i) => ({ key: i, ...r })),
+              size: 'small',
+              pagination: { pageSize: 50 },
+            }),
+          ]),
+        ])
+      }
+
+      const renderSummaryChart = (chartId, summary) => {
+        if (!window.Chart) return
+        const ctx = document.getElementById(chartId)
+        if (!ctx) return
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['已匹配', '未匹配'],
+            datasets: [
+              {
+                data: [summary.matched, summary.unmatched],
+                backgroundColor: ['#10b981', '#ef4444'],
+                borderColor: '#ffffff',
+                borderWidth: 2,
+              },
+            ],
+          },
+          options: { responsive: true, maintainAspectRatio: false, cutout: '65%' },
+        })
+      }
+
+      const renderPerAppBar = (chartId, apps) => {
+        if (!window.Chart) return
+        const ctx = document.getElementById(chartId)
+        if (!ctx) return
+        const labels = apps.map((a) => a.name)
+        const matched = apps.map((a) => a.summary.matched)
+        const unmatched = apps.map((a) => a.summary.unmatched)
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [
+              { label: '已匹配', data: matched, backgroundColor: '#10b981' },
+              { label: '未匹配', data: unmatched, backgroundColor: '#ef4444' },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            scales: { x: { stacked: true }, y: { stacked: true } },
+          },
+        })
+      }
+
+      if (IS_SINGLE) {
+        const app = ALL[0] || {
+          name: '',
+          summary: { total: 0, matched: 0, unmatched: 0 },
+          data: { matched: [], unmatched: [] },
+        }
+        ReactDOM.render(React.createElement(AppView, { app }), document.getElementById('root'))
+        const chartId = 'chart-app-' + (app.name || '').replace(/[^a-zA-Z0-9_-]/g, '_')
+        // renderSummaryChart(chartId, app.summary) // Single view doesn't use chart container in simplified version
+      } else {
+        const globalDonutId = 'chart-global-donut'
+        const globalPerAppId = 'chart-global-perapps'
+        const GlobalTab = React.createElement('div', {}, [
+          React.createElement(SummaryView, { summary: GLOBAL, title: '全局总览' }),
+          React.createElement('div', { className: 'charts-grid' }, [
+            React.createElement('div', { className: 'chart', key: 'perapps' }, [
+              React.createElement('canvas', { id: globalPerAppId }),
+            ]),
+            React.createElement('div', { className: 'chart', key: 'donut' }, [
+              React.createElement('canvas', { id: globalDonutId }),
+            ]),
+          ]),
+        ])
+        const first = { key: 'global', label: '全局总览', children: GlobalTab }
+        const items = [
+          first,
+          ...ALL.map((app, idx) => ({
+            key: String(idx + 1),
+            label: app.name,
+            children: React.createElement(AppView, { app }),
+          })),
+        ]
+        ReactDOM.render(React.createElement(Tabs, { items }), document.getElementById('root'))
+        renderSummaryChart(globalDonutId, GLOBAL)
+        renderPerAppBar(globalPerAppId, ALL)
+      }
+    </script>
+  </body>
+</html>

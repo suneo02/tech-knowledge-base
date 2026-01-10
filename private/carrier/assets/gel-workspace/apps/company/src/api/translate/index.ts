@@ -1,5 +1,5 @@
 import { getWsid } from '@/utils/env'
-import { usedInClient } from '@/utils/env/misc'
+import { getApiPrefix, usedInClient } from '@/utils/env/misc'
 import axios from 'axios'
 
 interface TranslateParams {
@@ -24,6 +24,7 @@ export const translateByAlice = async (data: TranslateParams) => {
 
   const instance = axios.create({
     timeout: 10000,
+    baseURL: getApiPrefix(),
     headers: {
       'Content-Type': 'application/json',
       ...(!usedInClient() && {

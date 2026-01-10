@@ -1,7 +1,8 @@
 import { getWsidProd } from 'gel-util/env'
 import { type InternalAxiosRequestConfig } from 'axios'
 import { WindSessionHeader } from 'gel-api'
-import { isEn } from 'gel-util/locales'
+import { isEn } from 'gel-util/intl'
+import { errorHandler } from '../error/error-handling'
 
 // 请求拦截器
 export const requestInterceptor = (config: InternalAxiosRequestConfig) => {
@@ -29,6 +30,5 @@ export const requestInterceptor = (config: InternalAxiosRequestConfig) => {
 
 // 请求错误拦截器
 export const requestErrorInterceptor = (error: Error) => {
-  console.error('Request error:', error)
-  return Promise.reject(error)
+  return errorHandler(error)
 }

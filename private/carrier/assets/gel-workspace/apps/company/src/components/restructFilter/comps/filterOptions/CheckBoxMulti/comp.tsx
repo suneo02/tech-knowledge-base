@@ -4,7 +4,7 @@
 
 import { Checkbox } from '@wind/wind-ui'
 import { getCDEItemOptionLabel, getCheckBoxItemValue } from 'cde'
-import { CDEFilterOption } from 'gel-api/*'
+import { CDEFilterOption } from 'gel-api'
 import React, { useMemo } from 'react'
 import { useSelectionContext } from './ctx'
 

@@ -39,14 +39,17 @@ export const fetchSplAgentTaskList = createAsyncThunk<
   { rejectValue: string }
 >('superAgent/fetchSplAgentTaskList', async (params, { rejectWithValue }) => {
   try {
-    // 与后端约定：接口路径为 operation/get/splAgentTaskList
-    const res = await requestToWFC('operation/get/splAgentTaskList', params)
-    // 兼容不同返回结构：优先 list/rows/Items，否则当做数组
-    const list = res?.Data?.tasks
+    const res = await requestToWFC('superlist/excel/splAgentTaskList', params)
+    const list = (res?.Data?.tasks ?? []) as TaskListItem[]
     const total = res?.Page?.Records
-    return { list, total, pageNum: params.pageNum, pageSize: params.pageSize }
+    return {
+      list,
+      total,
+      pageNum: params.pageNum ?? 1,
+      pageSize: params.pageSize ?? 20,
+    }
   } catch (err) {
-    const message = err instanceof Error ? err.message : '获取客户名单失败'
+    const message = err instanceof Error ? err.message : 'Failed to fetch task list'
     return rejectWithValue(message)
   }
 })
@@ -78,7 +81,7 @@ const slice = createSlice({
       })
       .addCase(fetchSplAgentTaskList.rejected, (state, action) => {
         state.loading = false
-        state.error = action.payload ?? '获取客户名单失败'
+        state.error = action.payload ?? 'Failed to fetch task list'
       }),
 })
 
@@ -86,6 +89,6 @@ export default slice.reducer
 
 // ---- Selectors ----
 
-export const selectSplTasks = (state: RootState) => state.superAgent.items
-export const selectSplTasksLoading = (state: RootState) => state.superAgent.loading
-export const selectSplTasksTotal = (state: RootState) => state.superAgent.total
+export const selectSplTasks = (state: RootState) => state.superAgentReducer.items
+export const selectSplTasksLoading = (state: RootState) => state.superAgentReducer.loading
+export const selectSplTasksTotal = (state: RootState) => state.superAgentReducer.total

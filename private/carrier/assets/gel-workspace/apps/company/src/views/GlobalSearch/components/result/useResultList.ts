@@ -1,8 +1,14 @@
 import { getcorpiscollect } from '@/api/companyDynamic'
 import { getServerApi } from '@/api/serverApi'
-import { wftCommon } from '@/utils/utils.tsx'
-import { isEn } from 'gel-util/intl'
+import { CompanyInfoInSearch } from 'gel-api'
 import { useRef, useState } from 'react'
+import { transCorpSearchResult } from './MultiResultList/handleName'
+
+// 扩展企业信息类型，包含收藏状态
+export type CompanyInfoInSearchWithCollect = CompanyInfoInSearch & {
+  isCollect?: boolean
+  statusAfterOriginal?: string
+}
 
 // !临时给后端加的，为了个体工商户，后续删除
 const TEMP_CONFIG = { version: 1 }
@@ -12,24 +18,18 @@ const initialPagination = {
   pageIndex: 0,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useResultListData = <T extends Record<string, any>>(
   api: string,
   params: T,
   initData?: { Data: any; Page: any },
   showCollect?: boolean
 ) => {
-  const [data, setData] = useState<T[]>()
+  const [data, setData] = useState<CompanyInfoInSearchWithCollect[]>()
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState<number>(null)
   const [pagination, setPagination] = useState(initialPagination)
   const paginationRef = useRef(pagination)
   const [forceEnd, setForceEnd] = useState(false)
-
-  // const filterArray = () => {
-  //   const arrayCode6Set = new Set(params?.areaCode?.split(',')?.map((res) => res.slice(0, 6)))
-  //   return RegionJSON?.filter((res) => !arrayCode6Set.has(res.value.slice(0, 6)))
-  // }
 
   const handleParams = () => {
     let notAreaCodeArray = []
@@ -38,19 +38,13 @@ const useResultListData = <T extends Record<string, any>>(
     if (areaCodeSplit?.includes('0300000000')) {
       notAreaCodeArray = [...notAreaCodeArray, ...['0304070000', '0304080000', '0304090000']]
     }
-    // if (areaCodeSplit?.includes('180')) {
-    //   notAreaCodeArray = [
-    //     ...notAreaCodeArray,
-    //     ...RegionJSON.filter((res) => res.value !== '180').map((res) => res.value),
-    //   ]
-    // }
+
     if (notAreaCodeArray?.length) {
       return { ...params, notAreaCode: notAreaCodeArray.join(',') }
     }
 
     return {
       ...params,
-      // !后续删除
       ...TEMP_CONFIG,
     }
   }
@@ -75,38 +69,24 @@ const useResultListData = <T extends Record<string, any>>(
       handleData(res, reset)
     }
   }
-  const handleData = ({ Data, Page }, reset?: boolean) => {
-    const _data = Data?.search || Data || []
+  const handleData = ({ Data, Page }: { Data: any; Page: any }, reset?: boolean) => {
+    const _data: CompanyInfoInSearch[] = Data?.search || Data || []
     if (_data?.length < pagination.pageSize) setForceEnd(true)
+
+    // 先展示原始数据，提供快速响应
     setData((prevData) => (reset ? _data : [...(prevData || []), ..._data]))
-    if (isEn()) {
-      wftCommon.zh2en(_data, (enData: T[]) => {
-        console.log('🚀 ~ wftCommon.zh2en ~ enData:', enData)
-        setData((prevData) => {
-          if (!prevData || !enData) return prevData
 
-          // 使用 Map 优化查找效率
-          const enDataMap = new Map(enData.map((item) => [item.corpId, item]))
-
-          // 更新数据，保持原有数据结构，只更新英文相关字段
-          return prevData.map((item) => {
-            const enItem: T = enDataMap.get(item.corpId)
-
-            if (!enItem) return item
-            console.log('🚀 ~ returnprevData.map ~ enItem:', enItem)
-            return {
-              ...item,
-              ...enItem,
-              // 根据实际英文字段进行更新
-              orgType: item?.orgType,
-              corpName: item?.corpName,
-              corpNameEng: item?.corpNameEng || enItem?.corpNameEng || enItem?.corpName,
-              // 其他需要更新的英文字段...
-            }
-          })
+    // 异步翻译数据，完成后根据 corpId 更新对应的数据
+    transCorpSearchResult(_data).then((translatedData) => {
+      setData((prevData) => {
+        if (!prevData) return translatedData
+        // 根据 corpId 匹配并替换数据，保持其他数据（如收藏状态）不变
+        return prevData.map((item) => {
+          const translatedItem = translatedData.find((t) => t.corpId === item.corpId)
+          return translatedItem ? { ...item, ...translatedItem } : item
         })
       })
-    }
+    })
 
     if (showCollect) getCollectList(_data)
 
@@ -119,12 +99,12 @@ const useResultListData = <T extends Record<string, any>>(
     setTotal(Page?.Records)
   }
   // 根据数据的corpId获取收藏列表
-  const getCollectList = async (newData: T[]) => {
+  const getCollectList = async <U extends Record<string, any> & { corpId: string }>(newData: U[]) => {
     const { Data } = await getcorpiscollect({
       companyCode: newData?.map((item) => item.corpId).join(','),
     })
 
-    // 根据corpId将数组替换已加入的数组
+    // 根据corpId将数组替换已加入的数组，为每个对象添加 isCollect 属性
     setData((prevData) =>
       prevData?.map((item) => ({
         ...item,

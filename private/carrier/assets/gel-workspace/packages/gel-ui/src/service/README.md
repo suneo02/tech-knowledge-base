@@ -1,4 +1,4 @@
-# 服务层模块
+﻿# 服务层模块
 
 提供前端应用的服务层抽象，包括 AI Agent 请求处理、AI 对话服务等核心业务逻辑。
 
@@ -97,8 +97,8 @@ service/
 ## 相关文档
 
 - [Agent 请求服务详细文档](./agentRequest/README.md) - AI Agent 请求处理详情
-- [API 请求规范](../../../docs/rule/api-request-rule.md) - API 调用规范
-- [错误处理规范](../../../docs/rule/error-handling-rule.md) - 错误处理指南
+- [API 请求规范](../../../docs/rule/code-api-client-rule.md) - API 调用规范
+- [错误处理规范](../../../docs/rule/code-error-boundary-rule.md) - 错误处理指南
 
 ## 使用示例
 

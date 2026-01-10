@@ -2,7 +2,7 @@
  * 全文生成控制器 Hook - 集中管理副作用
  *
  * 此 Hook 负责监听 Redux 状态变化并触发副作用（发送请求、处理完成等）
- * 应该只在 ReportContentRTKScope 内部挂载一次，避免重复监听
+ * 应该只在 RPDetailRTKScope 内部挂载一次，避免重复监听
  *
  * @see {@link ../../../docs/issues/full-doc-generation-duplicate-requests.md | 全文生成重复请求问题}
  * @see {@link ./useFullDocGeneration.ts | 全文生成操作 Hook}
@@ -10,7 +10,7 @@
 
 import { useReportDetailContext } from '@/context';
 import { useEffect } from 'react';
-import { useReportContentDispatch, useReportContentSelector } from '../hooksRedux';
+import { useRPDetailDispatch, useRPDetailSelector } from '../hooksRedux';
 import {
   selectFullDocGenData,
   selectFullDocGenError,
@@ -18,7 +18,7 @@ import {
   selectLatestRequestedOperations,
   selectLeafChapterMap,
 } from '../selectors';
-import { rpContentSlice } from '../slice';
+import { rpDetailActions } from '../slice';
 import { ChapterHookGenUtils } from './utils/generationUtils';
 
 /**
@@ -28,18 +28,18 @@ import { ChapterHookGenUtils } from './utils/generationUtils';
  * 1. 监听队列进度，发送章节生成请求
  * 2. 监听流式消息，处理章节完成逻辑
  *
- * ⚠️ 重要：此 Hook 应该只在应用中挂载一次（通过 ReportContentRTKScope）
+ * ⚠️ 重要：此 Hook 应该只在应用中挂载一次（通过 RPDetailRTKScope）
  * 多次挂载会导致重复请求和状态不一致
  */
 export const useFullDocGenerationController = (): void => {
-  const dispatch = useReportContentDispatch();
-  const { parsedRPContentMsgs, sendRPContentMsg, clearChapterMessages } = useReportDetailContext();
+  const dispatch = useRPDetailDispatch();
+  const { rpContentAgentMsgs: agentMessages, sendRPContentMsg, clearChapterMessages } = useReportDetailContext();
   // 从 Redux 获取状态
-  const leafChapterMap = useReportContentSelector(selectLeafChapterMap);
-  const isFullGenOp = useReportContentSelector(selectIsFullDocGen);
-  const error = useReportContentSelector(selectFullDocGenError);
-  const fullGenData = useReportContentSelector(selectFullDocGenData);
-  const latestRequestedOperations = useReportContentSelector(selectLatestRequestedOperations);
+  const leafChapterMap = useRPDetailSelector(selectLeafChapterMap);
+  const isFullGenOp = useRPDetailSelector(selectIsFullDocGen);
+  const error = useRPDetailSelector(selectFullDocGenError);
+  const fullGenData = useRPDetailSelector(selectFullDocGenData);
+  const latestRequestedOperations = useRPDetailSelector(selectLatestRequestedOperations);
 
   /**
    * Effect 1: 根据当前生成索引触发下一章节请求
@@ -55,7 +55,7 @@ export const useFullDocGenerationController = (): void => {
 
     // 验证章节存在性
     if (!leafChapterMap.has(currentChapterId)) {
-      dispatch(rpContentSlice.actions.setFullDocumentGenerationError(`Chapter not found: ${currentChapterId}`));
+      dispatch(rpDetailActions.setFullDocumentGenerationError(`Chapter not found: ${currentChapterId}`));
       return;
     }
 
@@ -83,7 +83,7 @@ export const useFullDocGenerationController = (): void => {
     const currentChapterId = ChapterHookGenUtils.getCurrentChapterId(fullGenData.queue, fullGenData.currentIndex);
     if (!currentChapterId) return;
 
-    const isCurrentChapterFinished = ChapterHookGenUtils.isChapterFinished(currentChapterId, parsedRPContentMsgs);
+    const isCurrentChapterFinished = ChapterHookGenUtils.isChapterFinished(currentChapterId, agentMessages);
 
     if (isCurrentChapterFinished) {
       const isLast = ChapterHookGenUtils.isLastChapter(fullGenData.currentIndex, fullGenData.queue.length);
@@ -95,11 +95,11 @@ export const useFullDocGenerationController = (): void => {
         return;
       }
 
-      // 合并消息到章节
+      // 合并消息到章节（使用 agent 消息，包含 entity 和 traces）
       dispatch(
-        rpContentSlice.actions.processSingleChapterCompletion({
+        rpDetailActions.processSingleChapterCompletion({
           chapterId: currentChapterId,
-          messages: parsedRPContentMsgs,
+          messages: agentMessages,
           correlationId,
           extractRefData: true,
           overwriteExisting: true,
@@ -111,7 +111,7 @@ export const useFullDocGenerationController = (): void => {
 
       // 触发注水任务（在消息清理后，确保使用 chapter.content）
       dispatch(
-        rpContentSlice.actions.setHydrationTask({
+        rpDetailActions.setHydrationTask({
           type: 'chapter-rehydrate',
           chapterIds: [currentChapterId],
           correlationIds: [correlationId],
@@ -119,12 +119,12 @@ export const useFullDocGenerationController = (): void => {
       );
 
       // 推进到下一章节
-      dispatch(rpContentSlice.actions.progressToNextChapter());
+      dispatch(rpDetailActions.progressToNextChapter());
 
       // 若为最后一章，触发完成
       if (isLast) {
-        dispatch(rpContentSlice.actions.completeFullDocumentGeneration({ success: !error }));
+        dispatch(rpDetailActions.completeFullDocumentGeneration({ success: !error }));
       }
     }
-  }, [parsedRPContentMsgs, isFullGenOp, fullGenData, dispatch, error, latestRequestedOperations]);
+  }, [agentMessages, isFullGenOp, fullGenData, dispatch, error, latestRequestedOperations]);
 };

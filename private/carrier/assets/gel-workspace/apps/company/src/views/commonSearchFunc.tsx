@@ -1,3 +1,4 @@
+import { PatentItemFront } from 'gel-types'
 import React, { ReactNode } from 'react'
 import brand120 from '../assets/imgs/logo/brand120.png'
 import intl from '../utils/intl'
@@ -36,7 +37,7 @@ export const searchCommon = {
     }
     return allFilter
   },
-  showIntelluctalBlock: (item, type) => {
+  showIntelluctalBlock: (item: PatentItemFront | any, type) => {
     const tag = item.search_tag
     let topContent: ReactNode = ''
     let bottomContent: ReactNode = ''
@@ -132,7 +133,7 @@ export const searchCommon = {
       jumpZLQR = jumpZLQR || '--'
       bottomContent = `<span class="searchitem-work">${intl('149732', '公开公告日')}：${
         item.publicAnnouncementDate ? wftCommon.formatTime(item.publicAnnouncementDate) : '--'
-      }</span><span class="searchitem-work">${intl('138169', '授权号')}：${
+      }</span><span class="searchitem-work">${intl('437719', '授权号')}：${
         item.publicAnnouncementNumber ? item.publicAnnouncementNumber : '--'
       }</span><span class="searchitem-work">${intl('138372', '法律状态')}：${item.lawStatus ? item.lawStatus : '--'}</span><br/><span class="searchitem-work">${intl(
         '138430',
@@ -261,7 +262,7 @@ export const searchCommon = {
         valArr = ['establish_date', 'biz_reg_no']
         break
       // case "hkg":
-      //     keyArr = [intl("138276","英文名"), intl('6228',"公司编号"), intl("138860","成立日期")];
+      //     keyArr = [intl("478727","英文名"), intl('6228',"公司编号"), intl("138860","成立日期")];
       //     valArr = ["eng_name<br>", "biz_reg_no", "establish_date"];
       //     break;
       // case "twn":

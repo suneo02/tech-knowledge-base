@@ -1,4 +1,4 @@
-# 自定义 Hooks 模块
+﻿# 自定义 Hooks 模块
 
 提供业务相关的自定义 React Hooks，封装复杂的业务逻辑和状态管理，提升组件的可复用性和可维护性。
 
@@ -127,9 +127,9 @@ const useResource = <T>(
 
 ## 相关文档
 
-- [React 规范](../../../docs/rule/react-rule.md) - React 开发指南
+- [React 规范](../../../docs/rule/code-react-component-rule.md) - React 开发指南
 - [ahooks 文档](https://ahooks.js.org/) - 高质量 React Hooks 库
-- [TypeScript 规范](../../../docs/rule/typescript-rule.md) - TypeScript 开发规范
+- [TypeScript 规范](../../../docs/rule/code-typescript-style-rule.md) - TypeScript 开发规范
 
 ## 使用示例
 

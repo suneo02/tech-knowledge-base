@@ -1,12 +1,19 @@
+import { axiosInstance } from '@/api/axios'
+import HeaderHasUser from '@/components/HeaderHasUser'
+import { GetUserPackageAction } from '@/reducers/home.types'
+import { RootAction } from '@/reducers/redux.types'
+import { IState } from '@/reducers/type'
 import { localStorageManager } from '@/utils/storage'
+import { isBaiFenTerminalOrWeb } from '@/utils/utilCallWftCommon'
 import { Modal } from '@wind/wind-ui'
-import React from 'react'
+import { RimeHeader } from 'gel-ui'
+import { isFromRimePEVC } from 'gel-util/link'
+import React, { Dispatch } from 'react'
 import { connect } from 'react-redux'
 import { renderRoutes } from 'react-router-config'
 import * as globalActions from '../actions/global'
 import * as HomeActions from '../actions/home'
 import { getPayGoods, getUserPackageInfo } from '../api/homeApi'
-import HeaderHasUser from '../components/HeaderHasUser/index'
 import { VipPopupModal } from '../lib/globalModal'
 import { parseQueryString } from '../lib/utils'
 import store from '../store/store'
@@ -133,14 +140,25 @@ class Home extends React.Component<HomeProps, HomeState> {
     }
   }
 
+  renderHeader = () => {
+    // 从RimePEVC打开
+    if (isFromRimePEVC() && !this.state.notoolbar) {
+      return <RimeHeader axiosInstance={axiosInstance} />
+    }
+
+    if (!this.state.notoolbar || this.state.needtoolbar) {
+      return <HeaderHasUser nosearch={this.state.nosearch} isSeparate={this.isSeparate} />
+    }
+    // 其他情况
+    return null
+  }
+
   render() {
     const { route } = this.props
     return (
       <React.Fragment>
         <div className={this.state.notoolbar ? ' home home-no-toolbar ' : ' home '}>
-          {!this.state.notoolbar || this.state.needtoolbar ? (
-            <HeaderHasUser nosearch={this.state.nosearch} isSeparate={this.isSeparate} />
-          ) : null}
+          {this.renderHeader()}
           <div className="main-container">
             <div className="page-container">
               {renderRoutes(route.children, { routePathId: this.props.routePathId })}
@@ -162,21 +180,21 @@ class Home extends React.Component<HomeProps, HomeState> {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: IState) => {
   return {
     home: state.home,
     userpackageinfo: state.home.userPackageinfo,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
     getUserPackageInfo: (callback, localres) => {
       /**
        *
        * @param {Object} res  用户信息
        */
-      const userPackinfoCall = (res) => {
+      const userPackinfoCall = (res: GetUserPackageAction['data']) => {
         if (!localres) {
           const dataDeled = res.data
           localStorageManager.set('globaluserpackage4gel', dataDeled)
@@ -195,8 +213,8 @@ const mapDispatchToProps = (dispatch) => {
             }
           })
         }
-        console.warn(`ISB`, wftCommon.isBaiFenTerminalOrWeb(res.data.terminalType))
-        if (wftCommon.isBaiFenTerminalOrWeb(res.data.terminalType)) {
+        console.warn(`ISB`, isBaiFenTerminalOrWeb(res.data.terminalType))
+        if (isBaiFenTerminalOrWeb(res.data.terminalType)) {
           //用于百分企业，由柴荣臻负责
           const script = window.document.createElement('script')
           const isOrNotTestSite = isTestSite()
@@ -224,7 +242,7 @@ const mapDispatchToProps = (dispatch) => {
       getUserPackageInfo()
         .then((res) => {
           if (res && res.Data) {
-            userPackinfoCall(res)
+            userPackinfoCall(res as GetUserPackageAction['data'])
           }
         })
         .finally(() => {

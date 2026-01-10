@@ -176,11 +176,9 @@ export const translateService = (param, successFun) => {
       wftCommon.removeLoadTask(param)
     },
   }
-  if (wftCommon.isDevDebugger()) {
-    // @ts-expect-error ttt
-    ajaxParam.headers = {
-      'wind.sessionId': getWsid(),
-    }
+  // @ts-expect-error ttt
+  ajaxParam.headers = {
+    'wind.sessionId': getWsid(),
   }
   window.$.ajax(ajaxParam)
 }

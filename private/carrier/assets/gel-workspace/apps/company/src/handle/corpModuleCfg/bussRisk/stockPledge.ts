@@ -1,29 +1,22 @@
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
 
 /**
  * 出质人
  */
-export const corpDetailStockPledgor: ICorpSubModuleCfg = {
+export const corpDetailStockPledgor: CorpSubModuleCfg = {
   modelNum: 'stock_pledgers_num',
 }
 
 /**
  * 质权人
  */
-export const corpDetailStockPledgePawnee: ICorpSubModuleCfg = {
+export const corpDetailStockPledgePawnee: CorpSubModuleCfg = {
   modelNum: 'stock_pledgees_num',
 }
 
 /**
  * 出质标的
  */
-export const corpDetailStockPledgePCorp: ICorpSubModuleCfg = {
+export const corpDetailStockPledgePCorp: CorpSubModuleCfg = {
   modelNum: 'stock_plexes_num',
-}
-
-/**
- * 股票质押
- */
-export const corpDetailStockPledge: ICorpSubModuleCfg = {
-  modelNum: ['stock_pledgers_num', 'stock_pledgees_num', 'stock_plexes_num'],
 }

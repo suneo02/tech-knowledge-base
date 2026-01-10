@@ -1,4 +1,4 @@
-# 标题嵌套假设问题
+﻿# 标题嵌套假设问题
 
 > 📖 本文档遵循 [Issue 文档编写规范](../../../../../docs/rule/issue-doc-rule.md)
 
@@ -50,6 +50,7 @@
 ## 相关文档
 
 - [Issue 文档编写规范](../../../../../docs/rule/issue-doc-rule.md)
-- [文档编写规范](../../../../../docs/rule/documentation-rule.md)
-- [TypeScript 编码规范](../../../../../docs/rule/typescript-rule.md)
-- [错误处理规范](../../../../../docs/rule/error-handling-rule.md)
+- [文档编写规范](../../../../../docs/rule/doc-general-rule.md)
+- [TypeScript 编码规范](../../../../../docs/rule/code-typescript-style-rule.md)
+- [错误处理规范](../../../../../docs/rule/code-error-boundary-rule.md)
+

@@ -6,7 +6,7 @@
 import type { TreeNode } from './treeTypes'
 
 /**
- * 递归映射树中的所有节点
+ * 递归映射树中的所有节点（同类型转换）
  *
  * 对树中的每个节点应用映射函数，返回新的树结构。
  * 这是一个纯函数，不会修改原始树。
@@ -24,44 +24,74 @@ import type { TreeNode } from './treeTypes'
  *   ...chapter,
  *   visited: true
  * }))
- *
- * // 应用 ID 映射
- * const mappedChapters = mapTree(chapters, (chapter) => ({
- *   ...chapter,
- *   chapterId: idMap[chapter.chapterId] || chapter.chapterId
- * }))
  * ```
  */
-export const mapTree = <T extends TreeNode<T>>(
+export function mapTree<T extends TreeNode<T>>(
   nodes: T[],
   mapper: (node: T, depth: number) => T,
-  childrenKey: keyof T = 'children' as keyof T
-): T[] => {
-  try {
-    const mapNode = (node: T, depth: number = 0): T => {
-      // 先递归处理子节点
-      const children = node[childrenKey] as T[] | undefined
-      const mappedChildren = children ? children.map((child) => mapNode(child, depth + 1)) : undefined
+  childrenKey?: keyof T
+): T[]
 
-      // 应用映射函数到当前节点
-      const mappedNode = mapper(node, depth)
+/**
+ * 递归映射树中的所有节点（跨类型转换）
+ *
+ * 支持将输入类型转换为不同的输出类型。
+ * 映射函数返回不包含 children 的节点，children 会自动递归处理。
+ *
+ * @template TInput 输入节点类型
+ * @template TOutput 输出节点类型
+ * @param nodes 输入树形节点数组
+ * @param mapper 映射函数，接收节点和深度，返回新节点（不含 children）
+ * @param childrenKey 子节点属性名，默认为 'children'
+ * @returns 映射后的新树形节点数组
+ *
+ * @example
+ * ```typescript
+ * // 将 DocumentChapterNode 转换为 RPChapterSavePayload
+ * const savePayload = mapTree<DocumentChapterNode, RPChapterSavePayload>(
+ *   documentChapters,
+ *   (doc) => ({
+ *     chapterId: doc.chapterId,
+ *     title: doc.title,
+ *     content: doc.content
+ *   })
+ * )
+ * ```
+ */
+export function mapTree<TInput extends { children?: TInput[] }, TOutput extends { children?: TOutput[] }>(
+  nodes: TInput[],
+  mapper: (node: TInput, depth: number) => Omit<TOutput, 'children'>,
+  childrenKey?: keyof TInput
+): TOutput[]
 
-      // 如果有子节点，更新子节点
-      if (mappedChildren !== undefined) {
-        return {
-          ...mappedNode,
-          [childrenKey]: mappedChildren,
-        } as T
-      }
+/**
+ * 实现
+ */
+export function mapTree<TInput extends { children?: TInput[] }, TOutput extends { children?: TOutput[] }>(
+  nodes: TInput[],
+  mapper: (node: TInput, depth: number) => Omit<TOutput, 'children'> | TOutput,
+  childrenKey: keyof TInput = 'children' as keyof TInput
+): TOutput[] {
+  const mapNode = (node: TInput, depth: number = 0): TOutput => {
+    // 先映射当前节点（不包含 children）
+    const mappedNode = mapper(node, depth)
 
-      return mappedNode
+    // 递归处理子节点
+    const children = node[childrenKey] as TInput[] | undefined
+    const mappedChildren = children ? children.map((child) => mapNode(child, depth + 1)) : undefined
+
+    // 合并节点和子节点
+    if (mappedChildren !== undefined) {
+      return {
+        ...mappedNode,
+        children: mappedChildren,
+      } as TOutput
     }
 
-    return nodes.map((node) => mapNode(node, 0))
-  } catch (error) {
-    console.error('Error mapping tree:', error)
-    return nodes
+    return mappedNode as TOutput
   }
+
+  return nodes.map((node) => mapNode(node, 0))
 }
 
 /**

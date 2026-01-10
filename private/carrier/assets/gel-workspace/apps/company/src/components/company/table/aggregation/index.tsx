@@ -1,7 +1,7 @@
 import Search from '@/components/common/search/Search.tsx'
-import { ICorpTableCfg } from '@/components/company/type'
 import { useTableNewAggregations } from '@/handle/table/aggregation'
 import { IAggregationData } from '@/handle/table/aggregation/type'
+import { CorpTableCfg } from '@/types/corpDetail/index.ts'
 import { useControllableValue } from 'ahooks'
 import { isString } from 'lodash'
 import React, { FC, useEffect, useMemo, useRef } from 'react'
@@ -19,7 +19,7 @@ export const useCorpTableAggApiCmd = (searchOptionApi?: string, companyCode?: st
 }
 
 export const CorpTableAggregation: FC<{
-  tableCfg: ICorpTableCfg
+  tableCfg: CorpTableCfg
   companyCode: string
   onChange: (searchValues: Record<string, string>) => void
   aggDataProp?: IAggregationData // 有可能 api 在父组件发送

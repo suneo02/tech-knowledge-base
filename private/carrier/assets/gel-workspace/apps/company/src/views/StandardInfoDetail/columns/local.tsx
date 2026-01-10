@@ -49,16 +49,16 @@ export const standardDataLocal = {
       [ScopeOfUse],
     ],
     horizontal: true,
-    name: intl('328180', '标准信息详情'),
+    name: intl('478706', '标准信息详情'),
   },
   filing: {
     columns: filingsColumns,
     horizontal: true,
-    name: intl('328161', '备案信息'),
+    name: intl('468637', '备案信息'),
   },
   draft: {
     columns: [DraftUnit, DraftNum, RegisterCapital, EstablishDate],
     horizontal: false,
-    name: intl('328188', '起草单位'),
+    name: intl('478702', '起草单位'),
   },
 }

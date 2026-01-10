@@ -1,6 +1,5 @@
 // 全局操作状态
 export {
-  selectGlobalOp,
   selectGlobalOperationKind,
   selectIsChapterAIGCOp,
   selectIsFullDocGen,

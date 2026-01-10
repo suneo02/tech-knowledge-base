@@ -3,9 +3,9 @@ import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
 import React from 'react'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const TWrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const TWrows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [
     {
       title: intl('6228', '公司编号'),
@@ -14,13 +14,13 @@ export const TWrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       contentWidth: '15%',
     },
     {
-      title: intl('', '代表人'),
+      title: intl('416873', '代表人'),
       dataIndex: 'legal_person_name',
       titleWidth: '15%',
       contentWidth: '15%',
     },
     {
-      title: intl('138674', '公司类别'),
+      title: intl('448308', '公司类别'),
       dataIndex: 'corp_type',
       titleWidth: '15%',
       contentWidth: '15%',
@@ -28,7 +28,7 @@ export const TWrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   ],
   [
     {
-      title: intl('138473', '注册资金'),
+      title: intl('448309', '注册资金'),
       dataIndex: 'biz_reg_no',
       render: (txt, backData) => {
         const unit = backData.reg_unit ? backData.reg_unit : ''
@@ -46,24 +46,24 @@ export const TWrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
         return paid_in_capital
       },
     },
-    { title: intl('138217', '公司现状'), dataIndex: 'state' },
+    { title: intl('448310', '公司现状'), dataIndex: 'state' },
   ],
   [
     {
-      title: intl('222904', '核准设立日期'),
+      title: intl('448311', '核准设立日期'),
       dataIndex: 'reg_date',
       render: (txt, backData) => {
         return wftCommon.formatTime(backData.reg_date)
       },
     },
     {
-      title: intl('222901', '最后核准变更日期'),
+      title: intl('448327', '最后核准变更日期'),
       dataIndex: 'issue_date',
       render: (txt, backData) => {
         return wftCommon.formatTime(backData.issue_date)
       },
     },
-    { title: intl('222903', '股权状态'), dataIndex: 'entity_type' },
+    { title: intl('448328', '股权状态'), dataIndex: 'entity_type' },
   ],
   [
     {
@@ -74,7 +74,7 @@ export const TWrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   ],
   [
     {
-      title: intl('222902', '简体中文名称'),
+      title: intl('448312', '简体中文名称'),
       dataIndex: 'simplified_chinese',
       colSpan: 5,
     },
@@ -92,7 +92,13 @@ export const TWrows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       dataIndex: 'reg_address',
       colSpan: 5,
       render: (title, row) => (
-        <ParkBox title={title} parkTitle={row?.officePark} row={row} parkId={row?.officeParkId} isBusAddress={false} />
+        <ParkBox
+          title={title}
+          parkTitle={row?.officePark}
+          row={row}
+          parkId={row?.officeParkId}
+          isBusAddress={false}
+        />
       ),
     },
   ],

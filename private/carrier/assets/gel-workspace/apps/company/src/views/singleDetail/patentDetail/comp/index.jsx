@@ -40,7 +40,7 @@ export const industryTdRender = (txt, row) => {
               data-uc-id="hBSpJ40BXi"
               data-uc-ct="unfolddefaulto"
             />{' '}
-            {intl('12095', '全部展开')}
+            {intl('464227', '全部展开')}
           </div>
         ) : (
           <div

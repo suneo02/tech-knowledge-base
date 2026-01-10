@@ -1,5 +1,5 @@
-import { formatPercent, formatPercentWithTwoDecimalWhenZero } from '@/utils/format/percentage.ts'
 import { formatMoney } from '@/utils/format/currency.ts'
+import { formatPercent, formatPercentWithTwoDecimalWhenZero } from '@/utils/format/percentage.ts'
 
 export const wftCommonType = {
   // 是否终端内使用
@@ -33,4 +33,21 @@ export const wftCommonType = {
   displayPercent: formatPercent,
   displayPercentWithTwoDecimalWhenZero: formatPercentWithTwoDecimalWhenZero,
   formatMoney,
+}
+
+export const formatPercentFromWftCommon = (str, num?) => {
+  if (str === '0' || str === 0) {
+    return '0%'
+  }
+  if (typeof num == 'number' || typeof num == 'string') {
+    num = num
+  } else {
+    num = 2
+  }
+  if (parseFloat(str)) {
+    let perc = String(parseFloat(parseFloat(str).toFixed(num)))
+    perc = String(parseFloat(perc).toFixed(num))
+    return perc + '%'
+  }
+  return '--'
 }

@@ -1,1 +1,10 @@
-export { esgRatingA, esgRatingAA, esgRatingAAA, esgRatingB, esgRatingBB, esgRatingBBB, esgRatingCCC } from './esg'
+export {
+  esgRatingA,
+  esgRatingAA,
+  esgRatingAAA,
+  esgRatingB,
+  esgRatingBB,
+  esgRatingBBB,
+  esgRatingCCC,
+  esgRatingD,
+} from './esg'

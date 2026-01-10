@@ -16,7 +16,6 @@ import { useGroupStore } from '@/store/group'
 import { ICfgDetailTableJson } from '@/types/configDetail/table.ts'
 import intl, { intlNoIndex } from '@/utils/intl'
 import { useScrollUtils } from '@/utils/scroll'
-import { wftCommon } from '@/utils/utils.tsx'
 import { Spin } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
 import _, { cloneDeep, isArray, isNil } from 'lodash'
@@ -27,6 +26,7 @@ import { TableFooterLeft } from './FooterLeft'
 import HorizontalTable from './horizontal'
 import './table.less'
 import { useTableColumns } from './tableColumns'
+import { handleTranslateCfgDetailTable } from './translate/index.ts'
 import { usePreprocessingData } from './utils/processing.ts'
 
 const TableType = {
@@ -68,7 +68,7 @@ const TableNewRaw: FC<ICfgDetailTableJson> = (props) => {
     showQuickJumper: true,
   })
   const [tableLoading, setTableLoading] = useState(false)
-  const [titleRemark, setTitleRemark] = useState(props.titleRemark)
+  const [titleRemark] = useState(props.titleRemark)
   let filter = {
     pageNo: 0,
     pageSize: 10,
@@ -210,18 +210,11 @@ const TableNewRaw: FC<ICfgDetailTableJson> = (props) => {
         : []
 
     setTableData(tableDataComputed)
-    if (window.en_access_config) {
-      wftCommon.zh2en(tableDataComputed, (endData) => {
-        if (!endData) {
-          console.error(`translated data is null \t ${JSON.stringify(endData)}`)
-        }
-        if (!Array.isArray(endData)) {
-          console.error(`translated table data is not an array \t ${JSON.stringify(endData)}`)
-        } else {
-          setTableData(endData)
-        }
-      })
-    }
+    handleTranslateCfgDetailTable(tableDataComputed, props).then((endData) => {
+      if (endData) {
+        setTableData(endData)
+      }
+    })
   }
 
   /** init function must need to check isIntersectiong */

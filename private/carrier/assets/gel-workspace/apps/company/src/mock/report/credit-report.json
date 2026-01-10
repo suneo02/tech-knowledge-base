@@ -1364,7 +1364,7 @@
     "noneData": "暂无业务数据",
     "children": [
       {
-        "api": "/detail/company/financialIndicator",
+        "api": "/detail/company/financialIndicatorV3",
         "downDocTypeName": "不存在导出",
         "title": "财务指标",
         "titleIntl": "451239",

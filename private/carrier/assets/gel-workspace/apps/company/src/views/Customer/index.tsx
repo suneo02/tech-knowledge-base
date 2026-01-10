@@ -1,9 +1,9 @@
 import { Button, Col, Modal, Row, Tag } from '@wind/wind-ui'
 import QRCode from 'qrcode'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import BreadCrumb from '../../components/breadCrumb'
-import intl from '../../utils/intl'
+import intl, { translateToEnglish } from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import './index.less'
 import './layer.css'
@@ -12,6 +12,8 @@ import MyMenu from './myMenu'
 import warningIcon from '@/assets/imgs/wx_wo.png'
 import { ModalSafeType } from '@/components/modal/ModalSafeType'
 import { PrivacyPolicyIframe } from '@/components/user/PrivacyPolicyIframe'
+import { getUrlByLinkModule, LinksModule } from '@/handle/link'
+import { isDev, isStaging, usedInClient } from '@/utils/env'
 import Table from '@wind/wind-ui-table'
 import * as HomeActions from '../../actions/home'
 import { pointBuriedByModule } from '../../api/pointBuried/bury'
@@ -21,12 +23,12 @@ import store from '../../store/store'
 import { isDeveloper, staffBetaFeature } from '../../utils/common'
 import { customerMenus, useCustomerPageTitle } from './handle'
 import { TCustomerMenuKey } from './handle/menu'
+import { useStaffBetaUnlock } from './hooks/useStaffBetaUnlock'
 import { MyAccount } from './MyAccount'
 import { getMyListColumn } from './MyList'
 import { MyOrders } from './MyOrder'
 import { UserNoteTextCN } from './UserNote/cn'
 import { UserNoteTextEN } from './UserNote/en'
-import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 
 const pageSize = 10
 
@@ -117,6 +119,11 @@ const Customer = ({ userPackageinfo }) => {
 
   const [debugCount, setDebugCount] = useState(0)
 
+  const { unlocked: staffBetaUnlocked, onClick: handleStaffVipClick } = useStaffBetaUnlock(vipType, {
+    requiredClicks: 5,
+    windowMs: 2000,
+  })
+
   const ref = useRef(listDatas)
   const IntervalRef = useRef(null)
 
@@ -150,8 +157,10 @@ const Customer = ({ userPackageinfo }) => {
                 pageNo: pageNo - 1,
                 pageSize: pageSize,
               }).then((result) => {
-                wftCommon.zh2enAlwaysCallback(result.Data, (newData) => {
-                  setListDatas(newData || [])
+                translateToEnglish(result.Data, {
+                  skipFields: ['entityName'],
+                }).then((newData) => {
+                  setListDatas(newData?.data || [])
                 })
                 ref.current = result.Data
                 setTotal(result.Page?.Records)
@@ -162,17 +171,15 @@ const Customer = ({ userPackageinfo }) => {
           }, 0)
         }, time)
       }
-      wftCommon.zh2enAlwaysCallback(
-        res.Data,
-        (newData) => {
+      translateToEnglish(res.Data, {
+        skipFields: ['entityName'],
+      })
+        .then((newData) => {
+          setListDatas(newData?.data || [])
+        })
+        .finally(() => {
           setLoading(false)
-          setListDatas(newData || [])
-        },
-        null,
-        () => {
-          setLoading(false)
-        }
-      )
+        })
       ref.current = res.Data
       setTotal(res.Page?.Records)
     })
@@ -213,7 +220,7 @@ const Customer = ({ userPackageinfo }) => {
   const renderContent = (type: TCustomerMenuKey) => {
     switch (type) {
       case 'myaccounts':
-        if (wftCommon.usedInClient()) {
+        if (usedInClient() || isDev || isStaging) {
           return Myaccounts
         }
         return <MyAccount userPhone={phone} data-uc-id="r9NgJBT7dP" data-uc-ct="myaccount" />
@@ -255,10 +262,12 @@ const Customer = ({ userPackageinfo }) => {
             {intl('312733', '会员信息')}
             {window.en_access_config ? ':' : '：'}
           </span>
-          <span className="myorder-type">{vipType}</span>
+          <span className="myorder-type" onClick={handleStaffVipClick}>
+            {vipType}
+          </span>
 
           {/* 员工权限beta功能体验开关 */}
-          {isShowStaffBetaFeature ? (
+          {isShowStaffBetaFeature && staffBetaUnlocked ? (
             <Tag
               type="secondary"
               className="cursor-pointer w-tag-color-2 checkin-tag"

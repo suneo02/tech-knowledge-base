@@ -1,10 +1,10 @@
 import { Links } from '@/components/common/links'
 import { LinkByRowCompatibleCorpPerson } from '@/components/company/link/CorpOrPersonLink'
 import { TechScoreHint } from '@/components/company/techScore/comp'
-import { ICorpPrimaryModuleCfg } from '@/components/company/type'
 import { InfoCircleButton } from '@/components/icons/InfoCircle'
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 import { getStandardEnumByLevel } from '@/handle/link/module/miscDetail/standard.ts'
+import { CorpPrimaryModuleCfg } from '@/types/corpDetail'
 import { intlNoNO as intl } from '@/utils/intl'
 import { convertAntDColumns } from '@/utils/table'
 import { wftCommon } from '@/utils/utils.tsx'
@@ -14,7 +14,21 @@ import { DetailLink } from '../components'
 import { corpDetailBrand } from './brand'
 import { corpDetailPatent } from './patent'
 
-export const ip: ICorpPrimaryModuleCfg = {
+/**
+ * 确保 URL 包含协议前缀
+ * @param url - 原始 URL
+ * @returns 带协议的完整 URL
+ */
+const ensureUrlProtocol = (url: string): string => {
+  if (!url) return url
+  // 检查是否已包含协议（http:// 或 https://）
+  if (/^https?:\/\//i.test(url)) {
+    return url
+  }
+  return `http://${url}`
+}
+
+export const ip: CorpPrimaryModuleCfg = {
   moduleTitle: {
     title: intl('120665', '知识产权'),
     moduleKey: 'intellectual', // 与左侧大菜单齐名
@@ -313,7 +327,7 @@ export const ip: ICorpPrimaryModuleCfg = {
               url={url}
               txt={txt}
               openFunc={() => {
-                if (url) window.open('http://' + url, '_blank')
+                if (url) window.open(ensureUrlProtocol(url), '_blank')
               }}
             />
           )
@@ -411,7 +425,7 @@ export const ip: ICorpPrimaryModuleCfg = {
               url={url}
               txt={txt}
               openFunc={() => {
-                if (url) window.open('http://' + url, '_blank')
+                if (url) window.open(ensureUrlProtocol(url), '_blank')
               }}
             />
           )
@@ -456,7 +470,7 @@ export const ip: ICorpPrimaryModuleCfg = {
               url={url}
               txt={txt}
               openFunc={() => {
-                if (url) window.open('http://' + url, '_blank')
+                if (url) window.open(ensureUrlProtocol(url), '_blank')
               }}
             />
           )

@@ -11,8 +11,8 @@ import Table from '@wind/wind-ui-table'
 import BreadCrumb from '../components/breadCrumb'
 import { usePageTitle } from '../handle/siteTitle'
 import { prodDetailColumns } from './ProdDetail/columns'
-import './ProductDetail.less'
 import { getProdDetailRows } from './ProdDetail/rows'
+import './ProductDetail.less'
 
 const { HorizontalTable } = Table
 
@@ -102,12 +102,12 @@ const ProductDetail = () => {
           ></HorizontalTable>
 
           {/* 应用市场发布信息 */}
-          {/* <p className='cardTitle'>{intl('207825', '应用市场发布信息')}</p> */}
+          {/* <p className='cardTitle'>{intl('470280', '应用市场发布信息')}</p> */}
           <Table
             style={{
               marginTop: '12px',
             }}
-            title={intl('207825', '应用市场发布信息')}
+            title={intl('470280', '应用市场发布信息')}
             columns={prodDetailColumns}
             dataSource={detailInfo?.stores}
             pagination={false}

@@ -1,6 +1,4 @@
-import { store } from '@/store'
-import { VipStatusEnum } from '@/store/user'
-
+// intl done
 import { message } from '@wind/wind-ui'
 import { AxiosError, type AxiosResponse } from 'axios'
 import {
@@ -14,8 +12,15 @@ import {
 } from 'gel-api'
 import { ERROR_TEXT } from 'gel-util/config'
 import { usedInClient } from 'gel-util/env'
-import { t } from 'gel-util/locales'
-import { handleAxiosError } from '../error-handling'
+import { t } from 'gel-util/intl'
+import { handleAxiosError } from '../error/error-handling'
+// const safeJsonParse = <T = any>(text: string): T | null => {
+//   try {
+//     return JSON.parse(text) as T
+//   } catch {
+//     return null
+//   }
+// }
 const STRINGS = {
   INSUFFICIENT_POINTS_SVIP: t('464192', '积分不足，如需更多积分，请联系客户经理~'),
   INSUFFICIENT_POINTS_NORMAL: (operationPoints: string) =>
@@ -24,7 +29,7 @@ const STRINGS = {
     }),
   INSUFFICIENT_POINTS_BUY: t('464120', '去购买'),
   USE_OUT_LIMIT_GATEWAY: t('464098', '今天查询机会用完啦，明天再来试试吧~'),
-  POINTS: t('', '积分'),
+  POINTS: t('465474', '积分'),
 }
 
 // const VIP_URL = usedInClient()
@@ -32,39 +37,35 @@ const STRINGS = {
 //   : 'https://gel.wind.com.cn/web/Company/index.html?nosearch=1#/versionPrice'
 
 // 针对积分不足的定制化处理
-const handleInsufficientPoints = (_errorCode: string, errorMessage: string) => {
-  const state = store.getState()
-  const { vipStatus } = state.user
-  const isSVIP = vipStatus === VipStatusEnum.SVIP
+// const handleInsufficientPoints = () => {
+//   const state = store.getState()
+//   const { vipStatus } = state.user
+//   const isSVIP = vipStatus === VipStatusEnum.SVIP
 
-  if (isSVIP) {
-    // SVIP 用户的处理逻辑
-    message.error(STRINGS.INSUFFICIENT_POINTS_SVIP)
-  } else {
-    // 普通及 VIP 用户的处理逻辑
-    // const userPoints = selectPointsCount(state)
-    let operationPoints = '0积分'
-    try {
-      const parsedError = JSON.parse(errorMessage)
-      operationPoints =
-        parsedError.consumptionPoint && parsedError.consumptionPoint > 0
-          ? parsedError.consumptionPoint.toLocaleString() + STRINGS.POINTS
-          : '0' + STRINGS.POINTS
-    } catch {
-      // 如果解析失败，则不显示操作所需积分
-    }
-
-    const messageContent = STRINGS.INSUFFICIENT_POINTS_NORMAL(operationPoints)
-    console.log(messageContent)
-    // showMessage({
-    //   content: messageContent,
-    //   duration: 5,
-    //   showActionButton: true,
-    //   okText: STRINGS.INSUFFICIENT_POINTS_BUY,
-    //   onOk: () => window.open(VIP_URL),
-    // })
-  }
-}
+//   if (isSVIP) {
+//     // SVIP 用户的处理逻辑
+//     message.error(STRINGS.INSUFFICIENT_POINTS_SVIP)
+//   } else {
+//     // 普通及 VIP 用户的处理逻辑
+//     // const userPoints = selectPointsCount(state)
+//     // let operationPoints={t('', '0积分')}
+//     // const parsedError = safeJsonParse<{ consumptionPoint?: number }>(errorMessage)
+//     // if (parsedError?.consumptionPoint && parsedError.consumptionPoint > 0) {
+//     //   operationPoints = parsedError.consumptionPoint.toLocaleString() + STRINGS.POINTS
+//     // }
+//     // else {
+//     //   operationPoints = '0' + STRINGS.POINTS
+//     // }
+//     // const messageContent = STRINGS.INSUFFICIENT_POINTS_NORMAL(operationPoints)
+//     // showMessage({
+//     //   content: messageContent,
+//     //   duration: 5,
+//     //   showActionButton: true,
+//     //   okText: STRINGS.INSUFFICIENT_POINTS_BUY,
+//     //   onOk: () => window.open(VIP_URL),
+//     // })
+//   }
+// }
 
 // Type guard functions
 function isIndicatorResponse(data: unknown): data is ApiResponseForIndicator<unknown> {
@@ -118,7 +119,10 @@ export const responseInterceptor = (
     errorMessage = data.msg
   } else if (isWFCResponse(data)) {
     errorCode = String(data.ErrorCode)
-    errorMessage = data.ErrorMessage
+    if (errorCode === '200001' || errorCode === '400011') {
+      errorMessage = data.ErrorMessage || ''
+    }
+    // errorMessage = data.ErrorMessage
   } else if (isStandardResponse(data)) {
     errorCode = String(data.status)
     errorMessage = data.message || ''
@@ -126,7 +130,7 @@ export const responseInterceptor = (
 
   // 针对积分不足的定制化处理
   if (errorCode === ApiCodeForWfc.INSUFFICIENT_POINTS) {
-    handleInsufficientPoints(errorCode, errorMessage)
+    // handleInsufficientPoints(errorCode, errorMessage)
     return Promise.reject(new Error(errorMessage))
   }
 
@@ -139,31 +143,13 @@ export const responseInterceptor = (
     message.error(ERROR_TEXT[errorCode])
     return Promise.reject()
   }
-  if (errorCode === ApiCodeForWfc.INSERT_OUT_LIMIT) {
-    message.error(ERROR_TEXT[errorCode])
-    return Promise.reject()
-  }
-  if (errorCode === ApiCodeForWfc.INSUFFICIENT_POINTS) {
-    const message = JSON.parse(errorMessage) ?? errorMessage
-    if (message?.consumptionPoint || message?.residualPoint) {
-      errorMessage = t('', ERROR_TEXT[errorCode], {
-        consumptionPoint: message.consumptionPoint || 0,
-        residualPoint: message.residualPoint || 0,
-      })
-      // showMessage({
-      //   content: errorMessage,
-      // })
-    } else {
-      errorMessage = ERROR_TEXT[errorCode] || errorMessage || ERROR_TEXT.DEFAULT
-      if (errorMessage) {
-        message.error(errorMessage)
-      }
-    }
-  } else {
+
+  if (errorCode !== '200001' && errorCode !== '400011') {
     errorMessage = ERROR_TEXT[errorCode] || errorMessage || ERROR_TEXT.DEFAULT
-    if (errorMessage) {
-      message.error(errorMessage)
-    }
+  }
+
+  if (errorMessage) {
+    message.error(errorMessage)
   }
 
   if (ERROR_TEXT[errorCode]) {
@@ -176,7 +162,9 @@ export const responseInterceptor = (
     return Promise.reject(knownError)
   }
 
-  return Promise.reject(handleAxiosError(new AxiosError(errorMessage, errorCode)))
+  return Promise.reject(
+    handleAxiosError(new AxiosError(errorMessage, errorCode, response.config, response.request, response))
+  )
 }
 
 export const responseErrorInterceptor = (error: AxiosError) => {
@@ -186,7 +174,7 @@ export const responseErrorInterceptor = (error: AxiosError) => {
       window.location.href = 'https://gel.wind.com.cn/web/windLogin.html?nosearch=1'
     }
     message.error(error.message)
-    return Promise.reject(error)
+    return Promise.reject(handleAxiosError(error))
   }
   return Promise.reject(handleAxiosError(error))
 }

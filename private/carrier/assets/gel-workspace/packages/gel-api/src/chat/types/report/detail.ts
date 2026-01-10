@@ -19,26 +19,12 @@ export interface RPDetailChapter extends Omit<RPChapter, 'children'>, Partial<Wi
   /**
    * 章节内容类型
    */
-  contentType?: 'md' | 'html'
+  contentType?: 'markdown' | 'html'
   files?: RPFileTraced[]
   refData?: DPUItem[]
   refSuggest?: RAGItem[]
   traceContent?: ChatTraceItem[]
   children?: RPDetailChapter[]
-}
-
-/**
- * 保存时的 chapter 结构
- */
-
-export interface RPChapterSavePayload
-  extends Partial<Pick<RPChapter, 'keywords' | 'writingThought'>>,
-    Pick<RPChapter, 'title'>,
-    RPChapterPayloadTempIdentifier,
-    RPChapterPayloadTempIdIdentifier,
-    Partial<RPChapterIdIdentifier>,
-    Partial<Pick<RPDetailChapter, 'content' | 'contentType'>> {
-  children?: RPChapterSavePayload[]
 }
 
 /**
@@ -54,3 +40,62 @@ export interface RPChapterPayloadTempIdentifier {
 export interface RPChapterPayloadTempIdIdentifier {
   tempId?: string
 }
+
+/**
+ * 临时章节 Payload（新增章节，未保存）
+ *
+ * @description
+ * 用于表示用户新增但尚未保存到服务器的章节。
+ * 使用临时 ID（tempId）作为唯一标识，保存成功后会被替换为持久 ID。
+ */
+export interface RPChapterSavePayloadTemp
+  extends Partial<Pick<RPChapter, 'keywords' | 'writingThought'>>,
+    Pick<RPChapter, 'title'>,
+    Partial<Pick<RPDetailChapter, 'content' | 'contentType'>> {
+  /** 临时章节 ID */
+  tempId: string
+  /** 判别字段：标识为临时章节 */
+  isTemporary: true
+  /** 子章节 */
+  children?: RPChapterSavePayload[]
+}
+
+/**
+ * 持久章节 Payload（已保存章节）
+ *
+ * @description
+ * 用于表示已保存到服务器的章节。
+ * 使用持久 ID（chapterId）作为唯一标识。
+ */
+export interface RPChapterSavePayloadPersisted
+  extends Partial<Pick<RPChapter, 'keywords' | 'writingThought'>>,
+    Pick<RPChapter, 'title'>,
+    RPChapterIdIdentifier,
+    Partial<Pick<RPDetailChapter, 'content' | 'contentType'>> {
+  /** 判别字段：标识为持久章节（可选，默认为 false） */
+  isTemporary?: false
+  /** 子章节 */
+  children?: RPChapterSavePayload[]
+}
+
+/**
+ * 保存时的 chapter 结构（判别联合类型）
+ *
+ * @description
+ * 使用判别联合类型区分临时章节和持久章节。
+ * TypeScript 会根据 isTemporary 字段自动进行类型收窄。
+ *
+ * @example
+ * ```typescript
+ * function processChapter(chapter: RPChapterSavePayload) {
+ *   if (chapter.isTemporary) {
+ *     // TypeScript 自动推断为 RPChapterSavePayloadTemp
+ *     console.log(chapter.tempId);
+ *   } else {
+ *     // TypeScript 自动推断为 RPChapterSavePayloadPersisted
+ *     console.log(chapter.chapterId);
+ *   }
+ * }
+ * ```
+ */
+export type RPChapterSavePayload = RPChapterSavePayloadTemp | RPChapterSavePayloadPersisted

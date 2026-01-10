@@ -1,32 +1,28 @@
-import { formatPercent, formatPercentWithTwoDecimalWhenZero } from '../percentage.ts'
+import { describe, expect, it } from 'vitest'
+import { formatShareRate } from '../percentage'
 
-describe('displayPercent', () => {
-  test('should handle null and undefined', () => {
-    expect(formatPercent(null)).toBe('--')
-    expect(formatPercent(undefined)).toBe('--')
+describe('formatShareRate', () => {
+  it('应该为数字添加百分号', () => {
+    expect(formatShareRate('25.5')).toBe('25.5%')
+    expect(formatShareRate('100')).toBe('100%')
+    expect(formatShareRate('0.5')).toBe('0.5%')
   })
 
-  test('should handle normal numbers', () => {
-    expect(formatPercent(50)).toBe('50%')
-    expect(formatPercent('75')).toBe('75%')
+  it('应该处理已经包含百分号的值', () => {
+    expect(formatShareRate('25.5%')).toBe('25.5%')
+    expect(formatShareRate('100%')).toBe('100%')
   })
 
-  test('should handle strings with percent sign', () => {
-    expect(formatPercent('80%')).toBe('80%')
+  it('应该处理空值和特殊值', () => {
+    expect(formatShareRate(null)).toBe('--')
+    expect(formatShareRate(undefined)).toBe('--')
+    expect(formatShareRate('')).toBe('--')
+    expect(formatShareRate('--')).toBe('--')
   })
 
-  test('should handle invalid inputs', () => {
-    expect(formatPercent('abc')).toBe('--')
-    expect(formatPercent('')).toBe('--')
-  })
-})
-
-describe('displayPercentWithTwoDecimalWhenZero', () => {
-  test('should handle zero', () => {
-    expect(formatPercentWithTwoDecimalWhenZero(0)).toBe('0.00%')
-  })
-
-  test('should handle non-zero numbers', () => {
-    expect(formatPercentWithTwoDecimalWhenZero(50)).toBe('50%')
+  it('应该处理数字类型', () => {
+    expect(formatShareRate(25.5)).toBe('25.5%')
+    expect(formatShareRate(100)).toBe('100%')
+    expect(formatShareRate(0)).toBe('0%')
   })
 })

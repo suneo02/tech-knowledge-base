@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { getCurrentEnv, usedInClient } from '../../../env'
+import { WX_WIND_HOST } from '../../constant'
 import { BaiFenSites, getBaiFenHost } from '../baiFen'
 
 // Mock dependencies
@@ -31,12 +32,12 @@ describe('baiFen module', () => {
     })
 
     it('should return terminal host when isTerminal is true', () => {
-      expect(getBaiFenHost({ isTerminal: true })).toBe('govwebsite')
+      expect(getBaiFenHost()).toBe('govwebsite')
     })
 
     it('should return web host when isTerminal is false', () => {
       vi.mocked(getCurrentEnv).mockReturnValue('web')
-      expect(getBaiFenHost({ isTerminal: false })).toBe('wx.wind.com.cn')
+      expect(getBaiFenHost()).toBe(WX_WIND_HOST)
     })
 
     it('should use usedInClient when isTerminal is not provided', () => {
@@ -46,22 +47,22 @@ describe('baiFen module', () => {
 
       vi.mocked(usedInClient).mockReturnValue(false)
       vi.mocked(getCurrentEnv).mockReturnValue('web')
-      expect(getBaiFenHost()).toBe('wx.wind.com.cn')
+      expect(getBaiFenHost()).toBe(WX_WIND_HOST)
     })
 
     it('should return window.location.host in dev mode', () => {
-      expect(getBaiFenHost({ isTerminal: false, isDev: true })).toBe('test.wind.com.cn')
+      expect(getBaiFenHost({ isDev: true })).toBe('test.wind.com.cn')
     })
 
     it('should return window.location.host in staging mode', () => {
-      expect(getBaiFenHost({ isTerminal: false, isStaging: true })).toBe('test.wind.com.cn')
+      expect(getBaiFenHost({ isStaging: true })).toBe('test.wind.com.cn')
     })
   })
 
   describe('BaiFenSites', () => {
     describe('Terminal version', () => {
       it('should return terminal URLs when isTerminal is true', () => {
-        const sites = BaiFenSites({ isTerminal: true })
+        const sites = BaiFenSites({ isBaiFenTerminal: true })
         const host = 'govwebsite'
 
         expect(sites.download).toBe(`https://${host}/govbusiness/#/myenterprise/download`)
@@ -77,7 +78,7 @@ describe('baiFen module', () => {
       })
 
       it('should generate correct financing details URL with all parameters', () => {
-        const sites = BaiFenSites({ isTerminal: true })
+        const sites = BaiFenSites({ isBaiFenTerminal: true })
         const params = {
           companyId: 'EGCWVAQPST',
           corpId: '1203509354',
@@ -92,7 +93,7 @@ describe('baiFen module', () => {
       })
 
       it('should generate correct financing details URL without title', () => {
-        const sites = BaiFenSites({ isTerminal: true })
+        const sites = BaiFenSites({ isBaiFenTerminal: true })
         const params = {
           companyId: 'EGCWVAQPST',
           corpId: '1203509354',
@@ -111,7 +112,7 @@ describe('baiFen module', () => {
       })
 
       it('should return login URL for all links when isTerminal is false', () => {
-        const sites = BaiFenSites({ isTerminal: false })
+        const sites = BaiFenSites({ isBaiFenTerminal: false })
         const host = 'wx.wind.com.cn'
         const loginUrl = `https://${host}/baifenweb/`
 
@@ -138,7 +139,7 @@ describe('baiFen module', () => {
         vi.mocked(usedInClient).mockReturnValue(false)
         vi.mocked(getCurrentEnv).mockReturnValue('web')
 
-        const sites = BaiFenSites()
+        const sites = BaiFenSites({ isBaiFenTerminal: false })
         const host = 'wx.wind.com.cn'
         const loginUrl = `https://${host}/baifenweb/`
 
@@ -149,7 +150,7 @@ describe('baiFen module', () => {
 
     describe('Report Analysis Process', () => {
       it('should generate correct report analysis process URL with id parameter', () => {
-        const sites = BaiFenSites({ isTerminal: true })
+        const sites = BaiFenSites({ isBaiFenTerminal: true })
         const params = { id: 'report123' }
         const expectedUrl = 'https://govwebsite/govbusiness?id=report123#/report-analysis/process-for-gel'
         expect(sites.getReportAnalysisProcessForGel(params)).toBe(expectedUrl)
@@ -157,7 +158,7 @@ describe('baiFen module', () => {
 
       it('should return login URL for report analysis process in web mode', () => {
         vi.mocked(getCurrentEnv).mockReturnValue('web')
-        const sites = BaiFenSites({ isTerminal: false })
+        const sites = BaiFenSites({ isBaiFenTerminal: false })
         const params = { id: 'report123' }
         const loginUrl = 'https://wx.wind.com.cn/baifenweb/'
         expect(sites.getReportAnalysisProcessForGel(params)).toBe(loginUrl)

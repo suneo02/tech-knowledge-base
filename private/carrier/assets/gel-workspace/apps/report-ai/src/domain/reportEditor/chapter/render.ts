@@ -14,15 +14,16 @@
  * @see apps/report-ai/docs/RPDetail/RPEditor/rendering-and-presentation-guide.md
  */
 
+import { convertChapterIdToString } from '@/domain/chapter';
 import { ReportReferenceOrdinalMap } from '@/domain/reportReference';
 import { md } from '@/libs/markdown';
-import { MessageParsedReportContent, RPChapterEnriched } from '@/types';
+import { RPChapterEnriched, RPContentAgentMsg } from '@/types';
 import { MessageInfo } from '@ant-design/x/es/use-x-chat';
 import { ChatEntityRecognize, ChatTraceItem, RPDetailChapter, RPFileTraced, WithDPUList, WithRAGList } from 'gel-api';
 import { formatAIAnswerWithEntities } from 'gel-util/common';
 import { createChapterOrdinalHTML } from '../chapterOrdinal';
 import { appendSourceMarkers, generateSourceMarkersHtml } from '../chapterRef/render';
-import { RP_CSS_CLASSES, RP_DATA_ATTRIBUTES, RP_DATA_VALUES } from '../foundation';
+import { RP_DATA_ATTRIBUTES } from '../foundation';
 
 // ============================================================================
 // 第一层：HTML 结构生成（原子函数）
@@ -214,22 +215,13 @@ const renderHtmlWithSources = (html: string, sourceData: SourceData): string => 
 // 第四层：内容渲染（对外接口）
 // ============================================================================
 
-/**
- * 从 AI 消息渲染章节内容
- *
- * @param message AI 消息数据
- * @param chapter 章节数据（提供溯源信息）
- * @param referenceOrdinalMap 全局引用序号映射
- * @returns 渲染后的 HTML 内容（含溯源标记）
- */
-export const renderContentFromMessage = (
-  message: MessageInfo<MessageParsedReportContent> | undefined,
+export const renderChapterContentFromAgentMessage = (
+  message: MessageInfo<RPContentAgentMsg> | undefined,
   chapter?: RPDetailChapter,
   referenceOrdinalMap?: ReportReferenceOrdinalMap
 ): string => {
   if (!message?.message) return '';
-
-  if (message.message.role === 'aiReportContent') {
+  if (message.message.role === 'ai' && message.message.content) {
     return renderMarkdownWithSources(message.message.content, {
       dpuList: chapter?.refData,
       ragList: chapter?.refSuggest,
@@ -237,35 +229,13 @@ export const renderContentFromMessage = (
       referenceOrdinalMap,
     });
   }
-
-  console.error('[renderContentFromMessage] Invalid message role:', message.message.role);
+  console.error('[renderChapterContentFromAgentMessage] Invalid message role:', (message.message as any).role);
   return '';
 };
 
 // ============================================================================
 // 加载状态 HTML 生成
 // ============================================================================
-
-/**
- * 生成加载状态 HTML
- *
- * @param status 加载状态
- * @returns 加载状态 HTML
- */
-export const generateLoadingHTML = (status: 'not_started' | 'pending' | 'receiving' | 'finish'): string => {
-  switch (status) {
-    case 'pending':
-      return `<div ${RP_DATA_ATTRIBUTES.LOADING}="${RP_DATA_VALUES.LOADING_TRUE}" class="${RP_CSS_CLASSES.LOADING_CONTAINER} ${RP_CSS_CLASSES.LOADING_PENDING} ${RP_CSS_CLASSES.LOADING_FADE_IN}">
-  <div class="${RP_CSS_CLASSES.LOADING_INDICATOR}"><div class="${RP_CSS_CLASSES.LOADING_SPINNER}"></div><span class="${RP_CSS_CLASSES.LOADING_TEXT}">正在生成内容...</span></div>
-</div>`;
-    case 'receiving':
-      return `<div ${RP_DATA_ATTRIBUTES.LOADING}="${RP_DATA_VALUES.LOADING_TRUE}" class="${RP_CSS_CLASSES.LOADING_CONTAINER} ${RP_CSS_CLASSES.LOADING_RECEIVING}">
-  <div class="${RP_CSS_CLASSES.LOADING_INDICATOR}"><div class="${RP_CSS_CLASSES.LOADING_SPINNER}"></div><span class="${RP_CSS_CLASSES.LOADING_TEXT}">正在生成内容...</span></div>
-</div>`;
-    default:
-      return '';
-  }
-};
 
 /**
  * 从章节数据渲染内容
@@ -281,14 +251,8 @@ export const generateLoadingHTML = (status: 'not_started' | 'pending' | 'receivi
  */
 export const renderContentFromChapter = (
   chapter: RPDetailChapter,
-  message?: MessageInfo<MessageParsedReportContent>,
   referenceOrdinalMap?: ReportReferenceOrdinalMap
 ): string => {
-  // 优先使用消息数据
-  if (message) {
-    return renderContentFromMessage(message, chapter, referenceOrdinalMap);
-  }
-
   // 使用章节存储的内容
   if (!chapter.content) return '';
 
@@ -345,10 +309,10 @@ export interface RenderChapterOptions {
  */
 export const renderChapter = (options: RenderChapterOptions): string => {
   const { chapter, referenceOrdinalMap } = options;
-  const chapterId = String(chapter.chapterId);
+  const chapterId = convertChapterIdToString(chapter.chapterId);
 
   // 1. 渲染内容
-  const content = renderContentFromChapter(chapter, undefined, referenceOrdinalMap);
+  const content = renderContentFromChapter(chapter, referenceOrdinalMap);
 
   // 4. 组装完整章节 HTML
   return assembleChapterHtml({

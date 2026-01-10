@@ -1,5 +1,5 @@
+import { CompanybrowsehistorylistResult } from 'gel-api'
 import { request } from '../request'
-import { CompanybrowsehistorylistResult } from 'gel-api/*'
 
 /**
  * 企业最近浏览记录项

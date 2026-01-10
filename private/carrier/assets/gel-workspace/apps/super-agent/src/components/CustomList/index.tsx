@@ -1,13 +1,14 @@
 import { useRequest } from 'ahooks'
-import { t } from 'gel-util/locales'
+import { t } from 'gel-util/intl'
 import React, { useCallback, useMemo } from 'react'
 import styles from './index.module.less'
-import { Button, Divider, Spin } from '@wind/wind-ui'
+import { Spin } from '@wind/wind-ui'
 import { Empty } from 'antd'
-import { DeleteO, DownloadO } from '@wind/icons'
 import { useNavigate } from 'react-router-dom'
 import { TaskStatus } from 'gel-api'
 import type { TaskListItemWithAreaName } from '@/store'
+import { postPointBuried, SUPER_AGENT_BURY_POINTS } from '@/utils/bury'
+import { formatTaskName } from '@/utils/area'
 
 /**
  * 单一渲染函数：根据数据项与变体配置，生成卡片内容
@@ -22,8 +23,6 @@ export interface CustomListProps {
   name?: string
   /** 状态筛选：使用 TaskStatus；未设置表示全部 */
   statusFilter?: TaskStatus
-  /** 订阅筛选：ALL/SUBSCRIBED(已订阅)/NOT_SUBSCRIBED(未订阅) */
-  subscriptionFilter?: 'ALL' | 'SUBSCRIBED' | 'NOT_SUBSCRIBED'
   /** 外部传入的数据（若提供，将跳过内置模拟数据） */
   data?: TaskListItemWithAreaName[]
   /** 外部加载态（优先级高于内部 loading） */
@@ -54,24 +53,9 @@ export interface CustomListProps {
 
 // 使用静态 className 以匹配 less 生成的 css module key
 
-const STRINGS = {
-  NEW_COMPANY: t('', '新增企业'),
-  TOTAL_COMPANY: t('', '企业总数'),
-  NEW_PRODUCT: t('', '新增产品'),
-  NEW_SUPPLIER: t('', '新进供应商'),
-  TOTAL_PRODUCT: t('', '产品总数'),
-  SUBSCRIBED: t('', '已订阅'),
-  NOT_SUBSCRIBED: t('', '未订阅'),
-  CREATE_TIME: t('', '创建'),
-  UNIT: t('', '家'),
-  UNIT_PRODUCT: t('', '个'),
-  DELETE: t('', '删除'),
-  EXPORT: t('', '导出'),
-}
 export const CustomList: React.FC<CustomListProps> = (props) => {
   const {
     statusFilter,
-    subscriptionFilter = 'ALL',
     getVariant,
     render,
     onItemClick,
@@ -88,39 +72,60 @@ export const CustomList: React.FC<CustomListProps> = (props) => {
     [getVariant]
   )
 
-  const defaultRender = useCallback<RenderFn>(({ item }) => {
-    return (
-      <>
-        <div className={styles['custom-list-card-header']}>
-          <div className={styles['custom-list-card-title']}>
-            {item.taskName} - {item.areaName}
-          </div>
-        </div>
+  const defaultRender = useCallback<RenderFn>(
+    ({ item }) => {
+      const getStatusText = (status: TaskStatus) => {
+        switch (status) {
+          case TaskStatus.SUCCESS:
+            return t('481520', '挖掘完成')
+          case TaskStatus.RUNNING:
+            return t('481502', '挖掘中')
+          case TaskStatus.PENDING:
+            return t('481501', '排队中')
+          case TaskStatus.FAILED:
+          case TaskStatus.TERMINATED:
+            return t('481521', '挖掘失败')
+          default:
+            return ''
+        }
+      }
 
-        <div className={styles['custom-list-card-footer']}>
-          <div className={styles['custom-list-time']}>
-            <span
-              className={styles['custom-list-chip']}
-              data-kind="status"
-              data-status={item.status === 2 ? 'drilling' : 'done'}
-            >
-              {item.status === TaskStatus.SUCCESS ? '挖掘完成' : '挖掘中'}
-            </span>
-            <Divider type="vertical" />
-            {STRINGS.CREATE_TIME}：{item.createTime}
+      return (
+        <>
+          <div className={styles['custom-list-card-content']}>
+            <div className={styles['custom-list-card-title']}>
+              {formatTaskName(item.areaCode, item.taskName)}
+              <span className={styles['custom-list-chip']}>{t('254999', '找客户')}</span>
+            </div>
+            <div className={styles['custom-list-meta']}>
+              <span>{item.createTime}</span>
+              <span>{getStatusText(item.status)}</span>
+            </div>
           </div>
+
           <div className={styles['custom-list-actions']}>
-            <Button size="small" icon={<DeleteO />}>
-              {STRINGS.DELETE}
-            </Button>
-            <Button size="small" icon={<DownloadO />}>
-              {STRINGS.EXPORT}
-            </Button>
+            <button
+              className={styles['custom-list-view-btn']}
+              onClick={(e) => {
+                e.stopPropagation()
+                postPointBuried(SUPER_AGENT_BURY_POINTS.DRILLING_OPERATION, {
+                  action: 'view',
+                })
+                if (item.status === TaskStatus.SUCCESS) {
+                  navigator(`/company-directory?selected=${item.taskId}`)
+                } else {
+                  navigator(`/prospect?id=${item.taskId}`)
+                }
+              }}
+            >
+              {item.status === TaskStatus.SUCCESS ? t('481504', '查看名单') : t('315373', '查看进度')}
+            </button>
           </div>
-        </div>
-      </>
-    )
-  }, [])
+        </>
+      )
+    },
+    [navigator, t]
+  )
 
   // 选择最终渲染函数：优先外部传入，其次使用内置默认渲染
   const finalRender: RenderFn = render || defaultRender
@@ -128,19 +133,11 @@ export const CustomList: React.FC<CustomListProps> = (props) => {
   const filteredDataMemo = useMemo(() => {
     const source = Array.isArray(externalData) ? externalData : []
     const list: TaskListItemWithAreaName[] = source
-    return list
-      .filter((item) => {
-        if (typeof statusFilter === 'undefined') return true
-        return item.status === statusFilter
-      })
-      .filter((item) => {
-        console.log('🚀 ~ CustomList ~ item:', item)
-        if (subscriptionFilter === 'ALL') return true
-        // if (subscriptionFilter === 'SUBSCRIBED') return item.subscribed === true
-        // if (subscriptionFilter === 'NOT_SUBSCRIBED') return item.subscribed === false
-        return true
-      })
-  }, [externalData, statusFilter, subscriptionFilter])
+    return list.filter((item) => {
+      if (typeof statusFilter === 'undefined') return true
+      return item.status === statusFilter
+    })
+  }, [externalData, statusFilter])
 
   const { data: filteredData = [], loading } = useRequest(
     async () => {
@@ -157,12 +154,12 @@ export const CustomList: React.FC<CustomListProps> = (props) => {
 
   return (
     <div className={styles['custom-list-container']}>
-      {/* @ts-expect-error will be fixed in next release */}
-      <Spin spinning={externalLoading ?? loading}>
+      {/* @ts-expect-error windUI */}
+      <Spin spinning={externalLoading || loading}>
         <div className={styles['custom-list-content']}>
           {!filteredData || filteredData.length === 0 ? (
             <div className={styles['custom-list-border']}>
-              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('', '暂无数据')} />
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('17235', '暂无数据')} />
             </div>
           ) : (
             <div className={styles['custom-list-grid']}>
@@ -179,6 +176,9 @@ export const CustomList: React.FC<CustomListProps> = (props) => {
                       if (typeof onItemClick === 'function') {
                         onItemClick(item)
                       } else {
+                        // Analytics for clicking the card itself?
+                        // The user specified "View List" button has a point.
+                        // I will stick to the button analytics.
                         if (item.status === TaskStatus.SUCCESS) {
                           navigator(`/company-directory?selected=${item.taskId}`)
                         } else {

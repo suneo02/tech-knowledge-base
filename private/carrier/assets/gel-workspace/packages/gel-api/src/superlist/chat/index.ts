@@ -57,10 +57,4 @@ export interface superlistChatApiPathMap {
     data: AiRenameConversationRequest
     response: ApiResponseForSuperlist<AiRenameConversationResponse>
   }
-  'chat/questionGuide': {
-    data: {
-      text: string
-    } & ChatRawSentenceIdentifier
-    response: ApiResponseForSuperlistWithPage<string>
-  }
 }

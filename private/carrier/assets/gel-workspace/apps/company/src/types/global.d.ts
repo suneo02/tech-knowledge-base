@@ -20,10 +20,6 @@ declare global {
      */
     en_access_config: boolean
     /**
-     * 是否海外配置
-     */
-    is_overseas_config: boolean
-    /**
      * 是否在终端中访问
      */
     is_terminal: boolean
@@ -41,7 +37,6 @@ declare global {
      * 企业名称
      */
     __GELCOMPANYNAME__?: string
-    __GELCOMPANYNAMEEN__?: string
     __GELCOMPANYID__?: string
 
     /**

@@ -3,8 +3,7 @@
  */
 
 // 滚动相关 Hooks
-export { useRPDetailChat } from './RPDetailChat/useRPDetailChat';
-export { useRPOutlineChat } from './RPOutline/useRPOutlineChat';
+export { useOutlineFilePolling } from './RPOutline/useOutlineFilePolling';
 export { useClearInitialMsg } from './useClearInitialMsg';
 export { useDebouncedScroll } from './useDebouncedScroll';
 export { useCollapsedSidebar, useExpandedSidebar, usePageSidebar } from './usePageSidebar';

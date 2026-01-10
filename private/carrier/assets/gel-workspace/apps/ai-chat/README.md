@@ -1,64 +1,103 @@
-## ai-chat
+# ai-chat - AI对话应用
 
-### 性能优化
+AI对话应用，提供智能问答和交互功能，支持多轮对话、历史记录、文件处理和数据分析等核心功能。
 
-我们对项目进行了以下性能优化，以提高加载速度和用户体验：
+## 目录结构
 
-1. **代码分割和懒加载**
-
-   - 路由级别懒加载
-   - 组件级别懒加载
-   - 样式按需加载
-
-2. **构建优化**
-   - 智能代码分割
-   - 细粒度vendor分包
-   - 生产环境优化
-
-详细的优化说明请查看 [OPTIMIZATION.md](./OPTIMIZATION.md) 文件。
-
-#### 分析构建包大小
-
-运行以下命令可分析构建包大小：
-
-```bash
-npm run analyze
+```
+apps/ai-chat/
+├── src/                      # 应用主要源代码
+│   ├── api/                  # API接口层
+│   ├── assets/               # 静态资源
+│   ├── components/           # 应用特有的React组件
+│   │   ├── CDE/              # CDE相关组件
+│   │   ├── ChatBase/         # 聊天基础组件
+│   │   ├── ChatMessage/      # 聊天消息组件
+│   │   ├── ChatRoles/        # 聊天角色组件
+│   │   ├── Conversation/     # 对话组件
+│   │   ├── ETable/           # 表格组件
+│   │   ├── Favorites/        # 收藏组件
+│   │   ├── History/          # 历史记录组件
+│   │   ├── Indicator/        # 指标组件
+│   │   ├── Modal/            # 模态框组件
+│   │   ├── Subscribe/        # 订阅组件
+│   │   ├── SuperList/        # 超级列表组件
+│   │   ├── VisTable/         # 可视化表格组件
+│   │   ├── common/           # 通用组件
+│   │   ├── layout/           # 布局组件
+│   │   ├── markdown/         # Markdown组件
+│   │   └── misc/             # 杂项组件
+│   ├── config/               # 配置文件
+│   ├── contexts/             # React上下文
+│   ├── hooks/                # 自定义React Hooks
+│   ├── locales/              # 国际化文件
+│   ├── pages/                # 页面组件
+│   │   ├── Chat/             # 聊天页面
+│   │   ├── Credits/          # 积分页面
+│   │   ├── EmbedChat/        # 嵌入聊天页面
+│   │   ├── MyFile/           # 我的文件页面
+│   │   ├── SuperChat/        # 超级聊天页面
+│   │   ├── SuperChatHistory/ # 超级聊天历史页面
+│   │   ├── SuperHome/        # 超级主页
+│   │   └── VisTable/         # 可视化表格页面
+│   ├── router/               # 路由配置
+│   ├── services/             # 服务层
+│   ├── store/                # Redux状态管理
+│   ├── styles/               # 样式文件
+│   ├── types/                # 类型定义
+│   ├── utils/                # 工具函数
+│   ├── App.css               # 应用样式
+│   ├── App.tsx               # 应用根组件
+│   ├── index.less            # 入口样式
+│   └── main.tsx              # 应用入口文件
+├── public/                   # 公共静态资源
+├── docs/                     # 文档目录
+├── .storybook/               # Storybook组件文档配置
+├── stories/                  # Storybook故事文件
+├── __mocks__/                # 模拟文件
+├── __tests__/                # 测试文件
+├── .env.development          # 开发环境变量
+├── .env.production           # 生产环境变量
+├── .env.test                 # 测试环境变量
+├── index.html                # 应用HTML入口文件
+├── package.json              # 项目依赖和脚本配置
+├── tsconfig.app.json         # 应用TypeScript配置
+├── tsconfig.json             # TypeScript配置
+├── tsconfig.node.json        # Node TypeScript配置
+├── vite.config.ts            # Vite构建配置文件
+└── vitest.workspace.ts       # Vitest工作区配置
 ```
 
-分析报告将在构建完成后自动打开，位于 `dist/stats.html`。
+## 关键文件说明
 
-### 细节
+| 文件 | 作用 |
+|------|------|
+| `src/api/axios.ts` | Axios配置，设置请求拦截器和响应拦截器 |
+| `src/components/ChatBase/` | 聊天基础组件，提供聊天界面核心功能 |
+| `src/components/ChatMessage/` | 聊天消息组件，处理消息展示和交互 |
+| `src/contexts/ChatRoom/` | 聊天室上下文，管理聊天状态 |
+| `src/hooks/useChat.ts` | 聊天Hook，处理聊天逻辑 |
+| `src/store/` | Redux状态管理，管理应用全局状态 |
+| `src/router/routes.tsx` | 路由定义，配置页面路由 |
 
-#### conversations 左侧历史对话栏
+## 依赖关系
 
-- 历史记录需要找后端查看下
-- 左上角 Alice 下面有具体的描述 头像变大 ✅
-- 左侧添加 时间线（今天，昨天，前7天，前30天，更早以前） ✅
-- 左侧添加展开和收起 ✅
-- chat 如果对话中 点击左侧的conversations内容或者新建对话弹出提示 ✅
+```mermaid
+graph LR
+    A[ai-chat] --> B[ai-ui]
+    A --> C[gel-ui]
+    A --> D[gel-api]
+    A --> E[gel-util]
+    A --> F[gel-types]
+    A --> G[indicator]
+    A --> H[cde]
+```
 
-#### Bubble 中间发送消息区
+## 相关文档
 
-- alice icon 右侧 添加alice名字或者 alice 深度思考(R1) ✅
-- 右侧用户去除icon ✅
-- 实体识别 hover颜色修改 ✅ 修复链接跳转
-- 图谱右上改成全屏然后跳转到对应的图谱界面 ✅
-- 添加错误状态的处理
-  - api 错误状态 ✅
-  - 程序运行时错误状态
-
-#### welcome 欢迎页
-
-- 和小程序保持一致，每个推荐问句都有icon ✅
-- 问句从接口取 ✅
-- 右上角分享微信小程序的icon然后hover上展示小程序的二维码 ✅
-
-#### sender 发送消息按钮
-
-- 如果生成中添加文案和小程序保持一致 正在生成答案中
-- 手动停止发送消息 suneo ✅
-
-### 通用
-
-- 永远保持一个Alice对话界面 ✅
-- initial msg 改为 local storage ✅
+- [架构设计](./architecture.md) - 系统架构和设计决策
+- [组件文档](./docs/components/) - 组件详细文档和使用说明
+- [Hooks文档](./docs/hooks/) - 自定义Hooks文档
+- [状态管理文档](./docs/store/) - Redux状态管理文档
+- [页面文档](./docs/pages/) - 页面功能文档
+- [开发规范](../../docs/rule/) - TypeScript、React、样式等开发规范

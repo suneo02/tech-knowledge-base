@@ -42,13 +42,13 @@ export const dates = [
     dateRange: 90,
   },
   {
-    name: intl('237722', '近半年'),
+    name: intl('437715', '近半年'),
     langkey: '',
     endDate: CurrentDate,
     dateRange: 183,
   },
   {
-    name: intl('73399', '近一年'),
+    name: intl('437684', '近一年'),
     langkey: '',
     endDate: CurrentDate,
     dateRange: 365,

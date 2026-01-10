@@ -33,7 +33,7 @@ export const createStockCodeAwareMarkdownRenderer = (isDev: boolean): MarkdownIt
           return `[${match}](${url})`
         }
       } catch (error) {
-        console.error('生成股票代码链接时出错:', error)
+        console.error('error', error)
       }
 
       // 降级策略：URL 生成失败时保持原始文本

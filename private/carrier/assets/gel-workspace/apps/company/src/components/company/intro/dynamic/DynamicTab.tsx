@@ -13,7 +13,7 @@ export const DynamicTabBar: FC<{
   companycode: string
   tabKey: DynamicTabsKey
   businessOpportunityInfo: any
-  baseInfo: CorpBasicInfo
+  baseInfo: Partial<CorpBasicInfo>
 }> = ({ companycode, tabKey, businessOpportunityInfo, baseInfo }) => {
   return (
     <a

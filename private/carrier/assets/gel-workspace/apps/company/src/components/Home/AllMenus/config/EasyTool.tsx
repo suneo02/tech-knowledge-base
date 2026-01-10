@@ -5,13 +5,11 @@ import {
   LinksModule,
   ScenarioApplicationLinkEnum,
 } from '@/handle/link'
-import { getWebAISuperListLinkWithIframe } from '@/handle/link/WebAI'
-import { IEnvParams, isDev } from '@/utils/env'
+import { isDev, usedInClient } from '@/utils/env'
 import { wftCommon } from '@/utils/utils'
-import { t } from 'gel-util/intl'
-import { IFuncMenuItem } from '../type'
-import { getGapCompatTransformer } from 'gel-ui'
+import { isEn, t } from 'gel-util/intl'
 import { generateUrlByModule, LinkModule } from 'gel-util/link'
+import { IFuncMenuItem } from '../type'
 
 // 批量查询导出
 export const getBatchQueryExportItem = (): IFuncMenuItem => {
@@ -57,7 +55,7 @@ export const getCompanyDataBrowserItem = (): IFuncMenuItem => {
 }
 
 // 企业数据API
-export const getCompanyDataApiItem = ({ isTerminal, isEnUS }: IEnvParams): IFuncMenuItem => {
+export const getCompanyDataApiItem = (): IFuncMenuItem => {
   const isOversea = wftCommon.is_overseas_config
   return {
     id: '396015',
@@ -68,12 +66,12 @@ export const getCompanyDataApiItem = ({ isTerminal, isEnUS }: IEnvParams): IFunc
     navigate: (item: IFuncMenuItem) => {
       window.open(item.url)
     },
-    disabled: !isTerminal || isOversea,
+    disabled: !usedInClient() || isOversea,
   }
 }
 
 // 企业动态
-export const getCompanyDynamicsItem = ({ isEnUS }: IEnvParams): IFuncMenuItem => {
+export const getCompanyDynamicsItem = (): IFuncMenuItem => {
   const isOversea = wftCommon.is_overseas_config
   console.log(
     'getCompanyDynamicsItem',
@@ -93,22 +91,22 @@ export const getCompanyDynamicsItem = ({ isEnUS }: IEnvParams): IFuncMenuItem =>
     hot: true,
     icon: 'QYDT',
     desc: t('433795', '近况速览，掌握关键动态'),
-    disabled: isEnUS || isOversea,
+    disabled: isEn() || isOversea,
   }
 }
 
 // 智能财报诊断
-export const getAiFinancialItem = ({ isEnUS, isTerminal }: IEnvParams): IFuncMenuItem => {
+export const getAiFinancialItem = (): IFuncMenuItem => {
   const isOversea = wftCommon.is_overseas_config
   return {
     id: '',
-    zh: t('', '智能财报诊断'),
+    zh: t('456274', '智能财报诊断'),
     url: BaiFenSites().reportAnalysis,
     css: 'ai-financial-icon',
     hot: true,
     icon: 'AIFINANCIAL',
-    desc: t('', '智能财报诊断'),
-    disabled: !isTerminal || isEnUS || isOversea,
+    desc: t('456274', '智能财报诊断'),
+    disabled: !usedInClient() || isEn() || isOversea,
   }
 }
 
@@ -127,5 +125,22 @@ export const getSuperItem = (): IFuncMenuItem => {
     icon: 'SUPER',
     desc: t('464234', '一句话找企业'),
     disabled: isOversea,
+  }
+}
+
+// 超级名单Agent
+// 超级名单
+export const getSuperAgentItem = (): IFuncMenuItem => {
+  return {
+    id: '222402',
+    zh: t('222402', '超级名单'),
+    url: generateUrlByModule({
+      module: LinkModule.SUPER_AGENT,
+      isDev,
+    }),
+    css: 'ai-financial-icon',
+    new: true,
+    icon: 'SUPER',
+    desc: t('222402', '超级名单'),
   }
 }

@@ -1,17 +1,18 @@
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 import { Card, Steps } from '@wind/wind-ui'
 import { StepsProps } from '@wind/wind-ui/lib/steps'
+import { BrandDetail } from 'gel-api'
 import { TagsModule, TagWithModule } from 'gel-ui'
 import { formatText } from 'gel-util/format'
+import { isEn } from 'gel-util/intl'
 import queryString from 'qs'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { pointBuriedGel } from '../../api/configApi'
 import { geLogoDetail } from '../../api/singleDetail'
 import placeHolderPic from '../../assets/imgs/logo/other.png'
 import Tables from '../../components/detail/table'
 import { usePageTitle } from '../../handle/siteTitle'
-import { useTranslateService } from '../../hook'
-import intl from '../../utils/intl'
+import intl, { translateToEnglish } from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import './index.less'
 import { getLogoDetailRows } from './rows'
@@ -19,10 +20,28 @@ import { getLogoDetailRows } from './rows'
 const Step = Steps.Step
 const StylePrefix = 'logo-detail'
 const LogoDetail = () => {
-  const [dataRaw, setDataRaw] = useState<any>({
+  const [dataRaw, setDataRaw] = useState<{ info: Partial<BrandDetail> }>({
     info: {},
   })
-  const [data] = useTranslateService(dataRaw, true, true)
+  const [data, setData] = useState<{ info: Partial<BrandDetail> }>({
+    info: {},
+  })
+
+  useEffect(() => {
+    if (isEn()) {
+      translateToEnglish(dataRaw.info, {
+        skipFields: ['brand_agent_org', 'applicant_chinese_name'],
+      })
+        .then((res) => {
+          setData({ info: res.data })
+        })
+        .catch(() => {
+          setData(dataRaw)
+        })
+    } else {
+      setData(dataRaw)
+    }
+  }, [dataRaw])
   usePageTitle('TrademarkDetail', data?.info?.brand_name)
   const [loading, setLoading] = useState(true)
 
@@ -43,8 +62,8 @@ const LogoDetail = () => {
     </div>
   )
 
-  const rows = getLogoDetailRows(data)
-  
+  const rows = getLogoDetailRows(data.info)
+
   useEffect(() => {
     let location = window.location
     let params = queryString.parse(location.search, {
@@ -118,7 +137,7 @@ const LogoDetail = () => {
                 <img
                   className="logo-pic"
                   width="170"
-                  src={data.info.brand_graphic_link}
+                  src={wftCommon.addWsidForImg(data.info.brand_graphic_link)}
                   onError={(e) => {
                     const img = e.currentTarget
                     img.src = placeHolderPic

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "fix-menu-jump",
+    "title": "修复左侧菜单点击跳转抖动问题",
+    "owner": "trae-ai",
+    "code_paths": [
+      "/apps/company/src/views/CompanyDetailAIRight/CompanyDetail.tsx",
+      "/apps/company/src/handle/corp/misc/scroll.ts"
+    ],
+    "@see": ["/apps/company/docs/specs/2025-12/2025-12-04-fix-menu-jump/spec-analysis.md"],
+    "status": "completed",
+    "notes": "解决点击菜单后，选中态先跳变再恢复的问题"
+  }
+]

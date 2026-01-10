@@ -1,6 +1,6 @@
+import { OutlineFileDisplay } from '@/components/File';
 import { RPOutlineUserMsgParse } from '@/types';
 import { AntRoleType, UserRole } from 'ai-ui';
-import { FileDisplay } from '../../File/FileDisplay';
 
 export const UserRoleRPOutline: AntRoleType<RPOutlineUserMsgParse['content']> = {
   className: UserRole.className,
@@ -11,6 +11,6 @@ export const UserRoleRPOutline: AntRoleType<RPOutlineUserMsgParse['content']> = 
     return <div>{content.message}</div>;
   },
   footer: (content) => {
-    return <FileDisplay files={content.files || []} />;
+    return <OutlineFileDisplay files={content.files || []} />;
   },
 };

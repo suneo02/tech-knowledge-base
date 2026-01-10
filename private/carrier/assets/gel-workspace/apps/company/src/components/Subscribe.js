@@ -118,7 +118,7 @@ class Subscribe extends React.Component {
     }
 
     if (!name) {
-      message.error(intl(237985, '订阅名称不能为空'))
+      message.error(intl(478575, '订阅名称不能为空'))
       return false
     }
 

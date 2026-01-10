@@ -1,15 +1,21 @@
 export { bidType2EnStage, bidType2Stage } from './bid'
-export { generatePageTitle } from './siteTitle'
-export { DEFAULT_SITE_TITLE_WEB_CN, type PageLocation } from './siteTitle/config'
+export { DEFAULT_SITE_TITLE_WEB_CN, generatePageTitle } from './siteTitle'
+export type { PageLocation } from './siteTitle/config'
 export {
+  DEFAULT_DISPLAY_MODE,
+  deriveCorpNameInputFromRecord,
   detectChinese,
   detectEnglish,
+  formatEnterpriseNameMainFromRecordWithAI,
+  formatEnterpriseNameMainWithAI,
+  getCorpNameOriginalByBaseAndCardInfo,
+  getCorpNameTransByCardInfo,
   getDetectorByLocale,
   translateDataWithApi,
   type TranslateResult,
   type TranslateServiceOptions,
 } from './translate'
-
+export type { DisplayMode, NameDisplayResult } from './translate'
 /**
  * 通用的复制文本方法
  * @param text 要复制的文本

@@ -68,7 +68,7 @@ const RelationshipMap = (props) => {
         <div className="mao-screen-area" id="screenArea">
           <div className="chart-loading" id="load_data">
             <img src="../resource/images/Company/loading.gif" />
-            {intl('139612', '数据加载中')}
+            {intl('478620', '数据加载中')}
           </div>
           <div className="chart-none" id="no_data">
             {intl('17235', '暂无数据')}

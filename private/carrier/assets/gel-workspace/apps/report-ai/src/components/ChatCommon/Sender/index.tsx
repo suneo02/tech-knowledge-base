@@ -1,3 +1,4 @@
+import { FileUploadSuccessCallback } from '@/components/File/UploadFileBtn';
 import { RPFileUploaded } from '@/types';
 import { Sender, Suggestion } from '@ant-design/x';
 import classNames from 'classnames';
@@ -6,7 +7,6 @@ import { DragUpload } from './DragUpload';
 import { ChatSenderReportFooter } from './Footer';
 import { ChatSenderReportHeader } from './Header';
 import styles from './index.module.less';
-import { FileUploadSuccessCallback } from '@/components/File/UploadFileBtn';
 import { RPOutlineChatSenderCB } from './type';
 
 /**
@@ -115,7 +115,7 @@ export const ChatSenderReport: React.FC<ChatSenderReportProps> = ({
   value,
   defaultValue,
   onChange,
-  placeholder = '告诉我您的写作思路，您也可以直接在下方上传报告模版或者需要引用内容的素材文档，为您自动生成报告',
+  placeholder = '分享你的写作思路，也可以直接上传报告模板或需引用的素材文件，用 @就能调用报告模板哦～',
   className,
   onCancel,
   sendMessage,

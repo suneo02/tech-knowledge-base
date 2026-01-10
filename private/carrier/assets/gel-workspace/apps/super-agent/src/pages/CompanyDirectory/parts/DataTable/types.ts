@@ -6,7 +6,7 @@ export interface BasicRecord {
 
 export interface BasicColumn extends Omit<Column, 'title'> {
   title?: React.ReactNode
-  dataIndex?: string
+  dataIndex: string
   ellipsis?: boolean
   render?: (value: unknown, record: BasicRecord, index?: number) => React.ReactNode
   disableExpand?: boolean

@@ -3,6 +3,7 @@ import { RPFileUnified } from '@/types/file';
 import { Button, Spin } from '@wind/wind-ui';
 import { message, Typography } from 'antd';
 import classNames from 'classnames';
+import { RPFile } from 'gel-api';
 import { FC, useState } from 'react';
 import { FinancialReportIframeModal } from '../FinancialReportIframeModal';
 import styles from './index.module.less';
@@ -11,7 +12,8 @@ const { Text } = Typography;
 
 export interface FileStatusBadgeProps {
   className?: string;
-  file: RPFileUnified;
+  /** 文件对象，支持各种文件类型（只要包含 status 和 docId 字段） */
+  file: RPFile | RPFileUnified;
 }
 
 /**

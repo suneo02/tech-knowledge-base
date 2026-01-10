@@ -1,4 +1,4 @@
-# foundation
+﻿# foundation
 
 报告编辑器基础层，提供常量、选择器、DOM 工具等纯函数，无 TinyMCE 依赖
 
@@ -27,4 +27,5 @@ domAttributes → constants
 
 ---
 
-> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/readme-rule.md)
+> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/doc-readme-structure-rule.md)
+

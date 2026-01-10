@@ -1,9 +1,8 @@
-import { isTestSite } from '@/utils/env'
 import intl from '@/utils/intl/index.ts'
 import { wftCommon } from '@/utils/utils'
 import { Modal } from '@wind/wind-ui'
 import { getRimeOrganizationUrl, RimeTargetType } from 'gel-util/link'
-export { getRimeOrganizationUrl, RimeHost, RimeHostMap, RimeTargetType } from 'gel-util/link'
+export { getRimeOrganizationUrl, RimeTargetType } from 'gel-util/link'
 
 const STRINGS = {
   TIP: intl('31041', '提示'),
@@ -38,7 +37,7 @@ export const jumpToRimeUrl = ({
     window.open('//RIME/rime/frontend/web/vertical/all')
     return
   }
-  const url = getRimeOrganizationUrl({ id, type, isTestSite: isTestSite() })
+  const url = getRimeOrganizationUrl({ id, type })
   if (url) {
     window.open(url, '_blank')
   }

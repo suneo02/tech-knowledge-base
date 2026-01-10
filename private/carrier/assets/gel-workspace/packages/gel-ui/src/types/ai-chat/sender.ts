@@ -1,34 +1,15 @@
 import { ChatSenderRes } from '@/service'
 import { AxiosInstance } from 'axios'
-import {
-  AgentIdentifiers,
-  AgentParam,
-  ChatClientType,
-  ChatEntityType,
-  ChatModelTypeIdentifier,
-  ChatReviewSignal,
-  ChatThinkSignal,
-  DeepSearchSignal,
-  QueryReferencePayload,
-} from 'gel-api'
+import { AgentIdentifiers, QueryReferencePayload } from 'gel-api'
+import { ChatMsgInputOptions } from './message'
 
-/** 实体参数选项 各详情页用 */
-export type EntityOptions = {
-  entityType?: ChatEntityType
-  entityName?: string
-  entityCode?: string
-}
-
-export type ChatSenderOptions = AgentIdentifiers &
-  ChatThinkSignal &
-  ChatReviewSignal &
-  ChatModelTypeIdentifier &
-  DeepSearchSignal &
-  EntityOptions & {
-    agentParam?: AgentParam
-  } & {
-    clientType?: ChatClientType
-  } & Pick<QueryReferencePayload['body'], 'fileIds' | 'refFileIds'>
+/**
+ * @deprecated use `ChatMsgInputOptions` instead
+ */
+export interface ChatSenderOptions
+  extends ChatMsgInputOptions,
+    Pick<AgentIdentifiers, 'reAgentId'>,
+    Pick<QueryReferencePayload['body'], 'fileIds' | 'refFileIds'> {}
 
 export interface ChatSenderState {
   content: string

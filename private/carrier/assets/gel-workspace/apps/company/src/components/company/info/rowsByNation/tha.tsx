@@ -4,9 +4,9 @@ import { corpInfoAnotherNameRow } from '@/components/company/info/rowsCommon/nam
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const thaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const thaRows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [
     {
       title: CorpInfoHeaderComp(intl('138677', '企业名称'), 'ชื่อนิติบุคคล'),
@@ -17,7 +17,7 @@ export const thaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   [corpInfoAnotherNameRow],
   [
     {
-      title: CorpInfoHeaderComp(window.en_access_config ? 'Corporate Type' : intl('', '注册类型'), 'ประเภทนิติบุคคล'),
+      title: CorpInfoHeaderComp(window.en_access_config ? 'Corporate Type' : intl('419628', '注册类型'), 'ประเภทนิติบุคคล'),
       dataIndex: 'corp_type',
       colSpan: 2,
     },

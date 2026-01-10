@@ -10,6 +10,7 @@
     "build:staging": "npm run clean && cross-env NODE_ENV=staging webpack --mode production",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
     "dev": "concurrently \"pnpm run watch\" \"node server.js\"",
+    "dev:debug": "concurrently \"pnpm run watch\" \"node server.js\"",
     "test": "vitest",
     "tsc": "tsc --noEmit",
     "check:circular": "madge --circular --extensions js,jsx src/",

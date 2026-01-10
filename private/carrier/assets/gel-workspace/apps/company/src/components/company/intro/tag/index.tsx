@@ -3,7 +3,7 @@ import { handleJumpTerminalCompatibleAndCheckPermission } from '@/handle/link'
 import { isDev } from '@/utils/env'
 import { translateComplexHtmlData } from '@/utils/intl'
 import { useRequest } from 'ahooks'
-import { CorpTag } from 'gel-api/*'
+import { CorpTag } from 'gel-api'
 import { CorpBasicInfo } from 'gel-types'
 import { CorpTagInDetail } from 'gel-ui'
 import { getCorpTagClickHandler, splitTags2ArrByModule } from 'gel-util/biz'
@@ -26,7 +26,7 @@ const PRODUCT_WORD_TAG_MAX_COUNT = 5
  */
 export const CompanyDetailTags: FC<{
   companyCode: string
-  corpBasicInfo: CorpBasicInfo
+  corpBasicInfo: Partial<CorpBasicInfo>
   onJumpRisk?: (url: string) => void
 }> = ({ companyCode, corpBasicInfo, onJumpRisk }) => {
   const [moreTagsModalOpen, setMoreTagsModalOpen] = useState(false)
@@ -40,6 +40,7 @@ export const CompanyDetailTags: FC<{
 
   const [corpTagsTrans, setCorpTagsTrans] = useState<CorpTagTrans[]>([])
   useEffect(() => {
+    console.log('🚀 ~ CompanyDetailTags ~ corpTagsRaw:', corpTagsRaw)
     translateComplexHtmlData(corpTagsRaw).then((res) => {
       setCorpTagsTrans(res.map((tag, index) => ({ ...tag, nameOriginal: corpTagsRaw[index]?.name || '' })))
     })

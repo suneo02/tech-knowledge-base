@@ -1,4 +1,4 @@
-# AI-UI 文档中心
+﻿# AI-UI 文档中心
 
 ## 一句话定位
 本目录负责存放 AI-UI 组件库的完整文档体系，包括组件使用指南、API 参考、设计规范和最佳实践。
@@ -103,7 +103,7 @@ packages/ai-ui/docs/
 - 定期检查文档的准确性和完整性
 
 ### 贡献指南
-- 遵循 [文档编写规范](../../../docs/rule/documentation-rule.md)
+- 遵循 [文档编写规范](../../../docs/rule/doc-general-rule.md)
 - 使用相对路径引用内部文档
 - 保持简洁明了的表达方式
 
@@ -114,4 +114,4 @@ packages/ai-ui/docs/
 - [AI-UI 架构说明](../architecture.md)
 - [AI 对话组件设计文档](../ai-ui.md)
 - [前端开发规范](../../../docs/rule/)
-- [API 请求规范](../../../docs/rule/api-request-rule.md)
+- [API 请求规范](../../../docs/rule/code-api-client-rule.md)

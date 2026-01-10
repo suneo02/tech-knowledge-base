@@ -13,7 +13,7 @@ export const TWCorpIntro: React.FC<BaseCorpIntroProps> = ({ headerInfo, companyb
       </Row>
 
       <Row>
-        <CorpIntroItem title={intl('', '代表人')} value={headerInfo.legal_person_name} />
+        <CorpIntroItem title={intl('416873', '代表人')} value={headerInfo.legal_person_name} />
         <CorpIntroItem title={intl('138860', '成立日期')} value={wftCommon.formatTime(companybaseInfo.reg_date)} />
       </Row>
 

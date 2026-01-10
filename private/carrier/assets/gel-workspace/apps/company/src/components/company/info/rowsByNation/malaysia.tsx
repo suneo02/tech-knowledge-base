@@ -1,9 +1,9 @@
 import { corpInfoAnotherNameRow } from '@/components/company/info/rowsCommon/names.tsx'
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const malaysiaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const malaysiaRows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [
     {
       title: intl('138677', '企业名称'),
@@ -13,12 +13,12 @@ export const malaysiaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   ],
   [corpInfoAnotherNameRow],
   [
-    { title: intl('', '新式注册号'), dataIndex: 'biz_reg_no', colSpan: 2 },
-    { title: intl('', '旧式注册号'), dataIndex: 'credit_code', colSpan: 2 },
+    { title: intl('419635', '新式注册号'), dataIndex: 'biz_reg_no', colSpan: 2 },
+    { title: intl('419636', '旧式注册号'), dataIndex: 'credit_code', colSpan: 2 },
   ],
   [
     {
-      title: intl('', '公司类型'),
+      title: intl('138681', '公司类型'),
       dataIndex: 'corp_type',
       colSpan: 2,
     },

@@ -10,8 +10,7 @@
 import { mergeDraftToOutlineView } from '@/domain/chapter';
 import type { OutlineChapterViewModel } from '@/types/report';
 import { createSelector } from '@reduxjs/toolkit';
-import { selectChapters } from './base';
-import { selectCanonicalChapterMap } from './chaptersCanonical';
+import { selectCanonicalChaptersEnriched, selectCanonicalChaptersEnrichedMap } from './chaptersCanonical';
 import { selectDraftTree } from './draftTreeSelectors';
 
 /**
@@ -24,7 +23,7 @@ import { selectDraftTree } from './draftTreeSelectors';
  * - 支持临时章节（只有 tempId）和已保存章节（有 chapterId）
  */
 export const selectOutlineViewChapters = createSelector(
-  [selectDraftTree, selectCanonicalChapterMap, selectChapters],
+  [selectDraftTree, selectCanonicalChaptersEnrichedMap, selectCanonicalChaptersEnriched],
   (draftTree, canonicalMap, canonicalChapters): OutlineChapterViewModel[] => {
     return mergeDraftToOutlineView(draftTree, canonicalMap, canonicalChapters);
   }

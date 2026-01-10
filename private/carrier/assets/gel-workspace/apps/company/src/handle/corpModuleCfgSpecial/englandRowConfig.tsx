@@ -1,18 +1,17 @@
 // 英国企业 自定义模块
-import React from 'react'
-import { intlNoIndex } from '@/utils/intl'
 import CompanyLink from '@/components/company/CompanyLink.tsx'
-import { ICorpPrimaryModuleCfg } from '@/components/company/type'
-import { ECorpDetailTable } from 'gel-types'
 import {
   corpDetailIndustrialRegist,
   corpDetailLastNotice,
   corpDetailMainMember,
 } from '@/handle/corpModuleCfg/base/mainMember.ts'
+import { CorpPrimaryModuleCfg } from '@/types/corpDetail'
+import { intlNoIndex } from '@/utils/intl'
+import React from 'react'
 
 const intl = intlNoIndex
 
-export const englandRowConfig: ICorpPrimaryModuleCfg = {
+export const englandRowConfig: CorpPrimaryModuleCfg = {
   showShareholder: {
     title: intl('138506', '股东信息'),
     modelNum: 'businessregisterCount',
@@ -20,7 +19,7 @@ export const englandRowConfig: ICorpPrimaryModuleCfg = {
       {
         title: window.en_access_config ? intl('312175') : '登记信息',
         modelNum: 'businessregisterCount',
-        enumKey: ECorpDetailTable.ShareholderBusinessRegistration,
+        enumKey: 'shareholderBusinessRegistration',
         columns: [
           {
             title: '',
@@ -79,7 +78,7 @@ export const englandRowConfig: ICorpPrimaryModuleCfg = {
     modelNum: corpDetailMainMember.modelNum,
     children: [
       {
-        enumKey: ECorpDetailTable.MainMemberLatestDisclosure,
+        enumKey: 'mainMemberLatestDisclosure',
         cmd: 'detail/company/getprimarymembers',
         modelNum: corpDetailLastNotice.modelNum,
         title: intl('342094', '最新公示'),
@@ -89,7 +88,7 @@ export const englandRowConfig: ICorpPrimaryModuleCfg = {
           intl('34979', '姓名'),
           intl('210032', '职务'),
           intl('34232', '任职日期'),
-          intl('149538', '联系地址'),
+          intl('478631', '联系地址'),
         ],
         align: [1, 0, 0, 0, 0],
         fields: ['NO.', 'personName', 'personTitle', 'startDate', 'contactAddress'],
@@ -100,7 +99,7 @@ export const englandRowConfig: ICorpPrimaryModuleCfg = {
         },
       },
       {
-        enumKey: ECorpDetailTable.MainMemberRegistration,
+        enumKey: 'mainMemberRegistration',
         cmd: 'detail/company/getprimarymembers',
         modelNum: corpDetailIndustrialRegist.modelNum,
         title: window.en_access_config ? intl('312175') : '登记信息',
@@ -110,7 +109,7 @@ export const englandRowConfig: ICorpPrimaryModuleCfg = {
           intl('34979', '姓名'),
           intl('210032', '职务'),
           intl('34232', '任职日期'),
-          intl('149538', '联系地址'),
+          intl('478631', '联系地址'),
         ],
         align: [1, 0, 0, 0, 0],
         fields: ['NO.', 'personName', 'personTitle', 'startDate', 'contactAddress'],
@@ -137,7 +136,7 @@ export const englandRowConfig: ICorpPrimaryModuleCfg = {
       intl('138728', '职务'),
       intl('34232', '任职日期'),
       window.en_access_config ? intl('259985') : '卸任日期',
-      intl('149538', '联系地址'),
+      intl('478631', '联系地址'),
     ],
     align: [1, 0, 0, 0, 0, 0],
     fields: [

@@ -1,6 +1,6 @@
 import { requestToChat } from '@/api';
+import { RPFileUnified } from '@/types';
 import { useRequest } from 'ahooks';
-import { RPFileTraced } from 'gel-api';
 import { useMemo } from 'react';
 
 /**
@@ -20,7 +20,7 @@ import { useMemo } from 'react';
  * if (previewUrl) return <PDFViewer source={{ url: previewUrl }} />;
  * ```
  */
-export function useFilePreview(file: RPFileTraced | null) {
+export function useFilePreview(file: RPFileUnified | null) {
   // 只有当文件有 fileId 且没有 filePath 时才调用 API
   const shouldFetch = !!file?.fileId;
 
@@ -33,6 +33,7 @@ export function useFilePreview(file: RPFileTraced | null) {
       const response = await requestToChat('report/filePreview', undefined, {
         params: {
           fileID: file.fileId,
+          fileId: file.fileId,
         },
       });
 

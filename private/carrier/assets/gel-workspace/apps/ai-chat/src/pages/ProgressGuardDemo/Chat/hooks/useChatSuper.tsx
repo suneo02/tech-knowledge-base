@@ -6,7 +6,7 @@ import { XChatConfig } from '@ant-design/x/es/use-x-chat'
 import { useConversationsSuper } from 'ai-ui'
 import { AgentIdentifiers, ChatEntityRecognize, ChatThinkSignal } from 'gel-api'
 import {
-  AgentMsgDepre,
+  AgentMsgOverall,
   ChatSenderOptions,
   ConversationSetupHookResult,
   createAgentRequestHandler,
@@ -15,7 +15,6 @@ import {
   SPMsgParsed,
   useCancelChatRequest,
 } from 'gel-ui'
-import { fetchSuperQuestionGuide } from './questionGuide'
 import { useConversationSetupSuper } from './useConversationSetupSuper'
 import { useXChatParserSuper } from './useXChatParserSuper'
 /**
@@ -144,17 +143,6 @@ export const useChatSuper = (
     setEntities,
     isFirstQuestionRef,
     clientType: 'superlist',
-    transformerOnStreamSucces: async (message) => {
-      if (!message.rawSentence || !message.content) {
-        console.error('message.rawSentence or message.content is undefined', message)
-        return message
-      }
-      const questionGuide = await fetchSuperQuestionGuide(message.rawSentence, message.content)
-      return {
-        ...message,
-        questionGuide,
-      }
-    },
   })
 
   // 使用请求处理器初始化智能体
@@ -164,7 +152,7 @@ export const useChatSuper = (
   })
 
   // 使用工厂创建消息解析器
-  const parserRef = useRef<NonNullable<XChatConfig<AgentMsgDepre, MsgParsedDepre>['parser']>>()
+  const parserRef = useRef<NonNullable<XChatConfig<AgentMsgOverall, MsgParsedDepre>['parser']>>()
 
   /**
    * 使用智能体和解析器初始化聊天功能

@@ -1,5 +1,5 @@
 import { GELSearchParam, getUrlByLinkModule, KGLinkEnum, LinksModule, SearchLinkEnum } from '@/handle/link'
-import { IEnvParams } from '@/utils/env'
+import { usedInClient } from '@/utils/env'
 import { wftCommon } from '@/utils/utils'
 import { IFuncMenuItem } from '../type'
 
@@ -73,12 +73,12 @@ export const getSearchGroupItem = (): IFuncMenuItem => ({
 })
 
 // 查风险
-export const getSearchRiskItem = ({ isTerminal }: IEnvParams): IFuncMenuItem => {
+export const getSearchRiskItem = (): IFuncMenuItem => {
   const isOversea = wftCommon.is_overseas_config
   return {
     id: '222404',
     zh: '查风险',
-    url: isTerminal
+    url: usedInClient()
       ? '/wind.risk.platform/index.html#/check/special/judicature'
       : 'https://erm.wind.com.cn/wind.risk.platform/index.html#/login',
     navigate: (item: IFuncMenuItem) => {
@@ -86,6 +86,6 @@ export const getSearchRiskItem = ({ isTerminal }: IEnvParams): IFuncMenuItem => 
     },
     css: 'quest-risk-icon',
     icon: 'CSF',
-    disabled: !isTerminal || isOversea,
+    disabled: !usedInClient() || isOversea,
   }
 }

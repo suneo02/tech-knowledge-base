@@ -1,4 +1,4 @@
-# ChatMessageCore 组件文档
+﻿# ChatMessageCore 组件文档
 
 ## 组件概述
 
@@ -222,8 +222,8 @@ sequenceDiagram
 ## 相关文档
 
 - [重构计划](../../../../docs/specs/chat-message-core-refactoring-plan.md)
-- [React 开发规范](../../../../../../../docs/rule/react-rule.md)
-- [文档编写规范](../../../../../../../docs/rule/documentation-rule.md)
+- [React 开发规范](../../../../../../../docs/rule/code-react-component-rule.md)
+- [文档编写规范](../../../../../../../docs/rule/doc-general-rule.md)
 - [企业详情 AI 功能设计](../../docs/company-detail-ai-design.md)
 
 ## 已知问题
@@ -234,3 +234,4 @@ sequenceDiagram
 
 @see ChatMessageCore.tsx:210
 @see index.tsx:62
+

@@ -1,80 +1,68 @@
-import { getIfPrivateFundCorpByBasicNum, getIfPublicFundCorpByBasicNum } from '@/handle/corp/basicNum/fund'
-import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type'
-import { CorpBasicInfo } from 'gel-types'
-import { cloneDeep } from 'lodash'
+import { createCorpDetailMenus } from '@/components/company/layoutConfig/menus'
+import { CorpMenuCfg } from '@/types/corpDetail/menu.ts'
+import { wftCommon } from '@/utils/utils'
+import { CorpBasicInfo, CorpBasicNumFront } from 'gel-types'
 import { useMemo } from 'react'
-import { getIfIPOCorpByBasicNum } from '../handle/corpBasicNum'
-import { getMenuByCorpType } from './getMenuByCorpType'
-import { CompanyDetailBaseMenus } from './menus'
-import { ICorpMenuCfg } from './type'
 
 /**
- * 根据企业基本信息和统计数据获取对应的菜单配置 Hook
+ * 【第二层：缓存层】根据企业信息获取菜单配置 Hook
  *
- * 功能说明：
- * 1. 根据企业类型（个体工商户、政府机构等）获取对应的基础菜单配置
- * 2. 根据企业统计数据动态显示特殊菜单项（基金数据、IPO数据等）
- * 3. 根据企业地区特殊处理菜单名称（海外企业等）
+ * ## 职责：缓存菜单配置，避免重复计算
+ *
+ * ### 功能：
+ * 1. **缓存优化**：使用 useMemo 缓存 createCorpDetailMenus 的结果
+ * 2. **错误处理**：捕获配置生成错误，返回默认配置
+ * 3. **依赖追踪**：当 corpBasicInfo 或 basicNum 变化时重新生成配置
+ *
+ * ### 数据流：
+ * ```
+ * corpBasicInfo + basicNum
+ *   ↓
+ * createCorpDetailMenus (第一层过滤：企业类型/特殊模块)
+ *   ↓
+ * useMemo 缓存
+ *   ↓
+ * 返回 CorpMenuCfg (一级菜单模块配置)
+ * ```
+ *
+ * ### 输出：
+ * 返回 CorpMenuCfg 对象，包含应该显示的所有一级菜单模块
+ * 此时还未过滤子菜单项，也未添加统计数字
+ *
+ * ### 下一层：
+ * 输出的配置会传递给 useCorpMenuData Hook，进行第三层过滤（基于统计数据）
  *
  * @param corpBasicInfo 企业基本信息
- * @param basicNum 企业统计数据（用于判断基金/IPO等特殊类型）
- * @param corpArea 企业所属地区（用于地区特殊处理，如海外企业）
- * @returns 菜单配置对象（如果没有企业信息，返回基础菜单）
+ * @param basicNum 企业统计数据
+ * @returns 菜单配置对象
  *
  * @example
  * ```tsx
  * const MyComponent = () => {
- *   const [corpInfo, setCorpInfo] = useState<CorpBasicInfo | null>(null)
- *   const [basicNum, setBasicNum] = useState<ICorpBasicNumFront>({})
- *   const [corpArea, setCorpArea] = useState<TCorpArea>('')
- *   const menus = useCorpMenuByType(corpInfo, basicNum, corpArea)
+ *   const corpInfo = useSelector(state => state.company.baseInfo)
+ *   const basicNum = useSelector(state => state.company.basicNum)
  *
- *   return <div>...</div>
+ *   // 自动缓存，只在 corpInfo 或 basicNum 变化时重新计算
+ *   const menus = useCorpMenuByType(corpInfo, basicNum)
+ *
+ *   return <MenuTree menus={menus} />
  * }
  * ```
  */
 export const useCorpMenuByType = (
   corpBasicInfo: CorpBasicInfo | null | undefined,
-  basicNum?: ICorpBasicNumFront,
-  corpArea?: string
-): ICorpMenuCfg => {
+  basicNum?: Partial<CorpBasicNumFront>
+): CorpMenuCfg => {
   const menus = useMemo(() => {
     try {
-      // 获取基础菜单配置
-      const baseMenus = getMenuByCorpType(corpBasicInfo?.corp_type_id, corpBasicInfo?.corp_type)
-
-      // 如果没有 basicNum 或为空对象，直接返回基础菜单
-      if (!basicNum || Object.keys(basicNum).length === 0) {
-        return baseMenus
-      }
-
-      // 深拷贝菜单配置，避免修改原始对象
-      const menusClone = cloneDeep(baseMenus)
-
-      // 处理基金和IPO特殊菜单项
-      if (getIfPrivateFundCorpByBasicNum(basicNum) && menusClone.PrivateFundData) {
-        menusClone.PrivateFundData.hide = false
-      }
-
-      if (getIfPublicFundCorpByBasicNum(basicNum) && menusClone.PublishFundData) {
-        menusClone.PublishFundData.hide = false
-      }
-
-      if (getIfIPOCorpByBasicNum(basicNum) && menusClone.IpoBusinessData) {
-        menusClone.IpoBusinessData.hide = false
-      }
-
-      // 处理海外企业：将"工商信息"改为"基本信息"
-      if (corpArea && menusClone.overview) {
-        menusClone.overview.showName[0] = '基本信息'
-      }
-
-      return menusClone
+      // 获取菜单配置（根据企业类型、地区、统计数据生成）
+      return createCorpDetailMenus(corpBasicInfo, basicNum, wftCommon.is_overseas_config)
     } catch (error) {
-      console.error('useCorpMenuByType: 菜单配置处理失败，返回基础菜单', error)
-      return CompanyDetailBaseMenus
+      console.error('useCorpMenuByType: 菜单配置处理失败，返回默认菜单', error)
+      // 如果出错，返回默认菜单配置
+      return createCorpDetailMenus()
     }
-  }, [corpBasicInfo?.corp_type_id, corpBasicInfo?.corp_type, basicNum, corpArea])
+  }, [corpBasicInfo, basicNum])
 
   return menus
 }

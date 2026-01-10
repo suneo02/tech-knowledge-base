@@ -23,5 +23,5 @@ export const mockCorpBasicInfoCanada: CorpBasicInfo = {
   state: '',
   telCount: 0,
   usednames: [],
-  xxIndustryList: null,
+  xxIndustryList: {},
 }

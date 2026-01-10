@@ -1,7 +1,7 @@
 import { getReferenceIdentifier, RPReferenceItem } from '@/domain/chat';
 import { getReferenceUniqueKey } from '@/domain/chat/ref/referenceUtils';
 import { ReportReferenceOrdinalMap } from '@/domain/reportReference';
-import { RPChapterEnriched } from '@/types';
+import { RefPreviewData, RPChapterEnriched } from '@/types';
 import { RPFileUnified } from '@/types/file';
 import { Empty, Spin } from '@wind/wind-ui';
 import classNames from 'classnames';
@@ -12,7 +12,6 @@ import { ReferenceItemSuggest } from '../ReferenceItemSuggest';
 import { ReferenceItemTable } from '../ReferenceItemTable';
 import { RefItemNumber } from '../RefItemNumber';
 import { TopFilesSection } from '../TopFilesSection';
-import { PreviewData } from '../type';
 import { createPreviewDataFromReference } from '../utils/previewDataUtils';
 import styles from './index.module.less';
 
@@ -27,7 +26,7 @@ export interface RPReferenceListWithChapterProps {
   onModalOpen?: () => void;
   /** 删除成功后的回调（用于刷新列表等） */
   onDeleteSuccess?: (fileId: string) => void;
-  onPreviewStart?: (previewData: PreviewData) => void;
+  onPreviewStart?: (previewData: RefPreviewData) => void;
   /** 章节ID到章节对象的映射 */
   chapterMap?: Map<string, RPChapterEnriched>;
   /** 确认重新生成关联章节的回调 */

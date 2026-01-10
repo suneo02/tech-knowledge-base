@@ -1,37 +1,8 @@
-import { ChatPresetQuestion, RPChapterIdIdentifier, RPFileTraced, WithDPUList, WithRAGList } from 'gel-api';
-import {
-  AgentMsgAIDepre,
-  AIMessageReportContent,
-  BaseMessageFields,
-  ChatSendInput,
-  OtherMessageStatus,
-  SubQuestionMessage,
-} from 'gel-ui';
+import { ChatPresetQuestion, RPChapterIdIdentifier } from 'gel-api';
+import { AgentMsgAIOverall, ChatSendInput, OtherMessageStatus } from 'gel-ui';
 import { ReactNode } from 'react';
 
-export type RPContentSuggestionMessage = BaseMessageFields & {
-  role: 'suggestion';
-  content: {
-    files?: RPFileTraced[];
-  } & WithDPUList &
-    WithRAGList;
-  status: OtherMessageStatus;
-  chapterId: string;
-};
-
-export type RPContentSubQuestionMessage = SubQuestionMessage & {
-  chapterId: string;
-};
-
-/**
- * AI 报告内容 消息类型
- */
-export type MessageParsedReportContent =
-  | AIMessageReportContent
-  | RPContentSuggestionMessage
-  | RPContentSubQuestionMessage;
-
-export type RPContentAgentMsgAI = AgentMsgAIDepre & {
+export type RPContentAgentMsgAI = AgentMsgAIOverall & {
   chapterId: string;
 };
 

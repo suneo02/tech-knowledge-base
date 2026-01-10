@@ -1,7 +1,7 @@
 import { IHKSearcherInfo } from '@/api/corp/HKCorp/pay.ts'
 import { CorpBasicInfo } from '@/api/corp/info/basicInfo.ts'
 import { CorpPurchaseData } from 'gel-types'
-import React, { createContext, Dispatch, ReactNode, useContext, useEffect, useReducer } from 'react'
+import { createContext, Dispatch, ReactNode, useContext, useEffect, useReducer } from 'react'
 
 // 1. 定义 State 结构
 export interface HKCorpInfoState {
@@ -15,7 +15,7 @@ export interface HKCorpInfoState {
   tableReady?: boolean // 表格是否准备好
   corpCode?: string
   corpName?: string
-  baseInfo?: CorpBasicInfo
+  baseInfo?: Partial<CorpBasicInfo>
   searcherFormValues?: IHKSearcherInfo // 只有在 用户点击提交时才会更新此值
 }
 

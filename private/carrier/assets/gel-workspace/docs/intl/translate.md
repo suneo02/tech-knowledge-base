@@ -1,12 +1,12 @@
-# 复杂数据结构批量翻译工具 - 设计文档
+# 复杂数据结构批量翻译工具
 
-## 1. 背景与目标
+## 概述
 
 在前端国际化（i18n）场景中，我们经常需要翻译从后端接收的、结构复杂的数据。这些数据可能包含深层嵌套的对象、数组以及富文本字符串。手动逐个字段翻译不仅效率低下，而且容易出错。
 
 本工具 (`translateComplexHtmlData`) 旨在提供一个通用的解决方案，能够**自动地、批量地**翻译任何复杂 JavaScript 数据结构中的中文字符串，同时保持原有的数据结构不变。
 
-## 2. 核心功能
+## 核心功能
 
 核心导出函数 `translateComplexHtmlData` 接收两个参数：
 
@@ -14,13 +14,14 @@
 2.  `apiTranslate` (`Function`): 一个用于调用外部翻译服务的异步函数。
 
 该函数会自动完成以下任务：
+
 - 检查当前环境是否需要翻译。
 - 深度遍历 `data`，抽离出所有中文字符串。
 - 对字符串进行去重和智能排序。
 - 格式化数据并调用 `apiTranslate` 函数进行批量翻译。
 - 将返回的英文翻译结果精确地替换回原始数据结构中的对应位置。
 
-## 3. 实现步骤详解
+## 实现步骤
 
 整个翻译流程被划分为以下几个关键步骤：
 
@@ -28,64 +29,64 @@
 
 - 目的: 从输入数据中找出所有需要翻译的中文片段。
 - 实现:
-    - 通过递归方式深度遍历输入数据 `data` 的每一个"角落"。
-    - 当遇到字符串类型的值时，使用正则表达式 `[\u4e00-\u9fff]+` 来匹配一个或多个连续的中文字符。
-    - 所有匹配到的中文字符串被添加到一个临时列表 `matchedCNList` 中。
+  - 通过递归方式深度遍历输入数据 `data` 的每一个"角落"。
+  - 当遇到字符串类型的值时，使用正则表达式 `[\u4e00-\u9fff]+` 来匹配一个或多个连续的中文字符。
+  - 所有匹配到的中文字符串被添加到一个临时列表 `matchedCNList` 中。
 
 ### 步骤 2: 去重与排序
 
 - 目的: 优化翻译请求并确保替换的准确性。
 - 实现:
-    - 使用 `new Set()` 对 `matchedCNList` 进行去重，减少不必要的翻译API调用。
-    - 核心逻辑: 对去重后的数组按字符串长度进行**降序排序** (`b.length - a.length`)。
-    - 排序原因: 这是为了防止"子字符串问题"。例如，数据中同时存在 "中国" 和 "中国人"。如果不排序，"中国" 可能先被替换为 "China"，导致 "中国人" 变为 "China人"，此时 "人" 可能无法被正确翻译或匹配。优先翻译并替换更长的字符串 "中国人"，可以完美规避此问题。
+  - 使用 `new Set()` 对 `matchedCNList` 进行去重，减少不必要的翻译API调用。
+  - 核心逻辑: 对去重后的数组按字符串长度进行**降序排序** (`b.length - a.length`)。
+  - 排序原因: 这是为了防止"子字符串问题"。例如，数据中同时存在 "中国" 和 "中国人"。如果不排序，"中国" 可能先被替换为 "China"，导致 "中国人" 变为 "China人"，此时 "人" 可能无法被正确翻译或匹配。优先翻译并替换更长的字符串 "中国人"，可以完美规避此问题。
 
-### 步骤 3: 构建 API 请求体
+### 步骤 3: 构建请求体
 
 - 目的: 将待翻译的中文列表构造成适合 API 调用的格式，并保留其顺序。
 - 实现:
-    - 将排序后的中文列表 `matchedCNList` 转换成一个对象。
-    - 对象的键采用 `index$$word` 的格式，例如：`{ "0$$word": "中国人", "1$$word": "中国" }`。
-    - 这种格式不仅方便后端处理，其数字前缀 `index` 也为后续步骤中恢复原始顺序提供了依据。
+  - 将排序后的中文列表 `matchedCNList` 转换成一个对象。
+  - 对象的键采用 `index$$word` 的格式，例如：`{ "0$$word": "中国人", "1$$word": "中国" }`。
+  - 这种格式不仅方便后端处理，其数字前缀 `index` 也为后续步骤中恢复原始顺序提供了依据。
 
-### 步骤 4: 调用外部翻译 API
+### 步骤 4: 调用翻译 API
 
 - 目的: 将处理好的中文字符串发送给翻译服务。
 - 实现:
-    - 调用作为参数传入的 `apiTranslate` 函数，并将上一步生成的 `matchedCNObj` 作为参数。
-    - 这种设计将核心翻译逻辑与具体的 API 实现解耦，使得本工具可以适配任何翻译服务。
-    - 使用 `try...catch` 块来捕获 API 调用过程中可能发生的错误。
+  - 调用作为参数传入的 `apiTranslate` 函数，并将上一步生成的 `matchedCNObj` 作为参数。
+  - 这种设计将核心翻译逻辑与具体的 API 实现解耦，使得本工具可以适配任何翻译服务。
+  - 使用 `try...catch` 块来捕获 API 调用过程中可能发生的错误。
 
-### 步骤 5: 处理并排序翻译结果
+### 步骤 5: 处理翻译结果
 
 - 目的: 将 API 返回的无序结果整理成与原始中文列表顺序一致的翻译后列表。
 - 实现:
-    - API 通常返回一个类似 `{ "0$$word": "Chinese people", "1$$word": "China" }` 的对象。
-    - 首先，获取该对象的所有键 (`Object.keys`)。
-    - 然后，根据键名中的数字前缀 (`'0$$word' -> 0`) 对这些键进行升序排序。
-    - 最后，通过 `map` 方法，根据排好序的键列表生成一个与 `matchedCNList` 一一对应的、有序的翻译结果数组 `translatedList`。
+  - API 通常返回一个类似 `{ "0$$word": "Chinese people", "1$$word": "China" }` 的对象。
+  - 首先，获取该对象的所有键 (`Object.keys`)。
+  - 然后，根据键名中的数字前缀 (`'0$$word' -> 0`) 对这些键进行升序排序。
+  - 最后，通过 `map` 方法，根据排好序的键列表生成一个与 `matchedCNList` 一一对应的、有序的翻译结果数组 `translatedList`。
 
-### 步骤 6: 递归替换中文 (`replaceChineseStrings`)
+### 步骤 6: 递归替换
 
 - 目的: 将翻译好的英文文本放回数据结构中的正确位置。
 - 实现:
-    - 重要: 首先使用 `cloneDeep` 对原始数据 `data` 进行深拷贝。这确保了函数的纯粹性，避免了对原始数据的意外修改。
-    - 再次递归遍历数据结构（这次是克隆后的副本）。
-    - 当遇到字符串时，遍历 `matchedCNList`，使用 `String.prototype.replace` 和正则表达式（全局模式 `g`）将每个中文词组替换为 `translatedList` 中相应索引的英文翻译。
-    - 返回被完整替换后的数据副本。
+  - 重要: 首先使用 `cloneDeep` 对原始数据 `data` 进行深拷贝。这确保了函数的纯粹性，避免了对原始数据的意外修改。
+  - 再次递归遍历数据结构（这次是克隆后的副本）。
+  - 当遇到字符串时，遍历 `matchedCNList`，使用 `String.prototype.replace` 和正则表达式（全局模式 `g`）将每个中文词组替换为 `translatedList` 中相应索引的英文翻译。
+  - 返回被完整替换后的数据副本。
 
-## 4. 函数签名
+## 函数签名
 
 ```typescript
 /**
  * 递归遍历对象或数组，提取其中所有的中文字符串。
  */
-const extractCNStrings: (value: any, matchedCNList: string[]) => void;
+const extractCNStrings: (value: any, matchedCNList: string[]) => void
 
 /**
  * 递归替换数据结构中的中文字符串为对应的翻译文本。
  */
-function replaceChineseStrings(value: any, matchedCNList: string[], translatedList: string[]): any;
+function replaceChineseStrings(value: any, matchedCNList: string[], translatedList: string[]): any
 
 /**
  * 对包含复杂数据结构的数据进行智能翻译。
@@ -93,25 +94,28 @@ function replaceChineseStrings(value: any, matchedCNList: string[], translatedLi
 export const translateComplexHtmlData: (
   data: any,
   apiTranslate: (params: Record<string, string>) => Promise<Record<string, string>>
-) => Promise<any>;
+) => Promise<any>
 ```
 
-## 5. 字段过滤包装器（skip-only）
+## 字段过滤包装器
 
 为保持核心函数通用性与简洁性，提供“字段过滤包装器（skip-only）”以支持在对象/数组结构上按字段跳过翻译。
 
 ### 设计目标
+
 - 不改动 `translateComplexHtmlData` 的签名和内部逻辑。
 - 通过“投影-合并”的方式，仅对允许翻译的字段做替换。
 - 兼容数组与对象返回；数组中逐条记录生效；默认不做深路径匹配（可演进）。
 
 ### 行为定义
+
 - 输入：`data`（数组/对象）、`options`（可选）
   - `skipFields?: string[]`：跳过这些字段（denylist）
 - 数组：字段控制作用于“数组每个元素”的对象字段键；元素为原始类型时不生效。
 - 对象：字段控制作用于对象一级字段键。
 
 ### 处理流程
+
 ```mermaid
 sequenceDiagram
   participant W as Wrapper
@@ -128,5 +132,6 @@ sequenceDiagram
 ```
 
 ### 与企业详情集成
-- `ICorpTableCfg`：使用 `skipTransFields`（denylist）驱动包装器
-- `useTranslateService`：在调用前读取表格配置，传参给包装器，保证“只替换允许字段”。 
+
+- `CorpTableCfg`：使用 `skipTransFields`（denylist）驱动包装器
+- `useTranslateService`：在调用前读取表格配置，传参给包装器，保证“只替换允许字段”。

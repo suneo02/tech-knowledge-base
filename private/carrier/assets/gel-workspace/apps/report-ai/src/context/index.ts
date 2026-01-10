@@ -1,2 +1,2 @@
 export { ReportDetailProvider, useReportDetailContext } from './ReportDetail';
-export { RPOutlineProvider, useRPOutlineContext } from './RPOutline';
+export { RPOutlineProvider, useRPOutlineContext } from '../components/ChatRPOutline/context';

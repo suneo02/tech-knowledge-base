@@ -3,7 +3,7 @@ import { ApiResponseForWFC } from '@/types'
 export * from './tag'
 
 export type CorpEsgScore = {
-  Rating: 'A' | 'AA' | 'AAA' | 'B' | 'BB' | 'BBB' | 'CCC'
+  Rating: 'A' | 'AA' | 'AAA' | 'B' | 'BB' | 'BBB' | 'CCC' | 'D'
   WindCode: string
   RatingDate: string
 }

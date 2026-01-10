@@ -1,10 +1,7 @@
-import { isDev } from '@/utils/env'
 import type { ApiOptions, ApiPaths, GetApiData, GetApiResponse } from 'gel-api'
 import { createEntWebAxiosInstance, requestToEntWebWithAxios, WIND_ENT_WEB_PATH } from 'gel-api'
-import { setErrorLogger } from '../error/error-handling'
 import { requestErrorInterceptor, requestInterceptor } from '../interceptors/request'
 import { responseErrorInterceptor, responseInterceptor } from '../interceptors/response'
-import type { AxiosError } from 'axios'
 
 /**
  * 创建默认EntWeb实例
@@ -34,15 +31,3 @@ export async function requestToEntWeb<P extends keyof ApiPaths[typeof WIND_ENT_W
   return requestToEntWebWithAxios(entWebAxiosInstance, cmd, data, options)
 }
 
-// 设置错误记录器
-setErrorLogger((error: Error | AxiosError) => {
-  setTimeout(() => {
-    if (isDev) {
-      return
-    }
-    requestToEntWeb('openapi/eaglesLog', {
-      reason: `[ai-chat] ${JSON.stringify(error)}`,
-      name: 'WFT PC',
-    })
-  }, 300)
-})

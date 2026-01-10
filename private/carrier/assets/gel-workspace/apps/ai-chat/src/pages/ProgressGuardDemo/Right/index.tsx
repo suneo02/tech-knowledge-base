@@ -32,32 +32,48 @@ const Right = ({
     setActiveSheetId(sheetInfos?.[0]?.sheetId.toString())
   }, [sheetInfos])
 
-  const items: TabsProps['items'] = sheetInfos.map((sheetInfo, index) => ({
-    key: sheetInfo.sheetId.toString(),
-    label: (
-      <>
-        {sheetInfo.sheetName?.length > 10 ? (
-          <Tooltip title={sheetInfo.sheetName}>
-            {sheetInfo.sheetName.slice(0, 10) + '...'}(
-            {sheetRefs[sheetInfo.sheetId.toString()]?.dataSource?.length || sheetInfo?.total || 0})
-          </Tooltip>
-        ) : (
-          `${sheetInfo.sheetName}(${sheetRefs[sheetInfo.sheetId.toString()]?.dataSource?.length || sheetInfo?.total || 0})`
-        )}
-        {index ? (
-          <Button
-            type="text"
-            onClick={() => deleteSheet?.(sheetInfo.sheetId.toString())}
-            size="small"
-            // @ts-expect-error wind-icon
-            icon={<CloseO style={{ fontSize: 14 }} />}
-            style={{ marginInlineStart: 4 }}
-          />
-        ) : null}
-      </>
-    ),
-    children: <TabContent tabKey={sheetInfo.sheetId.toString()} height={height} />,
-  }))
+  const items: TabsProps['items'] = sheetInfos.map((sheetInfo, index) => {
+    const id = sheetInfo.sheetId.toString()
+    const count = sheetRefs[id]?.dataSource?.length ?? sheetInfo?.total ?? 0
+    const isFirst = index === 0
+    // const canDelete = !(isFirst && count === 0) 等待后端接口好了再放开这个
+    const canDelete = !isFirst
+    const showCount = !(isFirst && count === 0)
+    const name = sheetInfo.sheetName ?? ''
+
+    const labelName = name.length > 10 ? name.slice(0, 10) + '...' : name
+    const labelNode =
+      name.length > 10 ? (
+        <Tooltip title={name}>
+          <span>
+            {labelName}
+            {showCount ? `(${count})` : ''}
+          </span>
+        </Tooltip>
+      ) : (
+        <span>{showCount ? `${labelName}(${count})` : labelName}</span>
+      )
+
+    return {
+      key: id,
+      label: (
+        <>
+          {labelNode}
+          {canDelete ? (
+            <Button
+              type="text"
+              onClick={() => deleteSheet?.(id)}
+              size="small"
+              // @ts-expect-error wind-icon
+              icon={<CloseO style={{ fontSize: 14 }} />}
+              style={{ marginInlineStart: 4 }}
+            />
+          ) : null}
+        </>
+      ),
+      children: <TabContent tabKey={id} height={height} />,
+    }
+  })
 
   if (sheetInfos.length === 0) {
     return <Skeleton animation />

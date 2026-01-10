@@ -1,3 +1,4 @@
+export * from './baifenComp'
 export * from './base'
 export * from './bury'
 export * from './chat'

@@ -1,17 +1,18 @@
 import { PatentLawStatusTitle } from '@/components/company/comp/intellectual/patent/patentLawStatusTitle.tsx'
 import CompanyLink from '@/components/company/CompanyLink'
-import { ICorpSubModuleCfg } from '@/components/company/type'
 import { InfoCircleButton } from '@/components/icons/InfoCircle'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
+import { StatisticalChartType } from '@/components/company/type/statisticalChart'
 import { intlNoNO as intl } from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
 import { Tooltip } from '@wind/wind-ui'
 import React from 'react'
 import { DetailLink } from '../components'
 
-export const corpDetailPatent: ICorpSubModuleCfg = {
+export const corpDetailPatent: CorpSubModuleCfg = {
   title: intl('138749', '专利'),
   withTab: true,
-  statisticalChart: 'patent',
+  statisticalChart: StatisticalChartType.patent,
   statisticalChartNum: 'patent_num_bgs',
   modelNum: undefined,
   children: [
@@ -42,6 +43,7 @@ export const corpDetailPatent: ICorpSubModuleCfg = {
         'publicAnnouncementDate|formatTime',
         'corpName',
       ],
+      skipTransFieldsInKeyMode: ['corpName'],
       notVipPageTurning: true,
       notVipPageTitle: intl('138749', '专利'),
       notVipPagedesc: intl('224212', '购买VIP/SVIP套餐，即可不限次查看企业更多专利信息'),
@@ -151,6 +153,7 @@ export const corpDetailPatent: ICorpSubModuleCfg = {
         'corpName',
         'relativeType|relativeType',
       ],
+      skipTransFieldsInKeyMode: ['corpName'],
       notVipPageTurning: true,
       notVipPageTitle: intl('138749', '专利'),
       notVipPagedesc: intl('224212', '购买VIP/SVIP套餐，即可不限次查看企业更多专利信息'),
@@ -277,6 +280,7 @@ export const corpDetailPatent: ICorpSubModuleCfg = {
         'corpName',
         'relativeType|relativeType',
       ],
+      skipTransFieldsInKeyMode: ['corpName'],
       notVipPageTurning: true,
       notVipPageTitle: intl('138749', '专利'),
       notVipPagedesc: intl('224212', '购买VIP/SVIP套餐，即可不限次查看企业更多专利信息'),
@@ -403,6 +407,7 @@ export const corpDetailPatent: ICorpSubModuleCfg = {
         'corpName',
         'relativeType|relativeType',
       ],
+      skipTransFieldsInKeyMode: ['corpName'],
       notVipPageTurning: true,
       notVipPageTitle: intl('138749', '专利'),
       notVipPagedesc: intl('224212', '购买VIP/SVIP套餐，即可不限次查看企业更多专利信息'),

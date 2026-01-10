@@ -11,7 +11,7 @@ export const TechnicalOwnerUnit = {
   render: unitArrRender,
 }
 export const PutUnderUnit = {
-  title: intl('328158', '归口单位'),
+  title: intl('478718', '归口单位'),
   dataIndex: 'putUnderUnit',
   colSpan: 2,
   contentAlign: 'left',
@@ -20,7 +20,7 @@ export const PutUnderUnit = {
 }
 
 export const ExecuteUnit = {
-  title: intl('328184', '执行单位'),
+  title: intl('478719', '执行单位'),
   dataIndex: 'executeUnit',
   colSpan: 2,
   contentAlign: 'left',
@@ -28,7 +28,7 @@ export const ExecuteUnit = {
   render: unitArrRender,
 }
 export const ManageUnit = {
-  title: intl('328185', '主管部门'),
+  title: intl('478701', '主管部门'),
   dataIndex: 'managerUnit',
   colSpan: 2,
   contentAlign: 'left',
@@ -36,7 +36,7 @@ export const ManageUnit = {
   render: unitArrRender,
 }
 export const TechnicalUnit = {
-  title: intl('328159', '技术委员会'),
+  title: intl('478720', '技术委员会'),
   dataIndex: 'technicalUnit',
   colSpan: 5,
   contentAlign: 'left',

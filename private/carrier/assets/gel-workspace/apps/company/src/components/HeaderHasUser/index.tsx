@@ -9,17 +9,17 @@ import '../Header.less'
 import { UserInfoDropdown } from './UserInfoMenu/dropdown'
 
 import * as HomeActions from '@/actions/home'
+import { getSearchCompanyItem } from '@/components/Home/AllMenus/config/ComprehensiveSearch'
 import { getHeaderAllFuncMenus } from '@/components/Home/AllMenus/HeaderDropdown.ts'
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
-import { EIsSeparate } from 'gel-util/link'
+import { pointClickCompanyTab } from '@/lib/pointBuriedGel'
 import store from '@/store/store'
 import { isEn, switchLocaleInWeb } from 'gel-util/intl'
+import { EIsSeparate } from 'gel-util/link'
 import { pointBuriedByModule } from '../../api/pointBuried/bury'
 import { IFuncMenuItem } from '../Home/AllMenus/type'
 import { MenuSafe } from '../windUISafe'
 import TopSearch from './TopSearch'
-import { getSearchCompanyItem } from '@/components/Home/AllMenus/config/ComprehensiveSearch'
-import { pointClickCompanyTab } from '@/lib/pointBuriedGel'
 
 // 懒加载 HeaderHasUserActionModal 组件
 const HeaderHasUserActionModal = React.lazy(() => import('./ActionModal'))
@@ -208,7 +208,7 @@ class HeaderHasUser extends React.Component<HeaderHasUserProps, HeaderHasUserSta
                   data-uc-id="sMhm6EvGcWM"
                   data-uc-ct="a"
                 >
-                  {wftCommon.is_overseas_config ? intl('245502', '权限说明') : intl(222403, 'VIP服务')}
+                  {wftCommon.is_overseas_config ? intl('478594', '权限说明') : intl(222403, 'VIP服务')}
                 </a>
               </Menu.Item>
               <Menu.Item key="210156" data-uc-id="ZuhpopNq2Z" data-uc-ct="menu">

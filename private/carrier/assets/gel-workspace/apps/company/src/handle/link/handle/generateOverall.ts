@@ -1,5 +1,6 @@
 import {
   generateCommonLink,
+  getAIGraphLink,
   getCompanyLink,
   getCompanyNewLink,
   getDataBrowserLink,
@@ -12,9 +13,7 @@ import {
   getSearchLinkBySubModule,
   getUserLinkBySubModule,
   getVipLinkBySubModule,
-  getWebLinkBySubModule,
   LinksModule,
-  getAIGraphLink,
 } from '@/handle/link'
 import { TLinkOptions } from '@/handle/link/handle/type.ts'
 import { getBidDetailUrl } from '@/handle/link/module/miscDetail/bid.ts'
@@ -106,9 +105,19 @@ export const getUrlByLinkModule = (module: LinksModule, optionsProp?: TLinkOptio
     case LinksModule.SPECIAL_CORP:
       return getSpecialCompanyListLinkBySubModule({ subModule, params, env })
     case LinksModule.COMPANY:
-      return getCompanyLink({ id, target, params, env })
+      return getCompanyLink({
+        id,
+        target,
+        params,
+        env,
+      })
     case LinksModule.CompanyNew:
-      return getCompanyNewLink({ id, target, params, env })
+      return getCompanyNewLink({
+        id,
+        target,
+        params,
+        env,
+      })
     case LinksModule.DATA_BROWSER:
       return getDataBrowserLink({ value, title, type, params, env })
     case LinksModule.JOB:

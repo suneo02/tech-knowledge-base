@@ -17,7 +17,7 @@ export default [
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
-    // 添加或覆盖规则
+    extends: ['plugin:react/jsx-runtime'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off', // 允许使用 any 类型
       '@typescript-eslint/ban-ts-comment': 'off', // 允许使用 // @ts-nocheck

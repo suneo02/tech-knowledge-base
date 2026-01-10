@@ -3,9 +3,9 @@ import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import { formatCurrency } from '@/utils/common.ts'
 import intl from '@/utils/intl'
 import { wftCommon } from '@/utils/utils.tsx'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfoFront } from '../handle'
 
-export const indiaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
+export const indiaRows: HorizontalTableColumns<CorpBasicInfoFront> = [
   [
     {
       title: intl('138677', '企业名称'),
@@ -35,7 +35,7 @@ export const indiaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
   ],
   [
     {
-      title: intl('', '企业分类'),
+      title: intl('419608', '企业分类'),
       dataIndex: 'corp_type',
       colSpan: 2,
     },
@@ -53,7 +53,7 @@ export const indiaRows: HorizontalTableColumns<ICorpBasicInfoFront> = [
       render: (_, record) => formatCurrency(record.reg_capital, record.reg_unit),
     },
     {
-      title: intl('', '实缴资本（万）'),
+      title: intl('448313', '实缴资本（万）'),
       dataIndex: 'paid_in_capital',
       colSpan: 2,
       render: (_, record) => formatCurrency(record.paid_in_capital, record.paid_in_capital_currency),

@@ -1,4 +1,4 @@
-# 配置文件模块
+﻿# 配置文件模块
 
 提供应用的各种配置文件，包括 AI 对话配置、环境配置、功能开关等。
 
@@ -121,8 +121,8 @@ const envConfig = {
 
 ## 相关文档
 
-- [需求规范](../../../docs/rule/require-doc.md) - 需求文档编写规范
-- [设计文档](../../../docs/rule/design-doc.md) - 设计文档编写规范
+- [需求规范](../../../docs/rule/doc-requirements-rule.md) - 需求文档编写规范
+- [设计文档](../../../docs/rule/doc-design-rule.md) - 设计文档编写规范
 
 ## 使用示例
 

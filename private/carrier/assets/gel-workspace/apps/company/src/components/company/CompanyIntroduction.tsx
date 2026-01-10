@@ -1,14 +1,10 @@
-import { AddStarO, FileTextO, FingerO, StarF, UndoO } from '@wind/icons'
-import { Button, Card, Col, Dropdown, Menu, message, Row, Tooltip } from '@wind/wind-ui'
+import { Card, Col, Row, Tooltip } from '@wind/wind-ui'
 import Table from '@wind/wind-ui-table'
-import copy from 'copy-to-clipboard'
 import React, { ReactNode } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as globalActions from '../../actions/global'
 import { getMoreContact, getNewsScore, getTechScore, myWfcAjax } from '../../api/companyApi'
-import { pointBuriedNew } from '../../api/configApi'
-import { MyIcon } from '../../components/Icon'
 import { parseQueryString } from '../../lib/utils'
 import store from '../../store/store'
 import intl from '../../utils/intl'
@@ -19,22 +15,23 @@ import { getCompanyHeadScanning } from '@/api/corp/event.ts'
 import { request } from '@/api/request.ts'
 import { HKCorpIntro } from '@/components/company/intro/baseIntro/HK.tsx'
 import { TWCorpIntro } from '@/components/company/intro/baseIntro/TW.tsx'
-import { CHART_HASH } from '@/components/company/intro/charts'
 import { getCorpIntroChartsCfg } from '@/components/company/intro/charts.tsx'
-import { ICorpBasicNumFront } from '@/handle/corp/basicNum/type.ts'
 import { CorpState } from '@/reducers/company.ts'
-import { CorpEsgScore } from 'gel-api/*'
+import { CorpBasicNumFront } from '@/types/corpDetail/basicNum.ts'
+import { CorpEsgScore } from 'gel-api'
 import { EsgBrand } from 'gel-ui'
 import _, { cloneDeep } from 'lodash'
 import { pointBuriedByModule } from '../../api/pointBuried/bury'
-import { commonBuryList } from '../../api/pointBuried/config'
 import { getIfIndividualBusiness } from '../../handle/corp/corpType'
 import { isChineseName } from '../../utils/utils'
 import Expandable from '../common/expandable/Expandable'
 import { InfoCircleButton } from '../icons/InfoCircle/index.tsx'
 import { withContactManager } from './ContactManager/ContactManagerButton'
 import { getLegalPersonField } from './handle/miscT.ts'
+import { CorpBasicInfoFront } from './info/handle.tsx'
 import HeaderChart from './intro/charts/HeaderChart.tsx'
+import { TelField } from './intro/comp/TelField'
+import { CorpInfoMsg } from './intro/CorpInfoMsg'
 import { DynamicTabs } from './intro/dynamic/DynamicTabs.tsx'
 import { mailTitle, pageinationProps, sortData, telTitle, webTitle } from './intro/handle/misc'
 import { CorpIntroRiskCardBig, CorpIntroRiskCardSmall } from './intro/RiskCard/index.tsx'
@@ -42,34 +39,39 @@ import { CompanyDetailTags } from './intro/tag/index.tsx'
 import { getCorpRiskRowSpan, redirectChartFun } from './intro/utils.ts'
 import { LinkByRowCompatibleCorpPerson } from './link/CorpOrPersonLink.tsx'
 import { TechScoreHint } from './techScore/comp'
+import { CorpTreeMenuClick } from './type/companyBaseY.ts'
 
 const RadarChartComponent = () => React.lazy(() => import('../charts/RadarCanvas.tsx'))
 const RadarChartCss = RadarChartComponent()
 
 const CompanyReportModalComponent = () =>
   React.lazy(() => import('./intro/report').then((module) => ({ default: module.CompanyReportModal })))
+
 const CompanyReportModalLazy = CompanyReportModalComponent()
 
 // QRCode 懒加载缓存
 let QRCodeModule: any = null
 
+export const defaultCardTabKey = 'dongtai' // 动态商机舆情 默认的 key 是动态
+
+type Props = {
+  companycode: string
+  companyname: string
+  basicNum: CorpBasicNumFront
+  companyid: string
+  collectState: boolean
+  company: CorpState
+  menuClick: CorpTreeMenuClick
+  onlyCompanyIntroduction: boolean
+  isObjection: boolean
+  collect: () => void
+  canBack: boolean
+  isAIRight: boolean
+  onContactManager?: () => void
+}
 // 企业详情页-头部卡片
 class CompanyIntroduction extends React.Component<
-  {
-    companycode: string
-    companyname: string
-    basicNum: ICorpBasicNumFront
-    companyid
-    collectState
-    company: CorpState
-    menuClick
-    onlyCompanyIntroduction
-    isObjection
-    collect
-    canBack
-    isAIRight
-    onContactManager?: () => void
-  },
+  Props,
   {
     corpId: string | null
     showMore: boolean
@@ -454,10 +456,6 @@ class CompanyIntroduction extends React.Component<
     }
   }
 
-  renderTitle = (baseInfo, headerInfo) => {
-    return baseInfo && baseInfo.chinese_abbr ? baseInfo.chinese_abbr : headerInfo.corp_name
-  }
-
   showMoreContact = (type, data) => {
     let colunms = null
     let title = ''
@@ -493,7 +491,7 @@ class CompanyIntroduction extends React.Component<
             ? [
                 <span style={{ float: 'left', textAlign: 'left' }}>
                   {' '}
-                  {intl('356873', '以上网站大数据判定为官方网站，该企业全部网址请点击查看')}{' '}
+                  {intl('478596', '以上网站大数据判定为官方网站，该企业全部网址请点击查看')}{' '}
                   <span
                     id="gotoWeb"
                     style={{ color: '#00aec7', cursor: 'pointer' }}
@@ -565,10 +563,8 @@ class CompanyIntroduction extends React.Component<
     const corpArea = this.props.company.corpArea
     const ifIndividualBusiness = getIfIndividualBusiness(companybaseInfo.corp_type, companybaseInfo.corp_type_id)
 
-    // @ts-expect-error ttt
-    const baseInfo = companybaseInfo.corp || {}
+    const baseInfo: Partial<CorpBasicInfoFront> = companybaseInfo.corp || {}
     const headerInfo = cloneDeep(this.props.company.corpHeaderInfo)
-
     _.forOwn(this.state.corpHeaderInfoIntl, (value, key) => {
       if (_.has(headerInfo, key) && value != null && value) {
         headerInfo[key] = value
@@ -576,10 +572,7 @@ class CompanyIntroduction extends React.Component<
     })
     const originalName = headerInfo.former_name || []
     const { isObjection, collectState, onlyCompanyIntroduction, basicNum, isAIRight } = this.props
-    const corpState = headerInfo.state || ''
-    let stateTxt = headerInfo.state
     const emailCount = headerInfo.emailCount || 0
-    const telCount = headerInfo.telCount || 0
     const websiteCount = headerInfo.websiteCount || 0
 
     const corptypeid = companybaseInfo.corp_type_id || '--'
@@ -609,8 +602,7 @@ class CompanyIntroduction extends React.Component<
         </Row>
         <Row>
           <Col span={12}>
-            <span className="itemTitle">{intl('4944', '电话')} :</span>{' '}
-            <span className="">{headerInfo.tel ? headerInfo.tel.split(',')[0] : '--'}</span>
+            <TelField headerInfo={headerInfo} showMore={false} />
           </Col>
           <Col span={12}>
             <span className="itemTitle">{intl('93833', '邮箱')} :</span>{' '}
@@ -656,18 +648,11 @@ class CompanyIntroduction extends React.Component<
 
         <Row>
           <Col span={12}>
-            <span className="itemTitle">{intl('4944', '电话')} :</span>{' '}
-            <span className="">{headerInfo.tel ? headerInfo.tel.split(',')[0] : '--'}</span>
-            {telCount > 1 ? (
-              <span
-                className="morecontact"
-                onClick={() => this.getMoreAction('moreTel', this.showMoreContact)}
-                data-uc-id="LOO6x9CuGYp"
-                data-uc-ct="span"
-              >
-                {intl('272167', '更多')} ({telCount})
-              </span>
-            ) : null}
+            <TelField
+              headerInfo={headerInfo}
+              showMore={true}
+              onMoreClick={() => this.getMoreAction('moreTel', this.showMoreContact)}
+            />
           </Col>
           <Col span={12}>
             <span className="itemTitle">{intl('93833', '邮箱')} :</span>{' '}
@@ -701,65 +686,7 @@ class CompanyIntroduction extends React.Component<
     if (istw) {
       card = <TWCorpIntro headerInfo={headerInfo} companybaseInfo={companybaseInfo} />
     }
-    let stateClass = ''
-    if (corpState) {
-      switch (stateTxt) {
-        case '撤销':
-          stateTxt = intl('2690', '撤销')
-          break
-        case '吊销':
-          stateTxt = intl('271249', '吊销')
-          break
-        case '迁出':
-          stateTxt = intl('134788', '迁出')
-          break
-        case '停业':
-          stateTxt = intl('134791', '停业')
-          break
-        case '吊销,未注销':
-          stateTxt = intl('134789', '吊销,未注销')
-          break
-        case '吊销,已注销':
-          stateTxt = intl('134790', '吊销,已注销')
-          break
-        case '注销':
-          stateTxt = intl('36489', '注销')
-          break
-        case '责令关闭':
-          stateTxt = '责令关闭'
-          break
-        case '非正常户':
-        case '已告解散':
-        case '解散':
-        case '廢止':
-        case '已废止':
-        case '歇業':
-        case '破產':
-        case '破產程序終結(終止)':
-        case '合併解散':
-        case '撤銷':
-        case '已终止':
-        case '解散已清算完結':
-        case '该单位已注销':
-        case '核准設立，但已命令解散':
-          stateTxt = intl('257686', '非正常户')
-          break
-        case '成立':
-        case '存续':
-        case '在业':
-        case '正常':
-          stateTxt = intl('240282', '存续')
-          stateClass = 'state-normal'
-          break
-        case '其他':
-          stateTxt = intl('23435', '其他')
-          break
-        default:
-          stateClass = 'state-normal'
-          break
-      }
-      stateClass = stateClass || 'state-error'
-    }
+
     if (corpArea) {
       this.ulCharts.length = 2
       card = (
@@ -807,18 +734,11 @@ class CompanyIntroduction extends React.Component<
 
           <Row>
             <Col span={12}>
-              <span className="itemTitle">{intl('4944', '电话')} :</span>{' '}
-              <span className="">{headerInfo.tel ? headerInfo.tel.split(',')[0] : '--'}</span>
-              {telCount > 1 ? (
-                <span
-                  className="morecontact"
-                  onClick={() => this.getMoreAction('moreTel', this.showMoreContact)}
-                  data-uc-id="8JyYIstWY6M"
-                  data-uc-ct="span"
-                >
-                  {intl('272167', '更多')} ({telCount})
-                </span>
-              ) : null}
+              <TelField
+                headerInfo={headerInfo}
+                showMore={true}
+                onMoreClick={() => this.getMoreAction('moreTel', this.showMoreContact)}
+              />
             </Col>
             <Col span={12}>
               <span className="itemTitle">{window.en_access_config ? intl('32674', '地区') : '国家/地区'} :</span>
@@ -844,147 +764,20 @@ class CompanyIntroduction extends React.Component<
 
           {/* 公司基础信息 */}
           <div className="corpInfoMsg">
-            <div className="corpInfoTitle">
-              <Tooltip placement="topLeft" title="点击复制企业名称">
-                <span
-                  className="corpTitle"
-                  onClick={() => {
-                    copy(this.renderTitle(baseInfo, headerInfo))
-                    message.success('复制成功')
-                  }}
-                  data-uc-id="BkqqCVd6A2-"
-                  data-uc-ct="span"
-                >
-                  {this.renderTitle(baseInfo, headerInfo)}
-                </span>
-              </Tooltip>
-
-              {corpState ? <span className={stateClass}> {stateTxt} </span> : ''}
-              {originalName.length > 0 && (
-                <Dropdown
-                  overlay={
-                    // @ts-expect-error ttt
-                    <Menu className="originNameList" data-uc-id="vyntgM5heC" data-uc-ct="menu">
-                      {originalName.map((ele, index) => {
-                        const use_from = ele.useFrom ? ele.useFrom : intl('367373', '日期不明')
-                        const use_to = ele.useTo ? ele.useTo : intl('367373', '日期不明')
-                        let time = use_from + (window.en_access_config ? ' ~ ' : ' 至 ') + use_to
-                        if (!ele.useFrom && !ele.useTo) {
-                          time = intl('367373', '日期不明')
-                        }
-                        return (
-                          <Menu.Item
-                            key={index.toString()}
-                            data-uc-id="OMK99EGbi"
-                            data-uc-ct="menu"
-                            data-uc-x={index.toString()}
-                          >
-                            {' '}
-                            <div className="used-name-title"> {ele.formerName} </div>
-                            <div className="used-name-time"> {time} </div>{' '}
-                          </Menu.Item>
-                        )
-                      })}
-                    </Menu>
-                  }
-                  data-uc-id="hJWYkLhFn4"
-                  data-uc-ct="dropdown"
-                >
-                  <span className="state-normal originName">
-                    {`${intl(451194, '曾用名')}${originalName.length > 0 ? '(' + originalName.length + ')' : ''}`}
-                    <MyIcon className="arrowDown" name={'Arrow_Down@1x'} />
-                    <MyIcon className="arrowUp" name={'Arrow_Up_999@1x'} />
-                  </span>
-                </Dropdown>
-              )}
-              {isObjection ? (
-                <Tooltip placement="topLeft" title={isObjection}>
-                  <span className=" risk-tag-nojump">{intl('366153', '异议处理')}</span>
-                </Tooltip>
-              ) : null}
-              {isAIRight ? null : (
-                <div className="company-operation">
-                  <Button
-                    onClick={() => {
-                      const { moduleId, opActive, describe } = commonBuryList.find(
-                        (res) => res.moduleId === 922602100187
-                      )
-                      pointBuriedNew(moduleId, { opActive, opEntity: describe })
-                      wftCommon.jumpJqueryPage(
-                        `index.html?isSeparate=1&nosearch=1&companycode=${this.props.companycode}&companyname=${this.props.companyname}&activeKey=chart_ddycd#/${CHART_HASH}`
-                      )
-                    }}
-                    data-uc-id="52RtvQ0DkZ"
-                    data-uc-ct="button"
-                  >
-                    <FingerO
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
-                      data-uc-id="ptYgetvK81"
-                      data-uc-ct="fingero"
-                    />
-                    <span>{intl('437412', '触达')}</span>
-                  </Button>
-                  <Button
-                    onClick={() => this.setState({ actionModal: 'report' })}
-                    data-uc-id="BxOVPWBZ2z"
-                    data-uc-ct="button"
-                  >
-                    <FileTextO
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
-                      data-uc-id="f9chcfBzqT"
-                      data-uc-ct="filetexto"
-                    />
-                    <span>{intl('175211', '报告')}</span>
-                  </Button>
-
-                  <Button
-                    onClick={() => {
-                      const { moduleId, opActive, describe } = commonBuryList.find(
-                        (res) => res.moduleId === 922602100273
-                      )
-                      pointBuriedNew(moduleId, { opActive, opEntity: describe })
-                      this.props.collect()
-                    }}
-                    data-uc-id="Past8C5Ayy"
-                    data-uc-ct="button"
-                  >
-                    {collectState ? (
-                      <StarF
-                        className="corpCollectState"
-                        onPointerEnterCapture={undefined}
-                        onPointerLeaveCapture={undefined}
-                        data-uc-id="oXugMtbRZH"
-                        data-uc-ct="starf"
-                      />
-                    ) : (
-                      <AddStarO
-                        onPointerEnterCapture={undefined}
-                        onPointerLeaveCapture={undefined}
-                        data-uc-id="_0MWgIV1sJ"
-                        data-uc-ct="addstaro"
-                      />
-                    )}
-                    <span>{collectState ? intl('138129', '已收藏') : intl('143165', '收藏')}</span>
-                  </Button>
-                </div>
-              )}
-
-              {this.props.canBack ? (
-                <div className="company-operation">
-                  <Button onClick={this.backToRoot} data-uc-id="ZGy-VW5USr" data-uc-ct="button">
-                    <UndoO
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
-                      data-uc-id="NpNgMMACU_"
-                      data-uc-ct="undoo"
-                    />
-                    <span>{intl('5550', '返回')}</span>
-                  </Button>
-                </div>
-              ) : null}
-            </div>
+            <CorpInfoMsg
+              baseInfo={baseInfo}
+              headerInfo={headerInfo}
+              originalName={originalName}
+              isObjection={isObjection}
+              isAIRight={isAIRight}
+              companycode={this.props.companycode}
+              companyname={this.props.companyname}
+              collectState={collectState}
+              canBack={this.props.canBack}
+              onClickReport={() => this.setState({ actionModal: 'report' })}
+              onClickCollect={this.props.collect}
+              onClickBack={this.backToRoot}
+            />
 
             {card}
 
@@ -1176,7 +969,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {}
 }
 

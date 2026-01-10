@@ -1,3 +1,4 @@
+import { BAIFEN_COMP_API_PATH, BaifenCompApiPath } from './baifen'
 import { WIND_ENT_CHAT_PATH, chatApiPathMap } from './chat'
 import { WIND_ENT_WEB_PATH, entWebApiPathMap } from './entWeb'
 import { INDICATOR_API_PATH, indicatorApiPathMap } from './indicator'
@@ -11,4 +12,5 @@ export type ApiPaths = {
   [INDICATOR_API_PATH]: indicatorApiPathMap
   [SUPERLIST_API_PATH]: superlistApiPathMap
   [WIND_ENT_WEB_PATH]: entWebApiPathMap
+  [BAIFEN_COMP_API_PATH]: BaifenCompApiPath
 }

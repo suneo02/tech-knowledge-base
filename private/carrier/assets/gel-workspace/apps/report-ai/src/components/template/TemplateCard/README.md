@@ -1,4 +1,4 @@
-# TemplateCard 组件
+﻿# TemplateCard 组件
 
 ## 概述
 
@@ -32,5 +32,6 @@ import { TemplateCard } from '@/components/template/TemplateList/TemplateCard';
 ## 相关文档
 
 - [TemplateList 组件](../README.md)
-- [React 规范](../../../../../docs/rule/react-rule.md)
-- [样式规范](../../../../../docs/rule/style-rule.md)
+- [React 规范](../../../../../docs/rule/code-react-component-rule.md)
+- [样式规范](../../../../../docs/rule/code-style-less-bem-rule.md)
+

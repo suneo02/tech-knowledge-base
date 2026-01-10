@@ -1,9 +1,9 @@
-import { ICorpSubModuleVipCfg } from '@/components/company/type'
+import { CorpSubModuleVipCfg } from '@/types/corpDetail'
 import { intlNoNO as intl } from '@/utils/intl'
 import { wftCommon } from '@/utils/utils'
 import { vipDescDefault } from '../common/vipDesc'
 
-export const corpAdminLicenseBureau: ICorpSubModuleVipCfg = {
+export const corpAdminLicenseBureau: CorpSubModuleVipCfg = {
   cmd: '/detail/company/getpermissionnew',
   moreLink: 'getpermissionnew',
   title: intl('222480', '行政许可[工商局]'), // 工商局

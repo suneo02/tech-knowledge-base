@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import { argv, exit } from 'process';
+const fs = require('fs');
+const path = require('path');
+const { argv, exit } = require('process');
 
 // 获取命令行参数
 const sourceFile = argv[2] ? path.resolve(argv[2]) : null;
@@ -54,4 +54,4 @@ fs.readFile(sourceFile, 'utf8', (err, data) => {
         console.log('---------------------------------------');
         console.log(`文件已成功保存为: ${path.basename(targetFile)}\n`);
     });
-}); 
+});

@@ -175,7 +175,7 @@ export const useContactManager = ({
     pointBuriedGel(moduleId, moduleName, moduleType)
     const userVipInfo = getVipInfo()
     if (!userVipInfo.isSvip && !userVipInfo.isSvip && wftCommon.is_overseas_config) {
-      message.info(intl('245503', '该功能暂未开放'))
+      message.info(intl('478600', '该功能暂未开放'))
       return
     }
     return handleContactManagerRaw()

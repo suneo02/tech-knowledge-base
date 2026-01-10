@@ -1,25 +1,20 @@
-import { OutlineEditorMessage, OutlinePreviewMessage, RPOutlineAgentMsgAI } from '@/types';
+import { OutlineMessage, RPOutlineAgentMsgAI } from '@/types';
 
-export const createOutlineEditorMessage = (agentMessage: RPOutlineAgentMsgAI): OutlineEditorMessage | undefined => {
+/**
+ * 创建统一的大纲消息
+ *
+ * @description 不再区分编辑/预览模式，由渲染组件根据 context 动态判断
+ */
+export const createOutlineMessage = (agentMessage: RPOutlineAgentMsgAI): OutlineMessage | undefined => {
   if (!agentMessage.reportData?.outline) {
     return;
   }
   return {
-    role: 'outlineEditor',
+    role: 'outline',
     status: 'finish',
-    think: agentMessage.think,
-    content: agentMessage.reportData?.outline,
-  };
-};
-
-export const createOutlinePreviewMessage = (agentMessage: RPOutlineAgentMsgAI): OutlinePreviewMessage | undefined => {
-  if (!agentMessage.reportData?.outline) {
-    return;
-  }
-  return {
-    role: 'outlinePreview',
-    status: 'finish',
-    think: agentMessage.think,
-    content: agentMessage.reportData?.outline,
+    content: {
+      ...agentMessage.reportData?.outline,
+      rawSentenceID: agentMessage.rawSentenceID,
+    },
   };
 };

@@ -450,11 +450,11 @@ const VisTablePage = forwardRef<VisTableRefType, { tableId: string }>(({ tableId
     }
 
     const currentList = list || []
-    // 检查是否只剩最后一个sheet
-    if (currentList.length <= 1) {
-      message.warning('无法删除最后一个Sheet')
-      return
-    }
+    // 检查是否只剩最后一个sheet 产品说不需要判断
+    // if (currentList.length <= 1) {
+    //   message.warning('无法删除最后一个Sheet')
+    //   return
+    // }
 
     // 获取要删除的Sheet项和名称
     const deleteIndex = currentList.findIndex((item) => item.key === targetKey)

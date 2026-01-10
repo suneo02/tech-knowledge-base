@@ -1,10 +1,8 @@
+import { TGelEnv, isDev } from '@/utils/env/index.ts'
+import { getCurrentEnv } from 'gel-util/env'
+import { COMMON_PARAM_KEYS, EIsSeparate, ENoSearch } from 'gel-util/link'
 import { generateCommonLink } from '../handle'
 import { LinksModule } from './linksModule'
-import { TGelEnv, getEnvParams } from '@/utils/env/index.ts'
-import { getPrefixUrl } from '@/handle/link/handle/prefixUrl.ts'
-import { handleAppendUrlPath } from '@/handle/link/handle/common.ts'
-import { COMMON_PARAM_KEYS, EIsSeparate, ENoSearch } from 'gel-util/link'
-import { AIGRAPH_PARAM_KEYS } from '@/views/AICharts/contansts'
 
 /**
  * @description AI图谱hash key
@@ -61,7 +59,7 @@ export const getAIGraphLink = ({
   params,
 }: { env?: TGelEnv; params?: Record<string, string | number> } = {}) => {
   try {
-    const env = envParam || getEnvParams().env
+    const env = envParam || getCurrentEnv(isDev)
     return generateCommonLink({
       module: LinksModule.GRAPH_AI,
       params: {

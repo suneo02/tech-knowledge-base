@@ -191,6 +191,39 @@ const baseChatHandlers = [
       Data: { fileID: `mock-file-${Date.now()}` },
     });
   }),
+  http.post('*/api/report/filePreview', async ({ request }) => {
+    const url = new URL(request.url);
+    const fileID = url.searchParams.get('fileID') || url.searchParams.get('fileId');
+
+    console.log('✅ MSW Mock: filePreview 请求', { fileID });
+
+    // 模拟延迟
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    // 从 Storybook public 目录获取真实的 PDF 文件
+    const pdfUrl = '/sample.pdf';
+    const response = await fetch(pdfUrl);
+    const blob = await response.blob();
+    const arrayBuffer = await blob.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
+
+    // 转换为 base64
+    let binary = '';
+    const len = uint8Array.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(uint8Array[i]);
+    }
+    const base64 = btoa(binary);
+
+    return HttpResponse.json({
+      ErrorCode: ApiCodeForWfc.SUCCESS,
+      ErrorMsg: '文件预览成功',
+      Data: {
+        fileByte: base64,
+        fileName: `示例文档${fileID}.pdf`,
+      },
+    });
+  }),
 ];
 
 // 通用的聊天相关 MSW handlers，避免每个故事覆盖后丢失全局 handlers

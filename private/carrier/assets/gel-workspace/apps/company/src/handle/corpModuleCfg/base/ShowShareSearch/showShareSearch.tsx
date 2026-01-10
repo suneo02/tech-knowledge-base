@@ -1,10 +1,11 @@
 import { getUrlByLinkModule, handleJumpTerminalCompatibleAndCheckPermission, LinksModule } from '@/handle/link'
 import { wftCommon } from '@/utils/utils'
 import { wftCommonType } from '@/utils/WFTCommonWithType'
+import { ShareholderBreakthrough } from 'gel-types'
 import React from 'react'
 
 interface ShareholderPathProps {
-  row: any
+  row: ShareholderBreakthrough
 }
 
 export const ShowShareSearchPathItem = ({
@@ -13,9 +14,9 @@ export const ShowShareSearchPathItem = ({
   row,
   pingParam,
 }: {
-  item: any
+  item: ShareholderBreakthrough['path'][number]
   index: number
-  row: any
+  row: ShareholderBreakthrough
   pingParam: string
 }) => {
   const data = row.path

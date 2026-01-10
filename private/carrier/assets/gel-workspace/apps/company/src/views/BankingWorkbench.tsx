@@ -22,6 +22,7 @@ import { getPreCorpSearchNew } from '../api/homeApi'
 import bg07 from '../assets/imgs/bankingWorkbench/bg-report07.png'
 import xls from '../assets/imgs/bankingWorkbench/excel.png'
 import pdf from '../assets/imgs/bankingWorkbench/pdf.png'
+import CompanyDetailEntry from './CompanyDetailEntry'
 
 const Option = AutoComplete.Option
 
@@ -49,23 +50,24 @@ function BankingWorkbench(props) {
   const [route, setRoute] = useState(selType || 'report')
   const [reportClicked, setReportClicked] = useState(selType ? true : false)
 
-  let url =
-    process.env.NODE_ENV === 'production' ? `Company.html?&notoolbar=1` : `?r=${new Date().getTime()}#/?&notoolbar=1`
-
-  if (window.en_access_config) {
-    url = url + '&lang=en'
-  }
-
-  const [corpUrl, setcorpUrl] = useState('')
-
   useEffect(() => {
-    setcorpUrl(`${url}&companycode=${companycode}`)
     if (selType) return
     props.getCorpHeaderInfo(companycode, (res) => {
       setBaseInfo(res.data)
       !companyid && setCompanyid(res.data.corp_old_id)
     })
   }, [companycode])
+
+  const syncCompanyCodeToUrl = (code: string | number) => {
+    const urlObj = new URL(window.location.href)
+    urlObj.searchParams.set('companycode', String(code))
+    window.history.replaceState(null, '', urlObj.toString())
+  }
+
+  useEffect(() => {
+    if (route !== 'detail' || !companycode) return
+    syncCompanyCodeToUrl(companycode)
+  }, [route, companycode])
 
   const handleChange = (e) => {
     if (!reportClicked) {
@@ -142,11 +144,11 @@ function BankingWorkbench(props) {
           companycode +
           `&from=openBu3&lang=${lang}`
         noAccessTips = [
-          intl('224218', '购买VIP，每年可导出5000家企业的信用报告'),
-          intl('224221', '购买SVIP，每年可导出10000家企业的信用报告'),
-          intl('224224', '购买VIP/SVIP企业套餐，每年可导出5000/10000家企业的信用报告'),
+          intl('478654', '购买VIP，每年可导出5000家企业的信用报告'),
+          intl('478655', '购买SVIP，每年可导出10000家企业的信用报告'),
+          intl('478656', '购买VIP/SVIP企业套餐，每年可导出5000/10000家企业的信用报告'),
         ]
-        noMoreAccessTips = [intl('24268', '您本年度导出企业报告的额度已用完。'), intl('224262', '本年度额度已用完')]
+        noMoreAccessTips = [intl('416871', '您本年度导出企业报告的额度已用完。'), intl('224262', '本年度额度已用完')]
         pointBuriedGel('922602100653', '企业信用报告', 'reportEx')
         break
       case 'stockReport':
@@ -158,11 +160,11 @@ function BankingWorkbench(props) {
           companycode +
           '&from=openBu3&lang=cn&sssss=1230'
         noAccessTips = [
-          intl('224219', '购买VIP，每年可导出5000家企业的股权穿透分析报告'),
-          intl('224222', '购买SVIP，每年可导出10000家企业的股权穿透分析报告'),
-          intl('224225', '购买VIP/SVIP企业套餐，每年可导出5000/10000家企业的股权穿透分析报告'),
+          intl('478657', '购买VIP，每年可导出5000家企业的股权穿透分析报告'),
+          intl('478650', '购买SVIP，每年可导出10000家企业的股权穿透分析报告'),
+          intl('478658', '购买VIP/SVIP企业套餐，每年可导出5000/10000家企业的股权穿透分析报告'),
         ]
-        noMoreAccessTips = [intl('24268', '您本年度导出企业报告的额度已用完。'), intl('224262', '本年度额度已用完')]
+        noMoreAccessTips = [intl('416871', '您本年度导出企业报告的额度已用完。'), intl('224262', '本年度额度已用完')]
         pointBuriedGel('922602100653', '股权穿透分析报告', 'reportEx')
         break
       case 'userPortraitReport':
@@ -210,9 +212,11 @@ function BankingWorkbench(props) {
     debounceSearch(val, setResult)
   }
   const handleSelect = (_val, option) => {
-    // console.log('🚀 ~handleSearch ~ value:', val, option)
     setValue('')
     setCompanycode(option.key)
+    if (route === 'detail') {
+      syncCompanyCodeToUrl(option.key)
+    }
   }
 
   const children = result.map((i) => {
@@ -310,7 +314,7 @@ function BankingWorkbench(props) {
                     data-uc-id="E88-nWuj8u"
                     data-uc-ct="button"
                   >
-                    {intl('358753', '我的历史尽调报告')}
+                    {intl('478659', '我的历史尽调报告')}
                   </Button>
                 }
               >
@@ -319,7 +323,7 @@ function BankingWorkbench(props) {
                     <img className="report-pic" src={pdf} alt="" />
                     <div className="tips-report">
                       <h3>{intl('338873', '企业深度信用报告')}</h3>
-                      <p>{intl('265688', '快速了解企业基本信用情况')}</p>
+                      <p>{intl('470699', '快速了解企业基本信用情况')}</p>
                     </div>
                     <Button
                       className="download-area"
@@ -335,7 +339,7 @@ function BankingWorkbench(props) {
                     <img className="report-pic" src={pdf} alt="" />
                     <div className="tips-report">
                       <h3>{intl('224217', '股权穿透分析报告')}</h3>
-                      <p>{intl('265703', '层层挖掘企业股东信息')}</p>
+                      <p>{intl('470700', '层层挖掘企业股东信息')}</p>
                     </div>
                     <Button
                       className="download-area"
@@ -351,7 +355,7 @@ function BankingWorkbench(props) {
                     <img className="report-pic" src={xls} alt="" />
                     <div className="tips-report">
                       <h3 className="each-report-h3-new">{intl('273233', '股东深度穿透报告')}</h3>
-                      <p>{intl('358774', '深度核查股东结构，无限层级穿透数据')}</p>
+                      <p>{intl('478660', '深度核查股东结构，无限层级穿透数据')}</p>
                     </div>
                     <Button
                       className="download-area"
@@ -366,12 +370,12 @@ function BankingWorkbench(props) {
                   <div className="each-report">
                     <div className="pic_holder">
                       <span className="pic_holder_text1">{intl('32959', '股东')}</span>
-                      <span className="pic_holder_text2">{intl('358759', '调查表与承诺函')}</span>
+                      <span className="pic_holder_text2">{intl('478661', '调查表与承诺函')}</span>
                       <img className="report-pic " src={bg07} alt="" />
                     </div>
                     <div className="tips-report">
-                      <h3>{intl('358773', '股东调查表与承诺函')}</h3>
-                      <p>{intl('358754', '快速生成股东调查确认函')}</p>
+                      <h3>{intl('478662', '股东调查表与承诺函')}</h3>
+                      <p>{intl('478651', '快速生成股东调查确认函')}</p>
                     </div>
 
                     <Button
@@ -388,7 +392,7 @@ function BankingWorkbench(props) {
                     <img className="report-pic" src={pdf} alt="" />
                     <div className="tips-report">
                       <h3 className="each-report-h3-new">{intl('421605', '尽职调查报告')}</h3>
-                      <p>{intl('308753', '深度挖掘企业信息，及时预警企业关键信息变更，一站式尽调解决方案')}</p>
+                      <p>{intl('478663', '深度挖掘企业信息，及时预警企业关键信息变更，一站式尽调解决方案')}</p>
                     </div>
                     <span className="svip-label">
                       <i></i>
@@ -415,7 +419,7 @@ function BankingWorkbench(props) {
                   <div className="each-report">
                     <img className="report-pic" src={require('../assets/imgs/bankingWorkbench/gqjg2.png')} alt="" />
                     <div className="tips-report">
-                      <h3>{intl('260212', '股权结构图')}</h3>
+                      <h3>{intl('469552', '股权结构图')}</h3>
                       <p title={intl('358793', '一图查看企业实控人、高管、分支机构和竞争对手等信息')}>
                         {intl('358793', '一图查看企业实控人、高管、分支机构和竞争对手等信息')}
                       </p>
@@ -427,7 +431,7 @@ function BankingWorkbench(props) {
                       data-uc-id="dY7naylH-I"
                       data-uc-ct="button"
                     >
-                      {intl('222886', '查看图谱')}
+                      {intl('478652', '查看图谱')}
                     </Button>
                   </div>
                   <div className="each-report">
@@ -443,7 +447,7 @@ function BankingWorkbench(props) {
                       data-uc-id="JrGJ5yhDt6"
                       data-uc-ct="button"
                     >
-                      {intl('222886', '查看图谱')}
+                      {intl('478652', '查看图谱')}
                     </Button>
                   </div>
                   <div className="each-report">
@@ -461,7 +465,7 @@ function BankingWorkbench(props) {
                       data-uc-id="uTSViNGXXd"
                       data-uc-ct="button"
                     >
-                      {intl('222886', '查看图谱')}
+                      {intl('478652', '查看图谱')}
                     </Button>
                   </div>
                   <div className="each-report">
@@ -479,7 +483,7 @@ function BankingWorkbench(props) {
                       data-uc-id="-kNs939OaG3"
                       data-uc-ct="button"
                     >
-                      {intl('222886', '查看图谱')}
+                      {intl('478652', '查看图谱')}
                     </Button>
                   </div>
                 </div>
@@ -488,22 +492,15 @@ function BankingWorkbench(props) {
           </div>
         ) : null}
 
-        {reportClicked && corpUrl ? (
+        {reportClicked ? (
           <div
+            className="workbench-detail-container"
             style={{
               marginTop: '38px',
               display: route == 'report' ? 'none' : 'block',
             }}
           >
-            <iframe
-              src={corpUrl}
-              id="corp_iframe"
-              frameBorder="0"
-              style={{
-                width: '100vw',
-                height: 'calc(100vh - 48px)',
-              }}
-            ></iframe>
+            <CompanyDetailEntry key={companycode} />
           </div>
         ) : (
           ''

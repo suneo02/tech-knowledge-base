@@ -2,6 +2,7 @@ import { CheckCircleO, CloseCircleO } from '@wind/icons'
 import { Progress } from '@wind/wind-ui'
 import React from 'react'
 import { FileStatus } from '../hooks/useFileData'
+import { t } from 'gel-util/intl'
 
 interface FileStatusDisplayProps {
   status: FileStatus
@@ -23,7 +24,7 @@ export const FileStatusDisplay: React.FC<FileStatusDisplayProps> = ({ status, pr
             onPointerLeaveCapture={undefined}
             style={{ marginRight: 4 }}
           />
-          生成成功
+          {t('425472', '生成成功')}
         </span>
       )
     case FileStatus.FAILED:
@@ -34,7 +35,7 @@ export const FileStatusDisplay: React.FC<FileStatusDisplayProps> = ({ status, pr
             onPointerLeaveCapture={undefined}
             style={{ marginRight: 4 }}
           />
-          生成失败
+          {t('286684', '生成失败')}
         </span>
       )
     default:

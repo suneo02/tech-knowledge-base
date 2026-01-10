@@ -1,4 +1,5 @@
 export * from './apiConfig'
+export * from './baifen'
 export * from './bury'
 export * from './chat'
 export * from './config'

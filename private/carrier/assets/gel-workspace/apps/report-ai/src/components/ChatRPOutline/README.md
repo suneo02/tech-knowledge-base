@@ -6,6 +6,18 @@
 
 ```
 ChatRPOutline/
+├── context/                   # Context 和 Provider
+│   ├── RPOutlineContext.tsx   # 状态管理
+│   ├── index.ts               # 统一导出
+│   └── README.md              # 架构说明
+├── hooks/                     # 业务 Hooks
+│   ├── useRPOutlineChat.ts    # 聊天主协调器
+│   ├── index.ts               # 统一导出
+│   └── README.md              # 架构说明
+├── parsers/                   # 消息解析器
+│   ├── messageParser.tsx      # 消息解析
+│   ├── outline.ts             # 大纲解析
+│   └── index.ts               # 统一导出
 ├── AIFooter/                  # AI 底部工具栏
 │   ├── CompanySelector.tsx    # 公司选择器
 │   └── index.tsx              # 底部工具栏主组件
@@ -13,10 +25,6 @@ ChatRPOutline/
 │   └── index.tsx              # 同步组件
 ├── messages/                  # 消息组件
 │   └── index.tsx              # 消息列表
-├── parsers/                   # 消息解析器
-│   ├── messageParser.tsx      # 消息解析
-│   ├── outline.ts             # 大纲解析
-│   └── index.ts               # 统一导出
 ├── roles/                     # 角色组件
 │   ├── index.tsx              # 角色定义
 │   └── user.tsx               # 用户角色
@@ -30,6 +38,32 @@ ChatRPOutline/
 │   └── index.tsx              # 进度区域主组件
 └── index.ts                   # 统一导出
 ```
+
+## 架构设计
+
+### 模块内聚
+
+所有 RPOutline 聊天相关的代码都在此目录下，形成内聚的模块：
+
+- **context/**: Context 和 Provider，提供状态管理
+- **hooks/**: 业务 hooks，封装聊天逻辑
+- **parsers/**: 消息解析器，纯函数设计
+- **AIFooter/**: AI 消息底部组件
+
+### 依赖关系
+
+```
+context → hooks → parsers → AIFooter → context
+```
+
+这是 React Context 的标准模式，不是真正的循环依赖：
+
+- context 提供 Provider
+- AIFooter 消费 Context（通过 useRPOutlineContext）
+
+### 避免循环依赖
+
+通过将相关代码放在同一个目录下，避免了跨越多个顶层目录的循环依赖。详见各子目录的 README.md。
 
 ## 核心组件职责
 

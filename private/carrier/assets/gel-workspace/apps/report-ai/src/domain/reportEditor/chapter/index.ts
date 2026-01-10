@@ -2,10 +2,8 @@
 export {
   assembleChapterHtml,
   createChapterTitleHtml,
-  generateLoadingHTML,
   renderChapter,
   renderContentFromChapter,
-  renderContentFromMessage,
   type AssembleChapterHtmlOptions,
   type RenderChapterOptions,
 } from './render';

@@ -17,22 +17,22 @@ export const atlasTreeData = [
   // ...(isDeveloper
   //   ? [
   //       {
-  //         title: intl('', 'AI探查图谱'),
+  //         title: intl('467840', 'AI探查图谱'),
   //         key: 'ai_graph',
   //         parentNode: true,
   //         children: [
   //           {
-  //             title: intl('', '供应链探查'),
+  //             title: intl('467795', '供应链探查'),
   //             key: 'ai_graph_supply_chain',
   //             type: AI_GRAPH_TYPE.AI_GRAPH_SUPPLY_CHAIN,
   //           },
   //           {
-  //             title: intl('', '客户群探查'),
+  //             title: intl('467834', '客户群探查'),
   //             key: 'ai_graph_customers',
   //             type: AI_GRAPH_TYPE.AI_GRAPH_CUSTOMERS,
   //           },
   //           {
-  //             title: intl('', '竞争对手探查'),
+  //             title: intl('467835', '竞争对手探查'),
   //             key: 'ai_graph_competitors',
   //             type: AI_GRAPH_TYPE.AI_GRAPH_COMPETITORS,
   //           },
@@ -47,7 +47,7 @@ export const atlasTreeData = [
   //             type: AI_GRAPH_TYPE.AI_GRAPH_EXCEL,
   //           },
   //           {
-  //             title: intl('', '历史记录'),
+  //             title: intl('225184', '历史记录'),
   //             key: 'ai_graph_history',
   //             type: AI_GRAPH_TYPE.AI_GRAPH_HISTORY,
   //           },

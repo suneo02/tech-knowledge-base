@@ -17,13 +17,13 @@ import {
 import { ExecuteUnit, ManageUnit, PutUnderUnit } from './common/department'
 
 const PlanName = cloneDeep(StandardName)
-PlanName.title = intl('328203', '计划名称')
+PlanName.title = intl('478708', '计划名称')
 
 const PlanNo = cloneDeep(StandardNo)
-PlanNo.title = intl('328204', '计划号')
+PlanNo.title = intl('478709', '计划号')
 
 const AssignDate = {
-  title: intl('328207', '下达日期'),
+  title: intl('478710', '下达日期'),
   dataIndex: 'assignDate',
   colSpan: 2,
   contentAlign: 'left',
@@ -34,7 +34,7 @@ const AssignDate = {
 }
 
 const ProjStatus = {
-  title: intl('328205', '项目状态'),
+  title: intl('478711', '项目状态'),
   dataIndex: 'standardStatus',
   colSpan: 2,
   contentAlign: 'left',
@@ -45,7 +45,7 @@ const ProjStatus = {
 }
 
 const ProjCycle = {
-  title: intl('328206', '项目周期'),
+  title: intl('478724', '项目周期'),
   dataIndex: 'projectCycle',
   colSpan: 2,
   contentAlign: 'left',
@@ -75,11 +75,11 @@ export const standardPlan = {
       [Revision],
     ],
     horizontal: true,
-    name: intl('328202', '计划信息详情'),
+    name: intl('478712', '计划信息详情'),
   },
   draft: {
     columns: [DraftUnit, DraftNum, RegisterCapital, EstablishDate],
     horizontal: false,
-    name: intl('328188', '起草单位'),
+    name: intl('478702', '起草单位'),
   },
 }

@@ -197,12 +197,12 @@ const bidResultOption = [
     // sortid: "138255"
   },
   {
-    sort: window.en_access_config ? intl('437301', '按日期降序') : intl('', '按公告日期降序'),
+    sort: window.en_access_config ? intl('437301', '按日期降序') : intl('417456', '按公告日期降序'),
     key: 'sort_date_desc',
     // sortid: "138255"
   },
   {
-    sort: window.en_access_config ? intl('437302', '按日期升序') : intl('', '按公告日期正序'),
+    sort: window.en_access_config ? intl('437302', '按日期升序') : intl('353153', '按公告日期正序'),
     key: 'sort_date_asc',
     // sortid: "138255"
   },

@@ -25,10 +25,13 @@
   top: 0;
   transform: none;
   opacity: 0.2;
+  color: var(--basic-10);
+  transition: color 0.2s ease;
 }
 
 .@{prefix}-cellWrapper:hover .@{prefix}-cellActionIcon {
   opacity: 1;
+  color: var(--basic-8);
 }
 
 .@{prefix}-cellActionIconExpanded {
@@ -50,7 +53,7 @@
   transform: translateY(-50%);
   opacity: 0.2;
   cursor: pointer;
-  color: var(--icon-color);
+  color: var(--basic-10);
   transition:
     opacity 0.2s ease,
     color 0.2s ease;
@@ -58,5 +61,5 @@
 
 .@{prefix}-cellInline:hover .@{prefix}-cellActionIconInline {
   opacity: 1;
-  color: var(--icon-color-hover);
+  color: var(--basic-8);
 }

@@ -1,6 +1,7 @@
 import { pointBuriedByModule } from '@/api/pointBuried/bury'
 import { wftCommon } from '@/utils/utils'
-import { CorpEsgScore } from 'gel-api/*'
+import { CorpEsgScore } from 'gel-api'
+import { isValidEsgInfo } from 'gel-ui'
 import { isArray } from 'lodash'
 
 export const redirectChartFun = (t) => {
@@ -23,7 +24,7 @@ export const getCorpRiskRowSpan = (
   esg?: number
   dynamic: number
 } => {
-  const showEsg = esgInfo && isArray(esgInfo) && esgInfo.length > 0 && esgInfo[0].Rating
+  const showEsg = esgInfo && isArray(esgInfo) && esgInfo.length > 0 && isValidEsgInfo(esgInfo[0])
   if (showKGChartInRowFirst) {
     return {
       dynamic: 16,

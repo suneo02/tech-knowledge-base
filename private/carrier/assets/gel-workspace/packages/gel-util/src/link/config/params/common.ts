@@ -29,5 +29,5 @@ export type CommonLinkParams = {
   [COMMON_PARAM_KEYS.WIND_SESSION_HEADER]?: string
   [COMMON_PARAM_KEYS.SNAPSHOT]?: '1' | '0'
   // TODO 待完善
-  [COMMON_PARAM_KEYS.LINKSRC]?: 'pcai'
+  [COMMON_PARAM_KEYS.LINKSRC]?: 'pcai' | 'rimepevc'
 }

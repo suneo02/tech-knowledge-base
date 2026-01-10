@@ -2,6 +2,7 @@ import path from 'path-browserify'
 
 export const HTTPS_Protocol = 'https:'
 export const HTTP_Protocol = 'http:'
+export const WX_WIND_HOST = 'wx.wind.com.cn'
 
 export const HTMLPath = {
   index: 'index.html',

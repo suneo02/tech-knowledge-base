@@ -1,6 +1,15 @@
+/**
+ * 必填参数配置与校验
+ *
+ * 定义各模块的必填参数，并提供运行时校验函数
+ *
+ * @see ../../../docs/link-config-design.md 设计文档
+ */
+
 import { GetLinkParams } from '@/link/type'
 import { LinkModule } from '../linkModule'
 import { LinkParams } from './facade'
+
 /**
  * 定义每个模块必须包含的参数
  * 如果模块没有必须的参数，则设置为空数组

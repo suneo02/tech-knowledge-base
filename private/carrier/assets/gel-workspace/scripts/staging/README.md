@@ -1,4 +1,4 @@
-# 预发布环境部署脚本
+﻿# 预发布环境部署脚本
 
 预发布环境专用部署脚本集合，提供模块化、可配置的自动化部署解决方案。
 
@@ -41,4 +41,4 @@ staging/
 - [脚本工具集](../README.md) - 脚本整体架构和使用说明
 - [通用工具说明](../utils/README.md) - 通用工具模块详细说明
 - [故障排查指南](./troubleshooting.md) - 常见问题解决方案
-- [文档编写规范](../../docs/rule/readme-rule.md) - README文档标准
+- [文档编写规范](../../docs/rule/doc-readme-structure-rule.md) - README文档标准

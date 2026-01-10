@@ -121,7 +121,28 @@ export const getIndustryColumns = () => {
             if (!info || !info.list || !Array.isArray(info.list) || info.list.length === 0) {
               return null
             }
-            return <IndustryCellRenderer list={info.list} column={res} total={info.total} id={info.id} />
+            /*
+             特殊处理：仅对“国民经济行业分类”列，将路径中的最后一个节点附加其 ID。
+             背景：
+             - 参考公司信息行展示（components/company/info/rowsCommon/industryGBRow.tsx）仅对最后一项追加 industryCode，强调叶子分类的编码。
+             - 中间节点仅用于路径展示，不需要附加编码，避免冗余与视觉噪音。
+             方案：
+             - 在渲染阶段按需转换数据，不改动通用组件 IndustryRowDisplay 的行为与其他列逻辑。
+             - 仅匹配 dataIndex === 'nationalEconomicIndustry'，保证其他行业列不受影响。
+             结果：
+             - 展示效果与参考一致，例如：制造业 > 专用设备制造业 > 风机制造(12345)。
+            */
+            const displayList =
+              res?.dataIndex === 'nationalEconomicIndustry'
+                ? info.list.map((row) => ({
+                    ...row,
+                    list: row.list.map((cellData, idx, arr) => ({
+                      ...cellData,
+                      name: idx === arr.length - 1 && cellData?.id ? `${cellData.name}(${cellData.id})` : cellData.name,
+                    })),
+                  }))
+                : info.list
+            return <IndustryCellRenderer list={displayList} column={res} total={info.total} id={info.id} />
           },
         }
       }

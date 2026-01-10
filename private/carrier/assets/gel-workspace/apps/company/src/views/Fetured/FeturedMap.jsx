@@ -73,7 +73,7 @@ const DemoMap = memo((props) => {
           data-uc-id="vDEr_oqaa"
           data-uc-ct="button"
         >
-          {intl('5550', '返回')}{' '}
+          {intl('464221', '返回')}{' '}
         </Button>
       ) : (
         <></>

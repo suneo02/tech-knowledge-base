@@ -1,4 +1,4 @@
-import { isBaiFenTerminalOrWeb } from '@/utils/env'
+import { isBaiFenTerminalOrWeb } from '@/utils/utilCallWftCommon'
 import { wftCommon } from '@/utils/utils'
 import { handleJumpTerminalCompatible } from 'gel-util/link'
 import { isEmpty } from 'lodash'

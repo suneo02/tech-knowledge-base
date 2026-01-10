@@ -1,0 +1,131 @@
+@primary-color: #6c99d4;
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px;
+  background: #1f232d;
+  color: #e4e7f0;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 600;
+  color: @primary-color;
+  letter-spacing: 1px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.nav {
+  flex: 1;
+  margin-left: 40px;
+
+  :global(.wind-menu) {
+    background: transparent !important;
+    border-bottom: none !important;
+    line-height: 64px;
+  }
+
+  :global(.wind-menu-item) {
+    color: #ced3e4 !important;
+    font-size: 16px;
+    padding: 0 20px !important;
+    margin: 0 !important;
+  }
+
+  :global(.wind-menu-item:hover) {
+    color: #4dd7f7 !important;
+  }
+
+  :global(.wind-menu-item-selected) {
+    color: #4dd7f7 !important;
+    border-bottom: 2px solid #4dd7f7 !important;
+    background: transparent !important;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.search {
+  width: 260px;
+
+  .searchInput {
+    :global(.wind-input-search) {
+      width: 100%;
+    }
+  }
+
+  :global(.wind-input-search .wind-input) {
+    background: rgba(52, 58, 70, 0.6);
+    border: 1px solid #3f4554;
+    color: #f0f3ff;
+  }
+
+  :global(.wind-input-prefix) {
+    color: #9ba3b7;
+  }
+
+  :global(.wind-input::placeholder) {
+    color: #aab2c6;
+  }
+}
+
+.profileTrigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #dbdcdf;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5ab0ff 0%, #2c74ff 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.profileName {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.caret {
+  font-size: 12px;
+}
+
+.profileMenu {
+  border-radius: 6px;
+  padding: 8px 0 !important;
+  box-shadow: 0 6px 18px rgba(15, 28, 52, 0.2);
+  border: 1px solid #e5e8f0;
+  min-width: 140px;
+  text-align: center;
+
+  :global(.wind-menu-item) {
+    padding: 8px 20px !important;
+    color: #1f2330 !important;
+    font-size: 14px;
+  }
+
+  :global(.wind-menu-item:hover) {
+    background: rgba(45, 150, 255, 0.12) !important;
+    color: #2d96ff !important;
+  }
+}

@@ -51,6 +51,7 @@ export const useApiGetStandardDetail = () => {
         },
         cmd: `detail/stdinfo/standardInfoDraftingUnit/${entityNumber}`,
       },
+      skipTransFieldsInKeyMode: ['draftingUnitName'],
     }),
     [entityNumber, standardLevelCode]
   )

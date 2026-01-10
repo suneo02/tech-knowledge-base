@@ -15,9 +15,11 @@ import {
   IndicatorTreePanelScroll,
   useIndicatorTreePanelScroll,
 } from 'indicator'
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
+import { CoinsIcon } from '@/assets/icon'
 import styles from './index.module.less'
 // import { CModal } from '@/components/Modal'
+import Footer from './Footer'
 
 const addDataToSheetFunc = createWFCSuperlistRequestFcs('superlist/excel/addDataToSheet')
 
@@ -45,6 +47,11 @@ export const IndicatorTreePanelLocal: FC<{
   const indicatorTree = useAppSelector(selectIndicatorTree)
   const indicatorTreeLoading = useAppSelector(selectIndicatorTreeLoading)
   const { sheetRefs, activeSheetId } = useSuperChatRoomContext()
+  const [selectedIndicators, setSelectedIndicators] = useState<Set<number>>(new Set())
+  const [unitCredits, setUnitCredits] = useState<number>(0)
+  const [displayCredits, setDisplayCredits] = useState<number | null>(null)
+  const [precheckLoading, setPrecheckLoading] = useState<boolean>(false)
+  const [checked, setChecked] = useState<boolean>(isUsageAcknowledged('ADD_COLUMN'))
 
   const { run: addDataToSheet, loading: addDataLoading } = useRequest<
     Awaited<ReturnType<typeof addDataToSheetFunc>>,
@@ -93,7 +100,7 @@ export const IndicatorTreePanelLocal: FC<{
     }
   }, [sheetId, open])
 
-  const handleConfirm = (checkedIndicators: Set<number>) => {
+  const handleConfirm = (checkedIndicators: Set<number>, skipConfirm = false) => {
     if (!indicatorTree) {
       message.error('指标树加载失败')
       return
@@ -117,15 +124,66 @@ export const IndicatorTreePanelLocal: FC<{
       })
     }
 
-    if (isUsageAcknowledged('ADD_COLUMN')) {
+    if (checked || skipConfirm) {
       executeRunAll()
       return
     }
 
     confirmUsage({
       modalType: 'ADD_COLUMN',
-      onOk: () => executeRunAll(),
+      onOk: () => {
+        setChecked(isUsageAcknowledged('ADD_COLUMN'))
+        executeRunAll()
+      },
     })
+  }
+
+  const rowLength = sheetRefs?.[activeSheetId]?.dataSource?.length ?? 0
+
+  const estimatedTotal = useMemo(() => unitCredits * rowLength, [unitCredits, rowLength])
+
+  const handleFooterConfirm = async () => {
+    if (!indicatorTree) {
+      message.error('指标树加载失败')
+      return
+    }
+    const runWithPrecheck = async (skipConfirm = false) => {
+      const doExecute = () => {
+        handleConfirm(selectedIndicators, skipConfirm)
+      }
+      if (displayCredits) {
+        doExecute()
+        return
+      }
+      try {
+        setPrecheckLoading(true)
+        const points = await precheck(
+          convertIndicatorKeysToClassificationList(indicatorTree, selectedIndicators)
+        ).finally(() => setPrecheckLoading(false))
+        if (points === estimatedTotal) {
+          doExecute()
+        } else {
+          setDisplayCredits(points)
+          message.warning('预估消耗与实际消耗不一致，已更新消耗积分。')
+        }
+      } catch (e) {
+        message.error('预检失败，请稍后重试。')
+        console.error(e)
+      }
+    }
+
+    if (!checked) {
+      confirmUsage({
+        modalType: 'ADD_COLUMN',
+        onOk: () => {
+          setChecked(isUsageAcknowledged('ADD_COLUMN'))
+          runWithPrecheck(true)
+        },
+      })
+      return
+    }
+
+    await runWithPrecheck()
   }
 
   useEffect(() => {
@@ -147,7 +205,19 @@ export const IndicatorTreePanelLocal: FC<{
         className={styles.modal}
         visible={open}
         onCancel={close}
-        footer={null}
+        footer={
+          <Footer
+            credits={unitCredits}
+            recordsCount={rowLength}
+            displayCredits={displayCredits}
+            onCancel={close}
+            onConfirm={handleFooterConfirm}
+            checked={checked}
+            updateChecked={setChecked}
+            hasSelection={selectedIndicators.size > 0}
+            loading={precheckLoading || indicatorTreeLoading || addDataLoading}
+          />
+        }
         width={'80vw'}
         // height={height}
         // title="新增列选择"
@@ -172,8 +242,13 @@ export const IndicatorTreePanelLocal: FC<{
               indicatorTree={indicatorTree ?? []}
               loading={indicatorTreeLoading || fetchSelectedIndicatorLoading}
               confirmLoading={addDataLoading}
-              onPrecheck={precheck}
-              rowLength={sheetRefs?.[activeSheetId]?.dataSource?.length ?? 0}
+              rowLength={rowLength}
+              onSelectionChange={(ids, credits) => {
+                setSelectedIndicators(new Set(ids))
+                setUnitCredits(credits)
+                setDisplayCredits(null)
+              }}
+              hideRightFooter
             />
           </div>
         </div>

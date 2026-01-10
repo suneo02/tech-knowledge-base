@@ -1,5 +1,6 @@
-import { TGelEnv, getEnvParams } from '@/utils/env/index.ts'
+import { TGelEnv, isDev } from '@/utils/env/index.ts'
 import { INNER_LINK_ENUM } from '@/views/RelatedLinks/constant'
+import { getCurrentEnv } from 'gel-util/env'
 import {
   CHAT_PARAM_KEYS,
   COMMON_PARAM_KEYS,
@@ -32,7 +33,7 @@ export const getWebAIPrefixUrl = ({ env: envParam }: { env: TGelEnv }) => {
       envParam: envParam,
     })
   )
-  const env = envParam || getEnvParams().env
+  const env = envParam || getCurrentEnv(isDev)
   // 如果是 local 环境，端口换成 3080
   if (env === WEB_AI_CONSTANTS.LOCAL_ENV) {
     url.port = WEB_AI_CONSTANTS.LOCAL_PORT
@@ -74,7 +75,7 @@ export const getWebAISuperLink = ({
 } = {}) => {
   console.log('🚀 ~ getWebAISuperLink ~ initialMsg:', initialMsg)
   try {
-    const env = envParam || getEnvParams().env
+    const env = envParam || getCurrentEnv(isDev)
     const baseUrl = new URL(getWebAIPrefixUrl({ env }))
     baseUrl.pathname = handleAppendUrlPath(baseUrl.pathname)
     console.log('🚀 ~ getWebAISuperLink ~ subPath:', subPath)
@@ -140,7 +141,7 @@ export const getWebAILinkWithIframe = ({
   target?: (typeof INNER_LINK_ENUM)[keyof typeof INNER_LINK_ENUM]
 } = {}) => {
   try {
-    const env = envParam || getEnvParams().env
+    const env = envParam || getCurrentEnv(isDev)
     const baseUrl = new URL(getWebAIPrefixUrlWithIframe({ env }))
     baseUrl.pathname = handleAppendUrlPath(baseUrl.pathname)
 

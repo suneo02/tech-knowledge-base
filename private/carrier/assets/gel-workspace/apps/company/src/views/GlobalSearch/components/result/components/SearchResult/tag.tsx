@@ -3,15 +3,16 @@ import { isDev } from '@/utils/env'
 import { GSTabsEnum } from '@/views/GlobalSearch/types'
 import { getCompanyStateColor } from '@/views/SearchFunc/state'
 import { Tag } from '@wind/wind-ui'
-import { CorpTag } from 'gel-api/*'
+import { CorpTag } from 'gel-api'
 import { CorpTagInSearch } from 'gel-ui'
 import { getCorpTagClickHandler } from 'gel-util/biz'
-import React, { FC, useCallback } from 'react'
+import { FC, useCallback } from 'react'
 
 type SearchResultTagProps = {
   tags: CorpTag[]
   type: GSTabsEnum
   statusAfter?: string
+  statusAfterOriginal?: string
 }
 
 export const SearchResultTag: FC<SearchResultTagProps> = (props) => {
@@ -34,7 +35,7 @@ export const SearchResultTag: FC<SearchResultTagProps> = (props) => {
           }}
           data-uc-id="RU4KB7eXXa"
           data-uc-ct="tag"
-          color={getCompanyStateColor(props.statusAfter)}
+          color={getCompanyStateColor(props.statusAfterOriginal || props.statusAfter)}
         >
           {props.statusAfter}
         </Tag>

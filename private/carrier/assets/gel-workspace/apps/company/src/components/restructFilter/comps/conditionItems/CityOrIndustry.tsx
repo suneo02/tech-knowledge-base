@@ -1,6 +1,6 @@
 import vipLogo from '@/assets/imgs/svip.png'
 import { industryTree as allIndustryTrees } from '@/utils/config'
-import { CDEFilterItem, CDERankQueryFilterValue } from 'gel-api/*'
+import { CDEFilterItem, CDERankQueryFilterValue } from 'gel-api'
 import {
   checkIfCDESearchFilter,
   convertRimeTrackValue,

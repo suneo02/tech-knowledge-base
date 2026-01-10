@@ -1,10 +1,11 @@
-export type { AgentMessageShared, AgentMsgAIDepre, AgentMsgAIShare, AgentMsgDepre, AgentMsgUserShare } from './agent'
-export type { AIMessageStatus, BaseMessageFields, OtherMessageStatus } from './common'
+export type { AgentMsgAIOverall, AgentMsgAIShare, AgentMsgOverall, AgentMsgUserOverall } from './agent'
+export type { AIMessageStatus, ChatMsgInputOptions, EntityOptions, OtherMessageStatus } from './common'
 export type {
   AIHeaderMsg,
   AIMessageGEL,
   AIMessageReportContent,
   AIMsgBaseContent,
+  AIFooterMsg,
   ChartMessage,
   FileMessage,
   MsgParsedDepre,

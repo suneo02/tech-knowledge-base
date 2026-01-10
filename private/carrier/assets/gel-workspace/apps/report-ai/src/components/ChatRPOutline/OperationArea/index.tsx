@@ -65,5 +65,3 @@ export const OperationArea: FC<OperationAreaProps> = ({ className }) => {
     </div>
   );
 };
-
-export default OperationArea;

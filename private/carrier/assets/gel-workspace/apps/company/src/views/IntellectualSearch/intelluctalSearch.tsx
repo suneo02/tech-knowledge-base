@@ -1,12 +1,16 @@
+import { RootAction } from '@/reducers/redux.types.ts'
+import { SearchListState } from '@/reducers/searchList.types.ts'
+import { translateToEnglish } from '@/utils/intl/complexHtml.ts'
 import { translateLoadManager } from '@/utils/intl/translateLoadManager.ts'
 import { DownO } from '@wind/icons'
 import { Checkbox, Dropdown, Menu, Radio } from '@wind/wind-ui'
+import { ApiCodeForWfc } from 'gel-api'
 import { LoadMoreTrigger } from 'gel-ui'
-import { isEn } from 'gel-util/intl'
-import React from 'react'
+import { intl, isEn } from 'gel-util/intl'
+import React, { Dispatch } from 'react'
 import { connect } from 'react-redux'
 import * as HomeActions from '../../actions/home'
-import * as SearchListActions from '../../actions/searchList'
+import * as SearchListActions from '../../actions/searchList.ts'
 import { getIntellectualList, getIntellectualViewList, getPatentList } from '../../api/searchListApi.ts'
 import IndustryCascader from '../../components/myCascader/IndustryCascader'
 import {
@@ -14,6 +18,7 @@ import {
   ResultContainer,
   SearchTitleList,
 } from '../../components/searchListComponents/searchListComponents'
+import { handlePatentTranslate } from '../../handle/patent/translate'
 import { brandCollationOption } from '../../handle/searchConfig/brandCollationOption'
 import { intellectualParam } from '../../handle/searchConfig/intellectualParam'
 import { intelluctalCollationOption } from '../../handle/searchConfig/intelluctalCollationOption'
@@ -25,7 +30,6 @@ import { globalElectronEconomy } from '../../utils/config/electronEconomyTree'
 import { globalLowCarbon } from '../../utils/config/lowCarbonTree'
 import { globalStrategicEmergingIndustry } from '../../utils/config/strategicEmergingIndustryTree'
 import { globalIndustryOfNationalEconomy } from '../../utils/industryOfNationalEconomyTree'
-import { default as intl } from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import '../SearchList/index.less'
 import { searchCommon } from '../commonSearchFunc'
@@ -65,9 +69,15 @@ const patentNewType = [
     en: 'Design Patent',
   },
 ]
-
+interface IntellectualSearchProps {
+  intelluctalList: any[]
+  brandState: any[]
+  brandType: any[]
+  intelluctalErrorCode: string
+  patentSecondType: SearchListState['patentSecondType']
+}
 // 专利搜索
-class IntelluctalSearch extends React.Component {
+class IntelluctalSearch extends React.Component<IntellectualSearchProps> {
   constructor(props) {
     super(props)
     this.state = {
@@ -107,6 +117,24 @@ class IntelluctalSearch extends React.Component {
       // @ts-expect-error ttt
       const keyword = this.props.keyword
       this.setState({ key: keyword }, () => this.clearAllFilter())
+    } else if (
+      // @ts-expect-error ttt
+      this.props.keyword === prevProps.keyword &&
+      // @ts-expect-error ttt
+      this.props.globalSearchTimeStamp !== prevProps.globalSearchTimeStamp &&
+      // @ts-expect-error ttt
+      this.props.globalSearchTimeStamp !== undefined
+    ) {
+      // 当 globalSearchTimeStamp 变化时，重新执行搜索
+      // @ts-expect-error ttt
+      console.log(this.state.type)
+      // 先清空 redux 中的相关数据
+      // @ts-expect-error ttt
+      this.props.clearIntellectualList()
+      this.setState({ pageNo: 0, loading: true }, () => {
+        // @ts-expect-error ttt
+        this.getIntellectualList(this.state.type == 'patent_search' ? 'patent' : '')
+      })
     }
   }
 
@@ -340,7 +368,7 @@ class IntelluctalSearch extends React.Component {
     if (deleteType == 'type') {
       this.clearPatent()
       type = 'intellectual_property_merge_search'
-    } else if (deleteType == 'category' && deleteFilter == intl('259004', '专利类型')) {
+    } else if (deleteType == 'category' && deleteFilter == intl('138430', '专利类型')) {
       category = ''
       filter[deleteType] = ''
     } else {
@@ -449,12 +477,12 @@ class IntelluctalSearch extends React.Component {
     if (txts.length) {
       newAllFilter = searchCommon.allFilterAdd(
         allFilter,
-        intl('362039', '专利法律状态'),
+        intl('354432', '专利法律状态'),
         txts.join(','),
         'lawStatus_leaveCode23'
       )
     } else {
-      newAllFilter = searchCommon.allFilterAdd(allFilter, intl('362039', '专利法律状态'), '', 'lawStatus_leaveCode23')
+      newAllFilter = searchCommon.allFilterAdd(allFilter, intl('354432', '专利法律状态'), '', 'lawStatus_leaveCode23')
     }
     this.setState({ loading: true, allFilter: newAllFilter, pageNo: 0, filter }, () => {
       // @ts-expect-error ttt
@@ -488,7 +516,7 @@ class IntelluctalSearch extends React.Component {
       filter['lawStatus_leaveCode3'] = ''
       const newAllFilter = searchCommon.allFilterAdd(
         allFilter,
-        intl('362039', '专利法律状态'),
+        intl('354432', '专利法律状态'),
         '',
         'lawStatus_leaveCode23'
       )
@@ -615,7 +643,6 @@ class IntelluctalSearch extends React.Component {
   }
 
   render() {
-    // @ts-expect-error ttt
     const { intelluctalList, brandState, brandType, intelluctalErrorCode, patentSecondType } = this.props
     // @ts-expect-error ttt
     const { type, allFilter, patentType, patentClassification, loadingList, key } = this.state
@@ -753,7 +780,7 @@ class IntelluctalSearch extends React.Component {
                           {patentSecondType.map((item) => {
                             return (
                               <Radio value={item.key} data-uc-id="JKAf27mPCU" data-uc-ct="radio">
-                                {window.en_access_config ? item.key_en : item.key}
+                                {isEn() && item.key_en ? item.key_en : item.key}
                               </Radio>
                             )
                           })}
@@ -784,7 +811,7 @@ class IntelluctalSearch extends React.Component {
                 {type == 'patent_search' && this.state.simpleLawValue && this.state.simpleLawValue.length ? (
                   <li style={{ marginTop: '6px' }} className="patent-li">
                     <span className="filter-name" id="intSpan">
-                      {intl('362039', '专利法律状态')}：
+                      {intl('354432', '专利法律状态')}：
                     </span>
                     <IndustryCascader
                       className="patent-cascader"
@@ -826,7 +853,7 @@ class IntelluctalSearch extends React.Component {
                                       <li
                                         onClick={() => {
                                           // @ts-expect-error ttt
-                                          this.typeClick(item.key, intl('149497', '商标状态'), 'status', item.key, 1)
+                                          this.typeClick(item.key, intl('478714', '商标状态'), 'status', item.key, 1)
                                         }}
                                         data-uc-id="17QlypMij_U"
                                         data-uc-ct="li"
@@ -842,7 +869,7 @@ class IntelluctalSearch extends React.Component {
                             data-uc-ct="dropdown"
                           >
                             <a className="w-dropdown-link">
-                              {intl('149497', '商标状态')}
+                              {intl('478714', '商标状态')}
                               {/* @ts-expect-error ttt */}
                               <DownO data-uc-id="wkwijwLNi-" data-uc-ct="downo" />
                             </a>
@@ -868,7 +895,7 @@ class IntelluctalSearch extends React.Component {
                                       <li
                                         onClick={() => {
                                           // @ts-expect-error ttt
-                                          this.typeClick(item.key, intl('145353', '商标类别'), 'category', item.key, 1)
+                                          this.typeClick(item.key, intl('478698', '商标类别'), 'category', item.key, 1)
                                         }}
                                         data-uc-id="EL55Pkps8PU"
                                         data-uc-ct="li"
@@ -884,7 +911,7 @@ class IntelluctalSearch extends React.Component {
                             data-uc-ct="dropdown"
                           >
                             <a className="w-dropdown-link">
-                              {intl('145353', '商标类别')}
+                              {intl('478698', '商标类别')}
                               {/* @ts-expect-error ttt */}
                               <DownO data-uc-id="ArisciBgAU" data-uc-ct="downo" />
                             </a>
@@ -938,10 +965,11 @@ const mapStateToProps = (state) => {
     brandType: state.companySearchList.brandType,
     intelluctalErrorCode: state.companySearchList.intelluctalErrorCode,
     keyword: state.companySearchList.searchKeyWord,
+    globalSearchTimeStamp: state.companySearchList.globalSearchTimeStamp,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
     getIntellectualList: (data) => {
       return getIntellectualList(data).then(
@@ -954,47 +982,53 @@ const mapDispatchToProps = (dispatch) => {
           }
 
           new Promise((resolve, _reject) => {
-            if (res.ErrorCode == '0' && res.data && res.data.list && res.data.list.length) {
-              wftCommon.zh2en(
-                res.data.list,
-                (endata) => {
-                  endata.map((t, idx) => {
-                    t.search_tag = res.data.list[idx].search_tag
+            const handleSuccess = (endata) => {
+              endata.map((t, idx) => {
+                t.search_tag = res.data.list[idx].search_tag
 
-                    t.trademark_name_en = t.trademark_name || ''
-                    t.trademark_name_en = t.trademark_name_en.replace
-                      ? t.trademark_name_en.replace(/<em>|<\/em>/g, '')
-                      : t.trademark_name_en
-                    t.trademark_name = res.data.list[idx].trademark_name
+                t.trademark_name_en = t.trademark_name || ''
+                t.trademark_name_en = t.trademark_name_en.replace
+                  ? t.trademark_name_en.replace(/<em>|<\/em>/g, '')
+                  : t.trademark_name_en
+                t.trademark_name = res.data.list[idx].trademark_name
 
-                    t.patentName_en = t.patentName || ''
-                    t.patentName_en = t.patentName_en.replace
-                      ? t.patentName_en.replace(/<em>|<\/em>/g, '')
-                      : t.patentName_en
-                    t.patentName = res.data.list[idx].patentName
+                t.patentName_en = t.patentName || ''
+                t.patentName_en = t.patentName_en.replace
+                  ? t.patentName_en.replace(/<em>|<\/em>/g, '')
+                  : t.patentName_en
+                t.patentName = res.data.list[idx].patentName
 
-                    t.software_copyright_name_en = t.software_copyright_name || ''
-                    t.software_copyright_name_en = t.software_copyright_name_en.replace
-                      ? t.software_copyright_name_en.replace(/<em>|<\/em>/g, '')
-                      : t.software_copyright_name_en
-                    t.software_copyright_name = res.data.list[idx].software_copyright_name
+                t.software_copyright_name_en = t.software_copyright_name || ''
+                t.software_copyright_name_en = t.software_copyright_name_en.replace
+                  ? t.software_copyright_name_en.replace(/<em>|<\/em>/g, '')
+                  : t.software_copyright_name_en
+                t.software_copyright_name = res.data.list[idx].software_copyright_name
 
-                    t.work_title_en = t.work_title || ''
-                    t.work_title_en = t.work_title_en.replace
-                      ? t.work_title_en.replace(/<em>|<\/em>/g, '')
-                      : t.work_title_en
-                    t.work_title = res.data.list[idx].work_title
-                  })
-                  res.data.list = endata
-                  dispatch(SearchListActions.getIntellectualList({ ...res, ...data }))
-                  resolve(res)
-                },
-                null,
-                () => {
-                  dispatch(SearchListActions.getIntellectualList({ ...res, ...data }))
-                  resolve(res)
-                }
-              )
+                t.work_title_en = t.work_title || ''
+                t.work_title_en = t.work_title_en.replace
+                  ? t.work_title_en.replace(/<em>|<\/em>/g, '')
+                  : t.work_title_en
+                t.work_title = res.data.list[idx].work_title
+              })
+              res.data.list = endata
+              dispatch(SearchListActions.getIntellectualList({ ...res, ...data }))
+              resolve(res)
+            }
+            const handleError = () => {
+              dispatch(SearchListActions.getIntellectualList({ ...res, ...data }))
+              resolve(res)
+            }
+            if (res.ErrorCode == ApiCodeForWfc.SUCCESS && res.data && res.data.list && res.data.list.length) {
+              if (isEn()) {
+                translateToEnglish(res.data.list, {
+                  skipFields: ['assignee', 'applicant_ch_name', 'new_owner_name_and_id', 'owner_name'],
+                })
+                  .then((res) => handleSuccess(res.data))
+                  .catch(handleError)
+              } else {
+                dispatch(SearchListActions.getIntellectualList({ ...res, ...data }))
+                resolve(res)
+              }
             } else {
               dispatch(SearchListActions.getIntellectualList({ ...res, ...data }))
               resolve(res)
@@ -1019,79 +1053,36 @@ const mapDispatchToProps = (dispatch) => {
       return getPatentList(data).then(
         (res) => {
           if (res.ErrorCode == '0' && res.data && res.data.list && res.data.list.length) {
-            if (data.pageNo == '0') {
-              // 仅第一页，采用先展示中文，后展示英文方式，后续还是沿用 中文+英文，方式，避免填充数据紊乱
+            if (data.pageNo == 0 || data.pageNo == '0') {
+              // 仅第一页，采用先展示中文，后展示英文方式
               dispatch(SearchListActions.getPatentList({ ...res, ...data }))
             }
-          }
 
-          new Promise((resolve, _reject) => {
-            let count = 0
-            if (res.ErrorCode == '0' && res.data && res.data.list && res.data.list.length) {
-              if (
-                res.data.aggregations &&
-                res.data.aggregations.agg_patentClassification &&
-                res.data.aggregations.agg_patentClassification.length
-              ) {
-                wftCommon.zh2en(
-                  res.data.aggregations.agg_patentClassification,
-                  (endata) => {
-                    endata.map((t, idx) => {
-                      res.data.aggregations.agg_patentClassification[idx].key_en = t.key
-                    })
-                    count++
-                    if (count == 2) {
-                      resolve(res)
-                      count = 0
-                    }
-                  },
-                  null,
-                  () => {
-                    count++
-                    if (count == 2) {
-                      resolve(res)
-                      count = 0
-                    }
-                  }
-                )
-              } else {
-                count++
-              }
-              wftCommon.zh2en(
-                res.data.list,
-                (endata) => {
-                  endata.map((t, idx) => {
-                    t.patentName_en = t.patentName || ''
-                    t.patentName_en = t.patentName_en.replace
-                      ? t.patentName_en.replace(/<em>|<\/em>/g, '')
-                      : t.patentName_en
-                    t.patentName = res.data.list[idx].patentName
+            // 异步翻译处理
+            handlePatentTranslate(res.data)
+              .then((translatedData) => {
+                if (data.pageNo == 0 || data.pageNo == '0') {
+                  // 首页：更新翻译数据
+                  dispatch({
+                    type: 'UPDATE_PATENT_TRANSLATION',
+                    data: { translatedData },
                   })
-                  res.data.list = endata
+                } else {
+                  // 非首页：直接追加翻译后的数据
+                  res.data = translatedData
                   dispatch(SearchListActions.getPatentList({ ...res, ...data }))
-                  count++
-                  if (count == 2) {
-                    resolve(res)
-                    count = 0
-                  }
-                },
-                null,
-                () => {
-                  dispatch(SearchListActions.getPatentList({ ...res, ...data }))
-                  count++
-                  if (count == 2) {
-                    resolve(res)
-                    count = 0
-                  }
                 }
-              )
-            } else {
-              dispatch(SearchListActions.getPatentList({ ...res, ...data }))
-              count++
-              resolve(res)
-            }
-            // return res
-          })
+              })
+              .catch((err) => {
+                console.error('Translation error:', err)
+                // 翻译失败时展示原始数据
+                if (data.pageNo != 0 && data.pageNo !== '0') {
+                  dispatch(SearchListActions.getPatentList({ ...res, ...data }))
+                }
+              })
+          } else {
+            dispatch(SearchListActions.getPatentList({ ...res, ...data }))
+          }
 
           return res
         },

@@ -3,35 +3,32 @@ import './index.less'
 import intl from '../../../../utils/intl'
 import { pointBuriedByModule } from '../../../../api/pointBuried/bury'
 import { checkComponentHidden } from '../../../../store/handle'
-import React from 'react'
+import React, { FC } from 'react'
+import { ICfgDetailCompJson } from '@/types/configDetail/module'
 
-/**
- * 标签页Table组件
- * @param {*} param
- * @returns
- */
-const TabsContainer = ({ tabs, children }) => {
-  // const pointBuried = useGroupStore((store) => store.pointBuried)
-  // 检查是否所有的 tabs 是否都是 disabled ，如果都是，这个组件就不渲染了，不然wind table 会报错
-  if (tabs.every((tab) => checkComponentHidden(tab))) {
+interface TabsContainerProps {
+  tabs: ICfgDetailCompJson[]
+  children: (tab: ICfgDetailCompJson & { hiddenTxt: boolean }) => React.ReactNode
+}
+
+// Tabs container optimized for Wind UI with analytics hook and disabled handling
+const TabsContainer: FC<TabsContainerProps> = ({ tabs, children }) => {
+  // Do not render when all tabs are hidden/disabled to prevent UI errors
+  if (tabs.length && tabs.every((tab) => checkComponentHidden(tab))) {
     return null
   }
+
+  const handleChange = (value: string) => {
+    const cur = tabs.find((res: ICfgDetailCompJson) => value === res.title)
+    if (cur?.bury) {
+      const { id, ...rest } = cur.bury
+      pointBuriedByModule(Number(id), rest as any)
+    }
+  }
+
   return (
-    <Tabs
-      className="calvin-tab-box-4"
-      onChange={(v) => {
-        const cur = tabs?.find((res) => v === res.title)
-        console.log(cur)
-        if (cur?.bury) {
-          const { id, ...rest } = cur.bury
-          console.log('今日')
-          pointBuriedByModule(id, rest)
-        }
-      }}
-      data-uc-id="y4PgZxuk2w"
-      data-uc-ct="tabs"
-    >
-      {tabs?.map((res) => (
+    <Tabs className="calvin-tab-box-4" onChange={handleChange} data-uc-id="y4PgZxuk2w" data-uc-ct="tabs">
+      {tabs.map((res) => (
         <Tabs.TabPane
           tab={
             <span>
@@ -51,4 +48,5 @@ const TabsContainer = ({ tabs, children }) => {
     </Tabs>
   )
 }
+
 export default TabsContainer

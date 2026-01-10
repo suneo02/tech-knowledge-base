@@ -34,10 +34,13 @@ CorpDetail/
 
 ## 相关文档
 
-- [设计文档编写规范](../../../docs/rule/design-doc.md)
-- [React开发规范](../../../docs/rule/react-rule.md)
+- [设计文档编写规范](../../../docs/rule/doc-design-rule.md)
+- [React开发规范](../../../docs/rule/code-react-component-rule.md)
 - [企业详情需求文档](./requirements.md)
+- [Spec: 菜单无数据节点禁用展示](../../specs/menu-empty-disabled/README.md) - 已归档（2025-12-10）
 
 ---
 
 **架构师维护**：文档结构清晰，关联关系准确。修改建议请联系架构师评估影响范围。
+
+最后更新：2025-12-10

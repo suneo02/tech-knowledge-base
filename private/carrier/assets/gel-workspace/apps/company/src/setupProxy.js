@@ -10,12 +10,14 @@ let session = '1fe3084b15024f828e86604964ff71c1'
 
 // Helper function to log request details
 const logRequestDetails = (proxyReq, req) => {
-  const fullUrl = `${req.method} ${req.protocol}://${req.get('host')}${req.originalUrl}`
+  const host = req.get ? req.get('host') : req.headers.host
+  const protocol = req.protocol || 'http'
+  const fullUrl = `${req.method} ${protocol}://${host}${req.originalUrl || req.url}`
   const targetUrl = `${proxyReq.protocol}//${proxyReq.host}${proxyReq.path}`
   console.log('\n=== API REQUEST DETAILS ===')
   console.log(`Original Request: ${fullUrl}`)
   console.log(`Proxied to: ${targetUrl}`)
-  console.log(`Original Path: ${req.originalUrl}`)
+  console.log(`Original Path: ${req.originalUrl || req.url}`)
   console.log(`Proxy Path: ${proxyReq.path}`)
   console.log(`Headers: ${JSON.stringify(proxyReq.getHeaders(), null, 2)}`)
   console.log('===========================\n')

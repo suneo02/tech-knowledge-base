@@ -8,7 +8,7 @@ export interface EnvConfigItemProps {
 // 环境配置
 export const DEV_ENV_CONFIG: EnvConfigItemProps[] = [
   {
-    name: '当前环境',
+    name: '清除（跟随当前环境，相对路径）',
     host: '',
     proxy: '',
   },

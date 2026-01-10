@@ -1,0 +1,58 @@
+@prefix: auto-complete;
+
+.@{prefix} {
+  &-container {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  &-text {
+    color: var(--text-color);
+
+    // Beautiful highlight styles
+    em,
+    b,
+    strong,
+    span[class*='highlight'] {
+      font-style: normal;
+      color: var(--click-5); // Ant Design primary color
+      font-weight: 600;
+      background: rgba(22, 119, 255, 0.08);
+      padding: 0 2px;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+  }
+
+  &-dropdown-wrapper {
+    position: relative;
+    // Ensure the overlay is contained
+  }
+
+  &-dropdown-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    backdrop-filter: blur(1px);
+    transition: opacity 0.2s;
+  }
+
+  &-dropdown-loading {
+    padding: 24px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  &-dropdown-hint {
+    padding: 12px 16px;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+  }
+}

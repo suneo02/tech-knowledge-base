@@ -55,4 +55,4 @@ export const rpContentSlice = createSlice({
   reducers: allReducers,
 });
 
-export const { actions: rpContentActions, selectors: rpContentSelectors } = rpContentSlice;
+export const { actions: rpDetailActions, selectors: rpContentSelectors } = rpContentSlice;

@@ -25,14 +25,13 @@ export type WindHeaderProps = {
   isOverseas?: boolean
 }
 
-const STRINGS = {
-  CDE_SEARCH: t('windHeader:259750', '企业数据浏览器'),
-  ALL_FEATURES: t('windHeader:437311', '全部功能'),
-  VIP_SERVICE: t('windHeader:222403', 'VIP服务'),
-}
-
 export const WindHeader: React.FC<WindHeaderProps> = (props) => {
   const { maxWidth = DEFAULT_MAX_WIDTH, fullWidth = false, vip, isDev = false, isOverseas = false } = props || {}
+  const STRINGS = {
+    // CDE_SEARCH: t('windHeader:259750', '企业数据浏览器'),
+    ALL_FEATURES: t('windHeader:437311', '全部功能'),
+    VIP_SERVICE: t('windHeader:222403', 'VIP服务'),
+  }
   const triggerRef = useRef<HTMLDivElement | null>(null)
   const dropdownRef = useRef<HTMLDivElement | null>(null)
   const inClient = usedInClient()
@@ -87,7 +86,7 @@ export const WindHeader: React.FC<WindHeaderProps> = (props) => {
         </div>
         <div className={styles[`${PREFIX}-right`]}>
           <div className={styles[`${PREFIX}-right-item`]} onClick={() => routerPath(LinkModule.CDE_SEARCH)}>
-            <span>{STRINGS.CDE_SEARCH}</span>
+            <span>{t('windHeader:259750', '企业数据浏览器')}</span>
           </div>
           <div
             className={cn(styles[`${PREFIX}-right-item`], {
@@ -104,7 +103,7 @@ export const WindHeader: React.FC<WindHeaderProps> = (props) => {
           <UserDropdown vip={vip} />
           {!inClient ? (
             <div className={styles[`${PREFIX}-right-item`]} onClick={() => switchLocaleInWeb()}>
-              <span>{isEn() ? '中文' : 'English'}</span>
+              <span>{isEn() ? t('', '中文') : 'English'}</span>
             </div>
           ) : null}
         </div>

@@ -1,3 +1,5 @@
+import { ApiResponseForWFC } from 'gel-api/*'
+import { UserPackageInfo } from 'gel-types'
 import axios from './index'
 
 // 查询热门企业-推荐关注
@@ -30,7 +32,13 @@ export const getCorpnews = (data) => {
   })
 }
 
-export const getUserPackageInfo = (data?) => {
+export const getUserPackageInfo = (
+  data?
+): Promise<
+  ApiResponseForWFC<UserPackageInfo> & {
+    data?: UserPackageInfo
+  }
+> => {
   return axios.request({
     cmd: 'getuserpackageinfo',
     method: 'post',

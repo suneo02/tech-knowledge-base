@@ -358,7 +358,7 @@ export const createTag = (rectBoxG2, type) => {
         width: window.en_access_config ? 38 : width,
         height,
         textColor,
-        text: window.en_access_config ? 'Bonded' : intl('259109', '发债'),
+        text: window.en_access_config ? 'Bonded' : intl('437678', '发债'),
         filter: function (t) {
           return t.issued
         },

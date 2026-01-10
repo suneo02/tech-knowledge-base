@@ -1,0 +1,16 @@
+[
+  {
+    "id": "fix-share-path-display-logic",
+    "title": "修正持股路径展开逻辑",
+    "owner": "Trae AI",
+    "code_paths": [
+      "/apps/company/src/handle/corpModuleCfg/base/ShowShareSearch/CombinedStatistics.tsx",
+      "/apps/company/src/handle/corpModuleCfg/base/ShowShareSearch/LongTxtMergenceLabel.tsx",
+      "/packages/gel-ui/src/common/AutoExpandable/index.tsx",
+      "/packages/gel-ui/src/common/AutoExpandable/index.module.less"
+    ],
+    "@see": ["/docs/specs/share-path-display-bug/spec-analysis.md"],
+    "status": "success",
+    "notes": "Moved AutoExpandable to gel-ui and refactored to use Less modules."
+  }
+]

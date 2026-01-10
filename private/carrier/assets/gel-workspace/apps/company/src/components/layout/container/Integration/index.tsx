@@ -53,7 +53,7 @@ export const Layout: FC<
         return <LayoutHorizontal children={_children} data={props.data} />
       case 'tabs':
         return (
-          <TabsContainer tabs={_children}>
+          <TabsContainer tabs={_children as ICfgDetailCompJson[]}>
             {(res) => <Component {...res} data={props.data} hiddenTitle={true} />}
           </TabsContainer>
         )

@@ -1,13 +1,13 @@
 /** @format */
 
 import { vipDescDefault } from '@/handle/corpModuleCfg/common/vipDesc.ts'
+import { CorpSubModuleVipCfg } from '@/types/corpDetail'
 import React from 'react'
 import { intlNoIndex } from '../../../../utils/intl'
 import { wftCommon } from '../../../../utils/utils'
 import LongTxtLabel from '../../../LongTxtLabel'
-import { ICorpSubModuleVipCfg } from '../../type'
 
-export const hzpscxk: ICorpSubModuleVipCfg = {
+export const hzpscxk: CorpSubModuleVipCfg = {
   cmd: '/detail/company/CosmeticsProductionLicenseList',
   extraParams: (param) => {
     return {

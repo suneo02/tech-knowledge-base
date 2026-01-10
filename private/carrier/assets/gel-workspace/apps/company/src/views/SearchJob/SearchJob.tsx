@@ -17,7 +17,7 @@ import { CorpPresearch } from '../../components/CorpPreSearch'
 import { jobResultOption } from '../../handle/searchConfig'
 import { newMap } from '../../handle/searchConfig/newMap'
 import { setPageTitle } from '../../handle/siteTitle'
-import intl from '../../utils/intl'
+import intl, { translateToEnglish } from '../../utils/intl'
 import { eduReq, expReq, releaseDate } from './config.ts'
 import './SearchJob.less'
 import { SearchJobProps, SearchJobState } from './type.ts'
@@ -284,7 +284,11 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
               // 仅第一页，采用先展示中文，后展示英文方式，后续还是沿用 中文+英文，方式，避免填充数据紊乱
               callback(res.Data)
             }
-            wftCommon.zh2en(res.Data, callback, null, callback)
+            translateToEnglish(res.Data, {
+              skipFields: ['companyName'],
+            })
+              .then((res) => callback(res.data))
+              .catch(callback)
           } else {
             callback(res.Data)
           }
@@ -811,14 +815,14 @@ class SearchBidNew extends React.Component<SearchJobProps, SearchJobState> {
         </div>
         {this.state.visible ? (
           <Modal
-            title={intl('138910', '提示')}
+            title={intl('31041', '提示')}
             visible={this.state.visible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
             data-uc-id="LQacaj4n2x"
             data-uc-ct="modal"
           >
-            <p>{intl('272001', '全部清除最近浏览企业')}</p>
+            <p>{intl('478693', '全部清除最近浏览企业')}</p>
           </Modal>
         ) : null}
       </div>

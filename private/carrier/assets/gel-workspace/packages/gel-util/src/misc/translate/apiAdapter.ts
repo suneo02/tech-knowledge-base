@@ -54,7 +54,7 @@ export async function translateDataWithApi<T>(
         }
       )
       if (res.Data && 'translateResult' in res.Data) {
-        const translateResult = (res.Data as { translateResult: Record<string, string> }).translateResult
+        const translateResult = res.Data.translateResult
         return translateResult
       } else {
         return {}

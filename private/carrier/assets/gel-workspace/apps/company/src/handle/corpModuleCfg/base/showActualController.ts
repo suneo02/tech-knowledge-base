@@ -1,6 +1,6 @@
-import { ICorpSubModuleCfg } from '@/components/company/type'
+import { CorpSubModuleCfg } from '@/types/corpDetail'
 
-export const corpDetailBaseActualCtrl: ICorpSubModuleCfg = {
+export const corpDetailBaseActualCtrl: CorpSubModuleCfg = {
   modelNum: ['actualcontrollerPublishCount', 'actualcontrollerCalcCount'],
   children: [
     {

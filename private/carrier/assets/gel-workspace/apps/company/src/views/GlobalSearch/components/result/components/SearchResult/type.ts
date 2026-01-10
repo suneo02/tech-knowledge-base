@@ -1,5 +1,4 @@
 import { GSTabsEnum } from '@/views/GlobalSearch/types'
-import { CorpTag } from 'gel-api/*'
 import React from 'react'
 
 export enum OrgTypeEnum {
@@ -16,66 +15,6 @@ export enum OrgTypeEnum {
   FCP = 'FCP', // 农民专业合作社分支机构
   DEFAULT = '00', // 其他默认
 }
-
-/**
- * 搜索结果 item 的类型
- */
-export interface SearchResultItem {
-  /** 是否开启了ai翻译 */
-  aiTransFlag?: boolean
-  /** 中文地区 */
-  areaCn?: string
-  /** 法人名称 */
-  artificialPersonName?: string
-  /** 法人id */
-  artificialPersonId?: string
-  /** 法人类型 company或者person */
-  artificialPersonType?: 'company' | 'person'
-  /** 企业id */
-  corpId: string
-  /** 企业名称 */
-  corpName: string
-  /** 企业英文名称 */
-  corpNameEng?: string
-  /**
-   * @deprecated 企业标签
-   * 企业标签
-   */
-  corporationTags3?: string[]
-  /** 企业标签 */
-  tags: CorpTag[]
-  /** 境内运营实体 */
-  domesticEntity?: string
-  /** 境内运营实体id  */
-  domesticEntityId?: string
-  /** 成立日期 */
-  establishDate?: string
-  /** 高亮信息 */
-  highlight?: {
-    label: string
-    value: string
-    isDisplayedInList: number // 0 不要展示， 1 要展示
-  }[]
-  /** 行业名称 */
-  industryName?: string
-  /** 是否收藏 */
-  isCollect?: boolean
-  /** 企业logo */
-  logo?: string
-  /** 机构类型 */
-  orgType?: OrgTypeEnum
-  /** 省份 */
-  province?: string
-  /** 注册地址 */
-  registerAddress?: string
-  /** 注册资本 */
-  registerCapital?: string
-  /** 注册资本单位 */
-  capitalUnit?: string
-  /** 状态 */
-  statusAfter?: string
-}
-
 /**
  * BaseInfoItem 的 props
  */

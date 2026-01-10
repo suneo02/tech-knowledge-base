@@ -18,6 +18,7 @@
   "scripts": {
     "clean": "node ../../scripts/clean.cjs dist",
     "build": "npm run clean && vite build",
+    "build:dev": "vite build --mode development",
     "build:staging": "npm run clean && vite build --mode staging",
     "dev": "vite build --watch",
     "tsc": "tsc --noEmit",

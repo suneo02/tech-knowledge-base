@@ -19,7 +19,6 @@ import { t } from 'gel-util/intl';
 import { memo, useEffect, useRef, useState } from 'react';
 import { axiosInstance } from '../../../api/axios';
 import { PlaceholderReport } from '../../ChatCommon/PlaceHolder';
-import { RPOutlineChatSync } from '../ChatSync';
 import { rolesReportOutline } from '../roles';
 import styles from './index.module.less';
 
@@ -83,10 +82,7 @@ export const ChatRPOutlineMessages = memo(
     const initialMessageSentRef = useRef(false);
 
     // 使用滚动控制 hook
-    const { chatContainerRef, showScrollBottom, scrollToBottom } = useScrollToBottom({
-      parsedMessages,
-      isChating,
-    });
+    const { chatContainerRef, showScrollBottom, scrollToBottom } = useScrollToBottom();
 
     // 处理历史消息恢复
     useEffect(() => {
@@ -127,8 +123,6 @@ export const ChatRPOutlineMessages = memo(
     return (
       // @ts-expect-error wind-ui
       <Spin spinning={bubbleLoading} wrapperClassName={styles.spinContainer}>
-        {/* 同步 parsedMessages 到 Redux */}
-        <RPOutlineChatSync />
         <div className={styles.chat}>
           <div ref={chatContainerRef} className={cn(styles['chat-container'])}>
             <ErrorBoundary>
@@ -141,7 +135,11 @@ export const ChatRPOutlineMessages = memo(
           </div>
 
           {/* 使用独立的滚动到底部按钮组件 */}
-          <ScrollToBottomButton visible={showScrollBottom} onClick={scrollToBottom} className={styles.scrollButton} />
+          <ScrollToBottomButton
+            visible={showScrollBottom}
+            onClick={() => scrollToBottom()}
+            className={styles.scrollButton}
+          />
           <div className={styles.footer}>{t('451199', '内容由AI生成，仅供参考，请检查数据和信息的正确性')}</div>
         </div>
       </Spin>

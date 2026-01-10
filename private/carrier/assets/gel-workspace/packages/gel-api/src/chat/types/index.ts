@@ -1,5 +1,5 @@
 export type { AgentId, AgentIdentifiers, AgentParam } from './agent'
-export type { ApiResponseForChat, ApiResponseForGetUserQuestion } from './base'
+export type { ApiResponseForChat, ApiResponseForGetUserQuestion, RPResponseProgress } from './base'
 export type { ChatDPUResponse, DPUItem, DPUTableHeader, WithDPUList } from './dpu'
 export type { ChatEntityRecognize, WithEntities } from './entity'
 export { ChatTypeEnum } from './enums'

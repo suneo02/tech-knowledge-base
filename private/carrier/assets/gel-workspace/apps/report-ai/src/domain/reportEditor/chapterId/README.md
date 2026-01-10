@@ -1,4 +1,4 @@
-# chapterId
+﻿# chapterId
 
 章节 ID 管理模块（视图层），提供 TinyMCE 编辑器中的 Section ID 同步和批量映射
 
@@ -47,4 +47,5 @@ ops ⇄ chapter/idMapping (协作关系，使用相同的 idMap 格式)
 
 ---
 
-> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/readme-rule.md)
+> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/doc-readme-structure-rule.md)
+

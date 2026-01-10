@@ -166,7 +166,7 @@ const Feturedlist = (props) => {
       return init(DefaultSelectedKey)
     } else {
       if (searchType == 'company' && !searchCorp) {
-        message.info(intl('', '请选择一个企业!'))
+        message.info(intl('416944', '请选择一个企业'))
 
         return
       }
@@ -494,11 +494,11 @@ const Feturedlist = (props) => {
           {isSearching &&
             (isShowListTip ? (
               <div className="hint">
-                {intl('352899', `包含"%"的榜单/名录有：`).replace('%', searchedValue.replace(/<.+?>/g, ''))}
+                {intl('478697', `包含"%"的榜单/名录有：`).replace('%', searchedValue.replace(/<.+?>/g, ''))}
               </div>
             ) : (
               <div className="hint">
-                {intl('352915', `"%"上榜的榜单/名录有：`).replace('%', searchedValue.replace(/<.+?>/g, ''))}
+                {intl('420050', `"%"上榜的榜单/名录有：`).replace('%', searchedValue.replace(/<.+?>/g, ''))}
               </div>
             ))}
           {loading ? (

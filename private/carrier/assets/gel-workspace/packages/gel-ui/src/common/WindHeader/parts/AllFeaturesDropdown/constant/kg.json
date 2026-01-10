@@ -95,5 +95,19 @@
     "hideInWeb": true,
     "hideInOverseas": true,
     "iconKey": "VsC"
+  },
+  {
+    "id": "314444",
+    "title": "供应链探索",
+    "titleIntl": "314444",
+    "moduleId": "features-title-3",
+    "url": {
+      "target": "module",
+      "module": "RELATED_LINK",
+      "params": {
+        "target": "supply"
+      }
+    },
+    "iconKey": "ScnC"
   }
 ]

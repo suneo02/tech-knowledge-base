@@ -14,3 +14,15 @@ export { aggregateFileData, mapToUnifiedList } from './aggregation';
 
 // 文件状态判断功能
 export { isReportFileStatusFinished, isReportFileStatusMutable } from './fileStatus';
+
+// 大纲文件提取功能
+export { extractPollingFileIdsFromOutlineMessages } from './outlineFileExtractor';
+
+// 文件类型检测功能
+export {
+  detectFileType,
+  getFileTypeColor,
+  getFileTypeFromMimeType,
+  getFileTypeFromName,
+  type FileType,
+} from './fileTypeDetection';

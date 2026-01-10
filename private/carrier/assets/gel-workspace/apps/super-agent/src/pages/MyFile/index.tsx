@@ -1,4 +1,4 @@
-import { t } from 'gel-util/locales'
+import { t } from 'gel-util/intl'
 import React from 'react'
 import FileTable from './FileTable'
 import styles from './index.module.less'

@@ -21,7 +21,7 @@ interface Stats {
 // !临时给后端加的，为了个体工商户，后续删除
 const TEMP_CONFIG = { version: 1 }
 
-const useStats = (queryText: string, type: GSTabsEnum) => {
+const useStats = (queryText: string, type: GSTabsEnum, globalSearchTimeStamp?: number) => {
   const { getParamValue } = hashParams()
   const areaType = getParamValue('areaType')
 
@@ -101,7 +101,7 @@ const useStats = (queryText: string, type: GSTabsEnum) => {
     resetAllStats()
     getMainStats()
     getStatsByServerApi(OTHER_STATS_API)
-  }, [queryText])
+  }, [queryText, globalSearchTimeStamp])
 
   return { chinaStats, globalStats, otherStats, resetStats, loading }
 }

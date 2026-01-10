@@ -1,7 +1,9 @@
+import { Reducer } from 'redux'
 import * as actionTypes from '../actions/actionTypes'
 import global from '../lib/global'
+import { HomeAction, HomeState } from './home.types'
 
-const initialState = {
+const initialState: HomeState = {
   hotcorps: [],
   lastIndex: -1, // 推荐关注的参数
   corpevents: [],
@@ -20,7 +22,7 @@ const initialState = {
   bindPhoneModal: '',
 }
 
-const reducer = (state = initialState, action) => {
+const reducer: Reducer<HomeState, HomeAction> = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_BIND_PHONE_MODAL:
       return {

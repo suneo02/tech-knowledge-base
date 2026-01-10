@@ -13,7 +13,7 @@
  * @template TChunk - 模型分片类型，默认为 ModelChunk
  */
 
-import { AgentMsgAIDepre } from '@/types'
+import { AgentMsgAIOverall } from '@/types'
 import type { ChatSendInput } from '@/types/ai-chat-perf'
 import { ChatEntityRecognize, ChatTraceItem, requestToChatWithAxios } from 'gel-api'
 import { formatAIAnswerFull } from 'gel-util/common'
@@ -201,7 +201,7 @@ export async function processEntityFetch<TInput extends ChatSendInput = ChatSend
  */
 export async function enrichStreamWithPostData<
   TInput extends ChatSendInput = ChatSendInput,
-  AgentMsg extends AgentMsgAIDepre = AgentMsgAIDepre,
+  AgentMsg extends AgentMsgAIOverall = AgentMsgAIOverall,
 >(context: ChatRunContext<TInput>, dependencies?: StreamDependencies<AgentMsg>): Promise<StreamPostDataFetchRes> {
   try {
     // 事件：数据获取开始
@@ -237,8 +237,9 @@ export async function enrichStreamWithPostData<
     }
 
     // 更新运行时状态 - 包含所有必要的字段
-    Object.assign(context.runtime, {
+    context.updateRuntime({
       entity: entities.length > 0 ? entities : context.runtime.entity,
+      traces: traces.length > 0 ? traces : context.runtime.traces,
       // 如果有格式化内容，更新 accumulatedContent
       ...(formattedContent && { accumulatedContent: formattedContent }),
     })

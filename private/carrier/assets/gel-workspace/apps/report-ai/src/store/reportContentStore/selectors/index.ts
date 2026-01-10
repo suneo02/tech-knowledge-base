@@ -21,6 +21,7 @@
 export {
   selectChapters,
   selectCurrentHydrationTask,
+  selectGlobalOp,
   selectHydration,
   selectHydrationActiveOperations,
   selectLatestRequestedOperations,
@@ -36,7 +37,6 @@ export {
   selectCanonicalChapterMap,
   selectCanonicalChaptersEnriched,
   selectCanonicalChaptersEnrichedMap,
-  selectFileUnifiedList,
   selectFileUnifiedMap,
   selectLeafChapterMap,
   selectLeafChapterOrderMap,
@@ -64,7 +64,7 @@ export {
 export { selectBaselineDocHash } from './documentHash';
 
 // ==================== 章节内容合成选择器 ====================
-export { selectCanonicalChapterHtmlMap, selectCanonicalDocHtml, selectChapterContentMap } from './composition';
+export { selectCanonicalDocHtml, selectChapterContentMap } from './composition';
 
 // ==================== 大纲视图模型选择器 ====================
 export { selectOutlineViewChapters } from './outlineView';
@@ -73,7 +73,6 @@ export { selectOutlineViewChapters } from './outlineView';
 
 // 全局操作状态
 export {
-  selectGlobalOp,
   selectGlobalOperationKind,
   selectIsChapterAIGCOp,
   selectIsFullDocGen,

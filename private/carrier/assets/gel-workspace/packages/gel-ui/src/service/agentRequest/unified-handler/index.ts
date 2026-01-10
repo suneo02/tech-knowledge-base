@@ -26,7 +26,7 @@ export { processStreamRequest } from './streamProcessor'
  * 保持 API 兼容性，支持渐进式迁移
  */
 
-import { AgentMsgDepre, ChatSendInput } from '@/types'
+import { AgentMsgOverall, ChatSendInput } from '@/types'
 import { XAgentConfig } from '@ant-design/x/es/use-x-agent'
 import { ERROR_TEXT } from 'gel-util/config'
 
@@ -53,7 +53,7 @@ import { StreamDependencies } from './types'
 export const createXAgentRequest = (
   dependencies: Omit<StreamDependencies, 'onAgentSuccess' | 'onAgentUpdate'>,
   staticCfg: ChatStaticConfig
-): XAgentConfig<AgentMsgDepre, ChatSendInput, AgentMsgDepre>['request'] => {
+): XAgentConfig<AgentMsgOverall, ChatSendInput, AgentMsgOverall>['request'] => {
   return async (input, { onSuccess: onAgentSuccess, onUpdate: onAgentUpdate }) => {
     if (!input) {
       dependencies.setIsChating(false)
@@ -92,7 +92,7 @@ export const createXAgentRequest = (
       // AbortController 清理现在通过 context.clearAbortController() 处理
 
       const content = context.runtime.aigcContent || ERROR_TEXT[errorCode || 'DEFAULT']
-      const agentMsg: AgentMsgDepre = {
+      const agentMsg: AgentMsgOverall = {
         ...createAgentAIMsgStream(input, context, content, context.runtime.aigcReason),
         status: 'finish',
         questionStatus: errorCode,

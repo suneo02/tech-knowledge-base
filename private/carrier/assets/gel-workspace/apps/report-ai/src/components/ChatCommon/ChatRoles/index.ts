@@ -1,2 +1,1 @@
-export { reportOutlineEditorRole } from './outlineEditor';
-export { reportOutlinePreviewRole } from './outlinePreview';
+export { reportProgressRole } from './progress';

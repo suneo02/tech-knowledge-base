@@ -1,8 +1,16 @@
-import { connect } from 'react-redux'
-
+/**
+ * VipModuleNew 企业库会员购买模块组件
+ *
+ * 功能概述：
+ * - 展示VIP、SVIP和企业套餐三种会员类型的购买选项
+ * - 处理用户选择套餐、同意协议、创建订单和支付流程
+ * - 支持活动期间特殊优惠（如买一年送3个月）
+ * - 针对海外用户和特定终端类型进行限制
+ *
+ * @see 设计文档: ../docs/auth/membership-permissions-interaction.md
+ */
 import * as HomeActions from '../../actions/home'
 import {
-  createCrmOrder,
   createPayOrderByClient,
   getPayGoods,
   getPayOrderByClient,
@@ -14,35 +22,88 @@ import intl from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 
 import { Button, Checkbox, Col, message, Modal, Row, Tag } from '@wind/wind-ui'
-import React, { useEffect, useRef, useState } from 'react'
+import { isEn } from 'gel-util/intl'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import * as globalActions from '../../actions/global'
+import { pointBuriedByModule } from '../../api/pointBuried/bury'
 import store from '../../store/store'
 import { useUserInfoStore } from '../../store/userInfo'
+import { VipForbidden } from '../user/vip/forbidden'
 import './vipModuleNew.less'
 
+import { applyForTrialAndShowToast } from '@/api/baifen/service'
 import { getVipInfo } from '@/lib/utils'
-import { getWsid } from '@/utils/env'
+import { getWsid, isDev } from '@/utils/env'
 import { localStorageManager, sessionStorageManager } from '@/utils/storage'
-import { pointBuriedByModule } from '../../api/pointBuried/bury'
 import LimitedtimeOffer from '../../assets/vip/limitedtimeOffer.png'
 import { InvoiceSample, PrivacyPolicyBtn, UserAgreementBtn } from '../pay/tip'
-import { VipForbidden } from '../user/vip/forbidden'
+import { VipMarketingEdition } from '../user/vip/VipMarketingEdition'
+import { EpOnlyGroup, MoreInfoLink } from '../user/vip/VipModuleComponents'
 
 // 需要替换成下载的二维码
 
-export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip = false, description, ...props }) => {
-  const [agreeUserPrivacy, setAgreeUserPrivacy] = useState(false) // 同意用户协议
-  const [vipPopupSel, setVipPopupSel] = useState(props?.vipPopupSel || 'vip') // 设置默认选中vip
+/**
+ * VipPurchase 组件传参说明
+ *
+ * 用于控制会员购买模块的展示形态与默认选项，支持仅展示特定套餐、覆盖标题与说明等。
+ *
+ * 属性列表：
+ * - title?: ReactNode
+ *   模块标题；默认展示为国际化“全球企业库”。可传入任意 React 节点以自定义标题。
+ *
+ * - onlySvip?: boolean
+ *   仅展示 SVIP 套餐卡片。当为 true 时：
+ *   1) 初始选中套餐强制设为 'svip'（见 useEffect）；
+ *   2) 仅渲染 SvipOnlyGroup，隐藏其他套餐卡片。
+ *
+ * - onlyEp?: boolean
+ *   仅展示营销版（企业版）卡片。当为 true 时仅渲染 EpOnlyGroup。
+ *
+ * - description?: string
+ *   标题右侧的提示文案；为空或未传时显示默认文案“购买企业库高级权限即可使用付费功能”。
+ *
+ * - vipPopupSel?: 'vip' | 'svip' | 'ep'
+ *   初始默认选中的套餐类型。若未传，默认选中 'vip'。该值会影响：
+ *   1) 套餐卡片的选中样式和状态；
+ *   2) 底部操作区（ActionFooter）的行为；
+ *   3) 营销版（ep）时的“立即联系”分支逻辑。
+ *
+ */
+interface VipPurchaseProps {
+  title?: ReactNode
+  onlySvip?: boolean
+  onlyEp?: boolean
+  description?: string
+  vipPopupSel?: 'vip' | 'svip' | 'ep'
+}
+
+export const VipPurchase = ({
+  title = intl('149697', '全球企业库'),
+  onlySvip = false,
+  onlyEp = false,
+  description,
+  vipPopupSel: vipPopupSelProp,
+}: VipPurchaseProps) => {
+  /** 用户协议是否勾选（购买前置条件） */
+  const [agreeUserPrivacy, setAgreeUserPrivacy] = useState(false)
+  /** 当前选中的套餐类型（影响 UI 与购买/联系行为） */
+  const [vipPopupSel, setVipPopupSel] = useState<'vip' | 'svip' | 'ep'>(vipPopupSelProp || 'vip')
   const userVipInfo = getVipInfo()
-  const [showModal, setShowModal] = useState(false) // 是否展示规则说明
+  /** 活动规则说明弹窗显隐 */
+  const [showModal, setShowModal] = useState(false)
 
   const { isActivityUser, setIsActivityUser } = useUserInfoStore()
 
+  /** 支付轮询计数（用于超时处理与防抖） */
   let interCount = 0
 
   const usedInClient = wftCommon.usedInClient()
   let windSessionid = getWsid()
 
+  /**
+   * 初始化行为：当仅展示 SVIP 时，强制设置默认选中为 'svip'。
+   * 同时组件卸载时清理可能存在的支付轮询定时器。
+   */
   useEffect(() => {
     if (onlySvip) {
       setVipPopupSel('svip')
@@ -55,6 +116,13 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
 
   const inter = useRef(null)
 
+  /**
+   * 支付状态轮询
+   * - 每 3s 查询一次订单状态（见 createPayOrderHandler 中 setInterval）
+   * - 成功：提示并刷新页面
+   * - 失败或异常：停止轮询
+   * - 超时：提示并关闭弹窗，随后刷新页面
+   */
   const payCall = (orderId) => {
     interCount++
     console.log('🚀 ~ payCall ~ orderId interCount:', orderId, interCount)
@@ -92,6 +160,14 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
     )
   }
 
+  /**
+   * 创建支付订单
+   * - 清理本地登录缓存（终端内）确保后续权限刷新
+   * - 校验是否已同意用户协议
+   * - 获取商品 goodsId（从 wftCommon.listPayGoods）
+   * - 调用创建订单接口并打开支付链接（独立 Web 需拼接 sessionid）
+   * - 开启支付状态轮询
+   */
   const createPayOrderHandler = (productName) => {
     // 终端内 更新本地local
     if (usedInClient) {
@@ -150,6 +226,11 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
     })
   }
 
+  /**
+   * 用户购买入口
+   * - 前置：必须勾选用户协议
+   * - 分支：'ep'（营销版）调用联系客户经理接口，其余套餐走下单支付流程
+   */
   const agreeBuyAction = () => {
     pointBuriedByModule(922602101082)
     // 立即开通 创建微信支付订单
@@ -159,16 +240,20 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
     }
 
     if (vipPopupSel == 'ep') {
-      createCrmOrder({ product: 'svip' })
-      message.info('专属客户经理已收到开通需求，将在一个工作日内同您联系')
+      applyForTrialAndShowToast().then(undefined, () => {
+        message.info('提交失败，请稍后重试')
+      })
       return
     }
 
-    if (vipPopupSel !== 'ep') {
-      createPayOrderHandler(vipPopupSel)
-    }
+    createPayOrderHandler(vipPopupSel)
   }
 
+  /**
+   * 用户协议勾选
+   * - 切换本地勾选状态
+   * - 服务端确认用户是否已同意过（会话存储标记），如未同意则调用设置接口
+   */
   const onChangeUserAgree = () => {
     setAgreeUserPrivacy(!agreeUserPrivacy)
     const userAgreementsConfig = sessionStorageManager.get('WFT-GEL-USERAGREEMENTS') // 服务端记录是否曾今同意了用户协议
@@ -186,14 +271,24 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
     }
   }
 
-  // 1. 海外用户并且非 svip 展示尽请期待
-  // 2. 未知产品 展示尽请期待
+  // 用户权限检查：
+  // 1. 终端类型在禁止销售列表中
+  // 2. 海外用户且非 SVIP
   if (
     wftCommon.forbiddenTerminalSales.indexOf(wftCommon.terminalType) > -1 ||
     (wftCommon.is_overseas_config && !userVipInfo.isSvip)
   ) {
     // 禁止用户
-    return <VipForbidden title={title} description={description} data-uc-id="7aPMIJI-0l" data-uc-ct="vipforbidden" />
+    return <VipForbidden title={title} data-uc-id="7aPMIJI-0l" data-uc-ct="vipforbidden" />
+  }
+
+  /**
+   * 套餐切换：更新选中值并清理支付轮询
+   */
+  const handleSelect = (type: 'vip' | 'svip' | 'ep') => {
+    pointBuriedByModule(922602101081, { packageName: type.toUpperCase() })
+    inter && inter.current && window.clearInterval(inter.current)
+    setVipPopupSel(type)
   }
 
   const ActivityTag = isActivityUser ? (
@@ -220,7 +315,7 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
   )
   return (
     <div className="gel-vip-module-new">
-      {wftCommon.isDevDebugger() && (
+      {isDev && (
         <Button
           style={{
             position: 'absolute',
@@ -240,51 +335,34 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
         <Col className="gel-vip-tips">
           {description?.length > 0 ? description : intl('353695', '购买企业库高级权限即可使用付费功能')}
         </Col>
-        <Col className="gel-vip-tips-third">{intl('437745', '该数据由第三方提供')}</Col>
       </Row>
       <div className="gel-vip-content">
         {onlySvip ? (
-          <>
-            <Row gutter={12}>
-              <Col
-                span={12}
-                // @ts-expect-error wind ui
-                onClick={() => {
-                  pointBuriedByModule(922602101081, { packageName: 'SVIP' })
-                  inter && inter.current && window.clearInterval(inter.current)
-                  setVipPopupSel('svip')
-                }}
-              >
-                <div className={`gel-vipR-prices-item ${vipPopupSel == 'svip' ? 'gel-vipR-prices-sel' : ''}`}>
-                  {ActivityTag}
-                  <div className="type">SVIP</div>
-                  <div className="price">
-                    <b>￥1980</b>
-                    <span>/{intl('353694', '1年')}</span>
-                  </div>
+          <Row gutter={12}>
+            <Col
+              span={12}
+              // @ts-expect-error wind ui
+              onClick={() => {
+                pointBuriedByModule(922602101081, { packageName: 'SVIP' })
+                inter && inter.current && window.clearInterval(inter.current)
+                setVipPopupSel('svip')
+              }}
+            >
+              <div className={`gel-vipR-prices-item ${vipPopupSel == 'svip' ? 'gel-vipR-prices-sel' : ''}`}>
+                {ActivityTag}
+                <div className="type">SVIP</div>
+                <div className="price">
+                  <b>￥1980</b>
+                  <span>/{intl('353694', '1年')}</span>
                 </div>
-              </Col>
-              <Col
-                span={12}
-                // @ts-expect-error wind ui
-                onClick={() => {
-                  pointBuriedByModule(922602101081, { packageName: 'EP' })
-                  inter && inter.current && window.clearInterval(inter.current)
-                  setVipPopupSel('ep')
-                }}
-              >
-                <div className={`gel-vipR-prices-item ${vipPopupSel == 'ep' ? 'gel-vipR-prices-sel' : ''} `}>
-                  <div className="type">{intl('208372', '企业套餐')}</div>
-                  <div className="contact">
-                    <span>
-                      {intl('234937', '联系客户经理')}
-                      {window.en_access_config ? 'Get Price' : '获取套餐价格'}
-                    </span>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-          </>
+              </div>
+            </Col>
+            <Col span={12}>
+              <VipMarketingEdition selected={vipPopupSel === 'ep'} onClick={() => handleSelect('ep')} />
+            </Col>
+          </Row>
+        ) : onlyEp ? (
+          <EpOnlyGroup vipPopupSel={vipPopupSel} onSelect={handleSelect} />
         ) : (
           <Row gutter={12}>
             <Col
@@ -323,37 +401,13 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
                 </div>
               </div>
             </Col>
-            <Col
-              span={8}
-              // @ts-expect-error wind ui
-              onClick={() => {
-                pointBuriedByModule(922602101081, { packageName: 'EP' })
-                inter && inter.current && window.clearInterval(inter.current)
-                setVipPopupSel('ep')
-              }}
-            >
-              <div className={`gel-vipR-prices-item ${vipPopupSel == 'ep' ? 'gel-vipR-prices-sel' : ''} `}>
-                <div className="type">{intl('208372', '企业套餐')}</div>
-                <div className="contact">
-                  <span>
-                    {intl('234937', '联系客户经理')}
-                    {window.en_access_config ? 'Get Price' : '获取套餐价格'}
-                  </span>
-                </div>
-              </div>
+            <Col span={8}>
+              <VipMarketingEdition selected={vipPopupSel === 'ep'} onClick={() => handleSelect('ep')} />
             </Col>
           </Row>
         )}
 
-        <Row
-          className="gel-vipR-more"
-          // @ts-expect-error wind ui
-          onClick={() => {
-            wftCommon.jumpJqueryPage('Company.html#/versionPrice?nosearch=1')
-          }}
-        >
-          <Col>{intl('353715', '查看全部权限和价格')}</Col>
-        </Row>
+        <MoreInfoLink vipPopupSel={vipPopupSel} />
         {isActivityUser && (
           <div className="activity-box">
             <img className="limitedtimeOffer" src={LimitedtimeOffer} alt="" />
@@ -388,7 +442,7 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
               data-uc-ct="div"
             >
               {' '}
-              {vipPopupSel == 'ep' ? intl('149772', '立即联系') : intl('392560', '立即支付')}
+              {vipPopupSel == 'ep' ? intl('353722', '立即联系') : intl('392560', '立即支付')}
             </div>
           </Col>
           <Col>
@@ -436,7 +490,7 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
       >
         <p>
           （1）
-          {window.en_access_config
+          {isEn()
             ? 'Exclusive for invited users, valid 2024-11-1 to 2024-11-30'
             : '本活动仅限特邀用户参与，本活动周期为2024年11月1日至11月30日。'}
         </p>
@@ -466,21 +520,4 @@ export const VipModule = ({ title = intl('149697', '全球企业库'), onlySvip 
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    home: state.home,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getPayGoods: () => {
-      getPayGoods().then((res) => {
-        console.log(res)
-        res && res.Data && dispatch(HomeActions.getPayGoods({ ...res }))
-      })
-    },
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(VipModule)
+export { VipPurchase as VipModule }

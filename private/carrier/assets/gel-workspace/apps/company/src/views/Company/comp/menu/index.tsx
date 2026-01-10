@@ -1,88 +1,63 @@
+import { CorpBasicNumFront } from '@/types/corpDetail'
+import { CorpMenuCfg } from '@/types/corpDetail/menu'
 import { Tree } from '@wind/wind-ui'
-import React, { FC, useState } from 'react'
-import { CorpMenuData } from '../../menu/type'
+import { FC, useMemo, useState } from 'react'
+import { buildCorpAllMenu, buildSimplifiedCorpMenu, CorpMenuData } from '../../menu'
+import { shouldUseCompleteMenu } from '../../menu/useCorpMenuData'
 import { ToggleCorpDetailMenu } from './ExpandAll'
 import menuStyles from './index.module.less'
+import './menu.less'
 import { MenuSearch } from './MenuSearch'
-const { TreeNode } = Tree
+import { renderMenuTreeNodes } from './MenuTreeNodes'
 
 type CorpDetailMenuProps = {
+  menuConfig: CorpMenuCfg | null
+  basicNum: CorpBasicNumFront
   expandedKeys: string[]
   setExpandedKeys: (keys: string[]) => void
-  treeDatas: CorpMenuData[]
-  allTreeDatas: CorpMenuData[]
   treeMenuClick: (menu: string[], e: any) => void
   onExpand: (expandedKeys: string[]) => void
   autoExpandParent: boolean
   selectedKeys: string[]
 }
-const CorpDetailMenu: FC<CorpDetailMenuProps> = ({
+export const CorpDetailMenu: FC<CorpDetailMenuProps> = ({
+  menuConfig,
+  basicNum,
   selectedKeys,
   expandedKeys,
   setExpandedKeys,
-  treeDatas,
-  allTreeDatas,
   treeMenuClick,
   onExpand,
   autoExpandParent,
 }) => {
   const [searchValue, setSearchValue] = useState<string | null>(null)
-  const loop = (data, depth?) =>
-    data.map((item, idx) => {
-      try {
-        if (!item.key) return
-        const titleStr = item.titleStr || item.title
-        const index = searchValue ? titleStr.toUpperCase().indexOf(searchValue.toUpperCase()) : -1
-        const beforeStr = titleStr.substr(0, index)
-        const afterStr = searchValue ? titleStr.substr(index + searchValue.length) : ''
-        const title =
-          index > -1 ? (
-            <span title={`${beforeStr}${searchValue}${afterStr}`}>
-              {beforeStr}
-              <span className="menu-highlight-txt">{titleStr.substr(index, searchValue.length)}</span>
-              {afterStr}
-              {item.titleNum}
-            </span>
-          ) : (
-            <span>
-              {titleStr}
-              {item.titleNum}{' '}
-            </span>
-          )
-        if (item.children && item.children.length) {
-          return (
-            <TreeNode key={item.key} title={title} data-uc-id="AsUcvftzLc" data-uc-ct="treenode" data-uc-x={item.key}>
-              {loop(item.children, 1)}
-            </TreeNode>
-          )
-        } else if (!depth) {
-          return (
-            <TreeNode key={item.key} title={title} data-uc-id="1dUvF-N1rJ" data-uc-ct="treenode" data-uc-x={item.key}>
-              <TreeNode
-                className="menu-none"
-                key={item.key + '-' + idx}
-                title={' '}
-                data-uc-id="_HEUTadKLO"
-                data-uc-ct="treenode"
-                data-uc-x={item.key + '-' + idx}
-              ></TreeNode>
-            </TreeNode>
-          )
-        }
-        return (
-          <TreeNode
-            key={item.key}
-            title={title}
-            data-uc-id="D18iuyqaAU"
-            data-uc-ct="treenode"
-            data-uc-x={item.key}
-          ></TreeNode>
-        )
-      } catch (error) {
-        console.error(error)
-        return null
-      }
-    })
+  const [showDisabled, setShowDisabled] = useState(false)
+  const defaultExpandedKeys = useMemo(() => {
+    if (!menuConfig) return ['overview']
+    return menuConfig.overview ? ['overview'] : []
+  }, [menuConfig])
+  const treeDatas = useMemo(() => {
+    if (!menuConfig || Object.keys(menuConfig).length === 0) {
+      return []
+    }
+    if (shouldUseCompleteMenu(basicNum, menuConfig)) {
+      return buildCorpAllMenu(menuConfig, basicNum)
+    }
+    return buildSimplifiedCorpMenu(menuConfig)
+  }, [menuConfig, basicNum])
+
+  const dataOnlyTreeDatas = useMemo(() => {
+    const filterByHasData = (nodes: CorpMenuData[]): CorpMenuData[] => {
+      return nodes
+        .filter((n) => n.hasData)
+        .map((n) => ({ ...n, children: n.children ? filterByHasData(n.children) : [] }))
+    }
+    return filterByHasData(treeDatas)
+  }, [treeDatas])
+
+  if (!treeDatas || treeDatas.length === 0) {
+    return null
+  }
 
   return (
     <>
@@ -93,7 +68,8 @@ const CorpDetailMenu: FC<CorpDetailMenuProps> = ({
         data-uc-ct="div"
       >
         <MenuSearch
-          allTreeDatas={allTreeDatas}
+          menuConfig={menuConfig}
+          basicNum={basicNum}
           treeMenuClick={treeMenuClick}
           setExpandedKeys={setExpandedKeys}
           value={searchValue}
@@ -101,22 +77,26 @@ const CorpDetailMenu: FC<CorpDetailMenuProps> = ({
           data-uc-id="1xGa_eblUT"
           data-uc-ct="menusearch"
         />
-        <ToggleCorpDetailMenu expandedKeys={expandedKeys} setExpandedKeys={setExpandedKeys} treeData={treeDatas} />
+        <ToggleCorpDetailMenu
+          expandedKeys={expandedKeys}
+          setExpandedKeys={setExpandedKeys}
+          treeDataAll={treeDatas}
+          treeDataDataOnly={dataOnlyTreeDatas}
+          setShowDisabled={setShowDisabled}
+        />
       </div>
       <Tree
         onExpand={onExpand}
         expandedKeys={expandedKeys}
         autoExpandParent={autoExpandParent}
-        defaultExpandedKeys={['overview']}
+        defaultExpandedKeys={defaultExpandedKeys}
         onSelect={treeMenuClick}
         selectedKeys={selectedKeys}
         data-uc-id="41JYJH2yGE"
         data-uc-ct="tree"
       >
-        {loop(treeDatas)}
+        {renderMenuTreeNodes(showDisabled ? treeDatas : dataOnlyTreeDatas, searchValue)}
       </Tree>
     </>
   )
 }
-
-export default CorpDetailMenu

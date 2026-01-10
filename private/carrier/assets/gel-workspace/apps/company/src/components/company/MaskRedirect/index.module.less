@@ -1,0 +1,50 @@
+@import 'gel-ui/variables.less';
+@import '../../../styles/mixin/corp/detail.less';
+
+// 蒙版引流组件外层容器
+.maskRedirectWrapper {
+  :global(.w-card-head) {
+    .corp-detail-node-title-padding();
+  }
+  :global(.w-card-divider) {
+    display: none;
+  }
+}
+
+// 蒙版引流组件容器
+.maskRedirect {
+  // 盒模型
+  min-height: 100px;
+  padding: @spacing-lg @page-space;
+
+  // 布局
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // 视觉
+  background: @color-bg-3;
+}
+
+// BEM: maskRedirect__content
+.maskRedirect__content {
+  font-size: @font-size-md;
+  line-height: @line-height-base;
+  color: @font-color-3;
+  text-align: center;
+}
+
+// BEM: maskRedirect__link
+.maskRedirect__link {
+  transition: color 0.2s;
+  color: @primary;
+
+  &:hover {
+    border-bottom: none;
+    color: @primary-hover;
+  }
+
+  &:active {
+    color: @primary-active;
+  }
+}

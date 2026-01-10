@@ -1,18 +1,20 @@
-# 前端开发通用基线
+# Frontend Development Baseline
 
-## 快速准则
-- **TypeScript 完整覆盖**：禁止 `any`，导出 API 写清类型与 JSDoc。
-- **统一工具链**：异步用 `ahooks/useRequest`，数据处理用 `lodash`，类名用 `classnames`。
-- **错误与日志**：API 校验响应，抛业务错误；组件层面明确兜底和日志。
-- **拆分原则**：函数/组件职责单一，超出长度立即拆 Hook 或工具。
-- **文档互联**：代码 `@see` 文档，文档反链关键代码路径。
+## Quick Standards
 
-## 默认实践
-- 接口层统一封装在 `@/api`，仅导出类型安全函数。
-- 公共逻辑先抽公共包或 Hook，再在业务层组合。
-- 测试覆盖关键路径（函数 ≥80%，组件 ≥70%），提交前运行 `pnpm test`.
-- 文档遵循“图/表 > 文本”优先级，引用相对路径。
+- **Language**: Documentation and comments must be in Chinese (Simplified).
+- **TypeScript**: Zero `any`. Explicit types & JSDoc for exports.
+- **Toolchain**:
+  - Async: `ahooks/useRequest`
+  - Data: `lodash`
+  - Classes: `classnames`
+- **Error Handling**: API response validation, business errors, component fallbacks.
+- **Structure**: Single responsibility. Split if >200 lines.
+- **Docs**: `@see` links between code and docs.
 
-## 适用场景
-- 所有前端仓库与 packages。
-- 未在专题规则中写明的行为，默认回到本基线。
+## Rule Index
+
+- **Components**: [`/docs/rule/code-component-tsx-rule.md`](./code-component-tsx-rule.md)
+- **Styling**: [`/docs/rule/code-style-less-bem-rule.md`](./code-style-less-bem-rule.md)
+- **Testing**: [`/docs/rule/code-testing-rule.md`](./code-testing-rule.md)
+- **Structure**: [`/docs/rule/code-project-structure-rule.md`](./code-project-structure-rule.md)

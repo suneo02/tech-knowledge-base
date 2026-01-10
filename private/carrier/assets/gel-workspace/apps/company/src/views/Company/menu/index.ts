@@ -2,9 +2,13 @@
  * 企业菜单配置模块统一导出
  */
 
-export { getMenuByCorpType } from './getMenuByCorpType'
-export { getCorpDetailIndividualMenus } from './individualBusiness'
-export { CompanyDetailBaseMenus, corpDetailBaseMenuNumHide } from './menus'
-export type { CorpMenuData, ICorpMenuCfg, ICorpMenuModuleCfg } from './type'
-export { handleCorpDetailMenu } from './useCorpMenu'
+export {
+  buildCorpAllMenu,
+  buildCorpAllMenuData,
+  buildCorpAllMenuDataObj,
+  buildSimplifiedCorpMenu,
+} from './handleCorpDetailMenu'
+export type { CorpMenuData, CorpMenuSimpleData } from './type'
 export { useCorpMenuByType } from './useCorpMenuByType'
+export { useCorpMenuData } from './useCorpMenuData'
+export type { UseCorpMenuDataReturn } from './useCorpMenuData'

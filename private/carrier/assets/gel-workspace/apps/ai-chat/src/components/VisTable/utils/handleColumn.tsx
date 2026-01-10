@@ -164,6 +164,7 @@ export const handleColumnUtils = ({
       textAlign: getTextAlign(columnDataType),
     },
     style: {
+      fontWeight: 'normal',
       color: ({ dataValue }: StylePropertyFunctionArg) => getTextColor(dataValue),
       fontStyle: ({ dataValue }: StylePropertyFunctionArg) => getTextStyle(dataValue),
       linkColor: ({ dataValue }: StylePropertyFunctionArg) => getTextColor(dataValue),

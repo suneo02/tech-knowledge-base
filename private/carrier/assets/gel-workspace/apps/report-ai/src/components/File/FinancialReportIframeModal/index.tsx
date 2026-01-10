@@ -21,7 +21,9 @@ export interface FinancialReportIframeModalProps {
 export const FinancialReportIframeModal: FC<FinancialReportIframeModalProps> = ({ visible, onClose, docId }) => {
   // 根据 docId 生成 iframe URL
   const iframeUrl = useMemo(() => {
-    return docId ? BaiFenSites({ isStaging, isDev }).getReportAnalysisProcessForGel({ id: docId }) : '';
+    return docId
+      ? BaiFenSites({ isStaging, isDev, isBaiFenTerminal: false }).getReportAnalysisProcessForGel({ id: docId })
+      : '';
   }, [docId]);
 
   // 监听 iframe 发送的 GEL_GENERATE_REPORT 消息

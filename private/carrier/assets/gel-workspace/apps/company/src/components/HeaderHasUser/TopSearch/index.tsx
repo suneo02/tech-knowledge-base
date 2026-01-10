@@ -13,18 +13,23 @@ import { isDev } from '@/utils/env'
 const TopSearch = ({
   hidden = false,
   setGlobalSearchKeyWordToRedux,
+  setGlobalSearchTimeStampToRedux,
   companyName,
   globalSearchReloadCurrent,
 }: {
   hidden: boolean
   setGlobalSearchKeyWordToRedux: (data: string) => void
+  setGlobalSearchTimeStampToRedux: (data: number) => void
   companyName: string
   globalSearchReloadCurrent: boolean
 }) => {
   let keyword = ''
+  let lastSearchKeyword = ''
+
   try {
     const qsParam = parseQueryString()
     keyword = window.decodeURIComponent(qsParam['keyword'] || '')
+    lastSearchKeyword = keyword
   } catch (error) {
     console.log(error)
   }
@@ -48,6 +53,14 @@ const TopSearch = ({
           )
         }}
         onClickHistory={(item) => {
+          // 添加时间戳，用于两次输入相同字符时，强制执行当前页面的搜索
+          const timeStamp = Date.now()
+          // 检查本次搜索词是否与上一次一致
+          if (item === lastSearchKeyword) {
+            setGlobalSearchTimeStampToRedux(timeStamp)
+          }
+          // 更新上一次搜索的关键词
+          lastSearchKeyword = item
           setGlobalSearchKeyWordToRedux(item)
           if (!globalSearchReloadCurrent) {
             let hash = window.location.hash || ''
@@ -91,6 +104,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setGlobalSearchKeyWordToRedux: (data) => {
       dispatch(searchListAction.setGlobalSearchKeyWord(data))
+    },
+    setGlobalSearchTimeStampToRedux: (data) => {
+      dispatch(searchListAction.setGlobalSearchTimeStamp(data))
     },
   }
 }

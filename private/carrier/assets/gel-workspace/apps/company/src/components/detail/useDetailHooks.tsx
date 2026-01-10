@@ -1,8 +1,18 @@
+import { translateToEnglish } from '@/utils/intl'
+import { isEn } from 'gel-util/intl'
 import { useEffect, useRef, useState } from 'react'
 import axios from '../../api'
 import { wftCommon } from '../../utils/utils'
 
-function useDetailHooks(props) {
+type DetailHooksProps = {
+  info: any
+  horizontal?: boolean
+  columns?: any[]
+  hideTableConstruct?: boolean
+  skipTransFieldsInKeyMode?: string[]
+}
+
+function useDetailHooks(props: DetailHooksProps) {
   const [dataSource, setDataSource] = useState([])
   const [loading, setLoading] = useState(false)
   const [pagination, setPagination] = useState<any>(false)
@@ -45,10 +55,20 @@ function useDetailHooks(props) {
           } else {
             setPagination(false)
           }
-          if (window.en_access_config && res?.Data?.length) {
-            wftCommon.zh2en(res.Data, (data) => {
-              setDataSource(data)
-            })
+          if (isEn() && res?.Data?.length) {
+            if (props.skipTransFieldsInKeyMode) {
+              translateToEnglish(res.Data, {
+                skipFields: props.skipTransFieldsInKeyMode,
+              }).then((res) => {
+                if (res.success) {
+                  setDataSource(res.data)
+                }
+              })
+            } else {
+              wftCommon.zh2en(res.Data, (data) => {
+                setDataSource(data)
+              })
+            }
           }
         })
         .catch((err) => {

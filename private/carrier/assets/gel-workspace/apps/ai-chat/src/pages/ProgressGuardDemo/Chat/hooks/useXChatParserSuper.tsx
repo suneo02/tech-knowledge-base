@@ -3,7 +3,9 @@ import { XChatConfig } from '@ant-design/x/es/use-x-chat'
 import { AgentIdentifiers, ChatThinkSignal } from 'gel-api'
 import {
   createAIContentMessage,
+  createAIFooterMessage,
   createAIHeaderMessage,
+  createSplTableMessage,
   createChartMessage,
   createSubQuestionMessage,
   createSuggestionMessage,
@@ -36,11 +38,23 @@ export const useXChatParserSuper = (
     }
 
     // 处理AI内容
-    const aiContentMessage = createAIContentMessage(agentMessage, (props) => (
-      <AIFooterSuper {...props} sendMessage={sendMessage} />
-    ))
+    const aiContentMessage = createAIContentMessage(agentMessage)
     if (aiContentMessage) {
       messageList.push(aiContentMessage)
+    }
+
+    // 处理SplTable
+    const splTableMessage = createSplTableMessage(agentMessage)
+    if (splTableMessage) {
+      messageList.push(splTableMessage as SPMsgParsed)
+    }
+
+    // 处理AI底部
+    const aiFooterMessage = createAIFooterMessage(agentMessage, (props) => (
+      <AIFooterSuper {...props} sendMessage={sendMessage} />
+    ))
+    if (aiFooterMessage) {
+      messageList.push(aiFooterMessage as SPMsgParsed)
     }
 
     // 处理建议

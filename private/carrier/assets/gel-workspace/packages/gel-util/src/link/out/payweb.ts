@@ -1,5 +1,6 @@
 import { isTerminalTestSite, WindSessionHeader } from '@/env'
 import { stringifyObjectToParams } from '../../common'
+import { WX_WIND_HOST } from '../constant'
 
 export enum PayWebModule {
   // https://wx.wind.com.cn/payweb/check.html?orderNo=xxx&invoiceMode=append#/invoice
@@ -36,12 +37,12 @@ export const getPayWebLink = (
   try {
     let origin: string
     if (isDev) {
-      origin = 'https://wx.wind.com.cn'
+      origin = `https://${WX_WIND_HOST}`
     }
     if (isTerminalTestSite()) {
       origin = 'https://test.wind.com.cn'
     } else {
-      origin = 'https://wx.wind.com.cn'
+      origin = `https://${WX_WIND_HOST}`
     }
     const config = PayWebConfigMap[module]
     const baseUrl = new URL(config.path, origin)

@@ -4,7 +4,7 @@ export const wfcCorpGlobalPreSearchPath = 'search/company/getGlobalCompanyPreSea
 
 export interface wfcCorpGlobalPreSearchPayload {
   queryText: string
-  version?: 1
+  version?: 1 | 2
 }
 
 export interface wfcCorpGlobalPreSearchResponse {
@@ -25,6 +25,8 @@ export interface CorpGlobalPreSearchResultV1 {
   corpName: string
   location: string
   isFullMatch: boolean
+  province?: string // v2才存在的参数
+  regStatus?: string // 存续、吊销、注销
 }
 
 export interface CorpGlobalPreSearchResultV1Parsed extends CorpGlobalPreSearchResultV1 {

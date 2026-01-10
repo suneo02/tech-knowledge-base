@@ -23,8 +23,16 @@
  */
 
 import type { DocumentChapterNode } from '@/domain/reportEditor';
-import type { RPChapterSavePayload, RPDetailChapter } from 'gel-api';
+import type {
+  RPChapterSavePayload,
+  RPChapterSavePayloadPersisted,
+  RPChapterSavePayloadTemp,
+  RPDetailChapter,
+} from 'gel-api';
 import { mapTree } from 'gel-util/common';
+import { isPersistedChapter } from '../guards';
+import { generateChapterTempId } from '../mutations/factory';
+import { ChapterNodeMap } from '../queries/analysis';
 
 /**
  * 合并保存后的章节树与 Canonical 章节树
@@ -61,22 +69,30 @@ import { mapTree } from 'gel-util/common';
  * ```
  */
 export const mergeSavedChaptersWithCanonical = (
-  savedChapters: (RPChapterSavePayload | RPDetailChapter)[],
-  canonicalMap: Map<string | number, RPDetailChapter>
+  savedChapters: RPChapterSavePayload[],
+  canonicalMap: ChapterNodeMap<RPDetailChapter>
 ): RPDetailChapter[] => {
-  return mapTree(
-    savedChapters as RPDetailChapter[],
-    (savedChapter) => {
-      const canonicalChapter = savedChapter.chapterId ? canonicalMap.get(savedChapter.chapterId) : undefined;
-      const merged: RPDetailChapter = {
-        ...(canonicalChapter || {}),
+  return mapTree<RPChapterSavePayload, RPDetailChapter>(savedChapters, (savedChapter) => {
+    // 保存后的章节应该都是持久章节（临时 ID 已被替换）
+    if (!isPersistedChapter(savedChapter)) {
+      // 静默处理：开发环境记录详细信息，生产环境只记录警告
+      console.error(`[mergeSavedChaptersWithCanonical] Unexpected temporary chapter in saved data`);
+      return {
         ...savedChapter,
-        chapterId: savedChapter.chapterId as number,
+        chapterId: -Date.now(), // 使用负数作为临时 ID，避免与正常 ID 冲突
       };
-      return merged;
-    },
-    'children'
-  );
+    }
+
+    const canonicalChapter = canonicalMap.get(String(savedChapter.chapterId));
+
+    // 合并 Canonical 元数据和保存后的内容
+    // 注意：children 会由 mapTree 自动递归处理
+    return {
+      ...(canonicalChapter || {}),
+      ...savedChapter,
+      chapterId: savedChapter.chapterId,
+    };
+  });
 };
 
 /**
@@ -103,35 +119,39 @@ export const mergeSavedChaptersWithCanonical = (
  */
 export const convertDocumentChaptersToSaveFormat = (
   documentChapters: DocumentChapterNode[],
-  canonicalMap: Map<string | number, RPDetailChapter>
+  canonicalMap: ChapterNodeMap<RPDetailChapter>
 ): RPChapterSavePayload[] => {
-  return mapTree(
-    documentChapters as any[],
-    (docChapter: DocumentChapterNode) => {
-      const canonical =
-        docChapter.isTemporary || !docChapter.chapterId ? undefined : canonicalMap.get(docChapter.chapterId);
+  return mapTree<DocumentChapterNode, RPChapterSavePayload>(documentChapters, (docChapter) => {
+    const canonical =
+      docChapter.isTemporary || !docChapter.chapterId ? undefined : canonicalMap.get(String(docChapter.chapterId));
 
-      if (docChapter.isTemporary) {
-        const saveChapter: RPChapterSavePayload = {
-          tempId: docChapter.tempId,
-          isTemporary: true,
-          title: docChapter.title,
-          content: docChapter.content,
-          contentType: 'html' as const,
-          writingThought: canonical?.writingThought || '',
-        };
-        return saveChapter as any;
-      } else {
-        const saveChapter: RPChapterSavePayload = {
-          chapterId: Number(docChapter.chapterId),
-          title: docChapter.title,
-          content: docChapter.content,
-          contentType: 'html' as const,
-          writingThought: canonical?.writingThought || '',
-        };
-        return saveChapter as any;
+    if (docChapter.isTemporary) {
+      if (!docChapter.tempId) {
+        // 静默处理：记录错误但不中断流程
+        console.error(`[convertDocumentChaptersToSaveFormat] Temporary chapter missing tempId:`, docChapter);
       }
-    },
-    'children'
-  ) as RPChapterSavePayload[];
+      const saveChapter: RPChapterSavePayloadTemp = {
+        tempId: docChapter.tempId || generateChapterTempId(),
+        isTemporary: true,
+        title: docChapter.title,
+        content: docChapter.content,
+        contentType: 'html',
+        writingThought: canonical?.writingThought,
+      };
+      return saveChapter;
+    } else {
+      if (!docChapter.chapterId) {
+        // 静默处理：记录错误但不中断流程
+        console.error(`[convertDocumentChaptersToSaveFormat] Persisted chapter missing chapterId:`, docChapter);
+      }
+      const saveChapter: RPChapterSavePayloadPersisted = {
+        chapterId: Number(docChapter.chapterId),
+        title: docChapter.title,
+        content: docChapter.content,
+        contentType: 'html',
+        writingThought: canonical?.writingThought,
+      };
+      return saveChapter;
+    }
+  });
 };

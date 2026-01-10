@@ -1,69 +1,49 @@
-# OperatorHeader - 顶部操作栏组件
+﻿# OperatorHeader - 顶部操作栏组件
 
-企业详情页顶部操作栏，提供企业名称展示和快捷操作入口。
+企业详情 AI 右侧栏的顶部操作栏组件，提供收藏、导出报告、AI 助手切换等功能。
 
-## 目录结构
+## 目录树
 
 ```
 OperatorHeader/
-├── index.tsx           # 组件实现
-└── index.module.less   # 组件样式
+├── components/               # 子组件
+│   ├── CollectButton/        # 收藏按钮组件
+│   └── ExportButton/        # 导出按钮组件
+├── hooks/                    # 自定义钩子
+│   └── useOperatorActions.ts # 操作行为钩子
+├── styles/                   # 样式文件
+│   └── index.less            # 组件样式
+├── OperatorHeader.tsx        # 主组件
+├── index.ts                  # 导出文件
+└── README.md                 # 文档说明
 ```
 
-## 功能特性
+## 关键文件说明
 
-- 企业名称展示（支持国际化）
-- 收藏/取消收藏
-- 导出企业报告
-- AI 助手显隐切换
-- 反馈入口
-- 回到顶部
+| 文件/目录 | 作用 |
+|-----------|------|
+| **OperatorHeader.tsx** | 主组件，整合顶部操作栏的功能和 UI |
+| **components/CollectButton** | 收藏按钮组件，处理企业收藏状态 |
+| **components/ExportButton** | 导出按钮组件，处理报告导出功能 |
+| **hooks/useOperatorActions** | 操作行为钩子，管理收藏和导出逻辑 |
+| **styles/index.less** | 组件样式文件 |
 
-## Props
-
-```typescript
-interface OperatorHeaderProps {
-  entityName: string // 企业名称
-  companyCode: string // 企业编码
-  collectState: boolean // 收藏状态
-  setCollectState: (state: boolean) => void
-  backTopWrapClass?: string // 滚动容器类名
-  onClickReport?: () => void // 导出报告回调
-  onAliceClick?: (show?: boolean) => void // AI 助手切换回调
-  showRight: boolean // AI 侧边栏显示状态
-  corpNameIntl: string // 国际化企业名称
-}
-```
-
-## 依赖关系
+## 依赖示意
 
 ```
 OperatorHeader
-  └─> ToolsBar (@/components/toolsBar)
-       ├─> 收藏功能
-       ├─> 导出报告
-       ├─> AI 助手
-       ├─> 反馈
-       └─> 回到顶部
+├─> @/components/toolsBar (ToolsBar 组件)
+├─> @/api/company (企业相关 API)
+├─> @/hooks/useCollect (收藏钩子)
+└─> @/utils/exportHelper (导出工具)
 ```
 
-## 使用示例
-
-```tsx
-<OperatorHeader
-  entityName="小米科技有限责任公司"
-  companyCode="123456"
-  collectState={false}
-  setCollectState={setCollectState}
-  backTopWrapClass="scrollContainer"
-  onClickReport={handleReport}
-  onAliceClick={toggleAiSider}
-  showRight={true}
-  corpNameIntl="Xiaomi Technology Co., Ltd."
-/>
-```
+- **上游依赖**：@/components/toolsBar、@/api/company、@/hooks/useCollect、@/utils/exportHelper
+- **下游使用**：CompanyDetailAIRight 页面
 
 ## 相关文档
 
-- [ToolsBar 组件](../../../../../components/toolsBar/README.md)
-- [企业收藏功能](../../../../../components/searchListComponents/collect/README.md)
+- [工具栏组件规范](../../../../../../docs/rule/code-react-component-rule.md)
+- [样式规范](../../../../../../docs/rule/code-style-less-bem-rule.md)
+- [API 请求规范](../../../../../../docs/rule/code-api-client-rule.md)
+

@@ -1,7 +1,7 @@
 import { ChatEntityRecognize, GelData, SplTable, WithDPUList, WithRAGList } from 'gel-api'
 import { ReactNode } from 'react'
-import { AgentMsgAIDepre } from './agent'
-import { AIMessageStatus, BaseMessageFields, OtherMessageStatus } from './common'
+import { AgentMsgAIOverall } from './agent'
+import { AIMessageStatus, OtherMessageStatus } from './common'
 
 export type AIMsgBaseContent = Partial<WithDPUList> &
   Partial<WithRAGList> & {
@@ -13,25 +13,26 @@ export type AIMsgBaseContent = Partial<WithDPUList> &
   }
 
 /** 用户消息 */
-export type UserMessageGEL = BaseMessageFields & {
+export type UserMessageGEL = {
   role: 'user'
   content: string
 }
 /** AI消息 */
-export type AIMessageGEL = BaseMessageFields & {
+export type AIMessageGEL = {
   role: 'ai'
   content: AIMsgBaseContent | string
   status: AIMessageStatus
+  footer?: ReactNode
 }
 
 /** 报告内容 AI 消息 */
-export type AIMessageReportContent = BaseMessageFields & {
+export type AIMessageReportContent = {
   role: 'aiReportContent'
   content: string
   status: AIMessageStatus
   chapterId: string
 }
-export type AIHeaderMsg = BaseMessageFields & {
+export type AIHeaderMsg = {
   role: 'aiHeader'
   status: OtherMessageStatus
   content: ReactNode
@@ -39,15 +40,23 @@ export type AIHeaderMsg = BaseMessageFields & {
     content?: React.CSSProperties
   }
 }
+
+/** AI底部消息 */
+export type AIFooterMsg = {
+  role: 'aiFooter'
+  status: OtherMessageStatus
+  content: ReactNode
+}
+
 /** 建议消息 */
-export type SuggestionMessage = BaseMessageFields & {
+export type SuggestionMessage = {
   role: 'suggestion'
   content: WithDPUList & WithRAGList
   status: OtherMessageStatus
 }
 
 /** 文件消息 */
-export type FileMessage = BaseMessageFields & {
+export type FileMessage = {
   role: 'file'
   content: string
   status: OtherMessageStatus
@@ -60,19 +69,19 @@ export type SubQuestionMessage = {
   status: OtherMessageStatus
 }
 /** 图表消息 */
-export type ChartMessage = BaseMessageFields & {
+export type ChartMessage = {
   role: 'chart'
   content: GelData[]
   status: OtherMessageStatus
 }
 /** 简单图表消息 */
-export type SimpleChartMessage = BaseMessageFields & {
+export type SimpleChartMessage = {
   role: 'simpleChart'
-  content: AgentMsgAIDepre
+  content: AgentMsgAIOverall
   status: OtherMessageStatus
 }
 /** 超级名单表格消息 */
-export type SplTableMessage = BaseMessageFields & {
+export type SplTableMessage = {
   role: 'splTable'
   content: SplTable[]
   status: OtherMessageStatus
@@ -91,3 +100,4 @@ export type MsgParsedDepre =
   | SubQuestionMessage
   | SimpleChartMessage
   | SplTableMessage
+  | AIFooterMsg

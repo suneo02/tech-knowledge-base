@@ -1,10 +1,9 @@
 import { getUrlByLinkModule, LinksModule } from '@/handle/link'
 import { DownloadO, NoteO } from '@wind/icons'
 import { Button, Checkbox, DatePicker, Input, message, Modal, Radio, Select } from '@wind/wind-ui'
-import SpaceTagInput from '../../components/SpaceTagInput/SpaceTagInput'
-import { WindCascade } from 'gel-ui'
-import { isEn } from 'gel-util/intl'
 import dayjs from 'dayjs'
+import { CorpPresearchModule, WindCascade } from 'gel-ui'
+import { isEn } from 'gel-util/intl'
 import React, { createRef } from 'react'
 import { connect } from 'react-redux'
 import {
@@ -18,24 +17,24 @@ import {
 } from '../../api/searchListApi.ts'
 import { getSearchHistoryAndSlice } from '../../api/services/history.ts'
 import { CardList } from '../../components/CardList/CardList'
+import { CorpPresearch } from '../../components/CorpPreSearch'
 import InnerHtml from '../../components/InnerHtml'
+import SpaceTagInput from '../../components/SpaceTagInput/SpaceTagInput'
 import NumberRangeOption from '../../components/restructFilter/comps/filterOptions/NumberRangeOption'
 import PreSearchInput from '../../components/singleSearch/preSearchInput'
 import { bidResultOption } from '../../handle/searchConfig'
 import { newMap } from '../../handle/searchConfig/newMap'
 import { globalIndustryOfNationalEconomy4 } from '../../utils/industryOfNationalEconomyTree'
-import intl from '../../utils/intl'
+import intl, { translateToEnglish } from '../../utils/intl'
 import { wftCommon } from '../../utils/utils'
 import BidHistoryFocus from '../BidHistoryFocus'
 import { BidCard } from '../BusinessComponent/bid'
 import HistoryFocusList from '../HistoryFocusList'
 import './SearchBidNew.less'
 import { allAnnoc, biddingMoney, money, programStatus, releaseDate, showMap } from './config.ts'
+import { processAllCompanyNames } from './extra.ts'
 import { updateSearchHistory } from './history'
 import { SearchBidNewProps, SearchBidNewState } from './type.tsx'
-import { CorpPresearch } from '../../components/CorpPreSearch'
-import { CorpPresearchModule } from 'gel-ui'
-import { processAllCompanyNames } from './extra.ts'
 
 const RadioGroup = Radio.Group
 const Option = Select.Option
@@ -651,7 +650,7 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
           if (res.ErrorCode == 0 && res.Data) {
             var self = this
 
-            if (window.en_access_config) {
+            if (isEn()) {
               if (param.pageNo == '0') {
                 if (res.Data.list && res.Data.list.length) {
                   callback(res.Data.list)
@@ -668,7 +667,16 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                   }
                 })
 
-              wftCommon.zh2en(res.Data.list, callback, null, callback)
+              translateToEnglish(res.Data.list, {
+                skipFields: ['purchasing_unit', 'bidWinner', 'purchasingUnit'],
+              })
+                .then((enDataRes) => {
+                  callback(enDataRes.data)
+                })
+                .catch((err) => {
+                  console.log(err)
+                  callback(res.Data.list)
+                })
             } else {
               callback(res.Data.list)
             }
@@ -1083,7 +1091,7 @@ class SearchBidNew extends React.Component<SearchBidNewProps, SearchBidNewState>
                 }
               )
             } else {
-              message.warning(intl('204684', '导出出错'))
+              message.warning(intl('478689', '导出出错'))
             }
           })
         }

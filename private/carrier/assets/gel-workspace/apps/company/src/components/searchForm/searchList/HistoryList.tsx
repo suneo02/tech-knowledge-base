@@ -54,7 +54,7 @@ const HistoryList: FC<HistoryListProps> = ({ list, onItemClick, listFlag, onClea
                 if (!onClearHistory) return
                 Modal.confirm({
                   title: t('', '是否清空历史搜索？'),
-                  content: t('', '此操作不可撤销，请确认。'),
+                  content: t('478638', '此操作不可撤销，请确认。'),
                   okText: t('12238', '确定'),
                   cancelText: t('372173', '取消'),
                   onOk: () => onClearHistory?.(),

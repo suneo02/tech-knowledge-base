@@ -1,4 +1,4 @@
-# reportReference
+﻿# reportReference
 
 报告引用数据域，负责将引用源数据整理为渲染与侧栏可消费的结构。
 
@@ -29,4 +29,5 @@ report    ┘
 
 ---
 
-> 📖 本文档遵循 [README 编写规范](../../docs/rule/readme-rule.md)
+> 📖 本文档遵循 [README 编写规范](../../docs/rule/doc-readme-structure-rule.md)
+

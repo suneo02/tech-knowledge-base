@@ -49,7 +49,7 @@ function GameapprovalDetail(props) {
     ],
     [
       {
-        title: intl('354829', '变更内容'),
+        title: intl('354859', '变更内容'),
         colSpan: 5,
         dataIndex: 'changeContent',
         render: (txt, row) => {

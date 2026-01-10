@@ -4,11 +4,10 @@
  *
  * @format
  */
-// @ts-nocheck
 import * as globalActions from '@/actions/global'
-import VipComponent from '@/components/common/Vip'
 import CardHeader from '@/components/common/card/header/Header'
 import { ConfigDetailContext } from '@/components/layout/ctx'
+import { VipPurchase } from '@/components/user'
 import { getVipInfo } from '@/lib/utils'
 import { useGroupStore } from '@/store/group'
 import store from '@/store/store'
@@ -50,7 +49,7 @@ const GroupContentNew = forwardRef<HTMLDivElement, undefined>((_, contentRef) =>
       <div id={node.key} key={node.key} className="node-item-children">
         {checkVip ? (
           <Card title={<CardHeader {...node} />} styleType="block">
-            <VipComponent
+            <VipPurchase
               title={node.title}
               vipPopupSel={node.isSvip ? 'svip' : 'vip'}
               onlySvip={node.isSvip}
@@ -59,6 +58,7 @@ const GroupContentNew = forwardRef<HTMLDivElement, undefined>((_, contentRef) =>
             />
           </Card>
         ) : checkHidden(node) ? null : (
+          // @ts-expect-error
           <Menu {...node} />
         )}
       </div>

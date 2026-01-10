@@ -100,15 +100,14 @@ export const useFileStatusPolling = (options: UseFileStatusPollingOptions) => {
 
       if (response.Data) {
         // 批量更新文件状态
-        const rawData = Array.isArray(response.Data) ? response.Data : [response.Data];
 
         // 转换为 FileStatusUpdate 格式，过滤掉 status 为 undefined 的项
-        const statusUpdates: FileStatusUpdate[] = rawData
-          .filter((item) => item.status !== undefined)
-          .map((item) => ({
-            fileId: item.fileId,
+        const statusUpdates: FileStatusUpdate[] = response.Data.filter((item) => item.status !== undefined).map(
+          (item) => ({
+            fileId: item.fileID,
             status: item.status!,
-          }));
+          })
+        );
 
         // 通过回调通知外部更新状态
         // 外部（容器组件）会根据状态更新 Redux

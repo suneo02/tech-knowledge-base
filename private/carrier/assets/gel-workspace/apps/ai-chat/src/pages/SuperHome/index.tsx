@@ -3,9 +3,12 @@ import React, { useEffect, useState } from 'react'
 import styles from './index.module.less'
 import { WelcomeModal } from './components/WelcomeModal'
 import { t } from 'gel-util/intl'
+import { useHomeTracking } from './hooks/useHomeTracking'
 
 const SuperHome: React.FC = () => {
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false)
+
+  useHomeTracking()
 
   useEffect(() => {
     document.title = t('464234', '一句话找企业')

@@ -1,4 +1,4 @@
-# chapterRef
+﻿# chapterRef
 
 章节引用管理模块，提供溯源标记生成
 
@@ -22,4 +22,5 @@ render → foundation
 
 ---
 
-> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/readme-rule.md)
+> 📖 本文档遵循 [README 编写规范](../../../../../docs/rule/doc-readme-structure-rule.md)
+

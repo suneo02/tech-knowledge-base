@@ -1,12 +1,12 @@
-import { ICorpSubModuleVipCfg } from '@/components/company/type'
 import { InfoCircleButton } from '@/components/icons/InfoCircle'
+import { CorpSubModuleVipCfg } from '@/types/corpDetail'
 import { intlNoNO as intl } from '@/utils/intl'
 import { wftCommon } from '@/utils/utils'
 import { Tooltip } from '@wind/wind-ui'
 import React from 'react'
 import { vipDescDefault } from '../common/vipDesc'
 
-export const corpAdminLicenseChina: ICorpSubModuleVipCfg = {
+export const corpAdminLicenseChina: CorpSubModuleVipCfg = {
   cmd: '/detail/company/getadminilicence',
   moreLink: 'getpermission02',
   title: intl('222481', '行政许可[信用中国]'),

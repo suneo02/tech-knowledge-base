@@ -1,9 +1,9 @@
-import { RPFileTraced } from 'gel-api';
+import { RPFileUnified } from '@/types';
 
 /**
  * 支持的文件预览类型
  */
-export type SupportedFileType = 'pdf' | 'image' | 'text' | 'unsupported';
+export type SupportedFileType = 'pdf' | 'image' | 'text' | 'word' | 'unsupported';
 
 /**
  * 从文件名获取文件扩展名
@@ -31,6 +31,11 @@ export const getFileTypeByExtension = (extension: string): SupportedFileType => 
     return 'pdf';
   }
 
+  // Word文件
+  if (ext === 'doc' || ext === 'docx') {
+    return 'word';
+  }
+
   // 图片文件
   if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(ext)) {
     return 'image';
@@ -50,7 +55,7 @@ export const getFileTypeByExtension = (extension: string): SupportedFileType => 
  * @param file 文件数据
  * @returns 支持的文件类型
  */
-export const detectFileType = (file: RPFileTraced): SupportedFileType => {
+export const detectFileType = (file: RPFileUnified): SupportedFileType => {
   if (!file.fileName) {
     return 'unsupported';
   }
@@ -80,7 +85,7 @@ export const formatFileSize = (bytes?: number): string => {
  * @param file 文件数据
  * @returns 是否可以预览
  */
-export const isFilePreviewable = (file: RPFileTraced): boolean => {
+export const isFilePreviewable = (file: RPFileUnified): boolean => {
   const fileType = detectFileType(file);
   return fileType !== 'unsupported';
 };

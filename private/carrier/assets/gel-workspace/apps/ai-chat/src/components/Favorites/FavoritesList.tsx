@@ -2,6 +2,7 @@ import { postPointBuried } from '@/utils/common/bury'
 import { CloseO, RetreatO, StarF, StarO } from '@wind/icons'
 import { Button, Checkbox, Empty, message, Modal, Spin } from '@wind/wind-ui'
 import { useChatRoomContext, useFavorites } from 'ai-ui'
+import cn from 'classnames'
 import { ERROR_TEXT } from 'gel-util/config'
 import { t } from 'gel-util/intl'
 import React, { useEffect, useState } from 'react'
@@ -156,7 +157,7 @@ export const FavoritesList: React.FC = () => {
               <StarF
                 onPointerEnterCapture={() => {}}
                 onPointerLeaveCapture={() => {}}
-                className={styles['favorites-item-delete']}
+                className={cn(styles['favorites-item-icon'], styles['favorites-item-icon--active'])}
                 onClick={() => {
                   Modal.confirm({
                     title: t('', '确认取消收藏'),

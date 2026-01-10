@@ -5,6 +5,7 @@
   "scripts": {
     "clean": "node ../../scripts/clean.cjs dist",
     "dev": "vite --host",
+    "dev:debug": "vite --host",
     "build": "npm run clean && tsc && vite build",
     "build:staging": "npm run clean && tsc && vite build --mode staging",
     "build:analyze": "cross-env ANALYZE=true vite build",

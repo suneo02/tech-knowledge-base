@@ -73,6 +73,7 @@ pnpm add gel-ui
 | `pnpm build` | 构建生产包 |
 | `pnpm story` | 启动 Storybook 文档 |
 | `pnpm build-story` | 构建 Storybook 静态站点 |
+| `pnpm build:locales:wind-header` | 提取 WindHeader 组件的国际化词条 |
 | `pnpm lint` | 代码检查 |
 | `pnpm tsc` | 类型检查 |
 
@@ -96,4 +97,4 @@ pnpm add gel-ui
 
 ## License
 
-MIT 
+MIT

@@ -5,7 +5,7 @@ import { UserPackageInfo } from 'gel-types'
  * @param {*} userInfo
  * @returns
  */
-export const getIfOverseaByUserInfo = (userInfo: UserPackageInfo) => {
+export const getIfOverseaByUserInfo = (userInfo: UserPackageInfo | null | undefined) => {
   if (!userInfo) {
     return false
   }

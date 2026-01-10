@@ -1,4 +1,4 @@
-# AI Chat 智能对话组件
+﻿# AI Chat 智能对话组件
 
 > 提供完整AI对话能力的UI组件库，支持流式响应、多轮对话、角色定制等核心功能。
 
@@ -97,10 +97,10 @@ graph TB
 
 ## 📋 相关文档
 
-- **设计规范**: [前端设计文档编写规范](../../../../docs/rule/design-doc.md)
-- **需求规范**: [需求文档编写规范](../../../../docs/rule/require-doc.md)
-- **文档规范**: [文档编写规范](../../../../docs/rule/documentation-rule.md)
-- **README规范**: [README文档编写规范](../../../../docs/rule/readme-rule.md)
+- **设计规范**: [前端设计文档编写规范](../../../../docs/rule/doc-design-rule.md)
+- **需求规范**: [需求文档编写规范](../../../../docs/rule/doc-requirements-rule.md)
+- **文档规范**: [文档编写规范](../../../../docs/rule/doc-general-rule.md)
+- **README规范**: [README文档编写规范](../../../../docs/rule/doc-readme-structure-rule.md)
 
 ## ⚡ 快速参考
 
@@ -114,3 +114,4 @@ graph TB
 ---
 
 *最后更新: 2025-11-03 | 版本: v2.0*
+

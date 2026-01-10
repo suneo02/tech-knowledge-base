@@ -65,7 +65,7 @@ export const getDownloadCfgDepre = ({
       downFileNameParsed = downloadFileName || downFileNameParsed
       href = getDownloadUrl(id, downFileNameParsed)
     } else if (downLoadFun == 'corp_list_and_rank') {
-      downFileNameParsed = intl('360953', '榜单名录导出-') + entityName || ''
+      downFileNameParsed = intl('478670', '榜单名录导出-') + entityName || ''
       downFileNameParsed = downloadFileName || downFileNameParsed
       href = getDownloadUrl(id, downFileNameParsed)
     } else if (downLoadFun == 'batch_report_task') {
@@ -91,7 +91,7 @@ export const getDownloadCfgDepre = ({
     } else {
       href = getDownloadUrl(id, downloadFileName || downFileNameParsed)
     }
-    const fileType = [intl('204685', '企业数据导出'), intl('204686', '企业名单导出'), '企业深度信用导出']
+    const fileType = [intl('478680', '企业数据导出'), intl('455044', '企业名单导出'), '企业深度信用导出']
     if (downLoadFun.indexOf('batch_doc_task_feature_') == 0) {
       displayNameParsed = handleBatchDocTaskFeature(downLoadFun, displayNameParsed)
     } else {
@@ -104,7 +104,7 @@ export const getDownloadCfgDepre = ({
           break
         }
         case 'cross_filter_doc_task':
-          displayNameParsed = intl('204686', '企业名单导出') + '(企业数据浏览器)'
+          displayNameParsed = intl('455044', '企业名单导出') + '(企业数据浏览器)'
           break
         case 'doc_task_investpromise_corp':
           displayNameParsed = '间接机构股东调查表&承诺函'
@@ -116,94 +116,94 @@ export const getDownloadCfgDepre = ({
           break
         case 'paid_doc_task_deepfilter':
           displayNameParsed =
-            intl('204686', '企业名单导出') + '(' + intl('222402', '超级名单') + '-' + intl('224232', '深度筛选') + ')'
+            intl('455044', '企业名单导出') + '(' + intl('222402', '超级名单') + '-' + intl('224232', '深度筛选') + ')'
           break
         case 'batch_doc_task_corpsearch':
-          displayNameParsed = intl('204686', '企业名单导出') + '(' + intl('233322', '公司搜索') + ')'
+          displayNameParsed = intl('455044', '企业名单导出') + '(' + intl('233322', '公司搜索') + ')'
           break
         case 'batch_doc_task_corplist':
           displayNameParsed = intl('252965', '榜单名录') + '(' + intl('138216', '企业列表') + ')'
           break
         case 'batch_doc_task':
-          displayNameParsed = fileType[0] + '(' + intl('141998', '批量查询') + ')'
+          displayNameParsed = fileType[0] + '(' + intl('478681', '批量查询') + ')'
           break
         case 'batch_doc_task_advancesearch':
-          displayNameParsed = fileType[1] + intl('223900', '企业筛选')
+          displayNameParsed = fileType[1] + intl('478671', '企业筛选')
           break
         case 'batch_doc_task_patent':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138749', '专利')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138749', '专利')
           break
         case 'batch_doc_task_trademark':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138799', '商标')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138799', '商标')
           break
         case 'batch_doc_task_software':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138788', '软件著作权')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138788', '软件著作权')
           break
         case 'batch_doc_task_production':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138756', '作品著作权')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138756', '作品著作权')
           break
         case 'batch_doc_task_judgeinfo':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138731', '裁判文书')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138731', '裁判文书')
           break
         case 'batch_doc_task_court':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138226', '法院公告')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138226', '法院公告')
           break
         case 'batch_doc_task_trial':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138657', '开庭公告')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138657', '开庭公告')
           break
         case 'batch_doc_task_shareholder':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('32959', '股东')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('32959', '股东')
           break
         case 'batch_doc_task_invest':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138724', '对外投资')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138724', '对外投资')
           break
         case 'batch_doc_task_benefit':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138180', '最终受益人')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138180', '最终受益人')
           break
         case 'batch_doc_task_beneficialOwner':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + '最终受益人(受益所有人)'
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + '最终受益人(受益所有人)'
           break
         case 'batch_doc_task_beneficialNaturalPerson':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + '最终受益人(受益自然人)'
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + '最终受益人(受益自然人)'
           break
         case 'batch_doc_task_beneficialOrg':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + '最终受益人(受益机构)'
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + '最终受益人(受益机构)'
           break
         case 'batch_doc_task_ctrl':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('451208', '控股企业')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('451208', '控股企业')
           break
         case 'batch_doc_task_mistrust':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138591', '失信信息')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138591', '失信信息')
           break
         case 'batch_doc_task_inspection':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138467', '抽查检查')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138467', '抽查检查')
           break
         case 'batch_doc_task_execution':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138592', '被执行人')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138592', '被执行人')
           break
         case 'batch_doc_task_punish':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138647', '行政处罚')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138647', '行政处罚')
           break
         case 'batch_doc_task_member':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138503', '主要人员')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138503', '主要人员')
           break
         case 'batch_doc_task_hisshareholder':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138326', '历史股东')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138326', '历史股东')
           break
         case 'batch_doc_task_hismanager':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138323', '历史法人高管')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('417172', '历史法人高管')
           break
         case 'batch_doc_task_groupsystem':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('148609', '所属集团系')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('148609', '所属集团系')
           break
         case 'batch_doc_task_branch':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('138183', '分支机构')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('138183', '分支机构')
           break
         case 'batch_doc_task_sharedbonds':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + '最新发债'
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + '最新发债'
           break
         case 'batch_doc_task_standinfo':
-          displayNameParsed = fileType[0] + '(' + intl('145880', '批量导出') + ') - ' + intl('326113', '标准信息')
+          displayNameParsed = fileType[0] + '(' + intl('478682', '批量导出') + ') - ' + intl('326113', '标准信息')
           break
         case 'batch_doc_task_aml_benefit': //反洗钱核查
           displayNameParsed = '反洗钱核查 - 最终受益人'
@@ -218,10 +218,10 @@ export const getDownloadCfgDepre = ({
           displayNameParsed = '反洗钱核查 - 控股企业'
           break
         case 'batch_report_task':
-          displayNameParsed = fileType[2] + '(' + intl('145880', '批量导出') + ')'
+          displayNameParsed = fileType[2] + '(' + intl('478682', '批量导出') + ')'
           break
         case 'doc_task_chain_corp':
-          displayNameParsed = intl('236634', '产业链企业名单')
+          displayNameParsed = intl('417174', '产业链企业名单')
           break
         case 'doc_task_ipodoc':
           displayNameParsed = 'IPO股东核查报告'
@@ -284,7 +284,7 @@ export const getDownloadCfgDepre = ({
           break
         }
         case 'single_report_task_senior': {
-          displayNameParsed = intl('222469', '董监高对外投资与任职报告')
+          displayNameParsed = intl('478672', '董监高对外投资与任职报告')
 
           descMsg = getDescMsgReportSubject(entityName)
 
@@ -323,7 +323,7 @@ export const getDownloadCfgDepre = ({
           break
         }
         case 'market_guide': {
-          displayNameParsed = intl('265710', '企业KYC报告')
+          displayNameParsed = intl('420087', '企业KYC报告')
           descMsg = getDescMsgReportSubject(entityName)
 
           downFileType = 'word'
@@ -333,7 +333,7 @@ export const getDownloadCfgDepre = ({
           break
         }
         case 'market_guideexp_guide': {
-          displayNameParsed = intl('364473', '企业KYC报告-样例报告')
+          displayNameParsed = intl('419980', '企业KYC报告-样例报告')
           descMsg = getDescMsgReportSubject(entityName)
 
           downFileType = 'word'

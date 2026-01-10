@@ -1,7 +1,7 @@
 import {
   AIHeaderMsg,
   AIMessageGEL,
-  AgentMsgDepre,
+  AgentMsgOverall,
   SubQuestionMessage,
   SuggestionMessage,
   UserMessageGEL,
@@ -15,4 +15,4 @@ export type RPMsgParsed = UserMessageGEL | AIMessageGEL | AIHeaderMsg | Suggesti
 /**
  * AI 报告 消息类型 这个类型是未被解析处理过的 后端消息
  */
-export type RPMsgAgentShared = AgentMsgDepre;
+export type RPMsgAgentShared = AgentMsgOverall;

@@ -41,6 +41,10 @@ export type { UseRehydrationOrchestratorOptions } from './useRehydrationOrchestr
 export { useTextRewrite } from './useTextRewrite';
 export type { UseTextRewriteOptions, UseTextRewriteReturn } from './useTextRewrite';
 
+// 统一的 AIGC 取消
+export { useCancelGeneration } from './useCancelGeneration';
+export type { UseCancelGenerationReturn } from './useCancelGeneration';
+
 // 报告文件管理
 export { useReportFiles } from './useReportFiles';
 export type { UseReportFilesParams, UseReportFilesReturn } from './useReportFiles';

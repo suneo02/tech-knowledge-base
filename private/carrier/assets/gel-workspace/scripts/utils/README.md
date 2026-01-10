@@ -1,4 +1,4 @@
-# 通用工具模块
+﻿# 通用工具模块
 
 脚本工具集中的通用功能模块，提供文件处理、命令执行等基础能力支撑。
 
@@ -34,4 +34,4 @@ utils/
 
 - [脚本工具集](../README.md) - 脚本整体架构说明
 - [预发布工具说明](../staging/utils/README.md) - 预发布专用工具
-- [文档编写规范](../../docs/rule/readme-rule.md) - README文档标准
+- [文档编写规范](../../docs/rule/doc-readme-structure-rule.md) - README文档标准

@@ -2,10 +2,12 @@ import { useIntl } from '@/common'
 import { Tag, Tooltip } from '@wind/wind-ui'
 import cn from 'classnames'
 import { CorpTag, CorpTagType } from 'gel-api'
-import { getCorpTagConfig, getRiskTagCfg } from 'gel-util/biz'
+import { getCorpTagConfig, getRiskTagCfg, TagsModule } from 'gel-util/biz'
 import { isNil } from 'lodash-es'
 import { CSSProperties, FC, useCallback, useMemo } from 'react'
 import { CorpIndustryTag } from './CorpIndustryTag'
+import { FinancingStatusTag } from './FinancingStatusTag'
+import { FundTag } from './FundTag'
 import styleModule from './CorpTag.module.less'
 
 export type CorpTagProps = {
@@ -90,12 +92,32 @@ const BaseCorpTag: FC<CorpTagProps> = ({
     [corpTag, onClick]
   )
 
+  const isSmallMicroEnterprise = useMemo(() => tagNameOriginal === '小微企业', [tagNameOriginal])
+
   // 行业标签单独处理，因为行业标签的置信度需要单独处理
   if (corpTag.type === 'INDUSTRY') {
     return <CorpIndustryTag corpTag={corpTag} />
   }
-
-  const isSmallMicroEnterprise = useMemo(() => tagNameOriginal === '小微企业', [tagNameOriginal])
+  // // 基金管理人
+  // | 'FUND_MANAGER'
+  // // 基金有限合伙人
+  // | 'LIMITED_PARTNER'
+  // // 基协备案基金
+  // | 'FUND_AMAC'
+  // // 未备案基金
+  // | 'FUND_NON_AMAC'
+  const fundTags = ['FUND_MANAGER', 'LIMITED_PARTNER', 'FUND_AMAC', 'FUND_NON_AMAC']
+  if (fundTags.includes(corpTag.type)) {
+    return <FundTag corpTag={corpTag} />
+  }
+  // // 连续获投
+  // | 'CONSECUTIVE_ROUNDS'
+  // // DOWN ROUND
+  // | 'DOWN_ROUND'
+  const financingStatusTags = ['CONSECUTIVE_ROUNDS', 'DOWN_ROUND']
+  if (financingStatusTags.includes(corpTag.type)) {
+    return <FinancingStatusTag corpTag={corpTag} />
+  }
 
   const classNames = cn(className, styleModule['corp-tag'], {
     [styleModule['corp-tag-can-click']]: !!onClick,

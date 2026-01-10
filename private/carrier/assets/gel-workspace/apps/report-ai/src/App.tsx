@@ -25,7 +25,6 @@ const preloadRoutes = (): (() => void) => {
     import('./pages/ChatOutline/index.tsx');
     // 预加载关键样式
     import('./components/ChatRPOutline/messages/index.tsx');
-    import('./components/ChatRPLeft/messages/index.tsx');
     import('./components/ChatCommon/ChatRoles/index.ts');
   }, 200);
 

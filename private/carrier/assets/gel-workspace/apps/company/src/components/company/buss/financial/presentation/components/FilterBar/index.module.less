@@ -1,0 +1,42 @@
+/*
+ * 筛选条样式：内联表单布局、间距与响应式处理。
+ * @author yxlu.calvin
+ * @example .filter-bar-container { display: flex; }
+ */
+@prefix: filter-bar;
+.@{prefix} {
+  &-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    :global(.ant-form-inline .ant-form-item) {
+      // :last-child {
+      //   margin-inline-end: 0;
+      // }
+
+      margin-inline-end: 8px;
+    }
+    margin-right: -8px;
+  }
+
+  &-container :global(.ant-form) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  &-container :global(.ant-form-item-label > label) {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    &-container {
+      justify-content: flex-start;
+    }
+    &-container :global(.ant-form) {
+      justify-content: flex-start;
+    }
+  }
+}

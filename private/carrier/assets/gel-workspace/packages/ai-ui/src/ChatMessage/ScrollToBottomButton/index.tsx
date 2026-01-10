@@ -1,8 +1,8 @@
 import { ToBottomO } from '@wind/icons'
-import { FC } from 'react'
-import styles from './ScrollToBottomButton.module.less'
 import { Button } from '@wind/wind-ui'
 import { ButtonProps } from '@wind/wind-ui/lib/button/button'
+import { FC, FormEventHandler } from 'react'
+import styles from './ScrollToBottomButton.module.less'
 
 interface ScrollToBottomButtonProps extends Omit<ButtonProps, 'icon' | 'shape'> {
   /**
@@ -12,7 +12,7 @@ interface ScrollToBottomButtonProps extends Omit<ButtonProps, 'icon' | 'shape'> 
   /**
    * 点击按钮时的回调函数
    */
-  onClick: () => void
+  onClick: FormEventHandler
   /**
    * 自定义类名
    */

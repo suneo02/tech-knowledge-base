@@ -170,14 +170,6 @@ export const getIntellectualViewList = (data) => {
   })
 }
 
-export const getBidViewList = (data) => {
-  return axios.request({
-    method: 'post',
-    data: data ? data : [],
-    cmd: 'search/bid/getbiddingsearchadvance',
-  })
-}
-
 export const getBidSearchList = (data) => {
   return axios.request({
     method: 'post',

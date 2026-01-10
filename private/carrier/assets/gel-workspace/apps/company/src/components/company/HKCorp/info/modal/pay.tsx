@@ -65,7 +65,7 @@ export const HKCorpPay: FC<{
   // 支付按钮点击逻辑
   const handlePayment = async () => {
     if (!(isCheckedStatement && isCheckedTerms)) {
-      message.error(intl(0, '请阅读并同意相关协议'))
+      message.error(intl(286709, '请阅读并同意相关协议'))
       return
     }
     // check form 以防万一

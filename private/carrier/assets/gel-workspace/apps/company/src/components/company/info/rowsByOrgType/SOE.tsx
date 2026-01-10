@@ -1,6 +1,7 @@
 import { HorizontalTableColumns } from '@/types/WindUI/horizontalTable.ts'
 import intl from '@/utils/intl'
-import { ICorpBasicInfoFront } from '../handle'
+import { CorpBasicInfo } from 'gel-types'
+import { CorpBasicInfoFront } from '../handle'
 import {
   corpInfoBussScopeRow,
   corpInfoBussStateRow,
@@ -19,38 +20,38 @@ import {
 /**
  * @param baseInfo
  */
-export const corpInfoSOERows = (baseInfo: ICorpBasicInfoFront): HorizontalTableColumns<ICorpBasicInfoFront> => [
+export const corpInfoSOERows = (baseInfo: Partial<CorpBasicInfo>): HorizontalTableColumns<CorpBasicInfoFront> => [
   [{ ...corpInfoNameRow, title: intl(215800, '单位名称') }, corpInfoCreditCodeRow],
   [corpInfoEngNameRow, corpInfoOrgAuthorityRow],
   [
     corpInfoUsedNamesRow(baseInfo),
     {
       ...corpInfoBussStateRow,
-      title: intl(208890, '单位状态'),
+      title: intl(448354, '单位状态'),
     },
   ],
   [
     corpInfoLegalPersonRow,
     {
       ...corpInfoRegCapitalRow,
-      title: intl(207786, '开办资金'),
+      title: intl(448355, '开办资金'),
     },
     ,
   ],
   [
     { ...corpInfoIndustryRow(), colSpan: 3 },
-    { ...corpInfoRegAuthorityRow, title: intl(208889, '登记管理机关') },
+    { ...corpInfoRegAuthorityRow, title: intl(448324, '登记管理机关') },
   ],
   [
     {
       ...corpInfoRegAddressRow,
-      title: intl(207785, '住所'),
+      title: intl(448326, '住所'),
     },
   ],
   [
     {
       ...corpInfoBussScopeRow,
-      title: intl(145358, '业务范围'),
+      title: intl(149609, '业务范围'),
     },
   ],
 ]
