@@ -6,91 +6,80 @@
 - 叙述人称：第一人称（我）
 
 ## 1. 全景（Situation & Task）
-- 业务背景：我聚焦 Report AI 报告详情模块的报告生成与编辑场景，目标是让用户在一个页面完成生成、编辑与引用管理（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/requirement.md 模块概述/功能需求）
-- 目标与约束：我需要满足单人单端编辑、全量保存、无实时协同、失败可恢复等约束，并在生成、编辑、保存之间保证互斥与可恢复（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 文档定位；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md 文档定位；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/lifecycle-flow.md 互斥蓝图）
-- 架构描述（文字）：我采用三栏布局，将 AI 对话、编辑器与大纲/引用管理拆开，并以数据层驱动状态与展示（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/design.md 1.1/1.2；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/README.md 页面布局）
-  - 左侧：AI 对话与大纲/编写思路展示，右侧：引用资料管理，中间：TinyMCE 编辑器（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/requirement.md 模块概述/三栏布局设计）
-  - 数据层结构：Canonical 事实层 + 前端数据层 + 展示层桥接，保持唯一真相（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 1-3）
-  - 生成流：SSE 流式输出 -> 编辑器更新 -> 大纲状态同步（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/design.md 3.2-3.3）
-- 技术栈与关键机制：
-  - 前端技术栈为 React + TypeScript（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/design.md 1.1）
-  - 编辑器为 TinyMCE，报告编辑场景包含章节化编辑与自动保存（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/design.md 1.2；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/rp-editor/design.md 设计概览）
-  - 生成侧采用 SSE 流式输出，并用 Correlation ID 串联生成链路（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/design.md 3.2；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/correlation-id-design.md 设计动机/生命周期）
-  - 保存侧采用文档级哈希与 Single-Flight 单飞保存（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 2.3-2.4；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md 生命周期速览）
+- 业务背景：我聚焦报告详情模块的生成与编辑场景，让用户在一个页面完成生成、编辑与引用管理
+- 架构描述（文字，包含组件关系与数据流）：我采用三栏布局，左侧承载对话与大纲提示，中间是富文本编辑区，右侧承载引用资料与预览；生成侧通过流式输出驱动编辑区更新，并同步大纲状态；数据层按事实层、草稿层、展示层分工，保证任意场景可回到一致状态
+- 技术选型对比（文字）：我选用富文本编辑器以覆盖复杂粘贴与分页需求，流式通道采用单向推送以降低企业网络阻断风险，同时以类型系统保障复杂状态与流程的可维护性
+- 证据锚点（1-3 条）：
+  - 《报告详情模块需求文档》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/requirement.md 模块概述/三栏布局设计
+  - 《AI 报告页面 - 技术设计总览》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/design.md 1.1-3.3
+  - 《数据与状态（横向·三层指南）》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 1-3
 
 ## 2. 设计文档引用与要点（必须）
-- 我引用的设计文档目录：private/carrier/assets/gel-workspace/apps/report-ai/docs
-- 我引用的关键文档与章节：
-  - rp-detail/requirement.md：模块概述、三栏布局设计、报告生成功能
-  - rp-detail/design.md：技术架构概览、整体布局架构、AI 内容生成技术流程、流式数据处理设计
-  - rp-detail/README.md：模块职责、页面布局、模块依赖
-  - rp-detail/rp-editor/design.md：设计概览、页面蓝图、交互流程与状态
-  - rp-detail/content-management/data-layer-guide.md：Canonical 事实层、前端数据层、展示层桥接、保存流程
-  - rp-detail/content-management/edit-and-save-flow.md：输入监听、保存触发、单飞保存与回调
-  - rp-detail/content-management/lifecycle-flow.md：互斥编排、只读控制、生成与保存关系
-  - rp-detail/content-management/correlation-id-design.md：设计动机、生命周期、关键实现位置
-  - rp-detail/content-management/full-generation-flow.md：全文生成的顺序调度与批量注水
-  - rp-detail/content-management/README.md：核心概念与初始注水策略
-  - specs/editor-dom-sync-timing-analysis/issue-analysis.md：问题陈述、根因与相关代码位置
-  - specs/editor-dom-sync-timing-analysis/optimization-plan.md：方案对比与推荐方案
-  - specs/editor-dom-sync-timing-analysis/verification-plan.md：性能指标目标
-  - specs/2025-02/2025-02-09-report-content-initial-value-issues/README.md：背景、根因与解决方案
+- 设计文档名称/版本：Report AI 项目文档（持续更新）
+- 设计文档路径（关键条目即可）：
+  - private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/requirement.md
+  - private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/design.md
+  - private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/rp-editor/design.md
+  - private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md
+  - private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md
+- 关键章节引用（章节标题 + 关联要点）：
+  - 《报告详情模块需求文档》模块概述/功能需求：三栏布局与生成/编辑/引用管理的边界
+  - 《AI 报告页面 - 技术设计总览》技术架构概览/流式数据处理：生成流与编辑区更新关系
+  - 《数据与状态（横向·三层指南）》1-3 章：事实层、草稿层、展示层的职责划分
 
 ## 3. 核心功能与实现（Action - Construction）
-- 功能 1：我搭建三层数据与展示桥接
-  - 目标：我保证 Canonical、前端数据层与展示层之间保持唯一真相，并能在不同场景回到一致状态（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 1-3）
-  - 实现流程：Canonical 作为事实层；前端数据层维护 Draft、Hydration 与保存调度；展示层通过 LiveOutline 与渲染/解析桥接编辑器（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 1-3）
-  - 数据结构（文字字段）：我用 Draft Tree 仅记录 chapterId、title、order、dirty、baselineHash 等轻量元数据，LiveOutline 以 Draft 或 Canonical 为源（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 2.1/3.1）
-  - 实现代价说明：我在前端引入注水队列与执行器，确保“谁决策/谁执行”分离，便于排查注水问题（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 2.2；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/README.md Rehydration 机制）
-- 功能 2：我搭建编辑与保存单飞链路
-  - 目标：我保证编辑可持续输入，保存串行且失败可恢复（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md 生命周期速览）
-  - 实现流程：TinyMCE 输入 -> 规范化与文档级哈希 -> hasDirty 判定 -> 触发保存 -> 构建全量快照 -> Single-Flight -> 成功刷新 Canonical/基线，失败保留 Draft（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md 3-6；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 2.3-2.5）
-  - 保存触发来源：自动保存、手动保存、离开守卫、生成前置校验（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md 4）
-  - 实现代价说明：我以 inFlight 与 documentStatus 控制保存互斥，避免并发覆盖（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 2.5）
-- 功能 3：我搭建生成流程与并发追踪
-  - 目标：我保证生成流程可追踪、可与保存互斥（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/lifecycle-flow.md 2-4；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/correlation-id-design.md 设计动机）
-  - 实现流程：生成前校验 hasDirty 与 inFlight，生成期间只读；流式消息聚合后写 Canonical 并触发注水（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/lifecycle-flow.md 4.2；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 2.6）
-  - 追踪机制：Correlation ID 贯穿请求发送、流式处理、完成合并与注水执行（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/correlation-id-design.md 3）
-  - 实现代价说明：我在全文生成中维护叶子章节队列与顺序调度，并在批量注水后执行失败回滚与解锁（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/full-generation-flow.md 任务流程/批量特性）
+- 功能 1：我搭建三层数据与展示桥接，让事实层、草稿层、展示层分工清晰并能在任意场景回到一致状态
+- 功能 2：我搭建编辑与保存的单飞链路，保证保存串行、失败可恢复、用户输入不丢失
+- 功能 3：我搭建生成流程与并发追踪，保证生成与编辑/保存互斥，并支持批量生成的顺序推进与失败回滚
+- 实现流程（文字步骤）：输入变化先归一化与判定脏状态；保存触发时生成全量快照并串行提交；生成时进入只读并按章节顺序处理流式输出，完成后刷新基线并解锁
+- 数据结构（文字字段说明）：草稿层只保留章节标识、标题、顺序与脏标记等轻量信息；事实层保存完整章节树与元数据；展示层以解析结果驱动大纲与状态提示
+- 复杂度说明：为了避免生成、保存、编辑互相覆盖，我引入明确的状态互斥与顺序执行规则，并将注水执行与状态决策拆分以便排查
+- 证据锚点（1-3 条）：
+  - 《数据与状态（横向·三层指南）》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 1-3
+  - 《用户编辑与保存场景（纵向手册）》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md 2-6
+  - 《内容生命周期与交互控制》与《全文生成场景》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/lifecycle-flow.md 2-4；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/full-generation-flow.md 任务流程
 
-## 4. 个人动作与成果（Action & Result）
-- 范围与边界：我围绕报告详情的数据层与编辑器集成落地三层模型、单飞保存与生成互斥（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 1-3；private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/lifecycle-flow.md 2-4；代码路径/commit TODO）
-- 关键决策与执行：
-  - 我按 data-layer-guide 定义 Draft/Canonical/LiveOutline 的边界，实现 ReportContentStore 的核心模型（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 1-3；代码路径/commit TODO）
-  - 我按 edit-and-save-flow 定义单飞保存与回调链路，避免保存覆盖（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md 2-6；代码路径/commit TODO）
-  - 我按 correlation-id-design 设计生成追踪链路，保证多章节生成可追踪（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/correlation-id-design.md 1-3；代码路径/commit TODO）
-- 量化结果与证据（路径/commit/指标）：
-  - 结果待补充：请提供性能与稳定性指标（证据：性能报表/trace TODO）
+## 4. 个人执行与成果（Action & Result）
+- 执行范围与边界：我围绕报告详情的数据层与编辑器集成落地三层模型、保存互斥与生成互斥
+- 关键决策与执行：我按文档规范拆分数据层职责与保存流程，保证生成与编辑互斥，并将问题排查与优化方案沉淀为可复用文档
+- 量化结果与证据锚点（1-3 条）：TODO（提交记录/任务归档/性能报表）
 
 ## 5. 深挖案例（Action - Optimization & Result）
-- 现象：我在问题分析中确认编辑器每次输入都会触发 ensureSectionIds，全量扫描标题，容易在大文档场景产生卡顿风险（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/editor-dom-sync-timing-analysis/issue-analysis.md 现象/影响范围）
-- 排查过程：我追踪到 handleContentChange -> requestDomSync -> RAF -> ensureSectionIds 的路径，确认事件绑定过宽与缺少增量判断（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/editor-dom-sync-timing-analysis/issue-analysis.md 触发路径/根因）
-- 方案 V1（未采用）：我评估仅用 debounce 延迟执行，认为会带来章节编号更新滞后且无法解决全量扫描（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/editor-dom-sync-timing-analysis/optimization-plan.md 方案 2）
-- 方案 V2（最终）：我选择智能变更检测，并在必要时加入短 debounce 以压缩同步频率（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/editor-dom-sync-timing-analysis/optimization-plan.md 推荐方案）
-- 关键实现说明（附路径/commit，不贴代码）：我在输入链路中加入“是否涉及标题”的判定，只在标题相关变更时触发同步（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/editor-dom-sync-timing-analysis/optimization-plan.md 实施要点；代码路径/commit TODO）
-- 量化结果：结果待补充；验证目标为同步频率 10 次/100 字、帧率 55-60 FPS、CPU 10-20%（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/editor-dom-sync-timing-analysis/verification-plan.md 性能指标）
+- 现象：我确认标题编号维护在每次输入时触发全量扫描，大文档场景存在卡顿风险
+- 排查过程：我沿着输入触发链路定位到“内容变化即触发同步”的策略，确认缺少变更类型判断
+- 方案 V1（失败）：仅延迟执行会带来章节编号更新滞后，且无法避免全量扫描
+- 方案 V2（最终）：我选择在输入链路判断是否涉及标题类变更，只有命中时才触发同步，并在必要时加入短延迟以压缩触发频率
+- 关键机制说明（不贴代码，1-3 条）：我将标题相关变更与正文变更区分处理，避免正文输入触发全量扫描，同时保留必要的即时更新能力
+- 量化结果：结果待补充；目标为同步频率 10 次/100 字、帧率 55-60 FPS、CPU 10-20%
+- 证据锚点（1-3 条）：
+  - 《编辑器 DOM 同步性能优化 - 问题分析》private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/editor-dom-sync-timing-analysis/issue-analysis.md 现象/根因
+  - 《编辑器 DOM 同步性能优化 - 优化方案》private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/editor-dom-sync-timing-analysis/optimization-plan.md 推荐方案
+  - 《编辑器 DOM 同步性能优化 - 验证计划》private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/editor-dom-sync-timing-analysis/verification-plan.md 性能指标
 
 ## 6. 过程记录（可选）
-- 关键里程碑：
-  - TODO：补充与设计/开发里程碑对应的版本记录或任务归档路径
-- 重要权衡与取舍：
-  - TODO：补充关键取舍的评审记录或 ADR 路径
+- 关键里程碑：TODO（版本记录/任务归档路径）
+- 重要权衡与取舍：TODO（评审记录或 ADR 路径）
+- 交付节奏或流程改进：TODO
 
 ## 7. 事故复盘（可选）
-- 现象：我确认保存后 initialValue 变化触发编辑器内容闪回，光标与撤销栈丢失（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/2025-02/2025-02-09-report-content-initial-value-issues/README.md 背景与上下文）
-- 根因：TinyMCE React 组件在 initialValue 变化时调用 setContent，并触发 ContentSet 清空历史（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/2025-02/2025-02-09-report-content-initial-value-issues/README.md 问题根因）
-- 行动项：
-  - 我引入首帧 HTML 缓存，避免非首次注水时变更 initialValue（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/2025-02/2025-02-09-report-content-initial-value-issues/README.md 解决方案设计）
-  - 我在内容管理文档中固化“首帧缓存 + Hydration”策略（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/README.md 初始注水策略）
+- 时间线：保存成功后编辑器内容闪回，影响光标位置与撤销栈
+- 根因：编辑器首帧内容被重复注入，引发内部历史被重置
+- 行动项：我引入首帧内容缓存，非首次注水不再重置编辑器，并把该策略固化到内容管理文档
+- 证据锚点（1-3 条）：
+  - 《Report Content Initial Value 问题修复》private/carrier/assets/gel-workspace/apps/report-ai/docs/specs/2025-02/2025-02-09-report-content-initial-value-issues/README.md 背景/方案
+  - 《内容管理模块（布局与功能设计）》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/README.md 初始注水策略
 
 ## 8. 知识库（Legacy）
-- 三层数据模型：Canonical 作为唯一真相，Draft 只保存轻量元信息，展示层通过 LiveOutline 与渲染/解析桥接（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 1-3）
-- 单飞保存：通过 hasDirty、inFlight 与 documentStatus 控制保存互斥，失败保留 Draft（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md 2-6）
-- 初始注水策略：首帧 HTML 缓存结合 Hydration，避免 initialValue 变化导致编辑器重置（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/README.md 初始注水策略）
-- 生成追踪：Correlation ID 串联请求、流式处理与注水执行（证据：private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/correlation-id-design.md 1-3）
+- 三层数据模型与互斥原则：事实层作为唯一真相，草稿层只保存轻量变更，展示层承担解析与状态提示
+- 保存与生成的互斥边界：保存串行化，生成期间只读，失败路径保留草稿并允许重试
+- 首帧注水策略：首帧内容缓存结合注水执行，避免保存后内容闪回
+- 证据锚点（1-3 条）：
+  - 《数据与状态（横向·三层指南）》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/data-layer-guide.md 1-3
+  - 《用户编辑与保存场景（纵向手册）》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/edit-and-save-flow.md 2-6
+  - 《内容管理模块（布局与功能设计）》private/carrier/assets/gel-workspace/apps/report-ai/docs/rp-detail/content-management/README.md 初始注水策略
 
 ## 9. 质量协议清单
-- [ ] 证据检查（前后对比指标或证据）
+- [ ] 证据锚点检查（每节 1-3 条，避免长列表）
 - [ ] 文字化检查（无代码块/图表/表格）
 - [ ] 逻辑检查（技术选择与业务关联）
 - [ ] 设计文档引用检查（名称/路径/章节明确）
@@ -99,8 +88,7 @@
 - [ ] 深挖复盘版检查（权衡、失败路径、回滚条件）
 
 ## TODO 与问题清单（待补全证据）
-- 请提供核心代码路径或 commit：ReportContentStore 三层模型、保存单飞链路、生成互斥与 Correlation ID 追踪
+- 请提供关键提交或任务归档，用于证明三层模型、保存互斥与生成互斥的实际落地
 - 请提供深挖案例的实际结果：同步频率、帧率、CPU 变化的对比基线与采样窗口
-- 请提供保存闪回问题的实施 PR/commit 与线上验证记录
-- 请补充业务背景与目标用户的来源文档路径（如需保留行业描述）
+- 请提供保存闪回问题的实施记录与验证材料
 - 请确认是否需要补充第二个深挖案例（例如流式生成卡顿或多人协作覆盖问题）
