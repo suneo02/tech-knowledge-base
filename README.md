@@ -4,7 +4,7 @@ A structured personal tech knowledge base covering programming, networking, data
 
 ## 📚 Writing Guidelines
 
-本项目使用统一的文档规范以确保一致性、可读性和可维护性。详情见：[meta/writing-guidelines.md](meta/writing-guidelines.md)
+本项目使用统一的文档规范以确保一致性、可读性和可维护性。详情见：[AGENTS.md](AGENTS.md)。面试题规范参考 `interview-question-library` skill。
 
 ### 核心原则
 - 内容优先：避免过度拆分，保持主题完整性（必要时单文档可达 1000 行）

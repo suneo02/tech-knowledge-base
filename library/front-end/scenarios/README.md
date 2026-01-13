@@ -268,7 +268,7 @@ ESLint、Prettier、Husky、CI 门禁
 
 ## ✨ 文档特点
 
-根据项目根目录 `meta/writing-guidelines.md` 中的"面试题文档编写规范"：
+参考 `interview-question-library` skill 的面试题文档规范：
 
 1. **文字为主（70%），代码为辅（30%）**
    - 重点讲解实现思路、原理和技术要点
@@ -292,5 +292,5 @@ ESLint、Prettier、Husky、CI 门禁
 
 **最后更新**：2024-10  
 **维护者**：Hidetoshi Dekisugi  
-**文档规范**：参考项目根目录 `meta/writing-guidelines.md` 中的"面试题文档编写规范"  
+**文档规范**：参考 `interview-question-library` skill  
 **说明**：题目持续更新中，欢迎补充

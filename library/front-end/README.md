@@ -228,7 +228,7 @@ docs/front-end/
 
 1. 确定合适的目录位置
 2. 使用 kebab-case 命名
-3. 遵循项目根目录的 `meta/writing-guidelines.md`
+3. 遵循项目根目录的 `AGENTS.md` 通用文档规范；面试题遵循 `interview-question-library` skill
 4. 更新本 README 的导航链接
 
 ### 更新现有文档

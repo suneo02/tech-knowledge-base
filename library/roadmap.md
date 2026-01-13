@@ -2,7 +2,7 @@
 
 ## 已完成
 - ✅ 前端领域完成结构规范化（foundations/frameworks/performance/scenarios/tooling）
-- ✅ 建立统一的文档编写规范（见 `meta/writing-guidelines.md`）
+- ✅ 建立统一的文档编写规范（见 `AGENTS.md`，面试题规范见 `interview-question-library` skill）
 - ✅ 统一命名约定（kebab-case）
 
 ## 进行中
