@@ -54,7 +54,7 @@ graph TD
 
 主流前端框架的深入理解和实践经验。
 
-- **[React](frameworks/react.md)** - React 完整学习指南（特性、Hooks、Fiber 架构、状态管理、性能优化）
+- **[React](frameworks/react/README.md)** - React 完整学习指南（特性、Hooks、Fiber 架构、状态管理、性能优化）
 - **[Vue](frameworks/vue/README.md)** - Vue.js 深入理解（响应式原理、组合式 API、Vue 3）
 - **[Vitest](frameworks/vitest/README.md)** - 现代化测试框架
 - **[框架对比](frameworks/comparisons.md)** - React vs Vue vs Angular 技术选型参考
@@ -139,7 +139,7 @@ graph LR
 3. [安全实践](foundations/security/README.md) - 了解常见安全问题和防护
 
 **阶段 2：框架选择（二选一）**
-- 选择 [React](frameworks/react.md) 或 [Vue](frameworks/vue/README.md)（根据项目需求）
+- 选择 [React](frameworks/react/README.md) 或 [Vue](frameworks/vue/README.md)（根据项目需求）
 - 学习相应的状态管理和路由方案
 
 **阶段 3：工程化实践（进阶）**
@@ -172,7 +172,7 @@ docs/front-end/
     network.md                 # 网络基础
     security/                  # 安全实践
   frameworks/                  # 框架与库
-    react.md                   # React 完整学习指南
+    react/                     # React 学习指南（拆分）
     vue/                       # Vue 生态
     vitest/                    # 测试框架
     comparisons.md             # 框架对比
@@ -209,7 +209,7 @@ docs/front-end/
 - **浏览器相关**：[浏览器原理](foundations/browser.md) | [性能优化](performance/README.md)
 - **网络相关**：[网络基础](foundations/network.md) | [深入网络协议](../computer-science/network/README.md)
 - **安全相关**：[Web 安全](foundations/security/README.md)
-- **React 相关**：[React 指南](frameworks/react.md)
+- **React 相关**：[React 指南](frameworks/react/README.md)
 - **Vue 相关**：[Vue 指南](frameworks/vue/README.md)
 - **构建工具**：[Webpack](tooling/webpack.md) | [Vite](tooling/vite.md)
 - **测试相关**：[测试实践](tooling/testing/README.md)
@@ -217,7 +217,7 @@ docs/front-end/
 
 ### 按技术栈查找
 
-- **React 技术栈**：[React](frameworks/react.md) → [Webpack](tooling/webpack.md)/[Vite](tooling/vite.md) → [测试](tooling/testing/README.md)
+- **React 技术栈**：[React](frameworks/react/README.md) → [Webpack](tooling/webpack.md)/[Vite](tooling/vite.md) → [测试](tooling/testing/README.md)
 - **Vue 技术栈**：[Vue](frameworks/vue/README.md) → [Vite](tooling/vite.md) → [测试](tooling/testing/README.md)
 
 ---

@@ -99,7 +99,7 @@
 
 ### 延伸阅读
 - [性能优化](performance-optimization.md) - 资源加载优化
-- [React 框架](../frameworks/react.md) - React 组件设计
+- [React 框架](../frameworks/react/README.md) - React 组件设计
 
 ---
 

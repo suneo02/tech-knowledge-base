@@ -604,7 +604,7 @@ A:
 - [网络基础](../foundations/network.md) - HTTP 缓存、CDN
 
 ### 框架优化
-- [React 性能优化](../frameworks/react.md#性能优化)
+- [React 性能优化](../frameworks/react/patterns-and-performance.md#性能优化)
 - [Vue 性能优化](../frameworks/vue/ecosystem.md#vue-性能优化)
 
 ### 工具链

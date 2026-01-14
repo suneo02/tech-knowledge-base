@@ -248,7 +248,7 @@ ESLint、Prettier、Husky、CI 门禁
 - [Web 安全](../foundations/security/README.md) - XSS、CSRF 防护
 
 ### 框架相关
-- [React 指南](../frameworks/react.md) - React 生态和最佳实践
+- [React 指南](../frameworks/react/README.md) - React 生态和最佳实践
 - [Vue 指南](../frameworks/vue/README.md) - Vue 响应式和组件化
 
 ### 性能优化

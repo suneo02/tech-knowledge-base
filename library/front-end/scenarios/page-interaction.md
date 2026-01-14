@@ -589,7 +589,7 @@ observer.observe(editor, {
 - [Performance API](../foundations/browser.md#performance) - 性能监控
 
 ### 框架实现
-- [React Router](../frameworks/react.md#react-router) - React 路由
+- [React Router](../frameworks/react/communication-and-routing.md#react-router) - React 路由
 - [Vue Router](../frameworks/vue/README.md) - Vue 路由
 
 ### 性能优化

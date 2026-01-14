@@ -638,7 +638,7 @@ A:
 - [浏览器基础](../foundations/browser.md) - Cookie、localStorage、sessionStorage
 
 ### 框架实现
-- [React 状态管理](../frameworks/react.md#状态管理) - 认证状态管理
+- [React 状态管理](../frameworks/react/communication-and-routing.md#状态管理) - 认证状态管理
 - [Vue 状态管理](../frameworks/vue/state-management.md) - 登录态管理
 
 ---
