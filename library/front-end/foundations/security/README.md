@@ -50,7 +50,7 @@ JavaScript中有三个可以对字符串编码的函数，分别是： escape,en
 
 提示和注释 提示：请注意 encodeURIComponent() 函数 与 encodeURI() 函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号。
 
-# XSS：跨站脚本攻击
+## XSS：跨站脚本攻击
 
 [前端安全系列（一）：如何防止XSS攻击？](https://tech.meituan.com/2018/09/27/fe-security.html)
 
@@ -271,7 +271,7 @@ http://xxx/search?keyword=jaVasCript%3A%2F*-%2F*%60%2F*%60%2F*%27%2F*%22%2F**%2F
 - **增加攻击难度，降低攻击后果** 通过 CSP、输入长度配置、接口安全措施等方法，增加攻击的难度，降低攻击的后果。
 - **主动检测和发现** 可使用 XSS 攻击字符串和自动扫描工具寻找潜在的 XSS 漏洞。
 
-# CSRF：跨站请求伪造
+## CSRF：跨站请求伪造
 
 [前端安全系列（二）：如何防止CSRF攻击？](https://tech.meituan.com/2018/10/11/fe-security-csrf.html)
 
@@ -329,7 +329,7 @@ CSRF通常从第三方网站发起，被攻击的网站无法防止攻击发生�
 - HTTP 头自定义属性验证（类似上一条）
 - 显示验证方式：添加验证码、密码等
 
-# iframe 安全
+## iframe 安全
 
 说明：
 
@@ -343,13 +343,13 @@ CSRF通常从第三方网站发起，被攻击的网站无法防止攻击发生�
 - i）为 iframe 设置 sandbox 属性，通过它可以对iframe的行为进行各种限制，充分实现“最小权限“原则
 - ii）服务端设置 X-Frame-Options Header头，拒绝页面被嵌套，X-Frame-Options 是HTTP 响应头中用来告诉浏览器一个页面是否可以嵌入
 
-# 如何让自己的网站不被其他网站的 iframe 引用？
+## 如何让自己的网站不被其他网站的 iframe 引用？
 
 ```jsx
 // 检测当前网站是否被第三方iframe引用// 若相等证明没有被第三方引用，若不等证明被第三方引用。当发现被引用时强制跳转百度。if (top.location != self.location) {    top.location.href = 'http://www.baidu.com'}
 ```
 
-# 如何禁用，被使用的 iframe 对当前网站某些操作？
+## 如何禁用，被使用的 iframe 对当前网站某些操作？
 
 > sandbox是html5的新属性，主要是提高iframe安全系数。iframe因安全问题而臭名昭著，这主要是因为iframe常被用于嵌入到第三方中，然后执行某些恶意操作。 现在有一场景：我的网站需要 iframe 引用某网站，但是不想被该网站操作DOM、不想加载某些js（广告、弹框等）、当前窗口被强行跳转链接等，我们可以设置 sandbox 属性。如使用多项用空格分隔。
 > 
@@ -379,13 +379,13 @@ b.window.open()
 <button onclick='openurl("http://www.baidu.com")'>click跳转</button>function openurl(url) {    var newTab = window.open();    newTab.opener = null;    newTab.location = url;}
 ```
 
-# CDN劫持
+## CDN劫持
 
 出于性能考虑，前端应用通常会把一些静态资源存放到CDN（Content Delivery Networks）上面，例如 js 脚本和 style 文件。这么做可以显著提高前端应用的访问速度，但与此同时却也隐含了一个新的安全风险。如果攻击者劫持了CDN，或者对CDN中的资源进行了污染，攻击者可以肆意篡改我们的前端页面，对用户实施攻击。 现在的CDN以支持SRI为荣，script 和 link 标签有了新的属性 integrity，这个属性是为了防止校验资源完整性来判断是否被篡改。它通过 验证获取文件的哈希值是否和你提供的哈希值一样来判断资源是否被篡改。 使用 SRI 需要两个条件：一是要保证 资源同域 或开启跨域，二是在中 提供签名 以供校验。
 
 integrity 属性分为两个部分，第一部分是指定哈希值的生成算法（例：sha384），第二部分是经过编码的实际哈希值，两者之前用一个短横(-)来分隔
 
-# Click Jacking（点击劫持）
+## Click Jacking（点击劫持）
 
 > ClickJacking 翻译过来被称为点击劫持。一般会利用透明 iframe 覆盖原网页诱导用户进行某些操作达成目的。
 > 
@@ -395,7 +395,7 @@ integrity 属性分为两个部分，第一部分是指定哈希值的生成算�
 - 在HTTP投中加入 X-FRAME-OPTIONS 属性，此属性控制页面是否可被嵌入 iframe 中【DENY：不能被所有网站嵌套或加载；SAMEORIGIN：只能被同域网站嵌套或加载；ALLOW-FROM URL：可以被指定网站嵌套或加载。】
 - 判断当前网页是否被 iframe 嵌套（详情在第一条 firame 中）
 
-# HSTS（HTTP Strict Transport Security：HTTP严格传输安全）
+## HSTS（HTTP Strict Transport Security：HTTP严格传输安全）
 
 网站接受从 HTTP 请求跳转到 HTTPS 请求的做法，例如我们输入“[http://www.baidu.com](https://link.zhihu.com/?target=http%3A/www.baidu.com)”或“[www.baidu.com”最终都会被302重定向到“[https://www.baidu.com](https://link.zhihu.com/?target=https%3A//www.baidu.com)”。这就存在安全风险，当我们第一次通过](http://www.baidu.xn--com302%5Bhttps-149fka9451pilkvxhbu0b6i9b4n8fwnxb2izb35d//www.baidu.com%5D(https://link.zhihu.com/?target=https%3A/www.baidu.com)”。这就存在安全风险，当我们第一次通过) HTTP 或域名进行访问时，302重定向有可能会被劫持，篡改成一个恶意或钓鱼网站。 HSTS：通知浏览器此网站禁止使用 HTTP 方式加载，浏览器应该自动把所有尝试使用 HTTP 的请求自动替换为 HTTPS 进行请求。用户首次访问时并不受 HSTS 保护，因为第一次还未形成链接。我们可以通过 浏览器预置HSTS域名列表 或 将HSTS信息加入到域名系统记录中，来解决第一次访问的问题。
 

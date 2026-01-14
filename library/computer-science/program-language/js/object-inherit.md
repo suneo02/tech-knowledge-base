@@ -8,7 +8,7 @@
 
 [彻底深刻理解js原型链之prototype,proto以及constructor(二)_大前端_刘晓敏_InfoQ精选文章](https://www.infoq.cn/article/uexu6hi1rmwk4qt4em7v)
 
-# 对象的创建 book
+## 对象的创建 book
 
 ### 工厂模式
 
@@ -86,7 +86,7 @@ function Person(name, age, job) {    var o = new Object();    o.name = name;    
 function Person(name, age, job) {    //创建要返回的对象    var o = new Object();    //可以在这里定义私有变量和函数    //添加方法    o.sayName = function () {        alert(name);    };    //返回对象    return o;}
 ```
 
-# 继承 book
+## 继承 book
 
 由于函数没有签名，ECMAScript 只支持实现继承，不支持接口继承
 
@@ -199,7 +199,7 @@ function inheritPrototype(subType, superType) {
 }
 ```
 
-# js 对象小结
+## js 对象小结
 
 ECMAScript 支持面向对象(OO)编程，但不使用类或者接口。对象可以在代码执行过程中创建和增强，因此具有动态性而非严格定义的实体。在没有类的情况下，可以采用下列模式创建对象。
 
@@ -213,7 +213,7 @@ ECMAScript 支持面向对象(OO)编程，但不使用类或者接口。对象�
 - 寄生式继承，与原型式继承非常相似，也是基于某个对象或某些信息创建一个对象，然后增强对象，最后返回对象。为了解决组合继承模式由于多次调用超类型构造函数而导致的低效率问题，可以将这个模式与组合继承一起使用。
 - 寄生组合式继承，集寄生式继承和组合继承的优点与一身，是实现基于类型继承的最有效方式。
 
-# 继承
+## 继承
 
 封装继承多态
 

@@ -99,7 +99,7 @@
 
 外设中断：当外设完成用户的请求时，会向CPU发送中断信号。 # 第一章 引论
 
-# banker
+## banker
 
 [一句话+一张图说清楚——银行家算法-CSDN博客](https://blog.csdn.net/qq_33414271/article/details/80245715)
 

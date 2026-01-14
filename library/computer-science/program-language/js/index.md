@@ -1,6 +1,6 @@
 # JS
 
-# 数据遍历
+## 数据遍历
 
 | 方法 | 自身 可枚举属性 | 自身 不可枚举属性 | 继承属性 | Symbol属性 | 描述 |
 | --- | --- | --- | --- | --- | --- |
@@ -10,7 +10,7 @@
 | Object.getOwnPropertySymbols(obj) | no | yes | no | yes | 返回指定对象自身所有的Symbol属性的数组。 |
 | Reflect.ownKeys(obj) | yes | yes | no | yes | 返回指定对象自身的所有属性（包含不可枚举属性和Symbol属性）组成的数组，它的返回值等同于 `Object.getOwnPropertyNames(target).concat(Object.getOwnPropertySymbols(target))`。 |
 
-# 判断变量类型
+## 判断变量类型
 
 - typeof：常用于判断基本数据类型，对于引用数据类型除了function返回’function‘，其余全部返回’object’。
 - instanceof：主要用于区分引用数据类型，检测方法是检测的类型在当前实例的原型链上，用其检测出来的结果都是true，不太适合用于简单数据类型的检测，检测过程繁琐且对于简单数据类型中的undefined,null, symbol检测不出来。
@@ -36,13 +36,13 @@ img
 
 - Object.prototype.toString.call()原理：Object.prototype.toString 表示一个返回对象类型的字符串，call() 方法可以改变this的指向，那么把Object.prototype.toString()方法指向不同的数据类型上面，返回不同的结果
 
-# 基本包装类型
+## 基本包装类型
 
 Boolean String Number
 
 在访问基本类型 string、number的方法时会临时创建一个包装类型，然后再销毁，基本包装类型是Object
 
-# Object.assign的理解
+## Object.assign的理解
 
 作用：Object.assign可以实现对象的合并。
 
@@ -52,7 +52,7 @@ Boolean String Number
 2. 后续的source会覆盖前面的source的同名属性。
 3. 只复制自身的属性，不会原型链上的属性，也不会复制不可枚举的属性，也不会复制访问器属性。
 
-# iframe有什么优点、缺点
+## iframe有什么优点、缺点
 
 优点：
 
@@ -70,7 +70,7 @@ Boolean String Number
 5. 很多的移动设备无法完全显示框架，设备兼容性差。
 6. iframe框架页面会增加服务器的http请求，对于大型网站是不可取的。
 
-# webComponents
+## webComponents
 
 Web Components 总的来说是提供一整套完善的封装机制来把 Web 组件化这个东西标准化，每个框架实现的组件都统一标准地进行输入输出，这样可以更好推动组件的复用
 
@@ -97,7 +97,7 @@ Shadow DOM
 
 提供一种更好地组织页面元素的方式，来为日趋复杂的页面应用提供强大支持，避免代码间的相互影响
 
-# Closure
+## Closure
 
 [学习Javascript闭包（Closure）](https://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html) 一个函数和对其周围状态（**lexical environment，词法环境**）的引用捆绑在一起（或者说函数被引用包围）， 这样的组合就是**闭包**（**closure**）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来。
 
@@ -131,7 +131,7 @@ function count() {    var num = 0;    return function () {        return ++num  
 var lis = document.querySelectorAll('li');for (var i = 0; i < lis.length; i++) {    (function (j) {        lis[j].onclick = function () {            alert(j)        }    })(i)}
 ```
 
-# HashMap 和 ArrayMap 区别
+## HashMap 和 ArrayMap 区别
 
 1. 查找效率 HashMap因为其根据hashcode的值直接算出index,所以其查找效率是随着数组长度增大而增加的。 ArrayMap使用的是二分法查找，所以当数组长度每增加一倍时，就需要多进行一次判断，效率下降
 2. 扩容数量 HashMap初始值16个长度，每次扩容的时候，直接申请双倍的数组空间。 ArrayMap每次扩容的时候，如果size长度大于8时申请size*1.5个长度，大于4小于8时申请8个，小于4时申请4个。这样比较ArrayMap其实是申请了更少的内存空间，但是扩容的频率会更高。因此，如果数据量比较大的时候，还是使用HashMap更合适，因为其扩容的次数要比ArrayMap少很多。
