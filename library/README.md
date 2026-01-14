@@ -18,10 +18,11 @@
 ### 🗄️ 计算机基础 (CS Fundamentals)
 - **网络**: [Network](./computer-science/network/README.md) - 协议分层与数据传输
 - **数据库**: [Database Systems](./computer-science/database-systems/README.md) - 原理、设计与管理
-- **操作系统**: [OS](./computer-science/OS/README.md) - 核心概念
+- **操作系统**: [OS](./computer-science/os/README.md) - 核心概念
 
 ### 🔮 探索与前沿 (Exploration)
-- **Web 3**: [Areas to be Explored](./areas-to-be-explored/web-3.md)
+- **入口**: [Areas to be Explored](./areas-to-be-explored/README.md)
+- **主题**: AI / Web 3 / Bywork
 - **服务端**: Node.js 进阶与全栈开发探索
 
 ---

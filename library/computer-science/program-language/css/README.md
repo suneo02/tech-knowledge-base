@@ -588,7 +588,7 @@ CSS选择器的解析是从右向左解析的。若从左向右的匹配，发�
 </div>
 ```
 
-![bV7on3.png](assets/bV7on3.png)
+![Vertical center example](assets/vertical-center-example.png)
 
 **方法3：利用position和top/bottom和margin:auto**（注意不是margin:0 auto） 
 

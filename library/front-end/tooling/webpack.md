@@ -442,7 +442,7 @@ Webpack 的运行流程呈串行执行：
 
 监听模式下的流程：
 
-![](../assets/web-module-9B823AC99AF889118D34D0CB72E7A28E.png)
+![](../assets/web-module-9b823ac99af889118d34d0cb72e7a28e.png)
 
 ### 详细步骤
 

@@ -21,7 +21,7 @@ graph TD
   CS --> PL[program-language/]
   CS --> NET[network/]
   CS --> DB[database-systems/]
-  CS --> OS[OS/]
+  CS --> OS[os/]
   
   PL --> CSS[css/]
   PL --> HTML[html/]
@@ -29,9 +29,11 @@ graph TD
   PL --> TS[ts/]
   
   NET --> NC[network-carrier/]
-  NET --> BOOK[computer-networking-a-top-down-approach/]
   
-  DB --> BOOKDB[database-systems-design-implementation-management/]
+  AE --> AE_AI[ai/]
+  AE --> AE_WEB3[web-3/]
+  AE --> AE_BYWORK[bywork/]
+  AE --> AE_RES[resources-to-be-organized/]
 ```
 
 ## 目录结构说明
@@ -39,12 +41,12 @@ graph TD
 ### 已完成规范化的领域
 - **front-end/** - 前端开发：已完成 foundations/frameworks/performance/scenarios/tooling/resources 分层
 - **computer-science/program-language/** - 编程语言：css/html/js/ts 子目录，每个子目录以 README.md 或 index.md 为入口
-- **computer-science/network/** - 计算机网络：包含理论知识（network-carrier）和读书笔记（computer-networking-a-top-down-approach）
-- **computer-science/database-systems/** - 数据库系统：以读书笔记为主（database-systems-design-implementation-management）
+- **computer-science/network/** - 计算机网络：包含协议分层与传输相关主题
+- **computer-science/database-systems/** - 数据库系统：基础与面试题入口
 
 ### 待探索与临时区域
-- **areas-to-be-explored/** - 待探索主题（AI、Web3、Bywork），保留为临时收纳区
-- **resources-to-be-organized/** - 临时资源收集区，后续将并入对应领域的 resources/
+- **areas-to-be-explored/** - 待探索主题（ai/web-3/bywork），保留为临时收纳区
+- **areas-to-be-explored/resources-to-be-organized/** - 临时资源收集区，后续将并入对应领域的 resources/
 
 ## 统一约定
 

@@ -1,8 +1,8 @@
 # Web Resource
 
-![Screenshot 2024-04-03 at 21.28.23.png](../assets/Screenshot_2024-04-03_at_21.28.23.png)
+![Screenshot 2024-04-03 21:28](../assets/screenshot-2024-04-03-21-28-23.png)
 
-![IMG_0437.jpeg](../assets/IMG_0437.jpeg)
+![IMG 0437](../assets/img-0437.jpeg)
 
 # Comprehensive knowledge website
 
