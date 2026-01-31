@@ -6,9 +6,9 @@
 
 ## 概况
 
-- 工作年限：1 年+ | 前端/工程化 | React 18 + TypeScript + Vite/Webpack + Redux Toolkit + Ant Design
-- 优势：AI 报告/对话体验、长文档性能优化、Monorepo 工程化与 CI/CD
-- 代表项目：Report-AI 报告生成、Report Print PDF 生成、GEL Workspace Monorepo、Company 企业信息平台
+- **工作年限**：1 年+ | 前端/工程化 | React 18 + TypeScript + Vite/Webpack + Redux + Ant Design
+- **核心优势**：AI 复杂交互体验（流式/编辑器）、高性能长文档渲染、企业级 Monorepo 工程化、CI/CD 效能优化
+- **代表项目**：企业征信数据平台（Monorepo 基建）、智能研报编辑器、AI 流式对话助手、PDF 导出引擎
 
 ---
 
