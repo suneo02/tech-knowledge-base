@@ -1,37 +1,5 @@
 # CSS 概念
 
-
-## BFC
-
-得分点 块级格式化上下文、独立的渲染区域、不会影响边界以外的元素、形成BFC条件、float、position、overflow、display
-
-标准回答 BFC(Block Formatting Context)块级格式化上下文，是Web页面一块独立的渲染区域，内部元素的渲染不会影响边界以外的元素。
-
-BFC布局规则
-
-- 内部盒子会在垂直方向，一个接一个地放置。
-- Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠。
-- 每个盒子（块盒与行盒）的margin box的左边，与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。
-- BFC的区域不会与float box重叠。
-- BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。
-- 计算BFC的高度时，浮动元素也参与计算。 BFC形成的条件
-    - `float`设置成 `left`或 `right`
-    - `position`是`absolute` 或者`fixed`
-    - `overflow`不是`visible`，为 `auto`、`scroll`、`hidden`
-    - `display`是`flex`或者`inline-block` 等
-
-BFC解决能的问题：清除浮动
-
-加分回答
-
-BFC的方式都能清除浮动，但是常使用的清除浮动的BFC方式只有`overflow:hidden` ,原因是使用float或者position方式清除浮动，虽然父级盒子内部浮动被清除了，但是父级本身又脱离文档流了，会对父级后面的兄弟盒子的布局造成影响。如果设置父级为`display:flex` ，内部的浮动就会失效。所以通常只是用`overflow: hidden`清除浮动。
-
-IFC（Inline formatting contexts）：内联格式上下文。IFC的高度由其包含行内元素中最高的实际高度计算而来（不受到竖直方向的padding/margin影响)，IFC中的line box一般左右都贴紧整个IFC，但是会因为float元素而扰乱。
-
-GFC（GridLayout formatting contexts）：网格布局格式化上下文。当为一个元素设置display值为grid的时候，此元素将会获得一个独立的渲染区域。
-
-FFC（Flex formatting contexts）：自适应格式上下文。display值为flex或者inline-flex的元素将会生成自适应容器
-
 ## 继承相关
 
 css的继承：就是给父级设置一些属性，子级继承了父级的该属性，这就是我们的css中的继承。 官方解释，继承是一种规则，它允许样式不仅应用于特定的html标签元素，而且应用于其后代元素。
@@ -159,13 +127,15 @@ Stylus：
 首先 Sass 和 Less 都使用的是标准的 CSS 语法，因此如果可以很方便的将已有的 CSS 代码转为预处理器代码，默认 Sass 使用 .sass 扩展名，而 Less 使用 .less 扩展名。
 
 ```css
-h1 {    color: #0982C1;}
+h1 {
+  color: #0982c1;
+}
 ```
 
 这是一个再普通不过的，不过 Sass 同时也支持老的语法，就是不包含花括号和分号的方式：
 
 ```css
-h1color: #0982c1
+h1color: #0982c1;
 ```
 
 而 Stylus 支持的语法要更多样性一点，它默认使用 .styl 的文件扩展名，下面是 Stylus 支持的语法
@@ -220,47 +190,46 @@ text-indent、text-align、visibility、cursor
 ## 盒模型
 
 1. 概念
-CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：外边距（margin）、边框（border）、内边距（padding）、实际内容（content）四个属性。
+   CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：外边距（margin）、边框（border）、内边距（padding）、实际内容（content）四个属性。
 2. 标准模型和IE模型
-    1. 区别 计算宽度和高度的不同
-    - 标准盒模型：盒子总宽度/高度 =width/height + padding + border + margin。（ 即 width/height 只是 内容高度，不包含padding 和 border 值 ） - IE盒子模型：盒子总宽度/高度 =width/height + margin = (内容区宽度/高度 + padding + border) + margin。（ 即width/height 包含了padding 和 border 值 ）
-    1. CSS如何设置这两种模型
-        - 标准：box-sizing: content-box;( 浏览器默认设置 )
-        - IE：box-sizing: border-box;
-    2. JS如何获取盒模型对应的宽和高
-        1. dom.style.width/height只能取到行内样式的宽和高，style 标签中和 link 外链的样式取不到。
-        2. dom.currentStyle.width/height（只有IE兼容）取到的是最终渲染后的宽和高
-        3. window.getComputedStyle(dom).width/height同（2）但是多浏览器支持，IE9 以上支持。
-        4. dom.getBoundingClientRect().width/height也是得到渲染后的宽和高，大多浏览器支持。IE9 以上支持，除此外还可以取到相对于视窗的上下左右的距离。
-        5. dom.offsetWidth/offsetHeight包括高度（宽度）、内边距和边框，不包括外边距。最常用，兼容性最好。
+   1. 区别 计算宽度和高度的不同
+   - 标准盒模型：盒子总宽度/高度 =width/height + padding + border + margin。（ 即 width/height 只是 内容高度，不包含padding 和 border 值 ） - IE盒子模型：盒子总宽度/高度 =width/height + margin = (内容区宽度/高度 + padding + border) + margin。（ 即width/height 包含了padding 和 border 值 ）
+   1. CSS如何设置这两种模型
+      - 标准：box-sizing: content-box;( 浏览器默认设置 )
+      - IE：box-sizing: border-box;
+   2. JS如何获取盒模型对应的宽和高
+      1. dom.style.width/height只能取到行内样式的宽和高，style 标签中和 link 外链的样式取不到。
+      2. dom.currentStyle.width/height（只有IE兼容）取到的是最终渲染后的宽和高
+      3. window.getComputedStyle(dom).width/height同（2）但是多浏览器支持，IE9 以上支持。
+      4. dom.getBoundingClientRect().width/height也是得到渲染后的宽和高，大多浏览器支持。IE9 以上支持，除此外还可以取到相对于视窗的上下左右的距离。
+      5. dom.offsetWidth/offsetHeight包括高度（宽度）、内边距和边框，不包括外边距。最常用，兼容性最好。
 3. BFC（边距重叠解决方案）
-    
-    5.1 BFC基本概念
-    
-    **BFC: 块级格式化上下文** BFC基本概念：BFC是CSS布局的一个概念，是一块独立的渲染区域，是一个环境，里面的元素不会影响到外部的元素 。 父子元素和兄弟元素边距重叠，重叠原则取最大值。空元素的边距重叠是取margin与 padding 的最大值。
-    
-    5.2 BFC原理（渲染规则|布局规则）：
-    
-    （1）内部的Box会在垂直方向，从顶部开始一个接着一个地放置； （2）Box垂直方向的距离由margin(外边距)决定，属于同一个BFC的两个相邻Box的margin会发生重叠； （3）每个元素的margin Box的左边， 与包含块border Box的左边相接触，（对于从左到右的格式化，否则相反）。即使存在浮动也是如此； （4）BFC 在页面上是一个隔离的独立容器，外面的元素不会影响里面的元素，反之亦然。文字环绕效果，设置float； （5）BFC 的区域不会与float Box重叠（清浮动）; （6）计算BFC的高度时，浮动元素也参与计算。
-    
-    5.3 CSS在什么情况下会创建出BFC（即脱离文档流）
-    
-    0、根元素，即 HTML 元素（最大的一个BFC） 1、浮动（float 的值不为 none） 2、绝对定位元素（position 的值为 absolute 或 fixed） 3、行内块（display 为 inline-block） 4、表格单元（display 为 table、table-cell、table-caption、inline-block 等 HTML 表格相关的属性) 5、弹性盒（display 为 flex 或 inline-flex） 6、默认值。内容不会被修剪，会呈现在元素框之外（overflow 不为 visible）
-    
-    5.4 BFC作用（使用场景）
-    
-    1、自适应两（三）栏布局（避免多列布局由于宽度计算四舍五入而自动换行） 2、避免元素被浮动元素覆盖 3、可以让父元素的高度包含子浮动元素，清除内部浮动（原理：触发父div的BFC属性，使下面的子div都处在父div的同一个BFC区域之内） 4、去除边距重叠现象，分属于不同的BFC时，可以阻止margin重叠
-    
+
+   5.1 BFC基本概念
+
+   **BFC: 块级格式化上下文** BFC基本概念：BFC是CSS布局的一个概念，是一块独立的渲染区域，是一个环境，里面的元素不会影响到外部的元素 。 父子元素和兄弟元素边距重叠，重叠原则取最大值。空元素的边距重叠是取margin与 padding 的最大值。
+
+   5.2 BFC原理（渲染规则|布局规则）：
+
+   （1）内部的Box会在垂直方向，从顶部开始一个接着一个地放置； （2）Box垂直方向的距离由margin(外边距)决定，属于同一个BFC的两个相邻Box的margin会发生重叠； （3）每个元素的margin Box的左边， 与包含块border Box的左边相接触，（对于从左到右的格式化，否则相反）。即使存在浮动也是如此； （4）BFC 在页面上是一个隔离的独立容器，外面的元素不会影响里面的元素，反之亦然。文字环绕效果，设置float； （5）BFC 的区域不会与float Box重叠（清浮动）; （6）计算BFC的高度时，浮动元素也参与计算。
+
+   5.3 CSS在什么情况下会创建出BFC（即脱离文档流）
+
+   0、根元素，即 HTML 元素（最大的一个BFC） 1、浮动（float 的值不为 none） 2、绝对定位元素（position 的值为 absolute 或 fixed） 3、行内块（display 为 inline-block） 4、表格单元（display 为 table、table-cell、table-caption、inline-block 等 HTML 表格相关的属性) 5、弹性盒（display 为 flex 或 inline-flex） 6、默认值。内容不会被修剪，会呈现在元素框之外（overflow 不为 visible）
+
+   5.4 BFC作用（使用场景）
+
+   1、自适应两（三）栏布局（避免多列布局由于宽度计算四舍五入而自动换行） 2、避免元素被浮动元素覆盖 3、可以让父元素的高度包含子浮动元素，清除内部浮动（原理：触发父div的BFC属性，使下面的子div都处在父div的同一个BFC区域之内） 4、去除边距重叠现象，分属于不同的BFC时，可以阻止margin重叠
+
 4. IFC
-    
-    6.1 IFC基本概念
-    
-    **IFC: 行内格式化上下文** IFC基本概念：
-    
-    ![](https://www.notion.socss.assets/CC01CC5BF7B84B6F99B134A44179B21D.png)
-    
-    img
-    
+
+   6.1 IFC基本概念
+
+   **IFC: 行内格式化上下文** IFC基本概念：
+
+   ![](https://www.notion.socss.assets/CC01CC5BF7B84B6F99B134A44179B21D.png)
+
+   img
 
 6.2 IFC原理（渲染规则|布局规则）：
 
@@ -295,7 +264,7 @@ CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：�
 - ID #id
 - class .class
 - 标签 p
-- 通用*
+- 通用\*
 - 属性[type=“text”]
 - 伪类:hover
 - 伪元素::first-line
@@ -303,7 +272,7 @@ CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：�
 
 权重计算规则
 
-第一等：代表内联样式，如: style=””，权值为1000。 第二等：代表ID选择器，如：#content，权值为0100。 第三等：代表类，伪类和属性选择器，如.content，权值为0010。 第四等：代表类型选择器和伪元素选择器，如div p，权值为0001。 通配符、子选择器、相邻选择器等的。如*、>、+,权值为0000。 继承的样式没有权值。
+第一等：代表内联样式，如: style=””，权值为1000。 第二等：代表ID选择器，如：#content，权值为0100。 第三等：代表类，伪类和属性选择器，如.content，权值为0010。 第四等：代表类型选择器和伪元素选择器，如div p，权值为0001。 通配符、子选择器、相邻选择器等的。如\*、>、+,权值为0000。 继承的样式没有权值。
 
 比较规则
 
@@ -321,7 +290,12 @@ CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：�
 1. !important 的作用是提升优先级，换句话说。加了这句的样式的优先级是最高的（比内联样式的优先级还高)。
 
 ```html
-<style>    p{    color:red !important;    }</style><p style="color:blue;">我显示红色</p>
+<style>
+  p {
+    color: red !important;
+  }
+</style>
+<p style="color:blue;">我显示红色</p>
 ```
 
 1. ie7+和别的浏览器对important的这种作用的支持度都很好。只有ie6有些bug
@@ -347,24 +321,25 @@ p{     color:red !important;}p{    color:blue;} //这样就会显示的是red。
 1. 最简单，直接，粗暴的方法就是盒子大小写死，给每个盒子设**定固定的width和height** ，直到合适为止，这样的好处是简单方便，兼容性好，适合只改动少量内容不涉及盒子排布的版面。缺点是非自适应，浏览器的窗口大小直接影响用户体验。
 2. 给外部的父盒子也添加浮动，让其也脱离标准文档流，这种方法方便，但是对页面的布局不是很友好，不易维护。
 3. 给父盒子添加overflow属性。
-    - overflow:auto; 有可能出现滚动条，影响美观。
-    - overflow:hidden; 可能会带来内容不可见的问题。
+   - overflow:auto; 有可能出现滚动条，影响美观。
+   - overflow:hidden; 可能会带来内容不可见的问题。
 4. 父盒子里最下方引入清除浮动块。最简单的有：
-    
-    ```html
-    <br style="clear:both;"/>
-    ```
-    
-    有很多人是这么解决的，但是我们并不推荐，因为其引入了不必要的冗余元素 。
-    
+
+   ```html
+   <br style="clear:both;" />
+   ```
+
+   有很多人是这么解决的，但是我们并不推荐，因为其引入了不必要的冗余元素 。
+
 5. 用after伪元素清除浮动 给外部盒子的after伪元素设置clear属性，再隐藏它 这其实是对空盒子方案的改进，一种纯CSS的解决方案，不用引入冗余元素。
-    
-    ```html
-    .clearfix {    *zoom: 1;}.clearfix:before, .clearfix:after {    display: table;    line-height: 0;    content: "";}.clearfix:after {    clear: both;}
-    ```
-    
-    这也是bootstrap框架采用的清除浮动的方法。 这是一种纯CSS的解决浮动造成盒子塌陷方法，没有引入任何冗余元素，推荐使用此方法来解决CSS盒子塌陷。 备注：第五种方法虽好，但是低版本IE不兼容，具体选择哪种解决方法，可根据实际情况决定。
-    
+
+   ```html
+   .clearfix { *zoom: 1;}.clearfix:before, .clearfix:after { display: table;
+   line-height: 0; content: "";}.clearfix:after { clear: both;}
+   ```
+
+   这也是bootstrap框架采用的清除浮动的方法。 这是一种纯CSS的解决浮动造成盒子塌陷方法，没有引入任何冗余元素，推荐使用此方法来解决CSS盒子塌陷。 备注：第五种方法虽好，但是低版本IE不兼容，具体选择哪种解决方法，可根据实际情况决定。
+
 6. 给父盒子添加border
 7. 给父盒子设置padding-top
 
@@ -375,33 +350,38 @@ p{     color:red !important;}p{    color:blue;} //这样就会显示的是red。
 ## css 伪类与伪元素区别
 
 1. 伪类(pseudo-classes)
+
 - 其核⼼就是⽤来选择DOM树之外的信息,不能够被普通选择器选择的⽂档之外的元素，⽤来添加⼀些选择器的特殊效果。
 - ⽐如:hover :active :visited :link :visited :first-child :focus :lang等
 - 由于状态的变化是⾮静态的，所以元素达到⼀个特定状态时，它可能得到⼀个伪类的样式；当状态改变时，它⼜会失去这个样式。
 - 由此可以看出，它的功能和class有些类似，但它是基于⽂档之外的抽象，所以叫 伪类。
+
 1. 伪元素(Pseudo-elements)
+
 - DOM树没有定义的虚拟元素
 - 核⼼就是需要创建通常不存在于⽂档中的元素，
 - ⽐如::before ::after 它选择的是元素指定内容，表示选择元素内容的之前内容或之后内容。
 - 伪元素控制的内容和元素是没有差别的，但是它本身只是基于元素的抽象，并不存在于⽂档中，所以称为伪元素。⽤于将特殊的效果添加到某些选择器
+
 1. 伪类与伪元素的区别
+
 - 表示⽅法
-    - CSS2 中伪类、伪元素都是以单冒号:表示,
-    - CSS2.1 后规定伪类⽤单冒号表示,伪元素⽤双冒号::表示，
-    - 浏览器同样接受 CSS2 时代已经存在的伪元素(:before, :after, :first-line, :first-letter 等)的单冒号写法。
-    - CSS2 之后所有新增的伪元素(如::selection)，应该采⽤双冒号的写法。
-    - CSS3中，伪类与伪元素在语法上也有所区别，伪元素修改为以::开头。浏览器对以:开头的伪元素也继续⽀持，但建议规范书写为::开头
+  - CSS2 中伪类、伪元素都是以单冒号:表示,
+  - CSS2.1 后规定伪类⽤单冒号表示,伪元素⽤双冒号::表示，
+  - 浏览器同样接受 CSS2 时代已经存在的伪元素(:before, :after, :first-line, :first-letter 等)的单冒号写法。
+  - CSS2 之后所有新增的伪元素(如::selection)，应该采⽤双冒号的写法。
+  - CSS3中，伪类与伪元素在语法上也有所区别，伪元素修改为以::开头。浏览器对以:开头的伪元素也继续⽀持，但建议规范书写为::开头
 - 定义不同
-    - 伪类即假的类，可以添加类来达到效果
-    - 伪元素即假元素，需要通过添加元素才能达到效果
+  - 伪类即假的类，可以添加类来达到效果
+  - 伪元素即假元素，需要通过添加元素才能达到效果
 - 总结:
-    - 伪类和伪元素都是⽤来表示⽂档树以外的“元素”。
-    - 伪类和伪元素分别⽤单冒号:和双冒号::来表示。
-    - 伪类和伪元素的区别，关键点在于如果没有伪元素(或伪类)，
-    - 是否需要添加元素才能达到效果，如果是则是伪元素，反之则是伪类
-    - 伪类和伪元素都不出现在源⽂件和DOM树中。也就是说在html源⽂件中是看不到伪类和伪元素的。
-    - 伪类其实就是基于普通DOM元素⽽产⽣的不同状态，他是DOM元素的某⼀特征。
-    - 伪元素能够创建在DOM树中不存在的抽象对象，⽽且这些抽象对象是能够访问到的。
+  - 伪类和伪元素都是⽤来表示⽂档树以外的“元素”。
+  - 伪类和伪元素分别⽤单冒号:和双冒号::来表示。
+  - 伪类和伪元素的区别，关键点在于如果没有伪元素(或伪类)，
+  - 是否需要添加元素才能达到效果，如果是则是伪元素，反之则是伪类
+  - 伪类和伪元素都不出现在源⽂件和DOM树中。也就是说在html源⽂件中是看不到伪类和伪元素的。
+  - 伪类其实就是基于普通DOM元素⽽产⽣的不同状态，他是DOM元素的某⼀特征。
+  - 伪元素能够创建在DOM树中不存在的抽象对象，⽽且这些抽象对象是能够访问到的。
 
 ## 行内元素的margin 和 padding
 
