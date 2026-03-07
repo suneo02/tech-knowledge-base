@@ -1,18 +1,22 @@
 ---
 name: interview-project-resume
-description: Create or rewrite interview-focused project experience resume entries in Chinese using STAR-L compression, high-density bullets, and evidence-backed baseline rules. Use when asked to draft or optimize resume project bullets, convert notes/whitepapers into a 1-line summary + 3-4 bullets, or audit project experience bullets for interview readiness.
+description: Create or rewrite interview-focused project experience resume entries in Chinese using STAR-L compression, high-density bullets, and evidence-backed baseline rules. Use when asked to draft or optimize resume project bullets, convert notes/whitepapers into a 1-line summary + 3-4 bullets, or audit project experience bullets for interview readiness. Always prefer `*-facts.md` project truth files before using dossier-style materials.
 ---
 
 # Interview Project Resume
 
 ## Quick Start
 
+- Locate the matching `*-facts.md` file under `private/carrier/resume/projects/` and read it first.
+- Use input priority: `facts > dossier > other notes`.
+- If no facts file exists and the user is still calibrating truth, route to `resume-project-facts`.
 - Read `references/resume-bullets.md` for formatting and compression rules.
 - Read `references/baseline.md` for truthfulness and language filters.
 - Collect the required inputs, then generate output using the template and quality gates below.
 
 ## Inputs Checklist
 
+- Facts file path and its confirmed boundaries
 - Project name, role, and time range
 - Business type, user segment, and scale metrics (PV/UV/orders/concurrency)
 - Core tech stack used in the project
@@ -24,7 +28,7 @@ description: Create or rewrite interview-focused project experience resume entri
 
 ## Workflow
 
-1. Extract signals and evidence anchors: scale, actions, tech keywords, metrics, and legacy.
+1. Extract signals and evidence anchors from the facts file first, then use dossier/supporting materials only to fill safe detail.
 2. Construct bullets with STAR-L (Lite): `[action] + [technical object] + [method] + [metric/result]`.
 3. Render header and one-line summary, then produce 3-4 bullets ordered by impact.
 4. Run density checks and revise until all compliance gates pass.
@@ -53,8 +57,11 @@ Use this Markdown template:
 - Attach every tech keyword to a concrete problem and result.
 - Make numbers explicit and emphasize key metrics.
 - Keep ATS-safe punctuation and avoid emoji or decorative symbols.
+- If `facts` and dossier conflict, use `facts`.
+- If a claim appears in dossier but is blocked or unconfirmed in `facts`, do not write it into the resume.
 
 ## When Information Is Missing
 
 - Ask targeted questions for metrics, scale, and evidence.
 - If the user cannot provide numbers, use approved qualitative substitutes and label them clearly.
+- If the user is missing role boundaries or safe claims, route to `resume-project-facts` before drafting.
