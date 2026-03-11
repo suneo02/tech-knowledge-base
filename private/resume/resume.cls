@@ -15,6 +15,8 @@
 \definecolor{ResumeText}{HTML}{1F2937}
 \definecolor{ResumeMuted}{HTML}{667085}
 \definecolor{ResumeRule}{HTML}{D0D5DD}
+\definecolor{ResumeTint}{HTML}{F5F7FA}
+\definecolor{ResumeAccent}{HTML}{98A2B3}
 % loading fonts
 \RequirePackage{fontspec}
 % Main document font
@@ -50,28 +52,28 @@
 
 \RequirePackage{titlesec}
 \RequirePackage{enumitem}
-\setlist[itemize]{topsep=0.3em, itemsep=0.18em, parsep=0.2ex, partopsep=0pt, leftmargin=1.3pc}
-\setlist[enumerate]{topsep=0.3em, itemsep=0.18em, parsep=0.2ex, partopsep=0pt, leftmargin=1.3pc}
+\setlist[itemize]{topsep=0.22em, itemsep=0.1em, parsep=0.15ex, partopsep=0pt, leftmargin=1.25pc}
+\setlist[enumerate]{topsep=0.22em, itemsep=0.1em, parsep=0.15ex, partopsep=0pt, leftmargin=1.25pc}
 \RequirePackage[super]{nth}
 
 \titleformat{\section}
   {\large\bfseries\raggedright\color{ResumeText}}
   {}{0em}
-  {}
-  [\color{ResumeRule}\titlerule]
-\titlespacing*{\section}{0cm}{0.85em}{0.45em}
+  {\raisebox{0.15ex}{\color{ResumeAccent}\rule{0.85em}{0.85em}}\hspace{0.55em}}
+  [\vspace{0.2em}{\color{ResumeRule}\rule{0.32\linewidth}{0.5pt}}]
+\titlespacing*{\section}{0cm}{0.68em}{0.32em}
 
 \titleformat{\subsection}
   {\normalsize\bfseries\raggedright\color{ResumeText}}
   {}{0em}
   {}
-\titlespacing*{\subsection}{0cm}{0.45em}{0.15em}
+\titlespacing*{\subsection}{0cm}{0.3em}{0.08em}
 
 \newcommand{\datedsection}[2]{%
   \section[#1]{#1 \hfill #2}%
 }
 \newcommand{\datedsubsection}[2]{%
-  \subsection[#1]{#1 \hfill #2}%
+  \subsection[#1]{#1 \hfill {\small\color{ResumeMuted}#2}}%
 }
 \newcommand{\datedline}[2]{%
   {\par #1 \hfill #2 \par}%
