@@ -4,10 +4,7 @@
 \usepackage{cite}
 \usepackage{hyperref}
 \hypersetup{
-    colorlinks=true,
-    linkcolor=cyan,
-    filecolor=magenta,      
-    urlcolor=blue,
+    hidelinks,
 }
 
 \begin{document}
@@ -24,32 +21,26 @@
 
 
 %***********个人信息**************
+\begin{minipage}[t]{0.79\textwidth}
 \MyName{张文浩}
+{\normalsize\textcolor{ResumeMuted}{前端开发工程师 | React / TypeScript / Front-End Engineering}}\par
+\vspace{0.3em}
+\SimpleEntry{\faEnvelope\ suneo120@outlook.com \quad \faPhone\ 17717316220}
+\SimpleEntry{\faMapMarker\ 上海 \quad \faLanguage\ CET-6 532}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.15\textwidth}
+\vspace{-0.6em}
+\hfill\includegraphics[width=0.95\linewidth]{images/you.jpg}
+\end{minipage}
 
-\SimpleEntry{\faEnvelope\ \ suneo120@outlook.com \quad \faPhone\ \ 17717316220}
-
-
-%************照片**************
-%照片需要放到images文件夹下，名字必须是you.jpg，注意.jpg后缀（可以去resume.cls第101行处修改），如果不需要照片可以不添加此行命令
-%0.15的意思是，照片的宽度是页面宽度的0.15倍，调整大小，避免遮挡文字
-\yourphoto{0.12}
-
-\section{教育经历}
-%***第一个大括号里的内容向左对齐，第二个大括号里的内容向右对齐
-%***\textbf{}括号里的字是粗体，\textit{}括号里的字是斜体
-\datedsubsection{\textbf{天津大学}，软件工程 2024届，\textit{本科}}{2020.9-2024.6}
-\datedsubsection{\textbf{主要课程}：数据结构与算法，操作系统原理，面向对象程序设计，计算机网络，设计模式}{}
-
-\section{个人简介}
-\begin{itemize}
-    \item 熟练掌握React、TypeScript、Vite/Webpack。具备企业级 Web 页面开发、复杂交互流程处理与遗留系统渐进式改造经验。具备前端工程化经验
-    \item 能够借助 AI 进行方案分析、代码重构和问题定位，提高开发与迭代效率，理解接口设计、流式响应、导出服务和错误处理等前后端协作链路
-\end{itemize}
+\vspace{0.75em}
+{\small\textcolor{ResumeText}{具备企业级 Web 页面开发、复杂交互流程处理与遗留系统渐进式改造经验，持续负责企业征信与商业数据平台的详情页、AI 对话与 PDF 导出模块。熟练使用 React、TypeScript、Vite/Webpack，并能借助 AI 提升方案分析、代码重构与问题定位效率。}}\par
 
 \section{工作经历}
 \datedsubsection{\textbf{万得征信}（万得信息子公司）\quad 前端开发}{2024.08 - 至今}
 
-面向金融分析与风控场景的企业征信/商业数据平台，负责企业详情、AI 对话与报告 PDF 导出等前端模块。
+{\small\textcolor{ResumeMuted}{面向金融分析与风控场景的企业征信与商业数据平台，负责企业详情、AI 对话与报告 PDF 导出等前端模块。}}\par
 
 \noindent\textbf{企业详情页维护与渐进式优化}
 \begin{itemize}
@@ -58,14 +49,14 @@
   \item 沉淀完善项目文档，对边界清晰的历史分支做渐进式拆分，降低后续变动的影响面，提升局部代码的可读性、隔离性与维护可控性。
 \end{itemize}
 
-\vspace{0.4em}\noindent\textbf{AI 流式对话助手}
+\vspace{0.15em}\noindent\textbf{AI 流式对话助手}
 \begin{itemize}
   \item 主导 AI 聊天项目整体方案与关键实现，串联提问、连续追问、流式返回与结果展示，搭建完整可用的对话流程。
   \item 梳理会话状态与处理流程，覆盖发送、中断、恢复、重试等场景，提升页面交互稳定性并优化问题定位路径。
   \item 统一消息结构与展示方式，支持文本、建议消息及结构化数据接入同一套流程，降低新增消息类型的开发成本。
 \end{itemize}
 
-\vspace{0.4em}\noindent\textbf{工程化与基础建设}
+\vspace{0.15em}\noindent\textbf{工程化与基础建设}
 \begin{itemize}
   \item 主导多项目向 Monorepo 的渐进式迁移，搭建统一工作区并梳理模块边界，按依赖层次沉淀复用能力，统一开发、构建与检查流程。
   \item 接手遗留 PDF 导出项目，通过拆分巨型文件与梳理渲染流程恢复可维护性，为处理复杂打印场景建立清晰的职责边界。
@@ -74,8 +65,15 @@
   \item 完善前端开发规范并沉淀代码约束，将其作为 AI Code Review 的输入，提升团队开发一致性与交付质量。
 \end{itemize}
 
+\section{教育经历}
+\datedsubsection{\textbf{天津大学} \quad 软件工程，本科}{2020.09 - 2024.06}
+{\small\textcolor{ResumeMuted}{主要课程：数据结构与算法、操作系统原理、面向对象程序设计、计算机网络、设计模式。}}\par
+
 \section{技能}
-\datedsubsection{\textbf{英语语言能力}：cet-6：532}{}
+{\small
+\textbf{前端开发}：React、TypeScript、Vite、Webpack \par
+\textbf{工程实践}：Monorepo、CI/CD、单元测试、组件测试、类型检查 \par
+\textbf{语言能力}：CET-6 532
+}
 
 \end{document}
-

@@ -12,18 +12,23 @@
 \RequirePackage{fontawesome}
 % use xcolor for customizing color
 \RequirePackage[usenames,dvipsnames]{xcolor}
+\definecolor{ResumeText}{HTML}{1F2937}
+\definecolor{ResumeMuted}{HTML}{667085}
+\definecolor{ResumeRule}{HTML}{D0D5DD}
 % loading fonts
 \RequirePackage{fontspec}
 % Main document font
 \setmainfont[
-  Path = fonts/Main/ ,
-  Extension = .otf ,
-  UprightFont = *-regular ,
-  BoldFont = *-bold ,
-  ItalicFont = *-italic ,
-  BoldItalicFont = *-bolditalic ,
-  SmallCapsFont = Fontin-SmallCaps
-]{texgyretermes}
+  BoldFont = {TeX Gyre Heros Bold},
+  ItalicFont = {TeX Gyre Heros Italic},
+  BoldItalicFont = {TeX Gyre Heros Bold Italic}
+]{TeX Gyre Heros}
+\setsansfont[
+  BoldFont = {TeX Gyre Heros Bold},
+  ItalicFont = {TeX Gyre Heros Italic},
+  BoldItalicFont = {TeX Gyre Heros Bold Italic}
+]{TeX Gyre Heros}
+\renewcommand{\familydefault}{\sfdefault}
 
 % \RequirePackage[
 % 	a4paper,
@@ -36,31 +41,31 @@
 
 \RequirePackage[
 	a4paper,
-	left=0.65in,
-	right=0.65in,
-	top=0.5in,
-	bottom=0.5in,
+	left=0.58in,
+	right=0.58in,
+	top=0.42in,
+	bottom=0.42in,
 	nohead
 ]{geometry}
 
 \RequirePackage{titlesec}
 \RequirePackage{enumitem}
-\setlist[itemize]{topsep=0.4em, parsep=0.3ex, leftmargin=1.5pc}
-\setlist[enumerate]{topsep=0.4em, parsep=0.3ex, leftmargin=1.5pc}
+\setlist[itemize]{topsep=0.3em, itemsep=0.18em, parsep=0.2ex, partopsep=0pt, leftmargin=1.3pc}
+\setlist[enumerate]{topsep=0.3em, itemsep=0.18em, parsep=0.2ex, partopsep=0pt, leftmargin=1.3pc}
 \RequirePackage[super]{nth}
 
 \titleformat{\section}
-  {\Large\bfseries\raggedright}
+  {\large\bfseries\raggedright\color{ResumeText}}
   {}{0em}
   {}
-  [\titlerule]
-\titlespacing*{\section}{0cm}{*1}{*1}
+  [\color{ResumeRule}\titlerule]
+\titlespacing*{\section}{0cm}{0.85em}{0.45em}
 
 \titleformat{\subsection}
-  {\large\raggedright}
+  {\normalsize\bfseries\raggedright\color{ResumeText}}
   {}{0em}
   {}
-\titlespacing*{\subsection}{0cm}{*1}{*0.5}
+\titlespacing*{\subsection}{0cm}{0.45em}{0.15em}
 
 \newcommand{\datedsection}[2]{%
   \section[#1]{#1 \hfill #2}%
@@ -74,7 +79,7 @@
 
 \newcommand{\name}[1]{
   \centerline{\Huge\scshape{#1}} 
-  \vspace{1.2ex}
+  \vspace{0.6ex}
 }
 \newcommand{\contactInfo}[2]{
   \centerline{\sffamily\large{\ 手机：{#1} \textperiodcentered\ \ 邮箱：{#2}}} 
@@ -92,7 +97,7 @@
       { } % if {#3} is empty
       {\textperiodcentered\ \ {#4} }
   }
-  \vspace{0.7ex}
+  \vspace{0.4ex}
 }
 
 \newcommand{\yourphoto}[1]{
@@ -101,7 +106,7 @@
 
 \newcommand{\role}[2]{
   {\par \textit{#1} ~ #2 \par}
-  \vspace{0.5ex}
+  \vspace{0.3ex}
 }
 
 % add
@@ -109,13 +114,13 @@
 
 \newcommand{\MyName}[1]{
     \noindent
-	{\Huge\textbf{#1}} \hfill
+	{\fontsize{22}{24}\selectfont\textbf{\textcolor{ResumeText}{#1}}} \hfill
 	\par \normalsize \normalfont
 }
 
 \newcommand{\SimpleEntry}[1]{
 	\noindent\hangindent=0.5cm\hangafter=0          % Indentation
-	#1 \par                                         % Entry 
+	{\small\textcolor{ResumeMuted}{#1}} \par        % Entry 
 }
 
 \newcommand{\Content}[3]{
