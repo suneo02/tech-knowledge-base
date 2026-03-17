@@ -14,9 +14,9 @@
 \RequirePackage[usenames,dvipsnames]{xcolor}
 \definecolor{ResumeText}{HTML}{1F2937}
 \definecolor{ResumeMuted}{HTML}{667085}
-\definecolor{ResumeRule}{HTML}{D0D5DD}
+\definecolor{ResumeRule}{HTML}{9CA3AF}
 \definecolor{ResumeTint}{HTML}{F5F7FA}
-\definecolor{ResumeAccent}{HTML}{98A2B3}
+\definecolor{ResumeAccent}{HTML}{374151}
 % loading fonts
 \RequirePackage{fontspec}
 % Main document font
@@ -57,14 +57,14 @@
 \RequirePackage[super]{nth}
 
 \titleformat{\section}
-  {\large\bfseries\raggedright\color{ResumeText}}
+  {\Large\bfseries\raggedright\color{ResumeText}}
   {}{0em}
-  {\raisebox{0.15ex}{\color{ResumeAccent}\rule{0.85em}{0.85em}}\hspace{0.55em}}
-  [\vspace{0.2em}{\color{ResumeRule}\rule{0.32\linewidth}{0.5pt}}]
+  {\raisebox{0.1ex}{\color{ResumeAccent}\rule{0.75em}{0.75em}}\hspace{0.55em}}
+  [\vspace{0.2em}{\color{ResumeRule}\rule{1.0\linewidth}{0.6pt}}]
 \titlespacing*{\section}{0cm}{0.68em}{0.32em}
 
 \titleformat{\subsection}
-  {\normalsize\bfseries\raggedright\color{ResumeText}}
+  {\large\bfseries\raggedright\color{ResumeText}}
   {}{0em}
   {}
 \titlespacing*{\subsection}{0cm}{0.3em}{0.08em}
@@ -73,7 +73,7 @@
   \section[#1]{#1 \hfill #2}%
 }
 \newcommand{\datedsubsection}[2]{%
-  \subsection[#1]{#1 \hfill {\small\color{ResumeMuted}#2}}%
+  \subsection[#1]{#1 \hfill {\normalsize\color{ResumeMuted}#2}}%
 }
 \newcommand{\datedline}[2]{%
   {\par #1 \hfill #2 \par}%
