@@ -67,7 +67,7 @@
   {\large\bfseries\raggedright\color{ResumeText}}
   {}{0em}
   {}
-\titlespacing*{\subsection}{0cm}{0.3em}{0.08em}
+\titlespacing*{\subsection}{0cm}{0.45em}{0.35em}
 
 \newcommand{\datedsection}[2]{%
   \section[#1]{#1 \hfill #2}%
