@@ -1,8 +1,0 @@
-# 职业发展文档索引
-
-本目录将原始说明书拆分为两份主题文档，便于独立维护与分享：
-
-- 背景与个人基本情况（静态资料：基本情况/定位/评估）：参见 [background.md](./background.md)
-- 职业发展规划（动态规划：目标/能力建设/海外策略/行动）：参见 [plan.md](./plan.md)
-- 2026 Q1 跳槽行动计划（2026-01 ~ 2026-03）：参见 [job-switch-plan-2026-q1.md](./job-switch-plan-2026-q1.md)
-- 前端社招总面试稿（中文面试半逐字稿主文档）：参见 [interview-master.md](./interview-master.md)

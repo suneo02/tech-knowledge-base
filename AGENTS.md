@@ -9,7 +9,6 @@ This directory contains a personal knowledge base built with **MkDocs** and the 
     *   Running the dev server (`uv run mkdocs serve`).
     *   Building for production (`uv run mkdocs build --strict`).
     *   Deploying to Cloudflare Pages.
-    *   Managing Git Subtrees.
 *   **Writing Guidelines**: See the "Writing Guidelines (General)" section in this file. Interview question rules live in the `interview-question-library` skill.
 
 ## Development Conventions
@@ -72,7 +71,8 @@ Explanation + code/diagram (optional)
 
 *   `mkdocs.yml`: Main site configuration (theme, plugins, nav).
 *   `pyproject.toml`: Project dependencies (managed by `uv`).
-*   `docs/`: Root directory for all Markdown content.
-    *   `docs/README.md`: The homepage/entry point.
+*   `library/`: Root directory for published Markdown content.
+    *   `library/README.md`: The homepage/entry point.
 *   `meta/`: Project documentation and guidelines.
 *   `.github/workflows/main.yml`: CI/CD configuration for Cloudflare Pages.
+*   `../career-vault`: Private career, resume, language-learning, and immigration materials.

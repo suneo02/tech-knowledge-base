@@ -1,6 +1,6 @@
 # 知识库开发与部署指南
 
-本文档作为本知识库的开发、构建与部署的权威指南。内容涵盖本地开发环境搭建、静态网站构建、Cloudflare Pages 自动化部署流程以及 Git Subtree 依赖管理。
+本文档作为本知识库的开发、构建与部署的权威指南。内容涵盖本地开发环境搭建、静态网站构建与 Cloudflare Pages 自动化部署流程。
 
 ## 1. 本地开发环境 (Local Development)
 
@@ -81,28 +81,12 @@ pages_build_output_dir = "site"
 
 ---
 
-## 3. Git Subtree 维护
+## 3. 仓库边界
 
-项目使用 Git Subtree 管理嵌套的外部参考资料 (如 `private/carrier/assets/gel-workspace`)。
+本仓库只维护公开或可分享的技术知识内容与站点工程。
 
-### 3.1 当前 Subtree 配置
+- 发布内容目录：`library/`
+- 构建与部署配置：`mkdocs.yml`、`overrides/`、`wrangler.toml`
+- 私有职业与学习资料：`../career-vault`
 
-- **本地路径**：`private/carrier/assets/gel-workspace`
-- **远程仓库**：`git@gitee_suneo:honekawa-suneo/gel-workspace.git`
-- **分支**：`main`
-
-### 3.2 常用操作
-
-**拉取更新 (Pull)**：
-```bash
-git subtree pull --prefix=private/carrier/assets/gel-workspace git@gitee_suneo:honekawa-suneo/gel-workspace.git main --squash
-```
-
-**推送修改 (Push)**：
-```bash
-git subtree push --prefix=private/carrier/assets/gel-workspace git@gitee_suneo:honekawa-suneo/gel-workspace.git main
-```
-
-**注意事项**：
-- 推荐使用 `--squash` 保持历史整洁。
-- Clone 项目时会自动包含 Subtree 内容。
+如果需要维护私有职业资料或工作项目归档，请转到 `../career-vault`，对应说明见 `../career-vault/meta/development.md`。
