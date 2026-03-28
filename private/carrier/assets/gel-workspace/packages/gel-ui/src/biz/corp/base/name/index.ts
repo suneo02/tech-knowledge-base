@@ -1,1 +1,0 @@
-export { CompanyNameMain } from './CompanyNameMain'

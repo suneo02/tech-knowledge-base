@@ -1,1 +1,0 @@
-export { formatShareRate } from './percentage'

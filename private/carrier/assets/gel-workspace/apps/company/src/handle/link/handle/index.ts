@@ -1,5 +1,0 @@
-export { getGeneralPrefixUrl, getPrefixUrl } from '@/handle/link/handle/prefixUrl.ts'
-export * from './common.ts'
-export * from './generateOverall.ts'
-export * from './jump.ts'
-export * from './type.ts'

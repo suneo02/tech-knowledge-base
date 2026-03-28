@@ -1,1 +1,0 @@
-export { copyTextAndMessage } from './copyTextAndMessage'

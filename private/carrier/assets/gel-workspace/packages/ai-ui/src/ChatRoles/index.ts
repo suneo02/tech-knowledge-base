@@ -1,6 +1,0 @@
-export * from './AIMsg'
-export * from './components'
-export * from './RolesBase'
-export * from './SubQuestion'
-export * from './suggestion'
-export * from './type'

@@ -1,6 +1,0 @@
-export { CompanyNameMain } from './base'
-export { CorpAnotherName } from './CorpAnotherName'
-export { getHomeDynamicDetail } from './dynamicEvent/homeDynamic'
-export { getDynamicEventInnerContent } from './dynamicEvent/introDynamic'
-export { getDynamicDetail } from './dynamicEvent/singleDynamic'
-export { EsgBrand, isValidEsgInfo, isValidEsgRating } from './Esg'

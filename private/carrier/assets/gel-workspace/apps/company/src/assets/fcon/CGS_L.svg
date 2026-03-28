@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Icon/查公司 line</title>
-    <g id="Icon/查公司-line" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <rect id="矩形" x="0" y="0" width="36" height="36"></rect>
-        <path d="M1,35 L1,32 L4,32 L4,6 L21,1 L21,32 L23,32 L23,17 L32,17 L32,32 L35,32 L35,35 L1,35 Z M18,4.99859943 L7,8.24703805 L7,32 L18,32 L18,4.99859943 Z M29,20 L26,20 L26,32 L29,32 L29,20 Z M16,21 L16,24 L9,24 L9,21 L16,21 Z M16,16 L16,19 L9,19 L9,16 L16,16 Z M16,11 L16,14 L9,14 L9,11 L16,11 Z" id="形状结合" fill="#333333"></path>
-    </g>
-</svg>

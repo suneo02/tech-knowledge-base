@@ -1,7 +1,0 @@
-.env.development
-public/tinymce
-public/pdfjs
-.turbo
-.vscode
-dist
-node_modules

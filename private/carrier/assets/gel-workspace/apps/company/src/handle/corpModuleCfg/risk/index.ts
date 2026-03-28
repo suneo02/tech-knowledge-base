@@ -1,1 +1,0 @@
-export { risk } from './risk'

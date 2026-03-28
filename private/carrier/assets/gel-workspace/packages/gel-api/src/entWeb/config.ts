@@ -1,1 +1,0 @@
-export const WIND_ENT_WEB_PATH = '/wind.ent.web/' as const
